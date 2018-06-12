@@ -1,6 +1,6 @@
 {
   "name": "next-seo",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "SEO plugin for Next.js projects",
   "main": "build/index.js",
   "peerDependencies": {
@@ -23,6 +23,21 @@
     "email": "garymeehan@outlook.com"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garmeeh/next-seo.git"
+  },
+  "keywords": [
+    "next.js",
+    "seo",
+    "react",
+    "node",
+    "ssr"
+  ],
+  "bugs": {
+    "url": "https://github.com/garmeeh/next-seo/issues"
+  },
+  "homepage": "https://github.com/garmeeh/next-seo#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
