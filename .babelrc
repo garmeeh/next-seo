@@ -1,9 +1,4 @@
 {
-  "presets": [
-    "env"
-  ],
-  "plugins": [
-    "transform-object-rest-spread",
-    "transform-react-jsx"
-  ]
+  presets: ['env', 'react'],
+  plugins: ['transform-object-rest-spread', 'transform-react-jsx']
 }

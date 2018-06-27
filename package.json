@@ -1,6 +1,6 @@
 {
   "name": "next-seo",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "SEO plugin for Next.js projects",
   "main": "build/index.js",
   "peerDependencies": {
@@ -38,6 +38,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "next": "^6.0.3",
     "react": "^16.3.0"
   }
