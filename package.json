@@ -1,6 +1,6 @@
 {
   "name": "next-seo",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "SEO plugin for Next.js projects",
   "main": "build/index.js",
   "peerDependencies": {

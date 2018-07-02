@@ -27,13 +27,18 @@ import NextSeo from 'next-seo';
 />;
 ```
 
-### Example Full Configuration File
+### Example with Full Configuration
+
+You can define default SEO settings and pass it directly to `NextSeo`. I would recommend adding this to a custom `_app.js` which could look something like this:
 
 ```javascript
-export default {
+import App, { Container } from 'next/app';
+import React from 'react';
+import NextSeo from 'next-seo';
+
+const DEFAULT_SEO = {
   title: 'Next.js SEO Plugin',
   description: 'SEO made easy for Next.js projects',
-  lang: 'en',
   openGraph: {
     type: 'website',
     locale: 'en_IE',
@@ -51,15 +56,6 @@ export default {
     cardType: 'summary_large_image'
   }
 };
-```
-
-You can then use this as the default SEO settings and pass it directly to `NextSeo`. I would recommend adding this to a custom `_app.js` which could look something like this assuming the config file lives at the root of your project and is named `seo.config.js`
-
-```javascript
-import App, { Container } from 'next/app';
-import React from 'react';
-import NextSeo from 'next-seo';
-import defaultSeo from '../seo.config.js';
 
 export default class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
