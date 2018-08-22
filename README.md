@@ -344,7 +344,7 @@ export default () => (
 
 ```jsx
 import React from 'react';
-import { BlogJsonLd } from 'next-seo';
+import { CourseJsonLd } from 'next-seo';
 
 export default () => (
   <>
