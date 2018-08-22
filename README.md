@@ -116,7 +116,7 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <Container>
-        {# Here we call NextSeo and pass our default configuration to it #}
+        {/* Here we call NextSeo and pass our default configuration to it  */}
         <NextSeo config={SEO} />
         <Component {...pageProps} />
       </Container>
