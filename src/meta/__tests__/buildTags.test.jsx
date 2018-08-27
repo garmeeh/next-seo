@@ -141,3 +141,18 @@ it('correctly sets noindex, nofollow', () => {
   expect(Array.from(index).length).toBe(0);
   expect(Array.from(noindex).length).toBe(2);
 });
+
+it('displays title with titleTemplate integrated', () => {
+  const template = 'Next SEO';
+  const overrideProps = {
+    ...SEO,
+    titleTemplate: `${template} | %s`,
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(tags);
+  const title = getByText(
+    container,
+    (content, element) => element.tagName.toLowerCase() === 'title' && content.startsWith(template),
+  );
+  expect(title.innerHTML).toMatch(`${template} | ${SEO.title}`);
+});

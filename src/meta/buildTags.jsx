@@ -4,7 +4,11 @@ const buildTags = (config) => {
   const tagsToRender = [];
 
   if (config.title) {
-    tagsToRender.push(<title key="title">{config.title}</title>);
+    let updatedTitle = config.title;
+    if (config.titleTemplate) {
+      updatedTitle = config.titleTemplate.replace(/%s/g, () => updatedTitle);
+    }
+    tagsToRender.push(<title key="title">{updatedTitle}</title>);
   }
 
   if (!config.noindex) {
