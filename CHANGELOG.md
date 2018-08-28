@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.1.0 - 27-08-2018
+
+### Added
+
+- Title template _by_ [erick B](https://github.com/erickeno) via [#6](https://github.com/garmeeh/next-seo/pull/6)
+- Title template documentation
+
+### Fixed
+
+- Some typos in documentation
+- Improved documentation a little bit
+
 ## v1.0.2 - 24-08-2018
 
 ### Added
@@ -10,4 +22,4 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- peerDependencies: next, reactdom by [@JeromeFitz](https://github.com/JeromeFitz) [#3](https://github.com/garmeeh/next-seo/pull/3).
+- peerDependencies: next, reactdom _by_ [@JeromeFitz](https://github.com/JeromeFitz) via [#3](https://github.com/garmeeh/next-seo/pull/3).

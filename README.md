@@ -4,10 +4,11 @@ Next SEO is a plug in that makes managing your SEO easier in Next.js projects.
 
 This plugin is compatible with version`6.0.0`+ of next.
 
-_NOTE:_
+**NOTE:**
 
 The feature of having multiple Open Graph images is only available in version `7.0.0-canary.0`+ of next.
-You just need to supply a single item array:
+
+For versions `6.0.0` - `7.0.0-canary.0` you just need to supply a single item array:
 
 ```js
 images: [
@@ -20,7 +21,7 @@ images: [
 ],
 ```
 
-Supplying multiple images will not break anything, only one will be added to the head.
+Supplying multiple images will not break anything, but only one will be added to the head.
 
 ## Recommended Usage
 
@@ -87,8 +88,33 @@ export default {
 };
 ```
 
-NOTE: There is also the option of `noindex` you can set this to `noindex: true` if you wish to no index your site.
-Great for when in a pre-release phase.
+#### More Options
+
+Other options available:
+
+**no-index**
+
+```js
+noindex: true;
+```
+
+Add this to your default SEO if you wish to **no-index** your site. This is great when you are in a pre-release phase. This can also be used on a page per page basis.
+
+**titleTemplate**
+
+Replaces `%s` with your title string
+
+```js
+title: 'This is my title',
+titleTemplate: `Next SEO | %s`
+// outputs: Next SEO | This is my title
+```
+
+```js
+title: 'This is my title',
+titleTemplate: `%s | Next SEO`
+// outputs: This is my title | Next SEO
+```
 
 ### Custom <App>
 
@@ -127,7 +153,7 @@ export default class MyApp extends App {
 
 ### Page Overrides
 
-_Full Override:_
+**Full Override:**
 
 From this point it is just a matter of calling Next SEO from any page and passing in a config object overriding the desired properties.
 Below is an example of overriding all properties.
@@ -178,7 +204,7 @@ export default () => (
 );
 ```
 
-_Partial Override:_
+**Partial Override:**
 
 In this example we only override `title`, `description` and `canonical`. All of the remaining properties that we set
 in `next-seo.config.js` will remain the same.
@@ -201,7 +227,7 @@ export default () => (
 );
 ```
 
-_No Index Override:_
+**No Index Override:**
 
 In this example we only override no index a single page:
 
@@ -358,3 +384,7 @@ export default () => (
   </>
 );
 ```
+
+## CHANGELOG
+
+You can view the CHANGELOG [here](CHANGELOG.md)

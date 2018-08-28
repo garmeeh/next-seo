@@ -10,14 +10,26 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var templateTitle = null;
+
 var buildTags = function buildTags(config) {
   var tagsToRender = [];
 
+  if (config.titleTemplate) {
+    templateTitle = config.titleTemplate;
+  }
+
   if (config.title) {
+    var updatedTitle = config.title;
+    if (templateTitle) {
+      updatedTitle = templateTitle.replace(/%s/g, function () {
+        return updatedTitle;
+      });
+    }
     tagsToRender.push(_react2.default.createElement(
       "title",
       { key: "title" },
-      config.title
+      updatedTitle
     ));
   }
 

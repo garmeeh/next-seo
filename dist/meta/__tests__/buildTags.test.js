@@ -156,3 +156,19 @@ it('correctly sets noindex, nofollow', function () {
   expect(Array.from(index).length).toBe(0);
   expect(Array.from(noindex).length).toBe(2);
 });
+
+it('displays title with titleTemplate integrated', function () {
+  var template = 'Next SEO';
+  var overrideProps = _extends({}, SEO, {
+    titleTemplate: template + ' | %s'
+  });
+  var tags = (0, _buildTags2.default)(overrideProps);
+
+  var _render4 = (0, _reactTestingLibrary.render)(tags),
+      container = _render4.container;
+
+  var title = (0, _reactTestingLibrary.getByText)(container, function (content, element) {
+    return element.tagName.toLowerCase() === 'title' && content.startsWith(template);
+  });
+  expect(title.innerHTML).toMatch(template + ' | ' + SEO.title);
+});

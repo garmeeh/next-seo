@@ -1,12 +1,18 @@
 import React from 'react';
 
+let templateTitle = null;
+
 const buildTags = (config) => {
   const tagsToRender = [];
 
+  if (config.titleTemplate) {
+    templateTitle = config.titleTemplate;
+  }
+
   if (config.title) {
     let updatedTitle = config.title;
-    if (config.titleTemplate) {
-      updatedTitle = config.titleTemplate.replace(/%s/g, () => updatedTitle);
+    if (templateTitle) {
+      updatedTitle = templateTitle.replace(/%s/g, () => updatedTitle);
     }
     tagsToRender.push(<title key="title">{updatedTitle}</title>);
   }

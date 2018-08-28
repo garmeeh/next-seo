@@ -1,5 +1,6 @@
 export default {
   title: 'Title A',
+  titleTemplate: '%s | Next SEO',
   description: 'Description A',
   canonical: 'https://www.canonical.ie/a',
   openGraph: {
