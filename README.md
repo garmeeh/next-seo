@@ -51,6 +51,9 @@ Here is an example of a full configuration object:
 ```js
 export default {
   title: 'Title',
+  // optional template to append on every title
+  // ouput: <title>Next SEO | Title</title>
+  titleTemplate: 'Next SEO | %s',
   description: 'Description',
   canonical: 'https://www.canonical.ie/',
   openGraph: {
