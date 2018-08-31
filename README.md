@@ -52,7 +52,6 @@ Here is an example of a full configuration object:
 export default {
   title: 'Title',
   description: 'Description',
-  canonical: 'https://www.canonical.ie/',
   openGraph: {
     type: 'website',
     locale: 'en_IE',
@@ -114,6 +113,14 @@ titleTemplate: `Next SEO | %s`
 title: 'This is my title',
 titleTemplate: `%s | Next SEO`
 // outputs: This is my title | Next SEO
+```
+
+**Canonical URL**
+
+Add this on page per page basis when you want to consolidate duplicate URLs.
+
+```js
+canonical: 'https://www.canonical.ie/',
 ```
 
 ### Custom <App>

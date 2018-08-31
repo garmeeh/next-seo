@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.1.1 - 31-08-2018
+
+### Fixed
+
+- Updated README to remove canonical url parameter from default configuration
+
 ## v1.1.0 - 27-08-2018
 
 ### Added
