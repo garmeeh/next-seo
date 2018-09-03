@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.1.2 - 03-08-2018
+
+### Added
+
+- Cypress tests covering all existing functionality
+
+### Fixed
+
+- Fixed missing Open Graph `site_name` tag
+- Fixed Open Graph default image width's and height's not being associated with correct images all of the time
+
 ## v1.1.1 - 31-08-2018
 
 ### Fixed

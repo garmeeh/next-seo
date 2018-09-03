@@ -17,14 +17,14 @@ export default () => (
           images: [
             {
               url: 'https://www.test.ie/og-image-b-01.jpg',
-              width: 800,
-              height: 600,
+              width: 850,
+              height: 650,
               alt: 'Og Image Alt B',
             },
             {
               url: 'https://www.test.ie/og-image-b-02.jpg',
-              width: 900,
-              height: 800,
+              width: 950,
+              height: 850,
               alt: 'Og Image Alt B Second',
             },
             { url: 'https://www.test.ie/og-image-b-03.jpg' },
