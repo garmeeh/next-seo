@@ -10,19 +10,25 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var templateTitle = null;
+var defaults = {
+  templateTitle: null,
+  openGraph: {
+    defaultImageHeight: null,
+    defaultImageWidth: null
+  }
+};
 
 var buildTags = function buildTags(config) {
   var tagsToRender = [];
 
   if (config.titleTemplate) {
-    templateTitle = config.titleTemplate;
+    defaults.templateTitle = config.titleTemplate;
   }
 
   if (config.title) {
     var updatedTitle = config.title;
-    if (templateTitle) {
-      updatedTitle = templateTitle.replace(/%s/g, function () {
+    if (defaults.templateTitle) {
+      updatedTitle = defaults.templateTitle.replace(/%s/g, function () {
         return updatedTitle;
       });
     }
@@ -94,11 +100,14 @@ var buildTags = function buildTags(config) {
             property: "og:image:width",
             content: image.width
           }));
-        } else if (config.openGraph.defaultImageWidth) {
+        } else if (defaults.openGraph.defaultImageWidth || config.openGraph.defaultImageWidth) {
+          if (config.openGraph.defaultImageWidth) {
+            defaults.openGraph.defaultImageWidth = config.openGraph.defaultImageWidth;
+          }
           tagsToRender.push(_react2.default.createElement("meta", {
             key: "og:image:width0" + index,
             property: "og:image:width",
-            content: config.openGraph.defaultImageWidth
+            content: defaults.openGraph.defaultImageWidth
           }));
         }
 
@@ -108,11 +117,14 @@ var buildTags = function buildTags(config) {
             property: "og:image:height",
             content: image.height
           }));
-        } else if (config.openGraph.defaultImageHeight) {
+        } else if (defaults.openGraph.defaultImageHeight || config.openGraph.defaultImageHeight) {
+          if (config.openGraph.defaultImageHeight) {
+            defaults.openGraph.defaultImageHeight = config.openGraph.defaultImageHeight;
+          }
           tagsToRender.push(_react2.default.createElement("meta", {
             key: "og:image:height" + index,
             property: "og:image:height",
-            content: config.openGraph.defaultImageHeight
+            content: defaults.openGraph.defaultImageHeight
           }));
         }
       });
@@ -120,6 +132,18 @@ var buildTags = function buildTags(config) {
 
     if (config.openGraph.locale) {
       tagsToRender.push(_react2.default.createElement("meta", { key: "og:locale", property: "og:locale", content: config.openGraph.locale }));
+    }
+
+    if (config.openGraph.locale) {
+      tagsToRender.push(_react2.default.createElement("meta", { key: "og:locale", property: "og:locale", content: config.openGraph.locale }));
+    }
+
+    if (config.openGraph.locale) {
+      tagsToRender.push(_react2.default.createElement("meta", { key: "og:locale", property: "og:locale", content: config.openGraph.locale }));
+    }
+
+    if (config.openGraph.site_name) {
+      tagsToRender.push(_react2.default.createElement("meta", { key: "og:site_name", property: "og:site_name", content: config.openGraph.site_name }));
     }
   }
 

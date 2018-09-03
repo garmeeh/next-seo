@@ -8,8 +8,9 @@
     "react/forbid-prop-types": 0,
     "jsx-a11y/anchor-is-valid": 0
   },
-  "plugins": ["jest"],
+  "plugins": ["jest", "cypress"],
   "env": {
-    "jest/globals": true
+    "jest/globals": true,
+    "cypress/globals": true
   }
 }
