@@ -18,7 +18,8 @@ jobs:
       - npm run validate
       - stage: test
       script:
-      - cd /e2e
+      - ls
+      - cd e2e
       - npm ci
       - npm run build
       - npm run test:e2e
