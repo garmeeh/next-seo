@@ -8,7 +8,7 @@
     "test:e2e:dev": "npm-run-all --parallel dev cy:open",
     "test:e2e": "npm-run-all --parallel --race start cy:run",
     "cy:open": "cypress open",
-    "cy:run": "cypress run",
+    "cy:run": "cypress run --record --key 71c5a594-0c6a-43ac-ae77-da4e0646147c",
     "dev": "next",
     "build": "next build",
     "start": "next start"

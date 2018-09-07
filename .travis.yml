@@ -7,6 +7,10 @@ cache:
   directories:
     - ~/.npm
     - ~/.cache
+    - ~/.cache/Cypress
+    - ~/e2e/.npm
+    - ~/e2e/.cache
+    - ~/e2e/.cache/Cypress
 
 install:
   - npm ci
