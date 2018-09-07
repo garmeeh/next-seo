@@ -1,0 +1,25 @@
+language: node_js
+
+node_js:
+  - 10
+
+cache:
+  directories:
+    - ~/.npm
+    - ~/.cache
+
+install:
+  - npm ci
+
+jobs:
+  include:
+    - stage: validate
+      script:
+      - npm run validate
+      - stage: test
+      script:
+      - cd /e2e
+      - npm ci
+      - npm run build
+      - npm run test:e2e
+
