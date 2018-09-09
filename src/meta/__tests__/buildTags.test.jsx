@@ -38,8 +38,7 @@ const SEO = {
 it('renders correctly', () => {
   const tags = buildTags(SEO);
   const { container } = render(tags);
-
-  expect(container.firstChild).toMatchSnapshot();
+  expect(container).toMatchSnapshot();
 });
 
 /* eslint no-magic-numbers: 0 */
