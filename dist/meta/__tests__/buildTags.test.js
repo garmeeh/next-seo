@@ -101,6 +101,10 @@ it('returns full array for default seo object', function () {
   var ogLocaleTag = tags.filter(function (item) {
     return item.key === 'og:locale';
   });
+  var ogSiteName = container.querySelectorAll('meta[content="' + SEO.openGraph.site_name + '"]');
+  var ogSiteNameTag = tags.filter(function (item) {
+    return item.key === 'og:site_name';
+  });
   var canonicalTag = tags.filter(function (item) {
     return item.key === 'canonical';
   });
@@ -137,6 +141,8 @@ it('returns full array for default seo object', function () {
   expect(Array.from(ogSetImageAlt).length).toBe(1);
   expect(Array.from(ogLocale).length).toBe(1);
   expect(Array.from(ogLocaleTag).length).toBe(1);
+  expect(Array.from(ogSiteName).length).toBe(1);
+  expect(Array.from(ogSiteNameTag).length).toBe(1);
   expect(canonicalTag[0].props.href).toBe('' + SEO.canonical);
   expect(Array.from(canonicalTag).length).toBe(1);
 });

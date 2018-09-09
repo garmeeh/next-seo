@@ -22,7 +22,7 @@ jobs:
       - npm run validate
       - stage: test
       script:
-      - ls
+      - npm run test
       - cd e2e
       - npm ci
       - npm run build

@@ -73,6 +73,7 @@ const course100 = {
     '@context': 'http://schema.org',
     '@type': 'Course',
     name: 'Course Name',
+    description: 'Introductory CS course laying out the basics.',
     provider: {
       '@type': 'Organization',
       name: 'Course',

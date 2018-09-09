@@ -134,14 +134,6 @@ var buildTags = function buildTags(config) {
       tagsToRender.push(_react2.default.createElement("meta", { key: "og:locale", property: "og:locale", content: config.openGraph.locale }));
     }
 
-    if (config.openGraph.locale) {
-      tagsToRender.push(_react2.default.createElement("meta", { key: "og:locale", property: "og:locale", content: config.openGraph.locale }));
-    }
-
-    if (config.openGraph.locale) {
-      tagsToRender.push(_react2.default.createElement("meta", { key: "og:locale", property: "og:locale", content: config.openGraph.locale }));
-    }
-
     if (config.openGraph.site_name) {
       tagsToRender.push(_react2.default.createElement("meta", { key: "og:site_name", property: "og:site_name", content: config.openGraph.site_name }));
     }

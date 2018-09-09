@@ -101,6 +101,10 @@ exports[`renders correctly 1`] = `
     content="en_IE"
     property="og:locale"
   />
+  <meta
+    content="SiteName"
+    property="og:site_name"
+  />
   <link
     href="https://www.canonical.ie"
     rel="canonical"
