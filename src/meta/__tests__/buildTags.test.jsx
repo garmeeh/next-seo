@@ -39,7 +39,7 @@ it('renders correctly', () => {
   const tags = buildTags(SEO);
   const { container } = render(tags);
 
-  expect(container).toMatchSnapshot();
+  expect(container.firstChild).toMatchSnapshot();
 });
 
 /* eslint no-magic-numbers: 0 */
