@@ -15,6 +15,7 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
+    "prepublishOnly": "npm run validate",
     "prebuild": "rimraf build",
     "lint": "eslint src",
     "build": "babel --copy-files --out-dir dist --ignore *.spec.js,*.snap src",
