@@ -13,6 +13,7 @@ All notable changes to this project will be documented in this file.
 
 - Duplicate locale tags being returned from buildTags function
 - Updated tests to better check for regressions
+- Snapshot tests not running 100% correctly
 
 ## v1.1.2 - 03-08-2018
 

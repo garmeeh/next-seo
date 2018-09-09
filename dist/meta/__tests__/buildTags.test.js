@@ -47,7 +47,7 @@ it('renders correctly', function () {
   var _render = (0, _reactTestingLibrary.render)(tags),
       container = _render.container;
 
-  expect(container).toMatchSnapshot();
+  expect(container.firstChild).toMatchSnapshot();
 });
 
 /* eslint no-magic-numbers: 0 */
