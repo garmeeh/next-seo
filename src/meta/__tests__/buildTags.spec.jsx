@@ -38,7 +38,6 @@ const SEO = {
 it('renders correctly', () => {
   const tags = buildTags(SEO);
   const { container } = render(tags);
-
   expect(container).toMatchSnapshot();
 });
 
@@ -90,6 +89,8 @@ it('returns full array for default seo object', () => {
   );
   const ogLocale = container.querySelectorAll(`meta[content="${SEO.openGraph.locale}"]`);
   const ogLocaleTag = tags.filter(item => item.key === 'og:locale');
+  const ogSiteName = container.querySelectorAll(`meta[content="${SEO.openGraph.site_name}"]`);
+  const ogSiteNameTag = tags.filter(item => item.key === 'og:site_name');
   const canonicalTag = tags.filter(item => item.key === 'canonical');
 
   expect(title).toBeDefined();
@@ -124,6 +125,8 @@ it('returns full array for default seo object', () => {
   expect(Array.from(ogSetImageAlt).length).toBe(1);
   expect(Array.from(ogLocale).length).toBe(1);
   expect(Array.from(ogLocaleTag).length).toBe(1);
+  expect(Array.from(ogSiteName).length).toBe(1);
+  expect(Array.from(ogSiteNameTag).length).toBe(1);
   expect(canonicalTag[0].props.href).toBe(`${SEO.canonical}`);
   expect(Array.from(canonicalTag).length).toBe(1);
 });

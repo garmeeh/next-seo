@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.2.0 - 09-09-2018
+
+### Added
+
+- Product JSON-LD [More Info](https://developers.google.com/search/docs/data-types/product)
+- Run Jest tests on Travis
+
+### Fixed
+
+- Duplicate locale tags being returned from buildTags function
+- Updated tests to better check for regressions
+- Snapshot tests not running 100% correctly
+
 ## v1.1.2 - 03-08-2018
 
 ### Added

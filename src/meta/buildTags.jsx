@@ -142,18 +142,6 @@ const buildTags = (config) => {
       );
     }
 
-    if (config.openGraph.locale) {
-      tagsToRender.push(
-        <meta key="og:locale" property="og:locale" content={config.openGraph.locale} />,
-      );
-    }
-
-    if (config.openGraph.locale) {
-      tagsToRender.push(
-        <meta key="og:locale" property="og:locale" content={config.openGraph.locale} />,
-      );
-    }
-
     if (config.openGraph.site_name) {
       tagsToRender.push(
         <meta key="og:site_name" property="og:site_name" content={config.openGraph.site_name} />,

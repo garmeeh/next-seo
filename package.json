@@ -1,6 +1,6 @@
 {
   "name": "next-seo",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "SEO plugin for Next.js projects",
   "main": "dist/index.js",
   "files": [
@@ -17,7 +17,7 @@
     "test:watch": "jest --watch",
     "prebuild": "rimraf build",
     "lint": "eslint src",
-    "build": "babel --copy-files --out-dir dist --ignore *.spec.js src",
+    "build": "babel --copy-files --out-dir dist --ignore *.spec.js,*.snap src",
     "validate": "npm-run-all --parallel lint build"
   },
   "prettier": {
