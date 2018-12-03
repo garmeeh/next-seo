@@ -88,6 +88,7 @@ export default {
 ```
 
 **Twitter Tags**
+
 Twitter will read the `og:title`, `og:image` and `og:description` tags for their card, this is why `next-seo` omits `twitter:title`, `twitter:image` and `twitter:description` so not to duplicate.
 
 Some tools may report this an error. See [Issue #14](https://github.com/garmeeh/next-seo/issues/14)
