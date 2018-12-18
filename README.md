@@ -322,6 +322,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Article](#article)
 - [Blog](#blog)
 - [Course](#course)
+- [Social Profile](#social-profile)
 
 More to follow very, very soon!
 
@@ -472,6 +473,54 @@ Valid values fro `offers.availability`:
 - https://schema.org/SoldOut
 
 More info on the product data type can be found [here](https://developers.google.com/search/docs/data-types/product).
+
+### Social Profile
+
+```jsx
+import React from 'react';
+import { SocialProfileJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Social Profile JSON-LD</h1>
+    <SocialProfileJsonLd
+      type="Person"
+      name="your name"
+      url="http://www.your-site.com"
+      sameAs={[
+        'http://www.facebook.com/your-profile',
+        'http://instagram.com/yourProfile',
+        'http://www.linkedin.com/in/yourprofile',
+        'http://plus.google.com/your_profile',
+      ]}
+    />
+  </>
+);
+```
+
+**Required properties**
+
+| Property | Info                                                                                      |
+| -------- | ----------------------------------------------------------------------------------------- |
+| `type`   | Person or Organization                                                                    |
+| `name`   | The name of the person or organization                                                    |
+| `url`    | The URL for the person's or organization's official website.                              |
+| `sameAs` | An array of URLs for the person's or organization's official social media profile page(s) |
+
+**Google Supported Social Profiles**
+
+- Facebook
+- Twitter
+- Google+
+- Instagram
+- YouTube
+- LinkedIn
+- Myspace
+- Pinterest
+- SoundCloud
+- Tumblr
+
+[Google Docs for Social Profile](https://developers.google.com/search/docs/data-types/social-profile)
 
 ## CHANGELOG
 
