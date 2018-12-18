@@ -17,7 +17,7 @@
     "@cypress/schema-tools": "^4.2.2",
     "cypress": "^3.1.0",
     "cypress-testing-library": "^2.2.1",
-    "next": "7.0.0-canary.8",
+    "next": "7.0.2",
     "npm-run-all": "^4.1.5",
     "react": "^16.4.1",
     "react-dom": "^16.4.1"

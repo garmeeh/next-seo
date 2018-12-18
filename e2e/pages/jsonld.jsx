@@ -1,6 +1,10 @@
 import React from 'react';
 import {
-  ArticleJsonLd, BlogJsonLd, CourseJsonLd, ProductJsonLd,
+  ArticleJsonLd,
+  BlogJsonLd,
+  CourseJsonLd,
+  ProductJsonLd,
+  SocialProfileJsonLd,
 } from '../../dist';
 import Links from '../components/links';
 
@@ -84,6 +88,17 @@ export default () => (
       mpn="925872"
     />
 
+    <SocialProfileJsonLd
+      type="Person"
+      url="http://www.your-site.com"
+      name="your name"
+      sameAs={[
+        'http://www.facebook.com/your-profile',
+        'http://instagram.com/yourProfile',
+        'http://www.linkedin.com/in/yourprofile',
+        'http://plus.google.com/your_profile',
+      ]}
+    />
     <Links />
   </>
 );

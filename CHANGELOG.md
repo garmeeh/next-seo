@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.3.0 - 18-12-2018
+
+### Added
+
+- Social Profile JSON-LD [More Info](https://developers.google.com/search/docs/data-types/social-profile)
+  - Closes issue [#20](https://github.com/garmeeh/next-seo/issues/20)
+
 ## v1.2.0 - 09-09-2018
 
 ### Added
