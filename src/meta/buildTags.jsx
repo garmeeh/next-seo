@@ -62,6 +62,68 @@ const buildTags = (config) => {
 
     if (config.openGraph.type) {
       tagsToRender.push(<meta key="og:type" property="og:type" content={config.openGraph.type} />);
+
+      if (config.openGraph.type == 'profile' && config.openGraph.profile) {
+        if (config.openGraph.profile.first_name) {
+          tagsToRender.push(<meta key="profile:first_name" property="profile:first_name" content={config.openGraph.profile.first_name} />);
+        }
+
+        if (config.openGraph.profile.last_name) {
+          tagsToRender.push(<meta key="profile:last_name" property="profile:last_name" content={config.openGraph.profile.last_name} />);
+        }
+
+        if (config.openGraph.profile.username) {
+          tagsToRender.push(<meta key="profile:username" property="profile:username" content={config.openGraph.profile.username} />);
+        }
+
+        if (config.openGraph.profile.gender) {
+          tagsToRender.push(<meta key="profile:gender" property="profile:gender" content={config.openGraph.profile.gender} />);
+        }
+      }
+
+      if (config.openGraph.type == 'book' && config.openGraph.book) {
+        if (config.openGraph.book.author) {
+          tagsToRender.push(<meta key="book:author" property="book:author" content={config.openGraph.book.author} />);
+        }
+
+        if (config.openGraph.book.isbn) {
+          tagsToRender.push(<meta key="book:isbn" property="book:isbn" content={config.openGraph.book.isbn} />);
+        }
+
+        if (config.openGraph.book.release_date) {
+          tagsToRender.push(<meta key="book:release_date" property="book:release_date" content={config.openGraph.book.release_date} />);
+        }
+
+        if (config.openGraph.book.tag) {
+          tagsToRender.push(<meta key="book:tag" property="book:tag" content={config.openGraph.book.tag} />);
+        }
+      }
+
+      if (config.openGraph.type == 'article' && config.openGraph.article) {
+        if (config.openGraph.article.published_time) {
+          tagsToRender.push(<meta key="article:published_time" property="article:published_time" content={config.openGraph.article.published_time} />);
+        }
+
+        if (config.openGraph.article.modified_time) {
+          tagsToRender.push(<meta key="article:modified_time" property="article:modified_time" content={config.openGraph.article.modified_time} />);
+        }
+
+        if (config.openGraph.article.expiration_time) {
+          tagsToRender.push(<meta key="article:expiration_time" property="article:expiration_time" content={config.openGraph.article.expiration_time} />);
+        }
+
+        if (config.openGraph.article.author) {
+          tagsToRender.push(<meta key="article:author" property="article:author" content={config.openGraph.article.author} />);
+        }
+
+        if (config.openGraph.article.section) {
+          tagsToRender.push(<meta key="article:section" property="article:section" content={config.openGraph.article.section} />);
+        }
+
+        if (config.openGraph.article.tag) {
+          tagsToRender.push(<meta key="article:tag" property="article:tag" content={config.openGraph.article.tag} />);
+        }
+      }
     }
 
     if (config.openGraph.title) {
