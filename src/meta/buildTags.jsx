@@ -82,8 +82,12 @@ const buildTags = (config) => {
       }
 
       if (config.openGraph.type == 'book' && config.openGraph.book) {
-        if (config.openGraph.book.author) {
-          tagsToRender.push(<meta key="book:author" property="book:author" content={config.openGraph.book.author} />);
+        if (config.openGraph.book.author && config.openGraph.book.author.length) {
+          config.openGraph.book.author.forEach((author, index) => {
+            tagsToRender.push(
+              <meta key={`book:author:0${index}`} property="book:author" content={author} />,
+            );
+          });
         }
 
         if (config.openGraph.book.isbn) {
@@ -94,8 +98,12 @@ const buildTags = (config) => {
           tagsToRender.push(<meta key="book:release_date" property="book:release_date" content={config.openGraph.book.release_date} />);
         }
 
-        if (config.openGraph.book.tag) {
-          tagsToRender.push(<meta key="book:tag" property="book:tag" content={config.openGraph.book.tag} />);
+        if (config.openGraph.book.tag && config.openGraph.book.tag.length) {
+          config.openGraph.book.tag.forEach((tag, index) => {
+            tagsToRender.push(
+              <meta key={`book:tag:0${index}`} property="book:tag" content={tag} />,
+            );
+          });
         }
       }
 
@@ -112,16 +120,24 @@ const buildTags = (config) => {
           tagsToRender.push(<meta key="article:expiration_time" property="article:expiration_time" content={config.openGraph.article.expiration_time} />);
         }
 
-        if (config.openGraph.article.author) {
-          tagsToRender.push(<meta key="article:author" property="article:author" content={config.openGraph.article.author} />);
+        if (config.openGraph.article.author && config.openGraph.article.author.length) {
+          config.openGraph.article.author.forEach((author, index) => {
+            tagsToRender.push(
+              <meta key={`article:author:0${index}`} property="article:author" content={author} />,
+            );
+          });
         }
 
         if (config.openGraph.article.section) {
           tagsToRender.push(<meta key="article:section" property="article:section" content={config.openGraph.article.section} />);
         }
 
-        if (config.openGraph.article.tag) {
-          tagsToRender.push(<meta key="article:tag" property="article:tag" content={config.openGraph.article.tag} />);
+        if (config.openGraph.article.tag && config.openGraph.article.tag.length) {
+          config.openGraph.article.tag.forEach((tag, index) => {
+            tagsToRender.push(
+              <meta key={`article:tag:0${index}`} property="article:tag" content={tag} />,
+            );
+          });
         }
       }
     }
