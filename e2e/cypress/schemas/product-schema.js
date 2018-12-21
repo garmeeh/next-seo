@@ -1,7 +1,5 @@
 import { versionSchemas } from '@cypress/schema-tools';
-import {
-  offers100, aggregateRating100, brand100, review100,
-} from './common';
+import { offers100, aggregateRating100, brand100, review100 } from './common';
 
 const product100 = {
   version: {
