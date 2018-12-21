@@ -23,6 +23,7 @@ jobs:
     - stage: test
       script:
         - npm run test
+        - npm run build
         - cd e2e
         - npm ci
         - npm run build
