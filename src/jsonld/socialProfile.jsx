@@ -4,9 +4,7 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-const SocialProfileJsonLd = ({
-  type, name, url, sameAs = [],
-}) => {
+const SocialProfileJsonLd = ({ type, name, url, sameAs = [] }) => {
   const jslonld = `{
     "@context": "http://schema.org",
     "@type": "${type}",

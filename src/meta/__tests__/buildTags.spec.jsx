@@ -48,32 +48,66 @@ it('returns full array for default seo object', () => {
 
   const title = getByText(
     container,
-    (content, element) => element.tagName.toLowerCase() === 'title' && content.startsWith(`${SEO.title}`),
+    (content, element) =>
+      element.tagName.toLowerCase() === 'title' &&
+      content.startsWith(`${SEO.title}`),
   );
   const index = container.querySelectorAll('meta[content="index,follow"]');
-  const description = container.querySelectorAll(`meta[content="${SEO.description}"]`);
+  const description = container.querySelectorAll(
+    `meta[content="${SEO.description}"]`,
+  );
   const descriptionTag = container.querySelectorAll('meta[name="description"]');
-  const twitterCard = container.querySelectorAll('meta[content="summary_large_image"]');
-  const twitterCardTag = container.querySelectorAll('meta[name="twitter:card"]');
-  const twitterHandle = container.querySelectorAll(`meta[content="${SEO.twitter.handle}"]`);
-  const twitterHandleTag = container.querySelectorAll('meta[name="twitter:creator"]');
-  const twitterSite = container.querySelectorAll(`meta[content="${SEO.twitter.site}"]`);
-  const twitterSiteTag = container.querySelectorAll('meta[name="twitter:site"]');
-  const ogUrl = container.querySelectorAll(`meta[content="${SEO.openGraph.url}"]`);
+  const twitterCard = container.querySelectorAll(
+    'meta[content="summary_large_image"]',
+  );
+  const twitterCardTag = container.querySelectorAll(
+    'meta[name="twitter:card"]',
+  );
+  const twitterHandle = container.querySelectorAll(
+    `meta[content="${SEO.twitter.handle}"]`,
+  );
+  const twitterHandleTag = container.querySelectorAll(
+    'meta[name="twitter:creator"]',
+  );
+  const twitterSite = container.querySelectorAll(
+    `meta[content="${SEO.twitter.site}"]`,
+  );
+  const twitterSiteTag = container.querySelectorAll(
+    'meta[name="twitter:site"]',
+  );
+  const ogUrl = container.querySelectorAll(
+    `meta[content="${SEO.openGraph.url}"]`,
+  );
   const ogUrlTag = container.querySelectorAll('meta[property="og:url"]');
-  const ogType = container.querySelectorAll(`meta[content="${SEO.openGraph.type}"]`);
+  const ogType = container.querySelectorAll(
+    `meta[content="${SEO.openGraph.type}"]`,
+  );
   const ogTypeTag = container.querySelectorAll('meta[property="og:type"]');
-  const ogTitle = container.querySelectorAll(`meta[content="${SEO.openGraph.title}"]`);
+  const ogTitle = container.querySelectorAll(
+    `meta[content="${SEO.openGraph.title}"]`,
+  );
   const ogTitleTag = container.querySelectorAll('meta[property="og:title"]');
-  const ogDescription = container.querySelectorAll(`meta[content="${SEO.openGraph.description}"]`);
-  const ogDescriptionTag = container.querySelectorAll('meta[property="og:description"]');
-  const ogImage00 = container.querySelectorAll(`meta[content="${SEO.openGraph.images[0].url}"]`);
+  const ogDescription = container.querySelectorAll(
+    `meta[content="${SEO.openGraph.description}"]`,
+  );
+  const ogDescriptionTag = container.querySelectorAll(
+    'meta[property="og:description"]',
+  );
+  const ogImage00 = container.querySelectorAll(
+    `meta[content="${SEO.openGraph.images[0].url}"]`,
+  );
   const ogImageTag00 = tags.filter(item => item.key === 'og:image:01');
-  const ogImage01 = container.querySelectorAll(`meta[content="${SEO.openGraph.images[1].url}"]`);
+  const ogImage01 = container.querySelectorAll(
+    `meta[content="${SEO.openGraph.images[1].url}"]`,
+  );
   const ogImageTag01 = tags.filter(item => item.key === 'og:image:01');
-  const ogImage02 = container.querySelectorAll(`meta[content="${SEO.openGraph.images[2].url}"]`);
+  const ogImage02 = container.querySelectorAll(
+    `meta[content="${SEO.openGraph.images[2].url}"]`,
+  );
   const ogImageTag02 = tags.filter(item => item.key === 'og:image:02');
-  const ogImage03 = container.querySelectorAll(`meta[content="${SEO.openGraph.images[3].url}"]`);
+  const ogImage03 = container.querySelectorAll(
+    `meta[content="${SEO.openGraph.images[3].url}"]`,
+  );
   const ogImageTag03 = tags.filter(item => item.key === 'og:image:03');
   const ogDefaultImageWidthHeight = container.querySelectorAll(
     `meta[content="${SEO.openGraph.defaultImageHeight}"]`,
@@ -87,9 +121,13 @@ it('returns full array for default seo object', () => {
   const ogSetImageAlt = container.querySelectorAll(
     `meta[content="${SEO.openGraph.images[0].alt}"]`,
   );
-  const ogLocale = container.querySelectorAll(`meta[content="${SEO.openGraph.locale}"]`);
+  const ogLocale = container.querySelectorAll(
+    `meta[content="${SEO.openGraph.locale}"]`,
+  );
   const ogLocaleTag = tags.filter(item => item.key === 'og:locale');
-  const ogSiteName = container.querySelectorAll(`meta[content="${SEO.openGraph.site_name}"]`);
+  const ogSiteName = container.querySelectorAll(
+    `meta[content="${SEO.openGraph.site_name}"]`,
+  );
   const ogSiteNameTag = tags.filter(item => item.key === 'og:site_name');
   const canonicalTag = tags.filter(item => item.key === 'canonical');
 
@@ -139,7 +177,9 @@ it('correctly sets noindex, nofollow', () => {
   const tags = buildTags(overrideProps);
   const { container } = render(tags);
   const index = container.querySelectorAll('meta[content="index,follow"]');
-  const noindex = container.querySelectorAll('meta[content="noindex,nofollow"]');
+  const noindex = container.querySelectorAll(
+    'meta[content="noindex,nofollow"]',
+  );
 
   expect(Array.from(index).length).toBe(0);
   expect(Array.from(noindex).length).toBe(2);
@@ -155,7 +195,8 @@ it('displays title with titleTemplate integrated', () => {
   const { container } = render(tags);
   const title = getByText(
     container,
-    (content, element) => element.tagName.toLowerCase() === 'title' && content.startsWith(template),
+    (content, element) =>
+      element.tagName.toLowerCase() === 'title' && content.startsWith(template),
   );
   expect(title.innerHTML).toMatch(`${template} | ${SEO.title}`);
 });

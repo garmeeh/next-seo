@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
+  "extends": ["airbnb", "prettier"],
   "rules": {
     "react/no-array-index-key": 0,
     "no-prototype-builtins": 0,

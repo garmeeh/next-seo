@@ -7,5 +7,9 @@ import SocialProfileJsonLd from './jsonld/socialProfile';
 
 export default DefaultSeo;
 export {
-  ArticleJsonLd, BlogJsonLd, CourseJsonLd, ProductJsonLd, SocialProfileJsonLd,
+  ArticleJsonLd,
+  BlogJsonLd,
+  CourseJsonLd,
+  ProductJsonLd,
+  SocialProfileJsonLd,
 };
