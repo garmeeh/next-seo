@@ -1,6 +1,6 @@
 # Next SEO
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
 Next SEO is a plug in that makes managing your SEO easier in Next.js projects.
 
@@ -704,8 +704,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars1.githubusercontent.com/u/13333582?v=4" width="100px;"/><br /><sub><b>Gary Meehan</b></sub>](https://www.garymeehan.ie/)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=garmeeh "Code") [📖](https://github.com/garmeeh/next-seo/commits?author=garmeeh "Documentation") [💡](#example-garmeeh "Examples") [⚠️](https://github.com/garmeeh/next-seo/commits?author=garmeeh "Tests") | [<img src="https://avatars3.githubusercontent.com/u/3099369?v=4" width="100px;"/><br /><sub><b>Jerome Fitzgerald</b></sub>](https://www.jeromefitzgerald.com/)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=JeromeFitz "Code") |
-| :---: | :---: |
+| [<img src="https://avatars1.githubusercontent.com/u/13333582?v=4" width="100px;"/><br /><sub><b>Gary Meehan</b></sub>](https://www.garymeehan.ie/)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=garmeeh "Code") [📖](https://github.com/garmeeh/next-seo/commits?author=garmeeh "Documentation") [💡](#example-garmeeh "Examples") [⚠️](https://github.com/garmeeh/next-seo/commits?author=garmeeh "Tests") | [<img src="https://avatars3.githubusercontent.com/u/3099369?v=4" width="100px;"/><br /><sub><b>Jerome Fitzgerald</b></sub>](https://www.jeromefitzgerald.com/)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=JeromeFitz "Code") | [<img src="https://avatars0.githubusercontent.com/u/3820632?v=4" width="100px;"/><br /><sub><b>erick B</b></sub>](https://github.com/erickeno)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=erickeno "Code") |
+| :---: | :---: | :---: |
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
