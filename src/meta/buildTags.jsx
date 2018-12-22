@@ -89,13 +89,170 @@ const buildTags = config => {
     }
 
     if (config.openGraph.type) {
+      const type = config.openGraph.type.toLowerCase();
+
       tagsToRender.push(
-        <meta
-          key="og:type"
-          property="og:type"
-          content={config.openGraph.type}
-        />,
+        <meta key="og:type" property="og:type" content={type} />,
       );
+
+      if (type === 'profile' && config.openGraph.profile) {
+        if (config.openGraph.profile.firstName) {
+          tagsToRender.push(
+            <meta
+              key="profile:first_name"
+              property="profile:first_name"
+              content={config.openGraph.profile.firstName}
+            />,
+          );
+        }
+
+        if (config.openGraph.profile.lastName) {
+          tagsToRender.push(
+            <meta
+              key="profile:last_name"
+              property="profile:last_name"
+              content={config.openGraph.profile.lastName}
+            />,
+          );
+        }
+
+        if (config.openGraph.profile.username) {
+          tagsToRender.push(
+            <meta
+              key="profile:username"
+              property="profile:username"
+              content={config.openGraph.profile.username}
+            />,
+          );
+        }
+
+        if (config.openGraph.profile.gender) {
+          tagsToRender.push(
+            <meta
+              key="profile:gender"
+              property="profile:gender"
+              content={config.openGraph.profile.gender}
+            />,
+          );
+        }
+      } else if (type === 'book' && config.openGraph.book) {
+        if (
+          config.openGraph.book.authors &&
+          config.openGraph.book.authors.length
+        ) {
+          config.openGraph.book.authors.forEach((author, index) => {
+            tagsToRender.push(
+              <meta
+                key={`book:author:0${index}`}
+                property="book:author"
+                content={author}
+              />,
+            );
+          });
+        }
+
+        if (config.openGraph.book.isbn) {
+          tagsToRender.push(
+            <meta
+              key="book:isbn"
+              property="book:isbn"
+              content={config.openGraph.book.isbn}
+            />,
+          );
+        }
+
+        if (config.openGraph.book.releaseDate) {
+          tagsToRender.push(
+            <meta
+              key="book:release_date"
+              property="book:release_date"
+              content={config.openGraph.book.releaseDate}
+            />,
+          );
+        }
+
+        if (config.openGraph.book.tags && config.openGraph.book.tags.length) {
+          config.openGraph.book.tags.forEach((tag, index) => {
+            tagsToRender.push(
+              <meta
+                key={`book:tag:0${index}`}
+                property="book:tag"
+                content={tag}
+              />,
+            );
+          });
+        }
+      } else if (type === 'article' && config.openGraph.article) {
+        if (config.openGraph.article.publishedTime) {
+          tagsToRender.push(
+            <meta
+              key="article:published_time"
+              property="article:published_time"
+              content={config.openGraph.article.publishedTime}
+            />,
+          );
+        }
+
+        if (config.openGraph.article.modifiedTime) {
+          tagsToRender.push(
+            <meta
+              key="article:modified_time"
+              property="article:modified_time"
+              content={config.openGraph.article.modifiedTime}
+            />,
+          );
+        }
+
+        if (config.openGraph.article.expirationTime) {
+          tagsToRender.push(
+            <meta
+              key="article:expiration_time"
+              property="article:expiration_time"
+              content={config.openGraph.article.expirationTime}
+            />,
+          );
+        }
+
+        if (
+          config.openGraph.article.authors &&
+          config.openGraph.article.authors.length
+        ) {
+          config.openGraph.article.authors.forEach((author, index) => {
+            tagsToRender.push(
+              <meta
+                key={`article:author:0${index}`}
+                property="article:author"
+                content={author}
+              />,
+            );
+          });
+        }
+
+        if (config.openGraph.article.section) {
+          tagsToRender.push(
+            <meta
+              key="article:section"
+              property="article:section"
+              content={config.openGraph.article.section}
+            />,
+          );
+        }
+
+        if (
+          config.openGraph.article.tags &&
+          config.openGraph.article.tags.length
+        ) {
+          config.openGraph.article.tags.forEach((tag, index) => {
+            tagsToRender.push(
+              <meta
+                key={`article:tag:0${index}`}
+                property="article:tag"
+                content={tag}
+              />,
+            );
+          });
+        }
+      }
     }
 
     if (config.openGraph.title) {
