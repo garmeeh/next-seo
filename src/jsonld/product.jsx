@@ -4,7 +4,8 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-const buildImages = images => (images.length ? `"image": [${images.map(image => `"${image}"`)}],` : '');
+const buildImages = images =>
+  images.length ? `"image": [${images.map(image => `"${image}"`)}],` : '';
 
 const buildBrand = brand => `
   "brand": {
@@ -13,21 +14,26 @@ const buildBrand = brand => `
     },
 `;
 
-const buildReviewRating = rating => (rating
-  ? `"reviewRating": {
+const buildReviewRating = rating =>
+  rating
+    ? `"reviewRating": {
           "@type": "Rating",
           ${rating.bestRating ? `"bestRating": "${rating.bestRating}",` : ''}
           ${rating.worstRating ? `"worstRating": "${rating.worstRating}",` : ''}
           "ratingValue": "${rating.ratingValue}"
         },`
-  : '');
+    : '';
 
 const buildReviews = reviews => `
 "review": [
   ${reviews.map(
     review => `{
       "@type": "Review",
-      ${review.datePublished ? `"datePublished": "${review.datePublished}",` : ''}
+      ${
+        review.datePublished
+          ? `"datePublished": "${review.datePublished}",`
+          : ''
+      }
       ${review.reviewBody ? `"reviewBody": "${review.reviewBody}",` : ''}
       ${review.name ? `"name": "${review.name}",` : ''}
       ${buildReviewRating(review.reviewRating)}
@@ -49,19 +55,23 @@ const buildOffers = offers => `
   "offers": {
     "@type": "Offer",
     "priceCurrency": "${offers.priceCurrency}",
-    ${offers.priceValidUntil ? `"priceValidUntil": "${offers.priceValidUntil}",` : ''}
+    ${
+      offers.priceValidUntil
+        ? `"priceValidUntil": "${offers.priceValidUntil}",`
+        : ''
+    }
     ${offers.itemCondition ? `"itemCondition": "${offers.itemCondition}",` : ''}
     ${offers.availability ? `"availability": "${offers.availability}",` : ''}
     ${
-  offers.seller
-    ? `
+      offers.seller
+        ? `
       "seller": {
       "@type": "Organization",
       "name": "${offers.seller.name}"
     },
     `
-    : ''
-}
+        : ''
+    }
     "price": "${offers.price}"
   },
 `;

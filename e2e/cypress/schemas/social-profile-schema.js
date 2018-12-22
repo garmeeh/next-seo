@@ -9,7 +9,8 @@ const socialProfile100 = {
   schema: {
     type: 'object',
     title: 'Social Profile',
-    description: 'An example schema describing JSON-LD for type: Social Profile',
+    description:
+      'An example schema describing JSON-LD for type: Social Profile',
     properties: {
       '@context': {
         type: 'string',
@@ -25,7 +26,8 @@ const socialProfile100 = {
       },
       url: {
         type: 'string',
-        description: "The URL for the person's or organization's official website.",
+        description:
+          "The URL for the person's or organization's official website.",
       },
       sameAs: {
         type: 'array',

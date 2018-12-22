@@ -19,12 +19,12 @@ jobs:
   include:
     - stage: validate
       script:
-      - npm run validate
-      - stage: test
+        - npm run validate
+    - stage: test
       script:
-      - npm run test
-      - cd e2e
-      - npm ci
-      - npm run build
-      - npm run test:e2e
-
+        - npm run test
+        - npm run build
+        - cd e2e
+        - npm ci
+        - npm run build
+        - npm run test:e2e

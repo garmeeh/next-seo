@@ -5,7 +5,10 @@ import Head from 'next/head';
 import markup from '../utils/markup';
 
 const CourseJsonLd = ({
-  courseName, description, providerName, providerUrl,
+  courseName,
+  description,
+  providerName,
+  providerUrl,
 }) => {
   const jslonld = `{
     "@context": "http://schema.org",
@@ -15,11 +18,11 @@ const CourseJsonLd = ({
     "provider": {
       "@type": "Organization",
       "name": "${providerName}"${
-  providerUrl
-    ? `,
+    providerUrl
+      ? `,
       "sameAs": "${providerUrl}"`
-    : ''
-}
+      : ''
+  }
     }
   }`;
 
