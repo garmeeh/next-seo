@@ -3,6 +3,7 @@ import {
   ArticleJsonLd,
   BlogJsonLd,
   CourseJsonLd,
+  LogoJsonLd,
   ProductJsonLd,
   SocialProfileJsonLd,
 } from '../../dist';
@@ -46,6 +47,11 @@ export default () => (
       providerName="Course Provider"
       providerUrl="https//www.example.com/provider"
       description="Course description goes right here"
+    />
+
+    <LogoJsonLd
+      logo="http://www.your-site.com/images/logo.jpg"
+      url="http://www.your-site.com"
     />
 
     <ProductJsonLd
