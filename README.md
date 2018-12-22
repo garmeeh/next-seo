@@ -322,6 +322,8 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Article](#article)
 - [Blog](#blog)
 - [Course](#course)
+- [Local Business](#local-business)
+- [Product](#product)
 - [Social Profile](#social-profile)
 
 More to follow very, very soon!
@@ -398,6 +400,63 @@ export default () => (
   </>
 );
 ```
+
+### Local Business
+
+Local business is supported with a sub-set of properties.
+
+```jsx
+<LocalBusinessJsonLd
+  type="Store"
+  id="http://davesdeptstore.example.com"
+  name="Dave's Department Store"
+  description="Dave's latest department store in San Jose, now open"
+  url="http://www.example.com/store-locator/sl/San-Jose-Westgate-Store/1427"
+  telephone="+14088717984"
+  address={{
+    streetAddress: '1600 Saratoga Ave',
+    addressLocality: 'San Jose',
+    addressRegion: 'CA',
+    postalCode: '95129',
+    addressCountry: 'US',
+  }}
+  geo={{
+    latitude: 37.293058,
+    longitude: -121.988331,
+  }}
+  images={[
+    'https://example.com/photos/1x1/photo.jpg',
+    'https://example.com/photos/4x3/photo.jpg',
+    'https://example.com/photos/16x9/photo.jpg',
+  ]}
+/>
+```
+
+**Required properties**
+
+| Property                  | Info                                                                       |
+| ------------------------- | -------------------------------------------------------------------------- |
+| `@id`                     | Globally unique ID of the specific business location in the form of a URL. |
+| `type`                    | LocalBusiness or any sub-type                                              |
+| `address`                 | Address of the specific business location                                  |
+| `address.addressCountry`  | The 2-letter ISO 3166-1 alpha-2 country code                               |
+| `address.addressLocality` | City                                                                       |
+| `address.addressRegion`   | State or province, if applicable.                                          |
+| `address.postalCode`      | Postal or zip code.                                                        |
+| `address.streetAddress`   | Street number, street name, and unit number.                               |
+| `name`                    | Business name.                                                             |
+
+**Supported properties**
+
+| Property        | Info                                                                          |
+| --------------- | ----------------------------------------------------------------------------- |
+| `description`   | Description of the business location                                          |
+| `geo`           | Geographic coordinates of the business.                                       |
+| `geo.latitude`  | The latitude of the business location                                         |
+| `geo.longitude` | The longitude of the business location                                        |
+| `image`         | An image or images of the business.                                           |
+| `telephone`     | A business phone number meant to be the primary contact method for customers. |
+| `url`           | The fully-qualified URL of the specific business location.                    |
 
 ### Product
 
