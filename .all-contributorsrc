@@ -38,6 +38,18 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "econdie",
+      "name": "Erik Condie",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/15269328?v=4",
+      "profile": "https://www.erikcondie.com",
+      "contributions": [
+        "code",
+        "test",
+        "example",
+        "ideas"
+      ]
     }
   ]
 }
