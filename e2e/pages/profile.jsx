@@ -33,6 +33,18 @@ export default () => (
               height: 850,
               alt: 'Og Image Alt firstlast123 B',
             },
+            {
+              url: 'https://www.test.ie/og-image-firstlast123-03.jpg',
+              width: 600,
+              height: 400,
+              alt: 'Og Image Alt firstlast123 C',
+            },
+            {
+              url: 'https://www.test.ie/og-image-firstlast123-04.jpg',
+              width: 400,
+              height: 400,
+              alt: 'Og Image Alt firstlast123 D',
+            },
           ],
           site_name: 'SiteName',
         },

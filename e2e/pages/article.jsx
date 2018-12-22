@@ -40,6 +40,18 @@ export default () => (
               height: 850,
               alt: 'Og Image Alt Article Title B',
             },
+            {
+              url: 'https://www.test.ie/og-image-article-title-03.jpg',
+              width: 600,
+              height: 400,
+              alt: 'Og Image Alt Article Title C',
+            },
+            {
+              url: 'https://www.test.ie/og-image-article-title-04.jpg',
+              width: 400,
+              height: 400,
+              alt: 'Og Image Alt Article Title D',
+            },
           ],
           site_name: 'SiteName',
         },

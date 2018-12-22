@@ -38,6 +38,18 @@ export default () => (
               height: 850,
               alt: 'Og Image Alt Book Title B',
             },
+            {
+              url: 'https://www.test.ie/og-image-book-title-03.jpg',
+              width: 600,
+              height: 400,
+              alt: 'Og Image Alt Book Title C',
+            },
+            {
+              url: 'https://www.test.ie/og-image-book-title-04.jpg',
+              width: 400,
+              height: 400,
+              alt: 'Og Image Alt Book Title D',
+            },
           ],
           site_name: 'SiteName',
         },

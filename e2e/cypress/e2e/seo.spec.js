@@ -385,7 +385,7 @@ describe('SEO Meta', () => {
       'Description of open graph profile',
     );
     cy.get('head meta[property="og:image"]')
-      .should('have.length', 2)
+      .should('have.length', 4)
       .then(tags => {
         expect(tags[0].content).to.equal(
           'https://www.test.ie/og-image-firstlast123-01.jpg',
@@ -393,24 +393,36 @@ describe('SEO Meta', () => {
         expect(tags[1].content).to.equal(
           'https://www.test.ie/og-image-firstlast123-02.jpg',
         );
+        expect(tags[2].content).to.equal(
+          'https://www.test.ie/og-image-firstlast123-03.jpg',
+        );
+        expect(tags[3].content).to.equal(
+          'https://www.test.ie/og-image-firstlast123-04.jpg',
+        );
       });
     cy.get('head meta[property="og:image:alt"]')
-      .should('have.length', 2)
+      .should('have.length', 4)
       .then(tags => {
         expect(tags[0].content).to.equal('Og Image Alt firstlast123 A');
         expect(tags[1].content).to.equal('Og Image Alt firstlast123 B');
+        expect(tags[2].content).to.equal('Og Image Alt firstlast123 C');
+        expect(tags[3].content).to.equal('Og Image Alt firstlast123 D');
       });
     cy.get('head meta[property="og:image:width"]')
-      .should('have.length', 2)
+      .should('have.length', 4)
       .then(tags => {
         expect(tags[0].content).to.equal('850');
         expect(tags[1].content).to.equal('950');
+        expect(tags[2].content).to.equal('600');
+        expect(tags[3].content).to.equal('400');
       });
     cy.get('head meta[property="og:image:height"]')
-      .should('have.length', 2)
+      .should('have.length', 4)
       .then(tags => {
         expect(tags[0].content).to.equal('650');
         expect(tags[1].content).to.equal('850');
+        expect(tags[2].content).to.equal('400');
+        expect(tags[3].content).to.equal('400');
       });
     cy.get('head meta[property="og:site_name"]').should(
       'have.attr',
@@ -501,7 +513,7 @@ describe('SEO Meta', () => {
       'Description of open graph article',
     );
     cy.get('head meta[property="og:image"]')
-      .should('have.length', 2)
+      .should('have.length', 4)
       .then(tags => {
         expect(tags[0].content).to.equal(
           'https://www.test.ie/og-image-article-title-01.jpg',
@@ -509,24 +521,36 @@ describe('SEO Meta', () => {
         expect(tags[1].content).to.equal(
           'https://www.test.ie/og-image-article-title-02.jpg',
         );
+        expect(tags[2].content).to.equal(
+          'https://www.test.ie/og-image-article-title-03.jpg',
+        );
+        expect(tags[3].content).to.equal(
+          'https://www.test.ie/og-image-article-title-04.jpg',
+        );
       });
     cy.get('head meta[property="og:image:alt"]')
-      .should('have.length', 2)
+      .should('have.length', 4)
       .then(tags => {
         expect(tags[0].content).to.equal('Og Image Alt Article Title A');
         expect(tags[1].content).to.equal('Og Image Alt Article Title B');
+        expect(tags[2].content).to.equal('Og Image Alt Article Title C');
+        expect(tags[3].content).to.equal('Og Image Alt Article Title D');
       });
     cy.get('head meta[property="og:image:width"]')
-      .should('have.length', 2)
+      .should('have.length', 4)
       .then(tags => {
         expect(tags[0].content).to.equal('850');
         expect(tags[1].content).to.equal('950');
+        expect(tags[2].content).to.equal('600');
+        expect(tags[3].content).to.equal('400');
       });
     cy.get('head meta[property="og:image:height"]')
-      .should('have.length', 2)
+      .should('have.length', 4)
       .then(tags => {
         expect(tags[0].content).to.equal('650');
         expect(tags[1].content).to.equal('850');
+        expect(tags[2].content).to.equal('400');
+        expect(tags[3].content).to.equal('400');
       });
     cy.get('head meta[property="og:site_name"]').should(
       'have.attr',
@@ -607,7 +631,7 @@ describe('SEO Meta', () => {
       'Description of open graph book',
     );
     cy.get('head meta[property="og:image"]')
-      .should('have.length', 2)
+      .should('have.length', 4)
       .then(tags => {
         expect(tags[0].content).to.equal(
           'https://www.test.ie/og-image-book-title-01.jpg',
@@ -615,24 +639,36 @@ describe('SEO Meta', () => {
         expect(tags[1].content).to.equal(
           'https://www.test.ie/og-image-book-title-02.jpg',
         );
+        expect(tags[2].content).to.equal(
+          'https://www.test.ie/og-image-book-title-03.jpg',
+        );
+        expect(tags[3].content).to.equal(
+          'https://www.test.ie/og-image-book-title-04.jpg',
+        );
       });
     cy.get('head meta[property="og:image:alt"]')
-      .should('have.length', 2)
+      .should('have.length', 4)
       .then(tags => {
         expect(tags[0].content).to.equal('Og Image Alt Book Title A');
         expect(tags[1].content).to.equal('Og Image Alt Book Title B');
+        expect(tags[2].content).to.equal('Og Image Alt Book Title C');
+        expect(tags[3].content).to.equal('Og Image Alt Book Title D');
       });
     cy.get('head meta[property="og:image:width"]')
-      .should('have.length', 2)
+      .should('have.length', 4)
       .then(tags => {
         expect(tags[0].content).to.equal('850');
         expect(tags[1].content).to.equal('950');
+        expect(tags[2].content).to.equal('600');
+        expect(tags[3].content).to.equal('400');
       });
     cy.get('head meta[property="og:image:height"]')
-      .should('have.length', 2)
+      .should('have.length', 4)
       .then(tags => {
         expect(tags[0].content).to.equal('650');
         expect(tags[1].content).to.equal('850');
+        expect(tags[2].content).to.equal('400');
+        expect(tags[3].content).to.equal('400');
       });
     cy.get('head meta[property="og:site_name"]').should(
       'have.attr',
