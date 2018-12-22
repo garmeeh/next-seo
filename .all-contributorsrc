@@ -20,6 +20,15 @@
         "example",
         "test"
       ]
+    },
+    {
+      "login": "JeromeFitz",
+      "name": "Jerome Fitzgerald",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3099369?v=4",
+      "profile": "https://www.jeromefitzgerald.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ]
 }
