@@ -1,5 +1,7 @@
 # Next SEO
 
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors)
+
 Next SEO is a plug in that makes managing your SEO easier in Next.js projects.
 
 This plugin is compatible with version`6.0.0`+ of next.
@@ -262,8 +264,7 @@ export default () => (
 
 ## Simple Usage
 
-The simple usage would be to just include Next SEO on any page you want to set SEO attributes. One thing to note here is that you loose the default SEO
-behaviour, so your SEO attributes will only show on pages you include `<NextSeo config={YOUR_CONFIG}>`.
+The simple usage would be to just include Next SEO on any page you want to set SEO attributes. One thing to note here is that you loose the default SEO behaviour, so your SEO attributes will only show on pages you include `<NextSeo config={YOUR_CONFIG}>`.
 If you are using this method you will need to redefine all properties if required.
 
 ```jsx
@@ -307,6 +308,177 @@ export default () => (
       }}
     />
     <p>Simple Usage</p>
+  </>
+);
+```
+
+## Open Graph
+
+For the full specification please check out http://ogp.me/
+
+Next SEO currently supports:
+
+- [basic](#basic)
+- [article](#article)
+- [book](#book)
+- [profile](#profile)
+
+### Open Graph Examples
+
+#### Basic
+
+```jsx
+import React from 'react';
+import NextSeo from 'next-seo';
+
+export default () => (
+  <>
+    <NextSeo
+      config={{
+        openGraph: {
+          type: 'website',
+          url: 'https://www.example.com/page',
+          title: 'Open Graph Title',
+          description: 'Open Graph Description',
+          images: [
+            {
+              url: 'https://www.example.ie/og-imag.jpg',
+              width: 800,
+              height: 600,
+              alt: 'Og Image Alt',
+            },
+          ],
+        },
+      }}
+    />
+    <p>Basic</p>
+  </>
+);
+```
+
+#### Article
+
+```jsx
+import React from 'react';
+import NextSeo from 'next-seo';
+
+export default () => (
+  <>
+    <NextSeo
+      config={{
+        openGraph: {
+          title: 'Open Graph Article Title',
+          description: 'Description of open graph article',
+          url: 'https://www.example.com/articles/article-title',
+          type: 'article',
+          article: {
+            publishedTime: '2017-06-21T23:04:13Z',
+            modifiedTime: '2018-01-21T18:04:43Z',
+            expirationTime: '2022-12-21T22:04:11Z',
+            section: 'Section II',
+            // Multiple Open Graph tags is only available in version `7.0.2-canary.35`+ of next,
+            // previous versions will just render the first entry
+            authors: [
+              'https://www.example.com/authors/@firstnameA-lastnameA',
+              'https://www.example.com/authors/@firstnameB-lastnameB',
+            ],
+            // Multiple Open Graph tags is only available in version `7.0.2-canary.35`+ of next,
+            // previous versions will just render the first entry
+            tags: ['Tag A', 'Tag B', 'Tag C'],
+          },
+          images: [
+            {
+              url: 'https://www.test.ie/images/cover.jpg',
+              width: 850,
+              height: 650,
+              alt: 'Photo of text',
+            },
+          ],
+        },
+      }}
+    />
+    <p>Article</p>
+  </>
+);
+```
+
+#### Book
+
+```jsx
+import React from 'react';
+import NextSeo from 'next-seo';
+
+export default () => (
+  <>
+    <NextSeo
+      config={{
+        openGraph: {
+          title: 'Open Graph Book Title',
+          description: 'Description of open graph book',
+          url: 'https://www.example.com/books/book-title',
+          type: 'book',
+          book: {
+            releaseDate: '2018-09-17T11:08:13Z',
+            isbn: '978-3-16-148410-0',
+            // Multiple Open Graph tags is only available in version `7.0.2-canary.35`+ of next,
+            // previous versions will just render the first entry
+            authors: [
+              'https://www.example.com/authors/@firstnameA-lastnameA',
+              'https://www.example.com/authors/@firstnameB-lastnameB',
+            ],
+            // Multiple Open Graph tags is only available in version `7.0.2-canary.35`+ of next,
+            // previous versions will just render the first entry
+            tags: ['Tag A', 'Tag B', 'Tag C'],
+          },
+          images: [
+            {
+              url: 'https://www.test.ie/images/book.jpg',
+              width: 850,
+              height: 650,
+              alt: 'Cover of the book',
+            },
+          ],
+        },
+      }}
+    />
+    <p>Book</p>
+  </>
+);
+```
+
+#### Profile
+
+```jsx
+import React from 'react';
+import NextSeo from 'next-seo';
+
+export default () => (
+  <>
+    <NextSeo
+      config={{
+        openGraph: {
+          title: 'Open Graph Profile Title',
+          description: 'Description of open graph profile',
+          url: 'https://www.example.com/@firstlast123',
+          type: 'profile',
+          profile: {
+            firstName: 'First',
+            lastName: 'Last',
+            username: 'firstlast123',
+            gender: 'female',
+          },
+          images: [
+            {
+              url: 'https://www.test.ie/images/profile.jpg',
+              width: 850,
+              height: 650,
+              alt: 'Profile Photo',
+            },
+          ],
+        },
+      }}
+    />
+    <p>Book</p>
   </>
 );
 ```
@@ -525,3 +697,16 @@ export default () => (
 ## CHANGELOG
 
 You can view the CHANGELOG [here](CHANGELOG.md)
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars1.githubusercontent.com/u/13333582?v=4" width="100px;"/><br /><sub><b>Gary Meehan</b></sub>](https://www.garymeehan.ie/)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=garmeeh "Code") [📖](https://github.com/garmeeh/next-seo/commits?author=garmeeh "Documentation") [💡](#example-garmeeh "Examples") [⚠️](https://github.com/garmeeh/next-seo/commits?author=garmeeh "Tests") | [<img src="https://avatars3.githubusercontent.com/u/3099369?v=4" width="100px;"/><br /><sub><b>Jerome Fitzgerald</b></sub>](https://www.jeromefitzgerald.com/)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=JeromeFitz "Code") | [<img src="https://avatars0.githubusercontent.com/u/3820632?v=4" width="100px;"/><br /><sub><b>erick B</b></sub>](https://github.com/erickeno)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=erickeno "Code") | [<img src="https://avatars2.githubusercontent.com/u/15269328?v=4" width="100px;"/><br /><sub><b>Erik Condie</b></sub>](https://www.erikcondie.com)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=econdie "Code") [⚠️](https://github.com/garmeeh/next-seo/commits?author=econdie "Tests") [💡](#example-econdie "Examples") [🤔](#ideas-econdie "Ideas, Planning, & Feedback") |
+| :---: | :---: | :---: | :---: |
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

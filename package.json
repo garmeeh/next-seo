@@ -1,6 +1,6 @@
 {
   "name": "next-seo",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "SEO plugin for Next.js projects",
   "main": "dist/index.js",
   "files": [
@@ -20,7 +20,9 @@
     "lint": "eslint src",
     "build": "babel --copy-files --out-dir dist --ignore *.spec.js,*.snap src",
     "validate": "npm-run-all --parallel lint build",
-    "format": "prettier"
+    "format": "prettier",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "prettier": {
     "singleQuote": true,
@@ -47,6 +49,7 @@
   },
   "homepage": "https://github.com/garmeeh/next-seo#readme",
   "devDependencies": {
+    "all-contributors-cli": "^5.4.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",

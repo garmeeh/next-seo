@@ -1,0 +1,55 @@
+{
+  "projectName": "next-seo",
+  "projectOwner": "garmeeh",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "garmeeh",
+      "name": "Gary Meehan",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/13333582?v=4",
+      "profile": "https://www.garymeehan.ie/",
+      "contributions": [
+        "code",
+        "doc",
+        "example",
+        "test"
+      ]
+    },
+    {
+      "login": "JeromeFitz",
+      "name": "Jerome Fitzgerald",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3099369?v=4",
+      "profile": "https://www.jeromefitzgerald.com/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "erickeno",
+      "name": "erick B",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/3820632?v=4",
+      "profile": "https://github.com/erickeno",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "econdie",
+      "name": "Erik Condie",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/15269328?v=4",
+      "profile": "https://www.erikcondie.com",
+      "contributions": [
+        "code",
+        "test",
+        "example",
+        "ideas"
+      ]
+    }
+  ]
+}
