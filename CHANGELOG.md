@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.5.0 - 23-12-2018
+
+### Added
+
+- Support for Logo JSON-LD [PR #25](https://github.com/garmeeh/next-seo/pull/25)
+
 ## v1.4.0 - 22-12-2018
 
 ### Added
