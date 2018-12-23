@@ -421,8 +421,8 @@ Local business is supported with a sub-set of properties.
     addressCountry: 'US',
   }}
   geo={{
-    latitude: 37.293058,
-    longitude: -121.988331,
+    latitude: '37.293058',
+    longitude: '-121.988331',
   }}
   images={[
     'https://example.com/photos/1x1/photo.jpg',
@@ -454,7 +454,7 @@ Local business is supported with a sub-set of properties.
 | `geo`           | Geographic coordinates of the business.                                       |
 | `geo.latitude`  | The latitude of the business location                                         |
 | `geo.longitude` | The longitude of the business location                                        |
-| `image`         | An image or images of the business.                                           |
+| `images`        | An image or images of the business.                                           |
 | `telephone`     | A business phone number meant to be the primary contact method for customers. |
 | `url`           | The fully-qualified URL of the specific business location.                    |
 

@@ -64,8 +64,8 @@ export default () => (
         addressCountry: 'US',
       }}
       geo={{
-        latitude: 37.293058,
-        longitude: -121.988331,
+        latitude: '37.293058',
+        longitude: '-121.988331',
       }}
       images={[
         'https://example.com/photos/1x1/photo.jpg',

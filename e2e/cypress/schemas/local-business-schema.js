@@ -124,8 +124,8 @@ const socialProfile100 = {
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 37.293058,
-      longitude: -121.988331,
+      latitude: '37.293058',
+      longitude: '-121.988331',
     },
     url: 'http://www.example.com/store-locator/sl/San-Jose-Westgate-Store/1427',
     telephone: '+14088717984',
