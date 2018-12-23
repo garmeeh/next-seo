@@ -571,6 +571,35 @@ export default () => (
 );
 ```
 
+### Logo
+
+```jsx
+import React from 'react';
+import { LogoJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Logo JSON-LD</h1>
+    <LogoJsonLd
+      logo="http://www.your-site.com/images/logo.jpg"
+      url="http://www.your-site.com"
+    />
+  </>
+);
+```
+
+**Required properties**
+
+| Property | Info |
+| -------- | ---- |
+
+
+|
+| `url` | The URL of the website associated with the logo. [Logo guidelines](https://developers.google.com/search/docs/data-types/logo#definitions)  
+|
+| `logo` | URL of a logo that is representative of the organization.
+|
+
 ### Product
 
 ```jsx

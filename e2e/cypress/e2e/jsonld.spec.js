@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 5;
+const expectedJSONResults = 6;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -122,12 +122,37 @@ describe('Validates JSON-LD For:', () => {
       });
   });
 
-  it('Product', () => {
+  it('Logo', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
         const jsonLD = JSON.parse(tags[3].innerHTML);
+        assertSchema(schemas)('Logo', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Logo Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[3].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'http://schema.org',
+          '@type': 'Organization',
+          url: 'http://www.your-site.com',
+          logo: 'http://www.your-site.com/images/logo.jpg',
+        });
+      });
+  });
+
+  it('Product', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[4].innerHTML);
         assertSchema(schemas)('Product', '1.0.0')(jsonLD);
       });
   });
@@ -137,7 +162,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[3].innerHTML);
+        const jsonLD = JSON.parse(tags[4].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org/',
           '@type': 'Product',
@@ -196,7 +221,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[4].innerHTML);
+        const jsonLD = JSON.parse(tags[5].innerHTML);
         assertSchema(schemas)('Social Profile', '1.0.0')(jsonLD);
       });
   });
@@ -206,7 +231,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[4].innerHTML);
+        const jsonLD = JSON.parse(tags[5].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
           '@type': 'Person',
