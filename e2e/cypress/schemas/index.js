@@ -4,6 +4,7 @@ import articleVersions from './article-schema';
 import blogVersions from './blog-schema';
 import courseVersions from './course-schema';
 import localBusiness from './local-business-schema';
+import logoVersions from './logo-schema';
 import productVersions from './product-schema';
 import socialProfileVersions from './social-profile-schema';
 
@@ -12,6 +13,7 @@ const schemas = combineSchemas(
   blogVersions,
   courseVersions,
   localBusiness,
+  logoVersions,
   productVersions,
   socialProfileVersions,
 );

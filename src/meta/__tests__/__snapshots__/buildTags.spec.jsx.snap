@@ -1,5 +1,329 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Article SEO renders correctly 1`] = `
+<div>
+  <title>
+    Next SEO | Article Page Title
+  </title>
+  <meta
+    content="index,follow"
+    name="robots"
+  />
+  <meta
+    content="index,follow"
+    name="googlebot"
+  />
+  <meta
+    content="Description of article page"
+    name="description"
+  />
+  <meta
+    content="summary_large_image"
+    name="twitter:card"
+  />
+  <meta
+    content="@site"
+    name="twitter:site"
+  />
+  <meta
+    content="@handle"
+    name="twitter:creator"
+  />
+  <meta
+    content="https://www.example.com/articles/article-title"
+    property="og:url"
+  />
+  <meta
+    content="article"
+    property="og:type"
+  />
+  <meta
+    content="2017-06-21T23:04:13Z"
+    property="article:published_time"
+  />
+  <meta
+    content="2018-01-21T18:04:43Z"
+    property="article:modified_time"
+  />
+  <meta
+    content="2022-12-21T22:04:11Z"
+    property="article:expiration_time"
+  />
+  <meta
+    content="https://www.example.com/authors/@firstnameA-lastnameA"
+    property="article:author"
+  />
+  <meta
+    content="https://www.example.com/authors/@firstnameB-lastnameB"
+    property="article:author"
+  />
+  <meta
+    content="Section II"
+    property="article:section"
+  />
+  <meta
+    content="Tag A"
+    property="article:tag"
+  />
+  <meta
+    content="Tag B"
+    property="article:tag"
+  />
+  <meta
+    content="Open Graph Article Title"
+    property="og:title"
+  />
+  <meta
+    content="Description of open graph article"
+    property="og:description"
+  />
+  <meta
+    content="https://www.test.ie/og-image-article-title-01.jpg"
+    property="og:image"
+  />
+  <meta
+    content="Og Image Alt Article Title A"
+    property="og:image:alt"
+  />
+  <meta
+    content="850"
+    property="og:image:width"
+  />
+  <meta
+    content="650"
+    property="og:image:height"
+  />
+  <meta
+    content="https://www.test.ie/og-image-article-title-02.jpg"
+    property="og:image"
+  />
+  <meta
+    content="Og Image Alt Article Title B"
+    property="og:image:alt"
+  />
+  <meta
+    content="950"
+    property="og:image:width"
+  />
+  <meta
+    content="850"
+    property="og:image:height"
+  />
+  <meta
+    content="SiteName"
+    property="og:site_name"
+  />
+</div>
+`;
+
+exports[`Book SEO renders correctly 1`] = `
+<div>
+  <title>
+    Next SEO | Book Page Title
+  </title>
+  <meta
+    content="index,follow"
+    name="robots"
+  />
+  <meta
+    content="index,follow"
+    name="googlebot"
+  />
+  <meta
+    content="Description of book page"
+    name="description"
+  />
+  <meta
+    content="summary_large_image"
+    name="twitter:card"
+  />
+  <meta
+    content="@site"
+    name="twitter:site"
+  />
+  <meta
+    content="@handle"
+    name="twitter:creator"
+  />
+  <meta
+    content="https://www.example.com/books/book-title"
+    property="og:url"
+  />
+  <meta
+    content="book"
+    property="og:type"
+  />
+  <meta
+    content="https://www.example.com/authors/@firstnameA-lastnameA"
+    property="book:author"
+  />
+  <meta
+    content="https://www.example.com/authors/@firstnameB-lastnameB"
+    property="book:author"
+  />
+  <meta
+    content="978-3-16-148410-0"
+    property="book:isbn"
+  />
+  <meta
+    content="2018-09-17T11:08:13Z"
+    property="book:release_date"
+  />
+  <meta
+    content="Tag A"
+    property="book:tag"
+  />
+  <meta
+    content="Tag B"
+    property="book:tag"
+  />
+  <meta
+    content="Open Graph Book Title"
+    property="og:title"
+  />
+  <meta
+    content="Description of open graph book"
+    property="og:description"
+  />
+  <meta
+    content="https://www.test.ie/og-image-book-title-01.jpg"
+    property="og:image"
+  />
+  <meta
+    content="Og Image Alt Book Title A"
+    property="og:image:alt"
+  />
+  <meta
+    content="850"
+    property="og:image:width"
+  />
+  <meta
+    content="650"
+    property="og:image:height"
+  />
+  <meta
+    content="https://www.test.ie/og-image-book-title-02.jpg"
+    property="og:image"
+  />
+  <meta
+    content="Og Image Alt Book Title B"
+    property="og:image:alt"
+  />
+  <meta
+    content="950"
+    property="og:image:width"
+  />
+  <meta
+    content="850"
+    property="og:image:height"
+  />
+  <meta
+    content="SiteName"
+    property="og:site_name"
+  />
+</div>
+`;
+
+exports[`Profile SEO renders correctly 1`] = `
+<div>
+  <title>
+    Next SEO | Profile Page Title
+  </title>
+  <meta
+    content="index,follow"
+    name="robots"
+  />
+  <meta
+    content="index,follow"
+    name="googlebot"
+  />
+  <meta
+    content="Description of profile page"
+    name="description"
+  />
+  <meta
+    content="summary_large_image"
+    name="twitter:card"
+  />
+  <meta
+    content="@site"
+    name="twitter:site"
+  />
+  <meta
+    content="@handle"
+    name="twitter:creator"
+  />
+  <meta
+    content="https://www.example.com/@firstlast123"
+    property="og:url"
+  />
+  <meta
+    content="profile"
+    property="og:type"
+  />
+  <meta
+    content="First"
+    property="profile:first_name"
+  />
+  <meta
+    content="Last"
+    property="profile:last_name"
+  />
+  <meta
+    content="firstlast123"
+    property="profile:username"
+  />
+  <meta
+    content="male"
+    property="profile:gender"
+  />
+  <meta
+    content="Open Graph Profile Title"
+    property="og:title"
+  />
+  <meta
+    content="Description of open graph profile"
+    property="og:description"
+  />
+  <meta
+    content="https://www.test.ie/og-image-firstlast123-01.jpg"
+    property="og:image"
+  />
+  <meta
+    content="Og Image Alt firstlast123 A"
+    property="og:image:alt"
+  />
+  <meta
+    content="850"
+    property="og:image:width"
+  />
+  <meta
+    content="650"
+    property="og:image:height"
+  />
+  <meta
+    content="https://www.test.ie/og-image-firstlast123-02.jpg"
+    property="og:image"
+  />
+  <meta
+    content="Og Image Alt firstlast123 B"
+    property="og:image:alt"
+  />
+  <meta
+    content="950"
+    property="og:image:width"
+  />
+  <meta
+    content="850"
+    property="og:image:height"
+  />
+  <meta
+    content="SiteName"
+    property="og:site_name"
+  />
+</div>
+`;
+
 exports[`renders correctly 1`] = `
 <div>
   <title>

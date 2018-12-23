@@ -169,6 +169,31 @@ describe('Validates JSON-LD For:', () => {
       });
   });
 
+  it('Logo', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[3].innerHTML);
+        assertSchema(schemas)('Logo', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Logo Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[3].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'http://schema.org',
+          '@type': 'Organization',
+          url: 'http://www.your-site.com',
+          logo: 'http://www.your-site.com/images/logo.jpg',
+        });
+      });
+  });
+
   it('Product', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')

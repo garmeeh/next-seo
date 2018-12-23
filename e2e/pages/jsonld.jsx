@@ -4,6 +4,7 @@ import {
   BlogJsonLd,
   CourseJsonLd,
   LocalBusinessJsonLd,
+  LogoJsonLd,
   ProductJsonLd,
   SocialProfileJsonLd,
 } from '../../dist';
@@ -72,6 +73,11 @@ export default () => (
         'https://example.com/photos/4x3/photo.jpg',
         'https://example.com/photos/16x9/photo.jpg',
       ]}
+    />
+
+    <LogoJsonLd
+      logo="http://www.your-site.com/images/logo.jpg"
+      url="http://www.your-site.com"
     />
 
     <ProductJsonLd
