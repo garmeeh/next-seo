@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 6;
+const expectedJSONResults = 7;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
