@@ -174,7 +174,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[3].innerHTML);
+        const jsonLD = JSON.parse(tags[4].innerHTML);
         assertSchema(schemas)('Logo', '1.0.0')(jsonLD);
       });
   });
@@ -184,7 +184,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[3].innerHTML);
+        const jsonLD = JSON.parse(tags[4].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
           '@type': 'Organization',
@@ -199,7 +199,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[4].innerHTML);
+        const jsonLD = JSON.parse(tags[5].innerHTML);
         assertSchema(schemas)('Product', '1.0.0')(jsonLD);
       });
   });
@@ -209,7 +209,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[4].innerHTML);
+        const jsonLD = JSON.parse(tags[5].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org/',
           '@type': 'Product',
@@ -268,7 +268,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[5].innerHTML);
+        const jsonLD = JSON.parse(tags[6].innerHTML);
         assertSchema(schemas)('Social Profile', '1.0.0')(jsonLD);
       });
   });
@@ -278,7 +278,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[5].innerHTML);
+        const jsonLD = JSON.parse(tags[6].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
           '@type': 'Person',
