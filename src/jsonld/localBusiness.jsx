@@ -5,7 +5,7 @@ import Head from 'next/head';
 import markup from '../utils/markup';
 
 const buildImages = images =>
-  images.length ? `"image": [${images.map(image => `"${image}"`)}]` : '';
+  images.length ? `"image": [${images.map(image => `"${image}"`)}],` : '';
 
 const buildGeo = geo => `
   "geo": {
@@ -47,13 +47,13 @@ const LocalBusinessJsonLd = ({
     "@context": "http://schema.org",
     "@type": "${type}",
     "@id": "${id}",
-    "name": "${name}",
     ${description ? `"description": "${description}",` : ''}
     ${url ? `"url": "${url}",` : ''}
     ${telephone ? `"telephone": "${telephone}",` : ''}
     ${buildAddress(address)}
     ${geo ? `${buildGeo(geo)}` : ''}
     ${buildImages(images)} 
+    "name": "${name}"
   }`;
 
   return (
