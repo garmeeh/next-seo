@@ -577,7 +577,7 @@ export default () => (
 
 Local business is supported with a sub-set of properties.
 
-````jsx
+```jsx
 <LocalBusinessJsonLd
   type="Store"
   id="http://davesdeptstore.example.com"
@@ -602,6 +602,7 @@ Local business is supported with a sub-set of properties.
     'https://example.com/photos/16x9/photo.jpg',
   ]}
 />
+```
 
 **Required properties**
 
@@ -619,15 +620,15 @@ Local business is supported with a sub-set of properties.
 
 **Supported properties**
 
-| Property        | Info                                                                          |
-| --------------- | ----------------------------------------------------------------------------- |
-| `description`   | Description of the business location                                          |
-| `geo`           | Geographic coordinates of the business.                                       |
-| `geo.latitude`  | The latitude of the business location                                         |
-| `geo.longitude` | The longitude of the business location                                        |
-| `images`        | An image or images of the business.                                           |
-| `telephone`     | A business phone number meant to be the primary contact method for customers. |
-| `url`           | The fully-qualified URL of the specific business location.                    |
+| Property        | Info                                                                                |
+| --------------- | ----------------------------------------------------------------------------------- |
+| `description`   | Description of the business location                                                |
+| `geo`           | Geographic coordinates of the business.                                             |
+| `geo.latitude`  | The latitude of the business location                                               |
+| `geo.longitude` | The longitude of the business location                                              |
+| `images`        | An image or images of the business. Required for valid markup depending on the type |
+| `telephone`     | A business phone number meant to be the primary contact method for customers.       |
+| `url`           | The fully-qualified URL of the specific business location.                          |
 
 ### Logo
 
@@ -644,7 +645,7 @@ export default () => (
     />
   </>
 );
-````
+```
 
 | Property | Info                                                                                                                                      |
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
