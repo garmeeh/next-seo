@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.6.0 - 24-12-2018
+
+### Added
+
+- Support for Local Business JSON-LD [PR #26](https://github.com/garmeeh/next-seo/pull/26)
+
 ## v1.5.0 - 23-12-2018
 
 ### Added

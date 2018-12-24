@@ -41,8 +41,6 @@ const LocalBusinessJsonLd = ({
   geo,
   images,
 }) => {
-  // NOTE: Images has no trailing , as it would make the content invalid
-  // If you add more properties update buildImages
   const jslonld = `{
     "@context": "http://schema.org",
     "@type": "${type}",
@@ -52,7 +50,7 @@ const LocalBusinessJsonLd = ({
     ${telephone ? `"telephone": "${telephone}",` : ''}
     ${buildAddress(address)}
     ${geo ? `${buildGeo(geo)}` : ''}
-    ${buildImages(images)} 
+    ${buildImages(images)}
     "name": "${name}"
   }`;
 
