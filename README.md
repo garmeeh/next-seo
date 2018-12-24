@@ -630,6 +630,10 @@ Local business is supported with a sub-set of properties.
 | `telephone`     | A business phone number meant to be the primary contact method for customers.       |
 | `url`           | The fully-qualified URL of the specific business location.                          |
 
+**NOTE:**
+
+Images are required for most of the types that you can use for `LocalBusiness`, if in doubt you should add an image. You can check your generated JSON over at Google's [Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool)
+
 ### Logo
 
 ```jsx
