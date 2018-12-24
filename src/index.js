@@ -2,6 +2,7 @@ import DefaultSeo from './meta/defaultSEO';
 import ArticleJsonLd from './jsonld/article';
 import BlogJsonLd from './jsonld/blog';
 import CourseJsonLd from './jsonld/course';
+import LocalBusinessJsonLd from './jsonld/localBusiness';
 import LogoJsonLd from './jsonld/logo';
 import ProductJsonLd from './jsonld/product';
 import SocialProfileJsonLd from './jsonld/socialProfile';
@@ -11,6 +12,7 @@ export {
   ArticleJsonLd,
   BlogJsonLd,
   CourseJsonLd,
+  LocalBusinessJsonLd,
   LogoJsonLd,
   ProductJsonLd,
   SocialProfileJsonLd,

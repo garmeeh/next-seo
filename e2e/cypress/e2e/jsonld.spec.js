@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 6;
+const expectedJSONResults = 7;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -122,12 +122,59 @@ describe('Validates JSON-LD For:', () => {
       });
   });
 
-  it('Logo', () => {
+  it('Local Business', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
         const jsonLD = JSON.parse(tags[3].innerHTML);
+        assertSchema(schemas)('Local Business', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Local Business', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[3].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'http://schema.org',
+          '@type': 'Store',
+          '@id': 'http://davesdeptstore.example.com',
+          name: "Dave's Department Store",
+          description: "Dave's latest department store in San Jose, now open",
+          url:
+            'http://www.example.com/store-locator/sl/San-Jose-Westgate-Store/1427',
+          telephone: '+14088717984',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: '1600 Saratoga Ave',
+            addressLocality: 'San Jose',
+            addressRegion: 'CA',
+            postalCode: '95129',
+            addressCountry: 'US',
+          },
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: '37.293058',
+            longitude: '-121.988331',
+          },
+          image: [
+            'https://example.com/photos/1x1/photo.jpg',
+            'https://example.com/photos/4x3/photo.jpg',
+            'https://example.com/photos/16x9/photo.jpg',
+          ],
+        });
+      });
+  });
+
+  it('Logo', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[4].innerHTML);
         assertSchema(schemas)('Logo', '1.0.0')(jsonLD);
       });
   });
@@ -137,7 +184,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[3].innerHTML);
+        const jsonLD = JSON.parse(tags[4].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
           '@type': 'Organization',
@@ -152,7 +199,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[4].innerHTML);
+        const jsonLD = JSON.parse(tags[5].innerHTML);
         assertSchema(schemas)('Product', '1.0.0')(jsonLD);
       });
   });
@@ -162,7 +209,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[4].innerHTML);
+        const jsonLD = JSON.parse(tags[5].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org/',
           '@type': 'Product',
@@ -221,7 +268,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[5].innerHTML);
+        const jsonLD = JSON.parse(tags[6].innerHTML);
         assertSchema(schemas)('Social Profile', '1.0.0')(jsonLD);
       });
   });
@@ -231,7 +278,7 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[5].innerHTML);
+        const jsonLD = JSON.parse(tags[6].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
           '@type': 'Person',
