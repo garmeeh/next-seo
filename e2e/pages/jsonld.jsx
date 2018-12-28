@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   ArticleJsonLd,
+  BreadcrumbJsonLd,
   BlogJsonLd,
   CourseJsonLd,
   LocalBusinessJsonLd,
@@ -27,6 +28,31 @@ export default () => (
       publisherName="Gary Meehan"
       publisherLogo="https://www.example.com/photos/logo.jpg"
       description="This is a mighty good description of this article."
+    />
+
+    <BreadcrumbJsonLd
+      itemListElements={[
+        {
+          position: 1,
+          name: 'Books',
+          item: 'https://example.com/books',
+        },
+        {
+          position: 2,
+          name: 'Authors',
+          item: 'https://example.com/books/authors',
+        },
+        {
+          position: 3,
+          name: 'Ann Leckie',
+          item: 'https://example.com/books/authors/annleckie',
+        },
+        {
+          position: 4,
+          name: 'Ancillary Justice',
+          item: 'https://example.com/books/authors/ancillaryjustice',
+        },
+      ]}
     />
 
     <BlogJsonLd

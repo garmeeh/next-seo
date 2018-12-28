@@ -1,6 +1,7 @@
 import { combineSchemas } from '@cypress/schema-tools';
 
 import articleVersions from './article-schema';
+import breadCrumbVersions from './breadcrumb-schema';
 import blogVersions from './blog-schema';
 import courseVersions from './course-schema';
 import localBusiness from './local-business-schema';
@@ -10,6 +11,7 @@ import socialProfileVersions from './social-profile-schema';
 
 const schemas = combineSchemas(
   articleVersions,
+  breadCrumbVersions,
   blogVersions,
   courseVersions,
   localBusiness,

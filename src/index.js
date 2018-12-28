@@ -1,5 +1,6 @@
 import DefaultSeo from './meta/defaultSEO';
 import ArticleJsonLd from './jsonld/article';
+import BreadcrumbJsonLd from './jsonld/breadcrumb';
 import BlogJsonLd from './jsonld/blog';
 import CourseJsonLd from './jsonld/course';
 import LocalBusinessJsonLd from './jsonld/localBusiness';
@@ -11,6 +12,7 @@ export default DefaultSeo;
 export {
   ArticleJsonLd,
   BlogJsonLd,
+  BreadcrumbJsonLd,
   CourseJsonLd,
   LocalBusinessJsonLd,
   LogoJsonLd,

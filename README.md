@@ -492,6 +492,7 @@ Google has excellent content on JSON-LD -> [HERE](https://developers.google.com/
 Below you will find a very basic page implementing each of the available JSON-LD types:
 
 - [Article](#article)
+- [Breadcrumb](#breadcrumb)
 - [Blog](#blog)
 - [Course](#course)
 - [Local Business](#local-business)
@@ -527,6 +528,52 @@ export default () => (
   </>
 );
 ```
+
+### Breadcrumb
+
+```jsx
+import React from 'react';
+import { BreadcrumbJsonLb } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Breadcrumb JSON-LD</h1>
+    <BreadcrumbJsonLd
+      itemListElements={[
+        {
+          position: 1,
+          name: 'Books',
+          item: 'https://example.com/books',
+        },
+        {
+          position: 2,
+          name: 'Authors',
+          item: 'https://example.com/books/authors',
+        },
+        {
+          position: 3,
+          name: 'Ann Leckie',
+          item: 'https://example.com/books/authors/annleckie',
+        },
+        {
+          position: 4,
+          name: 'Ancillary Justice',
+          item: 'https://example.com/books/authors/ancillaryjustice',
+        },
+      ]}
+    />
+  </>
+);
+```
+
+**Required properties**
+
+| Property                    | Info                                                                                                     |
+| --------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `itemListElements`          |                                                                                                          |
+| `itemListElements.position` | The position of the breadcrumb in the breadcrumb trail. Position 1 signifies the beginning of the trail. |
+| `itemListElements.name`     | The title of the breadcrumb displayed for the user.                                                      |
+| `itemListElements.item`     | The URL to the webpage that represents the breadcrumb.                                                   |
 
 ### Blog
 
