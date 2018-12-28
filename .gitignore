@@ -3,3 +3,4 @@ node_modules
 .next
 .history
 dist
+e2e/cypress/videos
