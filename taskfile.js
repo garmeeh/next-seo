@@ -25,12 +25,12 @@ export async function build(task) {
   await task.serial(['compile']);
 }
 
-export default async function(task) {
+export async function watch(task) {
   await task.clear('dist');
   await task.start('build');
   await task.watch('src/*.+(js|jsx|ts|tsx)', 'src');
 }
 
-export async function release(task) {
+export default async function(task) {
   await task.clear('dist').start('build');
 }

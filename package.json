@@ -19,6 +19,7 @@
     "prebuild": "rimraf ./build && rimraf ./dist",
     "lint": "eslint src",
     "build": "taskr",
+    "build:watch": "taskr watch",
     "validate": "npm-run-all --parallel lint build",
     "format": "prettier",
     "contributors:add": "all-contributors add",
