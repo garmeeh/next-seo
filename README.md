@@ -533,7 +533,7 @@ export default () => (
 
 ```jsx
 import React from 'react';
-import { BreadcrumbJsonLb } from 'next-seo';
+import { BreadcrumbJsonLd } from 'next-seo';
 
 export default () => (
   <>

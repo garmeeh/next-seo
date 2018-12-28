@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.7.0 - 28-12-2018
+
+### Added
+
+- Support for Breadcrumb JSON-LD [PR #30](https://github.com/garmeeh/next-seo/pull/30)
+
 ## v1.6.0 - 24-12-2018
 
 ### Added

@@ -1,6 +1,6 @@
 {
   "name": "next-seo",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "SEO plugin for Next.js projects",
   "main": "dist/index.js",
   "files": [
