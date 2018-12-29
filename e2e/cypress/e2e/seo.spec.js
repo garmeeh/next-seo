@@ -96,6 +96,11 @@ describe('SEO Meta', () => {
       'content',
       'SiteName A',
     );
+    cy.get('head meta[name="fb:app_id"]').should(
+      'have.attr',
+      'content',
+      '1234567890',
+    );
     cy.get('head meta[name="twitter:site"]').should(
       'have.attr',
       'content',
@@ -208,6 +213,11 @@ describe('SEO Meta', () => {
       'have.attr',
       'content',
       'SiteName B',
+    );
+    cy.get('head meta[name="fb:app_id"]').should(
+      'have.attr',
+      'content',
+      '987654321',
     );
     cy.get('head meta[name="twitter:site"]').should(
       'have.attr',

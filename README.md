@@ -107,6 +107,16 @@ noindex: true;
 
 Add this to your default SEO if you wish to **no-index** your site. This is great when you are in a pre-release phase. This can also be used on a page per page basis.
 
+**facebook**
+
+```js
+facebook: {
+  appId: 1234567890,
+}.
+```
+
+Add this to your SEO config to include the fb:app_id meta if you need to enable Facebook insights for your site. Information regarding this can be found in facebook's [documentation](https://developers.facebook.com/docs/sharing/webmasters/)
+
 **titleTemplate**
 
 Replaces `%s` with your title string
@@ -478,7 +488,7 @@ export default () => (
         },
       }}
     />
-    <p>Book</p>
+    <p>Profile</p>
   </>
 );
 ```
