@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.7.0 - 28-12-2018
+
+### Added
+
+- Support for Breadcrumb JSON-LD [PR #30](https://github.com/garmeeh/next-seo/pull/30)
+
+## v1.6.0 - 24-12-2018
+
+### Added
+
+- Support for Local Business JSON-LD [PR #26](https://github.com/garmeeh/next-seo/pull/26)
+
+## v1.5.0 - 23-12-2018
+
+### Added
+
+- Support for Logo JSON-LD [PR #25](https://github.com/garmeeh/next-seo/pull/25)
+
+## v1.4.0 - 22-12-2018
+
+### Added
+
+- Support for Open Graph: Profile, Book and Article [PR #22](https://github.com/garmeeh/next-seo/pull/22)
+- [all-contributors-cli](https://www.npmjs.com/package/all-contributors-cli)
+
 ## v1.3.0 - 18-12-2018
 
 ### Added
