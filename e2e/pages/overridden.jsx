@@ -37,6 +37,9 @@ export default () => (
           site: '@siteb',
           cardType: 'summary_large_image',
         },
+        facebook: {
+          appId: 987654321,
+        },
       }}
     />
     <h1>Overridden Seo</h1>

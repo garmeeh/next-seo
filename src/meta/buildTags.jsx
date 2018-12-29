@@ -81,6 +81,18 @@ const buildTags = config => {
     }
   }
 
+  if (config.hasOwnProperty('facebook')) {
+    if (config.facebook.appId) {
+      tagsToRender.push(
+        <meta
+          key="fb:app_id"
+          name="fb:app_id"
+          content={config.facebook.appId}
+        />,
+      );
+    }
+  }
+
   if (config.hasOwnProperty('openGraph')) {
     if (config.openGraph.url) {
       tagsToRender.push(
