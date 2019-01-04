@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.8.0 - 04/01/2019
+
+### Added
+
+- Support facebook meta (fb:app_id) to enable Facebook Insights [PR #34](https://github.com/garmeeh/next-seo/pull/34)
+
 ## v1.7.0 - 28-12-2018
 
 ### Added
