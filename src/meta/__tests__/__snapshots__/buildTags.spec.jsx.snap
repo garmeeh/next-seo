@@ -354,6 +354,10 @@ exports[`renders correctly 1`] = `
     name="twitter:creator"
   />
   <meta
+    content="1234567890"
+    name="fb:app_id"
+  />
+  <meta
     content="https://www.url.ie"
     property="og:url"
   />

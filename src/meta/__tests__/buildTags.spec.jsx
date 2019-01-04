@@ -32,6 +32,9 @@ const SEO = {
     site: '@site',
     cardType: 'summary_large_image',
   },
+  facebook: {
+    appId: 1234567890,
+  },
 };
 
 it('renders correctly', () => {
@@ -59,6 +62,7 @@ it('returns full array for default seo object', () => {
   const twitterCard = container.querySelectorAll(
     'meta[content="summary_large_image"]',
   );
+  const facebookAppId = container.querySelectorAll('meta[name="fb:app_id"]');
   const twitterCardTag = container.querySelectorAll(
     'meta[name="twitter:card"]',
   );
@@ -134,6 +138,7 @@ it('returns full array for default seo object', () => {
   expect(Array.from(index).length).toBe(2);
   expect(Array.from(description).length).toBe(1);
   expect(Array.from(descriptionTag).length).toBe(1);
+  expect(Array.from(facebookAppId).length).toBe(1);
   expect(Array.from(twitterCard).length).toBe(1);
   expect(Array.from(twitterCardTag).length).toBe(1);
   expect(Array.from(twitterHandle).length).toBe(1);
