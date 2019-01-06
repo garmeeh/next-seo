@@ -1,6 +1,6 @@
 import { getByText, render } from 'react-testing-library';
 
-import buildTags from '../buildTags';
+import buildTags from '../../src/meta/buildTags';
 
 const SEO = {
   title: 'This is a test title.',

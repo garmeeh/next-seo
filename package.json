@@ -16,10 +16,9 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "prepublishOnly": "npm run validate",
-    "prebuild": "rimraf ./build && rimraf ./dist",
+    "prebuild": "rimraf ./dist",
     "lint": "eslint src",
-    "build": "taskr",
-    "build:watch": "taskr watch",
+    "build": "babel --copy-files --out-dir dist --ignore \"*.spec.js\",\"*.snap\" src",
     "validate": "npm-run-all --parallel lint build",
     "format": "prettier",
     "contributors:add": "all-contributors add",
@@ -53,6 +52,7 @@
     "babel-core": "7.0.0-bridge.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/plugin-syntax-jsx": "^7.2.0",
@@ -61,10 +61,6 @@
     "@babel/preset-env": "^7.2.3",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.2.0",
-    "@taskr/babel": "1.1.0-next.1",
-    "@taskr/clear": "^1.1.0",
-    "@taskr/esnext": "^1.1.0",
-    "@taskr/watch": "^1.1.0",
     "all-contributors-cli": "^5.4.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
@@ -90,8 +86,7 @@
     "react-dom": "^16.7.0",
     "react-testing-library": "^5.4.2",
     "regenerator-runtime": "^0.13.1",
-    "rimraf": "^2.6.2",
-    "taskr": "^1.1.0"
+    "rimraf": "^2.6.2"
   },
   "husky": {
     "hooks": {
@@ -106,11 +101,6 @@
     "*.{js,jsx}": [
       "eslint --fix",
       "git add"
-    ]
-  },
-  "taskr": {
-    "requires": [
-      "./taskfile.js"
     ]
   }
 }
