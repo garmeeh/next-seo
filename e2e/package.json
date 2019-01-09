@@ -14,12 +14,12 @@
     "start": "next start"
   },
   "dependencies": {
-    "@cypress/schema-tools": "^4.2.2",
-    "cypress": "^3.1.0",
-    "cypress-testing-library": "^2.2.1",
-    "next": "7.0.2-canary.35",
+    "@cypress/schema-tools": "^4.6.5",
+    "cypress": "^3.1.4",
+    "cypress-testing-library": "^2.3.4",
+    "next": "^8.0.0-canary.2",
     "npm-run-all": "^4.1.5",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   }
 }
