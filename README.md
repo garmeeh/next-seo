@@ -2,17 +2,15 @@
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
 
-Next SEO is a plug in that makes managing your SEO easier in Next.js projects.
-
-This plugin is compatible with version`6.0.0`+ of Next.js. Some features will only fully work with version `7.0.0-canary.0`+ but are backwards compatible and still achieve a basic result of what's intended. See [Fully Supported in Next 7+ Only](#fully-supported-in-next-7+-only) for details.
+Next SEO is a plug in that makes managing your SEO easier in Next.js projects and is compatible with version`6.0.0`+ of Next.js.
 
 ## Usage
 
-`NextSeo` works by including it on pages where you would like SEO attributes to added. Once included on the page you pass it a configuration object with the pages SEO properties. This can be dynamically generated at a page level or in some cases your API may return an SEO object.
+`NextSeo` works by including it on pages where you would like SEO attributes to added. Once included on the page you pass it a configuration object with the page's SEO properties. This can be dynamically generated at a page level or in some cases your API may return an SEO object.
 
 ### Set Up
 
-Install it:
+First install it:
 
 ```bash
 npm install --save next-seo
@@ -26,7 +24,7 @@ yarn add next-seo
 
 ### Add SEO to Page
 
-Then you need to import `NextSeo` and pass a `config` object to it. This will render out the tags in the `<head>` for SEO. At a bare minimum it you should add a title and description.
+Then you need to import `NextSeo` and pass a `config` object to it. This will render out the tags in the `<head>` for SEO. At a bare minimum you should add a title and description.
 
 **Example with just title and description:**
 
@@ -104,6 +102,8 @@ Some tools may report this an error. See [Issue #14](https://github.com/garmeeh/
 
 ### Default SEO Configuration
 
+`NextSeo` enables you to set some default SEO that will appear on all pages without needing to do include anything on them. You can also set some defaults and then override these on a page by page basis if needed.
+
 #### Default Config
 
 Create a new file at the root of your directory (or where ever you would normally keep them) `next-seo.config.js`.
@@ -171,6 +171,8 @@ export default class MyApp extends App {
 }
 ```
 
+From now on all of your pages will have the defaults applied.
+
 ### Full Config Options
 
 | Property                           | Type                    | Description                                                                                                                                                                                                                                                                             |
@@ -180,7 +182,7 @@ export default class MyApp extends App {
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                                                                                                                       |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                                                                                                                           |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                                                                                                                              |
-| `twitter.cardType`                 | string                  | The card type, which will be one of “summary”, “summary_large_image”, “app”, or “player”                                                                                                                                                                                                |
+| `twitter.cardType`                 | string                  | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player`                                                                                                                                                                                                |
 | `twitter.site`                     | string                  | @username for the website used in the card footer                                                                                                                                                                                                                                       |
 | `twitter.handle`                   | string                  | @username for the content creator / author (outputs as `twitter:creator`)                                                                                                                                                                                                               |
 | `facebook.appId`                   | number                  | Used for Facebook Insights, you must add a facebook app ID to your page to for it [More Info](#facebook)                                                                                                                                                                                |
@@ -226,13 +228,13 @@ titleTemplate: `%s | Next SEO`
 
 #### No Index
 
-```js
-noindex: true;
-```
+Setting this to `true` will set `no-index`, `no-follow`.
 
-Add this to your default SEO if you wish to **no-index** your site. This is great when you are in a pre-release phase. This can also be used on a page per page basis.
+Add this to your default SEO if you wish to **no-index** your site. This is great when you are in a pre-release phase.
 
-**Example No Index Override:**
+This can also be used on a page per page basis.
+
+**Example No Index on single page:**
 
 If you have a single page that you want no indexed you can achieve this by:
 
@@ -257,8 +259,6 @@ export default () => (
 Twitter will read the `og:title`, `og:image` and `og:description` tags for their card, this is why `next-seo` omits `twitter:title`, `twitter:image` and `twitter:description` so not to duplicate.
 
 Some tools may report this an error. See [Issue #14](https://github.com/garmeeh/next-seo/issues/14)
-
-**cardType**
 
 #### facebook
 
