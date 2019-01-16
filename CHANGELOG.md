@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.9.0 - 16/01/2019
+
+### Changed
+
+- Project now uses `babel@7` thanks to [PR #31](https://github.com/garmeeh/next-seo/pull/31), releasing under a minor version in case of any side effects.
+- Documentation was overhauled [PR #35](https://github.com/garmeeh/next-seo/pull/35)
+
 ## v1.8.0 - 04/01/2019
 
 ### Added
