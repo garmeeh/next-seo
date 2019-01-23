@@ -19,6 +19,7 @@
     "prebuild": "rimraf ./dist",
     "lint": "eslint src",
     "build": "babel src --out-dir dist --no-comments && rimraf ./dist/**/__tests__",
+    "build:watch": "babel --watch src --out-dir dist && rimraf ./dist/**/__tests__",
     "validate": "npm-run-all --parallel lint build",
     "format": "prettier",
     "contributors:add": "all-contributors add",

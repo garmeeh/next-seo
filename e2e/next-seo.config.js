@@ -3,6 +3,7 @@ export default {
   titleTemplate: '%s | Next SEO',
   description: 'Description A',
   canonical: 'https://www.canonical.ie/a',
+  noindex: true,
   openGraph: {
     type: 'website',
     locale: 'en_IE',
