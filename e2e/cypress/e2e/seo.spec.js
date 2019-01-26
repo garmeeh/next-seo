@@ -21,12 +21,12 @@ describe('SEO Meta', () => {
     cy.get('head meta[name="robots"]').should(
       'have.attr',
       'content',
-      'noindex,nofollow',
+      'index,follow',
     );
     cy.get('head meta[name="googlebot"]').should(
       'have.attr',
       'content',
-      'noindex,nofollow',
+      'index,follow',
     );
     cy.get('head meta[property="og:type"]').should(
       'have.attr',
@@ -135,12 +135,12 @@ describe('SEO Meta', () => {
     cy.get('head meta[name="robots"]').should(
       'have.attr',
       'content',
-      'index,follow',
+      'noindex,nofollow',
     );
     cy.get('head meta[name="googlebot"]').should(
       'have.attr',
       'content',
-      'index,follow',
+      'noindex,nofollow',
     );
     cy.get('head meta[property="og:type"]').should(
       'have.attr',
@@ -253,12 +253,12 @@ describe('SEO Meta', () => {
     cy.get('head meta[name="robots"]').should(
       'have.attr',
       'content',
-      'noindex,nofollow',
+      'index,follow',
     );
     cy.get('head meta[name="googlebot"]').should(
       'have.attr',
       'content',
-      'noindex,nofollow',
+      'index,follow',
     );
     cy.get('head meta[property="og:type"]').should(
       'have.attr',
