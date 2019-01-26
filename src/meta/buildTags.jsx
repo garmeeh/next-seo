@@ -2,6 +2,7 @@ import React from 'react';
 
 const defaults = {
   templateTitle: null,
+  noindex: false,
   openGraph: {
     defaultImageHeight: null,
     defaultImageWidth: null,
@@ -23,19 +24,33 @@ const buildTags = config => {
     tagsToRender.push(<title key="title">{updatedTitle}</title>);
   }
 
-  if (!config.noindex) {
+  if (config.noindex === false) {
     tagsToRender.push(
       <meta key="robots" name="robots" content="index,follow" />,
     );
     tagsToRender.push(
       <meta key="googlebot" name="googlebot" content="index,follow" />,
     );
-  } else {
+  } else if (
+    config.noindex ||
+    defaults.noindex ||
+    config.dangerouslySetAllPagesToNoIndex
+  ) {
+    if (config.dangerouslySetAllPagesToNoIndex) {
+      defaults.noindex = true;
+    }
     tagsToRender.push(
       <meta key="robots" name="robots" content="noindex,nofollow" />,
     );
     tagsToRender.push(
       <meta key="googlebot" name="googlebot" content="noindex,nofollow" />,
+    );
+  } else {
+    tagsToRender.push(
+      <meta key="robots" name="robots" content="index,follow" />,
+    );
+    tagsToRender.push(
+      <meta key="googlebot" name="googlebot" content="index,follow" />,
     );
   }
 

@@ -1,6 +1,8 @@
-import { getByText, render } from 'react-testing-library';
+import { getByText, cleanup, render } from 'react-testing-library';
 
 import buildTags from '../buildTags';
+
+afterEach(cleanup);
 
 const SEO = {
   title: 'This is a test title.',
@@ -511,4 +513,36 @@ it('Check profile og type meta', () => {
   expect(Array.from(ogProfileUsernameTag).length).toBe(1);
   expect(Array.from(ogProfileGender).length).toBe(1);
   expect(Array.from(ogProfileGenderTag).length).toBe(1);
+});
+
+it('correctly sets noindex default', () => {
+  const overrideProps = {
+    ...SEO,
+    dangerouslySetAllPagesToNoIndex: true,
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(tags);
+  const index = container.querySelectorAll('meta[content="index,follow"]');
+  const noindex = container.querySelectorAll(
+    'meta[content="noindex,nofollow"]',
+  );
+
+  expect(Array.from(index).length).toBe(0);
+  expect(Array.from(noindex).length).toBe(2);
+});
+
+it('correctly read noindex false', () => {
+  const overrideProps = {
+    ...SEO,
+    noindex: false,
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(tags);
+  const index = container.querySelectorAll('meta[content="index,follow"]');
+  const noindex = container.querySelectorAll(
+    'meta[content="noindex,nofollow"]',
+  );
+
+  expect(Array.from(index).length).toBe(2);
+  expect(Array.from(noindex).length).toBe(0);
 });
