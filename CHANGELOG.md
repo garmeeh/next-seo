@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.10.0 - 26/01/2019
+
+### Added
+
+- Added `dangerouslySetAllPagesToNoIndex` [PR #37](https://github.com/garmeeh/next-seo/pull/37)
+
+### Fixed
+
+- Closed [#36](https://github.com/garmeeh/next-seo/issues/36) by adding `dangerouslySetAllPagesToNoIndex` to allow for the desired behaviour.
+
 ## v1.9.0 - 16/01/2019
 
 ### Changed
