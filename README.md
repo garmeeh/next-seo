@@ -182,6 +182,7 @@ From now on all of your pages will have the defaults applied.
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                                                                                                                       |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                                                                                                                           |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                                                                                                                              |
+| `dangerouslySetAllPagesToNoIndex`  | boolean                 | Only applies when using a custom `_app.js` and applying defaults. Please see [here for more info](#dangerouslySetAllPagesToNoIndex).                                                                                                                                                    |
 | `twitter.cardType`                 | string                  | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player`                                                                                                                                                                                                |
 | `twitter.site`                     | string                  | @username for the website used in the card footer                                                                                                                                                                                                                                       |
 | `twitter.handle`                   | string                  | @username for the content creator / author (outputs as `twitter:creator`)                                                                                                                                                                                                               |
@@ -228,11 +229,9 @@ titleTemplate: `%s | Next SEO`
 
 #### No Index
 
-Setting this to `true` will set `no-index`, `no-follow`.
+Setting this to `true` will set `no-index`, `no-follow`. This works on page by page basis.
 
-Add this to your default SEO if you wish to **no-index** your site. This is great when you are in a pre-release phase.
-
-This can also be used on a page per page basis.
+So this property is a little different than all the others in the sense that setting it as a default does not work as expected. This is due to the fact Next SEO already has a default of `index` as it is an SEO plug in after all. So if you want to globally set `noindex` please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex)
 
 **Example No Index on single page:**
 
@@ -253,6 +252,14 @@ export default () => (
   </>
 );
 ```
+
+#### dangerouslySetAllPagesToNoIndex
+
+If using a [Default Config](#default-config) and you wish to `no-index` your site then you will need to use the `dangerouslySetAllPagesToNoIndex` property.
+
+It has the prefix of `dangerously` because once using a custom a default set up, setting this even at a page level will set `noindex` to true as the default. It is **not** bad to use this, just please be sure you want to `noindex` **EVERY** page. You can override this at a page level if you have a use case to `index` a page. This can be done by setting `noindex: false`.
+
+The only way to unset this, is by removing where you have previously set it to `true`.
 
 #### Twitter
 

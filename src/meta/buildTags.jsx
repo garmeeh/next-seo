@@ -31,8 +31,14 @@ const buildTags = config => {
     tagsToRender.push(
       <meta key="googlebot" name="googlebot" content="index,follow" />,
     );
-  } else if (config.noindex || defaults.noindex) {
-    defaults.noindex = true;
+  } else if (
+    config.noindex ||
+    defaults.noindex ||
+    config.dangerouslySetAllPagesToNoIndex
+  ) {
+    if (config.dangerouslySetAllPagesToNoIndex) {
+      defaults.noindex = true;
+    }
     tagsToRender.push(
       <meta key="robots" name="robots" content="noindex,nofollow" />,
     );
