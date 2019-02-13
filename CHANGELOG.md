@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.10.1 - 13/02/2019
+
+### Added
+
+- Added Next 8.0.0 to `peerDependencies`
+
 ## v1.10.0 - 26/01/2019
 
 ### Added
