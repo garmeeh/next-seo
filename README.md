@@ -574,6 +574,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Breadcrumb](#breadcrumb)
 - [Blog](#blog)
 - [Course](#course)
+- [Corporate Contact](#corporate-contact)
 - [Local Business](#local-business)
 - [Product](#product)
 - [Social Profile](#social-profile)
@@ -698,6 +699,42 @@ export default () => (
   </>
 );
 ```
+
+### Corporate Contact
+
+```jsx
+import React from 'react';
+import { CorporateContactJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Corporate Contact JSON-LD</h1>
+    <CorporateContactJsonLd
+      data-testid="corporate-contact"
+      url="http://www.your-company-site.com"
+      logo="http://www.example.com/logo.png"
+      contactPoints={[
+        {
+          telephone: '+1-401-555-1212',
+          contactType: 'customer service',
+        },
+        {
+          telephone: '+1-401-555-1212',
+          contactType: 'customer service',
+        },
+      ]}
+    />
+  </>
+);
+```
+
+**Required properties**
+
+| Property                    | Info                                                                                            |
+| --------------------------- | ----------------------------------------------------------------------------------------------- |
+| `contactPoints`             |                                                                                                 |
+| `contactPoints.telephone`   | An internationalized version of the phone number, starting with the "+" symbol and country code |
+| `contactPoints.contactType` | Description of the purpose of the phone number i.e. `Technical Support`.                        |
 
 ### Local Business
 
