@@ -1,5 +1,53 @@
 import { versionSchemas } from '@cypress/schema-tools';
 
+const contactPoint100 = {
+  version: {
+    major: 1,
+    minor: 0,
+    patch: 0,
+  },
+  schema: {
+    type: 'object',
+    description: 'Corporate Contact - ContactPoint',
+    properties: {
+      '@type': {
+        type: 'string',
+        description: 'ContactPoint',
+      },
+      telephone: {
+        type: 'string',
+        description: 'Telephone number of the company',
+      },
+      contactType: {
+        type: 'string',
+        description: 'The main usage of the phone number',
+      },
+      areaServed: {
+        type: ['string', 'array'],
+        description: 'Geographical region served',
+      },
+      availableLanguage: {
+        type: ['string', 'array'],
+        description: 'Language spoken',
+      },
+      contactOption: {
+        type: 'string',
+        description: 'Details about the number',
+      },
+    },
+    required: ['@type', 'telephone', 'contactType'],
+    additionalProperties: false,
+  },
+  example: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    telephone: '+1-877-746-0909',
+    areaServed: 'US',
+    availableLanguage: ['English', 'Spanish', 'French'],
+    contactOption: 'TollFree',
+  },
+};
+
 const corporateContact100 = {
   version: {
     major: 1,
@@ -30,26 +78,13 @@ const corporateContact100 = {
       },
       contactPoint: {
         type: 'array',
-        item: {
-          type: 'object',
-          properties: {
-            '@type': {
-              type: 'string',
-              description: 'ContactPoint',
-            },
-            telephone: {
-              type: 'string',
-              description: 'Telephone number of the company',
-            },
-            contactType: {
-              type: 'string',
-              description: 'The main usage of the phone number',
-            },
-          },
+        items: {
+          ...contactPoint100.schema,
         },
+        see: contactPoint100,
       },
     },
-    required: true,
+    required: ['@context', '@type', 'url', 'contactPoint'],
     additionalProperties: false,
   },
   example: {
@@ -57,13 +92,7 @@ const corporateContact100 = {
     '@type': 'Organization',
     url: 'http://www.your-company-site.com',
     logo: 'http://www.example.com/logo.png',
-    contactPoint: [
-      {
-        '@type': 'ContactPoint',
-        telephone: '+1-401-555-1212',
-        contactType: 'customer service',
-      },
-    ],
+    contactPoint: [contactPoint100.example],
   },
 };
 

@@ -710,17 +710,27 @@ export default () => (
   <>
     <h1>Corporate Contact JSON-LD</h1>
     <CorporateContactJsonLd
-      data-testid="corporate-contact"
       url="http://www.your-company-site.com"
       logo="http://www.example.com/logo.png"
-      contactPoints={[
+      contactPoint={[
         {
           telephone: '+1-401-555-1212',
           contactType: 'customer service',
+          areaServed: 'US',
+          availableLanguage: ['English', 'Spanish', 'French'],
         },
         {
-          telephone: '+1-401-555-1212',
+          telephone: '+1-877-746-0909',
           contactType: 'customer service',
+          contactOption: 'TollFree',
+          availableLanguage: 'English',
+        },
+        {
+          telephone: '+1-877-453-1304',
+          contactType: 'technical support',
+          contactOption: 'TollFree',
+          areaServed: ['US', 'CA'],
+          availableLanguage: ['English', 'French'],
         },
       ]}
     />
@@ -730,11 +740,20 @@ export default () => (
 
 **Required properties**
 
-| Property                    | Info                                                                                            |
-| --------------------------- | ----------------------------------------------------------------------------------------------- |
-| `contactPoints`             |                                                                                                 |
-| `contactPoints.telephone`   | An internationalized version of the phone number, starting with the "+" symbol and country code |
-| `contactPoints.contactType` | Description of the purpose of the phone number i.e. `Technical Support`.                        |
+| Property                   | Info                                                                                            |
+| -------------------------- | ----------------------------------------------------------------------------------------------- |
+| `url`                      | Url to the home page of the company's official site.                                            |
+| `contactPoint`             |                                                                                                 |
+| `contactPoint.telephone`   | An internationalized version of the phone number, starting with the "+" symbol and country code |
+| `contactPoint.contactType` | Description of the purpose of the phone number i.e. `Technical Support`.                        |
+
+**Recommended ContactPoint properties**
+
+| Property                         | Info                                                                                                       |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `contactPoint.areaServed`        | `String` or `Array` of geographical regions served by the business. Example `"US"` or `["US", "CA", "MX"]` |
+| `contactPoint.availableLanguage` | Details about the language spoken. Example `"English"` or `["English", "French"]`                          |
+| `gecontactPointo.contactOption`  | Details about the phone number. Example `"TollFree"`                                                       |
 
 ### Local Business
 

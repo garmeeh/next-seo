@@ -4,22 +4,43 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-const buildContactPoints = contactPoints =>
-  contactPoints.map(
-    contacts => `{
+const formatIfArray = value =>
+  Array.isArray(value) ? `[${value.map(val => `"${val}"`)}]` : `"${value}"`;
+
+const buildContactPoint = contactPoint =>
+  contactPoint.map(
+    contact => `{
     "@type": "ContactPoint",
-    "telephone": "${contacts.telephone}",
-    "contactType": "${contacts.contactType}"
+    "telephone": "${contact.telephone}",
+    "contactType": "${contact.contactType}"${
+      contact.areaServed
+        ? `,
+    "areaServed": ${formatIfArray(contact.areaServed)}`
+        : ''
+    }${
+      contact.availableLanguage
+        ? `,
+    "availableLanguage": ${formatIfArray(contact.availableLanguage)}`
+        : ''
+    }${
+      contact.contactOption
+        ? `,
+    "contactOption": "${contact.contactOption}"`
+        : ''
+    }
     }`,
   );
-
-const CorporateContactJsonLd = ({ url, logo, contactPoints = [] }) => {
+const CorporateContactJsonLd = ({ url, logo, contactPoint = [] }) => {
   const jslonld = `{
     "@context": "https://schema.org",
     "@type": "Organization",
-    "url": "${url}",
-    "logo": "${logo}",
-    "contactPoint": [${buildContactPoints(contactPoints)}]
+    "url": "${url}"${
+    logo
+      ? `,
+    "logo": "${logo}",`
+      : ','
+  }
+    "contactPoint": [${buildContactPoint(contactPoint)}]
   }`;
 
   return (
@@ -40,10 +61,16 @@ CorporateContactJsonLd.defaultProps = {
 CorporateContactJsonLd.propTypes = {
   logo: PropTypes.string,
   url: PropTypes.string.isRequired,
-  contactPoints: PropTypes.arrayOf(
+  contactPoint: PropTypes.arrayOf(
     PropTypes.shape({
-      telephone: PropTypes.string,
-      contactType: PropTypes.string,
+      telephone: PropTypes.string.isRequired,
+      contactType: PropTypes.string.isRequired,
+      areaServed: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+      availableLanguage: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+      ]),
+      contactOption: PropTypes.string,
     }),
   ).isRequired,
 };
