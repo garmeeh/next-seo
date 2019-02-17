@@ -8,6 +8,7 @@ import {
   LogoJsonLd,
   ProductJsonLd,
   SocialProfileJsonLd,
+  CorporateContactJsonLd,
 } from '../../dist';
 import Links from '../components/links';
 
@@ -155,6 +156,31 @@ export default () => (
         'http://instagram.com/yourProfile',
         'http://www.linkedin.com/in/yourprofile',
         'http://plus.google.com/your_profile',
+      ]}
+    />
+    <CorporateContactJsonLd
+      url="http://www.your-company-site.com"
+      logo="http://www.example.com/logo.png"
+      contactPoint={[
+        {
+          telephone: '+1-401-555-1212',
+          contactType: 'customer service',
+          areaServed: 'US',
+          availableLanguage: ['English', 'Spanish', 'French'],
+        },
+        {
+          telephone: '+1-877-746-0909',
+          contactType: 'customer service',
+          contactOption: 'TollFree',
+          availableLanguage: 'English',
+        },
+        {
+          telephone: '+1-877-453-1304',
+          contactType: 'technical support',
+          contactOption: 'TollFree',
+          areaServed: ['US', 'CA'],
+          availableLanguage: ['English', 'French'],
+        },
       ]}
     />
     <Links />

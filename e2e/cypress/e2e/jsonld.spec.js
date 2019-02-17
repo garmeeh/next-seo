@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 8;
+const expectedJSONResults = 9;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -11,6 +11,7 @@ const localBusinessLdJsonIndex = 4;
 const logoLdJsonIndex = 5;
 const productLdJsonIndex = 6;
 const socialProfileLdJsonIndex = 7;
+const corporateContactIndex = 8;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -347,6 +348,55 @@ describe('Validates JSON-LD For:', () => {
             'http://instagram.com/yourProfile',
             'http://www.linkedin.com/in/yourprofile',
             'http://plus.google.com/your_profile',
+          ],
+        });
+      });
+  });
+
+  it('CorporateContact', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[corporateContactIndex].innerHTML);
+        assertSchema(schemas)('Corporate Contact', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Corporate Contact Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[corporateContactIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          url: 'http://www.your-company-site.com',
+          logo: 'http://www.example.com/logo.png',
+          contactPoint: [
+            {
+              '@type': 'ContactPoint',
+              telephone: '+1-401-555-1212',
+              contactType: 'customer service',
+              areaServed: 'US',
+              availableLanguage: ['English', 'Spanish', 'French'],
+            },
+            {
+              '@type': 'ContactPoint',
+              telephone: '+1-877-746-0909',
+              contactType: 'customer service',
+              contactOption: 'TollFree',
+              availableLanguage: 'English',
+            },
+            {
+              '@type': 'ContactPoint',
+              telephone: '+1-877-453-1304',
+              contactType: 'technical support',
+              contactOption: 'TollFree',
+              areaServed: ['US', 'CA'],
+              availableLanguage: ['English', 'French'],
+            },
           ],
         });
       });

@@ -8,6 +8,7 @@ import localBusiness from './local-business-schema';
 import logoVersions from './logo-schema';
 import productVersions from './product-schema';
 import socialProfileVersions from './social-profile-schema';
+import corporateContactVersions from './corporate-contact-schema';
 
 const schemas = combineSchemas(
   articleVersions,
@@ -18,5 +19,6 @@ const schemas = combineSchemas(
   logoVersions,
   productVersions,
   socialProfileVersions,
+  corporateContactVersions,
 );
 export default schemas;
