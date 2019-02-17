@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.11.0 - 17/02/2019
+
+### Added
+
+- Support for Corporate Contact JSON-LD [PR #40](https://github.com/garmeeh/next-seo/pull/40)
+
 ## v1.10.1 - 13/02/2019
 
 ### Added
