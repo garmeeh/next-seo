@@ -34,12 +34,8 @@ const CorporateContactJsonLd = ({ url, logo, contactPoint = [] }) => {
   const jslonld = `{
     "@context": "https://schema.org",
     "@type": "Organization",
-    "url": "${url}"${
-    logo
-      ? `,
-    "logo": "${logo}",`
-      : ','
-  }
+    "url": "${url}",
+    ${logo ? `"logo": "${logo}",` : ''}
     "contactPoint": [${buildContactPoint(contactPoint)}]
   }`;
 
