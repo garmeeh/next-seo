@@ -570,7 +570,7 @@ Google has excellent content on JSON-LD -> [HERE](https://developers.google.com/
 
 Below you will find a very basic page implementing each of the available JSON-LD types:
 
-- [Article](#article)
+- [Article](#article-1)
 - [Breadcrumb](#breadcrumb)
 - [Blog](#blog)
 - [Course](#course)
