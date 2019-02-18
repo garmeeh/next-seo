@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.11.1 - 18/02/2019
+
+### Fixed
+
+- property='fb:app_id' should be used instead of name='fb:app_id' [PR #45](https://github.com/garmeeh/next-seo/pull/45)
+
 ## v1.11.0 - 17/02/2019
 
 ### Added
