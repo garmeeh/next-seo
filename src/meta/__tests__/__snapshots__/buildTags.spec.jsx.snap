@@ -355,7 +355,7 @@ exports[`renders correctly 1`] = `
   />
   <meta
     content="1234567890"
-    name="fb:app_id"
+    property="fb:app_id"
   />
   <meta
     content="https://www.url.ie"

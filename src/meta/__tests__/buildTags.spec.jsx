@@ -64,7 +64,7 @@ it('returns full array for default seo object', () => {
   const twitterCard = container.querySelectorAll(
     'meta[content="summary_large_image"]',
   );
-  const facebookAppId = container.querySelectorAll('meta[name="fb:app_id"]');
+  const facebookAppId = container.querySelectorAll('meta[property="fb:app_id"]');
   const twitterCardTag = container.querySelectorAll(
     'meta[name="twitter:card"]',
   );

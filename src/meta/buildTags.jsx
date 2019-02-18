@@ -101,7 +101,7 @@ const buildTags = config => {
       tagsToRender.push(
         <meta
           key="fb:app_id"
-          name="fb:app_id"
+          property="fb:app_id"
           content={config.facebook.appId}
         />,
       );
