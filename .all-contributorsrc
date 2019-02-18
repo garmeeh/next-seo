@@ -62,6 +62,17 @@
         "example",
         "doc"
       ]
+    },
+    {
+      "login": "Ktchan825",
+      "name": "Ktchan825",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/20606631?v=4",
+      "profile": "https://github.com/Ktchan825",
+      "contributions": [
+        "test",
+        "code"
+      ]
     }
-  ]
+  ],
+  "contributorsPerLine": 7
 }
