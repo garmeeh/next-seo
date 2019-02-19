@@ -1,7 +1,8 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- https://github.com/thlorenz/doctoc -->
 
-**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
+**Table of Contents**
 
 - [Changelog](#changelog)
   - [v1.11.1 - 18/02/2019](#v1111---18022019)

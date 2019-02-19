@@ -1,7 +1,14 @@
+# Next SEO
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
+
+Next SEO is a plug in that makes managing your SEO easier in Next.js projects and is compatible with version`6.0.0`+ of Next.js.
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- https://github.com/thlorenz/doctoc -->
 
-**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
+**Table of Contents**
 
 - [Next SEO](#next-seo)
   - [Usage](#usage)
@@ -37,12 +44,6 @@
   - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# Next SEO
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
-
-Next SEO is a plug in that makes managing your SEO easier in Next.js projects and is compatible with version`6.0.0`+ of Next.js.
 
 ## Usage
 
