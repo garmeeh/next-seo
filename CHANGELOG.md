@@ -1,3 +1,49 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
+
+- [Changelog](#changelog)
+  - [v1.11.1 - 18/02/2019](#v1111---18022019)
+    - [Fixed](#fixed)
+  - [v1.11.0 - 17/02/2019](#v1110---17022019)
+    - [Added](#added)
+  - [v1.10.1 - 13/02/2019](#v1101---13022019)
+    - [Added](#added-1)
+  - [v1.10.0 - 26/01/2019](#v1100---26012019)
+    - [Added](#added-2)
+    - [Fixed](#fixed-1)
+  - [v1.9.0 - 16/01/2019](#v190---16012019)
+    - [Changed](#changed)
+  - [v1.8.0 - 04/01/2019](#v180---04012019)
+    - [Added](#added-3)
+  - [v1.7.0 - 28-12-2018](#v170---28-12-2018)
+    - [Added](#added-4)
+  - [v1.6.0 - 24-12-2018](#v160---24-12-2018)
+    - [Added](#added-5)
+  - [v1.5.0 - 23-12-2018](#v150---23-12-2018)
+    - [Added](#added-6)
+  - [v1.4.0 - 22-12-2018](#v140---22-12-2018)
+    - [Added](#added-7)
+  - [v1.3.0 - 18-12-2018](#v130---18-12-2018)
+    - [Added](#added-8)
+  - [v1.2.0 - 09-09-2018](#v120---09-09-2018)
+    - [Added](#added-9)
+    - [Fixed](#fixed-2)
+  - [v1.1.2 - 03-08-2018](#v112---03-08-2018)
+    - [Added](#added-10)
+    - [Fixed](#fixed-3)
+  - [v1.1.1 - 31-08-2018](#v111---31-08-2018)
+    - [Fixed](#fixed-4)
+  - [v1.1.0 - 27-08-2018](#v110---27-08-2018)
+    - [Added](#added-11)
+    - [Fixed](#fixed-5)
+  - [v1.0.2 - 24-08-2018](#v102---24-08-2018)
+    - [Added](#added-12)
+    - [Fixed](#fixed-6)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
