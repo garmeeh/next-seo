@@ -4,44 +4,42 @@
 
 Next SEO is a plug in that makes managing your SEO easier in Next.js projects and is compatible with version`6.0.0`+ of Next.js.
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- https://github.com/thlorenz/doctoc -->
-
 **Table of Contents**
 
-- [Next SEO](#next-seo)
-  - [Usage](#usage)
-    - [Set Up](#set-up)
-    - [Add SEO to Page](#add-seo-to-page)
-    - [Default SEO Configuration](#default-seo-configuration)
-      - [Default Config](#default-config)
-      - [Custom <App>](#custom-app)
-    - [Full Config Options](#full-config-options)
-      - [Title Template](#title-template)
-      - [No Index](#no-index)
-      - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
-      - [Twitter](#twitter)
-      - [facebook](#facebook)
-      - [Canonical URL](#canonical-url)
-  - [Open Graph](#open-graph)
-    - [Open Graph Examples](#open-graph-examples)
-      - [Basic](#basic)
-      - [Article](#article)
-      - [Book](#book)
-      - [Profile](#profile)
-  - [JSON-LD](#json-ld)
-    - [Article](#article-1)
-    - [Breadcrumb](#breadcrumb)
-    - [Blog](#blog)
-    - [Course](#course)
-    - [Corporate Contact](#corporate-contact)
-    - [Local Business](#local-business)
-    - [Logo](#logo)
-    - [Product](#product)
-    - [Social Profile](#social-profile)
-  - [CHANGELOG](#changelog)
-  - [Contributors](#contributors)
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Usage](#usage)
+  - [Set Up](#set-up)
+  - [Add SEO to Page](#add-seo-to-page)
+  - [Default SEO Configuration](#default-seo-configuration)
+    - [Default Config](#default-config)
+    - [Custom <App>](#custom-app)
+  - [Full Config Options](#full-config-options)
+    - [Title Template](#title-template)
+    - [No Index](#no-index)
+    - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
+    - [Twitter](#twitter)
+    - [facebook](#facebook)
+    - [Canonical URL](#canonical-url)
+- [Open Graph](#open-graph)
+  - [Open Graph Examples](#open-graph-examples)
+    - [Basic](#basic)
+    - [Article](#article)
+    - [Book](#book)
+    - [Profile](#profile)
+- [JSON-LD](#json-ld)
+  - [Article](#article-1)
+  - [Breadcrumb](#breadcrumb)
+  - [Blog](#blog)
+  - [Course](#course)
+  - [Corporate Contact](#corporate-contact)
+  - [Local Business](#local-business)
+  - [Logo](#logo)
+  - [Product](#product)
+  - [Social Profile](#social-profile)
+- [CHANGELOG](#changelog)
+- [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
