@@ -4,6 +4,45 @@
 
 Next SEO is a plug in that makes managing your SEO easier in Next.js projects and is compatible with version`6.0.0`+ of Next.js.
 
+**Table of Contents**
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Usage](#usage)
+  - [Set Up](#set-up)
+  - [Add SEO to Page](#add-seo-to-page)
+  - [Default SEO Configuration](#default-seo-configuration)
+    - [Default Config](#default-config)
+    - [Custom <App>](#custom-app)
+  - [Full Config Options](#full-config-options)
+    - [Title Template](#title-template)
+    - [No Index](#no-index)
+    - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
+    - [Twitter](#twitter)
+    - [facebook](#facebook)
+    - [Canonical URL](#canonical-url)
+- [Open Graph](#open-graph)
+  - [Open Graph Examples](#open-graph-examples)
+    - [Basic](#basic)
+    - [Article](#article)
+    - [Book](#book)
+    - [Profile](#profile)
+- [JSON-LD](#json-ld)
+  - [Article](#article-1)
+  - [Breadcrumb](#breadcrumb)
+  - [Blog](#blog)
+  - [Course](#course)
+  - [Corporate Contact](#corporate-contact)
+  - [Local Business](#local-business)
+  - [Logo](#logo)
+  - [Product](#product)
+  - [Social Profile](#social-profile)
+- [CHANGELOG](#changelog)
+- [Contributors](#contributors)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Usage
 
 `NextSeo` works by including it on pages where you would like SEO attributes to added. Once included on the page you pass it a configuration object with the page's SEO properties. This can be dynamically generated at a page level or in some cases your API may return an SEO object.
@@ -973,6 +1012,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 <!-- prettier-ignore -->
 | [<img src="https://avatars1.githubusercontent.com/u/13333582?v=4" width="100px;" alt="Gary Meehan"/><br /><sub><b>Gary Meehan</b></sub>](https://www.garymeehan.ie/)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=garmeeh "Code") [📖](https://github.com/garmeeh/next-seo/commits?author=garmeeh "Documentation") [💡](#example-garmeeh "Examples") [⚠️](https://github.com/garmeeh/next-seo/commits?author=garmeeh "Tests") | [<img src="https://avatars3.githubusercontent.com/u/3099369?v=4" width="100px;" alt="Jerome Fitzgerald"/><br /><sub><b>Jerome Fitzgerald</b></sub>](https://www.jeromefitzgerald.com/)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=JeromeFitz "Code") | [<img src="https://avatars0.githubusercontent.com/u/3820632?v=4" width="100px;" alt="erick B"/><br /><sub><b>erick B</b></sub>](https://github.com/erickeno)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=erickeno "Code") | [<img src="https://avatars2.githubusercontent.com/u/15269328?v=4" width="100px;" alt="Erik Condie"/><br /><sub><b>Erik Condie</b></sub>](https://www.erikcondie.com)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=econdie "Code") [⚠️](https://github.com/garmeeh/next-seo/commits?author=econdie "Tests") [💡](#example-econdie "Examples") [🤔](#ideas-econdie "Ideas, Planning, & Feedback") | [<img src="https://avatars1.githubusercontent.com/u/168870?v=4" width="100px;" alt="Tim Reynolds"/><br /><sub><b>Tim Reynolds</b></sub>](http://timothyreynolds.co.uk)<br />[💻](https://github.com/garmeeh/next-seo/commits?author=timReynolds "Code") [⚠️](https://github.com/garmeeh/next-seo/commits?author=timReynolds "Tests") [💡](#example-timReynolds "Examples") [📖](https://github.com/garmeeh/next-seo/commits?author=timReynolds "Documentation") | [<img src="https://avatars3.githubusercontent.com/u/20606631?v=4" width="100px;" alt="Ktchan825"/><br /><sub><b>Ktchan825</b></sub>](https://github.com/Ktchan825)<br />[⚠️](https://github.com/garmeeh/next-seo/commits?author=Ktchan825 "Tests") [💻](https://github.com/garmeeh/next-seo/commits?author=Ktchan825 "Code") |
 | :---: | :---: | :---: | :---: | :---: | :---: |
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
