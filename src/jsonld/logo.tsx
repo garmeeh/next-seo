@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
@@ -21,11 +20,6 @@ const LogoJsonLd = ({ url, logo }) => {
       />
     </Head>
   );
-};
-
-LogoJsonLd.propTypes = {
-  url: PropTypes.string.isRequired,
-  logo: PropTypes.string.isRequired,
 };
 
 export default LogoJsonLd;

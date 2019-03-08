@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
@@ -48,27 +47,6 @@ const CorporateContactJsonLd = ({ url, logo, contactPoint = [] }) => {
       />
     </Head>
   );
-};
-
-CorporateContactJsonLd.defaultProps = {
-  logo: null,
-};
-
-CorporateContactJsonLd.propTypes = {
-  logo: PropTypes.string,
-  url: PropTypes.string.isRequired,
-  contactPoint: PropTypes.arrayOf(
-    PropTypes.shape({
-      telephone: PropTypes.string.isRequired,
-      contactType: PropTypes.string.isRequired,
-      areaServed: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
-      availableLanguage: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.array,
-      ]),
-      contactOption: PropTypes.string,
-    }),
-  ).isRequired,
 };
 
 export default CorporateContactJsonLd;

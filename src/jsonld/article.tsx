@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
@@ -52,22 +51,6 @@ const ArticleJsonLd = ({
       />
     </Head>
   );
-};
-
-ArticleJsonLd.defaultProps = {
-  dateModified: null,
-};
-
-ArticleJsonLd.propTypes = {
-  url: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  images: PropTypes.array.isRequired,
-  datePublished: PropTypes.string.isRequired,
-  dateModified: PropTypes.string,
-  authorName: PropTypes.string.isRequired,
-  publisherName: PropTypes.string.isRequired,
-  publisherLogo: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
 };
 
 export default ArticleJsonLd;

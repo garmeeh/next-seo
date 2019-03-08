@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
@@ -35,17 +34,6 @@ const CourseJsonLd = ({
       />
     </Head>
   );
-};
-
-CourseJsonLd.defaultProps = {
-  providerUrl: null,
-};
-
-CourseJsonLd.propTypes = {
-  courseName: PropTypes.string.isRequired,
-  providerName: PropTypes.string.isRequired,
-  providerUrl: PropTypes.string,
-  description: PropTypes.string.isRequired,
 };
 
 export default CourseJsonLd;

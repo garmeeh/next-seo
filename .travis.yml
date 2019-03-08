@@ -17,9 +17,6 @@ install:
 
 jobs:
   include:
-    - stage: validate
-      script:
-        - npm run validate
     - stage: test
       script:
         - npm run test
@@ -27,4 +24,4 @@ jobs:
         - cd e2e
         - npm ci
         - npm run build
-        - npm run test:e2e
+        - npm run test:e2e:ci

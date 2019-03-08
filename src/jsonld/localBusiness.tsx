@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
@@ -63,36 +62,6 @@ const LocalBusinessJsonLd = ({
       />
     </Head>
   );
-};
-
-LocalBusinessJsonLd.defaultProps = {
-  type: 'LocalBusiness',
-  description: null,
-  url: null,
-  telephone: null,
-  images: [],
-  geo: null,
-};
-
-LocalBusinessJsonLd.propTypes = {
-  type: PropTypes.string,
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  url: PropTypes.string,
-  telephone: PropTypes.string,
-  address: PropTypes.shape({
-    streetAddress: PropTypes.string.isRequired,
-    addressLocality: PropTypes.string.isRequired,
-    addressRegion: PropTypes.string,
-    postalCode: PropTypes.string.isRequired,
-    addressCountry: PropTypes.string.isRequired,
-  }).isRequired,
-  geo: PropTypes.shape({
-    latitude: PropTypes.string.isRequired,
-    longitude: PropTypes.string.isRequired,
-  }),
-  images: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default LocalBusinessJsonLd;

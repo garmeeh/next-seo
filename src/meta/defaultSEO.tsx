@@ -1,9 +1,8 @@
 import Head from 'next/head';
-import PropTypes from 'prop-types';
 import React from 'react';
 import buildTags from './buildTags';
 
-class DefaultSeo extends React.Component {
+class DefaultSeo extends React.Component<any, any> {
   constructor(props) {
     super(props);
     if (!props.config) {
@@ -16,9 +15,5 @@ class DefaultSeo extends React.Component {
     return <Head>{buildTags(config)}</Head>;
   }
 }
-
-DefaultSeo.propTypes = {
-  config: PropTypes.object.isRequired,
-};
 
 export default DefaultSeo;
