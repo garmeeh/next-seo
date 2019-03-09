@@ -1,6 +1,6 @@
 import App, { Container } from 'next/app';
 import React from 'react';
-import NextSeo from '../../dist';
+import NextSeo from '../../lib';
 
 import SEO from '../next-seo.config';
 

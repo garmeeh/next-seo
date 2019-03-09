@@ -2,9 +2,9 @@
   "name": "next-seo",
   "version": "2.0.0",
   "description": "SEO plugin for Next.js projects",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "files": [
-    "dist"
+    "lib"
   ],
   "peerDependencies": {
     "next": "^6.0.0 || ^7.0.0 || ^8.0.0",
@@ -16,7 +16,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "prepublishOnly": "npm run build",
-    "prebuild": "rimraf ./dist",
+    "prebuild": "rimraf ./lib",
     "lint": "eslint src",
     "format": "prettier",
     "table-of-contents": "doctoc README.md",
@@ -25,7 +25,7 @@
     "build": "npm run build:types && npm run build:js",
     "build:watch": "npm run build:types -- --watch && npm run build:js -- --watch",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir dist --extensions \".ts,.tsx\""
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\""
   },
   "prettier": {
     "singleQuote": true,
@@ -59,8 +59,9 @@
     "@babel/plugin-transform-react-jsx": "^7.3.0",
     "@babel/preset-env": "^7.2.0",
     "@babel/preset-typescript": "^7.1.0",
+    "@types/jest": "^24.0.11",
+    "@types/next": "^8.0.1",
     "@types/react": "^16.8.7",
-    "@types/react-dom": "^16.8.2",
     "babel-jest": "23.6.0",
     "babel-preset-minify": "^0.5.0",
     "doctoc": "^1.4.0",
@@ -74,6 +75,10 @@
     "react-dom": "^16.8.4",
     "react-testing-library": "5.4.4",
     "rimraf": "2.6.3",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.13.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-config-standard": "^8.0.1",
     "typescript": "^3.2.2"
   },
   "husky": {
@@ -86,9 +91,9 @@
       "prettier --write",
       "git add"
     ],
-    "*.{js,jsx}": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.{ts,tsx}": []
+  },
+  "resolutions": {
+    "@types/react": "^16.8.7"
   }
 }

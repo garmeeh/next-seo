@@ -1,9 +1,21 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-const ArticleJsonLd = ({
+interface ArticleJsonLdProps {
+  url: string;
+  title: string;
+  images: ReadonlyArray<string>;
+  datePublished: string;
+  dateModified?: string;
+  authorName: string;
+  description: string;
+  publisherName: string;
+  publisherLogo: string;
+}
+
+const ArticleJsonLd: FC<ArticleJsonLdProps> = ({
   url,
   title,
   images = [],

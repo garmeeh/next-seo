@@ -1,3 +1,4 @@
+import React from 'react';
 import { getByText, cleanup, render } from 'react-testing-library';
 
 import buildTags from '../buildTags';
@@ -35,20 +36,19 @@ const SEO = {
     cardType: 'summary_large_image',
   },
   facebook: {
-    appId: 1234567890,
+    appId: '1234567890',
   },
 };
 
 it('renders correctly', () => {
   const tags = buildTags(SEO);
-  const { container } = render(tags);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
   expect(container).toMatchSnapshot();
 });
 
-/* eslint no-magic-numbers: 0 */
 it('returns full array for default seo object', () => {
   const tags = buildTags(SEO);
-  const { container } = render(tags);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
 
   const title = getByText(
     container,
@@ -64,7 +64,9 @@ it('returns full array for default seo object', () => {
   const twitterCard = container.querySelectorAll(
     'meta[content="summary_large_image"]',
   );
-  const facebookAppId = container.querySelectorAll('meta[property="fb:app_id"]');
+  const facebookAppId = container.querySelectorAll(
+    'meta[property="fb:app_id"]',
+  );
   const twitterCardTag = container.querySelectorAll(
     'meta[name="twitter:card"]',
   );
@@ -181,7 +183,7 @@ it('correctly sets noindex, nofollow', () => {
     noindex: true,
   };
   const tags = buildTags(overrideProps);
-  const { container } = render(tags);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
   const index = container.querySelectorAll('meta[content="index,follow"]');
   const noindex = container.querySelectorAll(
     'meta[content="noindex,nofollow"]',
@@ -198,7 +200,7 @@ it('displays title with titleTemplate integrated', () => {
     titleTemplate: `${template} | %s`,
   };
   const tags = buildTags(overrideProps);
-  const { container } = render(tags);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
   const title = getByText(
     container,
     (content, element) =>
@@ -251,13 +253,13 @@ const ArticleSEO = {
 
 it('Article SEO renders correctly', () => {
   const tags = buildTags(ArticleSEO);
-  const { container } = render(tags);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
   expect(container).toMatchSnapshot();
 });
 
 it('Check article og type meta', () => {
   const tags = buildTags(ArticleSEO);
-  const { container } = render(tags);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
 
   const ogType = container.querySelectorAll(
     `meta[content="${ArticleSEO.openGraph.type}"]`,
@@ -370,13 +372,13 @@ const BookSEO = {
 
 it('Book SEO renders correctly', () => {
   const tags = buildTags(BookSEO);
-  const { container } = render(tags);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
   expect(container).toMatchSnapshot();
 });
 
 it('Check book og type meta', () => {
   const tags = buildTags(BookSEO);
-  const { container } = render(tags);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
 
   const ogType = container.querySelectorAll(
     `meta[content="${BookSEO.openGraph.type}"]`,
@@ -466,13 +468,13 @@ const ProfileSEO = {
 
 it('Profile SEO renders correctly', () => {
   const tags = buildTags(ProfileSEO);
-  const { container } = render(tags);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
   expect(container).toMatchSnapshot();
 });
 
 it('Check profile og type meta', () => {
   const tags = buildTags(ProfileSEO);
-  const { container } = render(tags);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
 
   const ogType = container.querySelectorAll(
     `meta[content="${ProfileSEO.openGraph.type}"]`,
@@ -521,7 +523,7 @@ it('correctly sets noindex default', () => {
     dangerouslySetAllPagesToNoIndex: true,
   };
   const tags = buildTags(overrideProps);
-  const { container } = render(tags);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
   const index = container.querySelectorAll('meta[content="index,follow"]');
   const noindex = container.querySelectorAll(
     'meta[content="noindex,nofollow"]',
@@ -537,7 +539,7 @@ it('correctly read noindex false', () => {
     noindex: false,
   };
   const tags = buildTags(overrideProps);
-  const { container } = render(tags);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
   const index = container.querySelectorAll('meta[content="index,follow"]');
   const noindex = container.querySelectorAll(
     'meta[content="noindex,nofollow"]',

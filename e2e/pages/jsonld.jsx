@@ -9,7 +9,7 @@ import {
   ProductJsonLd,
   SocialProfileJsonLd,
   CorporateContactJsonLd,
-} from '../../dist';
+} from '../../lib';
 import Links from '../components/links';
 
 export default () => (

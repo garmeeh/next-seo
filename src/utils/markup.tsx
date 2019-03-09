@@ -1,3 +1,3 @@
-const markup = jsonld => ({ __html: jsonld });
+const markup = (jsonld: string) => ({ __html: jsonld });
 
 export default markup;

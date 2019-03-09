@@ -1,15 +1,17 @@
 import React from 'react';
 
+import { Config } from './defaultSEO';
+
 const defaults = {
-  templateTitle: null,
+  templateTitle: '',
   noindex: false,
   openGraph: {
-    defaultImageHeight: null,
-    defaultImageWidth: null,
+    defaultImageHeight: 0,
+    defaultImageWidth: 0,
   },
 };
 
-const buildTags = config => {
+const buildTags = (config: Config) => {
   const tagsToRender = [];
 
   if (config.titleTemplate) {
@@ -64,7 +66,7 @@ const buildTags = config => {
     );
   }
 
-  if (config.hasOwnProperty('twitter')) {
+  if (config.twitter) {
     if (config.twitter.cardType) {
       tagsToRender.push(
         <meta
@@ -96,7 +98,7 @@ const buildTags = config => {
     }
   }
 
-  if (config.hasOwnProperty('facebook')) {
+  if (config.facebook) {
     if (config.facebook.appId) {
       tagsToRender.push(
         <meta
@@ -108,7 +110,7 @@ const buildTags = config => {
     }
   }
 
-  if (config.hasOwnProperty('openGraph')) {
+  if (config.openGraph) {
     if (config.openGraph.url) {
       tagsToRender.push(
         <meta key="og:url" property="og:url" content={config.openGraph.url} />,
@@ -327,14 +329,14 @@ const buildTags = config => {
             <meta
               key={`og:image:width0${index}`}
               property="og:image:width"
-              content={image.width}
+              content={image.width.toString()}
             />,
           );
         } else if (
           defaults.openGraph.defaultImageWidth ||
-          config.openGraph.defaultImageWidth
+          (config.openGraph && config.openGraph.defaultImageWidth)
         ) {
-          if (config.openGraph.defaultImageWidth) {
+          if (config.openGraph && config.openGraph.defaultImageWidth) {
             defaults.openGraph.defaultImageWidth =
               config.openGraph.defaultImageWidth;
           }
@@ -342,7 +344,7 @@ const buildTags = config => {
             <meta
               key={`og:image:width0${index}`}
               property="og:image:width"
-              content={defaults.openGraph.defaultImageWidth}
+              content={defaults.openGraph.defaultImageWidth.toString()}
             />,
           );
         }
@@ -352,14 +354,14 @@ const buildTags = config => {
             <meta
               key={`og:image:height${index}`}
               property="og:image:height"
-              content={image.height}
+              content={image.height.toString()}
             />,
           );
         } else if (
           defaults.openGraph.defaultImageHeight ||
-          config.openGraph.defaultImageHeight
+          (config.openGraph && config.openGraph.defaultImageHeight)
         ) {
-          if (config.openGraph.defaultImageHeight) {
+          if (config.openGraph && config.openGraph.defaultImageHeight) {
             defaults.openGraph.defaultImageHeight =
               config.openGraph.defaultImageHeight;
           }
@@ -367,7 +369,7 @@ const buildTags = config => {
             <meta
               key={`og:image:height${index}`}
               property="og:image:height"
-              content={defaults.openGraph.defaultImageHeight}
+              content={defaults.openGraph.defaultImageHeight.toString()}
             />,
           );
         }
