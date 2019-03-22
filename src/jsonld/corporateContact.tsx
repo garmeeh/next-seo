@@ -1,12 +1,25 @@
-import React from 'react';
+import * as React from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-const formatIfArray = value =>
+export interface ContactPoint {
+  contactType: string;
+  telephone: string;
+  areaServed?: string | string[];
+  availableLanguage?: string | string[];
+  contactOption?: string | string[];
+}
+export interface CorporateContactJsonLdProps {
+  url: string;
+  contactPoint: ContactPoint[];
+  logo?: string;
+}
+
+const formatIfArray = (value: string[] | string) =>
   Array.isArray(value) ? `[${value.map(val => `"${val}"`)}]` : `"${value}"`;
 
-const buildContactPoint = contactPoint =>
+const buildContactPoint = (contactPoint: ContactPoint[]) =>
   contactPoint.map(
     contact => `{
     "@type": "ContactPoint",
@@ -29,7 +42,12 @@ const buildContactPoint = contactPoint =>
     }
     }`,
   );
-const CorporateContactJsonLd = ({ url, logo, contactPoint = [] }) => {
+
+const CorporateContactJsonLd: React.FC<CorporateContactJsonLdProps> = ({
+  url,
+  logo,
+  contactPoint,
+}) => {
   const jslonld = `{
     "@context": "https://schema.org",
     "@type": "Organization",
