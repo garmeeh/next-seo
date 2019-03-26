@@ -1,16 +1,16 @@
-import * as React from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-export interface ContactPoint {
+interface ContactPoint {
   contactType: string;
   telephone: string;
   areaServed?: string | string[];
   availableLanguage?: string | string[];
   contactOption?: string | string[];
 }
-export interface CorporateContactJsonLdProps {
+interface CorporateContactJsonLdProps {
   url: string;
   contactPoint: ContactPoint[];
   logo?: string;
@@ -43,7 +43,7 @@ const buildContactPoint = (contactPoint: ContactPoint[]) =>
     }`,
   );
 
-const CorporateContactJsonLd: React.FC<CorporateContactJsonLdProps> = ({
+const CorporateContactJsonLd: FC<CorporateContactJsonLdProps> = ({
   url,
   logo,
   contactPoint,
