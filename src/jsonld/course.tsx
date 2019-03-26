@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-const CourseJsonLd = ({
+interface CourseJsonLdProps {
+  courseName: string;
+  description: string;
+  providerName: string;
+  providerUrl?: string;
+}
+
+const CourseJsonLd: FC<CourseJsonLdProps> = ({
   courseName,
   description,
   providerName,
