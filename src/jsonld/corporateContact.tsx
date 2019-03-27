@@ -3,14 +3,14 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-interface ContactPoint {
+export interface ContactPoint {
   contactType: string;
   telephone: string;
   areaServed?: string | string[];
   availableLanguage?: string | string[];
   contactOption?: string | string[];
 }
-interface CorporateContactJsonLdProps {
+export interface CorporateContactJsonLdProps {
   url: string;
   contactPoint: ContactPoint[];
   logo?: string;
