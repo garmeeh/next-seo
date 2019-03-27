@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-interface LogoJsonLdProps {
+export interface LogoJsonLdProps {
   logo: string;
   url: string;
 }
