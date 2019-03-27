@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-interface CourseJsonLdProps {
+export interface CourseJsonLdProps {
   courseName: string;
   description: string;
   providerName: string;
