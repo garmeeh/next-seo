@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-const LogoJsonLd = ({ url, logo }) => {
+export interface LogoJsonLdProps {
+  logo: string;
+  url: string;
+}
+const LogoJsonLd: FC<LogoJsonLdProps> = ({ url, logo }) => {
   const jslonld = `{
     "@context": "http://schema.org",
     "@type": "Organization",
