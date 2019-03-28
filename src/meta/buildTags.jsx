@@ -393,6 +393,17 @@ const buildTags = config => {
         />,
       );
     }
+  } else {
+    tagsToRender.push(
+      <meta key="og:type" property="og:type" content="website" />,
+      <meta key="og:title" property="og:title" content={config.title} />,
+      <meta
+        key="og:description"
+        property="og:description"
+        content={config.description}
+      />,
+      <meta key="og:url" property="og:url" content={config.canonical} />,
+    );
   }
 
   if (config.canonical) {
