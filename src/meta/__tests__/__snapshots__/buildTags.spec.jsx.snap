@@ -3,7 +3,7 @@
 exports[`Article SEO renders correctly 1`] = `
 <div>
   <title>
-    Next SEO | Article Page Title
+    Article Page Title
   </title>
   <meta
     content="index,follow"
@@ -119,7 +119,7 @@ exports[`Article SEO renders correctly 1`] = `
 exports[`Book SEO renders correctly 1`] = `
 <div>
   <title>
-    Next SEO | Book Page Title
+    Book Page Title
   </title>
   <meta
     content="index,follow"
@@ -227,7 +227,7 @@ exports[`Book SEO renders correctly 1`] = `
 exports[`Profile SEO renders correctly 1`] = `
 <div>
   <title>
-    Next SEO | Profile Page Title
+    Profile Page Title
   </title>
   <meta
     content="index,follow"
