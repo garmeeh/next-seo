@@ -1,15 +1,14 @@
 import React from 'react';
 
-const defaults = {
-  templateTitle: null,
-  noindex: false,
-  openGraph: {
-    defaultImageHeight: null,
-    defaultImageWidth: null,
-  },
-};
-
 const buildTags = config => {
+  const defaults = {
+    templateTitle: null,
+    noindex: false,
+    openGraph: {
+      defaultImageHeight: null,
+      defaultImageWidth: null,
+    },
+  };
   const tagsToRender = [];
 
   if (config.titleTemplate) {
