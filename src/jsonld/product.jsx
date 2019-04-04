@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
-
-const buildImages = images =>
-  images.length ? `"image": [${images.map(image => `"${image}"`)}],` : '';
+import formatIfArray from '../utils/formatIfArray';
 
 const buildBrand = brand => `
   "brand": {
@@ -93,7 +91,7 @@ const ProductJsonLd = ({
   const jslonld = `{
     "@context": "http://schema.org/",
     "@type": "Product",
-    ${buildImages(images)}
+    "image":${formatIfArray(images)},
     ${description ? `"description": "${description}",` : ''}
     ${mpn ? `"mpn": "${mpn}",` : ''}
     ${sku ? `"sku": "${sku}",` : ''}
@@ -134,7 +132,10 @@ ProductJsonLd.defaultProps = {
 
 ProductJsonLd.propTypes = {
   productName: PropTypes.string.isRequired,
-  images: PropTypes.arrayOf(PropTypes.string),
+  images: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.string,
+  ]),
   description: PropTypes.string,
   brand: PropTypes.string,
   reviews: PropTypes.arrayOf(
