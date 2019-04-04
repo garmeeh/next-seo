@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.11.2 - 04/03/2019
+
+### Fixed
+
+- fix issue with checking if value is an array [PR #59](https://github.com/garmeeh/next-seo/pull/59)
+
 ## v1.11.1 - 18/02/2019
 
 ### Fixed
