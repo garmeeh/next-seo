@@ -64,7 +64,9 @@ it('returns full array for default seo object', () => {
   const twitterCard = container.querySelectorAll(
     'meta[content="summary_large_image"]',
   );
-  const facebookAppId = container.querySelectorAll('meta[property="fb:app_id"]');
+  const facebookAppId = container.querySelectorAll(
+    'meta[property="fb:app_id"]',
+  );
   const twitterCardTag = container.querySelectorAll(
     'meta[name="twitter:card"]',
   );
@@ -253,6 +255,21 @@ it('Article SEO renders correctly', () => {
   const tags = buildTags(ArticleSEO);
   const { container } = render(tags);
   expect(container).toMatchSnapshot();
+});
+
+it('Displays the title correctly', () => {
+  const overrideProps = {
+    ...ArticleSEO,
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(tags);
+  const title = getByText(
+    container,
+    (content, element) =>
+      element.tagName.toLowerCase() === 'title' &&
+      content.endsWith(ArticleSEO.title),
+  );
+  expect(title.innerHTML).toEqual(ArticleSEO.title);
 });
 
 it('Check article og type meta', () => {
