@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-const BreadCrumbJsonLd = ({ itemListElements = [] }) => {
+export interface ItemListElements {
+  item: string;
+  name: string;
+  position: number;
+}
+export interface BreadCrumbJsonLdProps {
+  itemListElements: ItemListElements[];
+}
+
+const BreadCrumbJsonLd: FC<BreadCrumbJsonLdProps> = ({
+  itemListElements = [],
+}) => {
   const jslonld = `{
     "@context": "http://schema.org",
     "@type": "BreadcrumbList",
