@@ -1,16 +1,18 @@
-export default {
+import { DefaultSeoProps } from '../lib';
+
+const APP_DEFAULT_SEO: DefaultSeoProps = {
   title: 'Title A',
   titleTemplate: '%s | Next SEO',
   description: 'Description A',
   canonical: 'https://www.canonical.ie/a',
+  defaultOpenGraphImageHeight: 1200,
+  defaultOpenGraphImageWidth: 1200,
   openGraph: {
     type: 'website',
     locale: 'en_IE',
     url: 'https://www.url.ie/a',
     title: 'Open Graph Title A',
     description: 'Open Graph Description A',
-    defaultImageWidth: 1200,
-    defaultImageHeight: 1200,
     // Multiple Open Graph images is only available in version `7.0.0-canary.0`+ of next
     images: [
       {
@@ -19,14 +21,6 @@ export default {
         height: 600,
         alt: 'Og Image Alt A',
       },
-      {
-        url: 'https://www.test.ie/og-image-a-02.jpg',
-        width: 900,
-        height: 800,
-        alt: 'Og Image Alt A Second',
-      },
-      { url: 'https://www.test.ie/og-image-a-03.jpg' },
-      { url: 'https://www.test.ie/og-image-a-04.jpg' },
     ],
     site_name: 'SiteName A',
   },
@@ -36,6 +30,8 @@ export default {
     cardType: 'summary_large_image',
   },
   facebook: {
-    appId: 1234567890,
+    appId: '1234567890',
   },
 };
+
+export default APP_DEFAULT_SEO;

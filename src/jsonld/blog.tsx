@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-interface BlogJsonLdProps {
+export interface BlogJsonLdProps {
   url: string;
   title: string;
   images: ReadonlyArray<string>;

@@ -1,11 +1,11 @@
 import App, { Container } from 'next/app';
 import React from 'react';
-import NextSeo from '../../lib';
+import { DefaultSeo } from '../../lib';
 
 import SEO from '../next-seo.config';
 
 export default class MyApp extends App {
-  static async getInitialProps({ Component, ctx }) {
+  static async getInitialProps({ Component, ctx }: any) {
     let pageProps = {};
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
@@ -18,7 +18,7 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <Container>
-        <NextSeo config={SEO} />
+        <DefaultSeo {...SEO} />
         <Component {...pageProps} />
       </Container>
     );
