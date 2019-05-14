@@ -18,7 +18,7 @@ export interface DefaultSeoProps {
   defaultOpenGraphImageHeight?: number;
 }
 
-export default class extends Component<DefaultSeoProps> {
+export default class extends Component<DefaultSeoProps, {}> {
   constructor(props) {
     super(props);
   }

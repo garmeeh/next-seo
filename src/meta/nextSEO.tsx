@@ -14,7 +14,7 @@ export interface NextSeoProps {
   additionalMetaTags?: ReadonlyArray<MetaTag>;
 }
 
-export default class extends Component<NextSeoProps> {
+export default class extends Component<NextSeoProps, {}> {
   constructor(props) {
     super(props);
   }
