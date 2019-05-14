@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { FC } from 'react';
+import React, { Component } from 'react';
 import buildTags from './buildTags';
 
 import { MetaTag, OpenGraph, Twitter } from '../types';
@@ -18,24 +18,16 @@ export interface DefaultSeoProps {
   defaultOpenGraphImageHeight?: number;
 }
 
-const DefaultSeo: FC<DefaultSeoProps> = ({
-  title,
-  titleTemplate,
-  dangerouslySetAllPagesToNoIndex = false,
-  description,
-  canonical,
-  facebook,
-  openGraph,
-  additionalMetaTags,
-  twitter,
-  defaultOpenGraphImageWidth,
-  defaultOpenGraphImageHeight,
-}) => (
-  <Head>
-    {buildTags({
+export default class extends Component<DefaultSeoProps> {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const {
       title,
       titleTemplate,
-      dangerouslySetAllPagesToNoIndex,
+      dangerouslySetAllPagesToNoIndex = false,
       description,
       canonical,
       facebook,
@@ -44,8 +36,24 @@ const DefaultSeo: FC<DefaultSeoProps> = ({
       twitter,
       defaultOpenGraphImageWidth,
       defaultOpenGraphImageHeight,
-    })}
-  </Head>
-);
+    } = this.props;
 
-export default DefaultSeo;
+    return (
+      <Head>
+        {buildTags({
+          title,
+          titleTemplate,
+          dangerouslySetAllPagesToNoIndex,
+          description,
+          canonical,
+          facebook,
+          openGraph,
+          additionalMetaTags,
+          twitter,
+          defaultOpenGraphImageWidth,
+          defaultOpenGraphImageHeight,
+        })}
+      </Head>
+    );
+  }
+}

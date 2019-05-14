@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React, { FC } from 'react';
+import React, { Component } from 'react';
 import buildTags from './buildTags';
 import { MetaTag, OpenGraph, Twitter } from '../types';
 
@@ -14,28 +14,36 @@ export interface NextSeoProps {
   additionalMetaTags?: ReadonlyArray<MetaTag>;
 }
 
-export const NextSeo: FC<NextSeoProps> = ({
-  title,
-  noindex = false,
-  description,
-  canonical,
-  openGraph,
-  facebook,
-  twitter,
-  additionalMetaTags,
-}) => (
-  <Head>
-    {buildTags({
+export default class extends Component<NextSeoProps> {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const {
       title,
-      noindex,
+      noindex = false,
       description,
       canonical,
       openGraph,
       facebook,
       twitter,
       additionalMetaTags,
-    })}
-  </Head>
-);
+    } = this.props;
 
-export default NextSeo;
+    return (
+      <Head>
+        {buildTags({
+          title,
+          noindex,
+          description,
+          canonical,
+          facebook,
+          openGraph,
+          additionalMetaTags,
+          twitter,
+        })}
+      </Head>
+    );
+  }
+}
