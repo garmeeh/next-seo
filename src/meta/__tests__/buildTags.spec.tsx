@@ -517,6 +517,22 @@ it('Check profile og type meta', () => {
   expect(Array.from(ogProfileGenderTag).length).toBe(1);
 });
 
+it('additional meta tags are set', () => {
+  const overrideProps = {
+    ...SEO,
+    additionalMetaTags: [
+      { property: 'random', content: 'something' },
+      { name: 'foo', content: 'bar' },
+    ],
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+  const propertyTag = container.querySelectorAll('meta[content="something"]');
+  const nameTag = container.querySelectorAll('meta[content="bar"]');
+  expect(Array.from(propertyTag).length).toBe(1);
+  expect(Array.from(nameTag).length).toBe(1);
+});
+
 it('correctly sets noindex default', () => {
   const overrideProps = {
     ...SEO,

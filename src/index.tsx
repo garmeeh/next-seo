@@ -1,23 +1,17 @@
-import DefaultSeo from './meta/defaultSEO';
-import ArticleJsonLd from './jsonld/article';
-import BreadcrumbJsonLd from './jsonld/breadcrumb';
-import BlogJsonLd from './jsonld/blog';
-import CourseJsonLd from './jsonld/course';
-import LocalBusinessJsonLd from './jsonld/localBusiness';
-import LogoJsonLd from './jsonld/logo';
-import ProductJsonLd from './jsonld/product';
-import SocialProfileJsonLd from './jsonld/socialProfile';
-import CorporateContactJsonLd from './jsonld/corporateContact';
-
-export default DefaultSeo;
+export { default as DefaultSeo, DefaultSeoProps } from './meta/defaultSEO';
+export { default as NextSeo, NextSeoProps } from './meta/nextSEO';
+export { default as ArticleJsonLd, ArticleJsonLdProps } from './jsonld/article';
 export {
-  ArticleJsonLd,
-  BlogJsonLd,
-  BreadcrumbJsonLd,
-  CourseJsonLd,
-  LocalBusinessJsonLd,
-  LogoJsonLd,
-  ProductJsonLd,
-  SocialProfileJsonLd,
-  CorporateContactJsonLd,
-};
+  default as BreadcrumbJsonLd,
+  BreadCrumbJsonLdProps,
+} from './jsonld/breadcrumb';
+export { default as BlogJsonLd, BlogJsonLdProps } from './jsonld/blog';
+export { default as CourseJsonLd, CourseJsonLdProps } from './jsonld/course';
+export { default as LocalBusinessJsonLd } from './jsonld/localBusiness';
+export { default as LogoJsonLd, LogoJsonLdProps } from './jsonld/logo';
+export { default as ProductJsonLd } from './jsonld/product';
+export { default as SocialProfileJsonLd } from './jsonld/socialProfile';
+export {
+  default as CorporateContactJsonLd,
+  CorporateContactJsonLdProps,
+} from './jsonld/corporateContact';

@@ -1,24 +1,20 @@
 import Head from 'next/head';
 import React, { Component } from 'react';
 import buildTags from './buildTags';
-
 import { MetaTag, OpenGraph, Twitter } from '../types';
 
-export interface DefaultSeoProps {
+export interface NextSeoProps {
   title?: string;
-  titleTemplate?: string;
-  dangerouslySetAllPagesToNoIndex?: boolean;
+  noindex?: boolean;
   description?: string;
   canonical?: string;
-  facebook?: { appId: string };
-  additionalMetaTags?: ReadonlyArray<MetaTag>;
   openGraph?: OpenGraph;
+  facebook?: { appId: string };
   twitter?: Twitter;
-  defaultOpenGraphImageWidth?: number;
-  defaultOpenGraphImageHeight?: number;
+  additionalMetaTags?: ReadonlyArray<MetaTag>;
 }
 
-export default class extends Component<DefaultSeoProps, {}> {
+export default class extends Component<NextSeoProps, {}> {
   constructor(props) {
     super(props);
   }
@@ -26,32 +22,26 @@ export default class extends Component<DefaultSeoProps, {}> {
   render() {
     const {
       title,
-      titleTemplate,
-      dangerouslySetAllPagesToNoIndex = false,
+      noindex = false,
       description,
       canonical,
-      facebook,
       openGraph,
-      additionalMetaTags,
+      facebook,
       twitter,
-      defaultOpenGraphImageWidth,
-      defaultOpenGraphImageHeight,
+      additionalMetaTags,
     } = this.props;
 
     return (
       <Head>
         {buildTags({
           title,
-          titleTemplate,
-          dangerouslySetAllPagesToNoIndex,
+          noindex,
           description,
           canonical,
           facebook,
           openGraph,
           additionalMetaTags,
           twitter,
-          defaultOpenGraphImageWidth,
-          defaultOpenGraphImageHeight,
         })}
       </Head>
     );

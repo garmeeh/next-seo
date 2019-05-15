@@ -7,6 +7,7 @@ export interface LogoJsonLdProps {
   logo: string;
   url: string;
 }
+
 const LogoJsonLd: FC<LogoJsonLdProps> = ({ url, logo }) => {
   const jslonld = `{
     "@context": "http://schema.org",

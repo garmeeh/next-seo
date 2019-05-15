@@ -1,17 +1,94 @@
 import React from 'react';
 
-import { Config } from './defaultSEO';
+interface OpenGraphImages {
+  url: string;
+  width?: number;
+  height?: number;
+  alt?: string;
+}
+
+interface OpenGraph {
+  url?: string;
+  type?: string;
+  title?: string;
+  description?: string;
+  images?: ReadonlyArray<OpenGraphImages>;
+  locale?: string;
+  site_name?: string;
+  profile?: OpenGraphProfile;
+  book?: OpenGraphBook;
+  article?: OpenGraphArticle;
+}
+
+interface OpenGraphProfile {
+  firstName?: string;
+  lastName?: string;
+  username?: string;
+  gender?: string;
+}
+
+interface OpenGraphBook {
+  authors?: ReadonlyArray<string>;
+  isbn?: string;
+  releaseDate?: string;
+  tags?: ReadonlyArray<string>;
+}
+
+interface OpenGraphArticle {
+  publishedTime?: string;
+  modifiedTime?: string;
+  expirationTime?: string;
+
+  authors?: ReadonlyArray<string>;
+  section?: string;
+  tags?: ReadonlyArray<string>;
+}
+
+interface Twitter {
+  handle?: string;
+  site?: string;
+  cardType?: string;
+}
+
+interface BaseMetaTag {
+  content: string;
+}
+
+interface HTML5MetaTag extends BaseMetaTag {
+  name: string;
+  property?: undefined;
+}
+
+export interface RDFaMetaTag extends BaseMetaTag {
+  property: string;
+  name?: undefined;
+}
+
+export type MetaTag = HTML5MetaTag | RDFaMetaTag;
+
+interface FullConfig {
+  title?: string;
+  titleTemplate?: string;
+  noindex?: boolean;
+  dangerouslySetAllPagesToNoIndex?: boolean;
+  description?: string;
+  canonical?: string;
+  openGraph?: OpenGraph;
+  facebook?: { appId: string };
+  twitter?: Twitter;
+  additionalMetaTags?: ReadonlyArray<MetaTag>;
+  defaultOpenGraphImageWidth?: number;
+  defaultOpenGraphImageHeight?: number;
+}
 
 const defaults = {
   templateTitle: '',
   noindex: false,
-  openGraph: {
-    defaultImageHeight: 0,
-    defaultImageWidth: 0,
-  },
+  defaultOpenGraphImageWidth: 0,
+  defaultOpenGraphImageHeight: 0,
 };
 
-const buildTags = (config: Config) => {
+const buildTags = (config: FullConfig) => {
   const tagsToRender = [];
 
   if (config.titleTemplate) {
@@ -304,6 +381,14 @@ const buildTags = (config: Config) => {
       );
     }
 
+    if (config.defaultOpenGraphImageWidth) {
+      defaults.defaultOpenGraphImageWidth = config.defaultOpenGraphImageWidth;
+    }
+
+    if (config.defaultOpenGraphImageHeight) {
+      defaults.defaultOpenGraphImageHeight = config.defaultOpenGraphImageHeight;
+    }
+
     if (config.openGraph.images && config.openGraph.images.length) {
       config.openGraph.images.forEach((image, index) => {
         tagsToRender.push(
@@ -332,19 +417,12 @@ const buildTags = (config: Config) => {
               content={image.width.toString()}
             />,
           );
-        } else if (
-          defaults.openGraph.defaultImageWidth ||
-          (config.openGraph && config.openGraph.defaultImageWidth)
-        ) {
-          if (config.openGraph && config.openGraph.defaultImageWidth) {
-            defaults.openGraph.defaultImageWidth =
-              config.openGraph.defaultImageWidth;
-          }
+        } else if (defaults.defaultOpenGraphImageWidth) {
           tagsToRender.push(
             <meta
               key={`og:image:width0${index}`}
               property="og:image:width"
-              content={defaults.openGraph.defaultImageWidth.toString()}
+              content={defaults.defaultOpenGraphImageWidth.toString()}
             />,
           );
         }
@@ -357,19 +435,12 @@ const buildTags = (config: Config) => {
               content={image.height.toString()}
             />,
           );
-        } else if (
-          defaults.openGraph.defaultImageHeight ||
-          (config.openGraph && config.openGraph.defaultImageHeight)
-        ) {
-          if (config.openGraph && config.openGraph.defaultImageHeight) {
-            defaults.openGraph.defaultImageHeight =
-              config.openGraph.defaultImageHeight;
-          }
+        } else if (defaults.defaultOpenGraphImageHeight) {
           tagsToRender.push(
             <meta
               key={`og:image:height${index}`}
               property="og:image:height"
-              content={defaults.openGraph.defaultImageHeight.toString()}
+              content={defaults.defaultOpenGraphImageHeight.toString()}
             />,
           );
         }
@@ -401,6 +472,14 @@ const buildTags = (config: Config) => {
     tagsToRender.push(
       <link rel="canonical" href={config.canonical} key="canonical" />,
     );
+  }
+
+  if (config.additionalMetaTags && config.additionalMetaTags.length > 0) {
+    config.additionalMetaTags.forEach(tag => {
+      tagsToRender.push(
+        <meta key={tag.name ? tag.name : tag.property} {...tag} />,
+      );
+    });
   }
 
   return tagsToRender;

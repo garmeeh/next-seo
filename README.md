@@ -221,11 +221,12 @@ From now on all of your pages will have the defaults applied.
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                                                                                                                       |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                                                                                                                           |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                                                                                                                              |
+| `additionalMetaTags`               | array                   | Allows you to add a meta tag that is not documented here. [More Info](#additional-meta-tags)                                                                                                                                                                                            |
 | `dangerouslySetAllPagesToNoIndex`  | boolean                 | Only applies when using a custom `_app.js` and applying defaults. Please see [here for more info](#dangerouslySetAllPagesToNoIndex).                                                                                                                                                    |
 | `twitter.cardType`                 | string                  | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player`                                                                                                                                                                                                |
 | `twitter.site`                     | string                  | @username for the website used in the card footer                                                                                                                                                                                                                                       |
 | `twitter.handle`                   | string                  | @username for the content creator / author (outputs as `twitter:creator`)                                                                                                                                                                                                               |
-| `facebook.appId`                   | number                  | Used for Facebook Insights, you must add a facebook app ID to your page to for it [More Info](#facebook)                                                                                                                                                                                |
+| `facebook.appId`                   | string                  | Used for Facebook Insights, you must add a facebook app ID to your page to for it [More Info](#facebook)                                                                                                                                                                                |
 | `openGraph.url`                    | string                  | The canonical URL of your object that will be used as its permanent ID in the graph                                                                                                                                                                                                     |
 | `openGraph.type`                   | string                  | The type of your object. Depending on the type you specify, other properties may also be required [More Info](#open-graph)                                                                                                                                                              |
 | `openGraph.title`                  | string                  | The open graph title, this can be different than your meta title.                                                                                                                                                                                                                       |
@@ -322,6 +323,63 @@ Add this on page per page basis when you want to consolidate duplicate URLs.
 
 ```js
 canonical: 'https://www.canonical.ie/',
+```
+
+#### Additional Meta Tags
+
+This allows you to add any other meta tags that are not covered in the `config`.
+
+`content` is required. Then either `name` or `property`. (Only one on each)
+
+Example:
+
+```js
+additionalMetaTags: [{
+  property: 'dc:creator',
+  content: 'Jane Doe'
+}, {
+  name: 'application-name',
+  content: 'NextSeo'
+}],
+```
+
+Invalid Examples:
+
+These are invalid as they contain `property` and `name` on the same entry.
+
+```js
+additionalMetaTags: [{
+  property: 'dc:creator',
+  name: 'dc:creator',
+  content: 'Jane Doe'
+}, {
+  property: 'application-name',
+  name: 'application-name',
+  content: 'NextSeo'
+}],
+```
+
+One thing to note on this is that it currently only supports unique tags.
+This means it will only render one tag per unique `name` / `property`. The last one defined will be rendered.
+
+Example:
+
+If you pass:
+
+```js
+additionalMetaTags: [{
+  property: 'dc:creator',
+  content: 'John Doe'
+}, {
+  property: 'dc:creator',
+  content: 'Jane Doe'
+}],
+```
+
+it will result in this being rendered:
+
+```html
+<meta property="dc:creator" content="Jane Doe" />,
 ```
 
 ## Open Graph
