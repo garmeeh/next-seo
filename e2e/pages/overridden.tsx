@@ -1,7 +1,6 @@
 import React from 'react';
 import { NextSeo } from '../../lib';
 import Links from '../components/links';
-import Head from 'next/head';
 
 export default () => (
   <>

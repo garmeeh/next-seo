@@ -8,6 +8,7 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/.history/',
     '<rootDir>/node_modules/',
+    '<rootDir>/cypress/',
     '<rootDir>/e2e/',
     '<rootDir>/lib/',
   ],

@@ -22,6 +22,7 @@ Next SEO is a plug in that makes managing your SEO easier in Next.js projects an
     - [Twitter](#twitter)
     - [facebook](#facebook)
     - [Canonical URL](#canonical-url)
+    - [Additional Meta Tags](#additional-meta-tags)
 - [Open Graph](#open-graph)
   - [Open Graph Examples](#open-graph-examples)
     - [Basic](#basic)
