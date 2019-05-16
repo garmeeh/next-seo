@@ -1,18 +1,7 @@
 import Head from 'next/head';
 import React, { Component } from 'react';
 import buildTags from './buildTags';
-import { MetaTag, OpenGraph, Twitter } from '../types';
-
-export interface NextSeoProps {
-  title?: string;
-  noindex?: boolean;
-  description?: string;
-  canonical?: string;
-  openGraph?: OpenGraph;
-  facebook?: { appId: string };
-  twitter?: Twitter;
-  additionalMetaTags?: ReadonlyArray<MetaTag>;
-}
+import { NextSeoProps } from '../types';
 
 export default class extends Component<NextSeoProps, {}> {
   constructor(props) {

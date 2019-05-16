@@ -1,94 +1,16 @@
 import React from 'react';
-
-interface OpenGraphImages {
-  url: string;
-  width?: number;
-  height?: number;
-  alt?: string;
-}
-
-interface OpenGraph {
-  url?: string;
-  type?: string;
-  title?: string;
-  description?: string;
-  images?: ReadonlyArray<OpenGraphImages>;
-  locale?: string;
-  site_name?: string;
-  profile?: OpenGraphProfile;
-  book?: OpenGraphBook;
-  article?: OpenGraphArticle;
-}
-
-interface OpenGraphProfile {
-  firstName?: string;
-  lastName?: string;
-  username?: string;
-  gender?: string;
-}
-
-interface OpenGraphBook {
-  authors?: ReadonlyArray<string>;
-  isbn?: string;
-  releaseDate?: string;
-  tags?: ReadonlyArray<string>;
-}
-
-interface OpenGraphArticle {
-  publishedTime?: string;
-  modifiedTime?: string;
-  expirationTime?: string;
-
-  authors?: ReadonlyArray<string>;
-  section?: string;
-  tags?: ReadonlyArray<string>;
-}
-
-interface Twitter {
-  handle?: string;
-  site?: string;
-  cardType?: string;
-}
-
-interface BaseMetaTag {
-  content: string;
-}
-
-interface HTML5MetaTag extends BaseMetaTag {
-  name: string;
-  property?: undefined;
-}
-
-export interface RDFaMetaTag extends BaseMetaTag {
-  property: string;
-  name?: undefined;
-}
-
-export type MetaTag = HTML5MetaTag | RDFaMetaTag;
-
-interface FullConfig {
-  title?: string;
-  titleTemplate?: string;
-  noindex?: boolean;
-  dangerouslySetAllPagesToNoIndex?: boolean;
-  description?: string;
-  canonical?: string;
-  openGraph?: OpenGraph;
-  facebook?: { appId: string };
-  twitter?: Twitter;
-  additionalMetaTags?: ReadonlyArray<MetaTag>;
-  defaultOpenGraphImageWidth?: number;
-  defaultOpenGraphImageHeight?: number;
-}
+import { BuildTagsParams } from '../types';
 
 const defaults = {
   templateTitle: '',
   noindex: false,
   defaultOpenGraphImageWidth: 0,
   defaultOpenGraphImageHeight: 0,
+  defaultOpenGraphVideoWidth: 0,
+  defaultOpenGraphVideoHeight: 0,
 };
 
-const buildTags = (config: FullConfig) => {
+const buildTags = (config: BuildTagsParams) => {
   const tagsToRender = [];
 
   if (config.titleTemplate) {
@@ -381,6 +303,7 @@ const buildTags = (config: FullConfig) => {
       );
     }
 
+    // images
     if (config.defaultOpenGraphImageWidth) {
       defaults.defaultOpenGraphImageWidth = config.defaultOpenGraphImageWidth;
     }
@@ -441,6 +364,73 @@ const buildTags = (config: FullConfig) => {
               key={`og:image:height${index}`}
               property="og:image:height"
               content={defaults.defaultOpenGraphImageHeight.toString()}
+            />,
+          );
+        }
+      });
+    }
+
+    // videos
+    if (config.defaultOpenGraphVideoWidth) {
+      defaults.defaultOpenGraphVideoWidth = config.defaultOpenGraphVideoWidth;
+    }
+
+    if (config.defaultOpenGraphVideoHeight) {
+      defaults.defaultOpenGraphVideoHeight = config.defaultOpenGraphVideoHeight;
+    }
+
+    if (config.openGraph.videos && config.openGraph.videos.length) {
+      config.openGraph.videos.forEach((video, index) => {
+        tagsToRender.push(
+          <meta
+            key={`og:video:0${index}`}
+            property="og:video"
+            content={video.url}
+          />,
+        );
+
+        if (video.alt) {
+          tagsToRender.push(
+            <meta
+              key={`og:video:alt0${index}`}
+              property="og:video:alt"
+              content={video.alt}
+            />,
+          );
+        }
+
+        if (video.width) {
+          tagsToRender.push(
+            <meta
+              key={`og:video:width0${index}`}
+              property="og:video:width"
+              content={video.width.toString()}
+            />,
+          );
+        } else if (defaults.defaultOpenGraphVideoWidth) {
+          tagsToRender.push(
+            <meta
+              key={`og:video:width0${index}`}
+              property="og:video:width"
+              content={defaults.defaultOpenGraphVideoWidth.toString()}
+            />,
+          );
+        }
+
+        if (video.height) {
+          tagsToRender.push(
+            <meta
+              key={`og:video:height${index}`}
+              property="og:video:height"
+              content={video.height.toString()}
+            />,
+          );
+        } else if (defaults.defaultOpenGraphVideoHeight) {
+          tagsToRender.push(
+            <meta
+              key={`og:video:height${index}`}
+              property="og:video:height"
+              content={defaults.defaultOpenGraphVideoHeight.toString()}
             />,
           );
         }

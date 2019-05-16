@@ -5,12 +5,20 @@ export interface OpenGraphImages {
   alt?: string;
 }
 
+export interface OpenGraphVideos {
+  url: string;
+  width?: number;
+  height?: number;
+  alt?: string;
+}
+
 export interface OpenGraph {
   url?: string;
   type?: string;
   title?: string;
   description?: string;
   images?: ReadonlyArray<OpenGraphImages>;
+  videos?: ReadonlyArray<OpenGraphVideos>;
   defaultImageHeight?: number;
   defaultImageWidth?: number;
   locale?: string;
@@ -65,3 +73,32 @@ export interface RDFaMetaTag extends BaseMetaTag {
 }
 
 export type MetaTag = HTML5MetaTag | RDFaMetaTag;
+
+export interface DefaultSeoProps {
+  title?: string;
+  titleTemplate?: string;
+  dangerouslySetAllPagesToNoIndex?: boolean;
+  description?: string;
+  canonical?: string;
+  facebook?: { appId: string };
+  additionalMetaTags?: ReadonlyArray<MetaTag>;
+  openGraph?: OpenGraph;
+  twitter?: Twitter;
+  defaultOpenGraphImageWidth?: number;
+  defaultOpenGraphImageHeight?: number;
+  defaultOpenGraphVideoWidth?: number;
+  defaultOpenGraphVideoHeight?: number;
+}
+
+export interface NextSeoProps {
+  title?: string;
+  noindex?: boolean;
+  description?: string;
+  canonical?: string;
+  openGraph?: OpenGraph;
+  facebook?: { appId: string };
+  twitter?: Twitter;
+  additionalMetaTags?: ReadonlyArray<MetaTag>;
+}
+
+export interface BuildTagsParams extends DefaultSeoProps, NextSeoProps {}

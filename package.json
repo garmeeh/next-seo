@@ -7,7 +7,6 @@
     "lib"
   ],
   "peerDependencies": {
-    "next": "^6.0.0 || ^7.0.0 || ^8.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
@@ -24,10 +23,10 @@
     "table-of-contents": "doctoc README.md",
     "type-check": "tsc --noEmit",
     "type-check:watch": "yarn type-check -- --watch",
-    "build": "yarn build:types && yarn build:js",
-    "build:watch": "yarn build:types -- --watch && yarn build:js -- --watch",
+    "build": "yarn build:types && yarn build:ts",
+    "build:watch": "yarn build:types -- --watch && yarn build:ts -- --watch",
     "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\"",
+    "build:ts": "babel src --out-dir lib --extensions \".ts,.tsx\"",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "e2e:dev": "yarn next e2e",
@@ -68,7 +67,6 @@
     "@babel/preset-typescript": "^7.1.0",
     "@cypress/schema-tools": "^4.6.7",
     "@types/jest": "^24.0.11",
-    "@types/next": "^8.0.1",
     "@types/react": "^16.8.7",
     "@types/react-dom": "^16.8.4",
     "babel-jest": "24.8.0",
@@ -79,7 +77,7 @@
     "husky": "2.3.0",
     "jest": "24.8.0",
     "lint-staged": "8.1.7",
-    "next": "^8.1.1-canary.29",
+    "next": "8.1.1-canary.25",
     "npm-run-all": "4.1.5",
     "prettier": "1.17.1",
     "react": "^16.8.4",
@@ -106,5 +104,6 @@
   },
   "resolutions": {
     "@types/react": "^16.8.7"
-  }
+  },
+  "dependencies": {}
 }

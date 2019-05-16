@@ -7,3 +7,4 @@ cypress/videos
 coverage
 package-lock.json
 lib
+notes.md

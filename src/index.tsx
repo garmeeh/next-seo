@@ -1,5 +1,5 @@
-export { default as DefaultSeo, DefaultSeoProps } from './meta/defaultSEO';
-export { default as NextSeo, NextSeoProps } from './meta/nextSEO';
+export { default as DefaultSeo } from './meta/defaultSEO';
+export { default as NextSeo } from './meta/nextSEO';
 export { default as ArticleJsonLd, ArticleJsonLdProps } from './jsonld/article';
 export {
   default as BreadcrumbJsonLd,
@@ -15,3 +15,5 @@ export {
   default as CorporateContactJsonLd,
   CorporateContactJsonLdProps,
 } from './jsonld/corporateContact';
+
+export { DefaultSeoProps, NextSeoProps } from './types';

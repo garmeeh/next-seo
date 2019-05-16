@@ -1,22 +1,22 @@
 import React from 'react';
 import { getByText, cleanup, render } from 'react-testing-library';
 
-import buildTags from '../buildTags';
+import buildTags, { FullConfig } from '../buildTags';
 
 afterEach(cleanup);
 
-const SEO = {
+const SEO: FullConfig = {
   title: 'This is a test title.',
   description: 'This is a test description.',
   canonical: 'https://www.canonical.ie',
+  defaultOpenGraphImageHeight: 1200,
+  defaultOpenGraphImageWidth: 1200,
   openGraph: {
     type: 'website',
     locale: 'en_IE',
     url: 'https://www.url.ie',
     title: 'Open graph title',
     description: 'This is testing og:description.',
-    defaultImageWidth: 1200,
-    defaultImageHeight: 1200,
     images: [
       {
         url: 'https://www.test.ie/image-01.jpg',
@@ -117,7 +117,7 @@ it('returns full array for default seo object', () => {
   );
   const ogImageTag03 = tags.filter(item => item.key === 'og:image:03');
   const ogDefaultImageWidthHeight = container.querySelectorAll(
-    `meta[content="${SEO.openGraph.defaultImageHeight}"]`,
+    `meta[content="${SEO.defaultOpenGraphImageHeight}"]`,
   );
   const ogSetImageHeight = container.querySelectorAll(
     `meta[content="${SEO.openGraph.images[0].height}"]`,

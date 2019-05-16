@@ -30,6 +30,22 @@ export default () => (
           { url: 'https://www.test.ie/og-image-b-03.jpg' },
           { url: 'https://www.test.ie/og-image-b-04.jpg' },
         ],
+        videos: [
+          {
+            url: 'https://www.test.ie/og-video-b-01.jpg',
+            width: 850,
+            height: 650,
+            alt: 'Og Video Alt B',
+          },
+          {
+            url: 'https://www.test.ie/og-video-b-02.jpg',
+            width: 950,
+            height: 850,
+            alt: 'Og Video Alt B Second',
+          },
+          { url: 'https://www.test.ie/og-video-b-03.jpg' },
+          { url: 'https://www.test.ie/og-video-b-04.jpg' },
+        ],
         site_name: 'SiteName B',
       }}
       twitter={{

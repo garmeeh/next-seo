@@ -2,21 +2,7 @@ import Head from 'next/head';
 import React, { Component } from 'react';
 import buildTags from './buildTags';
 
-import { MetaTag, OpenGraph, Twitter } from '../types';
-
-export interface DefaultSeoProps {
-  title?: string;
-  titleTemplate?: string;
-  dangerouslySetAllPagesToNoIndex?: boolean;
-  description?: string;
-  canonical?: string;
-  facebook?: { appId: string };
-  additionalMetaTags?: ReadonlyArray<MetaTag>;
-  openGraph?: OpenGraph;
-  twitter?: Twitter;
-  defaultOpenGraphImageWidth?: number;
-  defaultOpenGraphImageHeight?: number;
-}
+import { DefaultSeoProps } from '../types';
 
 export default class extends Component<DefaultSeoProps, {}> {
   constructor(props) {
@@ -36,6 +22,8 @@ export default class extends Component<DefaultSeoProps, {}> {
       twitter,
       defaultOpenGraphImageWidth,
       defaultOpenGraphImageHeight,
+      defaultOpenGraphVideoWidth,
+      defaultOpenGraphVideoHeight,
     } = this.props;
 
     return (
@@ -52,6 +40,8 @@ export default class extends Component<DefaultSeoProps, {}> {
           twitter,
           defaultOpenGraphImageWidth,
           defaultOpenGraphImageHeight,
+          defaultOpenGraphVideoWidth,
+          defaultOpenGraphVideoHeight,
         })}
       </Head>
     );
