@@ -1,11 +1,12 @@
 import React from 'react';
 import { getByText, cleanup, render } from 'react-testing-library';
+import { BuildTagsParams } from '../../types';
 
-import buildTags, { FullConfig } from '../buildTags';
+import buildTags from '../buildTags';
 
 afterEach(cleanup);
 
-const SEO: FullConfig = {
+const SEO: BuildTagsParams = {
   title: 'This is a test title.',
   description: 'This is a test description.',
   canonical: 'https://www.canonical.ie',

@@ -17,8 +17,9 @@ const buildTags = (config: BuildTagsParams) => {
     defaults.templateTitle = config.titleTemplate;
   }
 
+  let updatedTitle = '';
   if (config.title) {
-    let updatedTitle = config.title;
+    updatedTitle = config.title;
     if (defaults.templateTitle) {
       updatedTitle = defaults.templateTitle.replace(/%s/g, () => updatedTitle);
     }
@@ -110,9 +111,13 @@ const buildTags = (config: BuildTagsParams) => {
   }
 
   if (config.openGraph) {
-    if (config.openGraph.url) {
+    if (config.openGraph.url || config.canonical) {
       tagsToRender.push(
-        <meta key="og:url" property="og:url" content={config.openGraph.url} />,
+        <meta
+          key="og:url"
+          property="og:url"
+          content={config.openGraph.url || config.canonical}
+        />,
       );
     }
 
@@ -283,22 +288,22 @@ const buildTags = (config: BuildTagsParams) => {
       }
     }
 
-    if (config.openGraph.title) {
+    if (config.openGraph.title || config.title) {
       tagsToRender.push(
         <meta
           key="og:title"
           property="og:title"
-          content={config.openGraph.title}
+          content={config.openGraph.title || updatedTitle}
         />,
       );
     }
 
-    if (config.openGraph.description) {
+    if (config.openGraph.description || config.description) {
       tagsToRender.push(
         <meta
           key="og:description"
           property="og:description"
-          content={config.openGraph.description}
+          content={config.openGraph.description || config.description}
         />,
       );
     }
