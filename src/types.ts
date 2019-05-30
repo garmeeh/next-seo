@@ -12,6 +12,11 @@ export interface OpenGraphVideos {
   alt?: string;
 }
 
+export interface OpenGraphVideoActors {
+  profile: string;
+  role?: string;
+}
+
 export interface OpenGraph {
   url?: string;
   type?: string;
@@ -26,6 +31,7 @@ export interface OpenGraph {
   profile?: OpenGraphProfile;
   book?: OpenGraphBook;
   article?: OpenGraphArticle;
+  video?: OpenGraphVideo;
 }
 
 export interface OpenGraphProfile {
@@ -50,6 +56,16 @@ export interface OpenGraphArticle {
   authors?: ReadonlyArray<string>;
   section?: string;
   tags?: ReadonlyArray<string>;
+}
+
+export interface OpenGraphVideo {
+  actors?: ReadonlyArray<OpenGraphVideoActors>;
+  directors?: ReadonlyArray<string>;
+  writers?: ReadonlyArray<string>;
+  duration?: number;
+  releaseDate?: string;
+  tags?: ReadonlyArray<string>;
+  series?: string;
 }
 
 export interface Twitter {
