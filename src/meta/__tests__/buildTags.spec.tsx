@@ -518,6 +518,167 @@ it('Check profile og type meta', () => {
   expect(Array.from(ogProfileGenderTag).length).toBe(1);
 });
 
+const VideoSEO = {
+  title: 'Video Page Title',
+  description: 'Description of video page',
+  openGraph: {
+    title: 'Open Graph Video Title',
+    description: 'Description of open graph video',
+    url: 'https://www.example.com/videos/video-title',
+    type: 'video.movie',
+    video: {
+      actors: [
+        {
+          profile: 'https://www.example.com/actors/@firstnameA-lastnameA',
+          role: 'Protagonist',
+        },
+        {
+          profile: 'https://www.example.com/actors/@firstnameB-lastnameB',
+          role: 'Antagonist',
+        },
+      ],
+      directors: [
+        'https://www.example.com/directors/@firstnameA-lastnameA',
+        'https://www.example.com/directors/@firstnameB-lastnameB',
+      ],
+      writers: [
+        'https://www.example.com/writers/@firstnameA-lastnameA',
+        'https://www.example.com/writers/@firstnameB-lastnameB',
+      ],
+      duration: 680000,
+      releaseDate: '2022-12-21T22:04:11Z',
+      tags: ['Tag A', 'Tag B'],
+    },
+    images: [
+      {
+        url: 'https://www.test.ie/og-image-video-title-01.jpg',
+        width: 850,
+        height: 650,
+        alt: 'Og Image Alt Video Title A',
+      },
+      {
+        url: 'https://www.test.ie/og-image-video-title-02.jpg',
+        width: 950,
+        height: 850,
+        alt: 'Og Image Alt Video Title B',
+      },
+    ],
+    site_name: 'SiteName',
+  },
+  twitter: {
+    handle: '@handle',
+    site: '@site',
+    cardType: 'summary_large_image',
+  },
+};
+
+it('Video SEO renders correctly', () => {
+  const tags = buildTags(VideoSEO);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+  expect(container).toMatchSnapshot();
+});
+
+it('Check video og type meta', () => {
+  const tags = buildTags(VideoSEO);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+
+  const ogType = container.querySelectorAll(
+    `meta[content="${VideoSEO.openGraph.type}"]`,
+  );
+  const ogTypeTag = container.querySelectorAll('meta[property="og:type"]');
+  const ogVideoReleaseDate = container.querySelectorAll(
+    `meta[content="${VideoSEO.openGraph.video.releaseDate}"]`,
+  );
+  const ogVideoReleaseDateTag = container.querySelectorAll(
+    'meta[property="video:release_date"]',
+  );
+  const ogVideoDuration = container.querySelectorAll(
+    `meta[content="${VideoSEO.openGraph.video.duration}"]`,
+  );
+  const ogVideoDurationTag = container.querySelectorAll(
+    'meta[property="video:duration"]',
+  );
+  const ogVideoActors00 = container.querySelectorAll(
+    `meta[content="${VideoSEO.openGraph.video.actors[0].profile}"]`,
+  );
+  const ogVideoActorsTag00 = tags.filter(item => item.key === 'video:actor:00');
+  const ogVideoActors01 = container.querySelectorAll(
+    `meta[content="${VideoSEO.openGraph.video.actors[1].profile}"]`,
+  );
+  const ogVideoActorsTag01 = tags.filter(item => item.key === 'video:actor:01');
+  const ogVideoActorsRoles00 = container.querySelectorAll(
+    `meta[content="${VideoSEO.openGraph.video.actors[0].role}"]`,
+  );
+  const ogVideoActorsRolesTag00 = tags.filter(
+    item => item.key === 'video:actor:role:00',
+  );
+  const ogVideoActorsRoles01 = container.querySelectorAll(
+    `meta[content="${VideoSEO.openGraph.video.actors[1].role}"]`,
+  );
+  const ogVideoActorsRolesTag01 = tags.filter(
+    item => item.key === 'video:actor:role:01',
+  );
+  const ogVideoDirectors00 = container.querySelectorAll(
+    `meta[content="${VideoSEO.openGraph.video.directors[0]}"]`,
+  );
+  const ogVideoDirectorsTag00 = tags.filter(
+    item => item.key === 'video:director:00',
+  );
+  const ogVideoDirectors01 = container.querySelectorAll(
+    `meta[content="${VideoSEO.openGraph.video.directors[1]}"]`,
+  );
+  const ogVideoDirectorsTag01 = tags.filter(
+    item => item.key === 'video:director:01',
+  );
+  const ogVideoWriters00 = container.querySelectorAll(
+    `meta[content="${VideoSEO.openGraph.video.writers[0]}"]`,
+  );
+  const ogVideoWritersTag00 = tags.filter(
+    item => item.key === 'video:writer:00',
+  );
+  const ogVideoWriters01 = container.querySelectorAll(
+    `meta[content="${VideoSEO.openGraph.video.writers[1]}"]`,
+  );
+  const ogVideoWritersTag01 = tags.filter(
+    item => item.key === 'video:writer:01',
+  );
+  const ogVideoTags00 = container.querySelectorAll(
+    `meta[content="${ArticleSEO.openGraph.article.tags[0]}"]`,
+  );
+  const ogVideoTagsTag00 = tags.filter(item => item.key === 'video:tag:00');
+  const ogVideoTags01 = container.querySelectorAll(
+    `meta[content="${VideoSEO.openGraph.video.tags[1]}"]`,
+  );
+  const ogVideoTagsTag01 = tags.filter(item => item.key === 'video:tag:01');
+
+  expect(Array.from(ogType).length).toBe(1);
+  expect(Array.from(ogTypeTag).length).toBe(1);
+  expect(Array.from(ogVideoReleaseDate).length).toBe(1);
+  expect(Array.from(ogVideoReleaseDateTag).length).toBe(1);
+  expect(Array.from(ogVideoDuration).length).toBe(1);
+  expect(Array.from(ogVideoDurationTag).length).toBe(1);
+  expect(Array.from(ogVideoActors00).length).toBe(1);
+  expect(Array.from(ogVideoActorsTag00).length).toBe(1);
+  expect(Array.from(ogVideoActors01).length).toBe(1);
+  expect(Array.from(ogVideoActorsTag01).length).toBe(1);
+  expect(Array.from(ogVideoActorsRoles00).length).toBe(1);
+  expect(Array.from(ogVideoActorsRolesTag00).length).toBe(1);
+  expect(Array.from(ogVideoActorsRoles01).length).toBe(1);
+  expect(Array.from(ogVideoActorsRolesTag01).length).toBe(1);
+  expect(Array.from(ogVideoDirectors00).length).toBe(1);
+  expect(Array.from(ogVideoDirectorsTag00).length).toBe(1);
+  expect(Array.from(ogVideoDirectors01).length).toBe(1);
+  expect(Array.from(ogVideoDirectorsTag01).length).toBe(1);
+  expect(Array.from(ogVideoWriters00).length).toBe(1);
+  expect(Array.from(ogVideoWritersTag00).length).toBe(1);
+  expect(Array.from(ogVideoWriters01).length).toBe(1);
+  expect(Array.from(ogVideoWritersTag01).length).toBe(1);
+  expect(Array.from(ogVideoTags00).length).toBe(1);
+  expect(Array.from(ogVideoTagsTag00).length).toBe(1);
+  expect(Array.from(ogVideoTags01).length).toBe(1);
+  expect(Array.from(ogVideoTagsTag01).length).toBe(1);
+});
+
 it('additional meta tags are set', () => {
   const overrideProps = {
     ...SEO,

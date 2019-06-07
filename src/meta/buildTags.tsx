@@ -285,7 +285,106 @@ const buildTags = (config: BuildTagsParams) => {
             );
           });
         }
-      }
+      } else if ((type === 'video.movie' || type === 'video.episode' || type === 'video.tv_show' || type === 'video.other') && config.openGraph.video) {
+        if (config.openGraph.video.actors && config.openGraph.video.actors.length) {
+          config.openGraph.video.actors.forEach((actor, index) => {
+
+            if (actor.profile) {
+              tagsToRender.push(
+                <meta
+                  key={`video:actor:0${index}`}
+                  property="video:actor"
+                  content={actor.profile}
+                />,
+              );
+
+              if (actor.role) {
+                tagsToRender.push(
+                  <meta
+                    key={`video:actor:role:${index}`}
+                    property="video:actor:role"
+                    content={actor.role}
+                  />,
+                );
+              }
+            }
+           });
+        }
+
+        if (
+          config.openGraph.video.directors &&
+          config.openGraph.video.directors.length
+        ) {
+          config.openGraph.video.directors.forEach((director, index) => {
+            tagsToRender.push(
+              <meta
+                key={`video:director:0${index}`}
+                property="video:director"
+                content={director}
+              />,
+            );
+          });
+        }
+
+        if (
+          config.openGraph.video.writers &&
+          config.openGraph.video.writers.length
+        ) {
+          config.openGraph.video.writers.forEach((writer, index) => {
+            tagsToRender.push(
+              <meta
+                key={`video:writer:0${index}`}
+                property="video:writer"
+                content={writer}
+              />,
+            );
+          });
+        }
+
+        if (config.openGraph.video.duration) {
+          tagsToRender.push(
+            <meta
+              key="video:duration"
+              property="video:duration"
+              content={config.openGraph.video.duration.toString()}
+            />,
+          );
+        } 
+
+        if (config.openGraph.video.releaseDate) {
+          tagsToRender.push(
+            <meta
+              key="video:release_date"
+              property="video:release_date"
+              content={config.openGraph.video.releaseDate}
+            />,
+          );
+        } 
+
+        if (
+          config.openGraph.video.tags &&
+          config.openGraph.video.tags.length
+        ) {
+          config.openGraph.video.tags.forEach((tag, index) => {
+            tagsToRender.push(
+              <meta
+                key={`video:tag:0${index}`}
+                property="video:tag"
+                content={tag}
+              />,
+            );
+          });
+        }
+
+        if (config.openGraph.video.series) {
+          tagsToRender.push(
+            <meta
+              key="video:series"
+              property="video:series"
+              content={config.openGraph.video.series}
+            />,
+          );
+        } 
     }
 
     if (config.openGraph.title || config.title) {
