@@ -310,7 +310,7 @@ const buildTags = (config: BuildTagsParams) => {
             if (actor.role) {
               tagsToRender.push(
                 <meta
-                  key={`video:actor:role:${index}`}
+                  key={`video:actor:role:0${index}`}
                   property="video:actor:role"
                   content={actor.role}
                 />,
