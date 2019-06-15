@@ -285,10 +285,18 @@ const buildTags = (config: BuildTagsParams) => {
             );
           });
         }
-      } else if ((type === 'video.movie' || type === 'video.episode' || type === 'video.tv_show' || type === 'video.other') && config.openGraph.video) {
-        if (config.openGraph.video.actors && config.openGraph.video.actors.length) {
+      } else if (
+        (type === 'video.movie' ||
+          type === 'video.episode' ||
+          type === 'video.tv_show' ||
+          type === 'video.other') &&
+        config.openGraph.video
+      ) {
+        if (
+          config.openGraph.video.actors &&
+          config.openGraph.video.actors.length
+        ) {
           config.openGraph.video.actors.forEach((actor, index) => {
-
             if (actor.profile) {
               tagsToRender.push(
                 <meta
@@ -297,18 +305,18 @@ const buildTags = (config: BuildTagsParams) => {
                   content={actor.profile}
                 />,
               );
-
-              if (actor.role) {
-                tagsToRender.push(
-                  <meta
-                    key={`video:actor:role:${index}`}
-                    property="video:actor:role"
-                    content={actor.role}
-                  />,
-                );
-              }
             }
-           });
+
+            if (actor.role) {
+              tagsToRender.push(
+                <meta
+                  key={`video:actor:role:${index}`}
+                  property="video:actor:role"
+                  content={actor.role}
+                />,
+              );
+            }
+          });
         }
 
         if (
@@ -349,7 +357,7 @@ const buildTags = (config: BuildTagsParams) => {
               content={config.openGraph.video.duration.toString()}
             />,
           );
-        } 
+        }
 
         if (config.openGraph.video.releaseDate) {
           tagsToRender.push(
@@ -359,12 +367,9 @@ const buildTags = (config: BuildTagsParams) => {
               content={config.openGraph.video.releaseDate}
             />,
           );
-        } 
+        }
 
-        if (
-          config.openGraph.video.tags &&
-          config.openGraph.video.tags.length
-        ) {
+        if (config.openGraph.video.tags && config.openGraph.video.tags.length) {
           config.openGraph.video.tags.forEach((tag, index) => {
             tagsToRender.push(
               <meta
@@ -384,7 +389,8 @@ const buildTags = (config: BuildTagsParams) => {
               content={config.openGraph.video.series}
             />,
           );
-        } 
+        }
+      }
     }
 
     if (config.openGraph.title || config.title) {
