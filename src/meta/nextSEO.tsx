@@ -18,6 +18,7 @@ export default class extends Component<NextSeoProps, {}> {
       facebook,
       twitter,
       additionalMetaTags,
+      titleTemplate,
     } = this.props;
 
     return (
@@ -31,6 +32,7 @@ export default class extends Component<NextSeoProps, {}> {
           openGraph,
           additionalMetaTags,
           twitter,
+          titleTemplate,
         })}
       </Head>
     );

@@ -90,24 +90,9 @@ export interface RDFaMetaTag extends BaseMetaTag {
 
 export type MetaTag = HTML5MetaTag | RDFaMetaTag;
 
-export interface DefaultSeoProps {
-  title?: string;
-  titleTemplate?: string;
-  dangerouslySetAllPagesToNoIndex?: boolean;
-  description?: string;
-  canonical?: string;
-  facebook?: { appId: string };
-  additionalMetaTags?: ReadonlyArray<MetaTag>;
-  openGraph?: OpenGraph;
-  twitter?: Twitter;
-  defaultOpenGraphImageWidth?: number;
-  defaultOpenGraphImageHeight?: number;
-  defaultOpenGraphVideoWidth?: number;
-  defaultOpenGraphVideoHeight?: number;
-}
-
 export interface NextSeoProps {
   title?: string;
+  titleTemplate?: string;
   noindex?: boolean;
   description?: string;
   canonical?: string;
@@ -115,6 +100,14 @@ export interface NextSeoProps {
   facebook?: { appId: string };
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
+}
+
+export interface DefaultSeoProps extends NextSeoProps {
+  dangerouslySetAllPagesToNoIndex?: boolean;
+  defaultOpenGraphImageWidth?: number;
+  defaultOpenGraphImageHeight?: number;
+  defaultOpenGraphVideoWidth?: number;
+  defaultOpenGraphVideoHeight?: number;
 }
 
 export interface BuildTagsParams extends DefaultSeoProps, NextSeoProps {}
