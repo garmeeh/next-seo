@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
+import formatIfArray from '../utils/formatIfArray';
 
-const buildImages = images =>
-  images.length ? `"image": [${images.map(image => `"${image}"`)}],` : '';
+type Address = {
+  streetAddress: string;
+  addressLocality: string;
+  addressRegion?: string;
+  postalCode: string;
+  addressCountry: string;
+};
 
-const buildGeo = geo => `
+type Geo = {
+  latitude: string;
+  longitude: string;
+};
+
+export interface LocalBusinessJsonLdProps {
+  type: string;
+  id: string;
+  name: string;
+  description: string;
+  url: string;
+  telephone?: string;
+  address: Address;
+  geo: Geo;
+  images: string[];
+}
+
+const buildGeo = (geo: Geo) => `
   "geo": {
     "@type": "GeoCoordinates",
     "latitude": "${geo.latitude}",
@@ -14,7 +37,7 @@ const buildGeo = geo => `
   },
 `;
 
-const buildAddress = address => `
+const buildAddress = (address: Address) => `
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "${address.streetAddress}",
@@ -29,7 +52,7 @@ const buildAddress = address => `
   },
 `;
 
-const LocalBusinessJsonLd = ({
+const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   type,
   id,
   name,
@@ -49,7 +72,7 @@ const LocalBusinessJsonLd = ({
     ${telephone ? `"telephone": "${telephone}",` : ''}
     ${buildAddress(address)}
     ${geo ? `${buildGeo(geo)}` : ''}
-    ${buildImages(images)}
+    "image":${formatIfArray(images)},
     "name": "${name}"
   }`;
 

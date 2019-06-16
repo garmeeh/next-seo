@@ -3,7 +3,19 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 
-const SocialProfileJsonLd = ({ type, name, url, sameAs = [] }) => {
+export interface SocialProfileJsonLdProps {
+  type: string;
+  name: string;
+  url: string;
+  sameAs: string[];
+}
+
+const SocialProfileJsonLd: FC<SocialProfileJsonLdProps> = ({
+  type,
+  name,
+  url,
+  sameAs = [],
+}) => {
   const jslonld = `{
     "@context": "http://schema.org",
     "@type": "${type}",

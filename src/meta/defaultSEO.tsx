@@ -5,10 +5,6 @@ import buildTags from './buildTags';
 import { DefaultSeoProps } from '../types';
 
 export default class extends Component<DefaultSeoProps, {}> {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       title,

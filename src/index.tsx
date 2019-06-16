@@ -7,10 +7,16 @@ export {
 } from './jsonld/breadcrumb';
 export { default as BlogJsonLd, BlogJsonLdProps } from './jsonld/blog';
 export { default as CourseJsonLd, CourseJsonLdProps } from './jsonld/course';
-export { default as LocalBusinessJsonLd } from './jsonld/localBusiness';
+export {
+  default as LocalBusinessJsonLd,
+  LocalBusinessJsonLdProps,
+} from './jsonld/localBusiness';
 export { default as LogoJsonLd, LogoJsonLdProps } from './jsonld/logo';
-export { default as ProductJsonLd } from './jsonld/product';
-export { default as SocialProfileJsonLd } from './jsonld/socialProfile';
+export { default as ProductJsonLd, ProductJsonLdProps } from './jsonld/product';
+export {
+  default as SocialProfileJsonLd,
+  SocialProfileJsonLdProps,
+} from './jsonld/socialProfile';
 export {
   default as CorporateContactJsonLd,
   CorporateContactJsonLdProps,

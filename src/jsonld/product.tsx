@@ -1,19 +1,62 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
+import formatIfArray from '../utils/formatIfArray';
 
-const buildImages = images =>
-  images.length ? `"image": [${images.map(image => `"${image}"`)}],` : '';
+type ReviewRating = {
+  bestRating?: string;
+  ratingValue: string;
+  worstRating?: string;
+};
 
-const buildBrand = brand => `
+type Review = {
+  author: string;
+  datePublished?: string;
+  reviewBody?: string;
+  name?: string;
+  reviewRating: ReviewRating;
+};
+
+type Offers = {
+  price: string;
+  priceCurrency: string;
+  priceValidUntil?: string;
+  itemCondition?: string;
+  availability?: string;
+  seller: {
+    name: string;
+  };
+};
+
+type AggregateRating = {
+  ratingValue: string;
+  reviewCount: string;
+};
+
+export interface ProductJsonLdProps {
+  productName: string;
+  images?: string[];
+  description?: string;
+  brand?: string;
+  reviews: Review[];
+  aggregateRating: AggregateRating;
+  offers: Offers;
+  sku?: string;
+  gtin8?: string;
+  gtin13?: string;
+  gtin14?: string;
+  mpn?: string;
+}
+
+const buildBrand = (brand: string) => `
   "brand": {
       "@type": "Thing",
       "name": "${brand}"
     },
 `;
 
-const buildReviewRating = rating =>
+const buildReviewRating = (rating: ReviewRating) =>
   rating
     ? `"reviewRating": {
           "@type": "Rating",
@@ -23,7 +66,7 @@ const buildReviewRating = rating =>
         },`
     : '';
 
-const buildReviews = reviews => `
+const buildReviews = (reviews: Review[]) => `
 "review": [
   ${reviews.map(
     review => `{
@@ -40,7 +83,7 @@ const buildReviews = reviews => `
   }`,
   )}],`;
 
-const buildAggregateRating = aggregateRating => `
+const buildAggregateRating = (aggregateRating: AggregateRating) => `
   "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "${aggregateRating.ratingValue}",
@@ -50,7 +93,7 @@ const buildAggregateRating = aggregateRating => `
 
 // TODO: Docs for offers itemCondition & availability
 // TODO: Seller type, make dynamic
-const buildOffers = offers => `
+const buildOffers = (offers: Offers) => `
   "offers": {
     "@type": "Offer",
     "priceCurrency": "${offers.priceCurrency}",
@@ -75,7 +118,7 @@ const buildOffers = offers => `
   },
 `;
 
-const ProductJsonLd = ({
+const ProductJsonLd: FC<ProductJsonLdProps> = ({
   productName,
   images = [],
   description,
@@ -92,7 +135,7 @@ const ProductJsonLd = ({
   const jslonld = `{
     "@context": "http://schema.org/",
     "@type": "Product",
-    ${buildImages(images)}
+    "image":${formatIfArray(images)},
     ${description ? `"description": "${description}",` : ''}
     ${mpn ? `"mpn": "${mpn}",` : ''}
     ${sku ? `"sku": "${sku}",` : ''}
@@ -115,20 +158,6 @@ const ProductJsonLd = ({
       />
     </Head>
   );
-};
-
-ProductJsonLd.defaultProps = {
-  images: [],
-  description: null,
-  brand: null,
-  reviews: [],
-  aggregateRating: null,
-  offers: null,
-  sku: null,
-  gtin8: null,
-  gtin13: null,
-  gtin14: null,
-  mpn: null,
 };
 
 export default ProductJsonLd;
