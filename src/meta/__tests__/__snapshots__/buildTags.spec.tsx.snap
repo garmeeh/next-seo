@@ -324,6 +324,138 @@ exports[`Profile SEO renders correctly 1`] = `
 </div>
 `;
 
+exports[`Video SEO renders correctly 1`] = `
+<div>
+  <title>
+    Next SEO | Video Page Title
+  </title>
+  <meta
+    content="index,follow"
+    name="robots"
+  />
+  <meta
+    content="index,follow"
+    name="googlebot"
+  />
+  <meta
+    content="Description of video page"
+    name="description"
+  />
+  <meta
+    content="summary_large_image"
+    name="twitter:card"
+  />
+  <meta
+    content="@site"
+    name="twitter:site"
+  />
+  <meta
+    content="@handle"
+    name="twitter:creator"
+  />
+  <meta
+    content="https://www.example.com/videos/video-title"
+    property="og:url"
+  />
+  <meta
+    content="video.movie"
+    property="og:type"
+  />
+  <meta
+    content="https://www.example.com/actors/@firstnameA-lastnameA"
+    property="video:actor"
+  />
+  <meta
+    content="Protagonist"
+    property="video:actor:role"
+  />
+  <meta
+    content="https://www.example.com/actors/@firstnameB-lastnameB"
+    property="video:actor"
+  />
+  <meta
+    content="Antagonist"
+    property="video:actor:role"
+  />
+  <meta
+    content="https://www.example.com/directors/@firstnameA-lastnameA"
+    property="video:director"
+  />
+  <meta
+    content="https://www.example.com/directors/@firstnameB-lastnameB"
+    property="video:director"
+  />
+  <meta
+    content="https://www.example.com/writers/@firstnameA-lastnameA"
+    property="video:writer"
+  />
+  <meta
+    content="https://www.example.com/writers/@firstnameB-lastnameB"
+    property="video:writer"
+  />
+  <meta
+    content="680000"
+    property="video:duration"
+  />
+  <meta
+    content="2022-12-21T22:04:11Z"
+    property="video:release_date"
+  />
+  <meta
+    content="Tag A"
+    property="video:tag"
+  />
+  <meta
+    content="Tag B"
+    property="video:tag"
+  />
+  <meta
+    content="Open Graph Video Title"
+    property="og:title"
+  />
+  <meta
+    content="Description of open graph video"
+    property="og:description"
+  />
+  <meta
+    content="https://www.test.ie/og-image-video-title-01.jpg"
+    property="og:image"
+  />
+  <meta
+    content="Og Image Alt Video Title A"
+    property="og:image:alt"
+  />
+  <meta
+    content="850"
+    property="og:image:width"
+  />
+  <meta
+    content="650"
+    property="og:image:height"
+  />
+  <meta
+    content="https://www.test.ie/og-image-video-title-02.jpg"
+    property="og:image"
+  />
+  <meta
+    content="Og Image Alt Video Title B"
+    property="og:image:alt"
+  />
+  <meta
+    content="950"
+    property="og:image:width"
+  />
+  <meta
+    content="850"
+    property="og:image:height"
+  />
+  <meta
+    content="SiteName"
+    property="og:site_name"
+  />
+</div>
+`;
+
 exports[`renders correctly 1`] = `
 <div>
   <title>
