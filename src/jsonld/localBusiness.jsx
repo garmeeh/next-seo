@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
-import formatIfArray from '../utils/formatIfArray';
+
+const buildImages = images =>
+  images.length ? `"image": [${images.map(image => `"${image}"`)}],` : '';
 
 const buildGeo = geo => `
   "geo": {
@@ -48,7 +50,7 @@ const LocalBusinessJsonLd = ({
     ${telephone ? `"telephone": "${telephone}",` : ''}
     ${buildAddress(address)}
     ${geo ? `${buildGeo(geo)}` : ''}
-    "image":${formatIfArray(images)},
+    ${buildImages(images)}
     "name": "${name}"
   }`;
 
@@ -90,10 +92,7 @@ LocalBusinessJsonLd.propTypes = {
     latitude: PropTypes.string.isRequired,
     longitude: PropTypes.string.isRequired,
   }),
-  images: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.string),
-    PropTypes.string,
-  ]),
+  images: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default LocalBusinessJsonLd;

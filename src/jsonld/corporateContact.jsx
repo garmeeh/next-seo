@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
-import formatIfArray from '../utils/formatIfArray';
+
+const formatIfArray = value =>
+  Array.isArray(value) ? `[${value.map(val => `"${val}"`)}]` : `"${value}"`;
 
 const buildContactPoint = contactPoint =>
   contactPoint.map(
