@@ -12,4 +12,9 @@ module.exports = {
     '<rootDir>/e2e/',
     '<rootDir>/lib/',
   ],
+  globals: {
+    'ts-jest': {
+      diagnostics: false,
+    },
+  },
 };
