@@ -3,6 +3,8 @@ node_modules
 .next
 .history
 dist
-e2e/cypress/videos
+cypress/videos
 coverage
-yarn.lock
+package-lock.json
+lib
+notes.md

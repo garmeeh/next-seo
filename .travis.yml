@@ -4,27 +4,18 @@ node_js:
   - 10
 
 cache:
+  yarn: true
   directories:
-    - ~/.npm
+    - ~/.node_modules
     - ~/.cache
     - ~/.cache/Cypress
-    - ~/e2e/.npm
-    - ~/e2e/.cache
-    - ~/e2e/.cache/Cypress
-
-install:
-  - npm ci
 
 jobs:
   include:
-    - stage: validate
-      script:
-        - npm run validate
     - stage: test
       script:
-        - npm run test
-        - npm run build
-        - cd e2e
-        - npm ci
-        - npm run build
-        - npm run test:e2e
+        - yarn install
+        - yarn test
+        - yarn build
+        - yarn e2e:build
+        - yarn test:e2e:ci

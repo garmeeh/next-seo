@@ -2,7 +2,14 @@
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
 
-Next SEO is a plug in that makes managing your SEO easier in Next.js projects and is compatible with version`6.0.0`+ of Next.js.
+Next SEO is a plug in that makes managing your SEO easier in Next.js projects.
+
+Version 2.x is compatible with `next@v8.1.1-canary.54+`
+Version 1.x is compatible with `next@6.0.0`
+
+**Both versions are still maintained.**
+
+Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/support/1.x)
 
 **Table of Contents**
 
@@ -13,18 +20,19 @@ Next SEO is a plug in that makes managing your SEO easier in Next.js projects an
   - [Set Up](#set-up)
   - [Add SEO to Page](#add-seo-to-page)
   - [Default SEO Configuration](#default-seo-configuration)
-    - [Default Config](#default-config)
-    - [Custom <App>](#custom-app)
-  - [Full Config Options](#full-config-options)
+  - [NextSeo Options](#nextseo-options)
+  - [Additional DefaultSEO Options](#additional-defaultseo-options)
     - [Title Template](#title-template)
     - [No Index](#no-index)
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
     - [Twitter](#twitter)
     - [facebook](#facebook)
     - [Canonical URL](#canonical-url)
+    - [Additional Meta Tags](#additional-meta-tags)
 - [Open Graph](#open-graph)
   - [Open Graph Examples](#open-graph-examples)
     - [Basic](#basic)
+    - [Video](#video)
     - [Article](#article)
     - [Book](#book)
     - [Profile](#profile)
@@ -63,21 +71,19 @@ yarn add next-seo
 
 ### Add SEO to Page
 
-Then you need to import `NextSeo` and pass a `config` object to it. This will render out the tags in the `<head>` for SEO. At a bare minimum you should add a title and description.
+Then you need to import `NextSeo` and add the desired properties. This will render out the tags in the `<head>` for SEO. At a bare minimum you should add a title and description.
 
 **Example with just title and description:**
 
 ```jsx
 import React from 'react';
-import NextSeo from 'next-seo';
+import { NextSeo } from 'next-seo';
 
 export default () => (
   <>
     <NextSeo
-      config={{
-        title: 'Simple Usage Example',
-        description: 'A short description goes here.',
-      }}
+      title="Simple Usage Example"
+      description="A short description goes here."
     />
     <p>Simple Usage</p>
   </>
@@ -90,42 +96,40 @@ But `NextSeo` gives you much more options that you can add. See below for an a t
 
 ```jsx
 import React from 'react';
-import NextSeo from 'next-seo';
+import { NextSeo } from 'next-seo';
 
 export default () => (
   <>
     <NextSeo
-      config={{
-        title: 'Using More of Config',
-        description: 'This example uses more of the available config options.',
-        canonical: 'https://www.canonical.ie/',
-        openGraph: {
-          url: 'https://www.url.ie/a',
-          title: 'Open Graph Title',
-          description: 'Open Graph Description',
-          images: [
-            {
-              url: 'https://www.example.ie/og-image-01.jpg',
-              width: 800,
-              height: 600,
-              alt: 'Og Image Alt',
-            },
-            {
-              url: 'https://www.example.ie/og-image-02.jpg',
-              width: 900,
-              height: 800,
-              alt: 'Og Image Alt Second',
-            },
-            { url: 'https://www.example.ie/og-image-03.jpg' },
-            { url: 'https://www.example.ie/og-image-04.jpg' },
-          ],
-          site_name: 'SiteName',
-        },
-        twitter: {
-          handle: '@handle',
-          site: '@site',
-          cardType: 'summary_large_image',
-        },
+      title="Using More of Config"
+      description="This example uses more of the available config options."
+      canonical="https://www.canonical.ie/"
+      openGraph={{
+        url: 'https://www.url.ie/a',
+        title: 'Open Graph Title',
+        description: 'Open Graph Description',
+        images: [
+          {
+            url: 'https://www.example.ie/og-image-01.jpg',
+            width: 800,
+            height: 600,
+            alt: 'Og Image Alt',
+          },
+          {
+            url: 'https://www.example.ie/og-image-02.jpg',
+            width: 900,
+            height: 800,
+            alt: 'Og Image Alt Second',
+          },
+          { url: 'https://www.example.ie/og-image-03.jpg' },
+          { url: 'https://www.example.ie/og-image-04.jpg' },
+        ],
+        site_name: 'SiteName',
+      }}
+      twitter={{
+        handle: '@handle',
+        site: '@site',
+        cardType: 'summary_large_image',
       }}
     />
     <p>SEO Added to Page</p>
@@ -141,48 +145,18 @@ Some tools may report this an error. See [Issue #14](https://github.com/garmeeh/
 
 ### Default SEO Configuration
 
-`NextSeo` enables you to set some default SEO that will appear on all pages without needing to do include anything on them. You can also set some defaults and then override these on a page by page basis if needed.
+`NextSeo` enables you to set some default SEO that will appear on all pages without needing to do include anything on them. You can also override these on a page by page basis if needed.
 
-#### Default Config
+To achieve this, you will need to create a custom <App>. In your pages directory create a new file, `_app.js`. See the Next.js docs [here](https://github.com/zeit/next.js/#custom-app) for more info on a custom <App>.
 
-Create a new file at the root of your directory (or where ever you would normally keep them) `next-seo.config.js`.
+Within this file you will need to import `DefaultSeo` from `next-seo` and pass it props.
 
-Here is a typical example of a default configuration object:
-
-```js
-export default {
-  openGraph: {
-    type: 'website',
-    locale: 'en_IE',
-    url: 'https://www.url.ie/',
-    site_name: 'SiteName',
-  },
-  twitter: {
-    handle: '@handle',
-    site: '@site',
-    cardType: 'summary_large_image',
-  },
-};
-```
-
-**Important**
-
-Please note, that you can add all properties to the default but this should be done with caution. Once you set a default it must be fully overridden.
-
-For example if you set 4 images as the default, you must then pass 4 images through on a page to override them all. Otherwise the one you pass through will render along with the remaining 3 default ones.
-
-Another example may be that you want to add a default image to Open Graph. You might add the `alt` text along with the `width` and `height` properties. If so when adding a dynamic image on a page you must then fully override these properties, otherwise just overriding the `URL` would result in the dynamic image inheriting the default `width`, `height` and `alt`.
-
-This can be a positive or negative depending on your use case, so please use with caution. If in doubt, just set properties that generally do not change from page to page.
-
-#### Custom <App>
-
-Next up in your pages directory create a new file, `_app.js`. See the Next.js docs [here](https://github.com/zeit/next.js/#custom-app) for more info on a custom <App>.
+Here is a typical example:
 
 ```jsx
 import App, { Container } from 'next/app';
 import React from 'react';
-import NextSeo from 'next-seo';
+import { DefaultSeo } from 'next-seo';
 
 // import your default seo configuration
 import SEO from '../next-seo.config';
@@ -201,8 +175,19 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <Container>
-        {/* Here we call NextSeo and pass our default configuration to it  */}
-        <NextSeo config={SEO} />
+        <DefaultSeo
+          openGraph={{
+            type: 'website',
+            locale: 'en_IE',
+            url: 'https://www.url.ie/',
+            site_name: 'SiteName',
+          }}
+          twitter={{
+            handle: '@handle',
+            site: '@site',
+            cardType: 'summary_large_image',
+          }}
+        />
         <Component {...pageProps} />
       </Container>
     );
@@ -210,59 +195,70 @@ export default class MyApp extends App {
 }
 ```
 
-From now on all of your pages will have the defaults applied.
+From now on all of your pages will have the defaults above applied applied.
 
-### Full Config Options
+### NextSeo Options
 
-| Property                           | Type                    | Description                                                                                                                                                                                                                                                                             |
-| ---------------------------------- | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `titleTemplate`                    | string                  | Allows you to set default title template that will be added to your title [More Info](#title-template)                                                                                                                                                                                  |
-| `title`                            | string                  | Set the meta title of the page                                                                                                                                                                                                                                                          |
-| `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                                                                                                                       |
-| `description`                      | string                  | Set the page meta description                                                                                                                                                                                                                                                           |
-| `canonical`                        | string                  | Set the page canonical url                                                                                                                                                                                                                                                              |
-| `dangerouslySetAllPagesToNoIndex`  | boolean                 | Only applies when using a custom `_app.js` and applying defaults. Please see [here for more info](#dangerouslySetAllPagesToNoIndex).                                                                                                                                                    |
-| `twitter.cardType`                 | string                  | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player`                                                                                                                                                                                                |
-| `twitter.site`                     | string                  | @username for the website used in the card footer                                                                                                                                                                                                                                       |
-| `twitter.handle`                   | string                  | @username for the content creator / author (outputs as `twitter:creator`)                                                                                                                                                                                                               |
-| `facebook.appId`                   | number                  | Used for Facebook Insights, you must add a facebook app ID to your page to for it [More Info](#facebook)                                                                                                                                                                                |
-| `openGraph.url`                    | string                  | The canonical URL of your object that will be used as its permanent ID in the graph                                                                                                                                                                                                     |
-| `openGraph.type`                   | string                  | The type of your object. Depending on the type you specify, other properties may also be required [More Info](#open-graph)                                                                                                                                                              |
-| `openGraph.title`                  | string                  | The open graph title, this can be different than your meta title.                                                                                                                                                                                                                       |
-| `openGraph.description`            | string                  | The open graph description, this can be different than your meta description.                                                                                                                                                                                                           |
-| `openGraph.images`                 | array                   | An array of images (object) to be used by social media platforms, slack etc as a preview. If multiple supplied you can choose one when sharing. [See Examples](#open-graph-examples)                                                                                                    |
-| `openGraph.defaultImageHeight`     | number                  | Set's the default height for all open graph images. You should only set this if all image heights are known. It can be overrode at a page level but you must know the height to do so. Otherwise the default height will be set for a dynamic image that you do not know the height of. |
-| `openGraph.defaultImageWidth`      | number                  | Set's the default width for all open graph images. You should only set this if all image widths are known. It can be overrode at a page level but you must know the width to do so. Otherwise the default width will be set for a dynamic image that you do not know the width of.      |
-| `openGraph.locale`                 | string                  | The locale the open graph tags are marked up in. Of the format language_TERRITORY. Default is en_US.                                                                                                                                                                                    |
-| `openGraph.site_name`              | string                  | If your object is part of a larger web site, the name which should be displayed for the overall site.                                                                                                                                                                                   |
-| `openGraph.profile.firstName`      | string                  | Person's first name.                                                                                                                                                                                                                                                                    |
-| `openGraph.profile.lastName`       | string                  | Person's last name.                                                                                                                                                                                                                                                                     |
-| `openGraph.profile.username`       | string                  | Peron's username.                                                                                                                                                                                                                                                                       |
-| `openGraph.profile.gender`         | string                  | Person's gender.                                                                                                                                                                                                                                                                        |
-| `openGraph.book.authors`           | string[]                | Writers of the article. [See Examples](#open-graph-examples)                                                                                                                                                                                                                            |
-| `openGraph.book.isbn`              | string                  | The [ISBN](https://en.wikipedia.org/wiki/International_Standard_Book_Number)                                                                                                                                                                                                            |
-| `openGraph.book.releaseDate`       | datetime                | The date the book was released.                                                                                                                                                                                                                                                         |
-| `openGraph.book.tags`              | string[]                | Tag words associated with this book.                                                                                                                                                                                                                                                    |
-| `openGraph.article.publishedTime`  | datetime                | When the article was first published. [See Examples](#open-graph-examples)                                                                                                                                                                                                              |
-| `openGraph.article.modifiedTime`   | datetime                | When the article was last changed.                                                                                                                                                                                                                                                      |
-| `openGraph.article.expirationTime` | datetime                | When the article is out of date after.                                                                                                                                                                                                                                                  |
-| `openGraph.article.authors`        | string[]                | Writers of the article.                                                                                                                                                                                                                                                                 |
-| `openGraph.article.section`        | string                  | A high-level section name. E.g. Technology                                                                                                                                                                                                                                              |
-| `openGraph.article.tags`           | string[]                | Tag words associated with this article.                                                                                                                                                                                                                                                 |
+| Property                           | Type                    | Description                                                                                                                                                                          |
+| ---------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `titleTemplate`                    | string                  | Allows you to set default title template that will be added to your title [More Info](#title-template)                                                                               |
+| `title`                            | string                  | Set the meta title of the page                                                                                                                                                       |
+| `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
+| `description`                      | string                  | Set the page meta description                                                                                                                                                        |
+| `canonical`                        | string                  | Set the page canonical url                                                                                                                                                           |
+| `additionalMetaTags`               | array                   | Allows you to add a meta tag that is not documented here. [More Info](#additional-meta-tags)                                                                                         |
+| `twitter.cardType`                 | string                  | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player`                                                                                             |
+| `twitter.site`                     | string                  | @username for the website used in the card footer                                                                                                                                    |
+| `twitter.handle`                   | string                  | @username for the content creator / author (outputs as `twitter:creator`)                                                                                                            |
+| `facebook.appId`                   | string                  | Used for Facebook Insights, you must add a facebook app ID to your page to for it [More Info](#facebook)                                                                             |
+| `openGraph.url`                    | string                  | The canonical URL of your object that will be used as its permanent ID in the graph                                                                                                  |
+| `openGraph.type`                   | string                  | The type of your object. Depending on the type you specify, other properties may also be required [More Info](#open-graph)                                                           |
+| `openGraph.title`                  | string                  | The open graph title, this can be different than your meta title.                                                                                                                    |
+| `openGraph.description`            | string                  | The open graph description, this can be different than your meta description.                                                                                                        |
+| `openGraph.images`                 | array                   | An array of images (object) to be used by social media platforms, slack etc as a preview. If multiple supplied you can choose one when sharing. [See Examples](#open-graph-examples) |
+| `openGraph.videos`                 | array                   | An array of videos (object)                                                                                                                                                          |
+| `openGraph.locale`                 | string                  | The locale the open graph tags are marked up in. Of the format language_TERRITORY. Default is en_US.                                                                                 |
+| `openGraph.site_name`              | string                  | If your object is part of a larger web site, the name which should be displayed for the overall site.                                                                                |
+| `openGraph.profile.firstName`      | string                  | Person's first name.                                                                                                                                                                 |
+| `openGraph.profile.lastName`       | string                  | Person's last name.                                                                                                                                                                  |
+| `openGraph.profile.username`       | string                  | Peron's username.                                                                                                                                                                    |
+| `openGraph.profile.gender`         | string                  | Person's gender.                                                                                                                                                                     |
+| `openGraph.book.authors`           | string[]                | Writers of the article. [See Examples](#open-graph-examples)                                                                                                                         |
+| `openGraph.book.isbn`              | string                  | The [ISBN](https://en.wikipedia.org/wiki/International_Standard_Book_Number)                                                                                                         |
+| `openGraph.book.releaseDate`       | datetime                | The date the book was released.                                                                                                                                                      |
+| `openGraph.book.tags`              | string[]                | Tag words associated with this book.                                                                                                                                                 |
+| `openGraph.article.publishedTime`  | datetime                | When the article was first published. [See Examples](#open-graph-examples)                                                                                                           |
+| `openGraph.article.modifiedTime`   | datetime                | When the article was last changed.                                                                                                                                                   |
+| `openGraph.article.expirationTime` | datetime                | When the article is out of date after.                                                                                                                                               |
+| `openGraph.article.authors`        | string[]                | Writers of the article.                                                                                                                                                              |
+| `openGraph.article.section`        | string                  | A high-level section name. E.g. Technology                                                                                                                                           |
+| `openGraph.article.tags`           | string[]                | Tag words associated with this article.                                                                                                                                              |
+
+### Additional DefaultSEO Options
+
+Same as above along with the following.
+
+| Property                                | Type    | Description                                                                                                                                                                                                                                                                             |
+| --------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `dangerouslySetAllPagesToNoIndex`       | boolean | Please see [here for more info](#dangerouslySetAllPagesToNoIndex).                                                                                                                                                                                                                      |
+| `openGraph.defaultOpenGraphImageHeight` | number  | Set's the default height for all open graph images. You should only set this if all image heights are known. It can be overrode at a page level but you must know the height to do so. Otherwise the default height will be set for a dynamic image that you do not know the height of. |
+| `openGraph.defaultOpenGraphImageWidth`  | number  | Set's the default width for all open graph images. You should only set this if all image widths are known. It can be overrode at a page level but you must know the width to do so. Otherwise the default width will be set for a dynamic image that you do not know the width of.      |
+| `openGraph.defaultOpenGraphVideoHeight` | number  | Set's the default height for all open graph videos. You should only set this if all image heights are known. It can be overrode at a page level but you must know the height to do so. Otherwise the default height will be set for a dynamic image that you do not know the height of. |
+| `openGraph.defaultOpenGraphVideoWidth`  | number  | Set's the default width for all open graph videos. You should only set this if all image widths are known. It can be overrode at a page level but you must know the width to do so. Otherwise the default width will be set for a dynamic image that you do not know the width of.      |
 
 #### Title Template
 
 Replaces `%s` with your title string
 
 ```js
-title: 'This is my title',
-titleTemplate: `Next SEO | %s`
+title = 'This is my title';
+titleTemplate = 'Next SEO | %s';
 // outputs: Next SEO | This is my title
 ```
 
 ```js
-title: 'This is my title',
-titleTemplate: `%s | Next SEO`
+title = 'This is my title';
+titleTemplate = '%s | Next SEO';
 // outputs: This is my title | Next SEO
 ```
 
@@ -282,11 +278,7 @@ import NextSeo from 'next-seo';
 
 export default () => (
   <>
-    <NextSeo
-      config={{
-        noindex: true,
-      }}
-    />
+    <NextSeo noindex={true} />
     <p>This page is no indexed</p>
   </>
 );
@@ -294,11 +286,9 @@ export default () => (
 
 #### dangerouslySetAllPagesToNoIndex
 
-If using a [Default Config](#default-config) and you wish to `no-index` your site then you will need to use the `dangerouslySetAllPagesToNoIndex` property.
+It has the prefix of `dangerously` because it will `noindex` all pages. As this is an SEO plugin, that is kinda of a dangerous action. It is **not** bad to use this, just please be sure you want to `noindex` **EVERY** page. You can still override this at a page level if you have a use case to `index` a page. This can be done by setting `noindex: false`.
 
-It has the prefix of `dangerously` because once using a custom a default set up, setting this even at a page level will set `noindex` to true as the default. It is **not** bad to use this, just please be sure you want to `noindex` **EVERY** page. You can override this at a page level if you have a use case to `index` a page. This can be done by setting `noindex: false`.
-
-The only way to unset this, is by removing where you have previously set it to `true`.
+The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom <App>.
 
 #### Twitter
 
@@ -309,9 +299,9 @@ Some tools may report this an error. See [Issue #14](https://github.com/garmeeh/
 #### facebook
 
 ```js
-facebook: {
+facebook={{
   appId: 1234567890,
-}.
+}}
 ```
 
 Add this to your SEO config to include the fb:app_id meta if you need to enable Facebook insights for your site. Information regarding this can be found in facebook's [documentation](https://developers.facebook.com/docs/sharing/webmasters/)
@@ -321,7 +311,64 @@ Add this to your SEO config to include the fb:app_id meta if you need to enable 
 Add this on page per page basis when you want to consolidate duplicate URLs.
 
 ```js
-canonical: 'https://www.canonical.ie/',
+canonical = 'https://www.canonical.ie/';
+```
+
+#### Additional Meta Tags
+
+This allows you to add any other meta tags that are not covered in the `config`.
+
+`content` is required. Then either `name` or `property`. (Only one on each)
+
+Example:
+
+```js
+additionalMetaTags={[{
+  property: 'dc:creator',
+  content: 'Jane Doe'
+}, {
+  name: 'application-name',
+  content: 'NextSeo'
+}]}
+```
+
+Invalid Examples:
+
+These are invalid as they contain `property` and `name` on the same entry.
+
+```js
+additionalMetaTags={[{
+  property: 'dc:creator',
+  name: 'dc:creator',
+  content: 'Jane Doe'
+}, {
+  property: 'application-name',
+  name: 'application-name',
+  content: 'NextSeo'
+}]}
+```
+
+One thing to note on this is that it currently only supports unique tags.
+This means it will only render one tag per unique `name` / `property`. The last one defined will be rendered.
+
+Example:
+
+If you pass:
+
+```js
+additionalMetaTags={[{
+  property: 'dc:creator',
+  content: 'John Doe'
+}, {
+  property: 'dc:creator',
+  content: 'Jane Doe'
+}]}
+```
+
+it will result in this being rendered:
+
+```html
+<meta property="dc:creator" content="Jane Doe" />,
 ```
 
 ## Open Graph
@@ -331,6 +378,7 @@ For the full specification please check out http://ogp.me/
 Next SEO currently supports:
 
 - [basic](#basic)
+- [video](#video)
 - [article](#article)
 - [book](#book)
 - [profile](#profile)
@@ -341,35 +389,105 @@ Next SEO currently supports:
 
 ```jsx
 import React from 'react';
-import NextSeo from 'next-seo';
+import { NextSeo } from 'next-seo';
 
 export default () => (
   <>
     <NextSeo
-      config={{
-        openGraph: {
-          type: 'website',
-          url: 'https://www.example.com/page',
-          title: 'Open Graph Title',
-          description: 'Open Graph Description',
-          images: [
-            {
-              url: 'https://www.example.ie/og-image.jpg',
-              width: 800,
-              height: 600,
-              alt: 'Og Image Alt',
-            },
-            {
-              url: 'https://www.example.ie/og-image-2.jpg',
-              width: 800,
-              height: 600,
-              alt: 'Og Image Alt 2',
-            },
-          ],
-        },
+      openGraph={{
+        type: 'website',
+        url: 'https://www.example.com/page',
+        title: 'Open Graph Title',
+        description: 'Open Graph Description',
+        images: [
+          {
+            url: 'https://www.example.ie/og-image.jpg',
+            width: 800,
+            height: 600,
+            alt: 'Og Image Alt',
+          },
+          {
+            url: 'https://www.example.ie/og-image-2.jpg',
+            width: 800,
+            height: 600,
+            alt: 'Og Image Alt 2',
+          },
+        ],
       }}
     />
     <p>Basic</p>
+  </>
+);
+```
+
+**Note**
+
+Multiple images is only available in version `7.0.0-canary.0`+
+
+For versions `6.0.0` - `7.0.0-canary.0` you just need to supply a single item array:
+
+```js
+images: [
+  {
+    url: 'https://www.example.ie/og-image-01.jpg',
+    width: 800,
+    height: 600,
+    alt: 'Og Image Alt',
+  },
+],
+```
+
+Supplying multiple images will not break anything, but only one will be added to the head.
+
+#### Video
+
+Full info on [http://ogp.me/](http://ogp.me/#type_video)
+
+```jsx
+import React from 'react';
+import { NextSeo } from 'next-seo';
+
+export default () => (
+  <>
+    <NextSeo
+      title="Video Page Title"
+      description="Description of video page"
+      openGraph={{
+        title: 'Open Graph Video Title',
+        description: 'Description of open graph video',
+        url: 'https://www.example.com/videos/video-title',
+        type: 'video.movie',
+        video: {
+          // Multiple Open Graph actors is only available in version `7.0.2-canary.35`+ of next
+          actors: [
+            {
+              profile: 'https://www.example.com/actors/@firstnameA-lastnameA',
+              role: 'Protagonist',
+            },
+            {
+              profile: 'https://www.example.com/actors/@firstnameB-lastnameB',
+              role: 'Antagonist',
+            },
+          ],
+          // Multiple Open Graph directors is only available in version `7.0.2-canary.35`+ of next
+          directors: [
+            'https://www.example.com/directors/@firstnameA-lastnameA',
+            'https://www.example.com/directors/@firstnameB-lastnameB',
+          ],
+          // Multiple Open Graph writers is only available in version `7.0.2-canary.35`+ of next
+          writers: [
+            'https://www.example.com/writers/@firstnameA-lastnameA',
+            'https://www.example.com/writers/@firstnameB-lastnameB',
+          ],
+          duration: 680000,
+          releaseDate: '2022-12-21T22:04:11Z',
+          // Multiple Open Graph tags is only available in version `7.0.2-canary.35`+ of next
+          tags: ['Tag A', 'Tag B', 'Tag C'],
+        },
+        site_name: 'SiteName',
+      }}
+    />
+    <h1>Video Page SEO</h1>
   </>
 );
 ```
@@ -397,37 +515,35 @@ Supplying multiple images will not break anything, but only one will be added to
 
 ```jsx
 import React from 'react';
-import NextSeo from 'next-seo';
+import { NextSeo } from 'next-seo';
 
 export default () => (
   <>
     <NextSeo
-      config={{
-        openGraph: {
-          title: 'Open Graph Article Title',
-          description: 'Description of open graph article',
-          url: 'https://www.example.com/articles/article-title',
-          type: 'article',
-          article: {
-            publishedTime: '2017-06-21T23:04:13Z',
-            modifiedTime: '2018-01-21T18:04:43Z',
-            expirationTime: '2022-12-21T22:04:11Z',
-            section: 'Section II',
-            authors: [
-              'https://www.example.com/authors/@firstnameA-lastnameA',
-              'https://www.example.com/authors/@firstnameB-lastnameB',
-            ],
-            tags: ['Tag A', 'Tag B', 'Tag C'],
-          },
-          images: [
-            {
-              url: 'https://www.test.ie/images/cover.jpg',
-              width: 850,
-              height: 650,
-              alt: 'Photo of text',
-            },
+      openGraph={{
+        title: 'Open Graph Article Title',
+        description: 'Description of open graph article',
+        url: 'https://www.example.com/articles/article-title',
+        type: 'article',
+        article: {
+          publishedTime: '2017-06-21T23:04:13Z',
+          modifiedTime: '2018-01-21T18:04:43Z',
+          expirationTime: '2022-12-21T22:04:11Z',
+          section: 'Section II',
+          authors: [
+            'https://www.example.com/authors/@firstnameA-lastnameA',
+            'https://www.example.com/authors/@firstnameB-lastnameB',
           ],
+          tags: ['Tag A', 'Tag B', 'Tag C'],
         },
+        images: [
+          {
+            url: 'https://www.test.ie/images/cover.jpg',
+            width: 850,
+            height: 650,
+            alt: 'Photo of text',
+          },
+        ],
       }}
     />
     <p>Article</p>
@@ -474,35 +590,33 @@ Supplying multiple of any of the above will not break anything, but only one wil
 
 ```jsx
 import React from 'react';
-import NextSeo from 'next-seo';
+import { NextSeo } from 'next-seo';
 
 export default () => (
   <>
     <NextSeo
-      config={{
-        openGraph: {
-          title: 'Open Graph Book Title',
-          description: 'Description of open graph book',
-          url: 'https://www.example.com/books/book-title',
-          type: 'book',
-          book: {
-            releaseDate: '2018-09-17T11:08:13Z',
-            isbn: '978-3-16-148410-0',
-            authors: [
-              'https://www.example.com/authors/@firstnameA-lastnameA',
-              'https://www.example.com/authors/@firstnameB-lastnameB',
-            ],
-            tags: ['Tag A', 'Tag B', 'Tag C'],
-          },
-          images: [
-            {
-              url: 'https://www.test.ie/images/book.jpg',
-              width: 850,
-              height: 650,
-              alt: 'Cover of the book',
-            },
+      openGraph={{
+        title: 'Open Graph Book Title',
+        description: 'Description of open graph book',
+        url: 'https://www.example.com/books/book-title',
+        type: 'book',
+        book: {
+          releaseDate: '2018-09-17T11:08:13Z',
+          isbn: '978-3-16-148410-0',
+          authors: [
+            'https://www.example.com/authors/@firstnameA-lastnameA',
+            'https://www.example.com/authors/@firstnameB-lastnameB',
           ],
+          tags: ['Tag A', 'Tag B', 'Tag C'],
         },
+        images: [
+          {
+            url: 'https://www.test.ie/images/book.jpg',
+            width: 850,
+            height: 650,
+            alt: 'Cover of the book',
+          },
+        ],
       }}
     />
     <p>Book</p>
@@ -549,32 +663,30 @@ Supplying multiple of any of the above will not break anything, but only one wil
 
 ```jsx
 import React from 'react';
-import NextSeo from 'next-seo';
+import { NextSeo } from 'next-seo';
 
 export default () => (
   <>
     <NextSeo
-      config={{
-        openGraph: {
-          title: 'Open Graph Profile Title',
-          description: 'Description of open graph profile',
-          url: 'https://www.example.com/@firstlast123',
-          type: 'profile',
-          profile: {
-            firstName: 'First',
-            lastName: 'Last',
-            username: 'firstlast123',
-            gender: 'female',
-          },
-          images: [
-            {
-              url: 'https://www.test.ie/images/profile.jpg',
-              width: 850,
-              height: 650,
-              alt: 'Profile Photo',
-            },
-          ],
+      openGraph={{
+        title: 'Open Graph Profile Title',
+        description: 'Description of open graph profile',
+        url: 'https://www.example.com/@firstlast123',
+        type: 'profile',
+        profile: {
+          firstName: 'First',
+          lastName: 'Last',
+          username: 'firstlast123',
+          gender: 'female',
         },
+        images: [
+          {
+            url: 'https://www.test.ie/images/profile.jpg',
+            width: 850,
+            height: 650,
+            alt: 'Profile Photo',
+          },
+        ],
       }}
     />
     <p>Profile</p>

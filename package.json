@@ -1,13 +1,12 @@
 {
   "name": "next-seo",
-  "version": "1.11.2",
+  "version": "2.0.0-alpha.1",
   "description": "SEO plugin for Next.js projects",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "files": [
-    "dist"
+    "lib"
   ],
   "peerDependencies": {
-    "next": "^6.0.0 || ^7.0.0 || ^8.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
@@ -15,16 +14,25 @@
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
-    "prepublishOnly": "npm run validate",
-    "prebuild": "rimraf ./dist",
+    "pretest:e2e:ci": "yarn e2e:build",
+    "test:e2e": "npm-run-all --parallel e2e:dev cy:open",
+    "test:e2e:ci": "npm-run-all --parallel --race e2e:start cy:run",
+    "prepublishOnly": "yarn build",
+    "prebuild": "rimraf ./lib",
     "lint": "eslint src",
-    "build": "babel src --out-dir dist --no-comments && rimraf ./dist/**/__tests__",
-    "build:watch": "babel --watch src --out-dir dist && rimraf ./dist/**/__tests__",
-    "validate": "npm-run-all --parallel lint build",
     "format": "prettier",
-    "contributors:add": "all-contributors add",
-    "contributors:generate": "all-contributors generate",
-    "table-of-contents": "doctoc README.md"
+    "table-of-contents": "doctoc README.md",
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "yarn type-check -- --watch",
+    "build": "yarn build:types && yarn build:ts",
+    "build:watch": "yarn build:types -- --watch && yarn build:ts -- --watch",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:ts": "babel src --out-dir lib --extensions \".ts,.tsx\"",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "e2e:dev": "yarn next e2e",
+    "e2e:build": "yarn next build e2e",
+    "e2e:start": "yarn next start e2e"
   },
   "prettier": {
     "singleQuote": true,
@@ -51,39 +59,42 @@
   },
   "homepage": "https://github.com/garmeeh/next-seo#readme",
   "devDependencies": {
-    "@babel/cli": "7.2.3",
-    "@babel/core": "7.2.2",
-    "@babel/plugin-syntax-jsx": "7.2.0",
-    "@babel/plugin-transform-react-jsx": "7.2.0",
-    "all-contributors-cli": "5.6.1",
-    "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "10.0.1",
-    "babel-jest": "23.6.0",
-    "babel-minify": "0.5.0",
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-typescript": "^7.1.0",
+    "@cypress/schema-tools": "^4.6.7",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.0.8",
+    "@types/react": "^16.8.21",
+    "@types/react-dom": "^16.8.4",
+    "babel-jest": "24.8.0",
+    "babel-preset-minify": "^0.5.0",
+    "cypress": "^3.1.5",
+    "cypress-testing-library": "^3.0.1",
     "doctoc": "^1.4.0",
-    "eslint": "5.12.0",
-    "eslint-config-airbnb": "17.1.0",
-    "eslint-config-prettier": "3.3.0",
-    "eslint-plugin-cypress": "2.2.0",
-    "eslint-plugin-import": "2.14.0",
-    "eslint-plugin-jest": "22.1.2",
-    "eslint-plugin-jsx-a11y": "6.1.2",
-    "eslint-plugin-react": "7.12.3",
-    "husky": "1.3.1",
-    "jest": "23.6.0",
-    "lint-staged": "8.1.0",
-    "next": "7.0.2",
+    "husky": "2.3.0",
+    "jest": "24.8.0",
+    "lint-staged": "8.1.7",
+    "next": "^8.1.1-canary.47",
     "npm-run-all": "4.1.5",
-    "prettier": "1.15.3",
-    "prop-types": "15.6.2",
-    "react": "16.7.0",
-    "react-dom": "16.7.0",
-    "react-testing-library": "5.4.4",
-    "rimraf": "2.6.3"
+    "prettier": "1.18.2",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "react-testing-library": "7.0.0",
+    "rimraf": "2.6.3",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.17.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.5.2"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run table-of-contents"
+      "pre-commit": "yarn table-of-contents && git add README.md && lint-staged"
     }
   },
   "lint-staged": {
@@ -91,9 +102,6 @@
       "prettier --write",
       "git add"
     ],
-    "*.{js,jsx}": [
-      "eslint --fix",
-      "git add"
-    ]
+    "*.{ts,tsx}": []
   }
 }
