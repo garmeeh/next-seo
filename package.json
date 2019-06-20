@@ -102,9 +102,5 @@
       "git add"
     ],
     "*.{ts,tsx}": []
-  },
-  "resolutions": {
-    "@types/react": "^16.8.7"
-  },
-  "dependencies": {}
+  }
 }
