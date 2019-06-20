@@ -68,6 +68,7 @@
     "@babel/preset-typescript": "^7.1.0",
     "@cypress/schema-tools": "^4.6.7",
     "@types/jest": "^24.0.15",
+    "@types/node": "^12.0.8",
     "@types/react": "^16.8.21",
     "@types/react-dom": "^16.8.4",
     "babel-jest": "24.8.0",

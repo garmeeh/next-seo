@@ -2,7 +2,14 @@
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
 
-Next SEO is a plug in that makes managing your SEO easier in Next.js projects and is compatible with version`6.0.0`+ of Next.js.
+Next SEO is a plug in that makes managing your SEO easier in Next.js projects.
+
+Version 2.x is compatible with `next@v8.1.1-canary.54+`
+Version 1.x is compatible with `next@6.0.0`
+
+**Both versions are still maintained.**
+
+Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/support/1.x)
 
 **Table of Contents**
 
