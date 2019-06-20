@@ -188,7 +188,7 @@ export default () => (
 
     <JobPostingJsonLd
       datePosted="2020-01-06T03:37:40Z"
-      description="<p>Company is looking for a software developer....</p>"
+      description="Company is looking for a software developer...."
       hiringOrganization={{
         name: 'company name',
         sameAs: 'www.company-website-url.dev',
