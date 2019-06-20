@@ -72,6 +72,17 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "ctxquentin",
+      "name": "ctxquentin",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/36331776?v=4",
+      "profile": "https://github.com/ctxquentin",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7
