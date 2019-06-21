@@ -6,3 +6,5 @@ dist
 e2e/cypress/videos
 coverage
 yarn.lock
+.DS_STORE
+lib
