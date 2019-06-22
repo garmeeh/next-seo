@@ -27,4 +27,4 @@ jobs:
         - cd e2e
         - npm ci
         - npm run build
-        - npm run test:e2e
+        - npm run test:e2e:ci

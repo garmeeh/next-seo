@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.12.0 - 22/06/2019
+
+### Added
+
+- Add support for Job Posting JSON-LD [PR #67](https://github.com/garmeeh/next-seo/pull/67/)
+
 ## v1.11.2 - 04/03/2019
 
 ### Fixed
