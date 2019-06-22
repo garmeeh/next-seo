@@ -8,6 +8,7 @@ import LogoJsonLd from './jsonld/logo';
 import ProductJsonLd from './jsonld/product';
 import SocialProfileJsonLd from './jsonld/socialProfile';
 import CorporateContactJsonLd from './jsonld/corporateContact';
+import JobPostingJsonLd from './jsonld/jobPosting';
 
 export default DefaultSeo;
 export {
@@ -20,4 +21,5 @@ export {
   ProductJsonLd,
   SocialProfileJsonLd,
   CorporateContactJsonLd,
+  JobPostingJsonLd
 };
