@@ -4,8 +4,8 @@
 
 Next SEO is a plug in that makes managing your SEO easier in Next.js projects.
 
-Version 2.x is compatible with `next@v8.1.1-canary.54+`
-Version 1.x is compatible with `next@6.0.0`
+Version 2.x is compatible with `next@v8.1.1-canary.54+` and above
+Version 1.x is compatible with `next@6.0.0` and above
 
 **Both versions are still maintained.**
 
