@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## v2.0.0 - 19/07/2019
+
+Version of 2 of next-seo released!
+
+Main changes:
+
+- Project is now written in TypeScript
+- You can now extra meta tags via next-seo
+- Move to props rather than config object
+- Made Default SEO it's own component
+- Open Graph video support added
+
 ## v1.11.2 - 04/03/2019
 
 ### Fixed
