@@ -66,6 +66,18 @@ const buildTags = (config: BuildTagsParams) => {
     );
   }
 
+  if (config.alternate) {
+    tagsToRender.push(
+      <link
+        rel="alternate"
+        key="alternate"
+        media={config.alternate.media}
+        hrefLang={config.alternate.hrefLang}
+        href={config.alternate.href}
+      />,
+    );
+  }
+
   if (config.twitter) {
     if (config.twitter.cardType) {
       tagsToRender.push(
