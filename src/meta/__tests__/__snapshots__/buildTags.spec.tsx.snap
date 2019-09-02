@@ -473,6 +473,12 @@ exports[`renders correctly 1`] = `
     content="This is a test description."
     name="description"
   />
+  <link
+    href="https://m.canonical.ie"
+    hreflang="de-AT"
+    media="only screen and (max-width: 640px)"
+    rel="alternate"
+  />
   <meta
     content="summary_large_image"
     name="twitter:card"

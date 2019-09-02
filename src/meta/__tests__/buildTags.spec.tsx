@@ -12,6 +12,11 @@ const SEO: BuildTagsParams = {
   canonical: 'https://www.canonical.ie',
   defaultOpenGraphImageHeight: 1200,
   defaultOpenGraphImageWidth: 1200,
+  alternate: {
+    media: 'only screen and (max-width: 640px)',
+    hrefLang: 'de-AT',
+    href: 'https://m.canonical.ie',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_IE',
@@ -138,6 +143,22 @@ it('returns full array for default seo object', () => {
   );
   const ogSiteNameTag = tags.filter(item => item.key === 'og:site_name');
   const canonicalTag = tags.filter(item => item.key === 'canonical');
+
+  const alternateTag = container.querySelectorAll('link[rel="alternate"]');
+  const alternateHref = container.querySelectorAll(
+    `link[href="${SEO.alternate.href}"]`,
+  );
+  const alternateHrefLang = container.querySelectorAll(
+    `link[hrefLang="${SEO.alternate.hrefLang}"]`,
+  );
+  const alternateMedia = container.querySelectorAll(
+    `link[media="${SEO.alternate.media}"]`,
+  );
+
+  expect(Array.from(alternateTag).length).toBe(1);
+  expect(Array.from(alternateHref).length).toBe(1);
+  expect(Array.from(alternateHrefLang).length).toBe(1);
+  expect(Array.from(alternateMedia).length).toBe(1);
 
   expect(title).toBeDefined();
   expect(Array.from(index).length).toBe(2);
