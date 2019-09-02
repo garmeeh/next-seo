@@ -28,6 +28,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
     - [Twitter](#twitter)
     - [facebook](#facebook)
     - [Canonical URL](#canonical-url)
+    - [Alternate](#alternate)
     - [Additional Meta Tags](#additional-meta-tags)
 - [Open Graph](#open-graph)
   - [Open Graph Examples](#open-graph-examples)
@@ -206,6 +207,9 @@ From now on all of your pages will have the defaults above applied applied.
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                        |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                           |
+| `alternate.media`                  | string                  | Set when the mobile website should be served                                                                                                                                         |
+| `alternate.hrefLang`               | string                  | Set the page language of the alternate url                                                                                                                                           |
+| `alternate.href`                   | string                  | Set the page alternate url                                                                                                                                                           |
 | `additionalMetaTags`               | array                   | Allows you to add a meta tag that is not documented here. [More Info](#additional-meta-tags)                                                                                         |
 | `twitter.cardType`                 | string                  | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player`                                                                                             |
 | `twitter.site`                     | string                  | @username for the website used in the card footer                                                                                                                                    |
@@ -312,6 +316,20 @@ Add this on page per page basis when you want to consolidate duplicate URLs.
 
 ```js
 canonical = 'https://www.canonical.ie/';
+```
+
+#### Alternate
+
+This link relation is used to indicate a relation between a desktop and a mobile website to search engines.
+
+Example:
+
+```js
+alternate: {
+  media: 'only screen and (max-width: 640px)',
+  hrefLang: 'de-AT',
+  href: 'https://m.canonical.ie',
+},
 ```
 
 #### Additional Meta Tags
