@@ -12,10 +12,13 @@ const SEO: BuildTagsParams = {
   canonical: 'https://www.canonical.ie',
   defaultOpenGraphImageHeight: 1200,
   defaultOpenGraphImageWidth: 1200,
-  alternate: {
+  mobileAlternate: {
     media: 'only screen and (max-width: 640px)',
-    hrefLang: 'de-AT',
     href: 'https://m.canonical.ie',
+  },
+  languageAlternate: {
+    hrefLang: 'de-AT',
+    href: 'https://www.canonical.ie/de',
   },
   openGraph: {
     type: 'website',
@@ -144,21 +147,33 @@ it('returns full array for default seo object', () => {
   const ogSiteNameTag = tags.filter(item => item.key === 'og:site_name');
   const canonicalTag = tags.filter(item => item.key === 'canonical');
 
-  const alternateTag = container.querySelectorAll('link[rel="alternate"]');
-  const alternateHref = container.querySelectorAll(
-    `link[href="${SEO.alternate.href}"]`,
+  const mobileAlternateTag = container.querySelectorAll(
+    'link[rel="alternate"][media]',
   );
-  const alternateHrefLang = container.querySelectorAll(
-    `link[hrefLang="${SEO.alternate.hrefLang}"]`,
+  const mobileAlternateHref = container.querySelectorAll(
+    `link[href="${SEO.mobileAlternate.href}"]`,
   );
-  const alternateMedia = container.querySelectorAll(
-    `link[media="${SEO.alternate.media}"]`,
+  const mobileAlternateMedia = container.querySelectorAll(
+    `link[media="${SEO.mobileAlternate.media}"]`,
   );
 
-  expect(Array.from(alternateTag).length).toBe(1);
-  expect(Array.from(alternateHref).length).toBe(1);
-  expect(Array.from(alternateHrefLang).length).toBe(1);
-  expect(Array.from(alternateMedia).length).toBe(1);
+  const languageAlternateTag = container.querySelectorAll(
+    'link[rel="alternate"][hrefLang]',
+  );
+  const languageAlternateHref = container.querySelectorAll(
+    `link[href="${SEO.languageAlternate.href}"]`,
+  );
+  const languageAlternateHrefLang = container.querySelectorAll(
+    `link[hrefLang="${SEO.languageAlternate.hrefLang}"]`,
+  );
+
+  expect(Array.from(mobileAlternateTag).length).toBe(1);
+  expect(Array.from(mobileAlternateHref).length).toBe(1);
+  expect(Array.from(mobileAlternateMedia).length).toBe(1);
+
+  expect(Array.from(languageAlternateTag).length).toBe(1);
+  expect(Array.from(languageAlternateHref).length).toBe(1);
+  expect(Array.from(languageAlternateHrefLang).length).toBe(1);
 
   expect(title).toBeDefined();
   expect(Array.from(index).length).toBe(2);

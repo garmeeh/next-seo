@@ -66,14 +66,24 @@ const buildTags = (config: BuildTagsParams) => {
     );
   }
 
-  if (config.alternate) {
+  if (config.mobileAlternate) {
     tagsToRender.push(
       <link
         rel="alternate"
-        key="alternate"
-        media={config.alternate.media}
-        hrefLang={config.alternate.hrefLang}
-        href={config.alternate.href}
+        key="mobileAlternate"
+        media={config.mobileAlternate.media}
+        href={config.mobileAlternate.href}
+      />,
+    );
+  }
+
+  if (config.languageAlternate) {
+    tagsToRender.push(
+      <link
+        rel="alternate"
+        key="languageAlternate"
+        hrefLang={config.languageAlternate.hrefLang}
+        href={config.languageAlternate.href}
       />,
     );
   }
