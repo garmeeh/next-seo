@@ -325,10 +325,16 @@ This link relation is used to indicate a relation between a desktop and a mobile
 Example:
 
 ```js
-alternate: {
+mobileAlternate: {
   media: 'only screen and (max-width: 640px)',
-  hrefLang: 'de-AT',
   href: 'https://m.canonical.ie',
+},
+```
+
+```js
+languageAlternate: {
+  hrefLang: 'de-AT',
+  href: 'https://www.canonical.ie/de',
 },
 ```
 
