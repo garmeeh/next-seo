@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v2.1.0 - 10/09/19
+
+### Added
+
+- Added `mobileAlternate` and `languageAlternate` [PR #90](https://github.com/garmeeh/next-seo/pull/90)
+
 ## v2.0.0 - 19/07/2019
 
 Version of 2 of next-seo released!

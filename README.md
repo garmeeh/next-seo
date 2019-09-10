@@ -21,7 +21,6 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Add SEO to Page](#add-seo-to-page)
   - [Default SEO Configuration](#default-seo-configuration)
   - [NextSeo Options](#nextseo-options)
-  - [Additional DefaultSEO Options](#additional-defaultseo-options)
     - [Title Template](#title-template)
     - [No Index](#no-index)
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
