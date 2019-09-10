@@ -28,6 +28,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
     - [Twitter](#twitter)
     - [facebook](#facebook)
     - [Canonical URL](#canonical-url)
+    - [Alternate](#alternate)
     - [Additional Meta Tags](#additional-meta-tags)
 - [Open Graph](#open-graph)
   - [Open Graph Examples](#open-graph-examples)
@@ -206,6 +207,10 @@ From now on all of your pages will have the defaults above applied applied.
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                        |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                           |
+| `mobileAlternate.media`            | string                  | Set what screen size the mobile website should be served from                                                                                                                        |
+| `mobileAlternate.href`             | string                  | Set the mobile page alternate url                                                                                                                                                    |
+| `languageAlternate.hrefLang`       | string                  | Set the language of the alternate url                                                                                                                                                |
+| `languageAlternate.href`           | string                  | Set the alternate language page url                                                                                                                                                  |
 | `additionalMetaTags`               | array                   | Allows you to add a meta tag that is not documented here. [More Info](#additional-meta-tags)                                                                                         |
 | `twitter.cardType`                 | string                  | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player`                                                                                             |
 | `twitter.site`                     | string                  | @username for the website used in the card footer                                                                                                                                    |
@@ -233,18 +238,6 @@ From now on all of your pages will have the defaults above applied applied.
 | `openGraph.article.authors`        | string[]                | Writers of the article.                                                                                                                                                              |
 | `openGraph.article.section`        | string                  | A high-level section name. E.g. Technology                                                                                                                                           |
 | `openGraph.article.tags`           | string[]                | Tag words associated with this article.                                                                                                                                              |
-
-### Additional DefaultSEO Options
-
-Same as above along with the following.
-
-| Property                                | Type    | Description                                                                                                                                                                                                                                                                             |
-| --------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `dangerouslySetAllPagesToNoIndex`       | boolean | Please see [here for more info](#dangerouslySetAllPagesToNoIndex).                                                                                                                                                                                                                      |
-| `openGraph.defaultOpenGraphImageHeight` | number  | Set's the default height for all open graph images. You should only set this if all image heights are known. It can be overrode at a page level but you must know the height to do so. Otherwise the default height will be set for a dynamic image that you do not know the height of. |
-| `openGraph.defaultOpenGraphImageWidth`  | number  | Set's the default width for all open graph images. You should only set this if all image widths are known. It can be overrode at a page level but you must know the width to do so. Otherwise the default width will be set for a dynamic image that you do not know the width of.      |
-| `openGraph.defaultOpenGraphVideoHeight` | number  | Set's the default height for all open graph videos. You should only set this if all image heights are known. It can be overrode at a page level but you must know the height to do so. Otherwise the default height will be set for a dynamic image that you do not know the height of. |
-| `openGraph.defaultOpenGraphVideoWidth`  | number  | Set's the default width for all open graph videos. You should only set this if all image widths are known. It can be overrode at a page level but you must know the width to do so. Otherwise the default width will be set for a dynamic image that you do not know the width of.      |
 
 #### Title Template
 
@@ -312,6 +305,26 @@ Add this on page per page basis when you want to consolidate duplicate URLs.
 
 ```js
 canonical = 'https://www.canonical.ie/';
+```
+
+#### Alternate
+
+This link relation is used to indicate a relation between a desktop and a mobile website to search engines.
+
+Example:
+
+```js
+mobileAlternate: {
+  media: 'only screen and (max-width: 640px)',
+  href: 'https://m.canonical.ie',
+},
+```
+
+```js
+languageAlternate: {
+  hrefLang: 'de-AT',
+  href: 'https://www.canonical.ie/de',
+},
 ```
 
 #### Additional Meta Tags

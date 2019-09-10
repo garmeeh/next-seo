@@ -7,6 +7,14 @@ const APP_DEFAULT_SEO: DefaultSeoProps = {
   canonical: 'https://www.canonical.ie/a',
   defaultOpenGraphImageHeight: 1200,
   defaultOpenGraphImageWidth: 1200,
+  mobileAlternate: {
+    media: 'only screen and (max-width: 640px)',
+    href: 'https://m.canonical.ie',
+  },
+  languageAlternate: {
+    hrefLang: 'de-AT',
+    href: 'https://www.canonical.ie/de',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_IE',

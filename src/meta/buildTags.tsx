@@ -66,6 +66,28 @@ const buildTags = (config: BuildTagsParams) => {
     );
   }
 
+  if (config.mobileAlternate) {
+    tagsToRender.push(
+      <link
+        rel="alternate"
+        key="mobileAlternate"
+        media={config.mobileAlternate.media}
+        href={config.mobileAlternate.href}
+      />,
+    );
+  }
+
+  if (config.languageAlternate) {
+    tagsToRender.push(
+      <link
+        rel="alternate"
+        key="languageAlternate"
+        hrefLang={config.languageAlternate.hrefLang}
+        href={config.languageAlternate.href}
+      />,
+    );
+  }
+
   if (config.twitter) {
     if (config.twitter.cardType) {
       tagsToRender.push(

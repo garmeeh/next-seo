@@ -74,6 +74,16 @@ export interface Twitter {
   cardType?: string;
 }
 
+interface MobileAlternate {
+  media: string;
+  href: string;
+}
+
+interface LanguageAlternate {
+  hrefLang: string;
+  href: string;
+}
+
 export interface BaseMetaTag {
   content: string;
 }
@@ -96,6 +106,8 @@ export interface NextSeoProps {
   noindex?: boolean;
   description?: string;
   canonical?: string;
+  mobileAlternate?: MobileAlternate;
+  languageAlternate?: LanguageAlternate;
   openGraph?: OpenGraph;
   facebook?: { appId: string };
   twitter?: Twitter;
