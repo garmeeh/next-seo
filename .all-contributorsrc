@@ -83,6 +83,17 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "bolonio",
+      "name": "Adrián Bolonio",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1288407?v=4",
+      "profile": "https://github.com/bolonio",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7
