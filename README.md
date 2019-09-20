@@ -147,7 +147,7 @@ Some tools may report this an error. See [Issue #14](https://github.com/garmeeh/
 
 `NextSeo` enables you to set some default SEO that will appear on all pages without needing to do include anything on them. You can also override these on a page by page basis if needed.
 
-To achieve this, you will need to create a custom <App>. In your pages directory create a new file, `_app.js`. See the Next.js docs [here](https://github.com/zeit/next.js/#custom-app) for more info on a custom <App>.
+To achieve this, you will need to create a custom `<App>`. In your pages directory create a new file, `_app.js`. See the Next.js docs [here](https://github.com/zeit/next.js/#custom-app) for more info on a custom `<App>`.
 
 Within this file you will need to import `DefaultSeo` from `next-seo` and pass it props.
 
@@ -280,7 +280,7 @@ export default () => (
 
 It has the prefix of `dangerously` because it will `noindex` all pages. As this is an SEO plugin, that is kinda of a dangerous action. It is **not** bad to use this, just please be sure you want to `noindex` **EVERY** page. You can still override this at a page level if you have a use case to `index` a page. This can be done by setting `noindex: false`.
 
-The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom <App>.
+The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom `<App>`.
 
 #### Twitter
 
