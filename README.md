@@ -7,7 +7,7 @@ Next SEO is a plug in that makes managing your SEO easier in Next.js projects.
 Version 2.x is compatible with `next@v8.1.1-canary.54+` and above
 Version 1.x is compatible with `next@6.0.0` and above
 
-**Both versions are still maintained.**
+**Both versions are still maintained. If upgrading from v1 to v2, please note that the `NextSeo` component has been changed from a default to a named export, so you need to update the import statements in your pages accordingly to avoid errors. Also values are now passed down as properties to the SEO components instead of only using a `config` object so refactor your code accordingly (this would fail silently and your metadata will not be there, so double check and inspect your pages html).**
 
 Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/support/1.x)
 
@@ -195,7 +195,39 @@ export default class MyApp extends App {
 }
 ```
 
+Alternatively you can also create a config file to store default values such as `next-seo.config.js`
+
+```js
+export default {
+  openGraph: {
+    type: 'website',
+    locale: 'en_IE',
+    url: 'https://www.url.ie/',
+    site_name: 'SiteName',
+  },
+  twitter: {
+    handle: '@handle',
+    site: '@site',
+    cardType: 'summary_large_image',
+  },
+};
+```
+
+import at the top of `_app.js`
+
+```jsx
+import SEO from '../next-seo.config';
+```
+
+and the `DefaultSeo` component can be used like this instead
+
+```jsx
+<DefaultSeo {...SEO} />
+```
+
 From now on all of your pages will have the defaults above applied applied.
+
+**Note that `Container` is deprecated in Next.js v9.0.4 so you can replace that component here with `React.Fragment` on this version and later - see [here](https://github.com/zeit/next.js/blob/master/errors/app-container-deprecated.md)**
 
 ### NextSeo Options
 
