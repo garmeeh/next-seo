@@ -94,6 +94,15 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "erikhofer",
+      "name": "Erik Hofer",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/17194301?v=4",
+      "profile": "http://erikhofer.de",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7
