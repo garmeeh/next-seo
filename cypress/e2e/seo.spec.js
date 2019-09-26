@@ -136,6 +136,14 @@ describe('SEO Meta', () => {
       'content',
       'en_IE',
     );
+    cy.get('head link[rel="alternate"]')
+      .should('have.length', 2)
+      .then(tags => {
+        expect(tags[0].media).to.equal('only screen and (max-width: 640px)');
+        expect(tags[0].href).to.equal('https://m.canonical.ie/');
+        expect(tags[1].href).to.equal('https://www.canonical.ie/de');
+        expect(tags[1].hreflang).to.equal('de-AT');
+      });
     cy.get('head meta[property="og:url"]').should(
       'have.attr',
       'content',
@@ -576,148 +584,148 @@ describe('SEO Meta', () => {
       'summary_large_image',
     );
   });
-});
 
-it('Video SEO loads correctly', () => {
-  cy.visit('http://localhost:3000/video');
-  cy.get('h1').should('contain', 'Video Page SEO');
-  cy.get('head title').should('contain', 'Video Page Title | Next SEO');
-  cy.get('head meta[name="description"]').should(
-    'have.attr',
-    'content',
-    'Description of video page',
-  );
-  cy.get('head meta[property="og:type"]').should(
-    'have.attr',
-    'content',
-    'video.movie',
-  );
-  cy.get('head meta[property="video:duration"]').should(
-    'have.attr',
-    'content',
-    '680000',
-  );
-  cy.get('head meta[property="video:release_date"]').should(
-    'have.attr',
-    'content',
-    '2022-12-21T22:04:11Z',
-  );
-  cy.get('head meta[property="video:actor"]')
-    .should('have.length', 2)
-    .then(actors => {
-      expect(actors[0].content).to.equal(
-        'https://www.example.com/actors/@firstnameA-lastnameA',
-      );
-      expect(actors[1].content).to.equal(
-        'https://www.example.com/actors/@firstnameB-lastnameB',
-      );
-    });
-  cy.get('head meta[property="video:actor:role"]')
-    .should('have.length', 2)
-    .then(roles => {
-      expect(roles[0].content).to.equal('Protagonist');
-      expect(roles[1].content).to.equal('Antagonist');
-    });
-  cy.get('head meta[property="video:director"]')
-    .should('have.length', 2)
-    .then(directors => {
-      expect(directors[0].content).to.equal(
-        'https://www.example.com/directors/@firstnameA-lastnameA',
-      );
-      expect(directors[1].content).to.equal(
-        'https://www.example.com/directors/@firstnameB-lastnameB',
-      );
-    });
-  cy.get('head meta[property="video:writer"]')
-    .should('have.length', 2)
-    .then(writers => {
-      expect(writers[0].content).to.equal(
-        'https://www.example.com/writers/@firstnameA-lastnameA',
-      );
-      expect(writers[1].content).to.equal(
-        'https://www.example.com/writers/@firstnameB-lastnameB',
-      );
-    });
-  cy.get('head meta[property="video:tag"]')
-    .should('have.length', 3)
-    .then(tags => {
-      expect(tags[0].content).to.equal('Tag A');
-      expect(tags[1].content).to.equal('Tag B');
-      expect(tags[2].content).to.equal('Tag C');
-    });
-  cy.get('head meta[property="og:url"]').should(
-    'have.attr',
-    'content',
-    'https://www.example.com/videos/video-title',
-  );
-  cy.get('head meta[property="og:title"]').should(
-    'have.attr',
-    'content',
-    'Open Graph Video Title',
-  );
-  cy.get('head meta[property="og:description"]').should(
-    'have.attr',
-    'content',
-    'Description of open graph video',
-  );
-  cy.get('head meta[property="og:image"]')
-    .should('have.length', 4)
-    .then(tags => {
-      expect(tags[0].content).to.equal(
-        'https://www.test.ie/og-image-video-title-01.jpg',
-      );
-      expect(tags[1].content).to.equal(
-        'https://www.test.ie/og-image-video-title-02.jpg',
-      );
-      expect(tags[2].content).to.equal(
-        'https://www.test.ie/og-image-video-title-03.jpg',
-      );
-      expect(tags[3].content).to.equal(
-        'https://www.test.ie/og-image-video-title-04.jpg',
-      );
-    });
-  cy.get('head meta[property="og:image:alt"]')
-    .should('have.length', 4)
-    .then(tags => {
-      expect(tags[0].content).to.equal('Og Image Alt Video Title A');
-      expect(tags[1].content).to.equal('Og Image Alt Video Title B');
-      expect(tags[2].content).to.equal('Og Image Alt Video Title C');
-      expect(tags[3].content).to.equal('Og Image Alt Video Title D');
-    });
-  cy.get('head meta[property="og:image:width"]')
-    .should('have.length', 4)
-    .then(tags => {
-      expect(tags[0].content).to.equal('850');
-      expect(tags[1].content).to.equal('950');
-      expect(tags[2].content).to.equal('600');
-      expect(tags[3].content).to.equal('400');
-    });
-  cy.get('head meta[property="og:image:height"]')
-    .should('have.length', 4)
-    .then(tags => {
-      expect(tags[0].content).to.equal('650');
-      expect(tags[1].content).to.equal('850');
-      expect(tags[2].content).to.equal('400');
-      expect(tags[3].content).to.equal('400');
-    });
-  cy.get('head meta[property="og:site_name"]').should(
-    'have.attr',
-    'content',
-    'SiteName',
-  );
-  cy.get('head meta[name="twitter:site"]').should(
-    'have.attr',
-    'content',
-    '@site',
-  );
-  cy.get('head meta[name="twitter:creator"]').should(
-    'have.attr',
-    'content',
-    '@handle',
-  );
-  cy.get('head meta[name="twitter:card"]').should(
-    'have.attr',
-    'content',
-    'summary_large_image',
-  );
+  it('Video SEO loads correctly', () => {
+    cy.visit('http://localhost:3000/video');
+    cy.get('h1').should('contain', 'Video Page SEO');
+    cy.get('head title').should('contain', 'Video Page Title | Next SEO');
+    cy.get('head meta[name="description"]').should(
+      'have.attr',
+      'content',
+      'Description of video page',
+    );
+    cy.get('head meta[property="og:type"]').should(
+      'have.attr',
+      'content',
+      'video.movie',
+    );
+    cy.get('head meta[property="video:duration"]').should(
+      'have.attr',
+      'content',
+      '680000',
+    );
+    cy.get('head meta[property="video:release_date"]').should(
+      'have.attr',
+      'content',
+      '2022-12-21T22:04:11Z',
+    );
+    cy.get('head meta[property="video:actor"]')
+      .should('have.length', 2)
+      .then(actors => {
+        expect(actors[0].content).to.equal(
+          'https://www.example.com/actors/@firstnameA-lastnameA',
+        );
+        expect(actors[1].content).to.equal(
+          'https://www.example.com/actors/@firstnameB-lastnameB',
+        );
+      });
+    cy.get('head meta[property="video:actor:role"]')
+      .should('have.length', 2)
+      .then(roles => {
+        expect(roles[0].content).to.equal('Protagonist');
+        expect(roles[1].content).to.equal('Antagonist');
+      });
+    cy.get('head meta[property="video:director"]')
+      .should('have.length', 2)
+      .then(directors => {
+        expect(directors[0].content).to.equal(
+          'https://www.example.com/directors/@firstnameA-lastnameA',
+        );
+        expect(directors[1].content).to.equal(
+          'https://www.example.com/directors/@firstnameB-lastnameB',
+        );
+      });
+    cy.get('head meta[property="video:writer"]')
+      .should('have.length', 2)
+      .then(writers => {
+        expect(writers[0].content).to.equal(
+          'https://www.example.com/writers/@firstnameA-lastnameA',
+        );
+        expect(writers[1].content).to.equal(
+          'https://www.example.com/writers/@firstnameB-lastnameB',
+        );
+      });
+    cy.get('head meta[property="video:tag"]')
+      .should('have.length', 3)
+      .then(tags => {
+        expect(tags[0].content).to.equal('Tag A');
+        expect(tags[1].content).to.equal('Tag B');
+        expect(tags[2].content).to.equal('Tag C');
+      });
+    cy.get('head meta[property="og:url"]').should(
+      'have.attr',
+      'content',
+      'https://www.example.com/videos/video-title',
+    );
+    cy.get('head meta[property="og:title"]').should(
+      'have.attr',
+      'content',
+      'Open Graph Video Title',
+    );
+    cy.get('head meta[property="og:description"]').should(
+      'have.attr',
+      'content',
+      'Description of open graph video',
+    );
+    cy.get('head meta[property="og:image"]')
+      .should('have.length', 4)
+      .then(tags => {
+        expect(tags[0].content).to.equal(
+          'https://www.test.ie/og-image-video-title-01.jpg',
+        );
+        expect(tags[1].content).to.equal(
+          'https://www.test.ie/og-image-video-title-02.jpg',
+        );
+        expect(tags[2].content).to.equal(
+          'https://www.test.ie/og-image-video-title-03.jpg',
+        );
+        expect(tags[3].content).to.equal(
+          'https://www.test.ie/og-image-video-title-04.jpg',
+        );
+      });
+    cy.get('head meta[property="og:image:alt"]')
+      .should('have.length', 4)
+      .then(tags => {
+        expect(tags[0].content).to.equal('Og Image Alt Video Title A');
+        expect(tags[1].content).to.equal('Og Image Alt Video Title B');
+        expect(tags[2].content).to.equal('Og Image Alt Video Title C');
+        expect(tags[3].content).to.equal('Og Image Alt Video Title D');
+      });
+    cy.get('head meta[property="og:image:width"]')
+      .should('have.length', 4)
+      .then(tags => {
+        expect(tags[0].content).to.equal('850');
+        expect(tags[1].content).to.equal('950');
+        expect(tags[2].content).to.equal('600');
+        expect(tags[3].content).to.equal('400');
+      });
+    cy.get('head meta[property="og:image:height"]')
+      .should('have.length', 4)
+      .then(tags => {
+        expect(tags[0].content).to.equal('650');
+        expect(tags[1].content).to.equal('850');
+        expect(tags[2].content).to.equal('400');
+        expect(tags[3].content).to.equal('400');
+      });
+    cy.get('head meta[property="og:site_name"]').should(
+      'have.attr',
+      'content',
+      'SiteName',
+    );
+    cy.get('head meta[name="twitter:site"]').should(
+      'have.attr',
+      'content',
+      '@site',
+    );
+    cy.get('head meta[name="twitter:creator"]').should(
+      'have.attr',
+      'content',
+      '@handle',
+    );
+    cy.get('head meta[name="twitter:card"]').should(
+      'have.attr',
+      'content',
+      'summary_large_image',
+    );
+  });
 });
