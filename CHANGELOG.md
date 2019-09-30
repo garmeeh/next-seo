@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v2.1.1 - 10/09/19
+
+### Fixed
+
+- Fixed issue with `mobileAlternate` and `languageAlternate` only working in Default SEO [PR #98](https://github.com/garmeeh/next-seo/pull/98)
+
 ## v2.1.0 - 10/09/19
 
 ### Added
