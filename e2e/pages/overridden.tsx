@@ -9,6 +9,14 @@ export default () => (
       title="Title B"
       description="Description B"
       canonical="https://www.canonical.ie/b"
+      languageAlternate={{
+        hrefLang: 'de-AT',
+        href: 'https://www.canonical.ie/de',
+      }}
+      mobileAlternate={{
+        media: 'only screen and (max-width: 640px)',
+        href: 'https://m.canonical.ie',
+      }}
       openGraph={{
         url: 'https://www.url.ie/b',
         title: 'Open Graph Title B',

@@ -15,6 +15,8 @@ export default class extends Component<NextSeoProps, {}> {
       twitter,
       additionalMetaTags,
       titleTemplate,
+      mobileAlternate,
+      languageAlternate,
     } = this.props;
 
     return (
@@ -29,6 +31,8 @@ export default class extends Component<NextSeoProps, {}> {
           additionalMetaTags,
           twitter,
           titleTemplate,
+          mobileAlternate,
+          languageAlternate,
         })}
       </Head>
     );

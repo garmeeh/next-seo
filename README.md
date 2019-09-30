@@ -322,7 +322,7 @@ Some tools may report this an error. See [Issue #14](https://github.com/garmeeh/
 
 #### facebook
 
-```js
+```jsx
 facebook={{
   appId: 1234567890,
 }}
@@ -344,18 +344,18 @@ This link relation is used to indicate a relation between a desktop and a mobile
 
 Example:
 
-```js
-mobileAlternate: {
+```jsx
+mobileAlternate={{
   media: 'only screen and (max-width: 640px)',
   href: 'https://m.canonical.ie',
-},
+}}
 ```
 
-```js
-languageAlternate: {
+```jsx
+languageAlternate={{
   hrefLang: 'de-AT',
   href: 'https://www.canonical.ie/de',
-},
+}}
 ```
 
 #### Additional Meta Tags
