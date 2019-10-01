@@ -39,8 +39,8 @@ export interface ProductJsonLdProps {
   images?: string[];
   description?: string;
   brand?: string;
-  reviews: Review[];
-  aggregateRating: AggregateRating;
+  reviews?: Review[];
+  aggregateRating?: AggregateRating;
   offers: Offers;
   sku?: string;
   gtin8?: string;
