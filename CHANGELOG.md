@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## v2.1.2 - 04/10/19
+
+### Fixed
+
+- Fix incorrectly typed Rating and reviews for Product JSON-LD [PR #100](https://github.com/garmeeh/next-seo/pull/100)
+
 ## v2.1.1 - 10/09/19
 
 ### Fixed
