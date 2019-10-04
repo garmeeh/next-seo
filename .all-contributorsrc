@@ -103,6 +103,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "zetoke",
+      "name": "Dmitry Ermakov",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/301917?v=4",
+      "profile": "https://ermakov.io",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
