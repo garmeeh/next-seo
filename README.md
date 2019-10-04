@@ -46,7 +46,6 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Logo](#logo)
   - [Product](#product)
   - [Social Profile](#social-profile)
-- [CHANGELOG](#changelog)
 - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -1155,10 +1154,6 @@ export default () => (
 - Tumblr
 
 [Google Docs for Social Profile](https://developers.google.com/search/docs/data-types/social-profile)
-
-## CHANGELOG
-
-You can view the CHANGELOG [here](CHANGELOG.md)
 
 ## Contributors
 
