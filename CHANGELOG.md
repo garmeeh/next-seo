@@ -1,3 +1,5 @@
+This file will no longer be updated. Please see [Releases](https://github.com/garmeeh/next-seo/releases) for release notes.
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
