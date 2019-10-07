@@ -32,7 +32,7 @@ export interface LocalBusinessJsonLdProps {
   address: Address;
   geo: Geo;
   images: string[];
-  rating: Rating;
+  rating?: Rating;
   priceRange?: string;
 }
 
@@ -63,7 +63,7 @@ const buildRating = (rating: Rating) => `
   "aggregateRating": {
     "@type": "AggregateRating",
     "ratingValue": "${rating.ratingValue}",
-    "longitude": "${rating.ratingCount}"
+    "ratingCount": "${rating.ratingCount}"
   },
 `;
 
