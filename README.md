@@ -2,12 +2,12 @@
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-10-orange.svg?style=flat-square)](#contributors)
 
-Next SEO is a plug in that makes managing your SEO easier in Next.js projects.
+Next SEO is a plugin that makes managing your SEO easier in Next.js projects.
 
 Version 2.x is compatible with `next@v8.1.1-canary.54+` and above
 Version 1.x is compatible with `next@6.0.0` and above
 
-**Both versions are still maintained. If upgrading from v1 to v2, please note that the `NextSeo` component has been changed from a default to a named export, so you need to update the import statements in your pages accordingly to avoid errors. Also values are now passed down as properties to the SEO components instead of only using a `config` object so refactor your code accordingly (this would fail silently and your metadata will not be there, so double check and inspect your pages html).**
+**Both versions are still maintained. If upgrading from v1 to v2, please note that the `NextSeo` component has been changed from a default to a named export, so you need to update the import statements in your pages accordingly to avoid errors. Also, values are now passed down as properties to the SEO components instead of only using a `config` object so refactor your code accordingly (this would fail silently and your metadata will not be there, so double check and inspect your pages' HTML).**
 
 Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/support/1.x)
 
@@ -16,47 +16,48 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Usage](#usage)
-  - [Set Up](#set-up)
-  - [Add SEO to Page](#add-seo-to-page)
-  - [Default SEO Configuration](#default-seo-configuration)
-  - [NextSeo Options](#nextseo-options)
-    - [Title Template](#title-template)
-    - [No Index](#no-index)
-    - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
-    - [Twitter](#twitter)
-    - [facebook](#facebook)
-    - [Canonical URL](#canonical-url)
-    - [Alternate](#alternate)
-    - [Additional Meta Tags](#additional-meta-tags)
-- [Open Graph](#open-graph)
-  - [Open Graph Examples](#open-graph-examples)
-    - [Basic](#basic)
-    - [Video](#video)
-    - [Article](#article)
-    - [Book](#book)
-    - [Profile](#profile)
-- [JSON-LD](#json-ld)
-  - [Article](#article-1)
-  - [Breadcrumb](#breadcrumb)
-  - [Blog](#blog)
-  - [Course](#course)
-  - [Corporate Contact](#corporate-contact)
-  - [Local Business](#local-business)
-  - [Logo](#logo)
-  - [Product](#product)
-  - [Social Profile](#social-profile)
-- [Contributors](#contributors)
+- [Next SEO](#next-seo)
+  - [Usage](#usage)
+    - [Setup](#setup)
+    - [Add SEO to Page](#add-seo-to-page)
+    - [Default SEO Configuration](#default-seo-configuration)
+    - [NextSeo Options](#nextseo-options)
+      - [Title Template](#title-template)
+      - [No Index](#no-index)
+      - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
+      - [Twitter](#twitter)
+      - [facebook](#facebook)
+      - [Canonical URL](#canonical-url)
+      - [Alternate](#alternate)
+      - [Additional Meta Tags](#additional-meta-tags)
+  - [Open Graph](#open-graph)
+    - [Open Graph Examples](#open-graph-examples)
+      - [Basic](#basic)
+      - [Video](#video)
+      - [Article](#article)
+      - [Book](#book)
+      - [Profile](#profile)
+  - [JSON-LD](#json-ld)
+    - [Article](#article-1)
+    - [Breadcrumb](#breadcrumb)
+    - [Blog](#blog)
+    - [Course](#course)
+    - [Corporate Contact](#corporate-contact)
+    - [Local Business](#local-business)
+    - [Logo](#logo)
+    - [Product](#product)
+    - [Social Profile](#social-profile)
+  - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Usage
 
-`NextSeo` works by including it on pages where you would like SEO attributes to added. Once included on the page you pass it a configuration object with the page's SEO properties. This can be dynamically generated at a page level or in some cases your API may return an SEO object.
+`NextSeo` works by including it on pages where you would like SEO attributes to be added. Once included on the page you pass it a configuration object with the page's SEO properties. This can be dynamically generated at a page level or in some cases your API may return an SEO object.
 
-### Set Up
+### Setup
 
-First install it:
+First, install it:
 
 ```bash
 npm install --save next-seo
@@ -70,7 +71,7 @@ yarn add next-seo
 
 ### Add SEO to Page
 
-Then you need to import `NextSeo` and add the desired properties. This will render out the tags in the `<head>` for SEO. At a bare minimum you should add a title and description.
+Then you need to import `NextSeo` and add the desired properties. This will render out the tags in the `<head>` for SEO. At a bare minimum, you should add a title and description.
 
 **Example with just title and description:**
 
@@ -89,9 +90,9 @@ export default () => (
 );
 ```
 
-But `NextSeo` gives you much more options that you can add. See below for an a typical example of a page.
+But `NextSeo` gives you many more options that you can add. See below for a typical example of a page.
 
-**Typical example for page:**
+**Typical page example:**
 
 ```jsx
 import React from 'react';
@@ -138,13 +139,13 @@ export default () => (
 
 **A note on Twitter Tags**
 
-Twitter will read the `og:title`, `og:image` and `og:description` tags for their card, this is why `next-seo` omits `twitter:title`, `twitter:image` and `twitter:description` so not to duplicate.
+Twitter will read the `og:title`, `og:image` and `og:description` tags for their card. `next-seo` omits `twitter:title`, `twitter:image` and `twitter:description` to avoid duplication.
 
 Some tools may report this an error. See [Issue #14](https://github.com/garmeeh/next-seo/issues/14)
 
 ### Default SEO Configuration
 
-`NextSeo` enables you to set some default SEO that will appear on all pages without needing to do include anything on them. You can also override these on a page by page basis if needed.
+`NextSeo` enables you to set some default SEO properties that will appear on all pages without needing to do include anything on them. You can also override these on a page by page basis if needed.
 
 To achieve this, you will need to create a custom `<App>`. In your pages directory create a new file, `_app.js`. See the Next.js docs [here](https://github.com/zeit/next.js/#custom-app) for more info on a custom `<App>`.
 
@@ -194,7 +195,7 @@ export default class MyApp extends App {
 }
 ```
 
-Alternatively you can also create a config file to store default values such as `next-seo.config.js`
+Alternatively, you can also create a config file to store default values such as `next-seo.config.js`
 
 ```js
 export default {
@@ -224,9 +225,9 @@ and the `DefaultSeo` component can be used like this instead
 <DefaultSeo {...SEO} />
 ```
 
-From now on all of your pages will have the defaults above applied applied.
+From now on all of your pages will have the defaults above applied.
 
-**Note that `Container` is deprecated in Next.js v9.0.4 so you can replace that component here with `React.Fragment` on this version and later - see [here](https://github.com/zeit/next.js/blob/master/errors/app-container-deprecated.md)**
+**Note that `Container` is deprecated in Next.js v9.0.4 so you should replace that component here with `React.Fragment` on this version and later - see [here](https://github.com/zeit/next.js/blob/master/errors/app-container-deprecated.md)**
 
 ### NextSeo Options
 
@@ -287,11 +288,11 @@ titleTemplate = '%s | Next SEO';
 
 #### No Index
 
-Setting this to `true` will set `no-index`, `no-follow`. This works on page by page basis.
+Setting this to `true` will set `no-index`, `no-follow`. This works on a page by page basis.
 
-So this property is a little different than all the others in the sense that setting it as a default does not work as expected. This is due to the fact Next SEO already has a default of `index` as it is an SEO plug in after all. So if you want to globally set `noindex` please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex)
+So this property is a little different than all the others in the sense that setting it as a default does not work as expected. This is due to the fact Next SEO already has a default of `index` as it is an SEO plugin after all. So if you want to globally set `noindex` please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex)
 
-**Example No Index on single page:**
+**Example No Index on a single page:**
 
 If you have a single page that you want no indexed you can achieve this by:
 
@@ -309,7 +310,7 @@ export default () => (
 
 #### dangerouslySetAllPagesToNoIndex
 
-It has the prefix of `dangerously` because it will `noindex` all pages. As this is an SEO plugin, that is kinda of a dangerous action. It is **not** bad to use this, just please be sure you want to `noindex` **EVERY** page. You can still override this at a page level if you have a use case to `index` a page. This can be done by setting `noindex: false`.
+It has the prefix of `dangerously` because it will `noindex` all pages. As this is an SEO plugin, that is kinda dangerous action. It is **not** bad to use this, just please be sure you want to `noindex` **EVERY** page. You can still override this at a page level if you have a use case to `index` a page. This can be done by setting `noindex: false`.
 
 The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom `<App>`.
 
@@ -331,7 +332,7 @@ Add this to your SEO config to include the fb:app_id meta if you need to enable 
 
 #### Canonical URL
 
-Add this on page per page basis when you want to consolidate duplicate URLs.
+Add this on a page per page basis when you want to consolidate duplicate URLs.
 
 ```js
 canonical = 'https://www.canonical.ie/';
