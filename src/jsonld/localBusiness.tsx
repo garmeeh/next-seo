@@ -17,6 +17,11 @@ type Geo = {
   longitude: string;
 };
 
+type Rating = {
+  ratingValue: string;
+  ratingCount: string;
+};
+
 export interface LocalBusinessJsonLdProps {
   type: string;
   id: string;
@@ -27,6 +32,8 @@ export interface LocalBusinessJsonLdProps {
   address: Address;
   geo: Geo;
   images: string[];
+  rating?: Rating;
+  priceRange?: string;
 }
 
 const buildGeo = (geo: Geo) => `
@@ -52,6 +59,14 @@ const buildAddress = (address: Address) => `
   },
 `;
 
+const buildRating = (rating: Rating) => `
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "${rating.ratingValue}",
+    "ratingCount": "${rating.ratingCount}"
+  },
+`;
+
 const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   type,
   id,
@@ -62,6 +77,8 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   address,
   geo,
   images,
+  rating,
+  priceRange,
 }) => {
   const jslonld = `{
     "@context": "http://schema.org",
@@ -72,6 +89,8 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
     ${telephone ? `"telephone": "${telephone}",` : ''}
     ${buildAddress(address)}
     ${geo ? `${buildGeo(geo)}` : ''}
+    ${rating ? `${buildRating(rating)}` : ''}
+    ${priceRange ? `"priceRange": "${priceRange}",` : ''}
     "image":${formatIfArray(images)},
     "name": "${name}"
   }`;
