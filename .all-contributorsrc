@@ -121,6 +121,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "calvinvoo2",
+      "name": "Calvin Ng Tjioe",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/12223423?v=4",
+      "profile": "https://github.com/calvinvoo2",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
