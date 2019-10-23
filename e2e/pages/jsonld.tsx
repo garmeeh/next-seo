@@ -51,7 +51,7 @@ export default () => (
         {
           position: 4,
           name: 'Ancillary Justice',
-          item: 'https://example.com/books/authors/ancillaryjustice',
+          item: 'https://example.com/books/authors/annleckie/ancillaryjustice',
         },
       ]}
     />
