@@ -23,8 +23,10 @@ const BreadCrumbJsonLd: FC<BreadCrumbJsonLdProps> = ({
         itemListElement => `{
         "@type": "ListItem",
         "position": ${itemListElement.position},
-        "name": "${itemListElement.name}",
-        "item": "${itemListElement.item}"
+        "item": {
+          "@id": "${itemListElement.item}",
+          "name": "${itemListElement.name}"
+        }
       }`,
       )}
      ]

@@ -29,14 +29,16 @@ const breadcrumb100 = {
               description: 'ListItem',
             },
             item: {
-              type: 'string',
-              description:
-                'The URL to the webpage that represents the breadcrumb.',
-            },
-            name: {
-              type: 'string',
-              description:
-                'The title of the breadcrumb displayed for the user.',
+              '@id': {
+                type: 'string',
+                description:
+                  'The URL to the webpage that represents the breadcrumb.',
+              },
+              name: {
+                type: 'string',
+                description:
+                  'The title of the breadcrumb displayed for the user.',
+              },
             },
             position: {
               type: 'string',
@@ -57,26 +59,34 @@ const breadcrumb100 = {
       {
         '@type': 'ListItem',
         position: 1,
-        name: 'Books',
-        item: 'https://example.com/books',
+        item: {
+          '@id': 'https://example.com/books',
+          name: 'Books',
+        },
       },
       {
         '@type': 'ListItem',
         position: 2,
-        name: 'Authors',
-        item: 'https://example.com/books/authors',
+        item: {
+          '@id': 'https://example.com/books/authors',
+          name: 'Authors',
+        },
       },
       {
         '@type': 'ListItem',
         position: 3,
-        name: 'Ann Leckie',
-        item: 'https://example.com/books/authors/annleckie',
+        item: {
+          '@id': 'https://example.com/books/authors/annleckie',
+          name: 'Ann Leckie',
+        },
       },
       {
         '@type': 'ListItem',
         position: 4,
-        name: 'Ancillary Justice',
-        item: 'https://example.com/books/authors/ancillaryjustice',
+        item: {
+          '@id': 'https://example.com/books/authors/annleckie/ancillaryjustice',
+          name: 'Ancillary Justice',
+        },
       },
     ],
   },
