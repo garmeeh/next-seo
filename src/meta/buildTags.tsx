@@ -10,6 +10,17 @@ const defaults = {
   defaultOpenGraphVideoHeight: 0,
 };
 
+const pushLanguageAlternate = (tagsToRender: Array<any>, languageAlternate: Array<object>) => {
+  languageAlternate.forEach((it: object) => tagsToRender.push(
+    <link
+      rel="alternate"
+      key="languageAlternate"
+      hrefLang={it.hrefLang}
+      href={it.href}
+    />
+  ));
+}
+
 const buildTags = (config: BuildTagsParams) => {
   const tagsToRender = [];
 
@@ -77,15 +88,10 @@ const buildTags = (config: BuildTagsParams) => {
     );
   }
 
-  if (config.languageAlternate) {
-    tagsToRender.push(
-      <link
-        rel="alternate"
-        key="languageAlternate"
-        hrefLang={config.languageAlternate.hrefLang}
-        href={config.languageAlternate.href}
-      />,
-    );
+  if (config.languageAlternate instanceof Array) {
+    pushLanguageAlternate(tagsToRender, config.languageAlternate);
+  } else if (config.languageAlternate instanceof Object) {
+    pushLanguageAlternate(tagsToRender, [config.languageAlternate]);
   }
 
   if (config.twitter) {
