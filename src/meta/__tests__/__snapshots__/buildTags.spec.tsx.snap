@@ -483,6 +483,11 @@ exports[`renders correctly 1`] = `
     hreflang="de-AT"
     rel="alternate"
   />
+  <link
+    href="https://www.canonical.ie/sk"
+    hreflang="sk-SK"
+    rel="alternate"
+  />
   <meta
     content="summary_large_image"
     name="twitter:card"

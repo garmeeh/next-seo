@@ -16,10 +16,16 @@ const SEO: BuildTagsParams = {
     media: 'only screen and (max-width: 640px)',
     href: 'https://m.canonical.ie',
   },
-  languageAlternate: {
-    hrefLang: 'de-AT',
-    href: 'https://www.canonical.ie/de',
-  },
+  languageAlternates: [
+    {
+      hrefLang: 'de-AT',
+      href: 'https://www.canonical.ie/de',
+    },
+    {
+      hrefLang: 'sk-SK',
+      href: 'https://www.canonical.ie/sk',
+    },
+  ],
   openGraph: {
     type: 'website',
     locale: 'en_IE',
@@ -157,23 +163,28 @@ it('returns full array for default seo object', () => {
     `link[media="${SEO.mobileAlternate.media}"]`,
   );
 
-  const languageAlternateTag = container.querySelectorAll(
-    'link[rel="alternate"][hrefLang]',
-  );
-  const languageAlternateHref = container.querySelectorAll(
-    `link[href="${SEO.languageAlternate.href}"]`,
-  );
-  const languageAlternateHrefLang = container.querySelectorAll(
-    `link[hrefLang="${SEO.languageAlternate.hrefLang}"]`,
-  );
-
   expect(Array.from(mobileAlternateTag).length).toBe(1);
   expect(Array.from(mobileAlternateHref).length).toBe(1);
   expect(Array.from(mobileAlternateMedia).length).toBe(1);
 
-  expect(Array.from(languageAlternateTag).length).toBe(1);
-  expect(Array.from(languageAlternateHref).length).toBe(1);
-  expect(Array.from(languageAlternateHrefLang).length).toBe(1);
+  const languageAlternatesTags = container.querySelectorAll(
+    'link[rel="alternate"][hrefLang]',
+  );
+  expect(Array.from(languageAlternatesTags).length).toBe(
+    SEO.languageAlternates.length,
+  );
+
+  SEO.languageAlternates.forEach((languageAlternate, idx) => {
+    const languageAlternateHref = container.querySelectorAll(
+      `link[href="${SEO.languageAlternates[idx].href}"]`,
+    );
+    const languageAlternateHrefLang = container.querySelectorAll(
+      `link[hrefLang="${SEO.languageAlternates[idx].hrefLang}"]`,
+    );
+
+    expect(Array.from(languageAlternateHref).length).toBe(1);
+    expect(Array.from(languageAlternateHrefLang).length).toBe(1);
+  });
 
   expect(title).toBeDefined();
   expect(Array.from(index).length).toBe(2);
