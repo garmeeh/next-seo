@@ -290,9 +290,9 @@ titleTemplate = '%s | Next SEO';
 
 #### No Index
 
-Setting this to `true` will set `noindex,follow` (to set `nofollow`, please refer to [`no-follow`](#noFollow)). This works on a page by page basis. This property works in tandem with the `no-follow` property and together they populate the `robots` and `googlebot` meta tags.
+Setting this to `true` will set `noindex,follow` (to set `nofollow`, please refer to [`nofollow`](#noFollow)). This works on a page by page basis. This property works in tandem with the `nofollow` property and together they populate the `robots` and `googlebot` meta tags.
 
-**Note:** The `no-index` and the [`no-follow`](#noFollow) properties are a little different than all the others in the sense that setting them as a default does not work as expected. This is due to the fact Next SEO already has a default of `index,follow` because `next-seo` is a SEO plugin after all. So if you want to globally these properties, please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToFollow](#dangerouslySetAllPagesToFollow).
+**Note:** The `noindex` and the [`nofollow`](#noFollow) properties are a little different than all the others in the sense that setting them as a default does not work as expected. This is due to the fact Next SEO already has a default of `index,follow` because `next-seo` is a SEO plugin after all. So if you want to globally these properties, please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToFollow](#dangerouslySetAllPagesToFollow).
 
 **Example No Index on a single page:**
 
@@ -323,9 +323,9 @@ The only way to unset this, is by removing the prop from the `DefaultSeo` in you
 
 #### No Follow
 
-Setting this to `true` will set `index,nofollow` (to set `noindex`, please refer to [`no-index`](#noIndex)). This works on a page by page basis. This property works in tandem with the `no-index` property and together they populate the `robots` and `googlebot` meta tags.
+Setting this to `true` will set `index,nofollow` (to set `noindex`, please refer to [`noindex`](#noIndex)). This works on a page by page basis. This property works in tandem with the `noindex` property and together they populate the `robots` and `googlebot` meta tags.
 
-**Note:** The `no-index` and the [`no-follow`](#noFollow) properties are a little different than all the others in the sense that setting them as a default does not work as expected. This is due to the fact Next SEO already has a default of `index,follow` because `next-seo` is a SEO plugin after all. So if you want to globally these properties, please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToFollow](#dangerouslySetAllPagesToFollow).
+**Note:** The `noindex` and the [`nofollow`](#noFollow) properties are a little different than all the others in the sense that setting them as a default does not work as expected. This is due to the fact Next SEO already has a default of `index,follow` because `next-seo` is a SEO plugin after all. So if you want to globally these properties, please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToFollow](#dangerouslySetAllPagesToFollow).
 
 **Example No Follow on a single page:**
 
@@ -354,15 +354,15 @@ It has the prefix of `dangerously` because it will `nofollow` all pages. As this
 
 The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom `<App>`.
 
-| `no-index` | `no-follow` | `meta` content of `robots`, `googlebot` |
-| ---------- | ----------- | --------------------------------------- |
-| --         | --          | `noindex,nofollow` (default)            |
-| false      | false       | `noindex,nofollow`                      |
-| true       | --          | `noindex,follow`                        |
-| --         | true        | `index,nofollow`                        |
-| true       | true        | `noindex,nofollow`                      |
-| true       | false       | `noindex,follow`                        |
-| false      | true        | `index,nofollow`                        |
+| `noindex` | `nofollow` | `meta` content of `robots`, `googlebot` |
+| --------- | ---------- | --------------------------------------- |
+| --        | --         | `noindex,nofollow` (default)            |
+| false     | false      | `noindex,nofollow`                      |
+| true      | --         | `noindex,follow`                        |
+| --        | true       | `index,nofollow`                        |
+| true      | true       | `noindex,nofollow`                      |
+| true      | false      | `noindex,follow`                        |
+| false     | true       | `index,nofollow`                        |
 
 #### Twitter
 
