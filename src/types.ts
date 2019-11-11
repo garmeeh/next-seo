@@ -104,6 +104,7 @@ export interface NextSeoProps {
   title?: string;
   titleTemplate?: string;
   noindex?: boolean;
+  nofollow?: boolean;
   description?: string;
   canonical?: string;
   mobileAlternate?: MobileAlternate;
@@ -116,10 +117,10 @@ export interface NextSeoProps {
 
 export interface DefaultSeoProps extends NextSeoProps {
   dangerouslySetAllPagesToNoIndex?: boolean;
+  dangerouslySetAllPagesToNoFollow?: boolean;
   defaultOpenGraphImageWidth?: number;
   defaultOpenGraphImageHeight?: number;
   defaultOpenGraphVideoWidth?: number;
   defaultOpenGraphVideoHeight?: number;
 }
-
 export interface BuildTagsParams extends DefaultSeoProps, NextSeoProps {}

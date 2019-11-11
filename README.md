@@ -24,6 +24,8 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
     - [Title Template](#title-template)
     - [No Index](#no-index)
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
+    - [No Follow](#no-follow)
+    - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
     - [Twitter](#twitter)
     - [facebook](#facebook)
     - [Canonical URL](#canonical-url)
@@ -235,6 +237,7 @@ From now on all of your pages will have the defaults above applied.
 | `titleTemplate`                    | string                  | Allows you to set default title template that will be added to your title [More Info](#title-template)                                                                               |
 | `title`                            | string                  | Set the meta title of the page                                                                                                                                                       |
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
+| `nofollow`                         | boolean (default false) | Sets whether page should be followed or not [More Info](#no-follow)                                                                                                                  |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                        |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                           |
 | `mobileAlternate.media`            | string                  | Set what screen size the mobile website should be served from                                                                                                                        |
@@ -287,9 +290,9 @@ titleTemplate = '%s | Next SEO';
 
 #### No Index
 
-Setting this to `true` will set `no-index`, `no-follow`. This works on a page by page basis.
+Setting this to `true` will set `noindex,follow` (to set `nofollow`, please refer to [`no-follow`](#noFollow)). This works on a page by page basis. This property works in tandem with the `no-follow` property and together they populate the `robots` and `googlebot` meta tags.
 
-So this property is a little different than all the others in the sense that setting it as a default does not work as expected. This is due to the fact Next SEO already has a default of `index` as it is an SEO plugin after all. So if you want to globally set `noindex` please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex)
+**Note:** The `no-index` and the [`no-follow`](#noFollow) properties are a little different than all the others in the sense that setting them as a default does not work as expected. This is due to the fact Next SEO already has a default of `index,follow` because `next-seo` is a SEO plugin after all. So if you want to globally these properties, please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToFollow](#dangerouslySetAllPagesToFollow).
 
 **Example No Index on a single page:**
 
@@ -305,6 +308,11 @@ export default () => (
     <p>This page is no indexed</p>
   </>
 );
+
+/* 
+<meta name="robots" content="noindex,follow">
+<meta name="googlebot" content="noindex,follow">
+*/
 ```
 
 #### dangerouslySetAllPagesToNoIndex
@@ -312,6 +320,49 @@ export default () => (
 It has the prefix of `dangerously` because it will `noindex` all pages. As this is an SEO plugin, that is kinda dangerous action. It is **not** bad to use this, just please be sure you want to `noindex` **EVERY** page. You can still override this at a page level if you have a use case to `index` a page. This can be done by setting `noindex: false`.
 
 The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom `<App>`.
+
+#### No Follow
+
+Setting this to `true` will set `index,nofollow` (to set `noindex`, please refer to [`no-index`](#noIndex)). This works on a page by page basis. This property works in tandem with the `no-index` property and together they populate the `robots` and `googlebot` meta tags.
+
+**Note:** The `no-index` and the [`no-follow`](#noFollow) properties are a little different than all the others in the sense that setting them as a default does not work as expected. This is due to the fact Next SEO already has a default of `index,follow` because `next-seo` is a SEO plugin after all. So if you want to globally these properties, please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToFollow](#dangerouslySetAllPagesToFollow).
+
+**Example No Follow on a single page:**
+
+If you have a single page that you want no indexed you can achieve this by:
+
+```jsx
+import React from 'react';
+import NextSeo from 'next-seo';
+
+export default () => (
+  <>
+    <NextSeo nofollow={true} />
+    <p>This page is not followed</p>
+  </>
+);
+
+/* 
+<meta name="robots" content="index,nofollow">
+<meta name="googlebot" content="index,nofollow">
+*/
+```
+
+#### dangerouslySetAllPagesToNoFollow
+
+It has the prefix of `dangerously` because it will `nofollow` all pages. As this is an SEO plugin, that is kinda dangerous action. It is **not** bad to use this, just please be sure you want to `nofollow` **EVERY** page. You can still override this at a page level if you have a use case to `follow` a page. This can be done by setting `nofollow: false`.
+
+The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom `<App>`.
+
+| `no-index` | `no-follow` | `meta` content of `robots`, `googlebot` |
+| ---------- | ----------- | --------------------------------------- |
+| --         | --          | `noindex,nofollow` (default)            |
+| false      | false       | `noindex,nofollow`                      |
+| true       | --          | `noindex,follow`                        |
+| --         | true        | `index,nofollow`                        |
+| true       | true        | `noindex,nofollow`                      |
+| true       | false       | `noindex,follow`                        |
+| false      | true        | `index,nofollow`                        |
 
 #### Twitter
 
