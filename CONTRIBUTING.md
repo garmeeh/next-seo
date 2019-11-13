@@ -14,8 +14,9 @@ yarn install
 ```
 
 2. Make your modifications / additions
-3. Write / Update Tests. End to end tests are required for all changes and new features.
-4. Open pull request
+3. Update / Add Documentation
+4. Write / Update Tests. End to end tests are required for all changes and new features.
+5. Open pull request
 
 ## Working with next-seo
 

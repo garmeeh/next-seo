@@ -9,10 +9,12 @@ export default () => (
       title="Title B"
       description="Description B"
       canonical="https://www.canonical.ie/b"
-      languageAlternate={{
-        hrefLang: 'de-AT',
-        href: 'https://www.canonical.ie/de',
-      }}
+      languageAlternates={[
+        {
+          hrefLang: 'de-AT',
+          href: 'https://www.canonical.ie/de',
+        },
+      ]}
       mobileAlternate={{
         media: 'only screen and (max-width: 640px)',
         href: 'https://m.canonical.ie',

@@ -11,10 +11,12 @@ const APP_DEFAULT_SEO: DefaultSeoProps = {
     media: 'only screen and (max-width: 640px)',
     href: 'https://m.canonical.ie',
   },
-  languageAlternate: {
-    hrefLang: 'de-AT',
-    href: 'https://www.canonical.ie/de',
-  },
+  languageAlternates: [
+    {
+      hrefLang: 'de-AT',
+      href: 'https://www.canonical.ie/de',
+    },
+  ],
   openGraph: {
     type: 'website',
     locale: 'en_IE',
