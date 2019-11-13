@@ -107,7 +107,7 @@ export interface NextSeoProps {
   description?: string;
   canonical?: string;
   mobileAlternate?: MobileAlternate;
-  languageAlternate?: LanguageAlternate;
+  languageAlternates?: ReadonlyArray<LanguageAlternate>;
   openGraph?: OpenGraph;
   facebook?: { appId: string };
   twitter?: Twitter;

@@ -21,7 +21,7 @@ export default class extends Component<DefaultSeoProps, {}> {
       defaultOpenGraphVideoWidth,
       defaultOpenGraphVideoHeight,
       mobileAlternate,
-      languageAlternate,
+      languageAlternates,
     } = this.props;
 
     return (
@@ -41,7 +41,7 @@ export default class extends Component<DefaultSeoProps, {}> {
           defaultOpenGraphVideoWidth,
           defaultOpenGraphVideoHeight,
           mobileAlternate,
-          languageAlternate,
+          languageAlternates,
         })}
       </Head>
     );

@@ -16,7 +16,7 @@ export default class extends Component<NextSeoProps, {}> {
       additionalMetaTags,
       titleTemplate,
       mobileAlternate,
-      languageAlternate,
+      languageAlternates,
     } = this.props;
 
     return (
@@ -32,7 +32,7 @@ export default class extends Component<NextSeoProps, {}> {
           twitter,
           titleTemplate,
           mobileAlternate,
-          languageAlternate,
+          languageAlternates,
         })}
       </Head>
     );

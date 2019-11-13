@@ -77,15 +77,17 @@ const buildTags = (config: BuildTagsParams) => {
     );
   }
 
-  if (config.languageAlternate) {
-    tagsToRender.push(
-      <link
-        rel="alternate"
-        key="languageAlternate"
-        hrefLang={config.languageAlternate.hrefLang}
-        href={config.languageAlternate.href}
-      />,
-    );
+  if (config.languageAlternates && config.languageAlternates.length > 0) {
+    config.languageAlternates.forEach(languageAlternate => {
+      tagsToRender.push(
+        <link
+          rel="alternate"
+          key={`languageAlternate-${languageAlternate.hrefLang}`}
+          hrefLang={languageAlternate.hrefLang}
+          href={languageAlternate.href}
+        />,
+      );
+    });
   }
 
   if (config.twitter) {
