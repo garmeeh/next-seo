@@ -4,6 +4,7 @@ import { BuildTagsParams } from '../types';
 const defaults = {
   templateTitle: '',
   noindex: false,
+  nofollow: false,
   defaultOpenGraphImageWidth: 0,
   defaultOpenGraphImageHeight: 0,
   defaultOpenGraphVideoWidth: 0,
@@ -26,26 +27,40 @@ const buildTags = (config: BuildTagsParams) => {
     tagsToRender.push(<title key="title">{updatedTitle}</title>);
   }
 
-  if (config.noindex === false) {
-    tagsToRender.push(
-      <meta key="robots" name="robots" content="index,follow" />,
-    );
-    tagsToRender.push(
-      <meta key="googlebot" name="googlebot" content="index,follow" />,
-    );
-  } else if (
+  const noindex =
     config.noindex ||
     defaults.noindex ||
-    config.dangerouslySetAllPagesToNoIndex
-  ) {
+    config.dangerouslySetAllPagesToNoIndex;
+  const nofollow =
+    config.nofollow ||
+    defaults.nofollow ||
+    config.dangerouslySetAllPagesToNoFollow;
+
+  if (noindex || nofollow) {
     if (config.dangerouslySetAllPagesToNoIndex) {
       defaults.noindex = true;
     }
+    if (config.dangerouslySetAllPagesToNoFollow) {
+      defaults.nofollow = true;
+    }
+
     tagsToRender.push(
-      <meta key="robots" name="robots" content="noindex,nofollow" />,
+      <meta
+        key="robots"
+        name="robots"
+        content={`${noindex ? 'noindex' : 'index'},${
+          nofollow ? 'nofollow' : 'follow'
+        }`}
+      />,
     );
     tagsToRender.push(
-      <meta key="googlebot" name="googlebot" content="noindex,nofollow" />,
+      <meta
+        key="googlebot"
+        name="googlebot"
+        content={`${noindex ? 'noindex' : 'index'},${
+          nofollow ? 'nofollow' : 'follow'
+        }`}
+      />,
     );
   } else {
     tagsToRender.push(

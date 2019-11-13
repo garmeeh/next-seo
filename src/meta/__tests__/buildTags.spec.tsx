@@ -225,7 +225,7 @@ it('returns full array for default seo object', () => {
   expect(Array.from(canonicalTag).length).toBe(1);
 });
 
-it('correctly sets noindex, nofollow', () => {
+it('correctly sets noindex', () => {
   const overrideProps = {
     ...SEO,
     noindex: true,
@@ -233,12 +233,47 @@ it('correctly sets noindex, nofollow', () => {
   const tags = buildTags(overrideProps);
   const { container } = render(<>{React.Children.toArray(tags)}</>);
   const index = container.querySelectorAll('meta[content="index,follow"]');
-  const noindex = container.querySelectorAll(
-    'meta[content="noindex,nofollow"]',
-  );
+  const noindex = container.querySelectorAll('meta[content="noindex,follow"]');
 
   expect(Array.from(index).length).toBe(0);
   expect(Array.from(noindex).length).toBe(2);
+});
+
+it('correctly sets nofollow', () => {
+  const overrideProps = {
+    ...SEO,
+    nofollow: true,
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+  const indexfollow = container.querySelectorAll(
+    'meta[content="index,follow"]',
+  );
+  const indexnofollow = container.querySelectorAll(
+    'meta[content="index,nofollow"]',
+  );
+
+  expect(Array.from(indexfollow).length).toBe(0);
+  expect(Array.from(indexnofollow).length).toBe(2);
+});
+
+it('correctly sets noindex, nofollow', () => {
+  const overrideProps = {
+    ...SEO,
+    noindex: true,
+    nofollow: true,
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+  const indexfollow = container.querySelectorAll(
+    'meta[content="index,follow"]',
+  );
+  const noindexnofollow = container.querySelectorAll(
+    'meta[content="noindex,nofollow"]',
+  );
+
+  expect(Array.from(indexfollow).length).toBe(0);
+  expect(Array.from(noindexnofollow).length).toBe(2);
 });
 
 it('displays title with titleTemplate integrated', () => {
@@ -749,27 +784,50 @@ it('correctly sets noindex default', () => {
   };
   const tags = buildTags(overrideProps);
   const { container } = render(<>{React.Children.toArray(tags)}</>);
-  const index = container.querySelectorAll('meta[content="index,follow"]');
-  const noindex = container.querySelectorAll(
-    'meta[content="noindex,nofollow"]',
+  const indexfollow = container.querySelectorAll(
+    'meta[content="index,follow"]',
+  );
+  const noindexfollow = container.querySelectorAll(
+    'meta[content="noindex,follow"]',
   );
 
-  expect(Array.from(index).length).toBe(0);
-  expect(Array.from(noindex).length).toBe(2);
+  expect(Array.from(indexfollow).length).toBe(0);
+  expect(Array.from(noindexfollow).length).toBe(2);
 });
 
-it('correctly read noindex false', () => {
+it('correctly sets nofollow default', () => {
   const overrideProps = {
     ...SEO,
-    noindex: false,
+    dangerouslySetAllPagesToNoFollow: true,
   };
   const tags = buildTags(overrideProps);
   const { container } = render(<>{React.Children.toArray(tags)}</>);
-  const index = container.querySelectorAll('meta[content="index,follow"]');
-  const noindex = container.querySelectorAll(
+  const indexfollow = container.querySelectorAll(
+    'meta[content="index,follow"]',
+  );
+  const noindexnofollow = container.querySelectorAll(
     'meta[content="noindex,nofollow"]',
   );
 
-  expect(Array.from(index).length).toBe(2);
-  expect(Array.from(noindex).length).toBe(0);
+  expect(Array.from(indexfollow).length).toBe(0);
+  expect(Array.from(noindexnofollow).length).toBe(2);
+});
+
+it('correctly read noindex & nofollow false', () => {
+  const overrideProps = {
+    ...SEO,
+    noindex: false,
+    nofollow: false,
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+  const indexfollow = container.querySelectorAll(
+    'meta[content="index,follow"]',
+  );
+  const noindexnofollow = container.querySelectorAll(
+    'meta[content="noindex,nofollow"]',
+  );
+
+  expect(Array.from(indexfollow).length).toBe(0);
+  expect(Array.from(noindexnofollow).length).toBe(2);
 });

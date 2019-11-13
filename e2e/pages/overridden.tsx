@@ -6,6 +6,7 @@ export default () => (
   <>
     <NextSeo
       noindex={true}
+      nofollow={true}
       title="Title B"
       description="Description B"
       canonical="https://www.canonical.ie/b"

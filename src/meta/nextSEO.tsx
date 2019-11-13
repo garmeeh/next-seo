@@ -8,6 +8,7 @@ export default class extends Component<NextSeoProps, {}> {
     const {
       title,
       noindex = false,
+      nofollow,
       description,
       canonical,
       openGraph,
@@ -24,6 +25,7 @@ export default class extends Component<NextSeoProps, {}> {
         {buildTags({
           title,
           noindex,
+          nofollow,
           description,
           canonical,
           facebook,
