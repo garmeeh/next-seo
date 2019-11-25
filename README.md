@@ -1124,6 +1124,7 @@ export default () => (
         priceValidUntil: '2020-11-05',
         itemCondition: 'http://schema.org/UsedCondition',
         availability: 'http://schema.org/InStock',
+        url: 'https://www.example.com/executive-anvil',
         seller: {
           name: 'Executive Objects',
         },

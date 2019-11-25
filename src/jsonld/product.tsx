@@ -24,6 +24,7 @@ type Offers = {
   priceValidUntil?: string;
   itemCondition?: string;
   availability?: string;
+  url?: string;
   seller: {
     name: string;
   };
@@ -104,6 +105,7 @@ const buildOffers = (offers: Offers) => `
     }
     ${offers.itemCondition ? `"itemCondition": "${offers.itemCondition}",` : ''}
     ${offers.availability ? `"availability": "${offers.availability}",` : ''}
+    ${offers.url ? `"url": "${offers.url}",` : ''}
     ${
       offers.seller
         ? `

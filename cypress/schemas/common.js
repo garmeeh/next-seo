@@ -120,6 +120,10 @@ export const offers100 = {
         description:
           'The availability of this item—for example In stock, Out of stock, Pre-order, etc.',
       },
+      url: {
+        type: 'string',
+        description: 'A URL to the product web page (that includes the Offer).',
+      },
       seller: {
         ...seller100.schema,
         see: seller100,
