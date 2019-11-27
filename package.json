@@ -28,7 +28,7 @@
     "build:watch": "yarn build:types -- --watch && yarn build:ts -- --watch",
     "build:types": "tsc --emitDeclarationOnly",
     "build:ts": "babel src --out-dir lib --extensions \".ts,.tsx\"",
-    "build:test": "npm-run-all --sequential build build:e2e",
+    "build:test": "npm-run-all --sequential build e2e:build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "e2e:dev": "yarn next e2e",
