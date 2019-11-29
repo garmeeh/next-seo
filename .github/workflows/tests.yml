@@ -11,6 +11,5 @@ jobs:
         with:
           build: yarn build:test
           start: yarn e2e:start
-          working-directory: e2e
           wait-on: 'http://localhost:3000'
           config-file: cypress.json
