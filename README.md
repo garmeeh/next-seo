@@ -48,6 +48,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Logo](#logo)
   - [Product](#product)
   - [Social Profile](#social-profile)
+  - [News Article](#news-article)
 - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -822,6 +823,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Local Business](#local-business)
 - [Product](#product)
 - [Social Profile](#social-profile)
+- [News Article](#news-article)
 
 More to follow very, very soon!
 
@@ -1203,6 +1205,37 @@ export default () => (
 - Pinterest
 - SoundCloud
 - Tumblr
+
+### News Article
+
+```jsx
+import React from 'react';
+import { NewsArticleJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>News Article JSON-LD</h1>
+    <NewsArticleJsonLd
+      url="https://example.com/article"
+      title="Article headline"
+      images={[
+        'https://example.com/photos/1x1/photo.jpg',
+        'https://example.com/photos/4x3/photo.jpg',
+        'https://example.com/photos/16x9/photo.jpg',
+      ]}
+      section="politic"
+      keywords="prayuth,taksin"
+      datePublished="2015-02-05T08:00:00+08:00"
+      dateModified="2015-02-05T09:00:00+08:00"
+      authorName="Jane Blogs"
+      publisherName="Gary Meehan"
+      publisherLogo="https://www.example.com/photos/logo.jpg"
+      description="This is a mighty good description of this article."
+      body="This is all text for this news article"
+    />
+  </>
+);
+```
 
 [Google Docs for Social Profile](https://developers.google.com/search/docs/data-types/social-profile)
 
