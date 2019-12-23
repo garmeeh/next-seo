@@ -1,9 +1,9 @@
 import { versionSchemas } from '@cypress/schema-tools';
 
-const socialProfile100 = {
+const localBusiness110 = {
   version: {
     major: 1,
-    minor: 0,
+    minor: 1,
     patch: 0,
   },
   schema: {
@@ -99,6 +99,52 @@ const socialProfile100 = {
           },
         },
       },
+      sameAs: {
+        type: 'array',
+        items: {
+          type: 'string',
+        },
+        description: "Array of business URL's",
+      },
+      openingHoursSpecification: {
+        type: 'array',
+        description: 'Opening hour specification for the local business',
+        item: {
+          type: 'object',
+          properties: {
+            '@type': {
+              type: 'string',
+              description: 'JSON-LD type: OpeningHoursSpecification',
+            },
+            opens: {
+              type: 'string',
+              description:
+                'The opening hour of the place or service on the given day(s) of the week.',
+            },
+            closes: {
+              type: 'string',
+              description:
+                'The closing hour of the place or service on the given day(s) of the week.',
+            },
+            dayOfWeek: {
+              type: 'array',
+              items: {
+                type: 'string',
+              },
+              description:
+                'The day of the week for which these opening hours are valid.',
+            },
+            validFrom: {
+              type: 'string',
+              description: 'The date when the item becomes valid.',
+            },
+            validThrough: {
+              type: 'string',
+              description: 'The date after when the item is not valid.',
+            },
+          },
+        },
+      },
     },
     required: true,
     additionalProperties: false,
@@ -129,8 +175,33 @@ const socialProfile100 = {
     },
     url: 'http://www.example.com/store-locator/sl/San-Jose-Westgate-Store/1427',
     telephone: '+14088717984',
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        opens: '08:00',
+        closes: '23:59',
+        dayOfWeek: [
+          'Monday',
+          'Tuesday',
+          'Wednesday',
+          'Thursday',
+          'Friday',
+          'Saturday',
+        ],
+        validFrom: '2019-12-23',
+        validThrough: '2020-04-02',
+      },
+      {
+        '@type': 'OpeningHoursSpecification',
+        opens: '14:00',
+        closes: '20:00',
+        dayOfWeek: 'Sunday',
+        validFrom: '2019-12-23',
+        validThrough: '2020-04-02',
+      },
+    ],
   },
 };
 
-const socialProfile = versionSchemas(socialProfile100);
-export default socialProfile;
+const localBusiness = versionSchemas(localBusiness110);
+export default localBusiness;
