@@ -4,6 +4,7 @@ import Head from 'next/head';
 import markup from '../utils/markup';
 
 export interface ArticleJsonLdProps {
+  id?: string;
   url: string;
   title: string;
   images: ReadonlyArray<string>;
@@ -16,6 +17,7 @@ export interface ArticleJsonLdProps {
 }
 
 const ArticleJsonLd: FC<ArticleJsonLdProps> = ({
+  id,
   url,
   title,
   images = [],
@@ -59,7 +61,7 @@ const ArticleJsonLd: FC<ArticleJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-article"
+        key={`jsonld-article${id ? `-${id}` : ''}`}
       />
     </Head>
   );

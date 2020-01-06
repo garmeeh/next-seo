@@ -4,6 +4,7 @@ import Head from 'next/head';
 import markup from '../utils/markup';
 
 export interface SocialProfileJsonLdProps {
+  id?: string;
   type: string;
   name: string;
   url: string;
@@ -11,6 +12,7 @@ export interface SocialProfileJsonLdProps {
 }
 
 const SocialProfileJsonLd: FC<SocialProfileJsonLdProps> = ({
+  id,
   type,
   name,
   url,
@@ -31,7 +33,7 @@ const SocialProfileJsonLd: FC<SocialProfileJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-social"
+        key={`jsonld-social${id ? `-${id}` : ''}`}
       />
     </Head>
   );

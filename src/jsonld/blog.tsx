@@ -4,6 +4,7 @@ import Head from 'next/head';
 import markup from '../utils/markup';
 
 export interface BlogJsonLdProps {
+  id?: string;
   url: string;
   title: string;
   images: ReadonlyArray<string>;
@@ -14,6 +15,7 @@ export interface BlogJsonLdProps {
 }
 
 const BlogJsonLd: FC<BlogJsonLdProps> = ({
+  id,
   url,
   title,
   images = [],
@@ -47,7 +49,7 @@ const BlogJsonLd: FC<BlogJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-blog"
+        key={`jsonld-blog${id ? `-${id}` : ''}`}
       />
     </Head>
   );

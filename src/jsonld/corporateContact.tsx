@@ -11,6 +11,7 @@ export interface ContactPoint {
   contactOption?: string | string[];
 }
 export interface CorporateContactJsonLdProps {
+  id?: string;
   url: string;
   contactPoint: ContactPoint[];
   logo?: string;
@@ -44,6 +45,7 @@ const buildContactPoint = (contactPoint: ContactPoint[]) =>
   );
 
 const CorporateContactJsonLd: FC<CorporateContactJsonLdProps> = ({
+  id,
   url,
   logo,
   contactPoint,
@@ -61,7 +63,7 @@ const CorporateContactJsonLd: FC<CorporateContactJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-corporate-contact"
+        key={`jsonld-corporate-contact${id ? `-${id}` : ''}`}
       />
     </Head>
   );

@@ -39,6 +39,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
     - [Book](#book)
     - [Profile](#profile)
 - [JSON-LD](#json-ld)
+  - [Handling multiple instances...](#handling-multiple-instances)
   - [Article](#article-1)
   - [Breadcrumb](#breadcrumb)
   - [Blog](#blog)
@@ -826,6 +827,12 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [News Article](#news-article)
 
 More to follow very, very soon!
+
+#### Handling multiple instances...
+
+If your page's contents requires multiple instances of a given JSON-LD component, simply specify unique `id` properties, and `next-seo` will handle the rest.
+
+This comes in handy for blog rolls, search results, and overview pages.
 
 ### Article
 

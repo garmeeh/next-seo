@@ -100,7 +100,7 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-local-business"
+        key={`jsonld-local-business${id ? `-${id}` : ''}`}
       />
     </Head>
   );

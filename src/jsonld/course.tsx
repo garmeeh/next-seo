@@ -4,6 +4,7 @@ import Head from 'next/head';
 import markup from '../utils/markup';
 
 export interface CourseJsonLdProps {
+  id?: string;
   courseName: string;
   description: string;
   providerName: string;
@@ -11,6 +12,7 @@ export interface CourseJsonLdProps {
 }
 
 const CourseJsonLd: FC<CourseJsonLdProps> = ({
+  id,
   courseName,
   description,
   providerName,
@@ -37,7 +39,7 @@ const CourseJsonLd: FC<CourseJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-course"
+        key={`jsonld-course${id ? `-${id}` : ''}`}
       />
     </Head>
   );

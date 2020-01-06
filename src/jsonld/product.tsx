@@ -36,6 +36,7 @@ type AggregateRating = {
 };
 
 export interface ProductJsonLdProps {
+  id?: string;
   productName: string;
   images?: string[];
   description?: string;
@@ -121,6 +122,7 @@ const buildOffers = (offers: Offers) => `
 `;
 
 const ProductJsonLd: FC<ProductJsonLdProps> = ({
+  id,
   productName,
   images = [],
   description,
@@ -156,7 +158,7 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-product"
+        key={`jsonld-product${id ? `-${id}` : ''}`}
       />
     </Head>
   );

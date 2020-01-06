@@ -9,10 +9,12 @@ export interface ItemListElements {
   position: number;
 }
 export interface BreadCrumbJsonLdProps {
+  id?: string;
   itemListElements: ItemListElements[];
 }
 
 const BreadCrumbJsonLd: FC<BreadCrumbJsonLdProps> = ({
+  id,
   itemListElements = [],
 }) => {
   const jslonld = `{
@@ -37,7 +39,7 @@ const BreadCrumbJsonLd: FC<BreadCrumbJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-breadcrumb"
+        key={`jsonld-breadcrumb${id ? `-${id}` : ''}`}
       />
     </Head>
   );
