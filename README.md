@@ -44,6 +44,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Blog](#blog)
   - [Course](#course)
   - [Corporate Contact](#corporate-contact)
+  - [FAQ Page](#faq-page)
   - [Local Business](#local-business)
   - [Logo](#logo)
   - [Product](#product)
@@ -820,6 +821,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Blog](#blog)
 - [Course](#course)
 - [Corporate Contact](#corporate-contact)
+- [FAQ Page](#faq-page)
 - [Local Business](#local-business)
 - [Product](#product)
 - [Social Profile](#social-profile)
@@ -1000,6 +1002,39 @@ export default () => (
 | `contactPoint.areaServed`        | `String` or `Array` of geographical regions served by the business. Example `"US"` or `["US", "CA", "MX"]` |
 | `contactPoint.availableLanguage` | Details about the language spoken. Example `"English"` or `["English", "French"]`                          |
 | `gecontactPointo.contactOption`  | Details about the phone number. Example `"TollFree"`                                                       |
+
+### FAQ Page
+
+```jsx
+import React from 'react';
+import { FAQPageJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>FAQ Page JSON-LD</h1>
+    <FAQPageJsonLd
+      mainEntity={[
+        {
+          questionName: 'How long is the delivery time?',
+          acceptedAnswerText: '3-5 business days.',
+        },
+        {
+          questionName: 'Where can I find information about product recalls?',
+          acceptedAnswerText: 'Read more on under information.',
+        },
+      ]}
+    />
+  </>
+);
+```
+
+**Required properties**
+
+| Property                        | Info                                                                          |
+| ------------------------------- | ----------------------------------------------------------------------------- |
+| `mainEntity`                    |                                                                               |
+| `mainEntity.questionName`       | The full text of the question. For example, "How long is the delivery time?". |
+| `mainENtity.acceptedAnswerText` | The full answer to the question.                                              |
 
 ### Local Business
 

@@ -10,6 +10,7 @@ import productVersions from './product-schema';
 import socialProfileVersions from './social-profile-schema';
 import corporateContactVersions from './corporate-contact-schema';
 import newsarticleVersions from './newsarticle-schema';
+import faqPageVersion from './faq-page-schema';
 
 const schemas = combineSchemas(
   articleVersions,
@@ -22,5 +23,6 @@ const schemas = combineSchemas(
   socialProfileVersions,
   corporateContactVersions,
   newsarticleVersions,
+  faqPageVersion,
 );
 export default schemas;

@@ -10,6 +10,7 @@ import {
   SocialProfileJsonLd,
   CorporateContactJsonLd,
   NewsArticleJsonLd,
+  FAQPageJsonLd,
 } from '../../lib';
 import Links from '../components/links';
 
@@ -206,6 +207,18 @@ export default () => (
       body="This is article body of news article"
     />
 
+    <FAQPageJsonLd
+      mainEntity={[
+        {
+          questionName: 'How long is the delivery time?',
+          acceptedAnswerText: '3-5 business days.',
+        },
+        {
+          questionName: 'Where can I find information about product recalls?',
+          acceptedAnswerText: 'Read more on under information.',
+        },
+      ]}
+    />
     <Links />
   </>
 );

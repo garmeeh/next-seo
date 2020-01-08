@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 10;
+const expectedJSONResults = 11;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -13,6 +13,7 @@ const productLdJsonIndex = 6;
 const socialProfileLdJsonIndex = 7;
 const corporateContactIndex = 8;
 const newsarticleLdJsonIndex = 9;
+const faqPageLdJsonIndex = 10;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -462,6 +463,47 @@ describe('Validates JSON-LD For:', () => {
           description:
             'This is a mighty good description of this news article.',
           articleBody: 'This is article body of news article',
+        });
+      });
+  });
+
+  it('FAQ Page', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[faqPageLdJsonIndex].innerHTML);
+        assertSchema(schemas)('FAQPage', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('FAQ Page Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[faqPageLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'http://schema.org/',
+          '@type': 'FAQPage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'How long is the delivery time?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: '3-5 business days.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'Where can I find information about product recalls?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Read more on under information.',
+              },
+            },
+          ],
         });
       });
   });
