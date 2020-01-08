@@ -22,7 +22,7 @@ yarn install
 
 All of the library code is located in the `src` directory.
 
-The `e2e` directory contains a fully working Next.js app. This is used in the end to end tests. To run this app first you need to build next-seo. You can then run this app like a normal Next app by running `yarn build` (this builds the local next-seo) followed by `yarn e2e:dev`. You can also run it in a production build by running `yarn e2e:build` followed by `yarn e2e:build`.
+The `e2e` directory contains a fully working Next.js app. This is used in the end to end tests. To run this app first you need to build next-seo. You can then run this app like a normal Next app by running `yarn build` (this builds the local next-seo) followed by `yarn e2e:dev`. You can also run it in a production build by running `yarn e2e:build` followed by `yarn e2e:start`.
 
 To run Cypress run `yarn build` (this builds the local next-seo) followed by `yarn test:e2e`. Or to run all of the end to end tests headless run `yarn test:e2e:ci`
 
