@@ -11,6 +11,7 @@ import socialProfileVersions from './social-profile-schema';
 import corporateContactVersions from './corporate-contact-schema';
 import newsarticleVersions from './newsarticle-schema';
 import faqPageVersion from './faq-page-schema';
+import jobPostingVersions from './job-posting-schema';
 
 const schemas = combineSchemas(
   articleVersions,
@@ -24,5 +25,6 @@ const schemas = combineSchemas(
   corporateContactVersions,
   newsarticleVersions,
   faqPageVersion,
+  jobPostingVersions,
 );
 export default schemas;

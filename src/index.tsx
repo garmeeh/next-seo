@@ -6,6 +6,10 @@ export {
   BreadCrumbJsonLdProps,
 } from './jsonld/breadcrumb';
 export { default as FAQPageJsonLd, FAQPageJsonLdProps } from './jsonld/faqPage';
+export {
+  default as JobPostingJsonLd,
+  JobPostingJsonLdProps,
+} from './jsonld/jobPosting';
 export { default as BlogJsonLd, BlogJsonLdProps } from './jsonld/blog';
 export { default as CourseJsonLd, CourseJsonLdProps } from './jsonld/course';
 export {
