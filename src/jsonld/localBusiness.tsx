@@ -42,7 +42,7 @@ export interface LocalBusinessJsonLdProps {
   images: string[];
   rating?: Rating;
   priceRange?: string;
-  sameAs: string[];
+  sameAs?: string[];
   openingHours?: OpeningHoursSpecification | OpeningHoursSpecification[];
 }
 
