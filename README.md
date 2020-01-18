@@ -45,6 +45,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Course](#course)
   - [Corporate Contact](#corporate-contact)
   - [FAQ Page](#faq-page)
+  - [Job Posting](#job-posting)
   - [Local Business](#local-business)
   - [Logo](#logo)
   - [Product](#product)
@@ -822,6 +823,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Course](#course)
 - [Corporate Contact](#corporate-contact)
 - [FAQ Page](#faq-page)
+- [Job Posting](#job-posting)
 - [Local Business](#local-business)
 - [Product](#product)
 - [Social Profile](#social-profile)
@@ -1027,6 +1029,74 @@ export default () => (
   </>
 );
 ```
+
+### Job Posting
+
+```jsx
+import React from 'react';
+import { JobPostingJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Job Posting JSON-LD</h1>
+    <JobPostingJsonLd
+      datePosted="2020-01-06T03:37:40Z"
+      description="Company is looking for a software developer...."
+      hiringOrganization={{
+        name: 'company name',
+        sameAs: 'www.company-website-url.dev',
+      }}
+      jobLocation={{
+        streetAddress: '17 street address',
+        addressLocality: 'Paris',
+        addressRegion: 'Ile-de-France',
+        postalCode: '75001',
+        addressCountry: 'France',
+      }}
+      title="Job Title"
+      baseSalary={{
+        currency: 'EUR',
+        value: 40,
+        unitText: 'HOUR',
+      }}
+      employmentType="FULL_TIME"
+      jobLocationType="TELECOMMUTE"
+      validThrough="2020-01-06"
+      applicantLocationRequirements="FR"
+    />
+  </>
+);
+```
+
+**Required properties**
+
+| Property                      | Info                                                                                                   |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `datePosted`                  | The original date that employer posted the job in ISO 8601 format                                      |
+| `description`                 | The full description of the job in HTML format                                                         |
+| `hiringOrganization`          |                                                                                                        |
+| `hiringOrganization.name`     | Name of the company offering the job position                                                          |
+| `hiringOrganization.sameAs`   | URL of a reference Web page                                                                            |
+| `jobLocation`                 |                                                                                                        |
+| `jobLocation.streetAddress`   | The street address. For example, 1600 Amphitheatre Pkwy                                                |
+| `jobLocation.addressLocality` | The locality. For example, Mountain View.                                                              |
+| `jobLocation.addressRegion`   | The region. For example, CA.                                                                           |
+| `jobLocation.postalCode`      | The postal code. For example, 94043                                                                    |
+| `jobLocation.addressCountry`  | The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.    |
+| `title`                       | The title of the job (not the title of the posting)                                                    |
+| `validThrough`                | The date when the job posting will expire in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) |
+
+**Supported properties**
+
+| Property                        | Info                                                                                                                                                |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `applicantLocationRequirements` | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                  |
+| `baseSalary`                    |                                                                                                                                                     |
+| `baseSalary.currency`           | The currency in which the monetary amount is expressed                                                                                              |
+| `baseSalary.value`              | The value of the quantitative value                                                                                                                 |
+| `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)    |
+| `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                        |  |
+| `jobLocationType`               | A description of the job location [Job Location type guideline](https://developers.google.com/search/docs/data-types/job-posting#job-location-type) |
 
 **Required properties**
 
@@ -1345,6 +1415,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

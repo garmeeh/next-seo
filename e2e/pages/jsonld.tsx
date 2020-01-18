@@ -11,6 +11,7 @@ import {
   CorporateContactJsonLd,
   NewsArticleJsonLd,
   FAQPageJsonLd,
+  JobPostingJsonLd,
 } from '../../lib';
 import Links from '../components/links';
 
@@ -243,6 +244,33 @@ export default () => (
         },
       ]}
     />
+
+    <JobPostingJsonLd
+      datePosted="2020-01-06T03:37:40Z"
+      description="Company is looking for a software developer...."
+      hiringOrganization={{
+        name: 'company name',
+        sameAs: 'www.company-website-url.dev',
+      }}
+      jobLocation={{
+        streetAddress: '17 street address',
+        addressLocality: 'Paris',
+        addressRegion: 'Ile-de-France',
+        postalCode: '75001',
+        addressCountry: 'France',
+      }}
+      title="Job Title"
+      baseSalary={{
+        currency: 'EUR',
+        value: 40,
+        unitText: 'HOUR',
+      }}
+      employmentType="FULL_TIME"
+      jobLocationType="TELECOMMUTE"
+      validThrough="2020-01-06"
+      applicantLocationRequirements="FR"
+    />
+
     <Links />
   </>
 );

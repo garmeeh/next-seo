@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 11;
+const expectedJSONResults = 12;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -14,6 +14,7 @@ const socialProfileLdJsonIndex = 7;
 const corporateContactIndex = 8;
 const newsarticleLdJsonIndex = 9;
 const faqPageLdJsonIndex = 10;
+const jobPostingLdJsonIndex = 11;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -530,6 +531,67 @@ describe('Validates JSON-LD For:', () => {
               },
             },
           ],
+        });
+      });
+  });
+
+  it('Job Posting', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[jobPostingLdJsonIndex].innerHTML);
+        assertSchema(schemas)('Job Posting', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Job Posting Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[jobPostingLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'http://schema.org',
+          '@type': 'JobPosting',
+
+          baseSalary: {
+            '@type': 'MonetaryAmount',
+            currency: 'EUR',
+            value: {
+              '@type': 'QuantitativeValue',
+              value: '40',
+              unitText: 'HOUR',
+            },
+          },
+
+          datePosted: '2020-01-06T03:37:40Z',
+          description: 'Company is looking for a software developer....',
+          employmentType: 'FULL_TIME',
+          hiringOrganization: {
+            '@type': 'Organization',
+            name: 'company name',
+            sameAs: 'www.company-website-url.dev',
+          },
+
+          jobLocation: {
+            '@type': 'Place',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Paris',
+              addressRegion: 'Ile-de-France',
+              postalCode: '75001',
+              streetAddress: '17 street address',
+              addressCountry: 'France',
+            },
+          },
+          applicantLocationRequirements: {
+            '@type': 'Country',
+            name: 'FR',
+          },
+          jobLocationType: 'TELECOMMUTE',
+          validThrough: '2020-01-06',
+          title: 'Job Title',
         });
       });
   });
