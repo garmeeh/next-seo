@@ -22,18 +22,28 @@ type Rating = {
   ratingCount: string;
 };
 
+type OpeningHoursSpecification = {
+  opens: string;
+  closes: string;
+  dayOfWeek: string | string[];
+  validFrom?: string;
+  validThrough?: string;
+};
+
 export interface LocalBusinessJsonLdProps {
   type: string;
   id: string;
   name: string;
   description: string;
-  url: string;
+  url?: string;
   telephone?: string;
   address: Address;
-  geo: Geo;
+  geo?: Geo;
   images: string[];
   rating?: Rating;
   priceRange?: string;
+  sameAs?: string[];
+  openingHours?: OpeningHoursSpecification | OpeningHoursSpecification[];
 }
 
 const buildGeo = (geo: Geo) => `
@@ -67,6 +77,25 @@ const buildRating = (rating: Rating) => `
   },
 `;
 
+const buildOpeningHours = (openingHours: OpeningHoursSpecification) => `
+  {
+    "@type": "OpeningHoursSpecification",
+    "opens": "${openingHours.opens}",
+    "closes": "${openingHours.closes}",
+    ${
+      openingHours.dayOfWeek
+        ? `"dayOfWeek": ${formatIfArray(openingHours.dayOfWeek)},`
+        : ''
+    }
+    ${openingHours.validFrom ? `"validFrom": "${openingHours.validFrom}",` : ''}
+    ${
+      openingHours.validThrough
+        ? `"validThrough": "${openingHours.validThrough}"`
+        : ''
+    }
+  }
+`;
+
 const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   type,
   id,
@@ -79,6 +108,8 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   images,
   rating,
   priceRange,
+  sameAs,
+  openingHours,
 }) => {
   const jslonld = `{
     "@context": "http://schema.org",
@@ -92,6 +123,16 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
     ${rating ? `${buildRating(rating)}` : ''}
     ${priceRange ? `"priceRange": "${priceRange}",` : ''}
     "image":${formatIfArray(images)},
+    ${sameAs ? `"sameAs": [${sameAs.map(url => `"${url}"`)}],` : ''}
+    ${
+      openingHours
+        ? `"openingHoursSpecification": ${
+            Array.isArray(openingHours)
+              ? `[${openingHours.map(hours => `${buildOpeningHours(hours)}`)}]`
+              : buildOpeningHours(openingHours)
+          },`
+        : ''
+    }
     "name": "${name}"
   }`;
 

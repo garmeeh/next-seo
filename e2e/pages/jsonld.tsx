@@ -102,6 +102,30 @@ export default () => (
         'https://example.com/photos/4x3/photo.jpg',
         'https://example.com/photos/16x9/photo.jpg',
       ]}
+      sameAs={['https://thisbusiness.com', 'https://alsothisbusiness.com']}
+      openingHours={[
+        {
+          opens: '08:00',
+          closes: '23:59',
+          dayOfWeek: [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+          ],
+          validFrom: '2019-12-23',
+          validThrough: '2020-04-02',
+        },
+        {
+          opens: '14:00',
+          closes: '20:00',
+          dayOfWeek: 'Sunday',
+          validFrom: '2019-12-23',
+          validThrough: '2020-04-02',
+        },
+      ]}
     />
 
     <LogoJsonLd

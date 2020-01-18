@@ -1064,6 +1064,29 @@ Local business is supported with a sub-set of properties.
     'https://example.com/photos/4x3/photo.jpg',
     'https://example.com/photos/16x9/photo.jpg',
   ]}
+  openingHours={[
+    {
+      opens: '08:00',
+      closes: '23:59',
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+      ],
+      validFrom: '2019-12-23',
+      validThrough: '2020-04-02',
+    },
+    {
+      opens: '14:00',
+      closes: '20:00',
+      dayOfWeek: 'Sunday',
+      validFrom: '2019-12-23',
+      validThrough: '2020-04-02',
+    },
+  ]}
 />
 ```
 
@@ -1083,15 +1106,28 @@ Local business is supported with a sub-set of properties.
 
 **Supported properties**
 
-| Property        | Info                                                                                |
-| --------------- | ----------------------------------------------------------------------------------- |
-| `description`   | Description of the business location                                                |
-| `geo`           | Geographic coordinates of the business.                                             |
-| `geo.latitude`  | The latitude of the business location                                               |
-| `geo.longitude` | The longitude of the business location                                              |
-| `images`        | An image or images of the business. Required for valid markup depending on the type |
-| `telephone`     | A business phone number meant to be the primary contact method for customers.       |
-| `url`           | The fully-qualified URL of the specific business location.                          |
+| Property             | Info                                                                                |
+| -------------------- | ----------------------------------------------------------------------------------- |
+| `description`        | Description of the business location                                                |
+| `geo`                | Geographic coordinates of the business.                                             |
+| `geo.latitude`       | The latitude of the business location                                               |
+| `geo.longitude`      | The longitude of the business location                                              |
+| `rating`             | The average rating of business based on multiple ratings or reviews.                |
+| `rating.ratingValue` | The rating for the content.                                                         |
+| `rating.ratingCount` | The count of total number of ratings.                                               |
+| `priceRange`         | The relative price range of the business.                                           |
+| `images`             | An image or images of the business. Required for valid markup depending on the type |
+| `telephone`          | A business phone number meant to be the primary contact method for customers.       |
+| `url`                | The fully-qualified URL of the specific business location.                          |
+| `sameAs`             | An array of URLs that represent this business                                       |
+
+|
+| `openingHours` | Opening hour specification of business. You can provide this as a single object, or an array of objects with the properties below. |
+| `openingHours.opens` | The opening hour of the place or service on the given day(s) of the week. |
+| `openingHours.closes` | The closing hour of the place or service on the given day(s) of the week. |
+| `openingHours.dayOfWeek` | The day of the week for which these opening hours are valid. Can be a string or array of strings. Refer to [DayOfWeek](https://schema.org/DayOfWeek) |
+| `openingHours.validFrom` | The date when the item becomes valid. |
+| `openingHours.validThrough` | The date after when the item is not valid. |
 
 **NOTE:**
 

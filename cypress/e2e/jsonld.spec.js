@@ -198,11 +198,11 @@ describe('Validates JSON-LD For:', () => {
       .should('have.length', expectedJSONResults)
       .then(tags => {
         const jsonLD = JSON.parse(tags[localBusinessLdJsonIndex].innerHTML);
-        assertSchema(schemas)('Local Business', '1.0.0')(jsonLD);
+        assertSchema(schemas)('Local Business', '1.1.0')(jsonLD);
       });
   });
 
-  it('Local Business', () => {
+  it('Local Business Matches', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
@@ -234,6 +234,32 @@ describe('Validates JSON-LD For:', () => {
             'https://example.com/photos/1x1/photo.jpg',
             'https://example.com/photos/4x3/photo.jpg',
             'https://example.com/photos/16x9/photo.jpg',
+          ],
+          sameAs: ['https://thisbusiness.com', 'https://alsothisbusiness.com'],
+          openingHoursSpecification: [
+            {
+              '@type': 'OpeningHoursSpecification',
+              opens: '08:00',
+              closes: '23:59',
+              dayOfWeek: [
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+              ],
+              validFrom: '2019-12-23',
+              validThrough: '2020-04-02',
+            },
+            {
+              '@type': 'OpeningHoursSpecification',
+              opens: '14:00',
+              closes: '20:00',
+              dayOfWeek: 'Sunday',
+              validFrom: '2019-12-23',
+              validThrough: '2020-04-02',
+            },
           ],
         });
       });
