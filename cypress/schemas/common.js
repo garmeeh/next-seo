@@ -190,7 +190,7 @@ export const author100 = {
     type: 'object',
     description: 'Author',
     properties: {
-      type: {
+      '@type': {
         type: 'string',
         description: 'Describes type',
       },
@@ -200,12 +200,11 @@ export const author100 = {
       },
     },
     example: {
-      type: 'Person',
+      '@type': 'Person',
       name: 'Jim',
     },
   },
 };
-
 
 export const publisher100 = {
   version: {
@@ -217,7 +216,7 @@ export const publisher100 = {
     type: 'object',
     description: 'Publisher',
     properties: {
-      type: {
+      '@type': {
         type: 'string',
         description: 'Describes type',
       },
@@ -227,7 +226,7 @@ export const publisher100 = {
       },
     },
     example: {
-      type: 'Organization',
+      '@type': 'Organization',
       name: 'TwoVit',
     },
   },
@@ -275,11 +274,11 @@ export const review100 = {
     example: {
       '@type': 'Review',
       author: {
-        type: 'Person',
-        name: 'Jim'
+        '@type': 'Person',
+        name: 'Jim',
       },
       publisher: {
-        type: 'Organization',
+        '@type': 'Organization',
         name: 'TwoVit',
       },
       datePublished: '2017-01-06T03:37:40Z',

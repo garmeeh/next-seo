@@ -327,11 +327,11 @@ describe('Validates JSON-LD For:', () => {
             {
               '@type': 'Review',
               author: {
-                type: 'Person',
-                name: 'Jim'
+                '@type': 'Person',
+                name: 'Jim',
               },
               publisher: {
-                type: 'Organization',
+                '@type': 'Organization',
                 name: 'TwoVit',
               },
               datePublished: '2017-01-06T03:37:40Z',

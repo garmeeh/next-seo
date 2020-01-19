@@ -1236,7 +1236,7 @@ export default () => (
         {
           author: {
             type: 'Person',
-            name: 'Jim'
+            name: 'Jim',
           },
           datePublished: '2017-01-06T03:37:40Z',
           reviewBody:
@@ -1249,8 +1249,8 @@ export default () => (
           },
           publisher: {
             type: 'Organization',
-            name: 'TwoVit'
-          }, 
+            name: 'TwoVit',
+          },
         },
       ]}
       aggregateRating={{

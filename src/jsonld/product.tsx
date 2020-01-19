@@ -75,7 +75,7 @@ const buildReviewRating = (rating: ReviewRating) =>
           ${rating.bestRating ? `"bestRating": "${rating.bestRating}",` : ''}
           ${rating.worstRating ? `"worstRating": "${rating.worstRating}",` : ''}
           "ratingValue": "${rating.ratingValue}"
-        },`
+        }`
     : '';
 
 const buildAuthor = (author: Author) => `
@@ -95,20 +95,20 @@ const buildPublisher = (publisher: Publisher) => `
 const buildReviews = (reviews: Review[]) => `
 "review": [
   ${reviews.map(
-  review => `{
+    review => `{
       "@type": "Review",
+      ${review.author ? buildAuthor(review.author) : ''}
+      ${review.publisher ? buildPublisher(review.publisher) : ''}
       ${
-    review.datePublished
-      ? `"datePublished": "${review.datePublished}",`
-      : ''
-    }
+        review.datePublished
+          ? `"datePublished": "${review.datePublished}",`
+          : ''
+      }
       ${review.reviewBody ? `"reviewBody": "${review.reviewBody}",` : ''}
       ${review.name ? `"name": "${review.name}",` : ''}
       ${buildReviewRating(review.reviewRating)}
-      ${review.author ? buildAuthor(review.author) : ''}
-      ${review.publisher ? buildPublisher(review.publisher) : ''}
   }`,
-)}],`;
+  )}],`;
 
 const buildAggregateRating = (aggregateRating: AggregateRating) => `
   "aggregateRating": {
@@ -125,23 +125,23 @@ const buildOffers = (offers: Offers) => `
     "@type": "Offer",
     "priceCurrency": "${offers.priceCurrency}",
     ${
-  offers.priceValidUntil
-    ? `"priceValidUntil": "${offers.priceValidUntil}",`
-    : ''
-  }
+      offers.priceValidUntil
+        ? `"priceValidUntil": "${offers.priceValidUntil}",`
+        : ''
+    }
     ${offers.itemCondition ? `"itemCondition": "${offers.itemCondition}",` : ''}
     ${offers.availability ? `"availability": "${offers.availability}",` : ''}
     ${offers.url ? `"url": "${offers.url}",` : ''}
     ${
-  offers.seller
-    ? `
+      offers.seller
+        ? `
       "seller": {
       "@type": "Organization",
       "name": "${offers.seller.name}"
     },
     `
-    : ''
-  }
+        : ''
+    }
     "price": "${offers.price}"
   },
 `;
