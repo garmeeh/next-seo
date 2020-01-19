@@ -10,11 +10,22 @@ type ReviewRating = {
   worstRating?: string;
 };
 
+type Author = {
+  type: string;
+  name: string;
+};
+
+type Publisher = {
+  type: string;
+  name: string;
+};
+
 type Review = {
-  author: string;
+  author: Author;
   datePublished?: string;
   reviewBody?: string;
   name?: string;
+  publisher?: Publisher;
   reviewRating: ReviewRating;
 };
 
@@ -67,22 +78,37 @@ const buildReviewRating = (rating: ReviewRating) =>
         },`
     : '';
 
+const buildAuthor = (author: Author) => `
+  "author": {
+      "@type": "${author.type}",
+      "name": "${author.name}"
+  },
+`;
+
+const buildPublisher = (publisher: Publisher) => `
+  "publisher": {
+      "@type": "${publisher.type}",
+      "name": "${publisher.name}"
+  },
+`;
+
 const buildReviews = (reviews: Review[]) => `
 "review": [
   ${reviews.map(
-    review => `{
+  review => `{
       "@type": "Review",
       ${
-        review.datePublished
-          ? `"datePublished": "${review.datePublished}",`
-          : ''
-      }
+    review.datePublished
+      ? `"datePublished": "${review.datePublished}",`
+      : ''
+    }
       ${review.reviewBody ? `"reviewBody": "${review.reviewBody}",` : ''}
       ${review.name ? `"name": "${review.name}",` : ''}
       ${buildReviewRating(review.reviewRating)}
-      "author": "${review.author}"
+      ${review.author ? buildAuthor(review.author) : ''}
+      ${review.publisher ? buildPublisher(review.publisher) : ''}
   }`,
-  )}],`;
+)}],`;
 
 const buildAggregateRating = (aggregateRating: AggregateRating) => `
   "aggregateRating": {
@@ -99,23 +125,23 @@ const buildOffers = (offers: Offers) => `
     "@type": "Offer",
     "priceCurrency": "${offers.priceCurrency}",
     ${
-      offers.priceValidUntil
-        ? `"priceValidUntil": "${offers.priceValidUntil}",`
-        : ''
-    }
+  offers.priceValidUntil
+    ? `"priceValidUntil": "${offers.priceValidUntil}",`
+    : ''
+  }
     ${offers.itemCondition ? `"itemCondition": "${offers.itemCondition}",` : ''}
     ${offers.availability ? `"availability": "${offers.availability}",` : ''}
     ${offers.url ? `"url": "${offers.url}",` : ''}
     ${
-      offers.seller
-        ? `
+  offers.seller
+    ? `
       "seller": {
       "@type": "Organization",
       "name": "${offers.seller.name}"
     },
     `
-        : ''
-    }
+    : ''
+  }
     "price": "${offers.price}"
   },
 `;

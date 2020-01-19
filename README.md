@@ -1234,7 +1234,10 @@ export default () => (
       brand="ACME"
       reviews={[
         {
-          author: 'Jim',
+          author: {
+            type: 'Person',
+            name: 'Jim'
+          },
           datePublished: '2017-01-06T03:37:40Z',
           reviewBody:
             'This is my favorite product yet! Thanks Nate for the example products and reviews.',
@@ -1244,6 +1247,10 @@ export default () => (
             ratingValue: '5',
             worstRating: '1',
           },
+          Publisher: {
+            type: 'Organization',
+            name: 'TwoVit'
+          }, 
         },
       ]}
       aggregateRating={{
