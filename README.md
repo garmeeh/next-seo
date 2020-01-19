@@ -1247,7 +1247,7 @@ export default () => (
             ratingValue: '5',
             worstRating: '1',
           },
-          Publisher: {
+          publisher: {
             type: 'Organization',
             name: 'TwoVit'
           }, 
