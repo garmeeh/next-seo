@@ -1021,6 +1021,14 @@ export default () => (
 );
 ```
 
+**Required properties**
+
+| Property                        | Info                                                                          |
+| ------------------------------- | ----------------------------------------------------------------------------- |
+| `mainEntity`                    |                                                                               |
+| `mainEntity.questionName`       | The full text of the question. For example, "How long is the delivery time?". |
+| `mainENtity.acceptedAnswerText` | The full answer to the question.                                              |
+
 ### Job Posting
 
 ```jsx
@@ -1088,14 +1096,6 @@ export default () => (
 | `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)    |
 | `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                        |  |
 | `jobLocationType`               | A description of the job location [Job Location type guideline](https://developers.google.com/search/docs/data-types/job-posting#job-location-type) |
-
-**Required properties**
-
-| Property                        | Info                                                                          |
-| ------------------------------- | ----------------------------------------------------------------------------- |
-| `mainEntity`                    |                                                                               |
-| `mainEntity.questionName`       | The full text of the question. For example, "How long is the delivery time?". |
-| `mainENtity.acceptedAnswerText` | The full answer to the question.                                              |
 
 ### Local Business
 
