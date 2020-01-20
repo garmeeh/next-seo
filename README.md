@@ -941,6 +941,20 @@ export default () => (
 );
 ```
 
+**Required properties**
+
+| Property       | Info                                                         |
+| -------------- | ------------------------------------------------------------ |
+| `courseName`   | The title of the course.                                     |
+| `description`  | A description of the course. Display limit of 60 characters. |
+| `providerName` | The course provider name.                                    |
+
+**Recommended properties**
+
+| Property      | Info                            |
+| ------------- | ------------------------------- |
+| `providerUrl` | The url to the course provider. |
+
 ### Corporate Contact
 
 ```jsx
