@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 12;
+const expectedJSONResults = 13;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -15,6 +15,7 @@ const corporateContactIndex = 8;
 const newsarticleLdJsonIndex = 9;
 const faqPageLdJsonIndex = 10;
 const jobPostingLdJsonIndex = 11;
+const eventLdJsonIndex = 12;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -599,6 +600,48 @@ describe('Validates JSON-LD For:', () => {
           jobLocationType: 'TELECOMMUTE',
           validThrough: '2020-01-06',
           title: 'Job Title',
+        });
+      });
+  });
+
+  it('Event', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[eventLdJsonIndex].innerHTML);
+        assertSchema(schemas)('Event', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Event Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[eventLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'http://schema.org',
+          '@type': 'Event',
+          name: 'My Event',
+          startDate: '2020-01-23T00:00:00.000Z',
+          endDate: '2020-01-24T00:00:00.000Z',
+          url: 'https://example.com/my-event',
+          location: {
+            '@type': 'Place',
+            name: 'My Place',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: '1600 Saratoga Ave',
+              addressLocality: 'San Jose',
+              addressRegion: 'CA',
+              postalCode: '95129',
+              addressCountry: 'US',
+            },
+            sameAs: 'https://example.com/my-place',
+          },
+          image: ['https://example.com/photos/photo.jpg'],
+          description: 'My event @ my place',
         });
       });
   });

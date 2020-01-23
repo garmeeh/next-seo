@@ -52,6 +52,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Product](#product)
   - [Social Profile](#social-profile)
   - [News Article](#news-article)
+  - [Event](#event)
 - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -1390,6 +1391,56 @@ export default () => (
 ```
 
 [Google Docs for Social Profile](https://developers.google.com/search/docs/data-types/social-profile)
+
+### Event
+
+```jsx
+import React from 'react';
+import { EventJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Event JSON-LD</h1>
+    <EventJsonLd
+      name="My Event"
+      startDate="2020-01-23T00:00:00.000Z"
+      endDate="2020-01-24T00:00:00.000Z"
+      location={{
+        name: 'My Place',
+        sameAs: 'https://example.com/my-place',
+        address: {
+          streetAddress: '1600 Saratoga Ave',
+          addressLocality: 'San Jose',
+          addressRegion: 'CA',
+          postalCode: '95129',
+          addressCountry: 'US',
+        },
+      }}
+      url="https://example.com/my-event"
+      images={['https://example.com/photos/photo.jpg']}
+      description="My event @ my place"
+    />
+  </>
+);
+```
+
+**Required properties**
+
+| Property    | Info                                               |
+| ----------- | -------------------------------------------------- |
+| `name`      | The name of the event                              |
+| `startDate` | The start date time of the event in iso8601 format |
+| `endDate`   | The end date time of the event in iso8601 format   |
+| `location`  | Place type with a nested Address type              |
+
+**Supported properties**
+
+| Property          | Info                                  |
+| ----------------- | ------------------------------------- |
+| `description`     | Description of the event              |
+| `location.sameAs` | Description of the event location     |
+| `images`          | An image or images of the event.      |
+| `url`             | The fully-qualified URL of the event. |
 
 ## Contributors
 

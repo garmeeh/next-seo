@@ -1,5 +1,7 @@
 import { versionSchemas } from '@cypress/schema-tools';
 
+import address100 from './address';
+
 const localBusiness110 = {
   version: {
     major: 1,
@@ -52,34 +54,8 @@ const localBusiness110 = {
         description: "Array of image URL's",
       },
       address: {
-        type: 'object',
-        description: "Array of social profile URL's",
-        properties: {
-          '@type': {
-            type: 'string',
-            description: 'JSON-LD type: PostalAddress',
-          },
-          streetAddress: {
-            type: 'string',
-            description: 'Street number, street name, and unit number',
-          },
-          addressLocality: {
-            type: 'string',
-            description: 'City',
-          },
-          addressRegion: {
-            type: 'string',
-            description: 'State or province, if applicable.',
-          },
-          postalCode: {
-            type: 'string',
-            description: 'Postal or zip code.',
-          },
-          addressCountry: {
-            type: 'string',
-            description: 'The 2-letter ISO 3166-1 alpha-2 country code',
-          },
-        },
+        ...address100.schema,
+        see: address100,
       },
       geo: {
         type: 'object',
@@ -160,14 +136,7 @@ const localBusiness110 = {
     '@id': 'http://davesdeptstore.example.com',
     name: "Dave's Department Store",
     description: 'Some form of description',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: '1600 Saratoga Ave',
-      addressLocality: 'San Jose',
-      addressRegion: 'CA',
-      postalCode: '95129',
-      addressCountry: 'US',
-    },
+    address: address100.example,
     geo: {
       '@type': 'GeoCoordinates',
       latitude: '37.293058',

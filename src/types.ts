@@ -12,6 +12,14 @@ export interface OpenGraphVideos {
   alt?: string;
 }
 
+export interface Address {
+  streetAddress: string;
+  addressLocality: string;
+  addressRegion?: string;
+  postalCode: string;
+  addressCountry: string;
+}
+
 export interface OpenGraphVideoActors {
   profile: string;
   role?: string;
