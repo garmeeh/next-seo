@@ -184,6 +184,17 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "kenleytomlin",
+      "name": "Kenley Tomlin",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3004590?v=4",
+      "profile": "https://github.com/kenleytomlin",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
