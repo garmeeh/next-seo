@@ -180,6 +180,58 @@ export const rating100 = {
   },
 };
 
+export const author100 = {
+  version: {
+    major: 1,
+    minor: 0,
+    patch: 0,
+  },
+  schema: {
+    type: 'object',
+    description: 'Author',
+    properties: {
+      '@type': {
+        type: 'string',
+        description: 'Describes type',
+      },
+      name: {
+        type: 'string',
+        description: 'Name of the author',
+      },
+    },
+    example: {
+      '@type': 'Person',
+      name: 'Jim',
+    },
+  },
+};
+
+export const publisher100 = {
+  version: {
+    major: 1,
+    minor: 0,
+    patch: 0,
+  },
+  schema: {
+    type: 'object',
+    description: 'Publisher',
+    properties: {
+      '@type': {
+        type: 'string',
+        description: 'Describes type',
+      },
+      name: {
+        type: 'string',
+        description: 'Name of the publisher',
+      },
+    },
+    example: {
+      '@type': 'Organization',
+      name: 'TwoVit',
+    },
+  },
+};
+
 export const review100 = {
   version: {
     major: 1,
@@ -194,8 +246,12 @@ export const review100 = {
         type: 'string',
       },
       author: {
-        type: 'string',
-        description: 'Author of the review',
+        ...author100.schema,
+        see: author100,
+      },
+      publisher: {
+        ...publisher100.schema,
+        see: publisher100,
       },
       datePublished: {
         type: 'string',
@@ -217,7 +273,14 @@ export const review100 = {
     additionalProperties: false,
     example: {
       '@type': 'Review',
-      author: 'Jim',
+      author: {
+        '@type': 'Person',
+        name: 'Jim',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'TwoVit',
+      },
       datePublished: '2017-01-06T03:37:40Z',
       reviewBody:
         'This is my favorite product yet! Thanks Nate for the example products and reviews.',

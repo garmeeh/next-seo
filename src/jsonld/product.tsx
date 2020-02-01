@@ -10,11 +10,22 @@ type ReviewRating = {
   worstRating?: string;
 };
 
+type Author = {
+  type: string;
+  name: string;
+};
+
+type Publisher = {
+  type: string;
+  name: string;
+};
+
 type Review = {
-  author: string;
+  author: Author;
   datePublished?: string;
   reviewBody?: string;
   name?: string;
+  publisher?: Publisher;
   reviewRating: ReviewRating;
 };
 
@@ -64,14 +75,30 @@ const buildReviewRating = (rating: ReviewRating) =>
           ${rating.bestRating ? `"bestRating": "${rating.bestRating}",` : ''}
           ${rating.worstRating ? `"worstRating": "${rating.worstRating}",` : ''}
           "ratingValue": "${rating.ratingValue}"
-        },`
+        }`
     : '';
+
+const buildAuthor = (author: Author) => `
+  "author": {
+      "@type": "${author.type}",
+      "name": "${author.name}"
+  },
+`;
+
+const buildPublisher = (publisher: Publisher) => `
+  "publisher": {
+      "@type": "${publisher.type}",
+      "name": "${publisher.name}"
+  },
+`;
 
 const buildReviews = (reviews: Review[]) => `
 "review": [
   ${reviews.map(
     review => `{
       "@type": "Review",
+      ${review.author ? buildAuthor(review.author) : ''}
+      ${review.publisher ? buildPublisher(review.publisher) : ''}
       ${
         review.datePublished
           ? `"datePublished": "${review.datePublished}",`
@@ -80,7 +107,6 @@ const buildReviews = (reviews: Review[]) => `
       ${review.reviewBody ? `"reviewBody": "${review.reviewBody}",` : ''}
       ${review.name ? `"name": "${review.name}",` : ''}
       ${buildReviewRating(review.reviewRating)}
-      "author": "${review.author}"
   }`,
   )}],`;
 

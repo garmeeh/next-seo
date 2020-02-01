@@ -87,7 +87,14 @@ const product100 = {
     review: [
       {
         '@type': 'Review',
-        author: 'Jim',
+        author: {
+          '@type': 'Person',
+          name: 'Jim',
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'TwoVit',
+        },
         datePublished: '2017-01-06T03:37:40Z',
         reviewBody:
           'This is my favorite product yet! Thanks Nate for the example products and reviews.',
