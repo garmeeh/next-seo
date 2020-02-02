@@ -1041,7 +1041,7 @@ export default () => (
 | ------------------------------- | ----------------------------------------------------------------------------- |
 | `mainEntity`                    |                                                                               |
 | `mainEntity.questionName`       | The full text of the question. For example, "How long is the delivery time?". |
-| `mainENtity.acceptedAnswerText` | The full answer to the question.                                              |
+| `mainEntity.acceptedAnswerText` | The full answer to the question.                                              |
 
 ### Job Posting
 
