@@ -33,11 +33,6 @@ const Links = () => (
         <a>All JSON-LD</a>
       </Link>
     </li>
-    <li>
-      <Link href="/updated-title-template">
-        <a>Updated Title Template</a>
-      </Link>
-    </li>
   </ul>
 );
 
