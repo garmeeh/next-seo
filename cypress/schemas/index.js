@@ -12,6 +12,7 @@ import corporateContactVersions from './corporate-contact-schema';
 import newsarticleVersions from './newsarticle-schema';
 import faqPageVersion from './faq-page-schema';
 import jobPostingVersions from './job-posting-schema';
+import eventVersion from './event-schema';
 
 const schemas = combineSchemas(
   articleVersions,
@@ -26,5 +27,6 @@ const schemas = combineSchemas(
   newsarticleVersions,
   faqPageVersion,
   jobPostingVersions,
+  eventVersion,
 );
 export default schemas;

@@ -12,6 +12,7 @@ import {
   NewsArticleJsonLd,
   FAQPageJsonLd,
   JobPostingJsonLd,
+  EventJsonLd,
 } from '../../lib';
 import Links from '../components/links';
 
@@ -278,6 +279,25 @@ export default () => (
       applicantLocationRequirements="FR"
     />
 
+    <EventJsonLd
+      name="My Event"
+      startDate="2020-01-23T00:00:00.000Z"
+      endDate="2020-01-24T00:00:00.000Z"
+      location={{
+        name: 'My Place',
+        sameAs: 'https://example.com/my-place',
+        address: {
+          streetAddress: '1600 Saratoga Ave',
+          addressLocality: 'San Jose',
+          addressRegion: 'CA',
+          postalCode: '95129',
+          addressCountry: 'US',
+        },
+      }}
+      url="https://example.com/my-event"
+      images={['https://example.com/photos/photo.jpg']}
+      description="My event @ my place"
+    />
     <Links />
   </>
 );

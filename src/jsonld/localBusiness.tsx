@@ -3,14 +3,8 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 import formatIfArray from '../utils/formatIfArray';
-
-type Address = {
-  streetAddress: string;
-  addressLocality: string;
-  addressRegion?: string;
-  postalCode: string;
-  addressCountry: string;
-};
+import { Address } from '../types';
+import buildAddress from '../utils/buildAddress';
 
 type Geo = {
   latitude: string;
@@ -51,21 +45,6 @@ const buildGeo = (geo: Geo) => `
     "@type": "GeoCoordinates",
     "latitude": "${geo.latitude}",
     "longitude": "${geo.longitude}"
-  },
-`;
-
-const buildAddress = (address: Address) => `
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "${address.streetAddress}",
-    "addressLocality": "${address.addressLocality}",
-    ${
-      address.addressRegion
-        ? `"addressRegion": "${address.addressRegion}",`
-        : ''
-    }
-    "postalCode": "${address.postalCode}",
-    "addressCountry": "${address.addressCountry}"
   },
 `;
 
