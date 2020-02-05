@@ -17,7 +17,7 @@ const dataset100 = {
       },
       '@type': {
         type: 'string',
-        description: 'Organization',
+        description: 'Dataset',
       },
       description: {
         type: 'string',
