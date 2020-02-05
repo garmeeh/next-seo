@@ -16,7 +16,7 @@ const newsarticleLdJsonIndex = 9;
 const faqPageLdJsonIndex = 10;
 const jobPostingLdJsonIndex = 11;
 const eventLdJsonIndex = 12;
-const datasetJsonIndex = 13;
+const datasetLdJsonIndex = 13;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
