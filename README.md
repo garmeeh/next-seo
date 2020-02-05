@@ -44,6 +44,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Breadcrumb](#breadcrumb)
   - [Blog](#blog)
   - [Course](#course)
+  - [Dataset](#dataset)
   - [Corporate Contact](#corporate-contact)
   - [FAQ Page](#faq-page)
   - [Job Posting](#job-posting)
@@ -814,6 +815,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Breadcrumb](#breadcrumb)
 - [Blog](#blog)
 - [Course](#course)
+- [Dataset](#dataset)
 - [Corporate Contact](#corporate-contact)
 - [FAQ Page](#faq-page)
 - [Job Posting](#job-posting)
@@ -956,6 +958,37 @@ export default () => (
 | Property      | Info                            |
 | ------------- | ------------------------------- |
 | `providerUrl` | The url to the course provider. |
+
+### Dataset
+
+```jsx
+import React from 'react';
+import { DatasetJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Dataset JSON-LD</h1>
+    <DatasetJsonLd
+      description="The description needs to be at least 50 characters long"
+      name="name of the dataset"
+      license="https//www.example.com"
+    />
+  </>
+);
+```
+
+**Required properties**
+
+| Property      | Info                                                                              |
+| ------------- | --------------------------------------------------------------------------------- |
+| `description` | A short summary describing a dataset. Needs to be between 50 and 5000 characters. |
+| `name`        | A license under which the dataset is distributed.                                 |
+
+**Recommended properties**
+
+| Property  | Info                            |
+| --------- | ------------------------------- |
+| `license` | The url to the course provider. |
 
 ### Corporate Contact
 
