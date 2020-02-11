@@ -1,0 +1,10 @@
+version: 1
+update_configs:
+  - package_manager: "javascript"
+    directory: "/"
+    update_schedule: "live"
+    ignored_updates:
+      - match:
+          dependency_name: "cypress-testing-library"
+      - match:
+          dependency_name: "react-testing-library"
