@@ -53,7 +53,7 @@ export interface ProductJsonLdProps {
   brand?: string;
   reviews?: Review[];
   aggregateRating?: AggregateRating;
-  offers: Offers;
+  offers: Offers | Offers[];
   sku?: string;
   gtin8?: string;
   gtin13?: string;
@@ -121,7 +121,7 @@ const buildAggregateRating = (aggregateRating: AggregateRating) => `
 // TODO: Docs for offers itemCondition & availability
 // TODO: Seller type, make dynamic
 const buildOffers = (offers: Offers) => `
-  "offers": {
+  {
     "@type": "Offer",
     "priceCurrency": "${offers.priceCurrency}",
     ${
@@ -143,7 +143,7 @@ const buildOffers = (offers: Offers) => `
         : ''
     }
     "price": "${offers.price}"
-  },
+  }
 `;
 
 const ProductJsonLd: FC<ProductJsonLdProps> = ({
@@ -173,7 +173,15 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
     ${brand ? buildBrand(brand) : ''}
     ${reviews.length ? buildReviews(reviews) : ''}
     ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
-    ${offers ? buildOffers(offers) : ''}
+    ${
+      offers
+        ? `"offers": ${
+            Array.isArray(offers)
+              ? `[${offers.map(offer => `${buildOffers(offer)}`)}]`
+              : buildOffers(offers)
+          },`
+        : ''
+    }
     "name": "${productName}"
   }`;
 

@@ -1,5 +1,5 @@
 import { versionSchemas } from '@cypress/schema-tools';
-import { offers100, aggregateRating100, brand100, review100 } from './common';
+import { offers101, aggregateRating100, brand100, review100 } from './common';
 
 const product100 = {
   version: {
@@ -63,8 +63,8 @@ const product100 = {
         see: aggregateRating100,
       },
       offers: {
-        ...offers100.schema,
-        see: offers100,
+        ...offers101.schema,
+        see: offers101,
       },
     },
   },
@@ -112,18 +112,34 @@ const product100 = {
       ratingValue: '4.4',
       reviewCount: '89',
     },
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: 'USD',
-      price: '119.99',
-      priceValidUntil: '2020-11-05',
-      itemCondition: 'http://schema.org/UsedCondition',
-      availability: 'http://schema.org/InStock',
-      seller: {
-        '@type': 'Organization',
-        name: 'Executive Objects',
+    offers: [
+      {
+        '@type': 'Offer',
+        price: '119.99',
+        priceCurrency: 'USD',
+        priceValidUntil: '2020-11-05',
+        itemCondition: 'http://schema.org/UsedCondition',
+        availability: 'http://schema.org/InStock',
+        url: 'https://www.example.com/executive-anvil',
+        seller: {
+          '@type': 'Organization',
+          name: 'Executive Objects',
+        },
       },
-    },
+      {
+        '@type': 'Offer',
+        price: '139.99',
+        priceCurrency: 'CAD',
+        priceValidUntil: '2020-09-05',
+        itemCondition: 'http://schema.org/UsedCondition',
+        availability: 'http://schema.org/InStock',
+        url: 'https://www.example.ca/executive-anvil',
+        seller: {
+          '@type': 'Organization',
+          name: 'Executive Objects',
+        },
+      },
+    ],
   },
 };
 
