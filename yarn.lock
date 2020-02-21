@@ -1428,9 +1428,9 @@
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^16.9.19":
-  version "16.9.19"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.19.tgz#c842aa83ea490007d29938146ff2e4d9e4360c40"
-  integrity sha512-LJV97//H+zqKWMms0kvxaKYJDG05U2TtQB3chRLF8MPNs+MQh/H1aGlyDUxjaHvu08EAGerdX2z4LTBc7ns77A==
+  version "16.9.22"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.22.tgz#f0288c92d94e93c4b43e3f5633edf788b2c040ae"
+  integrity sha512-7OSt4EGiLvy0h5R7X+r0c7S739TCU/LvWbkNOrm10lUwNHe7XPz5OLhLOSZeCkqO9JSCly1NkYJ7ODTUqVnHJQ==
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -9075,9 +9075,9 @@ typedarray@^0.0.6:
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
 typescript@^3.7.5:
-  version "3.7.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.5.tgz#0692e21f65fd4108b9330238aac11dd2e177a1ae"
-  integrity sha512-/P5lkRXkWHNAbcJIiHPfRoKqyd7bsyCma1hZNUGfn20qm64T6ZBlrzprymeu918H+mB/0rIg2gGK/BXkhhYgBw==
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.2.tgz#91d6868aaead7da74f493c553aeff76c0c0b1d5a"
+  integrity sha512-EgOVgL/4xfVrCMbhYKUQTdF37SQn4Iw73H5BgCrF1Abdun7Kwy/QZsE/ssAy0y4LxBbvua3PIbFsbRczWWnDdQ==
 
 underscore@~1.8.3:
   version "1.8.3"
