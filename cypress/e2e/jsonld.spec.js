@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 13;
+const expectedJSONResults = 14;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -16,6 +16,7 @@ const newsarticleLdJsonIndex = 9;
 const faqPageLdJsonIndex = 10;
 const jobPostingLdJsonIndex = 11;
 const eventLdJsonIndex = 12;
+const datasetLdJsonIndex = 13;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -642,6 +643,33 @@ describe('Validates JSON-LD For:', () => {
           },
           image: ['https://example.com/photos/photo.jpg'],
           description: 'My event @ my place',
+        });
+      });
+  });
+
+  it('Dataset', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[datasetLdJsonIndex].innerHTML);
+        assertSchema(schemas)('Dataset', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Dataset Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[datasetLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'http://schema.org',
+          '@type': 'Dataset',
+          description:
+            'The description needs to be at least 50 characters long',
+          name: 'name of the dataset',
+          license: 'https//www.example.com',
         });
       });
   });

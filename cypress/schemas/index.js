@@ -13,6 +13,7 @@ import newsarticleVersions from './newsarticle-schema';
 import faqPageVersion from './faq-page-schema';
 import jobPostingVersions from './job-posting-schema';
 import eventVersion from './event-schema';
+import datasetVersion from './dataset-schema';
 
 const schemas = combineSchemas(
   articleVersions,
@@ -28,5 +29,6 @@ const schemas = combineSchemas(
   faqPageVersion,
   jobPostingVersions,
   eventVersion,
+  datasetVersion,
 );
 export default schemas;
