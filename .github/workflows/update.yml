@@ -1,2 +1,0 @@
-- name: Update Pull Request branch
-  uses: juliangruber/update-pull-request-branch-action@v1.0.1
