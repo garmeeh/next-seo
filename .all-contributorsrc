@@ -206,6 +206,15 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "ykzts",
+      "name": "Yamagishi Kazutoshi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/12539?v=4",
+      "profile": "https://ykzts.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
