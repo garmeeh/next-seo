@@ -44,6 +44,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Breadcrumb](#breadcrumb)
   - [Blog](#blog)
   - [Course](#course)
+  - [Dataset](#dataset)
   - [Corporate Contact](#corporate-contact)
   - [FAQ Page](#faq-page)
   - [Job Posting](#job-posting)
@@ -814,6 +815,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Breadcrumb](#breadcrumb)
 - [Blog](#blog)
 - [Course](#course)
+- [Dataset](#dataset)
 - [Corporate Contact](#corporate-contact)
 - [FAQ Page](#faq-page)
 - [Job Posting](#job-posting)
@@ -956,6 +958,37 @@ export default () => (
 | Property      | Info                            |
 | ------------- | ------------------------------- |
 | `providerUrl` | The url to the course provider. |
+
+### Dataset
+
+```jsx
+import React from 'react';
+import { DatasetJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Dataset JSON-LD</h1>
+    <DatasetJsonLd
+      description="The description needs to be at least 50 characters long"
+      name="name of the dataset"
+      license="https//www.example.com"
+    />
+  </>
+);
+```
+
+**Required properties**
+
+| Property      | Info                                                                              |
+| ------------- | --------------------------------------------------------------------------------- |
+| `description` | A short summary describing a dataset. Needs to be between 50 and 5000 characters. |
+| `name`        | A license under which the dataset is distributed.                                 |
+
+**Recommended properties**
+
+| Property  | Info                            |
+| --------- | ------------------------------- |
+| `license` | The url to the course provider. |
 
 ### Corporate Contact
 
@@ -1487,6 +1520,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="https://github.com/Myoxocephalus"><img src="https://avatars0.githubusercontent.com/u/2316544?v=4" width="100px;" alt=""/><br /><sub><b>Myoxocephalus</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://github.com/kenleytomlin"><img src="https://avatars3.githubusercontent.com/u/3004590?v=4" width="100px;" alt=""/><br /><sub><b>Kenley Tomlin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://twovit.com"><img src="https://avatars0.githubusercontent.com/u/20168220?v=4" width="100px;" alt=""/><br /><sub><b>Ryu Nishida</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://ykzts.com/"><img src="https://avatars0.githubusercontent.com/u/12539?v=4" width="100px;" alt=""/><br /><sub><b>Yamagishi Kazutoshi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=ykzts" title="Code">💻</a></td>
   </tr>
 </table>
 

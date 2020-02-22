@@ -13,6 +13,7 @@ import {
   FAQPageJsonLd,
   JobPostingJsonLd,
   EventJsonLd,
+  DatasetJsonLd,
 } from '../../lib';
 import Links from '../components/links';
 
@@ -311,6 +312,13 @@ export default () => (
       images={['https://example.com/photos/photo.jpg']}
       description="My event @ my place"
     />
+
+    <DatasetJsonLd
+      description="The description needs to be at least 50 characters long"
+      name="name of the dataset"
+      license="https//www.example.com"
+    />
+
     <Links />
   </>
 );
