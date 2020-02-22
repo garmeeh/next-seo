@@ -77,7 +77,7 @@
     "cypress": "^3.8.3",
     "cypress-testing-library": "^3.0.1",
     "doctoc": "^1.4.0",
-    "husky": "4.2.2",
+    "husky": "4.2.3",
     "jest": "25.1.0",
     "lint-staged": "10.0.7",
     "next": "^9.2.1",
