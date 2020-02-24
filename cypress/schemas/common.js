@@ -144,6 +144,71 @@ export const offers100 = {
   },
 };
 
+export const offers101 = {
+  version: {
+    major: 1,
+    minor: 0,
+    patch: 1,
+  },
+  schema: {
+    type: 'array',
+    description: 'Offers',
+    item: {
+      type: 'object',
+      properties: {
+        '@type': {
+          type: 'string',
+          description: 'Describes type',
+        },
+        priceCurrency: {
+          type: 'string',
+          description:
+            'Use standard formats: ISO 4217 currency format e.g. "USD"; Ticker symbol for cryptocurrencies e.g. "BTC"; well known names for Local Exchange Tradings Systems (LETS) and other currency types e.g. "Ithaca HOUR".',
+        },
+        price: {
+          type: 'string',
+          description: 'Price.',
+        },
+        priceValidUntil: {
+          type: 'string',
+          description: 'The date after which the price is no longer available.',
+        },
+        itemCondition: {
+          type: 'string',
+          description:
+            'itemCondition OfferItemCondition A predefined value from OfferItemCondition or a textual description of the condition of the product or service, or the products or services included in the offer.',
+        },
+        availability: {
+          type: 'string',
+          description:
+            'The availability of this item—for example In stock, Out of stock, Pre-order, etc.',
+        },
+        url: {
+          type: 'string',
+          description:
+            'A URL to the product web page (that includes the Offer).',
+        },
+        seller: {
+          ...seller100.schema,
+          see: seller100,
+        },
+      },
+    },
+    example: {
+      '@type': 'Offer',
+      priceCurrency: 'USD',
+      price: '119.99',
+      priceValidUntil: '2020-11-05',
+      itemCondition: 'http://schema.org/UsedCondition',
+      availability: 'http://schema.org/InStock',
+      seller: {
+        '@type': 'Organization',
+        name: 'Executive Objects',
+      },
+    },
+  },
+};
+
 export const rating100 = {
   version: {
     major: 1,

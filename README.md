@@ -1306,17 +1306,30 @@ export default () => (
         ratingValue: '4.4',
         reviewCount: '89',
       }}
-      offers={{
-        price: '119.99',
-        priceCurrency: 'USD',
-        priceValidUntil: '2020-11-05',
-        itemCondition: 'http://schema.org/UsedCondition',
-        availability: 'http://schema.org/InStock',
-        url: 'https://www.example.com/executive-anvil',
-        seller: {
-          name: 'Executive Objects',
+      offers={[
+        {
+          price: '119.99',
+          priceCurrency: 'USD',
+          priceValidUntil: '2020-11-05',
+          itemCondition: 'http://schema.org/UsedCondition',
+          availability: 'http://schema.org/InStock',
+          url: 'https://www.example.com/executive-anvil',
+          seller: {
+            name: 'Executive Objects',
+          },
         },
-      }}
+        {
+          price: '139.99',
+          priceCurrency: 'CAD',
+          priceValidUntil: '2020-09-05',
+          itemCondition: 'http://schema.org/UsedCondition',
+          availability: 'http://schema.org/InStock',
+          url: 'https://www.example.ca/executive-anvil',
+          seller: {
+            name: 'Executive Objects',
+          },
+        },
+      ]}
       mpn="925872"
     />
   </>

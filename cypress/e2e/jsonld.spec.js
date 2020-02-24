@@ -353,19 +353,34 @@ describe('Validates JSON-LD For:', () => {
             ratingValue: '4.4',
             reviewCount: '89',
           },
-          offers: {
-            '@type': 'Offer',
-            priceCurrency: 'USD',
-            price: '119.99',
-            priceValidUntil: '2020-11-05',
-            itemCondition: 'http://schema.org/UsedCondition',
-            availability: 'http://schema.org/InStock',
-            url: 'https://www.example.com/executive-anvil',
-            seller: {
-              '@type': 'Organization',
-              name: 'Executive Objects',
+          offers: [
+            {
+              '@type': 'Offer',
+              price: '119.99',
+              priceCurrency: 'USD',
+              priceValidUntil: '2020-11-05',
+              itemCondition: 'http://schema.org/UsedCondition',
+              availability: 'http://schema.org/InStock',
+              url: 'https://www.example.com/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
             },
-          },
+            {
+              '@type': 'Offer',
+              price: '139.99',
+              priceCurrency: 'CAD',
+              priceValidUntil: '2020-09-05',
+              itemCondition: 'http://schema.org/UsedCondition',
+              availability: 'http://schema.org/InStock',
+              url: 'https://www.example.ca/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
+            },
+          ],
         });
       });
   });
