@@ -296,7 +296,7 @@ If you have a single page that you want no indexed you can achieve this by:
 
 ```jsx
 import React from 'react';
-import NextSeo from 'next-seo';
+import { NextSeo } from 'next-seo';
 
 export default () => (
   <>
@@ -329,7 +329,7 @@ If you have a single page that you want no indexed you can achieve this by:
 
 ```jsx
 import React from 'react';
-import NextSeo from 'next-seo';
+import { NextSeo } from 'next-seo';
 
 export default () => (
   <>
