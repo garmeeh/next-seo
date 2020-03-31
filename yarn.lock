@@ -1481,9 +1481,9 @@
     pretty-format "^25.1.0"
 
 "@types/node@^13.7.0":
-  version "13.9.7"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.9.7.tgz#53afa8bdb19c3ee7deb06290d50172e0b0a03985"
-  integrity sha512-zokUl6FsWqNN/H5Xl+7M+DBnqWUp3J1gwEQvoTSa/m8phUP5CjFdfsCQ8ptOTL5CTSfG3Is35XgVjjekdk9T7A==
+  version "13.9.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.9.8.tgz#09976420fc80a7a00bf40680c63815ed8c7616f4"
+  integrity sha512-1WgO8hsyHynlx7nhP1kr0OFzsgKz5XDQL+Lfc3b1Q3qIln/n8cKD4m09NJ0+P1Rq7Zgnc7N0+SsMnoD1rEb0kA==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
