@@ -19,6 +19,7 @@
     "test:e2e:ci": "npm-run-all --parallel --race e2e:start cy:run",
     "prepublishOnly": "yarn build",
     "prebuild": "rimraf ./lib",
+    "prepare": "yarn build:types && yarn build:ts",
     "lint": "eslint src",
     "format": "prettier",
     "table-of-contents": "doctoc README.md",
