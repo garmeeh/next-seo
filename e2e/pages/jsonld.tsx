@@ -11,6 +11,7 @@ import {
   CorporateContactJsonLd,
   NewsArticleJsonLd,
   FAQPageJsonLd,
+  ImageJsonLd,
   JobPostingJsonLd,
   EventJsonLd,
   DatasetJsonLd,
@@ -265,6 +266,12 @@ export default () => (
           acceptedAnswerText: 'Read more on under information.',
         },
       ]}
+    />
+
+    <ImageJsonLd
+      url="http://www.example.com/images/image.png"
+      license="http://www.example.com/license"
+      acquireLicensePage="http://www.example.com/acquire-license"
     />
 
     <JobPostingJsonLd

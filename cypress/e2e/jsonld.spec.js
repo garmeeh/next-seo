@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 14;
+const expectedJSONResults = 15;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -14,16 +14,17 @@ const socialProfileLdJsonIndex = 7;
 const corporateContactIndex = 8;
 const newsarticleLdJsonIndex = 9;
 const faqPageLdJsonIndex = 10;
-const jobPostingLdJsonIndex = 11;
-const eventLdJsonIndex = 12;
-const datasetLdJsonIndex = 13;
+const imageLdJsonIndex = 11;
+const jobPostingLdJsonIndex = 12;
+const eventLdJsonIndex = 13;
+const datasetLdJsonIndex = 14;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[articleLdJsonIndex].innerHTML);
         assertSchema(schemas)('Article', '1.0.0')(jsonLD);
       });
@@ -33,7 +34,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[articleLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
@@ -71,7 +72,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[breadcrumbLdJsonIndex].innerHTML);
         assertSchema(schemas)('Breadcrumb', '1.0.0')(jsonLD);
       });
@@ -81,7 +82,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[breadcrumbLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
@@ -129,7 +130,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[blogLdJsonIndex].innerHTML);
         assertSchema(schemas)('Blog', '1.0.0')(jsonLD);
       });
@@ -139,7 +140,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[blogLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
@@ -169,7 +170,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[courseLdJsonIndex].innerHTML);
         assertSchema(schemas)('Course', '1.0.0')(jsonLD);
       });
@@ -179,7 +180,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[courseLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
@@ -199,7 +200,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[localBusinessLdJsonIndex].innerHTML);
         assertSchema(schemas)('Local Business', '1.1.0')(jsonLD);
       });
@@ -209,7 +210,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[localBusinessLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
@@ -272,7 +273,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[logoLdJsonIndex].innerHTML);
         assertSchema(schemas)('Logo', '1.0.0')(jsonLD);
       });
@@ -282,7 +283,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[logoLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
@@ -297,7 +298,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[productLdJsonIndex].innerHTML);
         assertSchema(schemas)('Product', '1.0.0')(jsonLD);
       });
@@ -307,7 +308,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[productLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org/',
@@ -389,7 +390,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[socialProfileLdJsonIndex].innerHTML);
         assertSchema(schemas)('Social Profile', '1.0.0')(jsonLD);
       });
@@ -399,7 +400,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[socialProfileLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
@@ -420,7 +421,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[corporateContactIndex].innerHTML);
         assertSchema(schemas)('Corporate Contact', '1.0.0')(jsonLD);
       });
@@ -430,7 +431,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[corporateContactIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'https://schema.org',
@@ -469,7 +470,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[newsarticleLdJsonIndex].innerHTML);
         assertSchema(schemas)('NewsArticle', '1.0.0')(jsonLD);
       });
@@ -479,7 +480,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[newsarticleLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
@@ -522,7 +523,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[faqPageLdJsonIndex].innerHTML);
         assertSchema(schemas)('FAQPage', '1.0.0')(jsonLD);
       });
@@ -532,7 +533,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[faqPageLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org/',
@@ -559,11 +560,37 @@ describe('Validates JSON-LD For:', () => {
       });
   });
 
+  it('Image', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then((tags) => {
+        const jsonLD = JSON.parse(tags[imageLdJsonIndex].innerHTML);
+        assertSchema(schemas)('ImageObject', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Image Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then((tags) => {
+        const jsonLD = JSON.parse(tags[imageLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'http://schema.org',
+          '@type': 'ImageObject',
+          url: 'http://www.example.com/images/image.png',
+          license: 'http://www.example.com/license',
+          acquireLicensePage: 'http://www.example.com/acquire-license',
+        });
+      });
+  });
+
   it('Job Posting', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[jobPostingLdJsonIndex].innerHTML);
         assertSchema(schemas)('Job Posting', '1.0.0')(jsonLD);
       });
@@ -573,7 +600,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[jobPostingLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
@@ -624,7 +651,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[eventLdJsonIndex].innerHTML);
         assertSchema(schemas)('Event', '1.0.0')(jsonLD);
       });
@@ -634,7 +661,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[eventLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
@@ -666,7 +693,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[datasetLdJsonIndex].innerHTML);
         assertSchema(schemas)('Dataset', '1.0.0')(jsonLD);
       });
@@ -676,7 +703,7 @@ describe('Validates JSON-LD For:', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
-      .then(tags => {
+      .then((tags) => {
         const jsonLD = JSON.parse(tags[datasetLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
           '@context': 'http://schema.org',
