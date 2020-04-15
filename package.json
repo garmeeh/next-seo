@@ -17,6 +17,7 @@
     "pretest:e2e:ci": "yarn e2e:build",
     "test:e2e": "npm-run-all --parallel e2e:dev cy:open",
     "test:e2e:ci": "npm-run-all --parallel --race e2e:start cy:run",
+    "prepublishOnly": "yarn build",
     "prebuild": "rimraf ./lib",
     "prepare": "yarn build",
     "lint": "eslint src",

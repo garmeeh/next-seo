@@ -50,7 +50,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Job Posting](#job-posting)
   - [Local Business](#local-business)
   - [Logo](#logo)
-  - [Image](#image)
+  - [Image License Metadata in Google Images](#image-license-metadata-in-google-images)
   - [Product](#product)
   - [Social Profile](#social-profile)
   - [News Article](#news-article)
@@ -1264,9 +1264,7 @@ export default () => (
 | `url`    | The URL of the website associated with the logo. [Logo guidelines](https://developers.google.com/search/docs/data-types/logo#definitions) |
 | `logo`   | URL of a logo that is representative of the organization.                                                                                 |
 
-### Image
-
-Image License Metadata in Google Images
+### Image License Metadata in Google Images
 
 ```jsx
 import React from 'react';
@@ -1293,7 +1291,7 @@ export default () => (
 **Suggested properties**
 | Property | Info |
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `acquireLicensePage` | A URL to a page where the user can find information on how to license that image. Example: A check-out page for that image where the user can select specific resolutions or usage rights, or a general page that explains how to contact you |
+| `acquireLicensePage` | A URL to a page where the user can find information on how to license that image. Example: A check-out page for that image where the user can select specific resolutions or usage rights, or a general page that explains how to contact you. |
 
 **Note:** Image License Metadata in Google Images is a [BETA feature](https://developers.google.com/search/docs/data-types/image-license-metadata).  
 This feature isn't available in Google Images yet. You can provide metadata in advance, to ensure your images are eligible when the feature becomes available.
