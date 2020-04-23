@@ -1176,9 +1176,9 @@
     figures "^1.7.0"
 
 "@cypress/schema-tools@^4.7.1":
-  version "4.7.3"
-  resolved "https://registry.yarnpkg.com/@cypress/schema-tools/-/schema-tools-4.7.3.tgz#75b0c217fba998b4fb8cfb79f582299f0f7cb329"
-  integrity sha512-1uiaIDc9l72LgwkZ8341GDBSDdLuTKOOivLkq+HQ+Y90FNRHa8+GR5+7+LvyM66wVh3c0IPkLFD//TFeBChkAw==
+  version "4.7.4"
+  resolved "https://registry.yarnpkg.com/@cypress/schema-tools/-/schema-tools-4.7.4.tgz#900af79e9d66da7b3acd7bfea8894ac0d0c9103d"
+  integrity sha512-Dz2KKwV9Wok1jzSLOhS9eGla11sWT3qF2L4t64QlmtPoiXfQr+y89j16y5PQni+N5a1KJDGKBqUDqFqFlfoYCg==
   dependencies:
     "@bahmutov/all-paths" "1.0.2"
     "@bahmutov/is-my-json-valid" "2.17.3"
