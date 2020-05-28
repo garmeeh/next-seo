@@ -1473,10 +1473,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@next/react-dev-overlay@9.4.3":
-  version "9.4.3"
-  resolved "https://registry.yarnpkg.com/@next/react-dev-overlay/-/react-dev-overlay-9.4.3.tgz#dbeb5d5ef7e274047b35e6df7ad25b3821c98c9e"
-  integrity sha512-Zq0SnNM4MtlqUDh225TIek3e4iHZLk9hzY7F4H64PjVfCeahBvmEuehWPZFAbWFpdl0uVr703IjQE94wH2U/Gw==
+"@next/react-dev-overlay@9.4.4":
+  version "9.4.4"
+  resolved "https://registry.yarnpkg.com/@next/react-dev-overlay/-/react-dev-overlay-9.4.4.tgz#4ae03ac839ff022b3ce5c695bd24b179d4ef459d"
+  integrity sha512-UUAa8RbH7BeWDPCkagIkR4sUsyvTPlEdFrPZ9kGjf2+p8HkLHpcVY7y+XRnNvJQs4PsAF0Plh20FBz7t54U2iQ==
   dependencies:
     "@babel/code-frame" "7.8.3"
     ally.js "1.4.1"
@@ -1489,10 +1489,10 @@
     stacktrace-parser "0.1.10"
     strip-ansi "6.0.0"
 
-"@next/react-refresh-utils@9.4.3":
-  version "9.4.3"
-  resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-9.4.3.tgz#de9ed989a3bd150a56b911b3e6f392cf9d89c47e"
-  integrity sha512-b92wAAWSsgg1YPGwQsl6HD4h1R21T3bYYIa4Lan1JE3x244p09qb1SdB5sHxQo82Fjraryv7zjAb1rhocnxGxQ==
+"@next/react-refresh-utils@9.4.4":
+  version "9.4.4"
+  resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-9.4.4.tgz#d94cbb3b354a07f1f5b80e554d6b9e34aba99e41"
+  integrity sha512-9nKENeWRI6kQk44TbeqleIVtNLfcS3klVUepzl/ZCqzR5Bi06uqBCD277hdVvG/wL1pxA+R/pgJQLqnF5E2wPQ==
 
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
@@ -6578,9 +6578,9 @@ next-tick@~1.0.0:
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
 next@^9.2.1:
-  version "9.4.3"
-  resolved "https://registry.yarnpkg.com/next/-/next-9.4.3.tgz#7b90e31802aa9e43217bcccc15c8edcb58b5ee1a"
-  integrity sha512-Xp4s2AlTsKjeTFnhaCzNMM0uvuykA4wBYd3MUQStI238qO1lZYnUCqFJ+MDB6GVgIxuR8/2mCbweV6qy5Obs/w==
+  version "9.4.4"
+  resolved "https://registry.yarnpkg.com/next/-/next-9.4.4.tgz#02ad9fea7f7016b6b42fc83b67835e4a0dd0c99a"
+  integrity sha512-ZT8bU2SAv5jkFQ+y8py+Rl5RJRJ6DnZDS+VUnB1cIscmtmUhDi7LYED7pYm4MCKkYhPbEEM1Lbpo7fnoZJGWNQ==
   dependencies:
     "@ampproject/toolbox-optimizer" "2.4.0"
     "@babel/code-frame" "7.8.3"
@@ -6600,8 +6600,8 @@ next@^9.2.1:
     "@babel/preset-typescript" "7.9.0"
     "@babel/runtime" "7.9.6"
     "@babel/types" "7.9.6"
-    "@next/react-dev-overlay" "9.4.3"
-    "@next/react-refresh-utils" "9.4.3"
+    "@next/react-dev-overlay" "9.4.4"
+    "@next/react-refresh-utils" "9.4.4"
     babel-plugin-syntax-jsx "6.18.0"
     babel-plugin-transform-define "2.0.0"
     babel-plugin-transform-react-remove-prop-types "0.4.24"
