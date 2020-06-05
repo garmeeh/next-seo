@@ -36,6 +36,7 @@
   },
   "prettier": {
     "singleQuote": true,
+    "arrowParens": "avoid",
     "trailingComma": "all"
   },
   "author": {

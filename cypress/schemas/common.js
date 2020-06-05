@@ -42,6 +42,10 @@ export const aggregateRating100 = {
         type: 'string',
         description: 'The rating for the content.',
       },
+      ratingCount: {
+        type: 'string',
+        description: 'The count of total number of ratings.',
+      },
       reviewCount: {
         type: 'string',
         description: 'The count of total number of reviews.',
