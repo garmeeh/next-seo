@@ -215,6 +215,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "michaelgmcd",
+      "name": "Michael McDermott",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/8161781?v=4",
+      "profile": "http://mgmcdermott.com",
+      "contributions": [
+        "doc",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
