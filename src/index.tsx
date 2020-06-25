@@ -32,5 +32,6 @@ export {
   NewsArticleJsonLdProps,
 } from './jsonld/newsarticle';
 export { default as EventJsonLd, EventJsonLdProps } from './jsonld/event';
+export { default as RecipeJsonLd, RecipeJsonLdProps } from './jsonld/recipe';
 
 export { DefaultSeoProps, NextSeoProps } from './types';
