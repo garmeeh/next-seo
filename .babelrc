@@ -1,9 +1,0 @@
-{
-  presets: [
-    ['next/babel', { 'transform-runtime': { corejs: false } }],
-    '@babel/typescript',
-    'minify',
-  ],
-  plugins: ['@babel/plugin-transform-react-jsx'],
-  ignore: ['node_modules'],
-}
