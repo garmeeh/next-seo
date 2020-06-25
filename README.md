@@ -17,44 +17,46 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Usage](#usage)
-  - [Setup](#setup)
-  - [Add SEO to Page](#add-seo-to-page)
-  - [Default SEO Configuration](#default-seo-configuration)
-  - [NextSeo Options](#nextseo-options)
-    - [Title Template](#title-template)
-    - [No Index](#no-index)
-    - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
-    - [No Follow](#no-follow)
-    - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
-    - [Twitter](#twitter)
-    - [facebook](#facebook)
-    - [Canonical URL](#canonical-url)
-    - [Alternate](#alternate)
-    - [Additional Meta Tags](#additional-meta-tags)
-- [Open Graph](#open-graph)
-  - [Open Graph Examples](#open-graph-examples)
-    - [Basic](#basic)
-    - [Video](#video)
-    - [Article](#article)
-    - [Book](#book)
-    - [Profile](#profile)
-- [JSON-LD](#json-ld)
-  - [Article](#article-1)
-  - [Breadcrumb](#breadcrumb)
-  - [Blog](#blog)
-  - [Course](#course)
-  - [Dataset](#dataset)
-  - [Corporate Contact](#corporate-contact)
-  - [FAQ Page](#faq-page)
-  - [Job Posting](#job-posting)
-  - [Local Business](#local-business)
-  - [Logo](#logo)
-  - [Product](#product)
-  - [Social Profile](#social-profile)
-  - [News Article](#news-article)
-  - [Event](#event)
-- [Contributors](#contributors)
+- [Next SEO](#next-seo)
+  - [Usage](#usage)
+    - [Setup](#setup)
+    - [Add SEO to Page](#add-seo-to-page)
+    - [Default SEO Configuration](#default-seo-configuration)
+    - [NextSeo Options](#nextseo-options)
+      - [Title Template](#title-template)
+      - [No Index](#no-index)
+      - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
+      - [No Follow](#no-follow)
+      - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
+      - [Twitter](#twitter)
+      - [facebook](#facebook)
+      - [Canonical URL](#canonical-url)
+      - [Alternate](#alternate)
+      - [Additional Meta Tags](#additional-meta-tags)
+  - [Open Graph](#open-graph)
+    - [Open Graph Examples](#open-graph-examples)
+      - [Basic](#basic)
+      - [Video](#video)
+      - [Article](#article)
+      - [Book](#book)
+      - [Profile](#profile)
+  - [JSON-LD](#json-ld)
+    - [Article](#article-1)
+    - [Breadcrumb](#breadcrumb)
+    - [Blog](#blog)
+    - [Recipe](#recipe)
+    - [Course](#course)
+    - [Dataset](#dataset)
+    - [Corporate Contact](#corporate-contact)
+    - [FAQ Page](#faq-page)
+    - [Job Posting](#job-posting)
+    - [Local Business](#local-business)
+    - [Logo](#logo)
+    - [Product](#product)
+    - [Social Profile](#social-profile)
+    - [News Article](#news-article)
+    - [Event](#event)
+  - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -305,7 +307,7 @@ export default () => (
   </>
 );
 
-/* 
+/*
 <meta name="robots" content="noindex,follow">
 <meta name="googlebot" content="noindex,follow">
 */
@@ -338,7 +340,7 @@ export default () => (
   </>
 );
 
-/* 
+/*
 <meta name="robots" content="index,nofollow">
 <meta name="googlebot" content="index,nofollow">
 */
@@ -814,6 +816,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Article](#article-1)
 - [Breadcrumb](#breadcrumb)
 - [Blog](#blog)
+- [Recipe](#recipe)
 - [Course](#course)
 - [Dataset](#dataset)
 - [Corporate Contact](#corporate-contact)
@@ -925,6 +928,87 @@ export default () => (
   </>
 );
 ```
+
+### Recipe
+
+```jsx
+import React from 'react';
+import { RecipeJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Recipe JSON-LD</h1>
+    <RecipeJsonLd
+      name="Party Coffee Cake"
+      description="This coffee cake is awesome and perfect for parties."
+      datePublished="2018-03-10"
+      authorName="Mary Stone"
+      prepTime="PT20M"
+      cookTime="PT30M"
+      totalTime="PT50M"
+      keywords="cake for a party, coffee"
+      yields="10"
+      category="Dessert"
+      cuisine="American"
+      calories={270}
+      images={[
+        'https://example.com/photos/1x1/photo.jpg',
+        'https://example.com/photos/4x3/photo.jpg',
+        'https://example.com/photos/16x9/photo.jpg',
+      ]}
+      ingredients={[
+        '2 cups of flour',
+        '3/4 cup white sugar',
+        '2 teaspoons baking powder',
+        '1/2 teaspoon salt',
+        '1/2 cup butter',
+        '2 eggs',
+        '3/4 cup milk',
+      ]}
+      instructions={[
+        {
+          name: 'Preheat',
+          text:
+            'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+          url: 'https://example.com/party-coffee-cake#step1',
+          image: 'https://example.com/photos/party-coffee-cake/step1.jpg',
+        },
+      ]}
+      aggregateRating={{
+        ratingValue: '5',
+        ratingCount: '18',
+      }}
+      video={{
+        name: 'How to make a Party Coffee Cake',
+        description: 'This is how you make a Party Coffee Cake.',
+        contentUrl: 'http://www.example.com/video123.mp4',
+        embedUrl: 'http://www.example.com/videoplayer?video=123',
+        uploadDate: '2018-02-05T08:00:00+08:00',
+        duration: 'PT1M33S',
+        thumbnailUrls: [
+          'https://example.com/photos/1x1/photo.jpg',
+          'https://example.com/photos/4x3/photo.jpg',
+          'https://example.com/photos/16x9/photo.jpg',
+        ],
+        expires: '2019-02-05T08:00:00+08:00',
+        watchCount: 2347,
+      }}
+    />
+  </>
+);
+```
+
+**Required properties**
+
+| Property            | Info                                    |
+| ------------------- | --------------------------------------- |
+| `name`              | The name of the recipe                  |
+| `description`       | A description of the recipe             |
+| `authorName`        | The name of the recipe author           |
+| `ingredients`       | A list of ingredient strings            |
+| `instructions`      | -                                       |
+| `instructions.name` | The name of the instruction step.       |
+| `instructions.text` | The directions of the instruction step. |
 
 ### Course
 
