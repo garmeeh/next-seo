@@ -1,5 +1,5 @@
 import React from 'react';
-import { NextSeo } from '../../lib';
+import { NextSeo } from '../..';
 import Links from '../components/links';
 
 export default () => (

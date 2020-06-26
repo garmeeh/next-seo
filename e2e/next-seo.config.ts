@@ -1,4 +1,4 @@
-import { DefaultSeoProps } from '../lib';
+import { DefaultSeoProps } from '..';
 
 const APP_DEFAULT_SEO: DefaultSeoProps = {
   title: 'Title A',

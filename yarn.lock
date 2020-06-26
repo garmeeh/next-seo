@@ -6284,7 +6284,7 @@ merge-stream@^2.0.0:
   resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-2.0.0.tgz#52823629a14dd00c9770fb6ad47dc6310f2c1f60"
   integrity sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==
 
-microbundle@^0.12.0:
+microbundle@^0.12.2:
   version "0.12.2"
   resolved "https://registry.yarnpkg.com/microbundle/-/microbundle-0.12.2.tgz#3d79941291ef919dd280ecdffd4c8ee15ad394e3"
   integrity sha512-6/48HlmDPq/Q1HyS5liFFSvcU0v8n8NROH3K1Z/saU+TRaxCe38eNNqZwjitOyTKilXqnp1yHEEjZGYWVvr7WQ==
