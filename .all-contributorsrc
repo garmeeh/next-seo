@@ -225,6 +225,16 @@
         "doc",
         "code"
       ]
+    },
+    {
+      "login": "luke-j",
+      "name": "Luke Jones",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/6657011?v=4",
+      "profile": "https://lukejones.co",
+      "contributions": [
+        "code",
+        "infra"
+      ]
     }
   ],
   "contributorsPerLine": 7,
