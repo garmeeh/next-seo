@@ -15,7 +15,7 @@ import {
   EventJsonLd,
   DatasetJsonLd,
   RecipeJsonLd,
-} from '../../lib';
+} from '../..';
 import Links from '../components/links';
 
 export default () => (
