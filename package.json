@@ -11,7 +11,7 @@
     "lib"
   ],
   "peerDependencies": {
-    "next": "^6.0.0",
+    "next": "^8.1.1-canary.54 || ^9.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   },
