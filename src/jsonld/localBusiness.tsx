@@ -59,19 +59,19 @@ const buildRating = (rating: Rating) => `
 const buildOpeningHours = (openingHours: OpeningHoursSpecification) => `
   {
     "@type": "OpeningHoursSpecification",
-    "opens": "${openingHours.opens}",
-    "closes": "${openingHours.closes}",
     ${
       openingHours.dayOfWeek
         ? `"dayOfWeek": ${formatIfArray(openingHours.dayOfWeek)},`
         : ''
     }
+    "opens": "${openingHours.opens}",
     ${openingHours.validFrom ? `"validFrom": "${openingHours.validFrom}",` : ''}
     ${
       openingHours.validThrough
-        ? `"validThrough": "${openingHours.validThrough}"`
+        ? `"validThrough": "${openingHours.validThrough}",`
         : ''
     }
+    "closes": "${openingHours.closes}"
   }
 `;
 
