@@ -6285,9 +6285,9 @@ merge-stream@^2.0.0:
   integrity sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==
 
 microbundle@^0.12.2:
-  version "0.12.2"
-  resolved "https://registry.yarnpkg.com/microbundle/-/microbundle-0.12.2.tgz#3d79941291ef919dd280ecdffd4c8ee15ad394e3"
-  integrity sha512-6/48HlmDPq/Q1HyS5liFFSvcU0v8n8NROH3K1Z/saU+TRaxCe38eNNqZwjitOyTKilXqnp1yHEEjZGYWVvr7WQ==
+  version "0.12.3"
+  resolved "https://registry.yarnpkg.com/microbundle/-/microbundle-0.12.3.tgz#6f43f1a7d0ad6258f4406e390340db4ad0312e1f"
+  integrity sha512-OcpBYPytJXOJsTfPjhL5p3nR0JXt0O9dH97K2k6gJ9etokmuRE4qoAfdnYfsUYLRHftCMJu/BkbQySAPnQ87PQ==
   dependencies:
     "@babel/core" "^7.10.2"
     "@babel/plugin-proposal-class-properties" "7.7.4"
