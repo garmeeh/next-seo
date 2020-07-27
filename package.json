@@ -65,6 +65,7 @@
   "homepage": "https://github.com/garmeeh/next-seo#readme",
   "devDependencies": {
     "@cypress/schema-tools": "^4.7.1",
+    "@types/dompurify": "^2.0.2",
     "@types/jest": "^26.0.0",
     "@types/node": "^14.0.0",
     "@types/react": "^16.9.19",
@@ -72,6 +73,7 @@
     "cypress": "^3.8.3",
     "cypress-testing-library": "^3.0.1",
     "doctoc": "^1.4.0",
+    "dompurify": "^2.0.11",
     "husky": "4.2.5",
     "jest": "25.5.4",
     "lint-staged": "10.2.11",

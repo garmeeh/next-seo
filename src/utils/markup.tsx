@@ -1,3 +1,7 @@
-const markup = (jsonld: string) => ({ __html: jsonld });
+import DOMPurify from 'dompurify';
+
+const markup = (jsonld: string) => ({
+  __html: DOMPurify.sanitize(jsonld || ''),
+});
 
 export default markup;
