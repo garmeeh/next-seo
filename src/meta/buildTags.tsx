@@ -3,6 +3,7 @@ import { BuildTagsParams } from '../types';
 
 const defaults = {
   templateTitle: '',
+  templateTitleCallback: (title: string) => title,
   noindex: false,
   nofollow: false,
   defaultOpenGraphImageWidth: 0,
@@ -18,11 +19,17 @@ const buildTags = (config: BuildTagsParams) => {
     defaults.templateTitle = config.titleTemplate;
   }
 
+  if (config.titleTemplateCallback) {
+    defaults.templateTitleCallback = config.titleTemplateCallback;
+  }
+
   let updatedTitle = '';
   if (config.title) {
     updatedTitle = config.title;
     if (defaults.templateTitle) {
       updatedTitle = defaults.templateTitle.replace(/%s/g, () => updatedTitle);
+    } else if (defaults.templateTitleCallback) {
+      updatedTitle = defaults.templateTitleCallback(updatedTitle);
     }
     tagsToRender.push(<title key="title">{updatedTitle}</title>);
   }

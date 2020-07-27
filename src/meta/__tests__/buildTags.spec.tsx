@@ -292,6 +292,22 @@ it('displays title with titleTemplate integrated', () => {
   expect(title.innerHTML).toMatch(`${template} | ${SEO.title}`);
 });
 
+it('displays title with titleTemplateCallback integrated', () => {
+  const template = 'Next SEO';
+  const overrideProps = {
+    ...SEO,
+    titleTemplateCallback: (title: string) => `${template} | ${title}`,
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+  const title = getByText(
+    container,
+    (content, element) =>
+      element.tagName.toLowerCase() === 'title' && content.startsWith(template),
+  );
+  expect(title.innerHTML).toMatch(`${template} | ${SEO.title}`);
+});
+
 const ArticleSEO = {
   title: 'Article Page Title',
   description: 'Description of article page',

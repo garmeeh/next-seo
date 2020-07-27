@@ -9,6 +9,7 @@ export default class extends Component<DefaultSeoProps, {}> {
     const {
       title,
       titleTemplate,
+      titleTemplateCallback,
       dangerouslySetAllPagesToNoIndex = false,
       dangerouslySetAllPagesToNoFollow = false,
       description,
@@ -30,6 +31,7 @@ export default class extends Component<DefaultSeoProps, {}> {
         {buildTags({
           title,
           titleTemplate,
+          titleTemplateCallback,
           dangerouslySetAllPagesToNoIndex,
           dangerouslySetAllPagesToNoFollow,
           description,

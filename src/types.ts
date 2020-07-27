@@ -111,6 +111,7 @@ export type MetaTag = HTML5MetaTag | RDFaMetaTag;
 export interface NextSeoProps {
   title?: string;
   titleTemplate?: string;
+  titleTemplateCallback?: (title: string) => string;
   noindex?: boolean;
   nofollow?: boolean;
   description?: string;
