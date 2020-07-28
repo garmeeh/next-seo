@@ -198,7 +198,7 @@ export default () => (
       aggregateOffer={{
         priceCurrency: 'USD',
         lowPrice: '119.99',
-        highPrice: '199.99',
+        highPrice: '139.99',
         offerCount: '5',
       }}
       mpn="925872"
