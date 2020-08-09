@@ -113,6 +113,7 @@ export interface NextSeoProps {
   titleTemplate?: string;
   noindex?: boolean;
   nofollow?: boolean;
+  disableGooglebot?: boolean;
   description?: string;
   canonical?: string;
   mobileAlternate?: MobileAlternate;

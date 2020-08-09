@@ -29,6 +29,11 @@ const Links = () => (
       </Link>
     </li>
     <li>
+      <Link href="/disableGooglebot">
+        <a>Disabled Googlebot</a>
+      </Link>
+    </li>
+    <li>
       <Link href="/jsonld">
         <a>All JSON-LD</a>
       </Link>

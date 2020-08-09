@@ -6,10 +6,13 @@ import SEO from '../next-seo.config';
 
 export default class MyApp extends App {
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, router } = this.props;
     return (
       <Container>
-        <DefaultSeo {...SEO} />
+        <DefaultSeo
+          {...SEO}
+          disableGooglebot={router.pathname === '/disableGooglebot'}
+        />
         <Component {...pageProps} />
       </Container>
     );

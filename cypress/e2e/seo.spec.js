@@ -228,6 +228,17 @@ describe('SEO Meta', () => {
     );
   });
 
+  it('SEO disableGooglebot overrides tag correctly', () => {
+    cy.visit('http://localhost:3000/disableGooglebot');
+    cy.get('h1').should('contain', 'Disabled googlebot tag');
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'index,follow',
+    );
+    cy.get('head meta[name="googlebot"]').should('not.exist');
+  });
+
   it('Profile SEO loads correctly', () => {
     cy.visit('http://localhost:3000/profile');
     cy.get('h1').should('contain', 'Profile Page SEO');

@@ -53,22 +53,26 @@ const buildTags = (config: BuildTagsParams) => {
         }`}
       />,
     );
-    tagsToRender.push(
-      <meta
-        key="googlebot"
-        name="googlebot"
-        content={`${noindex ? 'noindex' : 'index'},${
-          nofollow ? 'nofollow' : 'follow'
-        }`}
-      />,
-    );
+    if (!config.disableGooglebot) {
+      tagsToRender.push(
+        <meta
+          key="googlebot"
+          name="googlebot"
+          content={`${noindex ? 'noindex' : 'index'},${
+            nofollow ? 'nofollow' : 'follow'
+          }`}
+        />,
+      );
+    }
   } else {
     tagsToRender.push(
       <meta key="robots" name="robots" content="index,follow" />,
     );
-    tagsToRender.push(
-      <meta key="googlebot" name="googlebot" content="index,follow" />,
-    );
+    if (!config.disableGooglebot) {
+      tagsToRender.push(
+        <meta key="googlebot" name="googlebot" content="index,follow" />,
+      );
+    }
   }
 
   if (config.description) {
