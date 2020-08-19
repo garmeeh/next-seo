@@ -4,8 +4,11 @@ import Links from '../components/links';
 
 export default () => (
   <>
-    <NextSeo doNotRenderDefaultRobotsTags={true} />
-    <h1>Don't render default robots tags</h1>
+    <NextSeo
+      title="Do not render default robots tags title"
+      doNotRenderDefaultRobotsTags={true}
+    />
+    <h1>Do not render default robots tags</h1>
     <Links />
   </>
 );

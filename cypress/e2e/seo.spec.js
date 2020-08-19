@@ -728,4 +728,15 @@ describe('SEO Meta', () => {
       'summary_large_image',
     );
   });
+
+  it('No default robots tags loads correctly', () => {
+    cy.visit('http://localhost:3000/nodefaultrobotstags');
+    cy.get('h1').should('contain', 'Do not render default robots tags');
+    cy.get('head title').should(
+      'contain',
+      'Do not render default robots tags title | Next SEO',
+    );
+    cy.get('head meta[name="robots"]').should('not.exist');
+    cy.get('head meta[name="googlebot"]').should('not.exist');
+  });
 });

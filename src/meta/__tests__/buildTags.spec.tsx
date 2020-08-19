@@ -276,6 +276,20 @@ it('correctly sets noindex, nofollow', () => {
   expect(Array.from(noindexnofollow).length).toBe(2);
 });
 
+it('correctly skips robots tags', () => {
+  const overrideProps = {
+    ...SEO,
+    doNotRenderDefaultRobotsTags: true,
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+  const robots = container.querySelectorAll('meta[name="robots"]');
+  const googlebot = container.querySelectorAll('meta[name="googlebot"]');
+
+  expect(Array.from(robots).length).toBe(0);
+  expect(Array.from(googlebot).length).toBe(0);
+});
+
 it('displays title with titleTemplate integrated', () => {
   const template = 'Next SEO';
   const overrideProps = {
