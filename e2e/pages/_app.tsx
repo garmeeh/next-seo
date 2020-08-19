@@ -9,13 +9,7 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <Container>
-        <DefaultSeo
-          {...{
-            ...SEO,
-            doNotRenderDefaultRobotsTags: true,
-            description: 'foooo',
-          }}
-        />
+        <DefaultSeo {...SEO} />
         <Component {...pageProps} />
       </Container>
     );

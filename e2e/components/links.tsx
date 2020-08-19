@@ -33,6 +33,11 @@ const Links = () => (
         <a>All JSON-LD</a>
       </Link>
     </li>
+    <li>
+      <Link href="/nodefaultrobotstags">
+        <a>Don't render default robots tags</a>
+      </Link>
+    </li>
   </ul>
 );
 
