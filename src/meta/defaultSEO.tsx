@@ -23,6 +23,7 @@ export default class extends Component<DefaultSeoProps, {}> {
       defaultOpenGraphVideoHeight,
       mobileAlternate,
       languageAlternates,
+      doNotRenderDefaultRobotsTags,
     } = this.props;
 
     return (
@@ -44,6 +45,7 @@ export default class extends Component<DefaultSeoProps, {}> {
           defaultOpenGraphVideoHeight,
           mobileAlternate,
           languageAlternates,
+          doNotRenderDefaultRobotsTags,
         })}
       </Head>
     );

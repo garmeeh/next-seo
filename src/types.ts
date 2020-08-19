@@ -121,6 +121,7 @@ export interface NextSeoProps {
   facebook?: { appId: string };
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
+  doNotRenderDefaultRobotsTags?: boolean;
 }
 
 export interface DefaultSeoProps extends NextSeoProps {

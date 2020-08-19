@@ -62,7 +62,7 @@ const buildTags = (config: BuildTagsParams) => {
         }`}
       />,
     );
-  } else {
+  } else if (!config.doNotRenderDefaultRobotsTags) {
     tagsToRender.push(
       <meta key="robots" name="robots" content="index,follow" />,
     );

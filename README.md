@@ -236,6 +236,7 @@ From now on all of your pages will have the defaults above applied.
 | `title`                            | string                  | Set the meta title of the page                                                                                                                                                       |
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
 | `nofollow`                         | boolean (default false) | Sets whether page should be followed or not [More Info](#no-follow)                                                                                                                  |
+| `doNotRenderDefaultRobotsTags`     | boolean (default false) | Sets whether default (i.e. `index, follow`) meta tags for `robots` and `googlebot` should be added to the page                                                                       |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                        |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                           |
 | `mobileAlternate.media`            | string                  | Set what screen size the mobile website should be served from                                                                                                                        |
@@ -290,6 +291,8 @@ titleTemplate = '%s | Next SEO';
 Setting this to `true` will set `noindex,follow` (to set `nofollow`, please refer to [`nofollow`](#noFollow)). This works on a page by page basis. This property works in tandem with the `nofollow` property and together they populate the `robots` and `googlebot` meta tags.
 
 **Note:** The `noindex` and the [`nofollow`](#noFollow) properties are a little different than all the others in the sense that setting them as a default does not work as expected. This is due to the fact Next SEO already has a default of `index,follow` because `next-seo` is a SEO plugin after all. So if you want to globally these properties, please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToNoFollow](#dangerouslySetAllPagesToNoFollow).
+
+To avoid `next-seo` adding the default tags to the page, set the `doNotRenderDefaultRobotsTags` config option to `true`.
 
 **Example No Index on a single page:**
 
