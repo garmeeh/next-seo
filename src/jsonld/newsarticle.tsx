@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
+import minifyJsonLd from '../utils/minifyJsonLd';
 
 export interface NewsArticleJsonLdProps {
   url: string;
@@ -46,7 +47,7 @@ const NewsArticleJsonLd: FC<NewsArticleJsonLdProps> = ({
       ${images.map(image => `"${image}"`)}
      ],
     "articleSection":"${section}",
-    "keywords": "${keywords}",    
+    "keywords": "${keywords}",
     "datePublished": "${datePublished}",
     "dateCreated": "${dateCreated || datePublished}",
     "dateModified": "${dateModified || datePublished}",
@@ -70,7 +71,7 @@ const NewsArticleJsonLd: FC<NewsArticleJsonLdProps> = ({
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
+        dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
         key="jsonld-newsarticle"
       />
     </Head>
