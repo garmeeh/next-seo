@@ -1349,14 +1349,14 @@
     figures "^1.7.0"
 
 "@cypress/schema-tools@^4.7.1":
-  version "4.7.4"
-  resolved "https://registry.yarnpkg.com/@cypress/schema-tools/-/schema-tools-4.7.4.tgz#900af79e9d66da7b3acd7bfea8894ac0d0c9103d"
-  integrity sha512-Dz2KKwV9Wok1jzSLOhS9eGla11sWT3qF2L4t64QlmtPoiXfQr+y89j16y5PQni+N5a1KJDGKBqUDqFqFlfoYCg==
+  version "4.7.5"
+  resolved "https://registry.yarnpkg.com/@cypress/schema-tools/-/schema-tools-4.7.5.tgz#f9ed612876b649eeed253285bd68d3772785a470"
+  integrity sha512-EY8144iTpGd+GKrRaN5gx6YLuyk2L7vjDmLHRZxubHmfENq/bhvXjpatUn0Q4rbeYgU7Mjgy0AIGenX36cQvtA==
   dependencies:
     "@bahmutov/all-paths" "1.0.2"
     "@bahmutov/is-my-json-valid" "2.17.3"
     "@types/ramda" "0.25.47"
-    debug "4.1.1"
+    debug "4.2.0"
     json-stable-stringify "1.0.1"
     json2md "1.6.3"
     lodash.camelcase "4.3.0"
@@ -3693,12 +3693,12 @@ debug@3.2.6, debug@^3.1.0:
   dependencies:
     ms "^2.1.1"
 
-debug@4, debug@4.1.1, debug@^4.1.0, debug@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
-  integrity sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
+debug@4, debug@4.2.0, debug@^4.1.0, debug@^4.1.1:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.2.0.tgz#7f150f93920e94c58f5574c2fd01a3110effe7f1"
+  integrity sha512-IX2ncY78vDTjZMFUdmsvIRFY2Cf4FnD0wRs+nQwJU8Lu99/tPFdb0VybiiMTPe3I6rQmwsqQqRBvxU+bZ/I8sg==
   dependencies:
-    ms "^2.1.1"
+    ms "2.1.2"
 
 decamelize@^1.2.0:
   version "1.2.0"
@@ -6714,7 +6714,7 @@ ms@2.0.0:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
 
-ms@^2.1.1:
+ms@2.1.2, ms@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
