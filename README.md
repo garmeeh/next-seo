@@ -1440,6 +1440,23 @@ Valid values fro `offers.availability`:
 - https://schema.org/PreSale
 - https://schema.org/SoldOut
 
+The property `aggregateOffer` is also available:
+(It is ignored if `offers` is set)
+
+**Required properties**
+
+| Property        | Info                                                                              |
+| --------------- | --------------------------------------------------------------------------------- |
+| `lowPrice`      | The lowest price of all offers available. Use a floating point number.            |
+| `priceCurrency` | The currency used to describe the product price, in three-letter ISO 4217 format. |
+
+**Recommended properties**
+
+| Property     | Info                                                                    |
+| ------------ | ----------------------------------------------------------------------- |
+| `highPrice`  | The highest price of all offers available. Use a floating point number. |
+| `offerCount` | The number of offers for the product.                                   |
+
 More info on the product data type can be found [here](https://developers.google.com/search/docs/data-types/product).
 
 ### Social Profile
