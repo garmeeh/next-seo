@@ -236,6 +236,16 @@
         "code",
         "infra"
       ]
+    },
+    {
+      "login": "pueyo5",
+      "name": "Albert Pueyo",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/8959368?v=4",
+      "profile": "https://github.com/pueyo5",
+      "contributions": [
+        "doc",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
