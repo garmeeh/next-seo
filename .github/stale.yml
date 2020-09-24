@@ -8,3 +8,5 @@ exemptLabels:
   - "feature request"
 # Comment to post when closing a stale issue. Set to `false` to disable
 closeComment: false
+# Limit to only `issues` or `pulls`
+only: issues

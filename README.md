@@ -1440,6 +1440,23 @@ Valid values fro `offers.availability`:
 - https://schema.org/PreSale
 - https://schema.org/SoldOut
 
+The property `aggregateOffer` is also available:
+(It is ignored if `offers` is set)
+
+**Required properties**
+
+| Property        | Info                                                                              |
+| --------------- | --------------------------------------------------------------------------------- |
+| `lowPrice`      | The lowest price of all offers available. Use a floating point number.            |
+| `priceCurrency` | The currency used to describe the product price, in three-letter ISO 4217 format. |
+
+**Recommended properties**
+
+| Property     | Info                                                                    |
+| ------------ | ----------------------------------------------------------------------- |
+| `highPrice`  | The highest price of all offers available. Use a floating point number. |
+| `offerCount` | The number of offers for the product.                                   |
+
 More info on the product data type can be found [here](https://developers.google.com/search/docs/data-types/product).
 
 ### Social Profile
@@ -1608,6 +1625,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
   </tr>
   <tr>
     <td align="center"><a href="https://lukejones.co"><img src="https://avatars0.githubusercontent.com/u/6657011?v=4" width="100px;" alt=""/><br /><sub><b>Luke Jones</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=luke-j" title="Code">💻</a> <a href="#infra-luke-j" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    <td align="center"><a href="https://github.com/pueyo5"><img src="https://avatars1.githubusercontent.com/u/8959368?v=4" width="100px;" alt=""/><br /><sub><b>Albert Pueyo</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=pueyo5" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=pueyo5" title="Code">💻</a></td>
   </tr>
 </table>
 
