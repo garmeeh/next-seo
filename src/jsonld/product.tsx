@@ -42,6 +42,13 @@ type Offers = {
   };
 };
 
+type AggregateOffer = {
+  priceCurrency: string;
+  lowPrice: string;
+  highPrice?: string;
+  offerCount?: string;
+};
+
 type AggregateRating = {
   ratingValue: string;
   reviewCount: string;
@@ -54,7 +61,8 @@ export interface ProductJsonLdProps {
   brand?: string;
   reviews?: Review[];
   aggregateRating?: AggregateRating;
-  offers: Offers | Offers[];
+  offers?: Offers | Offers[];
+  aggregateOffer?: AggregateOffer;
   sku?: string;
   gtin8?: string;
   gtin13?: string;
@@ -147,6 +155,16 @@ const buildOffers = (offers: Offers) => `
   }
 `;
 
+const buildAggregateOffer = (offer: AggregateOffer) => `
+  {
+    "@type": "AggregateOffer",
+    "priceCurrency": "${offer.priceCurrency}",
+    ${offer.highPrice ? `"highPrice": "${offer.highPrice}",` : ''}
+    ${offer.offerCount ? `"offerCount": "${offer.offerCount}",` : ''}
+    "lowPrice": "${offer.lowPrice}"
+  }
+`;
+
 const ProductJsonLd: FC<ProductJsonLdProps> = ({
   productName,
   images = [],
@@ -160,6 +178,7 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
   reviews = [],
   aggregateRating,
   offers,
+  aggregateOffer,
 }) => {
   const jslonld = `{
     "@context": "http://schema.org/",
@@ -181,6 +200,11 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
               ? `[${offers.map(offer => `${buildOffers(offer)}`)}]`
               : buildOffers(offers)
           },`
+        : ''
+    }
+    ${
+      aggregateOffer && !offers
+        ? `"offers": ${buildAggregateOffer(aggregateOffer)},`
         : ''
     }
     "name": "${productName}"
