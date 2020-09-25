@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
+import minifyJsonLd from '../utils/minifyJsonLd';
 
 export interface HiringOrganization {
   name: string;
@@ -83,7 +84,7 @@ const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
       "name" : "${hiringOrganization.name}",
       "sameAs" : "${hiringOrganization.sameAs}"
     },
-    
+
     "jobLocation": {
       "@type": "Place",
       "address": {
@@ -112,7 +113,7 @@ const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
+        dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
         key="jsonld-jobPosting"
       />
     </Head>
