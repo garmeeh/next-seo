@@ -85,13 +85,18 @@ const hiringOrganization100 = {
         type: 'string',
         description: 'url',
       },
+      logo: {
+        type: 'string',
+        description: 'logo of the organization',
+      },
     },
     required: true,
     additionalProperties: false,
     example: {
       '@type': 'Organization',
       name: 'maespirit',
-      sameAs: 'www.maespirit.fr',
+      sameAs: 'http://www.maespirit.fr',
+      logo: 'http://www.maespirit.fr/images/logo.png',
     },
   },
 };
