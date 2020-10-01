@@ -27,14 +27,14 @@ type OpeningHoursSpecification = {
 
 export interface LocalBusinessJsonLdProps {
   type: string;
-  id: string;
+  id?: string;
   name: string;
   description: string;
   url?: string;
   telephone?: string;
   address: Address;
   geo?: Geo;
-  images: string[];
+  images?: string[];
   rating?: Rating;
   priceRange?: string;
   sameAs?: string[];
@@ -94,7 +94,7 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   const jslonld = `{
     "@context": "http://schema.org",
     "@type": "${type}",
-    "@id": "${id}",
+    ${id ? `"@id": "${id}",` : ''}
     ${description ? `"description": "${description}",` : ''}
     ${url ? `"url": "${url}",` : ''}
     ${telephone ? `"telephone": "${telephone}",` : ''}
@@ -102,7 +102,7 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
     ${geo ? `${buildGeo(geo)}` : ''}
     ${rating ? `${buildRating(rating)}` : ''}
     ${priceRange ? `"priceRange": "${priceRange}",` : ''}
-    "image":${formatIfArray(images)},
+    ${images ? `"image":${formatIfArray(images)},` : ''}
     ${sameAs ? `"sameAs": [${sameAs.map(url => `"${url}"`)}],` : ''}
     ${
       openingHours
