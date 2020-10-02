@@ -399,10 +399,10 @@ mobileAlternate={{
 ```
 
 ```jsx
-languageAlternate={{
+languageAlternates={[{
   hrefLang: 'de-AT',
   href: 'https://www.canonical.ie/de',
-}}
+}]}
 ```
 
 #### Additional Meta Tags
