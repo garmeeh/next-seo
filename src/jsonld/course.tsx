@@ -5,6 +5,7 @@ import markup from '../utils/markup';
 import minifyJsonLd from '../utils/minifyJsonLd';
 
 export interface CourseJsonLdProps {
+  keyOverride?: string;
   courseName: string;
   description: string;
   providerName: string;
@@ -12,6 +13,7 @@ export interface CourseJsonLdProps {
 }
 
 const CourseJsonLd: FC<CourseJsonLdProps> = ({
+  keyOverride,
   courseName,
   description,
   providerName,
@@ -38,7 +40,7 @@ const CourseJsonLd: FC<CourseJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
-        key="jsonld-course"
+        key={`jsonld-course${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>
   );

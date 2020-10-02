@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 15;
+const expectedJSONResults = 16;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -9,15 +9,16 @@ const blogLdJsonIndex = 2;
 const courseLdJsonIndex = 3;
 const localBusinessLdJsonIndex = 4;
 const logoLdJsonIndex = 5;
-const productLdJsonIndex = 6;
-const socialProfileLdJsonIndex = 7;
-const corporateContactIndex = 8;
-const newsarticleLdJsonIndex = 9;
-const faqPageLdJsonIndex = 10;
-const jobPostingLdJsonIndex = 11;
-const eventLdJsonIndex = 12;
-const datasetLdJsonIndex = 13;
-const recipeLdJsonIndex = 14;
+const logoLdSecondJsonIndex = 6;
+const productLdJsonIndex = 7;
+const socialProfileLdJsonIndex = 8;
+const corporateContactIndex = 9;
+const newsarticleLdJsonIndex = 10;
+const faqPageLdJsonIndex = 11;
+const jobPostingLdJsonIndex = 12;
+const eventLdJsonIndex = 13;
+const datasetLdJsonIndex = 14;
+const recipeLdJsonIndex = 15;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -279,18 +280,13 @@ describe('Validates JSON-LD For:', () => {
       });
   });
 
-  it('Logo Matches', () => {
+  it('Second Logo', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[logoLdJsonIndex].innerHTML);
-        expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org',
-          '@type': 'Organization',
-          url: 'http://www.your-site.com',
-          logo: 'http://www.your-site.com/images/logo.jpg',
-        });
+        const jsonLD = JSON.parse(tags[logoLdSecondJsonIndex].innerHTML);
+        assertSchema(schemas)('Logo', '1.0.0')(jsonLD);
       });
   });
 

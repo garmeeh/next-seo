@@ -40,6 +40,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
     - [Book](#book)
     - [Profile](#profile)
 - [JSON-LD](#json-ld)
+  - [Handling multiple instances...](#handling-multiple-instances)
   - [Article](#article-1)
   - [Breadcrumb](#breadcrumb)
   - [Blog](#blog)
@@ -256,7 +257,7 @@ From now on all of your pages will have the defaults above applied.
 | `openGraph.site_name`              | string                  | If your object is part of a larger web site, the name which should be displayed for the overall site.                                                                                |
 | `openGraph.profile.firstName`      | string                  | Person's first name.                                                                                                                                                                 |
 | `openGraph.profile.lastName`       | string                  | Person's last name.                                                                                                                                                                  |
-| `openGraph.profile.username`       | string                  | Person's username.                                                                                                                                                                    |
+| `openGraph.profile.username`       | string                  | Person's username.                                                                                                                                                                   |
 | `openGraph.profile.gender`         | string                  | Person's gender.                                                                                                                                                                     |
 | `openGraph.book.authors`           | string[]                | Writers of the article. [See Examples](#open-graph-examples)                                                                                                                         |
 | `openGraph.book.isbn`              | string                  | The [ISBN](https://en.wikipedia.org/wiki/International_Standard_Book_Number)                                                                                                         |
@@ -826,7 +827,19 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Social Profile](#social-profile)
 - [News Article](#news-article)
 
-More to follow very, very soon!
+Pull request very welcome to add any from the list [found on here](https://developers.google.com/search/docs/data-types/article)
+
+#### Handling multiple instances...
+
+If your page requires multiple instances of a given JSON-LD component, you can specify unique `keyOverride` properties, and `next-seo` will handle the rest.
+
+This comes in handy for blog rolls, search results, and overview pages.
+
+Please fully research when you should and shouldn't add multiple instances of JSON-LD.
+
+```jsx
+<ExampleJsonLd keyOverride="my-new-key" />
+```
 
 ### Article
 
@@ -1636,6 +1649,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
