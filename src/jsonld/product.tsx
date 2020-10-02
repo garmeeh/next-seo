@@ -55,6 +55,7 @@ type AggregateRating = {
 };
 
 export interface ProductJsonLdProps {
+  keyOverride?: string;
   productName: string;
   images?: string[];
   description?: string;
@@ -166,6 +167,7 @@ const buildAggregateOffer = (offer: AggregateOffer) => `
 `;
 
 const ProductJsonLd: FC<ProductJsonLdProps> = ({
+  keyOverride,
   productName,
   images = [],
   description,
@@ -215,7 +217,7 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
-        key="jsonld-product"
+        key={`jsonld-product${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>
   );

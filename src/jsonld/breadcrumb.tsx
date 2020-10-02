@@ -10,10 +10,12 @@ export interface ItemListElements {
   position: number;
 }
 export interface BreadCrumbJsonLdProps {
+  keyOverride?: string;
   itemListElements: ItemListElements[];
 }
 
 const BreadCrumbJsonLd: FC<BreadCrumbJsonLdProps> = ({
+  keyOverride,
   itemListElements = [],
 }) => {
   const jslonld = `{
@@ -38,7 +40,7 @@ const BreadCrumbJsonLd: FC<BreadCrumbJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
-        key="jsonld-breadcrumb"
+        key={`jsonld-breadcrumb${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>
   );

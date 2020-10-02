@@ -5,6 +5,7 @@ import markup from '../utils/markup';
 import minifyJsonLd from '../utils/minifyJsonLd';
 
 export interface NewsArticleJsonLdProps {
+  keyOverride?: string;
   url: string;
   title: string;
   images: ReadonlyArray<string>;
@@ -21,6 +22,7 @@ export interface NewsArticleJsonLdProps {
 }
 
 const NewsArticleJsonLd: FC<NewsArticleJsonLdProps> = ({
+  keyOverride,
   url,
   title,
   images = [],
@@ -72,7 +74,7 @@ const NewsArticleJsonLd: FC<NewsArticleJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
-        key="jsonld-newsarticle"
+        key={`jsonld-newsarticle${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>
   );

@@ -134,7 +134,13 @@ export default () => (
 
     <LogoJsonLd
       logo="http://www.your-site.com/images/logo.jpg"
-      url="http://www.your-site.com"
+      url="http://www.and-this-one.com"
+    />
+
+    <LogoJsonLd
+      logo="http://www.your-site.com/images/logo.jpg"
+      url="http://www.check-override-of-key.com"
+      keyOverride="check-override-of-key"
     />
 
     <ProductJsonLd

@@ -5,11 +5,12 @@ import markup from '../utils/markup';
 import minifyJsonLd from '../utils/minifyJsonLd';
 
 export interface LogoJsonLdProps {
+  keyOverride?: string;
   logo: string;
   url: string;
 }
 
-const LogoJsonLd: FC<LogoJsonLdProps> = ({ url, logo }) => {
+const LogoJsonLd: FC<LogoJsonLdProps> = ({ keyOverride, url, logo }) => {
   const jslonld = `{
     "@context": "http://schema.org",
     "@type": "Organization",
@@ -22,7 +23,7 @@ const LogoJsonLd: FC<LogoJsonLdProps> = ({ url, logo }) => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
-        key="jsonld-logo"
+        key={`jsonld-logo${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>
   );

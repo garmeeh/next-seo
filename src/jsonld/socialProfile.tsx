@@ -5,6 +5,7 @@ import markup from '../utils/markup';
 import minifyJsonLd from '../utils/minifyJsonLd';
 
 export interface SocialProfileJsonLdProps {
+  keyOverride?: string;
   type: string;
   name: string;
   url: string;
@@ -12,6 +13,7 @@ export interface SocialProfileJsonLdProps {
 }
 
 const SocialProfileJsonLd: FC<SocialProfileJsonLdProps> = ({
+  keyOverride,
   type,
   name,
   url,
@@ -32,7 +34,7 @@ const SocialProfileJsonLd: FC<SocialProfileJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
-        key="jsonld-social"
+        key={`jsonld-social${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>
   );

@@ -26,6 +26,7 @@ type OpeningHoursSpecification = {
 };
 
 export interface LocalBusinessJsonLdProps {
+  keyOverride?: string;
   type: string;
   id: string;
   name: string;
@@ -77,6 +78,7 @@ const buildOpeningHours = (openingHours: OpeningHoursSpecification) => `
 `;
 
 const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
+  keyOverride,
   type,
   id,
   name,
@@ -121,7 +123,7 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
-        key="jsonld-local-business"
+        key={`jsonld-local-business${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>
   );
