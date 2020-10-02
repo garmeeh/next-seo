@@ -27,7 +27,7 @@ type OpeningHoursSpecification = {
 
 export interface LocalBusinessJsonLdProps {
   type: string;
-  id?: string;
+  id: string;
   name: string;
   description: string;
   url?: string;
