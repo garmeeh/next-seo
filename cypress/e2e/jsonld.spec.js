@@ -596,7 +596,8 @@ describe('Validates JSON-LD For:', () => {
           hiringOrganization: {
             '@type': 'Organization',
             name: 'company name',
-            sameAs: 'www.company-website-url.dev',
+            sameAs: 'http://www.company-website-url.dev',
+            logo: 'http://www.company-website-url.dev/images/logo.png',
           },
 
           jobLocation: {

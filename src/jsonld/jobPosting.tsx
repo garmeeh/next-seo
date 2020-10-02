@@ -7,6 +7,7 @@ import minifyJsonLd from '../utils/minifyJsonLd';
 export interface HiringOrganization {
   name: string;
   sameAs: string;
+  logo?: string;
 }
 
 export interface Place {
@@ -83,6 +84,7 @@ const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
       "@type" : "Organization",
       "name" : "${hiringOrganization.name}",
       "sameAs" : "${hiringOrganization.sameAs}"
+      ${hiringOrganization.logo ? `,"logo": "${hiringOrganization.logo}"` : ''}
     },
 
     "jobLocation": {
