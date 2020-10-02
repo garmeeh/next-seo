@@ -566,7 +566,6 @@ describe('Validates JSON-LD For:', () => {
       .should('have.length', expectedJSONResults)
       .then(tags => {
         const jsonLD = JSON.parse(tags[jobPostingLdJsonIndex].innerHTML);
-        console.log(jsonLD);
         assertSchema(schemas)('Job Posting', '1.0.0')(jsonLD);
       });
   });
