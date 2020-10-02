@@ -464,7 +464,7 @@ it will result in this being rendered:
 
 ## Open Graph
 
-For the full specification please check out http://ogp.me/
+For the full specification please check out <http://ogp.me/>
 
 Next SEO currently supports:
 
@@ -1323,7 +1323,7 @@ Local business is supported with a sub-set of properties.
 
 **NOTE:**
 
-Images are required for most of the types that you can use for `LocalBusiness`, if in doubt you should add an image. You can check your generated JSON over at Google's [Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool)
+Images are recommended for most of the types that you can use for `LocalBusiness`, if in doubt you should add an image. You can check your generated JSON over at Google's [Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool)
 
 ### Logo
 
@@ -1424,22 +1424,22 @@ Also available: `sku`, `gtin8`, `gtin13`, `gtin14`.
 
 Valid values for `offers.itemCondition`:
 
-- https://schema.org/DamagedCondition
-- https://schema.org/NewCondition
-- https://schema.org/RefurbishedCondition
-- https://schema.org/UsedCondition
+- <https://schema.org/DamagedCondition>
+- <https://schema.org/NewCondition>
+- <https://schema.org/RefurbishedCondition>
+- <https://schema.org/UsedCondition>
 
 Valid values fro `offers.availability`:
 
-- https://schema.org/Discontinued
-- https://schema.org/InStock
-- https://schema.org/InStoreOnly
-- https://schema.org/LimitedAvailability
-- https://schema.org/OnlineOnly
-- https://schema.org/OutOfStock
-- https://schema.org/PreOrder
-- https://schema.org/PreSale
-- https://schema.org/SoldOut
+- <https://schema.org/Discontinued>
+- <https://schema.org/InStock>
+- <https://schema.org/InStoreOnly>
+- <https://schema.org/LimitedAvailability>
+- <https://schema.org/OnlineOnly>
+- <https://schema.org/OutOfStock>
+- <https://schema.org/PreOrder>
+- <https://schema.org/PreSale>
+- <https://schema.org/SoldOut>
 
 The property `aggregateOffer` is also available:
 (It is ignored if `offers` is set)
