@@ -275,6 +275,16 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "gtodd876",
+      "name": "Todd Matthews",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/28220658?v=4",
+      "profile": "https://github.com/gtodd876",
+      "contributions": [
+        "doc",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
