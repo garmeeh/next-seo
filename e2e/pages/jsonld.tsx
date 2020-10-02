@@ -279,7 +279,8 @@ export default () => (
       description="Company is looking for a software developer...."
       hiringOrganization={{
         name: 'company name',
-        sameAs: 'www.company-website-url.dev',
+        sameAs: 'http://www.company-website-url.dev',
+        logo: 'http://www.company-website-url.dev/images/logo.png',
       }}
       jobLocation={{
         streetAddress: '17 street address',
