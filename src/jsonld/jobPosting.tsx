@@ -84,7 +84,7 @@ const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
       "@type" : "Organization",
       "name" : "${hiringOrganization.name}",
       "sameAs" : "${hiringOrganization.sameAs}",
-      ${hiringOrganization.logo ? `"logo": "${hiringOrganization.logo}"` : ''}
+      ${hiringOrganization.logo ? `,"logo": "${hiringOrganization.logo}"` : ''}
     },
 
     "jobLocation": {
