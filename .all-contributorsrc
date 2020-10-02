@@ -264,6 +264,17 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "kahoowkh",
+      "name": "kahoowkh",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/26565078?v=4",
+      "profile": "https://github.com/kahoowkh",
+      "contributions": [
+        "doc",
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
