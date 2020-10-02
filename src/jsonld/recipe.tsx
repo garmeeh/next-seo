@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
+import minifyJsonLd from '../utils/minifyJsonLd';
 
 type AggregateRating = {
   ratingValue: string;
@@ -148,7 +149,7 @@ const RecipeJsonLd: FC<RecipeJsonLdProps> = ({
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
+        dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
         key="jsonld-recipe"
       />
     </Head>

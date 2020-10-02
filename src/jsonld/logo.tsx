@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
+import minifyJsonLd from '../utils/minifyJsonLd';
 
 export interface LogoJsonLdProps {
   logo: string;
@@ -20,7 +21,7 @@ const LogoJsonLd: FC<LogoJsonLdProps> = ({ url, logo }) => {
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
+        dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
         key="jsonld-logo"
       />
     </Head>

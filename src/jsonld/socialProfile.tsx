@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
+import minifyJsonLd from '../utils/minifyJsonLd';
 
 export interface SocialProfileJsonLdProps {
   type: string;
@@ -30,7 +31,7 @@ const SocialProfileJsonLd: FC<SocialProfileJsonLdProps> = ({
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
+        dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
         key="jsonld-social"
       />
     </Head>

@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 import formatIfArray from '../utils/formatIfArray';
+import minifyJsonLd from '../utils/minifyJsonLd';
 
 type ReviewRating = {
   bestRating?: string;
@@ -213,7 +214,7 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
+        dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
         key="jsonld-product"
       />
     </Head>
