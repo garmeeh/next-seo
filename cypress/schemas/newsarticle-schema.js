@@ -35,7 +35,7 @@ const author100 = {
     patch: 0,
   },
   schema: {
-    type: 'object',
+    type: ['object', 'array'],
     description: 'Author',
     properties: {
       '@type': {

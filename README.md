@@ -860,7 +860,7 @@ export default () => (
       ]}
       datePublished="2015-02-05T08:00:00+08:00"
       dateModified="2015-02-05T09:00:00+08:00"
-      authorName="Jane Blogs"
+      authorName={['Jane Blogs', 'Mary Stone']}
       publisherName="Gary Meehan"
       publisherLogo="https://www.example.com/photos/logo.jpg"
       description="This is a mighty good description of this article."
@@ -954,7 +954,7 @@ export default () => (
       name="Party Coffee Cake"
       description="This coffee cake is awesome and perfect for parties."
       datePublished="2018-03-10"
-      authorName="Mary Stone"
+      authorName={['Jane Blogs', 'Mary Stone']}
       prepTime="PT20M"
       cookTime="PT30M"
       totalTime="PT50M"
@@ -1012,15 +1012,15 @@ export default () => (
 
 **Required properties**
 
-| Property            | Info                                    |
-| ------------------- | --------------------------------------- |
-| `name`              | The name of the recipe                  |
-| `description`       | A description of the recipe             |
-| `authorName`        | The name of the recipe author           |
-| `ingredients`       | A list of ingredient strings            |
-| `instructions`      | -                                       |
-| `instructions.name` | The name of the instruction step.       |
-| `instructions.text` | The directions of the instruction step. |
+| Property            | Info                                                                |
+| ------------------- | ------------------------------------------------------------------- |
+| `name`              | The name of the recipe                                              |
+| `description`       | A description of the recipe                                         |
+| `authorName`        | The name of the recipe author. Can be a string or array of strings. |
+| `ingredients`       | A list of ingredient strings                                        |
+| `instructions`      | -                                                                   |
+| `instructions.name` | The name of the instruction step.                                   |
+| `instructions.text` | The directions of the instruction step.                             |
 
 ### Course
 
