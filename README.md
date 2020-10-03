@@ -88,7 +88,7 @@ Then you need to import `NextSeo` and add the desired properties. This will rend
 import React from 'react';
 import { NextSeo } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <NextSeo
       title="Simple Usage Example"
@@ -97,6 +97,8 @@ export default () => (
     <p>Simple Usage</p>
   </>
 );
+
+export default Page;
 ```
 
 But `NextSeo` gives you many more options that you can add. See below for a typical example of a page.
@@ -107,7 +109,7 @@ But `NextSeo` gives you many more options that you can add. See below for a typi
 import React from 'react';
 import { NextSeo } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <NextSeo
       title="Using More of Config"
@@ -144,6 +146,8 @@ export default () => (
     <p>SEO Added to Page</p>
   </>
 );
+
+export default Page;
 ```
 
 **A note on Twitter Tags**
@@ -300,12 +304,14 @@ If you have a single page that you want no indexed you can achieve this by:
 import React from 'react';
 import { NextSeo } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <NextSeo noindex={true} />
     <p>This page is no indexed</p>
   </>
 );
+
+export default Page;
 
 /*
 <meta name="robots" content="noindex,follow">
@@ -333,12 +339,14 @@ If you have a single page that you want no indexed you can achieve this by:
 import React from 'react';
 import { NextSeo } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <NextSeo nofollow={true} />
     <p>This page is not followed</p>
   </>
 );
+
+export default Page;
 
 /*
 <meta name="robots" content="index,nofollow">
@@ -483,7 +491,7 @@ Next SEO currently supports:
 import React from 'react';
 import { NextSeo } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <NextSeo
       openGraph={{
@@ -510,6 +518,8 @@ export default () => (
     <p>Basic</p>
   </>
 );
+
+export default Page;
 ```
 
 **Note**
@@ -539,7 +549,7 @@ Full info on [http://ogp.me/](http://ogp.me/#type_video)
 import React from 'react';
 import { NextSeo } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <NextSeo
       title="Video Page Title"
@@ -582,6 +592,8 @@ export default () => (
     <h1>Video Page SEO</h1>
   </>
 );
+
+export default Page;
 ```
 
 **Note**
@@ -609,7 +621,7 @@ Supplying multiple images will not break anything, but only one will be added to
 import React from 'react';
 import { NextSeo } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <NextSeo
       openGraph={{
@@ -641,6 +653,8 @@ export default () => (
     <p>Article</p>
   </>
 );
+
+export default Page;
 ```
 
 **Note**
@@ -684,7 +698,7 @@ Supplying multiple of any of the above will not break anything, but only one wil
 import React from 'react';
 import { NextSeo } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <NextSeo
       openGraph={{
@@ -714,6 +728,8 @@ export default () => (
     <p>Book</p>
   </>
 );
+
+export default Page;
 ```
 
 **Note**
@@ -757,7 +773,7 @@ Supplying multiple of any of the above will not break anything, but only one wil
 import React from 'react';
 import { NextSeo } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <NextSeo
       openGraph={{
@@ -784,6 +800,8 @@ export default () => (
     <p>Profile</p>
   </>
 );
+
+export default Page;
 ```
 
 **Note**
@@ -847,7 +865,7 @@ Please fully research when you should and shouldn't add multiple instances of JS
 import React from 'react';
 import { ArticleJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>Article JSON-LD</h1>
     <ArticleJsonLd
@@ -867,6 +885,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 ### Breadcrumb
@@ -875,7 +895,7 @@ export default () => (
 import React from 'react';
 import { BreadcrumbJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>Breadcrumb JSON-LD</h1>
     <BreadcrumbJsonLd
@@ -904,6 +924,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 **Required properties**
@@ -921,7 +943,7 @@ export default () => (
 import React from 'react';
 import { BlogJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>Blog JSON-LD</h1>
     <BlogJsonLd
@@ -939,6 +961,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 ### Recipe
@@ -947,7 +971,7 @@ export default () => (
 import React from 'react';
 import { RecipeJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>Recipe JSON-LD</h1>
     <RecipeJsonLd
@@ -1008,6 +1032,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 **Required properties**
@@ -1028,7 +1054,7 @@ export default () => (
 import React from 'react';
 import { CourseJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>Course JSON-LD</h1>
     <CourseJsonLd
@@ -1039,6 +1065,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 **Required properties**
@@ -1061,7 +1089,7 @@ export default () => (
 import React from 'react';
 import { DatasetJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>Dataset JSON-LD</h1>
     <DatasetJsonLd
@@ -1071,6 +1099,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 **Required properties**
@@ -1092,7 +1122,7 @@ export default () => (
 import React from 'react';
 import { CorporateContactJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>Corporate Contact JSON-LD</h1>
     <CorporateContactJsonLd
@@ -1122,6 +1152,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 **Required properties**
@@ -1147,7 +1179,7 @@ export default () => (
 import React from 'react';
 import { FAQPageJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>FAQ Page JSON-LD</h1>
     <FAQPageJsonLd
@@ -1164,6 +1196,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 **Required properties**
@@ -1180,7 +1214,7 @@ export default () => (
 import React from 'react';
 import { JobPostingJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>Job Posting JSON-LD</h1>
     <JobPostingJsonLd
@@ -1210,6 +1244,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 **Required properties**
@@ -1344,7 +1380,7 @@ Images are recommended for most of the types that you can use for `LocalBusiness
 import React from 'react';
 import { LogoJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>Logo JSON-LD</h1>
     <LogoJsonLd
@@ -1353,6 +1389,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 | Property | Info                                                                                                                                      |
@@ -1366,7 +1404,7 @@ export default () => (
 import React from 'react';
 import { ProductJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>Product JSON-LD</h1>
     <ProductJsonLd
@@ -1431,6 +1469,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 Also available: `sku`, `gtin8`, `gtin13`, `gtin14`.
@@ -1479,7 +1519,7 @@ More info on the product data type can be found [here](https://developers.google
 import React from 'react';
 import { SocialProfileJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>Social Profile JSON-LD</h1>
     <SocialProfileJsonLd
@@ -1495,6 +1535,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 **Required properties**
@@ -1525,7 +1567,7 @@ export default () => (
 import React from 'react';
 import { NewsArticleJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>News Article JSON-LD</h1>
     <NewsArticleJsonLd
@@ -1548,6 +1590,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 [Google Docs for Social Profile](https://developers.google.com/search/docs/data-types/social-profile)
@@ -1558,7 +1602,7 @@ export default () => (
 import React from 'react';
 import { EventJsonLd } from 'next-seo';
 
-export default () => (
+const Page = () => (
   <>
     <h1>Event JSON-LD</h1>
     <EventJsonLd
@@ -1582,6 +1626,8 @@ export default () => (
     />
   </>
 );
+
+export default Page;
 ```
 
 **Required properties**
