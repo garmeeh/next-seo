@@ -85,7 +85,6 @@ Then you need to import `NextSeo` and add the desired properties. This will rend
 **Example with just title and description:**
 
 ```jsx
-import React from 'react';
 import { NextSeo } from 'next-seo';
 
 const Page = () => (
@@ -106,7 +105,6 @@ But `NextSeo` gives you many more options that you can add. See below for a typi
 **Typical page example:**
 
 ```jsx
-import React from 'react';
 import { NextSeo } from 'next-seo';
 
 const Page = () => (
@@ -168,7 +166,6 @@ Here is a typical example:
 
 ```jsx
 import App, { Container } from 'next/app';
-import React from 'react';
 import { DefaultSeo } from 'next-seo';
 
 // import your default seo configuration
@@ -301,7 +298,6 @@ Setting this to `true` will set `noindex,follow` (to set `nofollow`, please refe
 If you have a single page that you want no indexed you can achieve this by:
 
 ```jsx
-import React from 'react';
 import { NextSeo } from 'next-seo';
 
 const Page = () => (
@@ -336,7 +332,6 @@ Setting this to `true` will set `index,nofollow` (to set `noindex`, please refer
 If you have a single page that you want no indexed you can achieve this by:
 
 ```jsx
-import React from 'react';
 import { NextSeo } from 'next-seo';
 
 const Page = () => (
@@ -488,7 +483,6 @@ Next SEO currently supports:
 #### Basic
 
 ```jsx
-import React from 'react';
 import { NextSeo } from 'next-seo';
 
 const Page = () => (
@@ -546,7 +540,6 @@ Supplying multiple images will not break anything, but only one will be added to
 Full info on [http://ogp.me/](http://ogp.me/#type_video)
 
 ```jsx
-import React from 'react';
 import { NextSeo } from 'next-seo';
 
 const Page = () => (
@@ -618,7 +611,6 @@ Supplying multiple images will not break anything, but only one will be added to
 #### Article
 
 ```jsx
-import React from 'react';
 import { NextSeo } from 'next-seo';
 
 const Page = () => (
@@ -695,7 +687,6 @@ Supplying multiple of any of the above will not break anything, but only one wil
 #### Book
 
 ```jsx
-import React from 'react';
 import { NextSeo } from 'next-seo';
 
 const Page = () => (
@@ -770,7 +761,6 @@ Supplying multiple of any of the above will not break anything, but only one wil
 #### Profile
 
 ```jsx
-import React from 'react';
 import { NextSeo } from 'next-seo';
 
 const Page = () => (
@@ -862,7 +852,6 @@ Please fully research when you should and shouldn't add multiple instances of JS
 ### Article
 
 ```jsx
-import React from 'react';
 import { ArticleJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -892,7 +881,6 @@ export default Page;
 ### Breadcrumb
 
 ```jsx
-import React from 'react';
 import { BreadcrumbJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -940,7 +928,6 @@ export default Page;
 ### Blog
 
 ```jsx
-import React from 'react';
 import { BlogJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -968,7 +955,6 @@ export default Page;
 ### Recipe
 
 ```jsx
-import React from 'react';
 import { RecipeJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -1051,7 +1037,6 @@ export default Page;
 ### Course
 
 ```jsx
-import React from 'react';
 import { CourseJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -1086,7 +1071,6 @@ export default Page;
 ### Dataset
 
 ```jsx
-import React from 'react';
 import { DatasetJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -1119,7 +1103,6 @@ export default Page;
 ### Corporate Contact
 
 ```jsx
-import React from 'react';
 import { CorporateContactJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -1176,7 +1159,6 @@ export default Page;
 ### FAQ Page
 
 ```jsx
-import React from 'react';
 import { FAQPageJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -1211,7 +1193,6 @@ export default Page;
 ### Job Posting
 
 ```jsx
-import React from 'react';
 import { JobPostingJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -1377,7 +1358,6 @@ Images are recommended for most of the types that you can use for `LocalBusiness
 ### Logo
 
 ```jsx
-import React from 'react';
 import { LogoJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -1401,7 +1381,6 @@ export default Page;
 ### Product
 
 ```jsx
-import React from 'react';
 import { ProductJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -1516,7 +1495,6 @@ More info on the product data type can be found [here](https://developers.google
 ### Social Profile
 
 ```jsx
-import React from 'react';
 import { SocialProfileJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -1564,7 +1542,6 @@ export default Page;
 ### News Article
 
 ```jsx
-import React from 'react';
 import { NewsArticleJsonLd } from 'next-seo';
 
 const Page = () => (
@@ -1599,7 +1576,6 @@ export default Page;
 ### Event
 
 ```jsx
-import React from 'react';
 import { EventJsonLd } from 'next-seo';
 
 const Page = () => (
