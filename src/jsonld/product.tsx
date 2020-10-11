@@ -21,7 +21,7 @@ type Publisher = {
   name: string;
 };
 
-type Review = {
+export type Review = {
   author: Author;
   datePublished?: string;
   reviewBody?: string;
@@ -49,7 +49,7 @@ type AggregateOffer = {
   offerCount?: string;
 };
 
-type AggregateRating = {
+export type AggregateRating = {
   ratingValue: string;
   reviewCount: string;
 };
@@ -78,7 +78,7 @@ const buildBrand = (brand: string) => `
     },
 `;
 
-const buildReviewRating = (rating: ReviewRating) =>
+export const buildReviewRating = (rating: ReviewRating) =>
   rating
     ? `"reviewRating": {
           "@type": "Rating",
@@ -88,14 +88,14 @@ const buildReviewRating = (rating: ReviewRating) =>
         }`
     : '';
 
-const buildAuthor = (author: Author) => `
+export const buildAuthor = (author: Author) => `
   "author": {
       "@type": "${author.type}",
       "name": "${author.name}"
   },
 `;
 
-const buildPublisher = (publisher: Publisher) => `
+export const buildPublisher = (publisher: Publisher) => `
   "publisher": {
       "@type": "${publisher.type}",
       "name": "${publisher.name}"

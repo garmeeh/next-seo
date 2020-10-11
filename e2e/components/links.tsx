@@ -33,6 +33,26 @@ const Links = () => (
         <a>All JSON-LD</a>
       </Link>
     </li>
+    <li>
+      <Link href="/carousel-jsonld/default">
+        <a>Carousel Default JSON-LD</a>
+      </Link>
+    </li>
+    <li>
+      <Link href="/carousel-jsonld/course">
+        <a>Carousel Course JSON-LD</a>
+      </Link>
+    </li>
+    <li>
+      <Link href="/carousel-jsonld/movie">
+        <a>Carousel Movie JSON-LD</a>
+      </Link>
+    </li>
+    <li>
+      <Link href="/carousel-jsonld/recipe">
+        <a>Carousel Recipe JSON-LD</a>
+      </Link>
+    </li>
   </ul>
 );
 

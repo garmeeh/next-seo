@@ -56,6 +56,11 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Social Profile](#social-profile)
   - [News Article](#news-article)
   - [Event](#event)
+  - [Carousel](#carousel)
+    - [Default (Summary List)](#default-summary-list)
+    - [Course](#course-1)
+    - [Movie](#movie)
+    - [Recipe](#recipe-1)
 - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -1601,6 +1606,334 @@ export default () => (
 | `location.sameAs` | Description of the event location     |
 | `images`          | An image or images of the event.      |
 | `url`             | The fully-qualified URL of the event. |
+
+### Carousel
+
+**Required properties of Carousel Component**
+
+| Property | Info                                                               |
+| -------- | ------------------------------------------------------------------ |
+| `type`   | The type of carousel                                               |
+| `data`   | The data in the form of an array for the item list in the carousel |
+
+#### Default (Summary List)
+
+```jsx
+import React from 'react';
+import { CarouselJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Carousel Default JSON-LD</h1>
+    <CarouselJsonLd
+      type="default"
+      data={[
+        { url: 'http://example.com/peanut-butter-cookies.html' },
+        {
+          url: 'http://example.com/triple-chocolate-chunk.html',
+        },
+      ]}
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property | Info                             |
+| -------- | -------------------------------- |
+| `url`    | URL of the item's detailed page. |
+
+#### Course
+
+```jsx
+import React from 'react';
+import { CarouselJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Carousel Course JSON-LD</h1>
+    <CarouselJsonLd
+      type="course"
+      data={[
+        {
+          courseName: 'Course 1',
+          description: 'Course 1 Description',
+          providerName: 'Course Provider',
+          url: 'http://example.com/course-1.html',
+        },
+        {
+          courseName: 'Course 2',
+          description: 'Course 2 Description',
+          providerName: 'Course Provider',
+          url: 'http://example.com/course-2.html',
+        },
+      ]}
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property       | Info                                                         |
+| -------------- | ------------------------------------------------------------ |
+| `courseName`   | The title of the course.                                     |
+| `description`  | A description of the course. Display limit of 60 characters. |
+| `providerName` | The course provider name.                                    |
+| `url`          | URL of the item's detailed page .                            |
+
+**Data Recommended properties**
+
+| Property      | Info                            |
+| ------------- | ------------------------------- |
+| `providerUrl` | The url to the course provider. |
+
+#### Movie
+
+```jsx
+import React from 'react';
+import { CarouselJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Carousel Movie JSON-LD</h1>
+    <CarouselJsonLd
+      type="movie"
+      data={[
+        {
+          name: 'Movie 1',
+          url: 'http://example.com/movie-1.html',
+          image:
+            'https://i.pinimg.com/originals/96/a0/0d/96a00d42b0ff8f80b7cdf2926a211e47.jpg',
+          director: {
+            name: 'John Doe',
+          },
+          review: {
+            author: { type: 'Person', name: 'Ronan Farrow' },
+            reviewBody:
+              'Heartbreaking, inpsiring, moving. Bradley Cooper is a triple threat.',
+            reviewRating: { ratingValue: '5' },
+          },
+        },
+        {
+          name: 'Movie 2',
+          url: 'http://example.com/movie-1.html',
+          image:
+            'https://i.pinimg.com/originals/96/a0/0d/96a00d42b0ff8f80b7cdf2926a211e47.jpg',
+          director: {
+            name: 'Mary Doe',
+          },
+          review: {
+            author: { type: 'Person', name: 'Ronan Farrow' },
+            reviewBody:
+              'Heartbreaking, inpsiring, moving. Rowan Atkinson is a triple threat.',
+            reviewRating: { ratingValue: '5' },
+          },
+        },
+      ]}
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property | Info                                |
+| -------- | ----------------------------------- |
+| `name`   | Name of the movie.                  |
+| `image`  | An image that represents the movie. |
+| `url`    | URL of the item's detailed page.    |
+
+**Data Recommended properties**
+
+| Property          | Info                                   |
+| ----------------- | -------------------------------------- |
+| `director`        | The director of the movie.             |
+| `dateCreated`     | The date the movie was released.       |
+| `aggregateRating` | Aggregate Rating object for the movie. |
+| `review`          | Review for the movie.                  |
+
+#### Recipe
+
+```jsx
+import React from 'react';
+import { CarouselJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Carousel Recipe JSON-LD</h1>
+    <CarouselJsonLd
+      type="recipe"
+      data={[
+        {
+          name: 'Party Coffee Cake',
+          url: 'http://example.com/recipe-1.html',
+          images: [
+            'https://example.com/photos/1x1/photo.jpg',
+            'https://example.com/photos/4x3/photo.jpg',
+            'https://example.com/photos/16x9/photo.jpg',
+          ],
+          authorName: 'Mary Stone',
+          datePublished: '2018-03-10',
+          description: 'This coffee cake is awesome and perfect for parties.',
+          prepTime: 'PT20M',
+          cookTime: 'PT30M',
+          totalTime: 'PT50M',
+          keywords: 'cake for a party, coffee',
+          yields: '10',
+          category: 'Dessert',
+          calories: 270,
+          cuisine: 'American',
+          ingredients: [
+            '2 cups of flour',
+            '3/4 cup white sugar',
+            '2 teaspoons baking powder',
+            '1/2 teaspoon salt',
+            '1/2 cup butter',
+            '2 eggs',
+            '3/4 cup milk',
+          ],
+          instructions: [
+            {
+              name: 'Preheat',
+              text:
+                'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+              url: 'https://example.com/party-coffee-cake#step1',
+              image: 'https://example.com/photos/party-coffee-cake/step1.jpg',
+            },
+            {
+              name: 'Mix dry ingredients',
+              text:
+                'In a large bowl, combine flour, sugar, baking powder, and salt.',
+              url: 'https://example.com/party-coffee-cake#step2',
+              image: 'https://example.com/photos/party-coffee-cake/step2.jpg',
+            },
+            {
+              name: 'Spread into pan',
+              text: 'Spread into the prepared pan.',
+              url: 'https://example.com/party-coffee-cake#step4',
+              image: 'https://example.com/photos/party-coffee-cake/step4.jpg',
+            },
+            {
+              name: 'Bake',
+              text: 'Bake for 30 to 35 minutes, or until firm.',
+              url: 'https://example.com/party-coffee-cake#step5',
+              image: 'https://example.com/photos/party-coffee-cake/step5.jpg',
+            },
+          ],
+          aggregateRating: {
+            ratingValue: '5',
+            ratingCount: '18',
+          },
+          video: {
+            name: 'How to make a Party Coffee Cake',
+            description: 'This is how you make a Party Coffee Cake.',
+            thumbnailUrls: [
+              'https://example.com/photos/1x1/photo.jpg',
+              'https://example.com/photos/4x3/photo.jpg',
+              'https://example.com/photos/16x9/photo.jpg',
+            ],
+            contentUrl: 'http://www.example.com/video123.mp4',
+            embedUrl: 'http://www.example.com/videoplayer?video=123',
+            uploadDate: '2018-02-05T08:00:00+08:00',
+            duration: 'PT1M33S',
+            expires: '2019-02-05T08:00:00+08:00',
+          },
+        },
+        {
+          name: 'Party Coffee Cake 2',
+          url: 'http://example.com/recipe-2.html',
+          images: [
+            'https://example.com/photos/1x1/photo.jpg',
+            'https://example.com/photos/4x3/photo.jpg',
+            'https://example.com/photos/16x9/photo.jpg',
+          ],
+          authorName: 'Mary Stone 2',
+          datePublished: '2018-03-10',
+          description: 'This coffee cake is awesome and perfect for parties.',
+          prepTime: 'PT20M',
+          cookTime: 'PT30M',
+          totalTime: 'PT50M',
+          keywords: 'cake for a party, coffee',
+          yields: '10',
+          category: 'Dessert',
+          calories: 270,
+          cuisine: 'American',
+          ingredients: [
+            '2 cups of flour',
+            '3/4 cup white sugar',
+            '2 teaspoons baking powder',
+            '1/2 teaspoon salt',
+            '1/2 cup butter',
+            '2 eggs',
+            '3/4 cup milk',
+          ],
+          instructions: [
+            {
+              name: 'Preheat',
+              text:
+                'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+              url: 'https://example.com/party-coffee-cake#step1',
+              image: 'https://example.com/photos/party-coffee-cake/step1.jpg',
+            },
+            {
+              name: 'Mix dry ingredients',
+              text:
+                'In a large bowl, combine flour, sugar, baking powder, and salt.',
+              url: 'https://example.com/party-coffee-cake#step2',
+              image: 'https://example.com/photos/party-coffee-cake/step2.jpg',
+            },
+            {
+              name: 'Spread into pan',
+              text: 'Spread into the prepared pan.',
+              url: 'https://example.com/party-coffee-cake#step4',
+              image: 'https://example.com/photos/party-coffee-cake/step4.jpg',
+            },
+            {
+              name: 'Bake',
+              text: 'Bake for 30 to 35 minutes, or until firm.',
+              url: 'https://example.com/party-coffee-cake#step5',
+              image: 'https://example.com/photos/party-coffee-cake/step5.jpg',
+            },
+          ],
+          aggregateRating: {
+            ratingValue: '5',
+            ratingCount: '18',
+          },
+          video: {
+            name: 'How to make a Party Coffee Cake',
+            description: 'This is how you make a Party Coffee Cake.',
+            thumbnailUrls: [
+              'https://example.com/photos/1x1/photo.jpg',
+              'https://example.com/photos/4x3/photo.jpg',
+              'https://example.com/photos/16x9/photo.jpg',
+            ],
+            contentUrl: 'http://www.example.com/video123.mp4',
+            embedUrl: 'http://www.example.com/videoplayer?video=123',
+            uploadDate: '2018-02-05T08:00:00+08:00',
+            duration: 'PT1M33S',
+            expires: '2019-02-05T08:00:00+08:00',
+          },
+        },
+      ]}
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property            | Info                                    |
+| ------------------- | --------------------------------------- |
+| `name`              | The name of the dish.                   |
+| `description`       | A description of the recipe             |
+| `authorName`        | The name of the recipe author           |
+| `ingredients`       | A list of ingredient strings            |
+| `instructions`      | -                                       |
+| `instructions.name` | The name of the instruction step.       |
+| `instructions.text` | The directions of the instruction step. |
+| `url`               | URL of the item's detailed page.        |
 
 ## Contributors
 
