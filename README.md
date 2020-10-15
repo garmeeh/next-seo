@@ -200,6 +200,8 @@ export default class MyApp extends App {
 }
 ```
 
+To work properly, `DefaultSeo` should be placed above (before) `Component` due to behavior of Next.js internals.
+
 Alternatively, you can also create a config file to store default values such as `next-seo.config.js`
 
 ```js
