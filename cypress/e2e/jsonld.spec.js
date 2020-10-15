@@ -52,10 +52,16 @@ describe('Validates JSON-LD For:', () => {
           ],
           datePublished: '2015-02-05T08:00:00+08:00',
           dateModified: '2015-02-05T09:00:00+08:00',
-          author: {
-            '@type': 'Person',
-            name: 'Jane Blogs',
-          },
+          author: [
+            {
+              '@type': 'Person',
+              name: 'Jane Blogs',
+            },
+            {
+              '@type': 'Person',
+              name: 'Mary Stone',
+            },
+          ],
           publisher: {
             '@type': 'Organization',
             name: 'Gary Meehan',
@@ -712,10 +718,16 @@ describe('Validates JSON-LD For:', () => {
             'https://example.com/photos/4x3/photo.jpg',
             'https://example.com/photos/16x9/photo.jpg',
           ],
-          author: {
-            '@type': 'Person',
-            name: 'Mary Stone',
-          },
+          author: [
+            {
+              '@type': 'Person',
+              name: 'Jane Blogs',
+            },
+            {
+              '@type': 'Person',
+              name: 'Mary Stone',
+            },
+          ],
           datePublished: '2018-03-10',
           description: 'This coffee cake is awesome and perfect for parties.',
           prepTime: 'PT20M',

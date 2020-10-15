@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 import minifyJsonLd from '../utils/minifyJsonLd';
+import formatAuthorName from '../utils/formatAuthorName';
 
 export interface NewsArticleJsonLdProps {
   keyOverride?: string;
@@ -14,7 +15,7 @@ export interface NewsArticleJsonLdProps {
   dateCreated: string;
   datePublished: string;
   dateModified?: string;
-  authorName: string;
+  authorName: string | string[];
   description: string;
   body: string;
   publisherName: string;
@@ -53,10 +54,7 @@ const NewsArticleJsonLd: FC<NewsArticleJsonLdProps> = ({
     "datePublished": "${datePublished}",
     "dateCreated": "${dateCreated || datePublished}",
     "dateModified": "${dateModified || datePublished}",
-    "author": {
-      "@type": "Person",
-      "name": "${authorName}"
-    },
+    "author": ${formatAuthorName(authorName)},
     "publisher": {
       "@type": "Organization",
       "name": "${publisherName}",

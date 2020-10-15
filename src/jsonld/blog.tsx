@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 import minifyJsonLd from '../utils/minifyJsonLd';
+import formatAuthorName from '../utils/formatAuthorName';
 
 export interface BlogJsonLdProps {
   keyOverride?: string;
@@ -11,7 +12,7 @@ export interface BlogJsonLdProps {
   images: ReadonlyArray<string>;
   datePublished: string;
   dateModified: string;
-  authorName: string;
+  authorName: string | string[];
   description: string;
 }
 
@@ -38,10 +39,7 @@ const BlogJsonLd: FC<BlogJsonLdProps> = ({
      ],
     "datePublished": "${datePublished}",
     "dateModified": "${dateModified || datePublished}",
-    "author": {
-      "@type": "Person",
-      "name": "${authorName}"
-    },
+    "author": ${formatAuthorName(authorName)},
     "description": "${description}"
   }`;
 

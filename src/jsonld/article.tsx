@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 import minifyJsonLd from '../utils/minifyJsonLd';
+import formatAuthorName from '../utils/formatAuthorName';
 
 export interface ArticleJsonLdProps {
   keyOverride?: string;
@@ -11,7 +12,7 @@ export interface ArticleJsonLdProps {
   images: ReadonlyArray<string>;
   datePublished: string;
   dateModified?: string;
-  authorName: string;
+  authorName: string | string[];
   description: string;
   publisherName: string;
   publisherLogo: string;
@@ -42,10 +43,7 @@ const ArticleJsonLd: FC<ArticleJsonLdProps> = ({
      ],
     "datePublished": "${datePublished}",
     "dateModified": "${dateModified || datePublished}",
-    "author": {
-      "@type": "Person",
-      "name": "${authorName}"
-    },
+    "author": ${formatAuthorName(authorName)},
     "publisher": {
       "@type": "Organization",
       "name": "${publisherName}",
