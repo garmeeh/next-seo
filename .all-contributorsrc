@@ -285,6 +285,17 @@
         "doc",
         "code"
       ]
+    },
+    {
+      "login": "statebait",
+      "name": "Mohamed Shadab",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/22408263?v=4",
+      "profile": "http://mohamedshadab.me",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
