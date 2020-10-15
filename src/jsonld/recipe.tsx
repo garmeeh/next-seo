@@ -10,7 +10,7 @@ type AggregateRating = {
   ratingCount: string;
 };
 
-const buildAggregateRating = (aggregateRating: AggregateRating) => `
+export const buildAggregateRating = (aggregateRating: AggregateRating) => `
   "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "${aggregateRating.ratingValue}",
@@ -25,7 +25,7 @@ type Instruction = {
   image?: string;
 };
 
-const buildInstruction = (instruction: Instruction) => `{
+export const buildInstruction = (instruction: Instruction) => `{
   "@type": "HowToStep",
   "name": "${instruction.name}",
   "text": "${instruction.text}",
@@ -53,7 +53,7 @@ const buildInteractionStatistic = (watchCount: number) => `
   }
 `;
 
-const buildVideo = (video: Video) => `
+export const buildVideo = (video: Video) => `
   "video": {
       "@type": "VideoObject",
       "name": "${video.name}",
@@ -67,8 +67,12 @@ const buildVideo = (video: Video) => `
       "uploadDate": "${video.uploadDate}",
       "duration": "${video.duration}",
       ${video.embedUrl ? `"embedUrl": "${video.embedUrl}",` : ``}
-      ${video.expires ? `"expires": "${video.expires}",` : ``}
-      ${video.watchCount ? buildInteractionStatistic(video.watchCount) : ``}
+      ${video.expires ? `"expires": "${video.expires}"` : ``}
+      ${
+        video.watchCount
+          ? `,${buildInteractionStatistic(video.watchCount)}`
+          : ``
+      }
     },
 `;
 
