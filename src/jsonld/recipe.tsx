@@ -3,6 +3,7 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 import minifyJsonLd from '../utils/minifyJsonLd';
+import formatAuthorName from '../utils/formatAuthorName';
 
 type AggregateRating = {
   ratingValue: string;
@@ -78,7 +79,7 @@ export const buildVideo = (video: Video) => `
 export interface RecipeJsonLdProps {
   name: string;
   description: string;
-  authorName: string;
+  authorName: string | string[];
   ingredients: string[];
   instructions: Instruction[];
   images?: string[];
@@ -120,10 +121,7 @@ const RecipeJsonLd: FC<RecipeJsonLdProps> = ({
     "name": "${name}",
     "description": "${description}",
     "datePublished": "${datePublished}",
-    "author": {
-      "@type": "Person",
-      "name": "${authorName}"
-    },
+    "author": ${formatAuthorName(authorName)},
     "image": [
       ${images.map(image => `"${image}"`).join(',')}
     ],
