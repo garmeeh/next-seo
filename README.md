@@ -379,7 +379,7 @@ Some tools may report this an error. See [Issue #14](https://github.com/garmeeh/
 
 ```jsx
 facebook={{
-  appId: 1234567890,
+  appId: '1234567890',
 }}
 ```
 
