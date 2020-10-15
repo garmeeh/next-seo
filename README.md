@@ -2006,6 +2006,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
   <tr>
     <td align="center"><a href="http://drewgoodwin.com"><img src="https://avatars1.githubusercontent.com/u/63794?v=4" width="100px;" alt=""/><br /><sub><b>Drew Goodwin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=tacomanator" title="Documentation">📖</a></td>
     <td align="center"><a href="https://schlosser.io"><img src="https://avatars0.githubusercontent.com/u/2433509?v=4" width="100px;" alt=""/><br /><sub><b>Dan Schlosser</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=schlosser" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/matamatanot"><img src="https://avatars2.githubusercontent.com/u/39780486?v=4" width="100px;" alt=""/><br /><sub><b>matamatanot</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=matamatanot" title="Documentation">📖</a></td>
   </tr>
 </table>
 
