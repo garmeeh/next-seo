@@ -296,6 +296,15 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "tacomanator",
+      "name": "Drew Goodwin",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/63794?v=4",
+      "profile": "http://drewgoodwin.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

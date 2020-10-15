@@ -1981,6 +1981,9 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="https://github.com/gtodd876"><img src="https://avatars1.githubusercontent.com/u/28220658?v=4" width="100px;" alt=""/><br /><sub><b>Todd Matthews</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=gtodd876" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=gtodd876" title="Code">💻</a></td>
     <td align="center"><a href="http://mohamedshadab.me"><img src="https://avatars1.githubusercontent.com/u/22408263?v=4" width="100px;" alt=""/><br /><sub><b>Mohamed Shadab</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Tests">⚠️</a></td>
   </tr>
+  <tr>
+    <td align="center"><a href="http://drewgoodwin.com"><img src="https://avatars1.githubusercontent.com/u/63794?v=4" width="100px;" alt=""/><br /><sub><b>Drew Goodwin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=tacomanator" title="Documentation">📖</a></td>
+  </tr>
 </table>
 
 <!-- markdownlint-enable -->
