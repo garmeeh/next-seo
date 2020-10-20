@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
-import minifyJsonLd from '../utils/minifyJsonLd';
-
 import { CourseJsonLdProps } from './course';
 import {
   Review,

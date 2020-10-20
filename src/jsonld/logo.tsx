@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
-import minifyJsonLd from '../utils/minifyJsonLd';
-
 export interface LogoJsonLdProps {
   keyOverride?: string;
   logo: string;
@@ -22,7 +20,7 @@ const LogoJsonLd: FC<LogoJsonLdProps> = ({ keyOverride, url, logo }) => {
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
+        dangerouslySetInnerHTML={markup(jslonld)}
         key={`jsonld-logo${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>

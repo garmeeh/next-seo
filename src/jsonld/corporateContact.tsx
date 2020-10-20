@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
-import minifyJsonLd from '../utils/minifyJsonLd';
-
 export interface ContactPoint {
   contactType: string;
   telephone: string;
@@ -63,7 +61,7 @@ const CorporateContactJsonLd: FC<CorporateContactJsonLdProps> = ({
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
+        dangerouslySetInnerHTML={markup(jslonld)}
         key={`jsonld-corporate-contact${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>

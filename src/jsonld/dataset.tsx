@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
-import minifyJsonLd from '../utils/minifyJsonLd';
-
 export interface DatasetJsonLdProps {
   description: string;
   name: string;
@@ -31,7 +29,7 @@ const DatasetJsonLd: FC<DatasetJsonLdProps> = ({
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
+        dangerouslySetInnerHTML={markup(jslonld)}
         key="jsonld-dataset"
       />
     </Head>
