@@ -182,7 +182,7 @@ const CarouselJsonLd: FC<CarouselJsonLdProps> = ({ type, data }) => {
             ${item.instructions.map(buildInstruction).join(',')}
           ]
       }
-      }            `,
+      }`,
       );
       break;
   }
@@ -197,7 +197,7 @@ const CarouselJsonLd: FC<CarouselJsonLdProps> = ({ type, data }) => {
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(minifyJsonLd(jsonld))}
+        dangerouslySetInnerHTML={markup(jsonld)}
         key="jsonld-course"
       />
     </Head>
