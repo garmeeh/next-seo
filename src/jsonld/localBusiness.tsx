@@ -3,7 +3,6 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 import formatIfArray from '../utils/formatIfArray';
-import minifyJsonLd from '../utils/minifyJsonLd';
 import buildAddress from '../utils/buildAddress';
 import { Address } from '../types';
 
@@ -122,7 +121,7 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
+        dangerouslySetInnerHTML={markup(jslonld)}
         key={`jsonld-local-business${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>

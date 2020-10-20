@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
-import minifyJsonLd from '../utils/minifyJsonLd';
 import formatAuthorName from '../utils/formatAuthorName';
 
 export interface ArticleJsonLdProps {
@@ -59,7 +58,7 @@ const ArticleJsonLd: FC<ArticleJsonLdProps> = ({
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
+        dangerouslySetInnerHTML={markup(jslonld)}
         key={`jsonld-article${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>

@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
-import minifyJsonLd from '../utils/minifyJsonLd';
-
 export interface CourseJsonLdProps {
   keyOverride?: string;
   courseName: string;
@@ -39,7 +37,7 @@ const CourseJsonLd: FC<CourseJsonLdProps> = ({
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(minifyJsonLd(jslonld))}
+        dangerouslySetInnerHTML={markup(jslonld)}
         key={`jsonld-course${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>

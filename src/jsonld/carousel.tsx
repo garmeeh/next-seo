@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
-import minifyJsonLd from '../utils/minifyJsonLd';
-
 import { CourseJsonLdProps } from './course';
 import {
   Review,
@@ -184,7 +182,7 @@ const CarouselJsonLd: FC<CarouselJsonLdProps> = ({ type, data }) => {
             ${item.instructions.map(buildInstruction).join(',')}
           ]
       }
-      }            `,
+      }`,
       );
       break;
   }
@@ -199,7 +197,7 @@ const CarouselJsonLd: FC<CarouselJsonLdProps> = ({ type, data }) => {
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(minifyJsonLd(jsonld))}
+        dangerouslySetInnerHTML={markup(jsonld)}
         key="jsonld-course"
       />
     </Head>
