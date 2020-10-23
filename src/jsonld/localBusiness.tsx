@@ -105,7 +105,7 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
     ${geo ? `${buildGeo(geo)}` : ''}
     ${rating ? `${buildRating(rating)}` : ''}
     ${priceRange ? `"priceRange": "${priceRange}",` : ''}
-    ${servesCuisine ? `"servesCuisine": "${servesCuisine}",` : ''}
+    ${servesCuisine ? `"servesCuisine":${formatIfArray(servesCuisine)},` : ''}
     ${images ? `"image":${formatIfArray(images)},` : ''}
     ${sameAs ? `"sameAs": [${sameAs.map(url => `"${url}"`)}],` : ''}
     ${
