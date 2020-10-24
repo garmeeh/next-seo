@@ -24,20 +24,23 @@ const VideoJsonLd: FC<VideoJsonLdProps> = ({
   publication,
   regionsAllowed,
 }) => {
-  const jslonld = buildVideo({
-    name,
-    description,
-    thumbnailUrls,
-    uploadDate,
-    contentUrl,
-    duration,
-    embedUrl,
-    expires,
-    hasPart,
-    watchCount,
-    publication,
-    regionsAllowed,
-  });
+  const jslonld = buildVideo(
+    {
+      name,
+      description,
+      thumbnailUrls,
+      uploadDate,
+      contentUrl,
+      duration,
+      embedUrl,
+      expires,
+      hasPart,
+      watchCount,
+      publication,
+      regionsAllowed,
+    },
+    true,
+  );
 
   return (
     <Head>

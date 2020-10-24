@@ -1,8 +1,8 @@
 import { BroadcastEvent, Clip, Video } from '../types';
 import formatIfArray from './formatIfArray';
 
-export default (video: Video) => `{
-      "@context": "https://schema.org",
+export default (video: Video, context: boolean = false) => `{
+      ${context ? `"@context": "https://schema.org",` : ``}
       "@type": "VideoObject",
       "name": "${video.name}",
       "description": "${video.description}",

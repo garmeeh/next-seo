@@ -42,7 +42,7 @@ export interface Clip {
 };
 
 export interface BroadcastEvent {
-  name: string;
+  name?: string;
   isLiveBroadcast: boolean;
   startDate: string;
   endDate: string;
