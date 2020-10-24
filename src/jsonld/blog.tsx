@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
 import Head from 'next/head';
+import React, { FC } from 'react';
 
-import markup from '../utils/markup';
 import formatAuthorName from '../utils/formatAuthorName';
+import markup from '../utils/markup';
 
 export interface BlogJsonLdProps {
   keyOverride?: string;
@@ -26,7 +26,7 @@ const BlogJsonLd: FC<BlogJsonLdProps> = ({
   description,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Blog",
     "mainEntityOfPage": {
       "@type": "WebPage",

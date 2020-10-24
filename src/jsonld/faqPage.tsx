@@ -1,7 +1,8 @@
-import React from 'react';
 import Head from 'next/head';
+import React from 'react';
 
 import markup from '../utils/markup';
+
 export interface Question {
   questionName: string;
   acceptedAnswerText: string;
@@ -25,7 +26,7 @@ const buildQuestions = (mainEntity: Question[]) => `
 
 const FAQPageJsonLd: React.FC<FAQPageJsonLdProps> = ({ mainEntity = [] }) => {
   const jslonld = `{
-    "@context": "http://schema.org/",
+    "@context": "https://schema.org/",
     "@type": "FAQPage",
     "mainEntity": [${buildQuestions(mainEntity)}]
   }`;

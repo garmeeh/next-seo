@@ -1,20 +1,20 @@
-import React, { FC } from 'react';
 import Head from 'next/head';
+import React, { FC } from 'react';
 
+import buildVideo from '../utils/buildVideo';
 import markup from '../utils/markup';
 import { CourseJsonLdProps } from './course';
 import {
-  Review,
   AggregateRating,
   buildAuthor,
   buildPublisher,
   buildReviewRating,
+  Review
 } from './product';
 import {
-  RecipeJsonLdProps,
   buildAggregateRating,
-  buildVideo,
   buildInstruction,
+  RecipeJsonLdProps
 } from './recipe';
 
 type Director = {
@@ -70,7 +70,7 @@ const CarouselJsonLd: FC<CarouselJsonLdProps> = ({ type, data }) => {
         "@type": "ListItem",
         "position": "${index + 1}",
         "item": {
-          "@context": "http://schema.org",
+          "@context": "https://schema.org",
           "@type": "Course",
           "url": "${item.url}",
           "name": "${item.courseName}",
@@ -94,7 +94,7 @@ const CarouselJsonLd: FC<CarouselJsonLdProps> = ({ type, data }) => {
         "@type": "ListItem",
         "position": "${index + 1}",
         "item": {
-          "@context": "http://schema.org",
+          "@context": "https://schema.org",
           "@type": "Movie",
           "name": "${item.name}",
           "url": "${item.url}",
@@ -174,7 +174,7 @@ const CarouselJsonLd: FC<CarouselJsonLdProps> = ({ type, data }) => {
               ? buildAggregateRating(item.aggregateRating)
               : ''
           }
-          ${item.video ? buildVideo(item.video) : ''}
+          ${item.video ? `"video": ${buildVideo(item.video)},` : ''}
           "recipeIngredient": [
             ${item.ingredients.map(ingredient => `"${ingredient}"`).join(',')}
           ],

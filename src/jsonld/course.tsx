@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
 import Head from 'next/head';
+import React, { FC } from 'react';
 
 import markup from '../utils/markup';
+
 export interface CourseJsonLdProps {
   keyOverride?: string;
   courseName: string;
@@ -18,7 +19,7 @@ const CourseJsonLd: FC<CourseJsonLdProps> = ({
   providerUrl,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Course",
     "name": "${courseName}",
     "description": "${description}",

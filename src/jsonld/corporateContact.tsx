@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
 import Head from 'next/head';
+import React, { FC } from 'react';
 
 import markup from '../utils/markup';
+
 export interface ContactPoint {
   contactType: string;
   telephone: string;

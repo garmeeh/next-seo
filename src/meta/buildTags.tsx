@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { BuildTagsParams } from '../types';
 
 const defaults = {

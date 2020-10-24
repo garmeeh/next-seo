@@ -1,7 +1,8 @@
-import React, { FC } from 'react';
 import Head from 'next/head';
+import React, { FC } from 'react';
 
 import markup from '../utils/markup';
+
 export interface LogoJsonLdProps {
   keyOverride?: string;
   logo: string;
@@ -10,7 +11,7 @@ export interface LogoJsonLdProps {
 
 const LogoJsonLd: FC<LogoJsonLdProps> = ({ keyOverride, url, logo }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Organization",
     "url": "${url}",
     "logo": "${logo}"

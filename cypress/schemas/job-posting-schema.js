@@ -275,7 +275,7 @@ const jobPosting100 = {
     required: true,
     additionalProperties: false,
     example: {
-      '@context': 'http://schema.org',
+      '@context': 'https://schema.org',
       '@type': 'JobPosting',
 
       baseSalary: {

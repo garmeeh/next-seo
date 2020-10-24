@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
 import Head from 'next/head';
+import React, { FC } from 'react';
 
-import markup from '../utils/markup';
 import formatAuthorName from '../utils/formatAuthorName';
+import markup from '../utils/markup';
 
 export interface ArticleJsonLdProps {
   keyOverride?: string;
@@ -30,7 +30,7 @@ const ArticleJsonLd: FC<ArticleJsonLdProps> = ({
   publisherLogo,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Article",
     "mainEntityOfPage": {
       "@type": "WebPage",

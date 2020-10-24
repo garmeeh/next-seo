@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
 import Head from 'next/head';
+import React, { FC } from 'react';
 
-import markup from '../utils/markup';
 import formatIfArray from '../utils/formatIfArray';
+import markup from '../utils/markup';
+
 type ReviewRating = {
   bestRating?: string;
   ratingValue: string;
@@ -181,7 +182,7 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
   aggregateOffer,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org/",
+    "@context": "https://schema.org/",
     "@type": "Product",
     "image":${formatIfArray(images)},
     ${description ? `"description": "${description}",` : ''}

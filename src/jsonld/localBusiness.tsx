@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
 import Head from 'next/head';
+import React, { FC } from 'react';
 
-import markup from '../utils/markup';
-import formatIfArray from '../utils/formatIfArray';
-import buildAddress from '../utils/buildAddress';
 import { Address } from '../types';
+import buildAddress from '../utils/buildAddress';
+import formatIfArray from '../utils/formatIfArray';
+import markup from '../utils/markup';
 
 type Geo = {
   latitude: string;
@@ -93,7 +93,7 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   openingHours,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "${type}",
     ${id ? `"@id": "${id}",` : ''}
     ${description ? `"description": "${description}",` : ''}
