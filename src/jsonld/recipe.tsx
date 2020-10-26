@@ -1,10 +1,11 @@
-import Head from 'next/head';
 import React, { FC } from 'react';
+import Head from 'next/head';
+
+import markup from '../utils/markup';
+import formatAuthorName from '../utils/formatAuthorName';
+import buildVideo from '../utils/buildVideo';
 
 import { Video } from '../types';
-import buildVideo from '../utils/buildVideo';
-import formatAuthorName from '../utils/formatAuthorName';
-import markup from '../utils/markup';
 
 type AggregateRating = {
   ratingValue: string;

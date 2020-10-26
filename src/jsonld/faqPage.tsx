@@ -1,8 +1,7 @@
-import Head from 'next/head';
 import React from 'react';
+import Head from 'next/head';
 
 import markup from '../utils/markup';
-
 export interface Question {
   questionName: string;
   acceptedAnswerText: string;

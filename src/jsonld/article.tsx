@@ -1,8 +1,8 @@
-import Head from 'next/head';
 import React, { FC } from 'react';
+import Head from 'next/head';
 
-import formatAuthorName from '../utils/formatAuthorName';
 import markup from '../utils/markup';
+import formatAuthorName from '../utils/formatAuthorName';
 
 export interface ArticleJsonLdProps {
   keyOverride?: string;

@@ -1,20 +1,20 @@
-import Head from 'next/head';
 import React, { FC } from 'react';
+import Head from 'next/head';
 
-import buildVideo from '../utils/buildVideo';
 import markup from '../utils/markup';
+import buildVideo from '../utils/buildVideo';
 import { CourseJsonLdProps } from './course';
 import {
+  Review,
   AggregateRating,
   buildAuthor,
   buildPublisher,
   buildReviewRating,
-  Review
 } from './product';
 import {
+  RecipeJsonLdProps,
   buildAggregateRating,
   buildInstruction,
-  RecipeJsonLdProps
 } from './recipe';
 
 type Director = {

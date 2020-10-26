@@ -1,8 +1,7 @@
 import Head from 'next/head';
 import React, { Component } from 'react';
-
-import { NextSeoProps } from '../types';
 import buildTags from './buildTags';
+import { NextSeoProps } from '../types';
 
 export default class extends Component<NextSeoProps, {}> {
   render() {

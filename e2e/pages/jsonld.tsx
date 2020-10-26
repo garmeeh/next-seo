@@ -1,21 +1,20 @@
 import React from 'react';
-
 import {
   ArticleJsonLd,
-  BlogJsonLd,
   BreadcrumbJsonLd,
-  CorporateContactJsonLd,
+  BlogJsonLd,
   CourseJsonLd,
-  DatasetJsonLd,
-  EventJsonLd,
-  FAQPageJsonLd,
-  JobPostingJsonLd,
   LocalBusinessJsonLd,
   LogoJsonLd,
-  NewsArticleJsonLd,
   ProductJsonLd,
+  SocialProfileJsonLd,
+  CorporateContactJsonLd,
+  NewsArticleJsonLd,
+  FAQPageJsonLd,
+  JobPostingJsonLd,
+  EventJsonLd,
+  DatasetJsonLd,
   RecipeJsonLd,
-  SocialProfileJsonLd
 } from '../..';
 import Links from '../components/links';
 
@@ -183,8 +182,8 @@ export default () => (
           price: '119.99',
           priceCurrency: 'USD',
           priceValidUntil: '2020-11-05',
-          itemCondition: 'https://schema.org/UsedCondition',
-          availability: 'https://schema.org/InStock',
+          itemCondition: 'https//schema.org/UsedCondition',
+          availability: 'https//schema.org/InStock',
           url: 'https://www.example.com/executive-anvil',
           seller: {
             name: 'Executive Objects',
@@ -194,8 +193,8 @@ export default () => (
           price: '139.99',
           priceCurrency: 'CAD',
           priceValidUntil: '2020-09-05',
-          itemCondition: 'https://schema.org/UsedCondition',
-          availability: 'https://schema.org/InStock',
+          itemCondition: 'https//schema.org/UsedCondition',
+          availability: 'https//schema.org/InStock',
           url: 'https://www.example.ca/executive-anvil',
           seller: {
             name: 'Executive Objects',

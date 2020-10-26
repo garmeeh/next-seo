@@ -1,8 +1,8 @@
 import Head from 'next/head';
 import React, { Component } from 'react';
+import buildTags from './buildTags';
 
 import { DefaultSeoProps } from '../types';
-import buildTags from './buildTags';
 
 export default class extends Component<DefaultSeoProps, {}> {
   render() {

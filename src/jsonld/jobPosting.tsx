@@ -1,8 +1,7 @@
-import Head from 'next/head';
 import React, { FC } from 'react';
+import Head from 'next/head';
 
 import markup from '../utils/markup';
-
 export interface HiringOrganization {
   name: string;
   sameAs: string;

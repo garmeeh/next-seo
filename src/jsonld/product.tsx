@@ -1,9 +1,8 @@
-import Head from 'next/head';
 import React, { FC } from 'react';
+import Head from 'next/head';
 
-import formatIfArray from '../utils/formatIfArray';
 import markup from '../utils/markup';
-
+import formatIfArray from '../utils/formatIfArray';
 type ReviewRating = {
   bestRating?: string;
   ratingValue: string;
