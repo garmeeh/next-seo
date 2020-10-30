@@ -44,12 +44,16 @@ export default () => (
         videos: [
           {
             url: 'https://www.test.ie/og-video-b-01.jpg',
+            secureUrl: 'https://www.test.ie/og-video-b-01.jpg',
+            type: 'application/x-shockwave-flash',
             width: 850,
             height: 650,
             alt: 'Og Video Alt B',
           },
           {
             url: 'https://www.test.ie/og-video-b-02.jpg',
+            secureUrl: 'https://www.test.ie/og-video-b-02.jpg',
+            type: 'application/x-shockwave-flash',
             width: 950,
             height: 850,
             alt: 'Og Video Alt B Second',

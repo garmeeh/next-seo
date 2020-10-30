@@ -10,6 +10,8 @@ export interface OpenGraphVideos {
   width?: number;
   height?: number;
   alt?: string;
+  type?: string;
+  secureUrl?: string;
 }
 
 export interface Address {
