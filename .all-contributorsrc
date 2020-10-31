@@ -332,6 +332,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "valse",
+      "name": "Marco Valsecchi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1492995?v=4",
+      "profile": "https://marcovalsecchi.it",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
