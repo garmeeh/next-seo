@@ -5,12 +5,12 @@
 
 Next SEO is a plugin that makes managing your SEO easier in Next.js projects.
 
-Version 2.x is compatible with `next@v8.1.1-canary.54+` and above
-Version 1.x is compatible with `next@6.0.0` and above
+Pull requests are very welcome. Also make sure to check out the issues for feature requests if you are
+looking for inspiration on what to add.
 
-**Both versions are still maintained. If upgrading from v1 to v2, please note that the `NextSeo` component has been changed from a default to a named export, so you need to update the import statements in your pages accordingly to avoid errors. Also, values are now passed down as properties to the SEO components instead of only using a `config` object so refactor your code accordingly (this would fail silently and your metadata will not be there, so double check and inspect your pages' HTML).**
+**Feel like supporting this free plugin?**
 
-Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/support/1.x)
+<a href="https://www.buymeacoffee.com/garmeeh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 **Table of Contents**
 
