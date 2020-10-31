@@ -70,7 +70,7 @@ const course100 = {
     additionalProperties: false,
   },
   example: {
-    '@context': 'http://schema.org',
+    '@context': 'https://schema.org',
     '@type': 'Course',
     name: 'Course Name',
     description: 'Introductory CS course laying out the basics.',

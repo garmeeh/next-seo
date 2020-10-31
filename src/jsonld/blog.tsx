@@ -26,7 +26,7 @@ const BlogJsonLd: FC<BlogJsonLdProps> = ({
   description,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Blog",
     "mainEntityOfPage": {
       "@type": "WebPage",

@@ -10,7 +10,7 @@ export interface LogoJsonLdProps {
 
 const LogoJsonLd: FC<LogoJsonLdProps> = ({ keyOverride, url, logo }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Organization",
     "url": "${url}",
     "logo": "${logo}"

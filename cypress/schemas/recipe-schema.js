@@ -93,7 +93,7 @@ const exampleVideo = {
   duration: 'PT1M33S',
   interactionStatistic: {
     '@type': 'InteractionCounter',
-    interactionType: { '@type': 'http://schema.org/WatchAction' },
+    interactionType: { '@type': 'https://schema.org/WatchAction' },
     userInteractionCount: 2347,
   },
   expires: '2019-02-05T08:00:00+08:00',

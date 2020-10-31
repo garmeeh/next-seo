@@ -18,7 +18,7 @@ const SocialProfileJsonLd: FC<SocialProfileJsonLdProps> = ({
   sameAs = [],
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "${type}",
     "name": "${name}",
     "url": "${url}",

@@ -38,7 +38,7 @@ describe('Validates JSON-LD For:', () => {
       .then(tags => {
         const jsonLD = JSON.parse(tags[articleLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org',
+          '@context': 'https://schema.org',
           '@type': 'Article',
           mainEntityOfPage: {
             '@type': 'WebPage',
@@ -92,7 +92,7 @@ describe('Validates JSON-LD For:', () => {
       .then(tags => {
         const jsonLD = JSON.parse(tags[breadcrumbLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org',
+          '@context': 'https://schema.org',
           '@type': 'BreadcrumbList',
           itemListElement: [
             {
@@ -150,7 +150,7 @@ describe('Validates JSON-LD For:', () => {
       .then(tags => {
         const jsonLD = JSON.parse(tags[blogLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org',
+          '@context': 'https://schema.org',
           '@type': 'Blog',
           mainEntityOfPage: {
             '@type': 'WebPage',
@@ -190,7 +190,7 @@ describe('Validates JSON-LD For:', () => {
       .then(tags => {
         const jsonLD = JSON.parse(tags[courseLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org',
+          '@context': 'https://schema.org',
           '@type': 'Course',
           name: 'Course Name',
           description: 'Course description goes right here',
@@ -220,7 +220,7 @@ describe('Validates JSON-LD For:', () => {
       .then(tags => {
         const jsonLD = JSON.parse(tags[localBusinessLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org',
+          '@context': 'https://schema.org',
           '@type': 'Store',
           '@id': 'http://davesdeptstore.example.com',
           name: "Dave's Department Store",
@@ -313,7 +313,7 @@ describe('Validates JSON-LD For:', () => {
       .then(tags => {
         const jsonLD = JSON.parse(tags[productLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org/',
+          '@context': 'https://schema.org/',
           '@type': 'Product',
           name: 'Executive Anvil',
           image: [
@@ -362,8 +362,8 @@ describe('Validates JSON-LD For:', () => {
               price: '119.99',
               priceCurrency: 'USD',
               priceValidUntil: '2020-11-05',
-              itemCondition: 'http://schema.org/UsedCondition',
-              availability: 'http://schema.org/InStock',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
               url: 'https://www.example.com/executive-anvil',
               seller: {
                 '@type': 'Organization',
@@ -375,8 +375,8 @@ describe('Validates JSON-LD For:', () => {
               price: '139.99',
               priceCurrency: 'CAD',
               priceValidUntil: '2020-09-05',
-              itemCondition: 'http://schema.org/UsedCondition',
-              availability: 'http://schema.org/InStock',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
               url: 'https://www.example.ca/executive-anvil',
               seller: {
                 '@type': 'Organization',
@@ -405,7 +405,7 @@ describe('Validates JSON-LD For:', () => {
       .then(tags => {
         const jsonLD = JSON.parse(tags[socialProfileLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org',
+          '@context': 'https://schema.org',
           '@type': 'Person',
           name: 'your name',
           url: 'http://www.your-site.com',
@@ -485,7 +485,7 @@ describe('Validates JSON-LD For:', () => {
       .then(tags => {
         const jsonLD = JSON.parse(tags[newsarticleLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org',
+          '@context': 'https://schema.org',
           '@type': 'NewsArticle',
           mainEntityOfPage: {
             '@type': 'WebPage',
@@ -538,7 +538,7 @@ describe('Validates JSON-LD For:', () => {
       .then(tags => {
         const jsonLD = JSON.parse(tags[faqPageLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org/',
+          '@context': 'https://schema.org/',
           '@type': 'FAQPage',
           mainEntity: [
             {
@@ -579,7 +579,7 @@ describe('Validates JSON-LD For:', () => {
       .then(tags => {
         const jsonLD = JSON.parse(tags[jobPostingLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org',
+          '@context': 'https://schema.org',
           '@type': 'JobPosting',
 
           baseSalary: {
@@ -641,7 +641,7 @@ describe('Validates JSON-LD For:', () => {
       .then(tags => {
         const jsonLD = JSON.parse(tags[eventLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org',
+          '@context': 'https://schema.org',
           '@type': 'Event',
           name: 'My Event',
           startDate: '2020-01-23T00:00:00.000Z',
@@ -683,7 +683,7 @@ describe('Validates JSON-LD For:', () => {
       .then(tags => {
         const jsonLD = JSON.parse(tags[datasetLdJsonIndex].innerHTML);
         expect(jsonLD).to.deep.equal({
-          '@context': 'http://schema.org',
+          '@context': 'https://schema.org',
           '@type': 'Dataset',
           description:
             'The description needs to be at least 50 characters long',
@@ -780,7 +780,7 @@ describe('Validates JSON-LD For:', () => {
             duration: 'PT1M33S',
             interactionStatistic: {
               '@type': 'InteractionCounter',
-              interactionType: { '@type': 'http://schema.org/WatchAction' },
+              interactionType: { '@type': 'https://schema.org/WatchAction' },
               userInteractionCount: 2347,
             },
             expires: '2019-02-05T08:00:00+08:00',
@@ -831,7 +831,7 @@ describe('Validates JSON-LD For:', () => {
               '@type': 'ListItem',
               position: '1',
               item: {
-                '@context': 'http://schema.org',
+                '@context': 'https://schema.org',
                 '@type': 'Course',
                 url: 'http://example.com/course-1.html',
                 name: 'Course 1',
@@ -846,7 +846,7 @@ describe('Validates JSON-LD For:', () => {
               '@type': 'ListItem',
               position: '2',
               item: {
-                '@context': 'http://schema.org',
+                '@context': 'https://schema.org',
                 '@type': 'Course',
                 url: 'http://example.com/course-2.html',
                 name: 'Course 2',
@@ -878,7 +878,7 @@ describe('Validates JSON-LD For:', () => {
               '@type': 'ListItem',
               position: '1',
               item: {
-                '@context': 'http://schema.org',
+                '@context': 'https://schema.org',
                 '@type': 'Movie',
                 name: 'Movie 1',
                 url: 'http://example.com/movie-1.html',
@@ -898,7 +898,7 @@ describe('Validates JSON-LD For:', () => {
               '@type': 'ListItem',
               position: '2',
               item: {
-                '@context': 'http://schema.org',
+                '@context': 'https://schema.org',
                 '@type': 'Movie',
                 name: 'Movie 2',
                 url: 'http://example.com/movie-1.html',

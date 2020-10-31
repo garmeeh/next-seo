@@ -37,6 +37,7 @@ export interface LocalBusinessJsonLdProps {
   images?: string[];
   rating?: Rating;
   priceRange?: string;
+  servesCuisine?: string | string[];
   sameAs?: string[];
   openingHours?: OpeningHoursSpecification | OpeningHoursSpecification[];
 }
@@ -89,11 +90,12 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   images,
   rating,
   priceRange,
+  servesCuisine,
   sameAs,
   openingHours,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "${type}",
     ${id ? `"@id": "${id}",` : ''}
     ${description ? `"description": "${description}",` : ''}
@@ -103,6 +105,7 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
     ${geo ? `${buildGeo(geo)}` : ''}
     ${rating ? `${buildRating(rating)}` : ''}
     ${priceRange ? `"priceRange": "${priceRange}",` : ''}
+    ${servesCuisine ? `"servesCuisine":${formatIfArray(servesCuisine)},` : ''}
     ${images ? `"image":${formatIfArray(images)},` : ''}
     ${sameAs ? `"sameAs": [${sameAs.map(url => `"${url}"`)}],` : ''}
     ${

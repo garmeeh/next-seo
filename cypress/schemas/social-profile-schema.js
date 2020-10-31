@@ -41,7 +41,7 @@ const socialProfile100 = {
     additionalProperties: false,
   },
   example: {
-    '@context': 'http://schema.org',
+    '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'your name',
     url: 'http://www.your-site.com',

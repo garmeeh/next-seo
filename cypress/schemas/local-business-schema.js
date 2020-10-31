@@ -126,7 +126,7 @@ const localBusiness110 = {
     additionalProperties: false,
   },
   example: {
-    '@context': 'http://schema.org',
+    '@context': 'https://schema.org',
     '@type': 'Store',
     image: [
       'https://example.com/photos/1x1/photo.jpg',

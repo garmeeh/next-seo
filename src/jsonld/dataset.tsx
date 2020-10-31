@@ -14,7 +14,7 @@ const DatasetJsonLd: FC<DatasetJsonLdProps> = ({
   license,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Dataset",
     "description": "${description}",
     "name": "${name}"${
