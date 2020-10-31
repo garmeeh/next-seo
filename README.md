@@ -1360,6 +1360,7 @@ Local business is supported with a sub-set of properties.
 | `rating.ratingValue`        | The rating for the content.                                                                                                                          |
 | `rating.ratingCount`        | The count of total number of ratings.                                                                                                                |
 | `priceRange`                | The relative price range of the business.                                                                                                            |
+| `servesCuisine`             | The type of cuisine the restaurant serves.                                                                                                            |
 | `images`                    | An image or images of the business. Required for valid markup depending on the type                                                                  |
 | `telephone`                 | A business phone number meant to be the primary contact method for customers.                                                                        |
 | `url`                       | The fully-qualified URL of the specific business location.                                                                                           |
