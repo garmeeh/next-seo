@@ -3,6 +3,9 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 import formatAuthorName from '../utils/formatAuthorName';
+import buildVideo from '../utils/buildVideo';
+
+import { Video } from '../types';
 
 type AggregateRating = {
   ratingValue: string;
@@ -31,49 +34,6 @@ export const buildInstruction = (instruction: Instruction) => `{
   "url": "${instruction.url}",
   "image": "${instruction.image}"
 }`;
-
-type Video = {
-  name: string;
-  description: string;
-  contentUrl: string;
-  uploadDate: string;
-  duration: string;
-  thumbnailUrls?: string[];
-  embedUrl?: string;
-  expires?: string;
-  watchCount?: number;
-};
-
-const buildInteractionStatistic = (watchCount: number) => `
-  "interactionStatistic": {
-    "@type": "InteractionCounter",
-    "interactionType": { "@type": "http://schema.org/WatchAction" },
-    "userInteractionCount": ${watchCount}
-  }
-`;
-
-export const buildVideo = (video: Video) => `
-  "video": {
-      "@type": "VideoObject",
-      "name": "${video.name}",
-      "thumbnailUrl": [
-        ${(video.thumbnailUrls || [])
-          .map(thumbnailUrl => `"${thumbnailUrl}"`)
-          .join(',')}
-       ],
-      "description": "${video.description}",
-      "contentUrl": "${video.contentUrl}",
-      "uploadDate": "${video.uploadDate}",
-      "duration": "${video.duration}",
-      ${video.embedUrl ? `"embedUrl": "${video.embedUrl}",` : ``}
-      ${video.expires ? `"expires": "${video.expires}"` : ``}
-      ${
-        video.watchCount
-          ? `,${buildInteractionStatistic(video.watchCount)}`
-          : ``
-      }
-    },
-`;
 
 export interface RecipeJsonLdProps {
   name: string;
@@ -137,7 +97,7 @@ const RecipeJsonLd: FC<RecipeJsonLdProps> = ({
         : ``
     }
     ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
-    ${video ? buildVideo(video) : ''}
+    ${video ? `"video": ${buildVideo(video)},` : ''}
     "recipeIngredient": [
       ${ingredients.map(ingredient => `"${ingredient}"`).join(',')}
     ],

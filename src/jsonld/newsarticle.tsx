@@ -38,7 +38,7 @@ const NewsArticleJsonLd: FC<NewsArticleJsonLdProps> = ({
   publisherLogo,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "NewsArticle",
     "mainEntityOfPage": {
       "@type": "WebPage",

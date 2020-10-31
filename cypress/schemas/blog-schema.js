@@ -111,7 +111,7 @@ const blog100 = {
     additionalProperties: false,
   },
   example: {
-    '@context': 'http://schema.org',
+    '@context': 'https://schema.org',
     '@type': 'Blog',
     mainEntityOfPage: {
       '@type': 'WebPage',

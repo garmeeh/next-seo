@@ -1020,7 +1020,20 @@ const Page = () => (
           'https://example.com/photos/16x9/photo.jpg',
         ],
         expires: '2019-02-05T08:00:00+08:00',
+        hasPart: {
+          '@type': 'Clip',
+          name: 'Preheat oven',
+          startOffset: 30,
+          url: 'http://www.example.com/example?t=30',
+        },
         watchCount: 2347,
+        publication: {
+          '@type': 'BroadcastEvent',
+          isLiveBroadcast: true,
+          startDate: '2020-10-24T14:00:00+00:00',
+          endDate: '2020-10-24T14:37:14+00:00',
+        },
+        regionsAllowed: ['IT', 'NL'],
       }}
     />
   </>
@@ -1432,8 +1445,8 @@ const Page = () => (
           price: '119.99',
           priceCurrency: 'USD',
           priceValidUntil: '2020-11-05',
-          itemCondition: 'http://schema.org/UsedCondition',
-          availability: 'http://schema.org/InStock',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
           url: 'https://www.example.com/executive-anvil',
           seller: {
             name: 'Executive Objects',
@@ -1443,8 +1456,8 @@ const Page = () => (
           price: '139.99',
           priceCurrency: 'CAD',
           priceValidUntil: '2020-09-05',
-          itemCondition: 'http://schema.org/UsedCondition',
-          availability: 'http://schema.org/InStock',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
           url: 'https://www.example.ca/executive-anvil',
           seller: {
             name: 'Executive Objects',
@@ -1579,6 +1592,67 @@ export default Page;
 ```
 
 [Google Docs for Social Profile](https://developers.google.com/search/docs/data-types/social-profile)
+
+### Video
+
+```jsx
+import { VideoJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Video JSON-LD</h1>
+    <VideoJsonLd
+      name="How to make a Party Coffee Cake"
+      description="This is how you make a Party Coffee Cake."
+      contentUrl="http://www.example.com/video123.mp4"
+      embedUrl="http://www.example.com/videoplayer?video=123"
+      uploadDate="2018-02-05T08:00:00+08:00"
+      duration="PT1M33S"
+      thumbnailUrls={[
+        'https://example.com/photos/1x1/photo.jpg',
+        'https://example.com/photos/4x3/photo.jpg',
+        'https://example.com/photos/16x9/photo.jpg',
+      ]}
+      expires="2019-02-05T08:00:00+08:00"
+      hasPart={{
+        name: 'Preheat oven',
+        startOffset: 30,
+        url: 'http://www.example.com/example?t=30',
+      }}
+      watchCount={2347}
+      publication={{
+        isLiveBroadcast: true,
+        startDate: '2020-10-24T14:00:00+00:00',
+        endDate: '2020-10-24T14:37:14+00:00',
+      }}
+      regionsAllowed={['IT', 'NL']}
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property       | Info                                                        |
+| -------------- | ----------------------------------------------------------- |
+| `name`         | The title of the video.                                     |
+| `description`  | The description of the video. HTML tags are ignored.        |
+| `thumbnailUrl` | A URL pointing to the video thumbnail image file.           |
+| `uploadDate`   | The date the video was first published, in ISO 8601 format. |
+
+**Recommended properties**
+
+| Property               | Info                                                                                     |
+| ---------------------- | ---------------------------------------------------------------------------------------- |
+| `contentUrl`           | A URL pointing to the actual video media file, in one of the supported encoding formats. |
+| `duration`             | The duration of the video in ISO 8601 format                                             |
+| `embedUrl`             | A URL pointing to a player for the specific video.                                       |
+| `expires`              | If applicable, the date after which the video will no longer be available.               |
+| `interactionStatistic` | The number of times the video has been watched.                                          |
+| `publication`          | If your video is happening live and you want to be eligible for the LIVE badge.          |
+| `regionsAllowed`       | The regions where the video is allowed.                                                  |
 
 ### Event
 

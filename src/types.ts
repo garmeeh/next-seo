@@ -20,6 +20,34 @@ export interface Address {
   addressCountry: string;
 }
 
+export interface Video {  
+  name: string;
+  description: string;
+  thumbnailUrls: string[];
+  uploadDate: string;
+  contentUrl?: string;
+  duration?: string;
+  embedUrl?: string;
+  expires?: string;
+  hasPart?: Clip | Clip[];
+  watchCount?: number;
+  publication?: BroadcastEvent | BroadcastEvent[];
+  regionsAllowed?: string | string[];
+}
+
+export interface Clip {
+  name: string;
+  startOffset: number;
+  url: string;
+};
+
+export interface BroadcastEvent {
+  name?: string;
+  isLiveBroadcast: boolean;
+  startDate: string;
+  endDate: string;
+};
+
 export interface OpenGraphVideoActors {
   profile: string;
   role?: string;

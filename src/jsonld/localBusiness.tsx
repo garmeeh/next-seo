@@ -93,7 +93,7 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   openingHours,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "${type}",
     ${id ? `"@id": "${id}",` : ''}
     ${description ? `"description": "${description}",` : ''}

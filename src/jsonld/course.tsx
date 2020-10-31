@@ -18,7 +18,7 @@ const CourseJsonLd: FC<CourseJsonLdProps> = ({
   providerUrl,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Course",
     "name": "${courseName}",
     "description": "${description}",

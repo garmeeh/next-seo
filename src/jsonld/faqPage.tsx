@@ -25,7 +25,7 @@ const buildQuestions = (mainEntity: Question[]) => `
 
 const FAQPageJsonLd: React.FC<FAQPageJsonLdProps> = ({ mainEntity = [] }) => {
   const jslonld = `{
-    "@context": "http://schema.org/",
+    "@context": "https://schema.org/",
     "@type": "FAQPage",
     "mainEntity": [${buildQuestions(mainEntity)}]
   }`;

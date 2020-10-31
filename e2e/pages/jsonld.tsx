@@ -182,8 +182,8 @@ export default () => (
           price: '119.99',
           priceCurrency: 'USD',
           priceValidUntil: '2020-11-05',
-          itemCondition: 'http://schema.org/UsedCondition',
-          availability: 'http://schema.org/InStock',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
           url: 'https://www.example.com/executive-anvil',
           seller: {
             name: 'Executive Objects',
@@ -193,8 +193,8 @@ export default () => (
           price: '139.99',
           priceCurrency: 'CAD',
           priceValidUntil: '2020-09-05',
-          itemCondition: 'http://schema.org/UsedCondition',
-          availability: 'http://schema.org/InStock',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
           url: 'https://www.example.ca/executive-anvil',
           seller: {
             name: 'Executive Objects',

@@ -69,7 +69,7 @@ const product100 = {
     },
   },
   example: {
-    '@context': 'http://schema.org/',
+    '@context': 'https://schema.org/',
     '@type': 'Product',
     name: 'Executive Anvil',
     image: [
@@ -118,8 +118,8 @@ const product100 = {
         price: '119.99',
         priceCurrency: 'USD',
         priceValidUntil: '2020-11-05',
-        itemCondition: 'http://schema.org/UsedCondition',
-        availability: 'http://schema.org/InStock',
+        itemCondition: 'https://schema.org/UsedCondition',
+        availability: 'https://schema.org/InStock',
         url: 'https://www.example.com/executive-anvil',
         seller: {
           '@type': 'Organization',
@@ -131,8 +131,8 @@ const product100 = {
         price: '139.99',
         priceCurrency: 'CAD',
         priceValidUntil: '2020-09-05',
-        itemCondition: 'http://schema.org/UsedCondition',
-        availability: 'http://schema.org/InStock',
+        itemCondition: 'https://schema.org/UsedCondition',
+        availability: 'https://schema.org/InStock',
         url: 'https://www.example.ca/executive-anvil',
         seller: {
           '@type': 'Organization',

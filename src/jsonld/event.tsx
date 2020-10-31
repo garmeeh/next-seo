@@ -41,7 +41,7 @@ const EventJsonLd: FC<EventJsonLdProps> = ({
   images,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "Event",
     "startDate": "${startDate}",
     "endDate": "${endDate}",
