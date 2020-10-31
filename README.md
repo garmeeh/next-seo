@@ -55,6 +55,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Product](#product)
   - [Social Profile](#social-profile)
   - [News Article](#news-article)
+  - [Video](#video-1)
   - [Event](#event)
   - [Carousel](#carousel)
     - [Default (Summary List)](#default-summary-list)
@@ -1360,7 +1361,7 @@ Local business is supported with a sub-set of properties.
 | `rating.ratingValue`        | The rating for the content.                                                                                                                          |
 | `rating.ratingCount`        | The count of total number of ratings.                                                                                                                |
 | `priceRange`                | The relative price range of the business.                                                                                                            |
-| `servesCuisine`             | The type of cuisine the restaurant serves.                                                                                                            |
+| `servesCuisine`             | The type of cuisine the restaurant serves.                                                                                                           |
 | `images`                    | An image or images of the business. Required for valid markup depending on the type                                                                  |
 | `telephone`                 | A business phone number meant to be the primary contact method for customers.                                                                        |
 | `url`                       | The fully-qualified URL of the specific business location.                                                                                           |
@@ -2089,6 +2090,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
