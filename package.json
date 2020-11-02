@@ -12,8 +12,8 @@
   ],
   "peerDependencies": {
     "next": "^8.1.1-canary.54 || ^9.0.0 || ^10.0.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.0.0 || ^17.0.0",
+    "react-dom": "^16.0.0 || ^17.0.0"
   },
   "scripts": {
     "test": "jest",
