@@ -18,20 +18,19 @@ const SiteLinksSearchBoxJsonLd: FC<SiteLinksSearchBoxJsonLdProps> = ({
   potentialActions = [],
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "WebSite",
-    "url": ${url},
+    "url": "${url}",
     "potentialAction": [
       ${potentialActions.map(
         ({ target, queryInput }) => `{
         "@type": "SearchAction",
-        "target": ${target}={${queryInput}},
-        "query-input": required name=${queryInput}
+        "target": "${target}={${queryInput}}",
+        "query-input": "required name=${queryInput}"
       }`,
       )}
      ]
   }`;
-
   return (
     <Head>
       <script
