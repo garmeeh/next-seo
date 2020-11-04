@@ -72,7 +72,7 @@ const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
   validThrough,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org",
+    "@context": "https://schema.org",
     "@type": "JobPosting",
     ${baseSalary ? buildBaseSalary(baseSalary) : ''}
     "datePosted": "${datePosted}",

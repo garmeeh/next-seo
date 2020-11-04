@@ -36,7 +36,7 @@ const dataset100 = {
     additionalProperties: false,
   },
   example: {
-    '@context': 'http://schema.org',
+    '@context': 'https://schema.org',
     '@type': 'Dataset',
     description: 'The description needs to be at least 50 characters long',
     name: 'name of the dataset',

@@ -66,7 +66,7 @@ const event100 = {
     },
   },
   example: {
-    '@context': 'http://schema.org',
+    '@context': 'https://schema.org',
     '@type': 'Event',
     name: 'My event',
     startDate: '2020-01-23T00:00:00.000Z',

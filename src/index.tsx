@@ -32,6 +32,7 @@ export {
   NewsArticleJsonLdProps,
 } from './jsonld/newsarticle';
 export { default as EventJsonLd, EventJsonLdProps } from './jsonld/event';
+export { default as VideoJsonLd, VideoJsonLdProps } from './jsonld/video';
 export { default as RecipeJsonLd, RecipeJsonLdProps } from './jsonld/recipe';
 export {
   default as CarouselJsonLd,

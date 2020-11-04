@@ -323,6 +323,25 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "danielr18",
+      "name": "Daniel Reinoso",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/9046616?v=4",
+      "profile": "http://kloc.io/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "valse",
+      "name": "Marco Valsecchi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/1492995?v=4",
+      "profile": "https://marcovalsecchi.it",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

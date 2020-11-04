@@ -181,7 +181,7 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
   aggregateOffer,
 }) => {
   const jslonld = `{
-    "@context": "http://schema.org/",
+    "@context": "https://schema.org/",
     "@type": "Product",
     "image":${formatIfArray(images)},
     ${description ? `"description": "${description}",` : ''}

@@ -54,7 +54,7 @@ const faqPage100 = {
     required: true,
   },
   example: {
-    '@context': 'http://schema.org',
+    '@context': 'https://schema.org',
     '@type': 'FAQ Page',
     mainEntity: [
       {

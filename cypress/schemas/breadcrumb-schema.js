@@ -53,7 +53,7 @@ const breadcrumb100 = {
     additionalProperties: false,
   },
   example: {
-    '@context': 'http://schema.org',
+    '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
       {

@@ -5,12 +5,12 @@
 
 Next SEO is a plugin that makes managing your SEO easier in Next.js projects.
 
-Version 2.x is compatible with `next@v8.1.1-canary.54+` and above
-Version 1.x is compatible with `next@6.0.0` and above
+Pull requests are very welcome. Also make sure to check out the issues for feature requests if you are
+looking for inspiration on what to add.
 
-**Both versions are still maintained. If upgrading from v1 to v2, please note that the `NextSeo` component has been changed from a default to a named export, so you need to update the import statements in your pages accordingly to avoid errors. Also, values are now passed down as properties to the SEO components instead of only using a `config` object so refactor your code accordingly (this would fail silently and your metadata will not be there, so double check and inspect your pages' HTML).**
+**Feel like supporting this free plugin?**
 
-Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/support/1.x)
+<a href="https://www.buymeacoffee.com/garmeeh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 **Table of Contents**
 
@@ -56,6 +56,7 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Product](#product)
   - [Social Profile](#social-profile)
   - [News Article](#news-article)
+  - [Video](#video-1)
   - [Event](#event)
   - [Carousel](#carousel)
     - [Default (Summary List)](#default-summary-list)
@@ -1022,7 +1023,20 @@ const Page = () => (
           'https://example.com/photos/16x9/photo.jpg',
         ],
         expires: '2019-02-05T08:00:00+08:00',
+        hasPart: {
+          '@type': 'Clip',
+          name: 'Preheat oven',
+          startOffset: 30,
+          url: 'http://www.example.com/example?t=30',
+        },
         watchCount: 2347,
+        publication: {
+          '@type': 'BroadcastEvent',
+          isLiveBroadcast: true,
+          startDate: '2020-10-24T14:00:00+00:00',
+          endDate: '2020-10-24T14:37:14+00:00',
+        },
+        regionsAllowed: ['IT', 'NL'],
       }}
     />
   </>
@@ -1385,6 +1399,7 @@ Local business is supported with a sub-set of properties.
 | `rating.ratingValue`        | The rating for the content.                                                                                                                          |
 | `rating.ratingCount`        | The count of total number of ratings.                                                                                                                |
 | `priceRange`                | The relative price range of the business.                                                                                                            |
+| `servesCuisine`             | The type of cuisine the restaurant serves.                                                                                                           |
 | `images`                    | An image or images of the business. Required for valid markup depending on the type                                                                  |
 | `telephone`                 | A business phone number meant to be the primary contact method for customers.                                                                        |
 | `url`                       | The fully-qualified URL of the specific business location.                                                                                           |
@@ -1470,8 +1485,8 @@ const Page = () => (
           price: '119.99',
           priceCurrency: 'USD',
           priceValidUntil: '2020-11-05',
-          itemCondition: 'http://schema.org/UsedCondition',
-          availability: 'http://schema.org/InStock',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
           url: 'https://www.example.com/executive-anvil',
           seller: {
             name: 'Executive Objects',
@@ -1481,8 +1496,8 @@ const Page = () => (
           price: '139.99',
           priceCurrency: 'CAD',
           priceValidUntil: '2020-09-05',
-          itemCondition: 'http://schema.org/UsedCondition',
-          availability: 'http://schema.org/InStock',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
           url: 'https://www.example.ca/executive-anvil',
           seller: {
             name: 'Executive Objects',
@@ -1617,6 +1632,67 @@ export default Page;
 ```
 
 [Google Docs for Social Profile](https://developers.google.com/search/docs/data-types/social-profile)
+
+### Video
+
+```jsx
+import { VideoJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Video JSON-LD</h1>
+    <VideoJsonLd
+      name="How to make a Party Coffee Cake"
+      description="This is how you make a Party Coffee Cake."
+      contentUrl="http://www.example.com/video123.mp4"
+      embedUrl="http://www.example.com/videoplayer?video=123"
+      uploadDate="2018-02-05T08:00:00+08:00"
+      duration="PT1M33S"
+      thumbnailUrls={[
+        'https://example.com/photos/1x1/photo.jpg',
+        'https://example.com/photos/4x3/photo.jpg',
+        'https://example.com/photos/16x9/photo.jpg',
+      ]}
+      expires="2019-02-05T08:00:00+08:00"
+      hasPart={{
+        name: 'Preheat oven',
+        startOffset: 30,
+        url: 'http://www.example.com/example?t=30',
+      }}
+      watchCount={2347}
+      publication={{
+        isLiveBroadcast: true,
+        startDate: '2020-10-24T14:00:00+00:00',
+        endDate: '2020-10-24T14:37:14+00:00',
+      }}
+      regionsAllowed={['IT', 'NL']}
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property       | Info                                                        |
+| -------------- | ----------------------------------------------------------- |
+| `name`         | The title of the video.                                     |
+| `description`  | The description of the video. HTML tags are ignored.        |
+| `thumbnailUrl` | A URL pointing to the video thumbnail image file.           |
+| `uploadDate`   | The date the video was first published, in ISO 8601 format. |
+
+**Recommended properties**
+
+| Property               | Info                                                                                     |
+| ---------------------- | ---------------------------------------------------------------------------------------- |
+| `contentUrl`           | A URL pointing to the actual video media file, in one of the supported encoding formats. |
+| `duration`             | The duration of the video in ISO 8601 format                                             |
+| `embedUrl`             | A URL pointing to a player for the specific video.                                       |
+| `expires`              | If applicable, the date after which the video will no longer be available.               |
+| `interactionStatistic` | The number of times the video has been watched.                                          |
+| `publication`          | If your video is happening live and you want to be eligible for the LIVE badge.          |
+| `regionsAllowed`       | The regions where the video is allowed.                                                  |
 
 ### Event
 
@@ -2045,6 +2121,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="http://drewgoodwin.com"><img src="https://avatars1.githubusercontent.com/u/63794?v=4" width="100px;" alt=""/><br /><sub><b>Drew Goodwin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=tacomanator" title="Documentation">📖</a></td>
     <td align="center"><a href="https://schlosser.io"><img src="https://avatars0.githubusercontent.com/u/2433509?v=4" width="100px;" alt=""/><br /><sub><b>Dan Schlosser</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=schlosser" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/matamatanot"><img src="https://avatars2.githubusercontent.com/u/39780486?v=4" width="100px;" alt=""/><br /><sub><b>matamatanot</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=matamatanot" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://kloc.io/"><img src="https://avatars2.githubusercontent.com/u/9046616?v=4" width="100px;" alt=""/><br /><sub><b>Daniel Reinoso</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=danielr18" title="Code">💻</a></td>
+    <td align="center"><a href="https://marcovalsecchi.it"><img src="https://avatars0.githubusercontent.com/u/1492995?v=4" width="100px;" alt=""/><br /><sub><b>Marco Valsecchi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=valse" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=valse" title="Documentation">📖</a></td>
   </tr>
 </table>
 
