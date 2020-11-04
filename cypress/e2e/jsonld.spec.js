@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 16;
+const expectedJSONResults = 17;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -19,6 +19,7 @@ const jobPostingLdJsonIndex = 12;
 const eventLdJsonIndex = 13;
 const datasetLdJsonIndex = 14;
 const recipeLdJsonIndex = 15;
+const siteLinksSearchBoxLdJsonIndex = 16;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -785,6 +786,49 @@ describe('Validates JSON-LD For:', () => {
             },
             expires: '2019-02-05T08:00:00+08:00',
           },
+        };
+
+        expect(jsonLD).to.deep.equal(expectedObject);
+      });
+  });
+
+  it('Sitelinks Search Box', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(
+          tags[siteLinksSearchBoxLdJsonIndex].innerHTML,
+        );
+        assertSchema(schemas)('Sitelinks Search Box', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Sitelinks Search Box Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(
+          tags[siteLinksSearchBoxLdJsonIndex].innerHTML,
+        );
+        const expectedObject = {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          url: 'https://example.com',
+          potentialAction: [
+            {
+              '@type': 'SearchAction',
+              target: 'https://query.example.com/search?q={search_term_string}',
+              'query-input': 'required name=search_term_string',
+            },
+            {
+              '@type': 'SearchAction',
+              target:
+                'android-app://com.example/https/query.example.com/search/?q={search_term_string}',
+              'query-input': 'required name=search_term_string',
+            },
+          ],
         };
 
         expect(jsonLD).to.deep.equal(expectedObject);
