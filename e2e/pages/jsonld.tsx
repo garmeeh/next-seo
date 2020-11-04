@@ -15,6 +15,7 @@ import {
   EventJsonLd,
   DatasetJsonLd,
   RecipeJsonLd,
+  SiteLinksSearchBoxJsonLd,
 } from '../..';
 import Links from '../components/links';
 
@@ -388,6 +389,20 @@ export default () => (
         expires: '2019-02-05T08:00:00+08:00',
         watchCount: 2347,
       }}
+    />
+
+    <SiteLinksSearchBoxJsonLd
+      url="https://example.com"
+      potentialActions={[
+        {
+          target: 'https://query.example.com/search?q',
+          queryInput: 'search_term_string',
+        },
+        {
+          target: 'android-app://com.example/https/query.example.com/search/?q',
+          queryInput: 'search_term_string',
+        },
+      ]}
     />
 
     <Links />
