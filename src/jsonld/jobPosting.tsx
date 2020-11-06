@@ -38,7 +38,7 @@ export interface JobPostingJsonLdProps {
   datePosted: string;
   description: string;
   hiringOrganization: HiringOrganization;
-  jobLocation: Place;
+  jobLocation?: Place;
   title: string;
   validThrough: string;
   applicantLocationRequirements?: string;
@@ -85,7 +85,9 @@ const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
       ${hiringOrganization.logo ? `,"logo": "${hiringOrganization.logo}"` : ''}
     },
 
-    "jobLocation": {
+    ${
+      jobLocation
+        ? `jobLocation": {
       "@type": "Place",
       "address": {
         "@type": "PostalAddress",
@@ -94,7 +96,8 @@ const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
         "postalCode" : "${jobLocation.postalCode}",
         "streetAddress" : "${jobLocation.streetAddress}",
         "addressCountry" : "${jobLocation.addressCountry}"
-      }
+      }`
+        : ''
     },
     ${
       applicantLocationRequirements
