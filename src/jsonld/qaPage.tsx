@@ -32,50 +32,50 @@ export interface QAPageJsonldProps {
 
 const buildQuestions = (mainEntity: Question) => `{
         "@type": "Question",
-        "name": ${mainEntity.name},
-        ${mainEntity.text ? `"text": ${mainEntity.text}` : ''},
+        "name": "${mainEntity.name}",
+        ${mainEntity.text ? `"text": "${mainEntity.text}",` : ''}
         "answerCount": ${mainEntity.answerCount},
         ${
           mainEntity.upvotedCount
-            ? `"upvoteCount": ${mainEntity.upvotedCount}`
+            ? `"upvoteCount": ${mainEntity.upvotedCount},`
             : ''
-        },
+        }
         ${
           mainEntity.dateCreated
-            ? `"dateCreated": ${mainEntity.dateCreated}`
+            ? `"dateCreated": "${mainEntity.dateCreated}",`
             : ''
-        },
+        }
         ${
           mainEntity.author
             ? `"author": {
           "@type": "Person",
-          "name": ${mainEntity.author.name}
+          "name": "${mainEntity.author.name}"
         }`
             : ''
         },
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": ${mainEntity.acceptedAnswer.text},
+          "text": "${mainEntity.acceptedAnswer.text}",
           ${
             mainEntity.acceptedAnswer.dateCreated
-              ? `"dateCreated": ${mainEntity.acceptedAnswer.dateCreated}`
+              ? `"dateCreated": "${mainEntity.acceptedAnswer.dateCreated},"`
               : ''
-          },
+          }
           ${
             mainEntity.acceptedAnswer.upvotedCount
-              ? `"upvoteCount": ${mainEntity.acceptedAnswer.upvotedCount}`
+              ? `"upvoteCount": ${mainEntity.acceptedAnswer.upvotedCount},`
               : ''
-          },
+          }
           ${
             mainEntity.acceptedAnswer.url
-              ? `"url": ${mainEntity.acceptedAnswer.url}`
+              ? `"url": "${mainEntity.acceptedAnswer.url},"`
               : ''
-          },
+          }
           ${
             mainEntity.acceptedAnswer.author
               ? `"author": {
             "@type": "Person",
-            "name": ${mainEntity.acceptedAnswer.author.name}
+            "name": "${mainEntity.acceptedAnswer.author.name}"
           }`
               : ''
           }
@@ -83,27 +83,27 @@ const buildQuestions = (mainEntity: Question) => `{
         "suggestedAnswer": [${mainEntity.suggestedAnswer.map(
           suggested => `{
             "@type": "Answer",
-            "text": ${suggested.text},
+            "text": "${suggested.text}",
             ${
               suggested.dateCreated
-                ? `"dateCreated": ${suggested.dateCreated}`
+                ? `"dateCreated": "${suggested.dateCreated}",`
                 : ''
-            },
+            }
             ${
               suggested.upvotedCount
-                ? `"upvoteCount": ${suggested.upvotedCount}`
+                ? `"upvoteCount": ${suggested.upvotedCount},`
                 : ''
-            },
-            ${suggested.url ? `"url": ${suggested.url}` : ''},
+            }
+            ${suggested.url ? `"url": "${suggested.url}",` : ''}
               ${
                 suggested.author
                   ? `"author": {
                         "@type": "Person",
-                        "name": ${suggested.author.name}
+                        "name": "${suggested.author.name}"
                     }`
                   : ''
               }
-        },`,
+        }`,
         )}
     ]
 }`;
