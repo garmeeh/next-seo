@@ -38,5 +38,9 @@ export {
   default as CarouselJsonLd,
   CarouselJsonLdProps,
 } from './jsonld/carousel';
+export {
+  default as SiteLinksSearchBoxJsonLd,
+  SiteLinksSearchBoxJsonLdProps,
+} from './jsonld/siteLinksSearchBox';
 
 export { DefaultSeoProps, NextSeoProps } from './types';

@@ -45,6 +45,7 @@ looking for inspiration on what to add.
   - [Breadcrumb](#breadcrumb)
   - [Blog](#blog)
   - [Recipe](#recipe)
+  - [Sitelinks Search Box](#sitelinks-search-box)
   - [Course](#course)
   - [Dataset](#dataset)
   - [Corporate Contact](#corporate-contact)
@@ -833,6 +834,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Breadcrumb](#breadcrumb)
 - [Blog](#blog)
 - [Recipe](#recipe)
+- [Sitelinks Search Box](#sitelinks-search-box)
 - [Course](#course)
 - [Dataset](#dataset)
 - [Corporate Contact](#corporate-contact)
@@ -1054,6 +1056,42 @@ export default Page;
 | `instructions`      | -                                                                   |
 | `instructions.name` | The name of the instruction step.                                   |
 | `instructions.text` | The directions of the instruction step.                             |
+
+### Sitelinks Search Box
+
+```jsx
+import { SiteLinksSearchBoxJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Sitelinks Search Box JSON-LD</h1>
+    <SiteLinksSearchBoxJsonLd
+      url="https://www.example.com"
+      potentialActions={[
+        {
+          target: 'https://query.example.com/search?q',
+          queryInput: 'search_term_string',
+        },
+        {
+          target: 'android-app://com.example/https/query.example.com/search/?q',
+          queryInput: 'search_term_string',
+        },
+      ]}
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property                      | Info                                                                                                                                                                            |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `url`                         | URL of the website associated with the sitelinks searchbox                                                                                                                      |
+| `potentialActions`            | Array of one or two SearchAction objects. Describes the URI to send the query to, and the syntax of the request that is sent                                                    |
+| `potentialActions.target`     | For websites, the URL of the handler that should receive and handle the search query; for apps, the URI of the intent handler for your search engine that should handle queries |
+| `potentialActions.queryInput` | Placeholder used in target, gets substituted for user given query                                                                                                               |
 
 ### Course
 
