@@ -16,10 +16,11 @@ export interface Answer {
 }
 
 export interface Question {
+  keyOverride?: string;
   name: string;
   answerCount: number;
-  acceptedAnswer: Answer;
-  suggestedAnswer: Answer[];
+  acceptedAnswer?: Answer;
+  suggestedAnswer?: Answer[];
   text?: string;
   author?: Person;
   upvotedCount?: number;
@@ -53,7 +54,9 @@ const buildQuestions = (mainEntity: Question) => `{
         },`
             : ''
         }
-        "acceptedAnswer": {
+        ${
+          mainEntity.acceptedAnswer
+            ? `"acceptedAnswer": {
           "@type": "Answer",
           "text": "${mainEntity.acceptedAnswer.text}",
           ${
@@ -79,9 +82,13 @@ const buildQuestions = (mainEntity: Question) => `{
           }`
               : ''
           }
-        },
-        "suggestedAnswer": [${mainEntity.suggestedAnswer.map(
-          suggested => `{
+        },`
+            : ''
+        }
+        ${
+          mainEntity.suggestedAnswer
+            ? `"suggestedAnswer": [${mainEntity.suggestedAnswer.map(
+                suggested => `{
             "@type": "Answer",
             "text": "${suggested.text}",
             ${
@@ -104,8 +111,10 @@ const buildQuestions = (mainEntity: Question) => `{
                   : ''
               }
         }`,
-        )}
-    ]
+              )}
+    ]`
+            : ''
+        }
 }`;
 
 const QAPageJsonLd: React.FC<QAPageJsonldProps> = ({ mainEntity }) => {
@@ -119,7 +128,9 @@ const QAPageJsonLd: React.FC<QAPageJsonldProps> = ({ mainEntity }) => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-qa-page"
+        key={`jsonld-qa${
+          mainEntity.keyOverride ? `-${mainEntity.keyOverride}` : ''
+        }`}
       />
     </Head>
   );
