@@ -38,12 +38,12 @@ export interface JobPostingJsonLdProps {
   datePosted: string;
   description: string;
   hiringOrganization: HiringOrganization;
-  jobLocation: Place;
   title: string;
   validThrough: string;
   applicantLocationRequirements?: string;
   baseSalary?: MonetaryAmount;
   employmentType?: EmploymentType | EmploymentType[];
+  jobLocation?: Place;
   jobLocationType?: string;
 }
 
@@ -84,8 +84,9 @@ const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
       "sameAs" : "${hiringOrganization.sameAs}"
       ${hiringOrganization.logo ? `,"logo": "${hiringOrganization.logo}"` : ''}
     },
-
-    "jobLocation": {
+    ${
+      jobLocation
+        ? `"jobLocation": {
       "@type": "Place",
       "address": {
         "@type": "PostalAddress",
@@ -94,8 +95,10 @@ const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
         "postalCode" : "${jobLocation.postalCode}",
         "streetAddress" : "${jobLocation.streetAddress}",
         "addressCountry" : "${jobLocation.addressCountry}"
-      }
-    },
+          }
+      },`
+        : ''
+    }
     ${
       applicantLocationRequirements
         ? ` "applicantLocationRequirements": {

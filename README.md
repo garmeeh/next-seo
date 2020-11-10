@@ -1290,34 +1290,34 @@ export default Page;
 
 **Required properties**
 
-| Property                      | Info                                                                                                   |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `datePosted`                  | The original date that employer posted the job in ISO 8601 format                                      |
-| `description`                 | The full description of the job in HTML format                                                         |
-| `hiringOrganization`          |                                                                                                        |
-| `hiringOrganization.name`     | Name of the company offering the job position                                                          |
-| `hiringOrganization.sameAs`   | URL of a reference Web page                                                                            |
-| `jobLocation`                 |                                                                                                        |
-| `jobLocation.streetAddress`   | The street address. For example, 1600 Amphitheatre Pkwy                                                |
-| `jobLocation.addressLocality` | The locality. For example, Mountain View.                                                              |
-| `jobLocation.addressRegion`   | The region. For example, CA.                                                                           |
-| `jobLocation.postalCode`      | The postal code. For example, 94043                                                                    |
-| `jobLocation.addressCountry`  | The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.    |
-| `title`                       | The title of the job (not the title of the posting)                                                    |
-| `validThrough`                | The date when the job posting will expire in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) |
+| Property                    | Info                                                                                                   |
+| --------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `datePosted`                | The original date that employer posted the job in ISO 8601 format                                      |
+| `description`               | The full description of the job in HTML format                                                         |
+| `hiringOrganization`        |                                                                                                        |
+| `hiringOrganization.name`   | Name of the company offering the job position                                                          |
+| `hiringOrganization.sameAs` | URL of a reference Web page                                                                            |
+| `title`                     | The title of the job (not the title of the posting)                                                    |
+| `validThrough`              | The date when the job posting will expire in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) |
 
 **Supported properties**
 
-| Property                        | Info                                                                                                                                                |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `applicantLocationRequirements` | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                  |
-| `baseSalary`                    |                                                                                                                                                     |
-| `baseSalary.currency`           | The currency in which the monetary amount is expressed                                                                                              |
-| `baseSalary.value`              | The value of the quantitative value                                                                                                                 |
-| `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)    |
-| `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                        |  |
-| `jobLocationType`               | A description of the job location [Job Location type guideline](https://developers.google.com/search/docs/data-types/job-posting#job-location-type) |
-| `hiringOrganization.logo`       | Logos on third-party job sites [Hiring Organization guideline](https://developers.google.com/search/docs/data-types/job-posting#hiring)             |
+| Property                        | Info                                                                                                                                                        |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `applicantLocationRequirements` | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                          |
+| `baseSalary`                    |                                                                                                                                                             |
+| `baseSalary.currency`           | The currency in which the monetary amount is expressed                                                                                                      |
+| `baseSalary.value`              | The value of the quantitative value                                                                                                                         |
+| `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)            |
+| `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                                |
+| `jobLocation`                   | The physical location(s) of the business where the employee will report to work (such as an office or worksite), not the location where the job was posted. |  |
+| `jobLocation.streetAddress`     | The street address. For example, 1600 Amphitheatre Pkwy                                                                                                     |
+| `jobLocation.addressLocality`   | The locality. For example, Mountain View.                                                                                                                   |
+| `jobLocation.addressRegion`     | The region. For example, CA.                                                                                                                                |
+| `jobLocation.postalCode`        | The postal code. For example, 94043                                                                                                                         |
+| `jobLocation.addressCountry`    | The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.                                                         |
+| `jobLocationType`               | A description of the job location [Job Location type guideline](https://developers.google.com/search/docs/data-types/job-posting#job-location-type)         |
+| `hiringOrganization.logo`       | Logos on third-party job sites [Hiring Organization guideline](https://developers.google.com/search/docs/data-types/job-posting#hiring)                     |
 
 ### Local Business
 
