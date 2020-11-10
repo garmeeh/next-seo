@@ -16,7 +16,6 @@ export interface Answer {
 }
 
 export interface Question {
-  keyOverride?: string;
   name: string;
   answerCount: number;
   acceptedAnswer?: Answer;
@@ -29,6 +28,7 @@ export interface Question {
 
 export interface QAPageJsonldProps {
   mainEntity: Question;
+  keyOverride?: string;
 }
 
 const buildQuestions = (mainEntity: Question) => `{
@@ -117,7 +117,10 @@ const buildQuestions = (mainEntity: Question) => `{
         }
 }`;
 
-const QAPageJsonLd: React.FC<QAPageJsonldProps> = ({ mainEntity }) => {
+const QAPageJsonLd: React.FC<QAPageJsonldProps> = ({
+  mainEntity,
+  keyOverride,
+}) => {
   const jslonld = `{
     "@context": "https://schema.org",
     "@type": "QAPage",
@@ -128,9 +131,7 @@ const QAPageJsonLd: React.FC<QAPageJsonldProps> = ({ mainEntity }) => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-qa${
-          mainEntity.keyOverride ? `-${mainEntity.keyOverride}` : ''
-        }`}
+        key={`jsonld-qa${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>
   );
