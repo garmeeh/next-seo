@@ -351,6 +351,27 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "omar-dulaimi",
+      "name": "Omar Dulaimi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/11743389?v=4",
+      "profile": "https://github.com/omar-dulaimi",
+      "contributions": [
+        "doc",
+        "test",
+        "code"
+      ]
+    },
+    {
+      "login": "rodzy",
+      "name": "Isaac Rodríguez",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/49137701?v=4",
+      "profile": "http://rodzy.vercel.app",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

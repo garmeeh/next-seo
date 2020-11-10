@@ -45,6 +45,7 @@ looking for inspiration on what to add.
   - [Breadcrumb](#breadcrumb)
   - [Blog](#blog)
   - [Recipe](#recipe)
+  - [Sitelinks Search Box](#sitelinks-search-box)
   - [Course](#course)
   - [Dataset](#dataset)
   - [Corporate Contact](#corporate-contact)
@@ -833,6 +834,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Breadcrumb](#breadcrumb)
 - [Blog](#blog)
 - [Recipe](#recipe)
+- [Sitelinks Search Box](#sitelinks-search-box)
 - [Course](#course)
 - [Dataset](#dataset)
 - [Corporate Contact](#corporate-contact)
@@ -1055,6 +1057,42 @@ export default Page;
 | `instructions.name` | The name of the instruction step.                                   |
 | `instructions.text` | The directions of the instruction step.                             |
 
+### Sitelinks Search Box
+
+```jsx
+import { SiteLinksSearchBoxJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Sitelinks Search Box JSON-LD</h1>
+    <SiteLinksSearchBoxJsonLd
+      url="https://www.example.com"
+      potentialActions={[
+        {
+          target: 'https://query.example.com/search?q',
+          queryInput: 'search_term_string',
+        },
+        {
+          target: 'android-app://com.example/https/query.example.com/search/?q',
+          queryInput: 'search_term_string',
+        },
+      ]}
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property                      | Info                                                                                                                                                                            |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `url`                         | URL of the website associated with the sitelinks searchbox                                                                                                                      |
+| `potentialActions`            | Array of one or two SearchAction objects. Describes the URI to send the query to, and the syntax of the request that is sent                                                    |
+| `potentialActions.target`     | For websites, the URL of the handler that should receive and handle the search query; for apps, the URI of the intent handler for your search engine that should handle queries |
+| `potentialActions.queryInput` | Placeholder used in target, gets substituted for user given query                                                                                                               |
+
 ### Course
 
 ```jsx
@@ -1252,34 +1290,34 @@ export default Page;
 
 **Required properties**
 
-| Property                      | Info                                                                                                   |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `datePosted`                  | The original date that employer posted the job in ISO 8601 format                                      |
-| `description`                 | The full description of the job in HTML format                                                         |
-| `hiringOrganization`          |                                                                                                        |
-| `hiringOrganization.name`     | Name of the company offering the job position                                                          |
-| `hiringOrganization.sameAs`   | URL of a reference Web page                                                                            |
-| `jobLocation`                 |                                                                                                        |
-| `jobLocation.streetAddress`   | The street address. For example, 1600 Amphitheatre Pkwy                                                |
-| `jobLocation.addressLocality` | The locality. For example, Mountain View.                                                              |
-| `jobLocation.addressRegion`   | The region. For example, CA.                                                                           |
-| `jobLocation.postalCode`      | The postal code. For example, 94043                                                                    |
-| `jobLocation.addressCountry`  | The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.    |
-| `title`                       | The title of the job (not the title of the posting)                                                    |
-| `validThrough`                | The date when the job posting will expire in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) |
+| Property                    | Info                                                                                                   |
+| --------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `datePosted`                | The original date that employer posted the job in ISO 8601 format                                      |
+| `description`               | The full description of the job in HTML format                                                         |
+| `hiringOrganization`        |                                                                                                        |
+| `hiringOrganization.name`   | Name of the company offering the job position                                                          |
+| `hiringOrganization.sameAs` | URL of a reference Web page                                                                            |
+| `title`                     | The title of the job (not the title of the posting)                                                    |
+| `validThrough`              | The date when the job posting will expire in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) |
 
 **Supported properties**
 
-| Property                        | Info                                                                                                                                                |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `applicantLocationRequirements` | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                  |
-| `baseSalary`                    |                                                                                                                                                     |
-| `baseSalary.currency`           | The currency in which the monetary amount is expressed                                                                                              |
-| `baseSalary.value`              | The value of the quantitative value                                                                                                                 |
-| `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)    |
-| `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                        |  |
-| `jobLocationType`               | A description of the job location [Job Location type guideline](https://developers.google.com/search/docs/data-types/job-posting#job-location-type) |
-| `hiringOrganization.logo`       | Logos on third-party job sites [Hiring Organization guideline](https://developers.google.com/search/docs/data-types/job-posting#hiring)             |
+| Property                        | Info                                                                                                                                                        |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `applicantLocationRequirements` | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                          |
+| `baseSalary`                    |                                                                                                                                                             |
+| `baseSalary.currency`           | The currency in which the monetary amount is expressed                                                                                                      |
+| `baseSalary.value`              | The value of the quantitative value                                                                                                                         |
+| `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)            |
+| `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                                |
+| `jobLocation`                   | The physical location(s) of the business where the employee will report to work (such as an office or worksite), not the location where the job was posted. |  |
+| `jobLocation.streetAddress`     | The street address. For example, 1600 Amphitheatre Pkwy                                                                                                     |
+| `jobLocation.addressLocality`   | The locality. For example, Mountain View.                                                                                                                   |
+| `jobLocation.addressRegion`     | The region. For example, CA.                                                                                                                                |
+| `jobLocation.postalCode`        | The postal code. For example, 94043                                                                                                                         |
+| `jobLocation.addressCountry`    | The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.                                                         |
+| `jobLocationType`               | A description of the job location [Job Location type guideline](https://developers.google.com/search/docs/data-types/job-posting#job-location-type)         |
+| `hiringOrganization.logo`       | Logos on third-party job sites [Hiring Organization guideline](https://developers.google.com/search/docs/data-types/job-posting#hiring)                     |
 
 ### Local Business
 
@@ -2185,6 +2223,10 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="http://kloc.io/"><img src="https://avatars2.githubusercontent.com/u/9046616?v=4" width="100px;" alt=""/><br /><sub><b>Daniel Reinoso</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=danielr18" title="Code">💻</a></td>
     <td align="center"><a href="https://marcovalsecchi.it"><img src="https://avatars0.githubusercontent.com/u/1492995?v=4" width="100px;" alt=""/><br /><sub><b>Marco Valsecchi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=valse" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=valse" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/pbrandone"><img src="https://avatars2.githubusercontent.com/u/5202712?v=4" width="100px;" alt=""/><br /><sub><b>Pedro Brandão</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=pbrandone" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/omar-dulaimi"><img src="https://avatars0.githubusercontent.com/u/11743389?v=4" width="100px;" alt=""/><br /><sub><b>Omar Dulaimi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=omar-dulaimi" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=omar-dulaimi" title="Tests">⚠️</a> <a href="https://github.com/garmeeh/next-seo/commits?author=omar-dulaimi" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://rodzy.vercel.app"><img src="https://avatars2.githubusercontent.com/u/49137701?v=4" width="100px;" alt=""/><br /><sub><b>Isaac Rodríguez</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Documentation">📖</a></td>
   </tr>
 </table>
 

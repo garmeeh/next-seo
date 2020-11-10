@@ -15,7 +15,8 @@ import {
   EventJsonLd,
   DatasetJsonLd,
   RecipeJsonLd,
-  QAPageJsonld,
+  SiteLinksSearchBoxJsonLd,
+  QAPageJsonld
 } from '../..';
 import Links from '../components/links';
 
@@ -391,6 +392,20 @@ export default () => (
       }}
     />
 
+    <SiteLinksSearchBoxJsonLd
+      url="https://example.com"
+      potentialActions={[
+        {
+          target: 'https://query.example.com/search?q',
+          queryInput: 'search_term_string',
+        },
+        {
+          target: 'android-app://com.example/https/query.example.com/search/?q',
+          queryInput: 'search_term_string',
+        },
+      ]}
+    />
+
     <QAPageJsonld
       mainEntity={{
         name: 'How many ounces are there in a pound?',
@@ -432,7 +447,7 @@ export default () => (
         ],
       }}
     />
-
+    
     <Links />
   </>
 );
