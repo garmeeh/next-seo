@@ -15,6 +15,7 @@ import jobPostingVersions from './job-posting-schema';
 import eventVersion from './event-schema';
 import datasetVersion from './dataset-schema';
 import recipeVersion from './recipe-schema';
+import qaPageVersions from './qa-page-schema';
 
 const schemas = combineSchemas(
   articleVersions,
@@ -32,5 +33,6 @@ const schemas = combineSchemas(
   eventVersion,
   datasetVersion,
   recipeVersion,
+  qaPageVersions,
 );
 export default schemas;
