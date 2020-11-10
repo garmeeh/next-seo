@@ -362,6 +362,16 @@
         "test",
         "code"
       ]
+    },
+    {
+      "login": "rodzy",
+      "name": "Isaac Rodríguez",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/49137701?v=4",
+      "profile": "http://rodzy.vercel.app",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
