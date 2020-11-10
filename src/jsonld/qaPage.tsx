@@ -92,7 +92,7 @@ const buildQuestions = (mainEntity: Question) => `{
             ${
               suggested.upvotedCount
                 ? `"upvoteCount": ${suggested.upvotedCount},`
-                : ''
+                : `"upvoteCount": ${0},`
             }
             ${suggested.url ? `"url": "${suggested.url}",` : ''}
               ${
@@ -119,7 +119,7 @@ const QAPageJsonLd: React.FC<QAPageJsonldProps> = ({ mainEntity }) => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-faq-page"
+        key="jsonld-qa-page"
       />
     </Head>
   );
