@@ -351,6 +351,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "omar-dulaimi",
+      "name": "Omar Dulaimi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/11743389?v=4",
+      "profile": "https://github.com/omar-dulaimi",
+      "contributions": [
+        "doc",
+        "test",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
