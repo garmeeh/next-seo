@@ -50,15 +50,15 @@ const buildQuestions = (mainEntity: Question) => `{
             ? `"author": {
           "@type": "Person",
           "name": "${mainEntity.author.name}"
-        }`
+        },`
             : ''
-        },
+        }
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "${mainEntity.acceptedAnswer.text}",
           ${
             mainEntity.acceptedAnswer.dateCreated
-              ? `"dateCreated": "${mainEntity.acceptedAnswer.dateCreated},"`
+              ? `"dateCreated": "${mainEntity.acceptedAnswer.dateCreated}",`
               : ''
           }
           ${
@@ -68,7 +68,7 @@ const buildQuestions = (mainEntity: Question) => `{
           }
           ${
             mainEntity.acceptedAnswer.url
-              ? `"url": "${mainEntity.acceptedAnswer.url},"`
+              ? `"url": "${mainEntity.acceptedAnswer.url}",`
               : ''
           }
           ${
