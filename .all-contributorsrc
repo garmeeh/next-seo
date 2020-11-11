@@ -370,7 +370,8 @@
       "profile": "http://rodzy.vercel.app",
       "contributions": [
         "code",
-        "doc"
+        "doc",
+        "test"
       ]
     }
   ],
