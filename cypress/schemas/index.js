@@ -16,6 +16,7 @@ import eventVersion from './event-schema';
 import datasetVersion from './dataset-schema';
 import recipeVersion from './recipe-schema';
 import siteLinksSearchBoxVersion from './site-links-search-box-schema';
+import qaPageVersions from './qa-page-schema';
 
 const schemas = combineSchemas(
   articleVersions,
@@ -34,5 +35,6 @@ const schemas = combineSchemas(
   datasetVersion,
   recipeVersion,
   siteLinksSearchBoxVersion,
+  qaPageVersions
 );
 export default schemas;

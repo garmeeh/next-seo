@@ -58,6 +58,7 @@ looking for inspiration on what to add.
   - [News Article](#news-article)
   - [Video](#video-1)
   - [Event](#event)
+  - [Q&A](#qa)
   - [Carousel](#carousel)
     - [Default (Summary List)](#default-summary-list)
     - [Course](#course-1)
@@ -1521,7 +1522,7 @@ Valid values for `offers.itemCondition`:
 - <https://schema.org/RefurbishedCondition>
 - <https://schema.org/UsedCondition>
 
-Valid values fro `offers.availability`:
+Valid values for `offers.availability`:
 
 - <https://schema.org/Discontinued>
 - <https://schema.org/InStock>
@@ -1744,6 +1745,105 @@ export default Page;
 | `location.sameAs` | Description of the event location     |
 | `images`          | An image or images of the event.      |
 | `url`             | The fully-qualified URL of the event. |
+
+### Q&A
+
+Q&A pages are web pages that contain data in a question and answer format, which is one question followed by its answers.
+
+```jsx
+import { QAPageJsonld } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Q&A Page JSON-LD</h1>
+    <QAPageJsonld
+      mainEntity={{
+        name: 'How many ounces are there in a pound?',
+        text:
+          'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
+        answerCount: 3,
+        upvotedCount: 26,
+        dateCreated: '2016-07-23T21:11Z',
+        author: {
+          name: 'New Baking User',
+        },
+        acceptedAnswer: {
+          text: '1 pound (lb) is equal to 16 ounces (oz).',
+          dateCreated: '2016-11-02T21:11Z',
+          upvotedCount: 1337,
+          url: 'https://example.com/question1#acceptedAnswer',
+          author: {
+            name: 'SomeUser',
+          },
+        },
+        suggestedAnswer: [
+          {
+            text:
+              'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
+            dateCreated: '2016-11-02T21:11Z',
+            upvotedCount: 42,
+            url: 'https://example.com/question1#suggestedAnswer1',
+            author: {
+              name: 'AnotherUser',
+            },
+          },
+          {
+            text: `I can't remember exactly, but I think 18 ounces in a lb. You might want to double check that.`,
+            dateCreated: '2016-11-06T21:11Z',
+            upvotedCount: 0,
+            url: 'https://example.com/question1#suggestedAnswer2',
+            author: {
+              name: 'ConfusedUser',
+            },
+          },
+        ],
+      }}
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property     | Info                                                                                                   |
+| ------------ | ------------------------------------------------------------------------------------------------------ |
+| `mainEntity` | The Question for this page must be nested under the mainEntity property of the QAPageJsonld component. |
+
+**`mainEntity` Required properties**
+
+| Property                              | Info                                                                                                                          |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `answerCount`                         | The total number of answers to the question.                                                                                  |
+| `acceptedAnswer` or `suggestedAnswer` | To be eligible for the rich result, a question must have at least one answer – either an acceptedAnswer or a suggestedAnswer. |
+| `name`                                | The full text of the short form of the question.                                                                              |
+
+**`mainEntity` Supported properties**
+
+| Property      | Info                                                                      |
+| ------------- | ------------------------------------------------------------------------- |
+| `author`      | The author of the question.                                               |
+| `dateCreated` | The date at which the question was added to the page, in ISO-8601 format. |
+| `text`        | The full text of the long form of the question.                           |
+| `upvoteCount` | The total number of votes that this question has received.                |
+
+**`acceptedAnswer`/`suggestedAnswer` Required properties**
+
+| Property | Info                         |
+| -------- | ---------------------------- |
+| `text`   | The full text of the answer. |
+
+**`acceptedAnswer`/`suggestedAnswer` Supported properties**
+
+| Property      | Info                                                                      |
+| ------------- | ------------------------------------------------------------------------- |
+| `author`      | The author of the question.                                               |
+| `dateCreated` | The date at which the question was added to the page, in ISO-8601 format. |
+| `upvoteCount` | The total number of votes that this question has received.                |
+| `url`         | A URL that links directly to this answer.                                 |
+
+For reference and more info check [Google's Search Q&A DataType](https://developers.google.com/search/docs/data-types/qapage)
 
 ### Carousel
 
