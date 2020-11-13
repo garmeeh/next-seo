@@ -20,7 +20,7 @@ export interface Address {
   addressCountry: string;
 }
 
-export interface Video {  
+export interface Video {
   name: string;
   description: string;
   thumbnailUrls: string[];
@@ -39,14 +39,14 @@ export interface Clip {
   name: string;
   startOffset: number;
   url: string;
-};
+}
 
 export interface BroadcastEvent {
   name?: string;
   isLiveBroadcast: boolean;
   startDate: string;
   endDate: string;
-};
+}
 
 export interface OpenGraphVideoActors {
   profile: string;
@@ -136,11 +136,20 @@ export interface RDFaMetaTag extends BaseMetaTag {
 
 export type MetaTag = HTML5MetaTag | RDFaMetaTag;
 
+export type ImagePrevSize = 'none' | 'standard' | 'large';
+
 export interface NextSeoProps {
   title?: string;
   titleTemplate?: string;
   noindex?: boolean;
   nofollow?: boolean;
+  nosnippet?: boolean;
+  maxSnippet?: number;
+  maxImagePreview?: ImagePrevSize;
+  maxVideoPreview?: number;
+  noarchive?: boolean;
+  unavailableAfter?: string;
+  noimageindex?: boolean;
   description?: string;
   canonical?: string;
   mobileAlternate?: MobileAlternate;
