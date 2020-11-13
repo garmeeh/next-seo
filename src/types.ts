@@ -150,6 +150,7 @@ export interface NextSeoProps {
   noarchive?: boolean;
   unavailableAfter?: string;
   noimageindex?: boolean;
+  notranslate?: boolean;
   description?: string;
   canonical?: string;
   mobileAlternate?: MobileAlternate;
