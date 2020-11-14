@@ -27,6 +27,7 @@ looking for inspiration on what to add.
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
     - [No Follow](#no-follow)
     - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
+    - [Additional Robots props](#additional-robots-props)
     - [Twitter](#twitter)
     - [facebook](#facebook)
     - [Canonical URL](#canonical-url)
@@ -40,7 +41,7 @@ looking for inspiration on what to add.
     - [Book](#book)
     - [Profile](#profile)
 - [JSON-LD](#json-ld)
-  - [Handling multiple instances...](#handling-multiple-instances)
+  - [Handling multiple instances](#handling-multiple-instances)
   - [Article](#article-1)
   - [Breadcrumb](#breadcrumb)
   - [Blog](#blog)
@@ -374,6 +375,53 @@ The only way to unset this, is by removing the prop from the `DefaultSeo` in you
 | --        | true       | `index,nofollow`                        |
 | false     | true       | `index,nofollow`                        |
 | true      | true       | `noindex,nofollow`                      |
+
+#### Additional Robots props
+
+In addition to `index, follow` the `robots` meta tag accepts more properties to archive a more accurate crawling and serve better snippets for SEO bots that crawl your page.
+
+Example:
+
+```jsx
+import { NextSeo } from 'next-seo';
+
+const Page = () => (
+  <>
+    <NextSeo
+      nosnippet
+      notranslate
+      noimageindex
+      noarchive
+      maxSnippet={-1}
+      maxImagePreview="none"
+      maxVideoPreview={-1}
+    />
+    <p>This page is not followed</p>
+  </>
+);
+
+export default Page;
+
+/*
+<meta name="robots" content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate">
+<meta name="googlebot" content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate">
+*/
+```
+
+**Available properties**
+
+| Property            | Type                      | Description                                                                                                                                                                                     |
+| ------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `noarchive`         | boolean                   | Do not show a [cached link](https://support.google.com/websearch/answer/1687222) in search results.                                                                                             |
+| `nosnippet`         | boolean                   | Do not show a text snippet or video preview in the search results for this page.                                                                                                                |
+| `max-snippet`       | number                    | Use a maximum of [number] characters as a textual snippet for this search result. [Read more](https://developers.google.com/search/reference/robots_meta_tag?hl=en-GB#directives)               |
+| `max-image-preview` | 'none','standard','large' | Set the maximum size of an image preview for this page in a search results.                                                                                                                     |
+| `max-video-preview` | number                    | Use a maximum of [number] seconds as a video snippet for videos on this page in search results. [Read more](https://developers.google.com/search/reference/robots_meta_tag?hl=en-GB#directives) |
+| `notranslate`       | boolean                   | Do not offer translation of this page in search results.                                                                                                                                        |
+| `noimageindex`      | boolean                   | Do not index images on this page.                                                                                                                                                               |
+| `unavailable_after` | string                    | Do not show this page in search results after the specified date/time. The date/time must be specified in a widely adopted format including, but not limited to RFC 822, RFC 850, and ISO 8601. |
+
+The following directives are available but are not required, for more reference about the `X-Robots-Tag` visit [Google Search Central - Control Crawling and Indexing](https://developers.google.com/search/reference/robots_meta_tag?hl=en-GB#directives)
 
 #### Twitter
 
@@ -848,7 +896,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 
 Pull request very welcome to add any from the list [found on here](https://developers.google.com/search/docs/data-types/article)
 
-#### Handling multiple instances...
+#### Handling multiple instances
 
 If your page requires multiple instances of a given JSON-LD component, you can specify unique `keyOverride` properties, and `next-seo` will handle the rest.
 
