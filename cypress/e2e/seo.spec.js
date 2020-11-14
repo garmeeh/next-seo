@@ -102,6 +102,22 @@ describe('SEO Meta', () => {
     );
   });
 
+  it('SEO Robots props applied correctly', () => {
+    cy.visit('http://localhost:3000/robots');
+    cy.get('h1').should('contain', 'Robots meta properties');
+    cy.get('head title').should('contain', 'Robots meta title');
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate',
+    );
+    cy.get('head meta[name="googlebot"]').should(
+      'have.attr',
+      'content',
+      'index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate',
+    );
+  });
+
   it('SEO overrides apply correctly', () => {
     cy.visit('http://localhost:3000/overridden');
     cy.get('h1').should('contain', 'Overridden Seo');

@@ -5,7 +5,7 @@ import Links from '../components/links';
 export default () => (
   <>
     <NextSeo
-      title="Robots meta properties"
+      title="Robots meta title"
       nosnippet
       notranslate
       noimageindex
