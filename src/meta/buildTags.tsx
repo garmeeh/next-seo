@@ -36,24 +36,27 @@ const buildTags = (config: BuildTagsParams) => {
     defaults.nofollow ||
     config.dangerouslySetAllPagesToNoFollow;
 
-  const nosnippet = config.nosnippet;
-  const maxSnippet = config.maxSnippet;
-  const maxImagePreview = config.maxImagePreview;
-  const maxVideoPreview = config.maxVideoPreview;
-  const noarchive = config.noarchive;
-  const unavailableAfter = config.unavailableAfter;
-  const noimageindex = config.noimageindex;
-  const notranslate = config.notranslate;
+  let robotsParams = '';
+  if (config.additionalRobotsProps) {
+    const nosnippet = config.additionalRobotsProps.nosnippet;
+    const maxSnippet = config.additionalRobotsProps.maxSnippet;
+    const maxImagePreview = config.additionalRobotsProps.maxImagePreview;
+    const maxVideoPreview = config.additionalRobotsProps.maxVideoPreview;
+    const noarchive = config.additionalRobotsProps.noarchive;
+    const unavailableAfter = config.additionalRobotsProps.unavailableAfter;
+    const noimageindex = config.additionalRobotsProps.noimageindex;
+    const notranslate = config.additionalRobotsProps.notranslate;
 
-  const robotsParams = `${nosnippet ? ',nosnippet' : ''}${
-    maxSnippet ? `,max-snippet:${maxSnippet}` : ''
-  }${maxImagePreview ? `,max-image-preview:${maxImagePreview}` : ''}${
-    noarchive ? ',noarchive' : ''
-  }${unavailableAfter ? `,unavailable_after:${unavailableAfter}` : ''}${
-    noimageindex ? ',noimageindex' : ''
-  }${maxVideoPreview ? `,max-video-preview:${maxVideoPreview}` : ''}${
-    notranslate ? ',notranslate' : ''
-  }`;
+    robotsParams = `${nosnippet ? ',nosnippet' : ''}${
+      maxSnippet ? `,max-snippet:${maxSnippet}` : ''
+    }${maxImagePreview ? `,max-image-preview:${maxImagePreview}` : ''}${
+      noarchive ? ',noarchive' : ''
+    }${unavailableAfter ? `,unavailable_after:${unavailableAfter}` : ''}${
+      noimageindex ? ',noimageindex' : ''
+    }${maxVideoPreview ? `,max-video-preview:${maxVideoPreview}` : ''}${
+      notranslate ? ',notranslate' : ''
+    }`;
+  }
 
   if (noindex || nofollow) {
     if (config.dangerouslySetAllPagesToNoIndex) {

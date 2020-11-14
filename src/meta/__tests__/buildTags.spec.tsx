@@ -837,13 +837,15 @@ it('correctly read all robots props', () => {
     ...SEO,
     noindex: true,
     nofollow: true,
-    nosnippet: true,
-    notranslate: true,
-    noimageindex: true,
-    noarchive: true,
-    maxSnippet: -1,
-    maxImagePreview: 'none' as ImagePrevSize,
-    maxVideoPreview: -1,
+    additionalRobotsProps: {
+      nosnippet: true,
+      notranslate: true,
+      noimageindex: true,
+      noarchive: true,
+      maxSnippet: -1,
+      maxImagePreview: 'none' as ImagePrevSize,
+      maxVideoPreview: -1,
+    },
   };
   const tags = buildTags(overrideProps);
   const { container } = render(<>{React.Children.toArray(tags)}</>);

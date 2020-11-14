@@ -138,11 +138,7 @@ export type MetaTag = HTML5MetaTag | RDFaMetaTag;
 
 export type ImagePrevSize = 'none' | 'standard' | 'large';
 
-export interface NextSeoProps {
-  title?: string;
-  titleTemplate?: string;
-  noindex?: boolean;
-  nofollow?: boolean;
+export interface AdditionalRobotsProps {
   nosnippet?: boolean;
   maxSnippet?: number;
   maxImagePreview?: ImagePrevSize;
@@ -151,6 +147,14 @@ export interface NextSeoProps {
   unavailableAfter?: string;
   noimageindex?: boolean;
   notranslate?: boolean;
+}
+
+export interface NextSeoProps {
+  title?: string;
+  titleTemplate?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  additionalRobotsProps?: AdditionalRobotsProps;
   description?: string;
   canonical?: string;
   mobileAlternate?: MobileAlternate;
