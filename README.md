@@ -249,6 +249,7 @@ From now on all of your pages will have the defaults above applied.
 | `title`                            | string                  | Set the meta title of the page                                                                                                                                                       |
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
 | `nofollow`                         | boolean (default false) | Sets whether page should be followed or not [More Info](#no-follow)                                                                                                                  |
+| `additionRobotsProps`              | Object                  | Set the more meta information for the `X-Robots-Tag` [More Info](#additionalrobotsprops)                                                                                                                                                       |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                        |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                           |
 | `mobileAlternate.media`            | string                  | Set what screen size the mobile website should be served from                                                                                                                        |
@@ -423,7 +424,7 @@ export default Page;
 | `noimageindex`      | boolean                   | Do not index images on this page.                                                                                                                                                               |
 | `unavailable_after` | string                    | Do not show this page in search results after the specified date/time. The date/time must be specified in a widely adopted format including, but not limited to RFC 822, RFC 850, and ISO 8601. |
 
-The following directives are available but are not required, for more reference about the `X-Robots-Tag` visit [Google Search Central - Control Crawling and Indexing](https://developers.google.com/search/reference/robots_meta_tag?hl=en-GB#directives)
+For more reference about the `X-Robots-Tag` visit [Google Search Central - Control Crawling and Indexing](https://developers.google.com/search/reference/robots_meta_tag?hl=en-GB#directives)
 
 #### Twitter
 
