@@ -1308,14 +1308,14 @@
     figures "^1.7.0"
 
 "@cypress/schema-tools@^4.7.1":
-  version "4.7.5"
-  resolved "https://registry.yarnpkg.com/@cypress/schema-tools/-/schema-tools-4.7.5.tgz#f9ed612876b649eeed253285bd68d3772785a470"
-  integrity sha512-EY8144iTpGd+GKrRaN5gx6YLuyk2L7vjDmLHRZxubHmfENq/bhvXjpatUn0Q4rbeYgU7Mjgy0AIGenX36cQvtA==
+  version "4.7.6"
+  resolved "https://registry.yarnpkg.com/@cypress/schema-tools/-/schema-tools-4.7.6.tgz#7ec63e356e8e4ee264e65fe1d9dedf80333fcad7"
+  integrity sha512-y+nHpRUPYjLtzpvVQTFDUqk2i3Nc69gCwMLQLiR+y9/WGXNJuS7ExI8ycw4VCDqzjdusrrM8hZAKYj/Goesu2g==
   dependencies:
     "@bahmutov/all-paths" "1.0.2"
     "@bahmutov/is-my-json-valid" "2.17.3"
     "@types/ramda" "0.25.47"
-    debug "4.2.0"
+    debug "4.3.0"
     json-stable-stringify "1.0.1"
     json2md "1.6.3"
     lodash.camelcase "4.3.0"
@@ -3747,10 +3747,10 @@ debug@3.2.6, debug@^3.1.0:
   dependencies:
     ms "^2.1.1"
 
-debug@4, debug@4.2.0, debug@^4.1.0, debug@^4.1.1, debug@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.2.0.tgz#7f150f93920e94c58f5574c2fd01a3110effe7f1"
-  integrity sha512-IX2ncY78vDTjZMFUdmsvIRFY2Cf4FnD0wRs+nQwJU8Lu99/tPFdb0VybiiMTPe3I6rQmwsqQqRBvxU+bZ/I8sg==
+debug@4, debug@4.3.0, debug@^4.1.0, debug@^4.1.1, debug@^4.2.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.0.tgz#efa41cbf14fc9448075367fdaaddf82376da211e"
+  integrity sha512-jjO6JD2rKfiZQnBoRzhRTbXjHLGLfH+UtGkWLc/UXAh/rzZMyjbgn0NcfFpqT8nd1kTtFnDiJcrIFkq4UKeJVg==
   dependencies:
     ms "2.1.2"
 
