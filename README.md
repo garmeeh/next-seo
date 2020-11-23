@@ -1959,9 +1959,14 @@ export default () => (
           url: 'http://example.com/movie-1.html',
           image:
             'https://i.pinimg.com/originals/96/a0/0d/96a00d42b0ff8f80b7cdf2926a211e47.jpg',
-          director: {
-            name: 'Mary Doe',
-          },
+          director: [
+            {
+              name: 'Mary Doe',
+            },
+            {
+              name: 'John Doe',
+            },
+          ],
           review: {
             author: { type: 'Person', name: 'Ronan Farrow' },
             reviewBody:
@@ -1987,7 +1992,7 @@ export default () => (
 
 | Property          | Info                                   |
 | ----------------- | -------------------------------------- |
-| `director`        | The director of the movie.             |
+| `director`        | The directors of the movie.            |
 | `dateCreated`     | The date the movie was released.       |
 | `aggregateRating` | Aggregate Rating object for the movie. |
 | `review`          | Review for the movie.                  |
