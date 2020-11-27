@@ -294,11 +294,11 @@ it('displays title with titleTemplate integrated', () => {
 
 it('displays defaultTitle when no title is provided', () => {
   const defaultTitle = 'Next SEO';
-  const overrideProps = {
+  const props = {
     titleTemplate: `${defaultTitle} | %s`,
     defaultTitle,
   };
-  const tags = buildTags(overrideProps);
+  const tags = buildTags(props);
   const { container } = render(<>{React.Children.toArray(tags)}</>);
   const title = getByText(
     container,
