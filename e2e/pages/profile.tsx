@@ -2,7 +2,7 @@ import React from 'react';
 import { NextSeo } from '../..';
 import Links from '../components/links';
 
-export default () => (
+const Profile = () => (
   <>
     <NextSeo
       title="Profile Page Title"
@@ -57,3 +57,5 @@ export default () => (
     <Links />
   </>
 );
+
+export default Profile;
