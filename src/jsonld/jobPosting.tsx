@@ -18,7 +18,7 @@ export interface Place {
 
 export interface MonetaryAmount {
   currency: string;
-  value: number;
+  value: number | [number, number];
   unitText: UnitTextType;
 }
 
@@ -53,7 +53,7 @@ const buildBaseSalary = (baseSalary: MonetaryAmount) => `
     ${baseSalary.currency ? `"currency": "${baseSalary.currency}",` : ''}
     "value": {
       "@type": "QuantitativeValue",
-      ${baseSalary.value ? `"value": "${baseSalary.value}",` : ''}
+      ${baseSalary.value ? Array.isArray(baseSalary.value) ? `"minValue": "${baseSalary.value[0]}",\n\t"maxValue": "${baseSalary.value[1]}",` : `"value": "${baseSalary.value}",` : ''}
       ${baseSalary.unitText ? `"unitText": "${baseSalary.unitText}"` : ''}
     }
   },
