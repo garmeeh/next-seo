@@ -616,7 +616,7 @@ const buildTags = (config: BuildTagsParams) => {
   if (config.additionalMetaTags && config.additionalMetaTags.length > 0) {
     config.additionalMetaTags.forEach(tag => {
       tagsToRender.push(
-        <meta key={tag.name ? tag.name : tag.property} {...tag} />,
+        <meta key={tag.name || tag.property || tag.httpEquiv} {...tag} />,
       );
     });
   }

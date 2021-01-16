@@ -67,6 +67,20 @@ export default () => (
       facebook={{
         appId: '987654321',
       }}
+      additionalMetaTags={[
+        {
+          property: 'dc:creator',
+          content: 'Jane Doe',
+        },
+        {
+          name: 'application-name',
+          content: 'NextSeo',
+        },
+        {
+          httpEquiv: 'x-ua-compatible',
+          content: 'IE=edge; chrome=1',
+        },
+      ]}
     />
     <h1>Overridden Seo</h1>
     <Links />
