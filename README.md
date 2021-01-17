@@ -528,7 +528,7 @@ export default Page;
 
 **Note**
 
-Multiple images is only available in version `7.0.0-canary.0`+
+Multiple images is available from next.js version `7.0.0-canary.0`
 
 For versions `6.0.0` - `7.0.0-canary.0` you just need to supply a single item array:
 
@@ -601,7 +601,7 @@ export default Page;
 
 **Note**
 
-Multiple images is only available in version `7.0.0-canary.0`+
+Multiple images is available from next.js version `7.0.0-canary.0`
 
 For versions `6.0.0` - `7.0.0-canary.0` you just need to supply a single item array:
 
@@ -661,7 +661,7 @@ export default Page;
 
 **Note**
 
-Multiple images, authors, tags is only available in version `7.0.0-canary.0`+
+Multiple images, authors, tags is available from next.js version `7.0.0-canary.0`
 
 For versions `6.0.0` - `7.0.0-canary.0` you just need to supply a single item array:
 
@@ -735,7 +735,7 @@ export default Page;
 
 **Note**
 
-Multiple images, authors, tags is only available in version `7.0.0-canary.0`+
+Multiple images, authors, tags is available from next.js version `7.0.0-canary.0`
 
 For versions `6.0.0` - `7.0.0-canary.0` you just need to supply a single item array:
 
@@ -806,7 +806,7 @@ export default Page;
 
 **Note**
 
-Multiple images is only available in version `7.0.0-canary.0`+
+Multiple images is available from next.js version `7.0.0-canary.0`
 
 For versions `6.0.0` - `7.0.0-canary.0` you just need to supply a single item array:
 
