@@ -1348,6 +1348,11 @@ Local business is supported with a sub-set of properties.
     'https://example.com/photos/4x3/photo.jpg',
     'https://example.com/photos/16x9/photo.jpg',
   ]}
+  sameAs={[
+    'www.company-website-url1.dev',
+    'www.company-website-url2.dev',
+    'www.company-website-url3.dev',
+  ]}
   openingHours={[
     {
       opens: '08:00',
