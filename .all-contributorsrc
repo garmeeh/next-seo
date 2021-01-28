@@ -382,6 +382,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "simonschllng",
+      "name": "Simon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5861026?v=4",
+      "profile": "https://www.wiedergruen.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
