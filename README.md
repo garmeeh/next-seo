@@ -23,6 +23,7 @@ looking for inspiration on what to add.
   - [Default SEO Configuration](#default-seo-configuration)
   - [NextSeo Options](#nextseo-options)
     - [Title Template](#title-template)
+    - [Default Title](#default-title)
     - [No Index](#no-index)
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
     - [No Follow](#no-follow)
