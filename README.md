@@ -423,7 +423,7 @@ languageAlternates={[{
 
 This allows you to add any other meta tags that are not covered in the `config`.
 
-`content` is required. Then either `name` or `property`. (Only one on each)
+`content` is required. Then either `name`, `property` or `httpEquiv`. (Only one on each)
 
 Example:
 
@@ -434,12 +434,15 @@ additionalMetaTags={[{
 }, {
   name: 'application-name',
   content: 'NextSeo'
+}, {
+  httpEquiv: 'x-ua-compatible',
+  content: 'IE=edge; chrome=1'
 }]}
 ```
 
 Invalid Examples:
 
-These are invalid as they contain `property` and `name` on the same entry.
+These are invalid as they contain more than one of `name`, `property` and `httpEquiv` on the same entry.
 
 ```js
 additionalMetaTags={[{
@@ -448,13 +451,13 @@ additionalMetaTags={[{
   content: 'Jane Doe'
 }, {
   property: 'application-name',
-  name: 'application-name',
+  httpEquiv: 'application-name',
   content: 'NextSeo'
 }]}
 ```
 
 One thing to note on this is that it currently only supports unique tags.
-This means it will only render one tag per unique `name` / `property`. The last one defined will be rendered.
+This means it will only render one tag per unique `name` / `property` / `httpEquiv`. The last one defined will be rendered.
 
 Example:
 
