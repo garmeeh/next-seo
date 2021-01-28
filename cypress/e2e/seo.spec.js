@@ -226,6 +226,21 @@ describe('SEO Meta', () => {
       'content',
       'summary_large_image',
     );
+    cy.get('head meta[property="dc:creator"]').should(
+      'have.attr',
+      'content',
+      'Jane Doe',
+    );
+    cy.get('head meta[name="application-name"]').should(
+      'have.attr',
+      'content',
+      'NextSeo',
+    );
+    cy.get('head meta[http-equiv="x-ua-compatible"]').should(
+      'have.attr',
+      'content',
+      'IE=edge; chrome=1',
+    );
   });
 
   it('Profile SEO loads correctly', () => {

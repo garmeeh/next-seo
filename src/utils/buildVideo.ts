@@ -7,27 +7,40 @@ export default (video: Video, context: boolean = false) => `{
       "name": "${video.name}",
       "description": "${video.description}",
       "thumbnailUrl": [
-          ${video.thumbnailUrls.map(thumbnailUrl => `"${thumbnailUrl}"`).join(',')}
+          ${video.thumbnailUrls
+            .map(thumbnailUrl => `"${thumbnailUrl}"`)
+            .join(',')}
         ],
         ${video.contentUrl ? `"contentUrl": "${video.contentUrl}",` : ``}
         ${video.duration ? `"duration": "${video.duration}",` : ``}
         ${video.embedUrl ? `"embedUrl": "${video.embedUrl}",` : ``}
         ${video.expires ? `"expires": "${video.expires}",` : ``}        
-        ${video.
-          hasPart
+        ${
+          video.hasPart
             ? `"hasPart": ${
                 Array.isArray(video.hasPart)
-                  ? `[${video.hasPart.map(clip => `${buildClip(clip)}`)}]`
+                  ? `[${video.hasPart
+                      .map(clip => `${buildClip(clip)}`)
+                      .join(',')}]`
                   : buildClip(video.hasPart)
               },`
             : ''
         }
-        ${video.watchCount ? `${buildInteractionStatistic(video.watchCount)}` : ``}        
-        ${video.
-          publication
+        ${
+          video.watchCount
+            ? `${buildInteractionStatistic(video.watchCount)}`
+            : ``
+        }        
+        ${
+          video.publication
             ? `"publication": ${
                 Array.isArray(video.publication)
-                  ? `[${video.publication.map(broadcastEvent => `${buildBroadcastEvent(broadcastEvent)}`)}]`
+                  ? `[${video.publication
+                      .map(
+                        broadcastEvent =>
+                          `${buildBroadcastEvent(broadcastEvent)}`,
+                      )
+                      .join(',')}]`
                   : buildBroadcastEvent(video.publication)
               },`
             : ''
@@ -40,13 +53,13 @@ export default (video: Video, context: boolean = false) => `{
         "uploadDate": "${video.uploadDate}"
   }`;
 
-  const buildClip = (clip: Clip) => `
+const buildClip = (clip: Clip) => `
   "geo": {
     "@type": "Clip",
     "name": "${clip.name}",
     "startOffset": ${clip.startOffset},
-    "url": "${clip.url}",
-  },
+    "url": "${clip.url}"
+  }
 `;
 
 const buildInteractionStatistic = (watchCount: number) => `
@@ -64,5 +77,5 @@ const buildBroadcastEvent = (publication: BroadcastEvent) => `
     "isLiveBroadcast": ${publication.isLiveBroadcast},
     "startDate": "${publication.startDate}",
     "endDate": "${publication.endDate}"
-  },
+  }
 `;
