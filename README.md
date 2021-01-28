@@ -2239,6 +2239,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
   <tr>
     <td align="center"><a href="http://rodzy.vercel.app"><img src="https://avatars2.githubusercontent.com/u/49137701?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Isaac Rodríguez</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://iainmchugh.github.io/portfolio/"><img src="https://avatars.githubusercontent.com/u/46798029?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Iain McHugh</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=IainMcHugh" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://www.wiedergruen.com"><img src="https://avatars.githubusercontent.com/u/5861026?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Simon</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=simonschllng" title="Documentation">📖</a></td>
   </tr>
 </table>
 
