@@ -23,6 +23,7 @@ looking for inspiration on what to add.
   - [Default SEO Configuration](#default-seo-configuration)
   - [NextSeo Options](#nextseo-options)
     - [Title Template](#title-template)
+    - [Default Title](#default-title)
     - [No Index](#no-index)
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
     - [No Follow](#no-follow)
@@ -247,6 +248,7 @@ From now on all of your pages will have the defaults above applied.
 | ---------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `titleTemplate`                    | string                  | Allows you to set default title template that will be added to your title [More Info](#title-template)                                                                               |
 | `title`                            | string                  | Set the meta title of the page                                                                                                                                                       |
+| `defaultTitle`                     | string                  | If no title is set on a page, this string will be used instead of an empty `titleTemplate` [More Info](#default-title)                                                               |
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
 | `nofollow`                         | boolean (default false) | Sets whether page should be followed or not [More Info](#no-follow)                                                                                                                  |
 | `additionRobotsProps`              | Object                  | Set the more meta information for the `X-Robots-Tag` [More Info](#additionalrobotsprops)                                                                                             |
@@ -297,6 +299,15 @@ titleTemplate = 'Next SEO | %s';
 title = 'This is my title';
 titleTemplate = '%s | Next SEO';
 // outputs: This is my title | Next SEO
+```
+
+#### Default Title
+
+```js
+title = undefined;
+titleTemplate = 'Next SEO | %s';
+defaultTitle = 'Next SEO';
+// outputs: Next SEO
 ```
 
 #### No Index
@@ -2294,6 +2305,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="http://rodzy.vercel.app"><img src="https://avatars2.githubusercontent.com/u/49137701?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Isaac Rodríguez</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://iainmchugh.github.io/portfolio/"><img src="https://avatars.githubusercontent.com/u/46798029?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Iain McHugh</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=IainMcHugh" title="Documentation">📖</a></td>
     <td align="center"><a href="https://www.wiedergruen.com"><img src="https://avatars.githubusercontent.com/u/5861026?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Simon</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=simonschllng" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://trevorblades.com"><img src="https://avatars.githubusercontent.com/u/1216917?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Trevor Blades</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Tests">⚠️</a></td>
   </tr>
 </table>
 

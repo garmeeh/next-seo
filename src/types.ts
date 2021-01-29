@@ -165,6 +165,7 @@ export interface AdditionalRobotsProps {
 export interface NextSeoProps {
   title?: string;
   titleTemplate?: string;
+  defaultTitle?: string;
   noindex?: boolean;
   nofollow?: boolean;
   robotsProps?: AdditionalRobotsProps;
