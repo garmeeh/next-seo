@@ -391,6 +391,17 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "trevorblades",
+      "name": "Trevor Blades",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1216917?v=4",
+      "profile": "https://trevorblades.com",
+      "contributions": [
+        "doc",
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
