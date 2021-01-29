@@ -837,7 +837,7 @@ it('correctly read all robots props', () => {
     ...SEO,
     noindex: true,
     nofollow: true,
-    additionalRobotsProps: {
+    robotsProps: {
       nosnippet: true,
       notranslate: true,
       noimageindex: true,
