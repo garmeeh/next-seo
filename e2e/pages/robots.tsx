@@ -6,7 +6,7 @@ export default () => (
   <>
     <NextSeo
       title="Robots meta title"
-      additionalRobotsProps={{
+      robotsProps={{
         nosnippet: true,
         notranslate: true,
         noimageindex: true,
