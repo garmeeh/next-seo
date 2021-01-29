@@ -127,14 +127,27 @@ export interface BaseMetaTag {
 export interface HTML5MetaTag extends BaseMetaTag {
   name: string;
   property?: undefined;
+  httpEquiv?: undefined;
 }
 
 export interface RDFaMetaTag extends BaseMetaTag {
   property: string;
   name?: undefined;
+  httpEquiv?: undefined;
 }
 
-export type MetaTag = HTML5MetaTag | RDFaMetaTag;
+export interface HTTPEquivMetaTag extends BaseMetaTag {
+  httpEquiv:
+    | 'content-security-policy'
+    | 'content-type'
+    | 'default-style'
+    | 'x-ua-compatible'
+    | 'refresh';
+  name?: undefined;
+  property?: undefined;
+}
+
+export type MetaTag = HTML5MetaTag | RDFaMetaTag | HTTPEquivMetaTag;
 
 export type ImagePrevSize = 'none' | 'standard' | 'large';
 

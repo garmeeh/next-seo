@@ -226,7 +226,7 @@ it('returns full array for default seo object', () => {
 });
 
 it('correctly sets noindex', () => {
-  const overrideProps = {
+  const overrideProps: BuildTagsParams = {
     ...SEO,
     noindex: true,
   };
@@ -240,7 +240,7 @@ it('correctly sets noindex', () => {
 });
 
 it('correctly sets nofollow', () => {
-  const overrideProps = {
+  const overrideProps: BuildTagsParams = {
     ...SEO,
     nofollow: true,
   };
@@ -258,7 +258,7 @@ it('correctly sets nofollow', () => {
 });
 
 it('correctly sets noindex, nofollow', () => {
-  const overrideProps = {
+  const overrideProps: BuildTagsParams = {
     ...SEO,
     noindex: true,
     nofollow: true,
@@ -278,7 +278,7 @@ it('correctly sets noindex, nofollow', () => {
 
 it('displays title with titleTemplate integrated', () => {
   const template = 'Next SEO';
-  const overrideProps = {
+  const overrideProps: BuildTagsParams = {
     ...SEO,
     titleTemplate: `${template} | %s`,
   };
@@ -762,23 +762,28 @@ it('Check video og type meta', () => {
 });
 
 it('additional meta tags are set', () => {
-  const overrideProps = {
+  const overrideProps: BuildTagsParams = {
     ...SEO,
     additionalMetaTags: [
       { property: 'random', content: 'something' },
       { name: 'foo', content: 'bar' },
+      { httpEquiv: 'x-ua-compatible', content: 'IE=edge; chrome=1' },
     ],
   };
   const tags = buildTags(overrideProps);
   const { container } = render(<>{React.Children.toArray(tags)}</>);
   const propertyTag = container.querySelectorAll('meta[content="something"]');
   const nameTag = container.querySelectorAll('meta[content="bar"]');
+  const httpEquivTag = container.querySelectorAll(
+    'meta[content="IE=edge; chrome=1"]',
+  );
   expect(Array.from(propertyTag).length).toBe(1);
   expect(Array.from(nameTag).length).toBe(1);
+  expect(Array.from(httpEquivTag).length).toBe(1);
 });
 
 it('correctly sets noindex default', () => {
-  const overrideProps = {
+  const overrideProps: BuildTagsParams = {
     ...SEO,
     dangerouslySetAllPagesToNoIndex: true,
   };
@@ -796,7 +801,7 @@ it('correctly sets noindex default', () => {
 });
 
 it('correctly sets nofollow default', () => {
-  const overrideProps = {
+  const overrideProps: BuildTagsParams = {
     ...SEO,
     dangerouslySetAllPagesToNoFollow: true,
   };
@@ -814,7 +819,7 @@ it('correctly sets nofollow default', () => {
 });
 
 it('correctly read noindex & nofollow false', () => {
-  const overrideProps = {
+  const overrideProps: BuildTagsParams = {
     ...SEO,
     noindex: false,
     nofollow: false,
