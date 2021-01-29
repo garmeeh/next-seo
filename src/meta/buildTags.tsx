@@ -37,15 +37,17 @@ const buildTags = (config: BuildTagsParams) => {
     config.dangerouslySetAllPagesToNoFollow;
 
   let robotsParams = '';
-  if (config.additionalRobotsProps) {
-    const nosnippet = config.additionalRobotsProps.nosnippet;
-    const maxSnippet = config.additionalRobotsProps.maxSnippet;
-    const maxImagePreview = config.additionalRobotsProps.maxImagePreview;
-    const maxVideoPreview = config.additionalRobotsProps.maxVideoPreview;
-    const noarchive = config.additionalRobotsProps.noarchive;
-    const unavailableAfter = config.additionalRobotsProps.unavailableAfter;
-    const noimageindex = config.additionalRobotsProps.noimageindex;
-    const notranslate = config.additionalRobotsProps.notranslate;
+  if (config.robotsProps) {
+    const {
+      nosnippet,
+      maxSnippet,
+      maxImagePreview,
+      maxVideoPreview,
+      noarchive,
+      noimageindex,
+      notranslate,
+      unavailableAfter,
+    } = config.robotsProps;
 
     robotsParams = `${nosnippet ? ',nosnippet' : ''}${
       maxSnippet ? `,max-snippet:${maxSnippet}` : ''

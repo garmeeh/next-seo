@@ -154,7 +154,7 @@ export interface NextSeoProps {
   titleTemplate?: string;
   noindex?: boolean;
   nofollow?: boolean;
-  additionalRobotsProps?: AdditionalRobotsProps;
+  robotsProps?: AdditionalRobotsProps;
   description?: string;
   canonical?: string;
   mobileAlternate?: MobileAlternate;
