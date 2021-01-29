@@ -27,7 +27,7 @@ looking for inspiration on what to add.
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
     - [No Follow](#no-follow)
     - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
-    - [additionalRobotsProps](#additionalrobotsprops)
+    - [robotsProps](#robotsprops)
     - [Twitter](#twitter)
     - [facebook](#facebook)
     - [Canonical URL](#canonical-url)
@@ -377,7 +377,7 @@ The only way to unset this, is by removing the prop from the `DefaultSeo` in you
 | false     | true       | `index,nofollow`                        |
 | true      | true       | `noindex,nofollow`                      |
 
-#### additionalRobotsProps
+#### robotsProps
 
 In addition to `index, follow` the `robots` meta tag accepts more properties to archive a more accurate crawling and serve better snippets for SEO bots that crawl your page.
 
@@ -389,7 +389,7 @@ import { NextSeo } from 'next-seo';
 const Page = () => (
   <>
     <NextSeo
-      additionalRobotsProps={{
+      robotsProps={{
         nosnippet: true,
         notranslate: true,
         noimageindex: true,
