@@ -152,6 +152,7 @@ export type MetaTag = HTML5MetaTag | RDFaMetaTag | HTTPEquivMetaTag;
 export interface NextSeoProps {
   title?: string;
   titleTemplate?: string;
+  defaultTitle?: string;
   noindex?: boolean;
   nofollow?: boolean;
   description?: string;

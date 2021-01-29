@@ -23,6 +23,7 @@ looking for inspiration on what to add.
   - [Default SEO Configuration](#default-seo-configuration)
   - [NextSeo Options](#nextseo-options)
     - [Title Template](#title-template)
+    - [Default Title](#default-title)
     - [No Index](#no-index)
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
     - [No Follow](#no-follow)
@@ -246,6 +247,7 @@ From now on all of your pages will have the defaults above applied.
 | ---------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `titleTemplate`                    | string                  | Allows you to set default title template that will be added to your title [More Info](#title-template)                                                                               |
 | `title`                            | string                  | Set the meta title of the page                                                                                                                                                       |
+| `defaultTitle`                     | string                  | If no title is set on a page, this string will be used instead of an empty `titleTemplate` [More Info](#default-title)                                                               |
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
 | `nofollow`                         | boolean (default false) | Sets whether page should be followed or not [More Info](#no-follow)                                                                                                                  |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                        |
@@ -295,6 +297,15 @@ titleTemplate = 'Next SEO | %s';
 title = 'This is my title';
 titleTemplate = '%s | Next SEO';
 // outputs: This is my title | Next SEO
+```
+
+#### Default Title
+
+```js
+title = undefined;
+titleTemplate = 'Next SEO | %s';
+defaultTitle = 'Next SEO';
+// outputs: Next SEO
 ```
 
 #### No Index

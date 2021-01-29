@@ -292,6 +292,22 @@ it('displays title with titleTemplate integrated', () => {
   expect(title.innerHTML).toMatch(`${template} | ${SEO.title}`);
 });
 
+it('displays defaultTitle when no title is provided', () => {
+  const defaultTitle = 'Next SEO';
+  const props = {
+    titleTemplate: `${defaultTitle} | %s`,
+    defaultTitle,
+  };
+  const tags = buildTags(props);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+  const title = getByText(
+    container,
+    (content, element) =>
+      element.tagName.toLowerCase() === 'title' && content.startsWith(defaultTitle),
+  );
+  expect(title.innerHTML).toMatch(defaultTitle);
+});
+
 const ArticleSEO = {
   title: 'Article Page Title',
   description: 'Description of article page',
