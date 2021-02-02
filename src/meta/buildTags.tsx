@@ -41,6 +41,30 @@ const buildTags = (config: BuildTagsParams) => {
     defaults.nofollow ||
     config.dangerouslySetAllPagesToNoFollow;
 
+  let robotsParams = '';
+  if (config.robotsProps) {
+    const {
+      nosnippet,
+      maxSnippet,
+      maxImagePreview,
+      maxVideoPreview,
+      noarchive,
+      noimageindex,
+      notranslate,
+      unavailableAfter,
+    } = config.robotsProps;
+
+    robotsParams = `${nosnippet ? ',nosnippet' : ''}${
+      maxSnippet ? `,max-snippet:${maxSnippet}` : ''
+    }${maxImagePreview ? `,max-image-preview:${maxImagePreview}` : ''}${
+      noarchive ? ',noarchive' : ''
+    }${unavailableAfter ? `,unavailable_after:${unavailableAfter}` : ''}${
+      noimageindex ? ',noimageindex' : ''
+    }${maxVideoPreview ? `,max-video-preview:${maxVideoPreview}` : ''}${
+      notranslate ? ',notranslate' : ''
+    }`;
+  }
+
   if (noindex || nofollow) {
     if (config.dangerouslySetAllPagesToNoIndex) {
       defaults.noindex = true;
@@ -55,7 +79,7 @@ const buildTags = (config: BuildTagsParams) => {
         name="robots"
         content={`${noindex ? 'noindex' : 'index'},${
           nofollow ? 'nofollow' : 'follow'
-        }`}
+        }${robotsParams}`}
       />,
     );
     tagsToRender.push(
@@ -64,15 +88,23 @@ const buildTags = (config: BuildTagsParams) => {
         name="googlebot"
         content={`${noindex ? 'noindex' : 'index'},${
           nofollow ? 'nofollow' : 'follow'
-        }`}
+        }${robotsParams}`}
       />,
     );
   } else {
     tagsToRender.push(
-      <meta key="robots" name="robots" content="index,follow" />,
+      <meta
+        key="robots"
+        name="robots"
+        content={`index,follow${robotsParams}`}
+      />,
     );
     tagsToRender.push(
-      <meta key="googlebot" name="googlebot" content="index,follow" />,
+      <meta
+        key="googlebot"
+        name="googlebot"
+        content={`index,follow${robotsParams}`}
+      />,
     );
   }
 
