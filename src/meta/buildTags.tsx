@@ -24,6 +24,11 @@ const buildTags = (config: BuildTagsParams) => {
     if (defaults.templateTitle) {
       updatedTitle = defaults.templateTitle.replace(/%s/g, () => updatedTitle);
     }
+  } else if (config.defaultTitle) {
+    updatedTitle = config.defaultTitle;
+  }
+  
+  if (updatedTitle) {
     tagsToRender.push(<title key="title">{updatedTitle}</title>);
   }
 
@@ -616,7 +621,7 @@ const buildTags = (config: BuildTagsParams) => {
   if (config.additionalMetaTags && config.additionalMetaTags.length > 0) {
     config.additionalMetaTags.forEach(tag => {
       tagsToRender.push(
-        <meta key={tag.name ? tag.name : tag.property} {...tag} />,
+        <meta key={tag.name || tag.property || tag.httpEquiv} {...tag} />,
       );
     });
   }
