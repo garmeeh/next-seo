@@ -53,15 +53,15 @@ const buildBaseSalary = (baseSalary: MonetaryAmount) => `
     "@type": "MonetaryAmount",
     ${baseSalary.currency ? `"currency": "${baseSalary.currency}",` : ''}
     "value": {
-      "@type": "QuantitativeValue",
       ${
         baseSalary.value
           ? Array.isArray(baseSalary.value)
-            ? `"minValue": "${baseSalary.value[0]}",\n\t"maxValue": "${baseSalary.value[1]}",`
+            ? `"minValue": "${baseSalary.value[0]}", "maxValue": "${baseSalary.value[1]}",`
             : `"value": "${baseSalary.value}",`
           : ''
       }
-      ${baseSalary.unitText ? `"unitText": "${baseSalary.unitText}"` : ''}
+      ${baseSalary.unitText ? `"unitText": "${baseSalary.unitText},"` : ''}
+      "@type": "QuantitativeValue"
     }
   },
 `;
