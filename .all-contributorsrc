@@ -402,6 +402,17 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "paambaati",
+      "name": "GP",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5381764?v=4",
+      "profile": "https://httgp.com",
+      "contributions": [
+        "doc",
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
