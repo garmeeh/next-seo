@@ -2,7 +2,7 @@ import React from 'react';
 import { CarouselJsonLd } from '../../../';
 import Links from '../../components/links';
 
-export default () => (
+const Movie = () => (
   <>
     <h1>Carousel Movie JSON-LD</h1>
 
@@ -45,3 +45,5 @@ export default () => (
     <Links />
   </>
 );
+
+export default Movie;

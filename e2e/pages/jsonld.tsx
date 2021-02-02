@@ -20,7 +20,7 @@ import {
 } from '../..';
 import Links from '../components/links';
 
-export default () => (
+const JsonLD = () => (
   <>
     <h1>All JSON-LD</h1>
     <ArticleJsonLd
@@ -309,6 +309,34 @@ export default () => (
       applicantLocationRequirements="FR"
     />
 
+    <JobPostingJsonLd
+      datePosted="2020-01-06T03:37:40Z"
+      description="Company is looking for another software developer...."
+      hiringOrganization={{
+        name: 'company name',
+        sameAs: 'http://www.company-website-url.dev',
+        logo: 'http://www.company-website-url.dev/images/logo.png',
+      }}
+      jobLocation={{
+        streetAddress: '17 street address',
+        addressLocality: 'Paris',
+        addressRegion: 'Ile-de-France',
+        postalCode: '75001',
+        addressCountry: 'France',
+      }}
+      title="Job Title #2"
+      baseSalary={{
+        currency: 'EUR',
+        value: [40, 75],
+        unitText: 'HOUR',
+      }}
+      employmentType="FULL_TIME"
+      jobLocationType="TELECOMMUTE"
+      validThrough="2020-01-06"
+      applicantLocationRequirements="FR"
+      keyOverride="second-job-posting-with-salary-range"
+    />
+  
     <EventJsonLd
       name="My Event"
       startDate="2020-01-23T00:00:00.000Z"
@@ -451,3 +479,5 @@ export default () => (
     <Links />
   </>
 );
+
+export default JsonLD;

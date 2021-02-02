@@ -2,7 +2,7 @@ import React from 'react';
 import { CarouselJsonLd } from '../../../';
 import Links from '../../components/links';
 
-export default () => (
+const Carousel = () => (
   <>
     <h1>Carousel Default JSON-LD</h1>
 
@@ -19,3 +19,5 @@ export default () => (
     <Links />
   </>
 );
+
+export default Carousel;

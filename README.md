@@ -17,6 +17,7 @@ looking for inspiration on what to add.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Usage](#usage)
   - [Setup](#setup)
   - [Add SEO to Page](#add-seo-to-page)
@@ -1340,7 +1341,7 @@ const Page = () => (
       title="Job Title"
       baseSalary={{
         currency: 'EUR',
-        value: 40,
+        value: 40, // Can also be a salary range, like [40, 50]
         unitText: 'HOUR',
       }}
       employmentType="FULL_TIME"
@@ -1373,7 +1374,7 @@ export default Page;
 | `applicantLocationRequirements` | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                          |
 | `baseSalary`                    |                                                                                                                                                             |
 | `baseSalary.currency`           | The currency in which the monetary amount is expressed                                                                                                      |
-| `baseSalary.value`              | The value of the quantitative value                                                                                                                         |
+| `baseSalary.value`              | The value of the quantitative value. You can also provide an array of minimum and maximum salaries. .                                                       |
 | `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)            |
 | `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                                |
 | `jobLocation`                   | The physical location(s) of the business where the employee will report to work (such as an office or worksite), not the location where the job was posted. |  |

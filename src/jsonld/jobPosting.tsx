@@ -18,7 +18,7 @@ export interface Place {
 
 export interface MonetaryAmount {
   currency: string;
-  value: number;
+  value: number | [number, number];
   unitText: UnitTextType;
 }
 
@@ -35,6 +35,7 @@ export type EmploymentType =
   | 'OTHER';
 
 export interface JobPostingJsonLdProps {
+  keyOverride?: string;
   datePosted: string;
   description: string;
   hiringOrganization: HiringOrganization;
@@ -52,14 +53,21 @@ const buildBaseSalary = (baseSalary: MonetaryAmount) => `
     "@type": "MonetaryAmount",
     ${baseSalary.currency ? `"currency": "${baseSalary.currency}",` : ''}
     "value": {
-      "@type": "QuantitativeValue",
-      ${baseSalary.value ? `"value": "${baseSalary.value}",` : ''}
-      ${baseSalary.unitText ? `"unitText": "${baseSalary.unitText}"` : ''}
+      ${
+        baseSalary.value
+          ? Array.isArray(baseSalary.value)
+            ? `"minValue": "${baseSalary.value[0]}", "maxValue": "${baseSalary.value[1]}",`
+            : `"value": "${baseSalary.value}",`
+          : ''
+      }
+      ${baseSalary.unitText ? `"unitText": "${baseSalary.unitText}",` : ''}
+      "@type": "QuantitativeValue"
     }
   },
 `;
 
 const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
+  keyOverride,
   baseSalary,
   datePosted,
   description,
@@ -117,7 +125,7 @@ const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-jobPosting"
+        key={`jsonld-jobposting${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>
   );
