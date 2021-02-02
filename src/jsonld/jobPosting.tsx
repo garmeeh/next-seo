@@ -60,7 +60,7 @@ const buildBaseSalary = (baseSalary: MonetaryAmount) => `
             : `"value": "${baseSalary.value}",`
           : ''
       }
-      ${baseSalary.unitText ? `"unitText": "${baseSalary.unitText},"` : ''}
+      ${baseSalary.unitText ? `"unitText": "${baseSalary.unitText}",` : ''}
       "@type": "QuantitativeValue"
     }
   },
