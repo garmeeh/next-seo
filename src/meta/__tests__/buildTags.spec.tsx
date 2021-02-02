@@ -1,6 +1,6 @@
 import React from 'react';
 import { getByText, cleanup, render } from 'react-testing-library';
-import { BuildTagsParams } from '../../types';
+import { BuildTagsParams, ImagePrevSize } from '../../types';
 
 import buildTags from '../buildTags';
 
@@ -851,4 +851,32 @@ it('correctly read noindex & nofollow false', () => {
 
   expect(Array.from(indexfollow).length).toBe(0);
   expect(Array.from(noindexnofollow).length).toBe(2);
+});
+
+it('correctly read all robots props', () => {
+  const overrideProps = {
+    ...SEO,
+    noindex: true,
+    nofollow: true,
+    robotsProps: {
+      nosnippet: true,
+      notranslate: true,
+      noimageindex: true,
+      noarchive: true,
+      maxSnippet: -1,
+      maxImagePreview: 'none' as ImagePrevSize,
+      maxVideoPreview: -1,
+    },
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+  const content = container.querySelectorAll(
+    'meta[content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate"]',
+  );
+
+  const contentOverride = container.querySelectorAll(
+    'meta[content="noindex,nofollow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate"]',
+  );
+  expect(Array.from(content).length).toBe(0);
+  expect(Array.from(contentOverride).length).toBe(2);
 });
