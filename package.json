@@ -68,7 +68,7 @@
     "@types/jest": "^26.0.0",
     "@types/node": "^14.0.0",
     "@types/react": "^17.0.1",
-    "@types/react-dom": "^16.9.5",
+    "@types/react-dom": "^17.0.1",
     "cypress": "^3.8.3",
     "cypress-testing-library": "^3.0.1",
     "doctoc": "^1.4.0",
