@@ -402,6 +402,26 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "paambaati",
+      "name": "GP",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5381764?v=4",
+      "profile": "https://httgp.com",
+      "contributions": [
+        "doc",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "sebascomeau",
+      "name": "Sébastien Comeau",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2814465?v=4",
+      "profile": "https://twitter.com/sebascomeau",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,

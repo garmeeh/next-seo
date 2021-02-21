@@ -149,12 +149,26 @@ export interface HTTPEquivMetaTag extends BaseMetaTag {
 
 export type MetaTag = HTML5MetaTag | RDFaMetaTag | HTTPEquivMetaTag;
 
+export type ImagePrevSize = 'none' | 'standard' | 'large';
+
+export interface AdditionalRobotsProps {
+  nosnippet?: boolean;
+  maxSnippet?: number;
+  maxImagePreview?: ImagePrevSize;
+  maxVideoPreview?: number;
+  noarchive?: boolean;
+  unavailableAfter?: string;
+  noimageindex?: boolean;
+  notranslate?: boolean;
+}
+
 export interface NextSeoProps {
   title?: string;
   titleTemplate?: string;
   defaultTitle?: string;
   noindex?: boolean;
   nofollow?: boolean;
+  robotsProps?: AdditionalRobotsProps;
   description?: string;
   canonical?: string;
   mobileAlternate?: MobileAlternate;

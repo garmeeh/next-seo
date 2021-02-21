@@ -2,7 +2,7 @@ import React from 'react';
 import { CarouselJsonLd } from '../../../';
 import Links from '../../components/links';
 
-export default () => (
+const Recipe = () => (
   <>
     <h1>Carousel Recipe JSON-LD</h1>
 
@@ -165,3 +165,5 @@ export default () => (
     <Links />
   </>
 );
+
+export default Recipe;
