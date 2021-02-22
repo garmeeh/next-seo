@@ -1,6 +1,6 @@
 import { AggregateOffer } from '../types';
 
-export default (offer: AggregateOffer) => `
+export const buildAggregateOffer = (offer: AggregateOffer) => `
   {
     "@type": "AggregateOffer",
     "priceCurrency": "${offer.priceCurrency}",

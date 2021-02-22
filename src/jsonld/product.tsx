@@ -4,8 +4,8 @@ import Head from 'next/head';
 import markup from '../utils/markup';
 import formatIfArray from '../utils/formatIfArray';
 import { AggregateOffer, Offers } from '../types';
-import buildOffers from '../utils/buildOffers';
-import buildAggregateOffer from '../utils/buildAggregateOffer';
+import { buildOffers } from '../utils/buildOffers';
+import { buildAggregateOffer } from '../utils/buildAggregateOffer';
 type ReviewRating = {
   bestRating?: string;
   ratingValue: string;

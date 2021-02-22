@@ -5,8 +5,8 @@ import markup from '../utils/markup';
 import formatIfArray from '../utils/formatIfArray';
 import buildAddress from '../utils/buildAddress';
 import { Address, AggregateOffer, Offers } from '../types';
-import buildOffers from '../utils/buildOffers';
-import buildAggregateOffer from '../utils/buildAggregateOffer';
+import { buildOffers } from '../utils/buildOffers';
+import { buildAggregateOffer } from '../utils/buildAggregateOffer';
 
 type Location = {
   name: string;

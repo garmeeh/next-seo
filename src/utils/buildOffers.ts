@@ -2,7 +2,7 @@ import { Offers } from '../types';
 
 // TODO: Docs for offers itemCondition & availability
 // TODO: Seller type, make dynamic
-export default (offers: Offers) => `
+export const buildOffers = (offers: Offers) => `
   {
     "@type": "Offer",
     "priceCurrency": "${offers.priceCurrency}",
