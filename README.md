@@ -179,7 +179,7 @@ import App, { Container } from 'next/app';
 import { DefaultSeo } from 'next-seo';
 
 // import your default seo configuration
-import SEO from '../next-seo.config';
+import SEO from '../next-seo.config.js';
 
 export default class MyApp extends App {
   render() {
