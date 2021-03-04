@@ -100,6 +100,27 @@ describe('SEO Meta', () => {
       'content',
       'summary_large_image',
     );
+    cy.get('head link[rel="icon"]').should(
+      'have.attr',
+      'href',
+      'https://www.test.ie/favicon.ico',
+    );
+    cy.get('head link[rel="apple-touch-icon"]')
+      .should('have.length', 2)
+      .then(tags => {
+        console.log('tags 0', tags[0].sizes);
+        console.log('tags 1', tags[1].sizes);
+        expect(tags[0].sizes[0]).to.equal('76x76');
+        expect(tags[1].sizes[0]).to.equal('120x120');
+      });
+    cy.get('head link[rel="mask-icon"]')
+      .should('have.attr', 'href', 'https://www.test.ie/safari-pinned-tab.svg')
+      .should('have.attr', 'color', '#193860');
+    cy.get('head link[rel="manifest"]').should(
+      'have.attr',
+      'href',
+      '/manifest.json',
+    );
   });
 
   it('SEO Robots props applied correctly', () => {

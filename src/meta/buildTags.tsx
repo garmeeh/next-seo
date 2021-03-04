@@ -662,6 +662,12 @@ const buildTags = (config: BuildTagsParams) => {
     });
   }
 
+  if (config.additionalLinkTags?.length) {
+    config.additionalLinkTags.forEach((tag, index) => {
+      tagsToRender.push(<link key={`link${index}`} {...tag} />);
+    });
+  }
+
   return tagsToRender;
 };
 

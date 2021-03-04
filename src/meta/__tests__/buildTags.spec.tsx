@@ -26,6 +26,31 @@ const SEO: BuildTagsParams = {
       href: 'https://www.canonical.ie/sk',
     },
   ],
+  additionalLinkTags: [
+    {
+      rel: 'icon',
+      href: 'https://www.test.ie/favicon.ico',
+    },
+    {
+      rel: 'apple-touch-icon',
+      href: 'https://www.test.ie/touch-icon-ipad.jpg',
+      sizes: '76x76',
+    },
+    {
+      rel: 'apple-touch-icon',
+      href: 'https://www.test.ie/touch-icon-iphone-retina.jpg',
+      sizes: '120x120',
+    },
+    {
+      rel: 'mask-icon',
+      href: 'https://www.test.ie/safari-pinned-tab.svg',
+      color: '#193860',
+    },
+    {
+      rel: 'manifest',
+      href: '/manifest.json',
+    },
+  ],
   openGraph: {
     type: 'website',
     locale: 'en_IE',
@@ -303,7 +328,8 @@ it('displays defaultTitle when no title is provided', () => {
   const title = getByText(
     container,
     (content, element) =>
-      element.tagName.toLowerCase() === 'title' && content.startsWith(defaultTitle),
+      element.tagName.toLowerCase() === 'title' &&
+      content.startsWith(defaultTitle),
   );
   expect(title.innerHTML).toMatch(defaultTitle);
 });

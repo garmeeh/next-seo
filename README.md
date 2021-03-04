@@ -34,6 +34,7 @@ looking for inspiration on what to add.
     - [Canonical URL](#canonical-url)
     - [Alternate](#alternate)
     - [Additional Meta Tags](#additional-meta-tags)
+    - [Additional Link Tags](#additional-link-tags)
 - [Open Graph](#open-graph)
   - [Open Graph Examples](#open-graph-examples)
     - [Basic](#basic)
@@ -259,6 +260,7 @@ From now on all of your pages will have the defaults above applied.
 | `mobileAlternate.href`             | string                  | Set the mobile page alternate url                                                                                                                                                    |
 | `languageAlternates`               | array                   | Set the language of the alternate urls. Expects array of objects with the shape: `{ hrefLang: string, href: string }`                                                                |
 | `additionalMetaTags`               | array                   | Allows you to add a meta tag that is not documented here. [More Info](#additional-meta-tags)                                                                                         |
+| `additionalLinkTags`               | array                   | Allows you to add a link tag that is not documented here. [More Info](#additional-link-tags)                                                                                         |
 | `twitter.cardType`                 | string                  | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player`                                                                                             |
 | `twitter.site`                     | string                  | @username for the website used in the card footer                                                                                                                                    |
 | `twitter.handle`                   | string                  | @username for the content creator / author (outputs as `twitter:creator`)                                                                                                            |
@@ -540,6 +542,44 @@ it will result in this being rendered:
 
 ```html
 <meta property="dc:creator" content="Jane Doe" />,
+```
+
+#### Additional Link Tags
+
+This allows you to add any other link tags that are not covered in the `config`.
+
+`rel` and `href` is required.
+
+Example:
+
+```js
+additionalLinkTags={[
+  {
+    rel: 'icon',
+    href: 'https://www.test.ie/favicon.ico',
+  },
+  {
+    rel: 'apple-touch-icon',
+    href: 'https://www.test.ie/touch-icon-ipad.jpg',
+    sizes: '76x76'
+  },
+  {
+    rel: 'manifest',
+    href: '/manifest.json'
+  }
+]}
+```
+
+it will result in this being rendered:
+
+```html
+<link rel="icon" href="https://www.test.ie/favicon.ico" />
+<link
+  rel="apple-touch-icon"
+  href="https://www.test.ie/touch-icon-ipad.jpg"
+  sizes="76x76"
+/>
+<link rel="manifest" href="/manifest.json" />
 ```
 
 ## Open Graph
