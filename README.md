@@ -1509,6 +1509,16 @@ Local business is supported with a sub-set of properties.
 | `openingHours.dayOfWeek`    | The day of the week for which these opening hours are valid. Can be a string or array of strings. Refer to [DayOfWeek](https://schema.org/DayOfWeek) |
 | `openingHours.validFrom`    | The date when the item becomes valid.                                                                                                                |
 | `openingHours.validThrough` | The date after when the item is not valid.                                                                                                           |
+| `review` | A review of the local business.                                                                                                                                         |
+| `review.author` | The author of this content or rating.                                                                                                                           |
+| `review.reviewBody` | The actual body of the review.                                                                                                                               |
+| `review.datePublished` | Date of first broadcast/publication.                                                                                                                     |
+| `review.name` | The name of the item.                                                                                                                                             |
+| `review.rating` |  The rating given in this review                                                                                                                                 |
+| `review.rating.ratingValue` | The rating for the content.                                                                                                                         |
+| `review.rating.reviewAspect` | This Review or Rating is relevant to this part or facet of the itemReviewed.                                                                       |
+| `review.rating.worstRating` | The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed.                                                             |
+| `review.rating.bestRating` | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed                                                               |
 
 **NOTE:**
 
