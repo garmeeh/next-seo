@@ -1441,6 +1441,34 @@ Local business is supported with a sub-set of properties.
       validThrough: '2020-04-02',
     },
   ]}
+  rating={{
+    ratingValue: '4.5',
+    ratingCount: '2',
+  }}
+  review={[
+    {
+      author: 'John Doe',
+      datePublished: '2006-05-04',
+      name: 'A masterpiece of literature',
+      reviewBody:
+        'I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.',
+      reviewRating: {
+        bestRating: '5',
+        worstRating: '1',
+        reviewAspect: 'Ambiance',
+        ratingValue: '4',
+      },
+    },
+    {
+      author: 'Bob Smith',
+      datePublished: '2006-06-15',
+      name: 'A good read.',
+      reviewBody: "Catcher in the Rye is a fun book. It's a good book to read.",
+      reviewRating: {
+        ratingValue: '4',
+      },
+    },
+  ]}
 />
 ```
 

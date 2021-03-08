@@ -6,14 +6,14 @@ import formatIfArray from '../utils/formatIfArray';
 import buildAddress from '../utils/buildAddress';
 import { Address } from '../types';
 
+type AggregateRating = {
+  ratingValue: string;
+  ratingCount: string;
+};
+
 type Geo = {
   latitude: string;
   longitude: string;
-};
-
-type Rating = {
-  ratingValue: string;
-  ratingCount: string;
 };
 
 type OpeningHoursSpecification = {
@@ -22,6 +22,21 @@ type OpeningHoursSpecification = {
   dayOfWeek: string | string[];
   validFrom?: string;
   validThrough?: string;
+};
+
+type Rating = {
+  ratingValue: string;
+  worstRating?: string;
+  bestRating?: string;
+  reviewAspect?: string;
+};
+
+type Review = {
+  author: string;
+  datePublished: string;
+  reviewBody: string;
+  reviewRating: Rating;
+  name?: string;
 };
 
 export interface LocalBusinessJsonLdProps {
@@ -35,7 +50,8 @@ export interface LocalBusinessJsonLdProps {
   address: Address;
   geo?: Geo;
   images?: string[];
-  rating?: Rating;
+  rating?: AggregateRating;
+  review?: Review[];
   priceRange?: string;
   servesCuisine?: string | string[];
   sameAs?: string[];
@@ -50,11 +66,11 @@ const buildGeo = (geo: Geo) => `
   },
 `;
 
-const buildRating = (rating: Rating) => `
+const buildAggregateRating = (aggregateRating: AggregateRating) => `
   "aggregateRating": {
     "@type": "AggregateRating",
-    "ratingValue": "${rating.ratingValue}",
-    "ratingCount": "${rating.ratingCount}"
+    "ratingValue": "${aggregateRating.ratingValue}",
+    "ratingCount": "${aggregateRating.ratingCount}"
   },
 `;
 
@@ -77,6 +93,32 @@ const buildOpeningHours = (openingHours: OpeningHoursSpecification) => `
   }
 `;
 
+const buildRating = (rating: Rating) => `
+  {
+    "@type": "Rating",
+    ${rating.bestRating ? `"bestRating": "${rating.bestRating}",` : ''}
+    ${rating.reviewAspect ? `"reviewAspect": "${rating.reviewAspect}",` : ''}
+    ${rating.worstRating ? `"worstRating": "${rating.worstRating}",` : ''}
+    "ratingValue": "${rating.ratingValue}"
+  }
+`;
+
+const buildReview = (reviews: Review[]) => `
+  "review": [
+    ${reviews.map(
+      review => `
+      {
+        "@type": "Review",
+        "author": "${review.author}",
+        "datePublished": "${review.datePublished}",
+        ${review.name ? `"name": "${review.name}",` : ''}
+        "reviewBody": "${review.reviewBody}",
+        "reviewRating": ${buildRating(review.reviewRating)}
+      }
+    `,
+    )}
+  ],
+`;
 const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   keyOverride,
   type,
@@ -89,6 +131,7 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   geo,
   images,
   rating,
+  review,
   priceRange,
   servesCuisine,
   sameAs,
@@ -103,7 +146,8 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
     ${telephone ? `"telephone": "${telephone}",` : ''}
     ${buildAddress(address)}
     ${geo ? `${buildGeo(geo)}` : ''}
-    ${rating ? `${buildRating(rating)}` : ''}
+    ${rating ? `${buildAggregateRating(rating)}` : ''}
+    ${review ? `${buildReview(review)}` : ''}
     ${priceRange ? `"priceRange": "${priceRange}",` : ''}
     ${servesCuisine ? `"servesCuisine":${formatIfArray(servesCuisine)},` : ''}
     ${images ? `"image":${formatIfArray(images)},` : ''}
