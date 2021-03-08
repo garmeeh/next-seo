@@ -212,7 +212,7 @@ describe('Validates JSON-LD For:', () => {
       .should('have.length', expectedJSONResults)
       .then(tags => {
         const jsonLD = JSON.parse(tags[localBusinessLdJsonIndex].innerHTML);
-        assertSchema(schemas)('Local Business', '1.1.0')(jsonLD);
+        assertSchema(schemas)('Local Business', '1.2.0')(jsonLD);
       });
   });
 
@@ -273,6 +273,40 @@ describe('Validates JSON-LD For:', () => {
               dayOfWeek: 'Sunday',
               validFrom: '2019-12-23',
               validThrough: '2020-04-02',
+            },
+          ],
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.5',
+            ratingCount: '2',
+          },
+          review: [
+            {
+              '@type': 'Review',
+              author: 'John Doe',
+              datePublished: '2006-05-04',
+              name: 'A masterpiece of literature',
+              reviewBody:
+                'I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.',
+              reviewRating: {
+                '@type': 'Rating',
+                bestRating: '5',
+                worstRating: '1',
+                reviewAspect: 'Ambiance',
+                ratingValue: '4',
+              },
+            },
+            {
+              '@type': 'Review',
+              author: 'Bob Smith',
+              datePublished: '2006-06-15',
+              name: 'A good read.',
+              reviewBody:
+                "Catcher in the Rye is a fun book. It's a good book to read.",
+              reviewRating: {
+                '@type': 'Rating',
+                ratingValue: '4',
+              },
             },
           ],
         });
@@ -899,7 +933,7 @@ describe('Validates JSON-LD For:', () => {
         expect(jsonLD).to.deep.equal(expectedObject);
       });
   });
-  
+
   it('Q&A Page', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')

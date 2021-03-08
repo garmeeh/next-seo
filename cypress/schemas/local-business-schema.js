@@ -2,10 +2,10 @@ import { versionSchemas } from '@cypress/schema-tools';
 
 import address100 from './address';
 
-const localBusiness110 = {
+const localBusiness120 = {
   version: {
     major: 1,
-    minor: 1,
+    minor: 2,
     patch: 0,
   },
   schema: {
@@ -121,6 +121,77 @@ const localBusiness110 = {
           },
         },
       },
+      aggregateRating: {
+        type: 'object',
+        properties: {
+          '@type': {
+            type: 'string',
+            description: 'JSON-LD type: AggregateRating.',
+          },
+          ratingValue: {
+            type: 'string',
+            description: 'Ratings/Reviews aggregate value of local business.',
+          },
+          ratingCount: {
+            type: 'string',
+            description: 'Ratings/Reviews number of local business.',
+          },
+        },
+        description: 'Aggregate rating of local business.',
+      },
+      review: {
+        type: 'array',
+        description: 'Reviews list of the local business.',
+        item: {
+          type: 'object',
+          properties: {
+            '@type': {
+              type: 'string',
+              description: 'JSON-LD type: Review.',
+            },
+            author: {
+              type: 'string',
+              description: 'The author of the review.',
+            },
+            datePublished: {
+              type: 'string',
+              description: 'The date when the review was published.',
+            },
+            reviewBody: {
+              type: 'string',
+              description: 'The review body/description.',
+            },
+            reviewRating: {
+              type: 'object',
+              properties: {
+                '@type': {
+                  type: 'string',
+                  description: 'JSON-LD type: Rating.',
+                },
+                bestRating: {
+                  type: 'string',
+                  description:
+                    'The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed.',
+                },
+                reviewAspect: {
+                  type: 'string',
+                  description:
+                    'This Review or Rating is relevant to this part or facet of the itemReviewed.',
+                },
+                worstRating: {
+                  type: 'string',
+                  description:
+                    'The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed.',
+                },
+                ratingValue: {
+                  type: 'string',
+                  description: 'The rating for the content.',
+                },
+              },
+            },
+          },
+        },
+      },
     },
     required: true,
     additionalProperties: false,
@@ -169,8 +240,42 @@ const localBusiness110 = {
         validThrough: '2020-04-02',
       },
     ],
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.5',
+      ratingCount: '2',
+    },
+    review: [
+      {
+        '@type': 'Review',
+        author: 'John Doe',
+        datePublished: '2006-05-04',
+        name: 'A masterpiece of literature',
+        reviewBody:
+          'I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.',
+        reviewRating: {
+          '@type': 'Rating',
+          bestRating: '5',
+          worstRating: '1',
+          reviewAspect: 'Ambiance',
+          ratingValue: '4',
+        },
+      },
+      {
+        '@type': 'Review',
+        author: 'Bob Smith',
+        datePublished: '2006-06-15',
+        name: 'A good read.',
+        reviewBody:
+          "Catcher in the Rye is a fun book. It's a good book to read.",
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: '4',
+        },
+      },
+    ],
   },
 };
 
-const localBusiness = versionSchemas(localBusiness110);
+const localBusiness = versionSchemas(localBusiness120);
 export default localBusiness;
