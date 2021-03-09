@@ -43,5 +43,13 @@ export {
   default as SiteLinksSearchBoxJsonLd,
   SiteLinksSearchBoxJsonLdProps,
 } from './jsonld/siteLinksSearchBox';
+export {
+  default as CollectionPageJsonLd,
+  CollectionPageJsonLdProps,
+} from './jsonld/collectionPage';
+export {
+  default as ProfilePageJsonLd,
+  ProfilePageJsonLdProps,
+} from './jsonld/profilePage';
 
 export { DefaultSeoProps, NextSeoProps } from './types';
