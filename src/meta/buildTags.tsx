@@ -653,7 +653,9 @@ const buildTags = (config: BuildTagsParams) => {
     config.additionalMetaTags.forEach(tag => {
       tagsToRender.push(
         <meta
-          key={`meta:${tag.name ?? tag.property ?? tag.httpEquiv}`}
+          key={`meta:${
+            tag.keyOverride ?? tag.name ?? tag.property ?? tag.httpEquiv
+          }`}
           {...tag}
         />,
       );
