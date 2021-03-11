@@ -66,6 +66,7 @@ looking for inspiration on what to add.
     - [Course](#course-1)
     - [Movie](#movie)
     - [Recipe](#recipe-1)
+  - [Software App](#software-app)
 - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -2247,6 +2248,46 @@ export default () => (
 | `instructions.name` | The name of the instruction step.       |
 | `instructions.text` | The directions of the instruction step. |
 | `url`               | URL of the item's detailed page.        |
+
+### Software App
+
+```jsx
+import React from 'react';
+import { SoftwareAppJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Software App JSON-LD</h1>
+    <SoftwareAppJsonLd
+      name="Angry Birds"
+      price="1.00"
+      priceCurrency="USD"
+      aggregateRating={{ ratingValue: '4.6', reviewCount: '8864' }}
+      operatingSystem="ANDROID"
+      applicationCategory="GameApplication"
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property          | Info                                                                      |
+| ----------------- | ------------------------------------------------------------------------- |
+| `name`            | The name of the app.                                                      |
+| `price`           | Price of the app. If the app is free of charge, set offers.price to 0     |
+| `priceCurrency`   | If the app has a price greater than 0, you must include offers.currency.  |
+| `aggregateRating` | The average review score of the app. (Not required if review is present.) |
+| `review`          | A single review of the app. (Not required if aggregateRating is present.) |
+
+**Data Recommended properties**
+
+| Property              | Info                             |
+| --------------------- | -------------------------------- |
+| `operatingSystem`     | The directors of the movie.      |
+| `applicationCategory` | The date the movie was released. |
+
+For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
 
 ## Contributors
 

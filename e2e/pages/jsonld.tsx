@@ -16,7 +16,8 @@ import {
   DatasetJsonLd,
   RecipeJsonLd,
   SiteLinksSearchBoxJsonLd,
-  QAPageJsonld
+  QAPageJsonld,
+  SoftwareAppJsonLd,
 } from '../..';
 import Links from '../components/links';
 
@@ -475,7 +476,16 @@ const JsonLD = () => (
         ],
       }}
     />
-    
+
+    <SoftwareAppJsonLd
+      name="Angry Birds"
+      price="1.00"
+      priceCurrency="USD"
+      aggregateRating={{ ratingValue: '4.6', ratingCount: '8864' }}
+      operatingSystem="ANDROID"
+      applicationCategory="GameApplication"
+    />
+
     <Links />
   </>
 );
