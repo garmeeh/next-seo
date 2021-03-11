@@ -19,6 +19,7 @@ type Performer = {
 };
 
 export interface EventJsonLdProps {
+  keyOverride: string;
   name: string;
   startDate: string;
   endDate: string;
@@ -48,6 +49,7 @@ const buildPerformer = (performer: Performer) => `
 `;
 
 const EventJsonLd: FC<EventJsonLdProps> = ({
+  keyOverride,
   name,
   startDate,
   endDate,
@@ -101,7 +103,7 @@ const EventJsonLd: FC<EventJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-event"
+        key={`jsonld-video${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>
   );
