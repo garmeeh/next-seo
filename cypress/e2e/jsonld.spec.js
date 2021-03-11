@@ -729,6 +729,42 @@ describe('Validates JSON-LD For:', () => {
           },
           image: ['https://example.com/photos/photo.jpg'],
           description: 'My event @ my place',
+          offers: [
+            {
+              '@type': 'Offer',
+              price: '119.99',
+              priceCurrency: 'USD',
+              priceValidUntil: '2020-11-05',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.com/offer',
+              seller: {
+                '@type': 'Organization',
+                name: 'John Doe',
+              },
+            },
+            {
+              '@type': 'Offer',
+              price: '139.99',
+              priceCurrency: 'CAD',
+              priceValidUntil: '2020-09-05',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.ca/other-offer',
+              seller: {
+                '@type': 'Organization',
+                name: 'John Doe sr.',
+              },
+            },
+          ],
+          performer: [
+            {
+              '@type': 'PerformingGroup',
+              name: 'Adele',
+            },
+            {
+              '@type': 'PerformingGroup',
+              name: 'Kira and Morrison',
+            },
+          ],
         });
       });
   });

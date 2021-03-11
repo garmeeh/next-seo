@@ -48,6 +48,25 @@ export interface BroadcastEvent {
   endDate: string;
 }
 
+export type Offers = {
+  price: string;
+  priceCurrency: string;
+  priceValidUntil?: string;
+  itemCondition?: string;
+  availability?: string;
+  url?: string;
+  seller: {
+    name: string;
+  };
+};
+
+export type AggregateOffer = {
+  priceCurrency: string;
+  lowPrice: string;
+  highPrice?: string;
+  offerCount?: string;
+};
+
 export interface OpenGraphVideoActors {
   profile: string;
   role?: string;

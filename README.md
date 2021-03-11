@@ -1792,6 +1792,38 @@ const Page = () => (
       url="https://example.com/my-event"
       images={['https://example.com/photos/photo.jpg']}
       description="My event @ my place"
+      offers={[
+        {
+          price: '119.99',
+          priceCurrency: 'USD',
+          priceValidUntil: '2020-11-05',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.com/executive-anvil',
+          seller: {
+            name: 'John Doe',
+          },
+        },
+        {
+          price: '139.99',
+          priceCurrency: 'CAD',
+          priceValidUntil: '2020-09-05',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.ca/executive-anvil',
+          seller: {
+            name: 'John Doe Sr.',
+          },
+        },
+      ]}
+      performers={[
+        {
+          name: 'Adele',
+        },
+        {
+          name: 'Kira and Morrison',
+        },
+      ]}
     />
   </>
 );
@@ -1810,12 +1842,52 @@ export default Page;
 
 **Supported properties**
 
-| Property          | Info                                  |
-| ----------------- | ------------------------------------- |
-| `description`     | Description of the event              |
-| `location.sameAs` | Description of the event location     |
-| `images`          | An image or images of the event.      |
-| `url`             | The fully-qualified URL of the event. |
+| Property                 | Info                                                                                                                                                     |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `description`     | Description of the event                                                                                                                                        |
+| `location.sameAs` | Description of the event location                                                                                                                               |
+| `images`          | An image or images of the event.                                                                                                                                |
+| `url`             | The fully-qualified URL of the event.                                                                                                                           |
+| `offers`          | An offer to transfer some rights to an item or to provide a service. You can provide this as a single object, or an array of objects with the properties below. |
+| `performers`      | All artists that perform at this event. You can provide this as a single object, or an array of objects with the properties below.                              |
+| `performers.name` | The name of the performer                                                                                                                                       |
+
+**`offers` Required properties**
+
+| Property               | Info                      |
+| ---------------------- | ------------------------- |
+| `offers.price`         | The cost of the offer     |
+| `offers.priceCurrency` | The currency of the offer |
+
+**`offers` Recommended properties**
+
+| Property                 | Info                                                                                |
+| ------------------------ | ----------------------------------------------------------------------------------- |
+| `offers.priceValidUntil` | Until when the price of the offer expires                                           |
+| `offers.itemCondition`   | The condition of the product or service                                             |
+| `offers.availability`    | The availability of this item — for example In stock, Out of stock, Pre-order, etc. |
+| `offers.url`             | URL of the item                                                                     |
+| `offers.seller`          | The person who is selling this item                                                 |
+| `offers.seller.name`     | The name of the person                                                              |
+
+The property `aggregateOffer` is also available:
+(It is ignored if `offers` is set)
+
+**Required properties**
+
+| Property        | Info                                                                              |
+| --------------- | --------------------------------------------------------------------------------- |
+| `lowPrice`      | The lowest price of all offers available. Use a floating point number.            |
+| `priceCurrency` | The currency used to describe the product price, in three-letter ISO 4217 format. |
+
+**Recommended properties**
+
+| Property     | Info                                                                    |
+| ------------ | ----------------------------------------------------------------------- |
+| `highPrice`  | The highest price of all offers available. Use a floating point number. |
+| `offerCount` | The number of offers for the product.  
+
+For reference and more info check [Google's Search Event DataType](https://developers.google.com/search/docs/data-types/event)
 
 ### Q&A
 

@@ -1,6 +1,7 @@
 import { versionSchemas } from '@cypress/schema-tools';
 
 import address100 from './address';
+import { offers101 } from "./common"
 
 const location100 = {
   version: {
@@ -30,6 +31,34 @@ const location100 = {
     '@type': 'Place',
     name: 'My place',
     address: address100.example,
+  },
+};
+
+const performer100 = {
+  version: {
+    major: 1,
+    minor: 0,
+    patch: 0,
+  },
+  schema: {
+    type: ['object', 'array'],
+    description: 'Performer',
+    properties: {
+      '@type': {
+        type: 'string',
+        description: 'Describes type',
+      },
+      name: {
+        type: 'string',
+        description: 'Name of the performer',
+      },
+    },
+    required: true,
+    additionalProperties: false,
+    example: {
+      '@type': 'PerformingGroup',
+      name: 'Kira and Morrison',
+    },
   },
 };
 
@@ -63,6 +92,14 @@ const event100 = {
         ...location100.schema,
         see: location100,
       },
+      offers: {
+        ...offers101.schema,
+        see: offers101,
+      },
+      performer: {
+        ...performer100.schema,
+        see: performer100,
+      },
     },
   },
   example: {
@@ -74,6 +111,38 @@ const event100 = {
     location: location.example,
     image: ['https://example.com/photos/1x1/photo.jpg'],
     description: 'My event @ my place',
+    offers: [
+      {
+        '@type': 'Offer',
+        price: '119.99',
+        priceCurrency: 'USD',
+        priceValidUntil: '2020-11-05',
+        itemCondition: 'https://schema.org/UsedCondition',
+        availability: 'https://schema.org/InStock',
+        url: 'https://www.example.com/executive-anvil',
+        seller: {
+          '@type': 'Organization',
+          name: 'Executive Objects',
+        },
+      },
+      {
+        '@type': 'Offer',
+        price: '139.99',
+        priceCurrency: 'CAD',
+        priceValidUntil: '2020-09-05',
+        itemCondition: 'https://schema.org/UsedCondition',
+        availability: 'https://schema.org/InStock',
+        url: 'https://www.example.ca/executive-anvil',
+        seller: {
+          '@type': 'Organization',
+          name: 'Executive Objects',
+        },
+      },
+    ],
+    performer: {
+      '@type': 'PerformingGroup',
+      name: 'Kira and Morrison',
+    }
   },
 };
 

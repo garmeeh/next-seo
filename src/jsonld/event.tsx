@@ -4,12 +4,18 @@ import Head from 'next/head';
 import markup from '../utils/markup';
 import formatIfArray from '../utils/formatIfArray';
 import buildAddress from '../utils/buildAddress';
-import { Address } from '../types';
+import { Address, AggregateOffer, Offers } from '../types';
+import { buildOffers } from '../utils/buildOffers';
+import { buildAggregateOffer } from '../utils/buildAggregateOffer';
 
 type Location = {
   name: string;
   address: Address;
   sameAs?: string;
+};
+
+type Performer = {
+  name: string;
 };
 
 export interface EventJsonLdProps {
@@ -20,6 +26,9 @@ export interface EventJsonLdProps {
   url?: string;
   description?: string;
   images?: string[];
+  offers?: Offers | Offers[];
+  aggregateOffer?: AggregateOffer;
+  performers?: Performer | Performer[];
 }
 
 const buildLocation = (location: Location) => `
@@ -31,6 +40,13 @@ const buildLocation = (location: Location) => `
   },
 `;
 
+const buildPerformer = (performer: Performer) => `
+  {
+    "@type": "PerformingGroup",
+    "name": "${performer.name}"
+  }
+`;
+
 const EventJsonLd: FC<EventJsonLdProps> = ({
   name,
   startDate,
@@ -39,6 +55,9 @@ const EventJsonLd: FC<EventJsonLdProps> = ({
   url,
   description,
   images,
+  offers,
+  aggregateOffer,
+  performers,
 }) => {
   const jslonld = `{
     "@context": "https://schema.org",
@@ -49,6 +68,31 @@ const EventJsonLd: FC<EventJsonLdProps> = ({
     ${images ? `"image":${formatIfArray(images)},` : ``}
     ${url ? `"url": "${url}",` : ``}
     ${description ? `"description": "${description}",` : ``}
+    ${
+      offers
+        ? `"offers": ${
+            Array.isArray(offers)
+              ? `[${offers.map(offer => `${buildOffers(offer)}`)}]`
+              : buildOffers(offers)
+          },`
+        : ''
+    }
+    ${
+      aggregateOffer && !offers
+        ? `"offers": ${buildAggregateOffer(aggregateOffer)},`
+        : ''
+    }
+    ${
+      performers
+        ? `"performer": ${
+            Array.isArray(performers)
+              ? `[${performers.map(
+                  performer => `${buildPerformer(performer)}`,
+                )}]`
+              : buildPerformer(performers)
+          },`
+        : ''
+    }
     "name": "${name}"
   }`;
 
