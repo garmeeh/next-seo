@@ -422,6 +422,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "shaswatsaxena",
+      "name": "Shaswat Saxena",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12628996?v=4",
+      "profile": "https://infilimits.com",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
