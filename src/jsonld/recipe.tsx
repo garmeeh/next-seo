@@ -7,7 +7,7 @@ import buildVideo from '../utils/buildVideo';
 
 import { Video } from '../types';
 
-type AggregateRating = {
+export type AggregateRating = {
   ratingValue: string;
   ratingCount: string;
 };

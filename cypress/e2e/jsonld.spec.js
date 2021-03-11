@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 19;
+const expectedJSONResults = 20;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -22,6 +22,7 @@ const datasetLdJsonIndex = 15;
 const recipeLdJsonIndex = 16;
 const siteLinksSearchBoxLdJsonIndex = 17;
 const qaPageLdJsonIndex = 18;
+const softwareAppJsonIndex = 19;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -899,7 +900,7 @@ describe('Validates JSON-LD For:', () => {
         expect(jsonLD).to.deep.equal(expectedObject);
       });
   });
-  
+
   it('Q&A Page', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
@@ -1304,6 +1305,44 @@ describe('Validates JSON-LD For:', () => {
               },
             },
           ],
+        };
+
+        expect(jsonLD).to.deep.equal(expectedObject);
+      });
+  });
+
+  it('Software App', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[softwareAppJsonIndex].innerHTML);
+        assertSchema(schemas)('Software App', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Software App Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[softwareAppJsonIndex].innerHTML);
+        const expectedObject = {
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: 'Angry Birds',
+          operatingSystem: 'ANDROID',
+          applicationCategory: 'GameApplication',
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.6',
+            ratingCount: '8864',
+          },
+          offers: {
+            '@type': 'Offer',
+            price: '1.00',
+            priceCurrency: 'USD',
+          },
         };
 
         expect(jsonLD).to.deep.equal(expectedObject);
