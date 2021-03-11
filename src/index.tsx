@@ -43,5 +43,9 @@ export {
   default as SiteLinksSearchBoxJsonLd,
   SiteLinksSearchBoxJsonLdProps,
 } from './jsonld/siteLinksSearchBox';
+export {
+  default as SoftwareAppJsonLd,
+  SoftwareAppJsonLdProps,
+} from './jsonld/softwareApp';
 
 export { DefaultSeoProps, NextSeoProps } from './types';
