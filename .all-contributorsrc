@@ -433,6 +433,17 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "Roohn",
+      "name": "Ronald",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22071649?v=4",
+      "profile": "https://github.com/Roohn",
+      "contributions": [
+        "doc",
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
