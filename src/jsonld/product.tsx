@@ -6,18 +6,19 @@ import formatIfArray from '../utils/formatIfArray';
 import { AggregateOffer, Offers } from '../types';
 import { buildOffers } from '../utils/buildOffers';
 import { buildAggregateOffer } from '../utils/buildAggregateOffer';
-type ReviewRating = {
+
+export type ReviewRating = {
   bestRating?: string;
   ratingValue: string;
   worstRating?: string;
 };
 
-type Author = {
+export type Author = {
   type: string;
   name: string;
 };
 
-type Publisher = {
+export type Publisher = {
   type: string;
   name: string;
 };
@@ -84,7 +85,7 @@ export const buildPublisher = (publisher: Publisher) => `
   },
 `;
 
-const buildReviews = (reviews: Review[]) => `
+export const buildReviews = (reviews: Review[]) => `
 "review": [
   ${reviews.map(
     review => `{
@@ -102,7 +103,7 @@ const buildReviews = (reviews: Review[]) => `
   }`,
   )}],`;
 
-const buildAggregateRating = (aggregateRating: AggregateRating) => `
+export const buildAggregateRating = (aggregateRating: AggregateRating) => `
   "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "${aggregateRating.ratingValue}",
