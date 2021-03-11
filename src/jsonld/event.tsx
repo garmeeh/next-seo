@@ -23,6 +23,9 @@ export interface EventJsonLdProps {
   name: string;
   startDate: string;
   endDate: string;
+  eventType: string;
+  eventStatus: string;
+  eventAttendanceMode: string;
   location: Location;
   url?: string;
   description?: string;
@@ -60,16 +63,26 @@ const EventJsonLd: FC<EventJsonLdProps> = ({
   offers,
   aggregateOffer,
   performers,
+  eventType,
+  eventStatus,
+  eventAttendanceMode,
 }) => {
   const jslonld = `{
     "@context": "https://schema.org",
-    "@type": "Event",
+    "@type": ${eventType ? eventType : 'Event'},
+    ${eventStatus ? `"eventStatus":"${eventStatus}",` : ``}
+    ${
+      eventAttendanceMode
+        ? `"eventAttendanceMode":"${eventAttendanceMode}",`
+        : ``
+    }
     "startDate": "${startDate}",
     "endDate": "${endDate}",
     ${buildLocation(location)}
     ${images ? `"image":${formatIfArray(images)},` : ``}
     ${url ? `"url": "${url}",` : ``}
     ${description ? `"description": "${description}",` : ``}
+    
     ${
       offers
         ? `"offers": ${
