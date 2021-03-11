@@ -1,6 +1,5 @@
 import React from 'react';
 import { BuildTagsParams } from '../types';
-import generateUUID from '../utils/generateUUID';
 const defaults = {
   templateTitle: '',
   noindex: false,
@@ -654,7 +653,7 @@ const buildTags = (config: BuildTagsParams) => {
     config.additionalMetaTags.forEach(tag => {
       tagsToRender.push(
         <meta
-          key={tag.name ?? tag.property ?? tag.httpEquiv ?? generateUUID()}
+          key={`meta:${tag.name ?? tag.property ?? tag.httpEquiv}`}
           {...tag}
         />,
       );

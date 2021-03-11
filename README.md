@@ -1842,7 +1842,7 @@ export default Page;
 
 **Supported properties**
 
-| Property                 | Info                                                                                                                                                     |
+| Property          | Info                                                                                                                                                            |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `description`     | Description of the event                                                                                                                                        |
 | `location.sameAs` | Description of the event location                                                                                                                               |
@@ -1885,7 +1885,7 @@ The property `aggregateOffer` is also available:
 | Property     | Info                                                                    |
 | ------------ | ----------------------------------------------------------------------- |
 | `highPrice`  | The highest price of all offers available. Use a floating point number. |
-| `offerCount` | The number of offers for the product.  
+| `offerCount` | The number of offers for the product.                                   |
 
 For reference and more info check [Google's Search Event DataType](https://developers.google.com/search/docs/data-types/event)
 
