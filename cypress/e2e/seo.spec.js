@@ -108,8 +108,6 @@ describe('SEO Meta', () => {
     cy.get('head link[rel="apple-touch-icon"]')
       .should('have.length', 2)
       .then(tags => {
-        console.log('tags 0', tags[0].sizes);
-        console.log('tags 1', tags[1].sizes);
         expect(tags[0].sizes[0]).to.equal('76x76');
         expect(tags[1].sizes[0]).to.equal('120x120');
       });
@@ -278,6 +276,13 @@ describe('SEO Meta', () => {
       'content',
       'IE=edge; chrome=1',
     );
+    cy.get('head link[rel="apple-touch-icon"]')
+      .should('have.length', 3)
+      .then(tags => {
+        expect(tags[0].sizes[0]).to.equal('76x76');
+        expect(tags[1].sizes[0]).to.equal('120x120');
+        expect(tags[2].sizes[0]).to.equal('180x180');
+      });
   });
 
   it('Profile SEO loads correctly', () => {

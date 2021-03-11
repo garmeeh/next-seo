@@ -81,6 +81,13 @@ const Overridden = () => (
           content: 'IE=edge; chrome=1',
         },
       ]}
+      additionalLinkTags={[
+        {
+          rel: 'apple-touch-icon',
+          href: 'https://www.test.ie/touch-icon-iphone.jpg',
+          sizes: '180x180',
+        },
+      ]}
     />
     <h1>Overridden Seo</h1>
     <Links />
