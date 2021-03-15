@@ -66,6 +66,7 @@ looking for inspiration on what to add.
     - [Course](#course-1)
     - [Movie](#movie)
     - [Recipe](#recipe-1)
+  - [Software App](#software-app)
 - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -1829,6 +1830,38 @@ const Page = () => (
       url="https://example.com/my-event"
       images={['https://example.com/photos/photo.jpg']}
       description="My event @ my place"
+      offers={[
+        {
+          price: '119.99',
+          priceCurrency: 'USD',
+          priceValidUntil: '2020-11-05',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.com/executive-anvil',
+          seller: {
+            name: 'John Doe',
+          },
+        },
+        {
+          price: '139.99',
+          priceCurrency: 'CAD',
+          priceValidUntil: '2020-09-05',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.ca/executive-anvil',
+          seller: {
+            name: 'John Doe Sr.',
+          },
+        },
+      ]}
+      performers={[
+        {
+          name: 'Adele',
+        },
+        {
+          name: 'Kira and Morrison',
+        },
+      ]}
     />
   </>
 );
@@ -1847,12 +1880,52 @@ export default Page;
 
 **Supported properties**
 
-| Property          | Info                                  |
-| ----------------- | ------------------------------------- |
-| `description`     | Description of the event              |
-| `location.sameAs` | Description of the event location     |
-| `images`          | An image or images of the event.      |
-| `url`             | The fully-qualified URL of the event. |
+| Property                 | Info                                                                                                                                                     |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `description`     | Description of the event                                                                                                                                        |
+| `location.sameAs` | Description of the event location                                                                                                                               |
+| `images`          | An image or images of the event.                                                                                                                                |
+| `url`             | The fully-qualified URL of the event.                                                                                                                           |
+| `offers`          | An offer to transfer some rights to an item or to provide a service. You can provide this as a single object, or an array of objects with the properties below. |
+| `performers`      | All artists that perform at this event. You can provide this as a single object, or an array of objects with the properties below.                              |
+| `performers.name` | The name of the performer                                                                                                                                       |
+
+**`offers` Required properties**
+
+| Property               | Info                      |
+| ---------------------- | ------------------------- |
+| `offers.price`         | The cost of the offer     |
+| `offers.priceCurrency` | The currency of the offer |
+
+**`offers` Recommended properties**
+
+| Property                 | Info                                                                                |
+| ------------------------ | ----------------------------------------------------------------------------------- |
+| `offers.priceValidUntil` | Until when the price of the offer expires                                           |
+| `offers.itemCondition`   | The condition of the product or service                                             |
+| `offers.availability`    | The availability of this item — for example In stock, Out of stock, Pre-order, etc. |
+| `offers.url`             | URL of the item                                                                     |
+| `offers.seller`          | The person who is selling this item                                                 |
+| `offers.seller.name`     | The name of the person                                                              |
+
+The property `aggregateOffer` is also available:
+(It is ignored if `offers` is set)
+
+**Required properties**
+
+| Property        | Info                                                                              |
+| --------------- | --------------------------------------------------------------------------------- |
+| `lowPrice`      | The lowest price of all offers available. Use a floating point number.            |
+| `priceCurrency` | The currency used to describe the product price, in three-letter ISO 4217 format. |
+
+**Recommended properties**
+
+| Property     | Info                                                                    |
+| ------------ | ----------------------------------------------------------------------- |
+| `highPrice`  | The highest price of all offers available. Use a floating point number. |
+| `offerCount` | The number of offers for the product.  
+
+For reference and more info check [Google's Search Event DataType](https://developers.google.com/search/docs/data-types/event)
 
 ### Q&A
 
@@ -2286,6 +2359,46 @@ export default () => (
 | `instructions.text` | The directions of the instruction step. |
 | `url`               | URL of the item's detailed page.        |
 
+### Software App
+
+```jsx
+import React from 'react';
+import { SoftwareAppJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Software App JSON-LD</h1>
+    <SoftwareAppJsonLd
+      name="Angry Birds"
+      price="1.00"
+      priceCurrency="USD"
+      aggregateRating={{ ratingValue: '4.6', reviewCount: '8864' }}
+      operatingSystem="ANDROID"
+      applicationCategory="GameApplication"
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property          | Info                                                                      |
+| ----------------- | ------------------------------------------------------------------------- |
+| `name`            | The name of the app.                                                      |
+| `price`           | Price of the app. If the app is free of charge, set offers.price to 0     |
+| `priceCurrency`   | If the app has a price greater than 0, you must include offers.currency.  |
+| `aggregateRating` | The average review score of the app. (Not required if review is present.) |
+| `review`          | A single review of the app. (Not required if aggregateRating is present.) |
+
+**Data Recommended properties**
+
+| Property              | Info                             |
+| --------------------- | -------------------------------- |
+| `operatingSystem`     | The directors of the movie.      |
+| `applicationCategory` | The date the movie was released. |
+
+For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
@@ -2346,6 +2459,10 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="https://trevorblades.com"><img src="https://avatars.githubusercontent.com/u/1216917?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Trevor Blades</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://httgp.com"><img src="https://avatars.githubusercontent.com/u/5381764?v=4?s=100" width="100px;" alt=""/><br /><sub><b>GP</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://twitter.com/sebascomeau"><img src="https://avatars.githubusercontent.com/u/2814465?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sébastien Comeau</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=sebascomeau" title="Code">💻</a></td>
+    <td align="center"><a href="https://infilimits.com"><img src="https://avatars.githubusercontent.com/u/12628996?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shaswat Saxena</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Tests">⚠️</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Roohn"><img src="https://avatars.githubusercontent.com/u/22071649?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ronald</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Tests">⚠️</a></td>
   </tr>
 </table>
 

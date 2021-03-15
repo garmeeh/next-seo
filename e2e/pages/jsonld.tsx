@@ -17,6 +17,7 @@ import {
   RecipeJsonLd,
   SiteLinksSearchBoxJsonLd,
   QAPageJsonld,
+  SoftwareAppJsonLd,
 } from '../..';
 import Links from '../components/links';
 
@@ -384,6 +385,42 @@ const JsonLD = () => (
       url="https://example.com/my-event"
       images={['https://example.com/photos/photo.jpg']}
       description="My event @ my place"
+      offers={[
+        {
+          price: '119.99',
+          priceCurrency: 'USD',
+          priceValidUntil: '2020-11-05',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.com/offer',
+          seller: {
+            name: 'John Doe',
+          },
+        },
+        {
+          price: '139.99',
+          priceCurrency: 'CAD',
+          priceValidUntil: '2020-09-05',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.ca/other-offer',
+          seller: {
+            name: 'John Doe sr.',
+          },
+        },
+      ]}
+      aggregateOffer={{
+        priceCurrency: 'USD',
+        lowPrice: '119.99',
+        highPrice: '139.99',
+        offerCount: '5',
+      }}
+      performers={[
+        {
+          name: 'Adele',
+        },
+        {
+          name: 'Kira and Morrison',
+        },
+      ]}
     />
 
     <DatasetJsonLd
@@ -503,6 +540,15 @@ const JsonLD = () => (
           },
         ],
       }}
+    />
+
+    <SoftwareAppJsonLd
+      name="Angry Birds"
+      price="1.00"
+      priceCurrency="USD"
+      aggregateRating={{ ratingValue: '4.6', ratingCount: '8864' }}
+      operatingSystem="ANDROID"
+      applicationCategory="GameApplication"
     />
 
     <Links />
