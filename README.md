@@ -1489,37 +1489,37 @@ Local business is supported with a sub-set of properties.
 
 **Supported properties**
 
-| Property                    | Info                                                                                                                                                 |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `description`               | Description of the business location                                                                                                                 |
-| `geo`                       | Geographic coordinates of the business.                                                                                                              |
-| `geo.latitude`              | The latitude of the business location                                                                                                                |
-| `geo.longitude`             | The longitude of the business location                                                                                                               |
-| `rating`                    | The average rating of business based on multiple ratings or reviews.                                                                                 |
-| `rating.ratingValue`        | The rating for the content.                                                                                                                          |
-| `rating.ratingCount`        | The count of total number of ratings.                                                                                                                |
-| `priceRange`                | The relative price range of the business.                                                                                                            |
-| `servesCuisine`             | The type of cuisine the restaurant serves.                                                                                                           |
-| `images`                    | An image or images of the business. Required for valid markup depending on the type                                                                  |
-| `telephone`                 | A business phone number meant to be the primary contact method for customers.                                                                        |
-| `url`                       | The fully-qualified URL of the specific business location.                                                                                           |
-| `sameAs`                    | An array of URLs that represent this business                                                                                                        |
-| `openingHours`              | Opening hour specification of business. You can provide this as a single object, or an array of objects with the properties below.                   |
-| `openingHours.opens`        | The opening hour of the place or service on the given day(s) of the week.                                                                            |
-| `openingHours.closes`       | The closing hour of the place or service on the given day(s) of the week.                                                                            |
-| `openingHours.dayOfWeek`    | The day of the week for which these opening hours are valid. Can be a string or array of strings. Refer to [DayOfWeek](https://schema.org/DayOfWeek) |
-| `openingHours.validFrom`    | The date when the item becomes valid.                                                                                                                |
-| `openingHours.validThrough` | The date after when the item is not valid.                                                                                                           |
-| `review` | A review of the local business.                                                                                                                                         |
-| `review.author` | The author of this content or rating.                                                                                                                           |
-| `review.reviewBody` | The actual body of the review.                                                                                                                               |
-| `review.datePublished` | Date of first broadcast/publication.                                                                                                                     |
-| `review.name` | The name of the item.                                                                                                                                             |
-| `review.rating` |  The rating given in this review                                                                                                                                 |
-| `review.rating.ratingValue` | The rating for the content.                                                                                                                         |
-| `review.rating.reviewAspect` | This Review or Rating is relevant to this part or facet of the itemReviewed.                                                                       |
-| `review.rating.worstRating` | The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed.                                                             |
-| `review.rating.bestRating` | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed                                                               |
+| Property                     | Info                                                                                                                                                 |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `description`                | Description of the business location                                                                                                                 |
+| `geo`                        | Geographic coordinates of the business.                                                                                                              |
+| `geo.latitude`               | The latitude of the business location                                                                                                                |
+| `geo.longitude`              | The longitude of the business location                                                                                                               |
+| `rating`                     | The average rating of business based on multiple ratings or reviews.                                                                                 |
+| `rating.ratingValue`         | The rating for the content.                                                                                                                          |
+| `rating.ratingCount`         | The count of total number of ratings.                                                                                                                |
+| `priceRange`                 | The relative price range of the business.                                                                                                            |
+| `servesCuisine`              | The type of cuisine the restaurant serves.                                                                                                           |
+| `images`                     | An image or images of the business. Required for valid markup depending on the type                                                                  |
+| `telephone`                  | A business phone number meant to be the primary contact method for customers.                                                                        |
+| `url`                        | The fully-qualified URL of the specific business location.                                                                                           |
+| `sameAs`                     | An array of URLs that represent this business                                                                                                        |
+| `openingHours`               | Opening hour specification of business. You can provide this as a single object, or an array of objects with the properties below.                   |
+| `openingHours.opens`         | The opening hour of the place or service on the given day(s) of the week.                                                                            |
+| `openingHours.closes`        | The closing hour of the place or service on the given day(s) of the week.                                                                            |
+| `openingHours.dayOfWeek`     | The day of the week for which these opening hours are valid. Can be a string or array of strings. Refer to [DayOfWeek](https://schema.org/DayOfWeek) |
+| `openingHours.validFrom`     | The date when the item becomes valid.                                                                                                                |
+| `openingHours.validThrough`  | The date after when the item is not valid.                                                                                                           |
+| `review`                     | A review of the local business.                                                                                                                      |
+| `review.author`              | The author of this content or rating.                                                                                                                |
+| `review.reviewBody`          | The actual body of the review.                                                                                                                       |
+| `review.datePublished`       | Date of first broadcast/publication.                                                                                                                 |
+| `review.name`                | The name of the item.                                                                                                                                |
+| `review.rating`              | The rating given in this review                                                                                                                      |
+| `review.rating.ratingValue`  | The rating for the content.                                                                                                                          |
+| `review.rating.reviewAspect` | This Review or Rating is relevant to this part or facet of the itemReviewed.                                                                         |
+| `review.rating.worstRating`  | The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed.                                                             |
+| `review.rating.bestRating`   | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed                                                              |
 
 **NOTE:**
 
@@ -1880,7 +1880,7 @@ export default Page;
 
 **Supported properties**
 
-| Property                 | Info                                                                                                                                                     |
+| Property          | Info                                                                                                                                                            |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `description`     | Description of the event                                                                                                                                        |
 | `location.sameAs` | Description of the event location                                                                                                                               |
@@ -1923,7 +1923,7 @@ The property `aggregateOffer` is also available:
 | Property     | Info                                                                    |
 | ------------ | ----------------------------------------------------------------------- |
 | `highPrice`  | The highest price of all offers available. Use a floating point number. |
-| `offerCount` | The number of offers for the product.  
+| `offerCount` | The number of offers for the product.                                   |
 
 For reference and more info check [Google's Search Event DataType](https://developers.google.com/search/docs/data-types/event)
 

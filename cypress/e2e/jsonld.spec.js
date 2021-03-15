@@ -213,7 +213,7 @@ describe('Validates JSON-LD For:', () => {
       .should('have.length', expectedJSONResults)
       .then(tags => {
         const jsonLD = JSON.parse(tags[localBusinessLdJsonIndex].innerHTML);
-        assertSchema(schemas)('Local Business', '1.2.0')(jsonLD);
+        assertSchema(schemas)('Local Business', '1.3.0')(jsonLD);
       });
   });
 
@@ -310,6 +310,60 @@ describe('Validates JSON-LD For:', () => {
               },
             },
           ],
+          areaServed: [
+            {
+              '@type': 'GeoCircle',
+              geoMidpoint: {
+                '@type': 'GeoCoordinates',
+                latitude: '41.108237',
+                longitude: '-80.642982',
+              },
+              geoRadius: '1000',
+            },
+            {
+              '@type': 'GeoCircle',
+              geoMidpoint: {
+                '@type': 'GeoCoordinates',
+                latitude: '51.108237',
+                longitude: '-80.642982',
+              },
+              geoRadius: '1000',
+            },
+          ],
+          makesOffer: [
+            {
+              '@type': 'Offer',
+              priceSpecification: {
+                '@type': 'UnitPriceSpecification',
+                priceCurrency: 'EUR',
+                price: '1000-10000',
+              },
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Motion Design Services',
+                description:
+                  'We are the expert of animation and motion design productions.',
+              },
+            },
+            {
+              '@type': 'Offer',
+              priceSpecification: {
+                '@type': 'UnitPriceSpecification',
+                priceCurrency: 'EUR',
+                price: '2000-10000',
+              },
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Branding Services',
+                description:
+                  'Real footage is a powerful tool when it comes to show what the business is about. Can be used to present your company, show your factory, promote a product packshot, or just tell any story. It can help create emotional links with your audience by showing punchy images.',
+              },
+            },
+          ],
+          potentialAction: {
+            '@type': 'ReviewAction',
+            target: 'https://www.example.com/review/this/business',
+          },
         });
       });
   });

@@ -6,14 +6,34 @@ import formatIfArray from '../utils/formatIfArray';
 import buildAddress from '../utils/buildAddress';
 import { Address } from '../types';
 
+type Action = {
+  actionName: string;
+  actionType: string;
+  target: string;
+};
+
 type AggregateRating = {
   ratingValue: string;
   ratingCount: string;
 };
 
+type AreaServed = GeoCircle[];
+
 type Geo = {
   latitude: string;
   longitude: string;
+};
+
+type GeoCircle = {
+  geoMidpoint: Geo;
+  geoRadius: string;
+};
+
+type MakesOffer = Offer[];
+
+type Offer = {
+  priceSpecification: PriceSpecification;
+  itemOffered: Service;
 };
 
 type OpeningHoursSpecification = {
@@ -22,6 +42,12 @@ type OpeningHoursSpecification = {
   dayOfWeek: string | string[];
   validFrom?: string;
   validThrough?: string;
+};
+
+type PriceSpecification = {
+  type: string;
+  priceCurrency: string;
+  price: string;
 };
 
 type Rating = {
@@ -37,6 +63,11 @@ type Review = {
   reviewBody: string;
   reviewRating: Rating;
   name?: string;
+};
+
+type Service = {
+  name: string;
+  description: string;
 };
 
 export interface LocalBusinessJsonLdProps {
@@ -56,7 +87,31 @@ export interface LocalBusinessJsonLdProps {
   servesCuisine?: string | string[];
   sameAs?: string[];
   openingHours?: OpeningHoursSpecification | OpeningHoursSpecification[];
+  action?: Action;
+  areaServed?: AreaServed;
+  makesOffer?: MakesOffer;
 }
+
+const buildAction = (action: Action) => `
+  "${action.actionName}": {
+    "@type": "${action.actionType}",
+    "target": "${action.target}"
+  }
+`;
+
+const buildAreaServed = (areaServed: AreaServed) => `
+  "areaServed": [
+    ${areaServed.map(area => buildGeoCircle(area))}
+  ]
+`;
+
+const buildAggregateRating = (aggregateRating: AggregateRating) => `
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "${aggregateRating.ratingValue}",
+    "ratingCount": "${aggregateRating.ratingCount}"
+  },
+`;
 
 const buildGeo = (geo: Geo) => `
   "geo": {
@@ -66,12 +121,30 @@ const buildGeo = (geo: Geo) => `
   },
 `;
 
-const buildAggregateRating = (aggregateRating: AggregateRating) => `
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "${aggregateRating.ratingValue}",
-    "ratingCount": "${aggregateRating.ratingCount}"
-  },
+const buildGeoCircle = (geoCircle: GeoCircle) => `
+  {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "${geoCircle.geoMidpoint.latitude}",
+      "longitude": "${geoCircle.geoMidpoint.longitude}"
+    },
+    "geoRadius": "${geoCircle.geoRadius}"
+  }
+`;
+
+const buildMakesOffer = (makesOffer: MakesOffer) => `
+  "makesOffer":[
+    ${makesOffer.map(offer => buildOffer(offer))}
+  ]
+`;
+
+const buildOffer = (offer: Offer) => `
+  {
+    "@type": "Offer",
+    ${buildPriceSpecification(offer.priceSpecification)},
+    ${buildItemOffered(offer.itemOffered)}
+  }
 `;
 
 const buildOpeningHours = (openingHours: OpeningHoursSpecification) => `
@@ -90,6 +163,14 @@ const buildOpeningHours = (openingHours: OpeningHoursSpecification) => `
         : ''
     }
     "closes": "${openingHours.closes}"
+  }
+`;
+
+const buildPriceSpecification = (priceSpecification: PriceSpecification) => `
+  "priceSpecification": {
+    "@type": "${priceSpecification.type}",
+    "priceCurrency": "${priceSpecification.priceCurrency}",
+    "price": "${priceSpecification.price}"
   }
 `;
 
@@ -119,6 +200,15 @@ const buildReview = (reviews: Review[]) => `
     )}
   ],
 `;
+
+const buildItemOffered = (service: Service) => `
+  "itemOffered": {
+    "@type": "Service",
+    "name": "${service.name}",
+    "description": "${service.description}"
+  }
+`;
+
 const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   keyOverride,
   type,
@@ -136,6 +226,9 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   servesCuisine,
   sameAs,
   openingHours,
+  action,
+  areaServed,
+  makesOffer,
 }) => {
   const jslonld = `{
     "@context": "https://schema.org",
@@ -148,6 +241,9 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
     ${geo ? `${buildGeo(geo)}` : ''}
     ${rating ? `${buildAggregateRating(rating)}` : ''}
     ${review ? `${buildReview(review)}` : ''}
+    ${action ? `${buildAction(action)},` : ''}
+    ${areaServed ? `${buildAreaServed(areaServed)},` : ''}
+    ${makesOffer ? `${buildMakesOffer(makesOffer)},` : ''}
     ${priceRange ? `"priceRange": "${priceRange}",` : ''}
     ${servesCuisine ? `"servesCuisine":${formatIfArray(servesCuisine)},` : ''}
     ${images ? `"image":${formatIfArray(images)},` : ''}

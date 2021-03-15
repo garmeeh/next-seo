@@ -2,10 +2,10 @@ import { versionSchemas } from '@cypress/schema-tools';
 
 import address100 from './address';
 
-const localBusiness120 = {
+const localBusiness130 = {
   version: {
     major: 1,
-    minor: 2,
+    minor: 3,
     patch: 0,
   },
   schema: {
@@ -192,6 +192,106 @@ const localBusiness120 = {
           },
         },
       },
+      makesOffer: {
+        type: 'array',
+        description: 'Offers list of the local business.',
+        item: {
+          type: 'object',
+          properties: {
+            '@type': {
+              type: 'string',
+              description: 'JSON-LD type: Offer.',
+            },
+            priceSpecification: {
+              type: 'object',
+              properties: {
+                '@type': {
+                  type: 'string',
+                  description: 'JSON-LD type: PriceSpecification.',
+                },
+                priceCurrency: {
+                  type: 'string',
+                  description:
+                    'The currency of the price, or a price component when attached to PriceSpecification and its subtypes.',
+                },
+                price: {
+                  type: 'string',
+                  description:
+                    'The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.',
+                },
+              },
+            },
+            itemOffered: {
+              type: 'object',
+              properties: {
+                '@type': {
+                  type: 'string',
+                  description: 'JSON-LD type: Service.',
+                },
+                name: {
+                  type: 'string',
+                  description: 'The name of the item',
+                },
+                description: {
+                  type: 'string',
+                  description: 'A description of the item.',
+                },
+              },
+            },
+          },
+        },
+      },
+      areaServed: {
+        type: 'array',
+        description:
+          'The geographic areas where a service or offered item is provided.',
+        item: {
+          type: 'object',
+          properties: {
+            '@type': {
+              type: 'string',
+              description: 'JSON-LD type: GeoCircle.',
+            },
+            geoMidpoint: {
+              type: 'object',
+              properties: {
+                '@type': {
+                  type: 'string',
+                  description: 'JSON-LD type: GeoCoordinates.',
+                },
+                latitude: {
+                  type: 'string',
+                  description:
+                    'The latitude of a location. For example 37.42242',
+                },
+                longitude: {
+                  type: 'string',
+                  description:
+                    'The longitude of a location. For example -122.08585',
+                },
+              },
+            },
+            geoRadius: {
+              type: 'string',
+              description:
+                'Indicates the approximate radius of a GeoCircle (metres unless indicated otherwise via Distance notation).',
+            },
+          },
+        },
+      },
+      potentialAction: {
+        type: 'object',
+        properties: {
+          '@type': {
+            type: 'string',
+            description: 'JSON-LD type: Action or subclasses.',
+          },
+          target: {
+            type: 'string',
+            description: 'Indicates a target EntryPoint for an Action.',
+          },
+        },
+      },
     },
     required: true,
     additionalProperties: false,
@@ -274,8 +374,62 @@ const localBusiness120 = {
         },
       },
     ],
+    areaServed: [
+      {
+        '@type': 'GeoCircle',
+        geoMidpoint: {
+          '@type': 'GeoCoordinates',
+          latitude: '41.108237',
+          longitude: '-80.642982',
+        },
+        geoRadius: '1000',
+      },
+      {
+        '@type': 'GeoCircle',
+        geoMidpoint: {
+          '@type': 'GeoCoordinates',
+          latitude: '51.108237',
+          longitude: '-80.642982',
+        },
+        geoRadius: '1000',
+      },
+    ],
+    makesOffer: [
+      {
+        '@type': 'Offer',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          priceCurrency: 'EUR',
+          price: '1000-10000',
+        },
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Motion Design Services',
+          description:
+            'We are the expert of animation and motion design productions.',
+        },
+      },
+      {
+        '@type': 'Offer',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          priceCurrency: 'EUR',
+          price: '2000-10000',
+        },
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Branding Services',
+          description:
+            'Real footage is a powerful tool when it comes to show what the business is about. Can be used to present your company, show your factory, promote a product packshot, or just tell any story. It can help create emotional links with your audience by showing punchy images.',
+        },
+      },
+    ],
+    potentialAction: {
+      '@type': 'ReviewAction',
+      target: 'https://www.example.com/review/this/business',
+    },
   },
 };
 
-const localBusiness = versionSchemas(localBusiness120);
+const localBusiness = versionSchemas(localBusiness130);
 export default localBusiness;

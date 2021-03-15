@@ -162,6 +162,53 @@ const JsonLD = () => (
           },
         },
       ]}
+      makesOffer={[
+        {
+          priceSpecification: {
+            type: 'UnitPriceSpecification',
+            priceCurrency: 'EUR',
+            price: '1000-10000',
+          },
+          itemOffered: {
+            name: 'Motion Design Services',
+            description:
+              'We are the expert of animation and motion design productions.',
+          },
+        },
+        {
+          priceSpecification: {
+            type: 'UnitPriceSpecification',
+            priceCurrency: 'EUR',
+            price: '2000-10000',
+          },
+          itemOffered: {
+            name: 'Branding Services',
+            description:
+              'Real footage is a powerful tool when it comes to show what the business is about. Can be used to present your company, show your factory, promote a product packshot, or just tell any story. It can help create emotional links with your audience by showing punchy images.',
+          },
+        },
+      ]}
+      areaServed={[
+        {
+          geoMidpoint: {
+            latitude: '41.108237',
+            longitude: '-80.642982',
+          },
+          geoRadius: '1000',
+        },
+        {
+          geoMidpoint: {
+            latitude: '51.108237',
+            longitude: '-80.642982',
+          },
+          geoRadius: '1000',
+        },
+      ]}
+      action={{
+        actionName: 'potentialAction',
+        actionType: 'ReviewAction',
+        target: 'https://www.example.com/review/this/business',
+      }}
     />
 
     <LogoJsonLd
