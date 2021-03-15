@@ -1470,6 +1470,53 @@ Local business is supported with a sub-set of properties.
       },
     },
   ]}
+  makesOffer={[
+    {
+      priceSpecification: {
+        type: 'UnitPriceSpecification',
+        priceCurrency: 'EUR',
+        price: '1000-10000',
+      },
+      itemOffered: {
+        name: 'Motion Design Services',
+        description:
+          'We are the expert of animation and motion design productions.',
+      },
+    },
+    {
+      priceSpecification: {
+        type: 'UnitPriceSpecification',
+        priceCurrency: 'EUR',
+        price: '2000-10000',
+      },
+      itemOffered: {
+        name: 'Branding Services',
+        description:
+          'Real footage is a powerful tool when it comes to show what the business is about. Can be used to present your company, show your factory, promote a product packshot, or just tell any story. It can help create emotional links with your audience by showing punchy images.',
+      },
+    },
+  ]}
+  areaServed={[
+    {
+      geoMidpoint: {
+        latitude: '41.108237',
+        longitude: '-80.642982',
+      },
+      geoRadius: '1000',
+    },
+    {
+      geoMidpoint: {
+        latitude: '51.108237',
+        longitude: '-80.642982',
+      },
+      geoRadius: '1000',
+    },
+  ]}
+  action={{
+    actionName: 'potentialAction',
+    actionType: 'ReviewAction',
+    target: 'https://www.example.com/review/this/business',
+  }}
 />
 ```
 
@@ -1520,6 +1567,22 @@ Local business is supported with a sub-set of properties.
 | `review.rating.reviewAspect` | This Review or Rating is relevant to this part or facet of the itemReviewed.                                                                         |
 | `review.rating.worstRating`  | The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed.                                                             |
 | `review.rating.bestRating`   | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed                                                              |
+| `areasServed`                | The geographic area where a service or offered item is provided.                                                                                    |
+| `areasServed.GeoCircle`      | A GeoCircle is a GeoShape representing a circular geographic area.                                                                                  |
+| `areasServed.GeoCircle.geoMidpoint` | Indicates the GeoCoordinates at the centre of a GeoShape e.g. GeoCircle.                                                                      |
+| `areasServed.GeoCircle.geoMidpoint.latitude` | The latitude of a location. For example 37.42242                                                                                          |
+| `areasServed.GeoCircle.geoMidpoint.longitude`| The name of the item.                                                                                                                |
+| `areasServed.GeoCircle.geoRadius`            | Indicates the approximate radius of a GeoCircle (metres unless indicated otherwise via Distance notation).                          |
+| `makesOffer`                  | A pointer to products or services offered by the organization or person.                                                                            |
+| `makesOffer.offer`            | An offer to transfer some rights to an item or to provide a service                                                                                |
+| `makesOffer.offer.priceSpecification`  | One or more detailed price specifications, indicating the unit price and delivery or payment charges.                                      |
+| `makesOffer.offer.priceSpecification.priceCurrency`   | The currency of the price, or a price component when attached to PriceSpecification and its subtypes.                      |
+| `makesOffer.offer.priceSpecification.price`           | The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.          |
+| `makesOffer.offer.itemOffered`     | An item being offered (or demanded)                                                                                                            |
+| `makesOffer.offer.itemOffered.name`| The name of the item                                                                                                                          |
+| `makesOffer.offer.itemOffered.description`       | The description of the item.                                                                                                    |
+| `action`                     | An action performed by a direct agent and indirect participants upon a direct object.                                                                |
+| `action.target`              | Indicates a target EntryPoint for an Action.                                                                                                        |
 
 **NOTE:**
 
