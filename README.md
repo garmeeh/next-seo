@@ -1576,53 +1576,53 @@ Local business is supported with a sub-set of properties.
 
 **Supported properties**
 
-| Property                     | Info                                                                                                                                                 |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `description`                | Description of the business location                                                                                                                 |
-| `geo`                        | Geographic coordinates of the business.                                                                                                              |
-| `geo.latitude`               | The latitude of the business location                                                                                                                |
-| `geo.longitude`              | The longitude of the business location                                                                                                               |
-| `rating`                     | The average rating of business based on multiple ratings or reviews.                                                                                 |
-| `rating.ratingValue`         | The rating for the content.                                                                                                                          |
-| `rating.ratingCount`         | The count of total number of ratings.                                                                                                                |
-| `priceRange`                 | The relative price range of the business.                                                                                                            |
-| `servesCuisine`              | The type of cuisine the restaurant serves.                                                                                                           |
-| `images`                     | An image or images of the business. Required for valid markup depending on the type                                                                  |
-| `telephone`                  | A business phone number meant to be the primary contact method for customers.                                                                        |
-| `url`                        | The fully-qualified URL of the specific business location.                                                                                           |
-| `sameAs`                     | An array of URLs that represent this business                                                                                                        |
-| `openingHours`               | Opening hour specification of business. You can provide this as a single object, or an array of objects with the properties below.                   |
-| `openingHours.opens`         | The opening hour of the place or service on the given day(s) of the week.                                                                            |
-| `openingHours.closes`        | The closing hour of the place or service on the given day(s) of the week.                                                                            |
-| `openingHours.dayOfWeek`     | The day of the week for which these opening hours are valid. Can be a string or array of strings. Refer to [DayOfWeek](https://schema.org/DayOfWeek) |
-| `openingHours.validFrom`     | The date when the item becomes valid.                                                                                                                |
-| `openingHours.validThrough`  | The date after when the item is not valid.                                                                                                           |
-| `review`                     | A review of the local business.                                                                                                                      |
-| `review.author`              | The author of this content or rating.                                                                                                                |
-| `review.reviewBody`          | The actual body of the review.                                                                                                                       |
-| `review.datePublished`       | Date of first broadcast/publication.                                                                                                                 |
-| `review.name`                | The name of the item.                                                                                                                                |
-| `review.rating`              | The rating given in this review                                                                                                                      |
-| `review.rating.ratingValue`  | The rating for the content.                                                                                                                          |
-| `review.rating.reviewAspect` | This Review or Rating is relevant to this part or facet of the itemReviewed.                                                                         |
-| `review.rating.worstRating`  | The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed.                                                             |
-| `review.rating.bestRating`   | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed                                                              |
-| `areasServed`                | The geographic area where a service or offered item is provided.                                                                                    |
-| `areasServed.GeoCircle`      | A GeoCircle is a GeoShape representing a circular geographic area.                                                                                  |
-| `areasServed.GeoCircle.geoMidpoint` | Indicates the GeoCoordinates at the centre of a GeoShape e.g. GeoCircle.                                                                      |
-| `areasServed.GeoCircle.geoMidpoint.latitude` | The latitude of a location. For example 37.42242                                                                                          |
-| `areasServed.GeoCircle.geoMidpoint.longitude`| The name of the item.                                                                                                                |
-| `areasServed.GeoCircle.geoRadius`            | Indicates the approximate radius of a GeoCircle (metres unless indicated otherwise via Distance notation).                          |
-| `makesOffer`                  | A pointer to products or services offered by the organization or person.                                                                            |
-| `makesOffer.offer`            | An offer to transfer some rights to an item or to provide a service                                                                                |
-| `makesOffer.offer.priceSpecification`  | One or more detailed price specifications, indicating the unit price and delivery or payment charges.                                      |
-| `makesOffer.offer.priceSpecification.priceCurrency`   | The currency of the price, or a price component when attached to PriceSpecification and its subtypes.                      |
-| `makesOffer.offer.priceSpecification.price`           | The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.          |
-| `makesOffer.offer.itemOffered`     | An item being offered (or demanded)                                                                                                            |
-| `makesOffer.offer.itemOffered.name`| The name of the item                                                                                                                          |
-| `makesOffer.offer.itemOffered.description`       | The description of the item.                                                                                                    |
-| `action`                     | An action performed by a direct agent and indirect participants upon a direct object.                                                                |
-| `action.target`              | Indicates a target EntryPoint for an Action.                                                                                                        |
+| Property                                            | Info                                                                                                                                                 |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `description`                                       | Description of the business location                                                                                                                 |
+| `geo`                                               | Geographic coordinates of the business.                                                                                                              |
+| `geo.latitude`                                      | The latitude of the business location                                                                                                                |
+| `geo.longitude`                                     | The longitude of the business location                                                                                                               |
+| `rating`                                            | The average rating of business based on multiple ratings or reviews.                                                                                 |
+| `rating.ratingValue`                                | The rating for the content.                                                                                                                          |
+| `rating.ratingCount`                                | The count of total number of ratings.                                                                                                                |
+| `priceRange`                                        | The relative price range of the business.                                                                                                            |
+| `servesCuisine`                                     | The type of cuisine the restaurant serves.                                                                                                           |
+| `images`                                            | An image or images of the business. Required for valid markup depending on the type                                                                  |
+| `telephone`                                         | A business phone number meant to be the primary contact method for customers.                                                                        |
+| `url`                                               | The fully-qualified URL of the specific business location.                                                                                           |
+| `sameAs`                                            | An array of URLs that represent this business                                                                                                        |
+| `openingHours`                                      | Opening hour specification of business. You can provide this as a single object, or an array of objects with the properties below.                   |
+| `openingHours.opens`                                | The opening hour of the place or service on the given day(s) of the week.                                                                            |
+| `openingHours.closes`                               | The closing hour of the place or service on the given day(s) of the week.                                                                            |
+| `openingHours.dayOfWeek`                            | The day of the week for which these opening hours are valid. Can be a string or array of strings. Refer to [DayOfWeek](https://schema.org/DayOfWeek) |
+| `openingHours.validFrom`                            | The date when the item becomes valid.                                                                                                                |
+| `openingHours.validThrough`                         | The date after when the item is not valid.                                                                                                           |
+| `review`                                            | A review of the local business.                                                                                                                      |
+| `review.author`                                     | The author of this content or rating.                                                                                                                |
+| `review.reviewBody`                                 | The actual body of the review.                                                                                                                       |
+| `review.datePublished`                              | Date of first broadcast/publication.                                                                                                                 |
+| `review.name`                                       | The name of the item.                                                                                                                                |
+| `review.rating`                                     | The rating given in this review                                                                                                                      |
+| `review.rating.ratingValue`                         | The rating for the content.                                                                                                                          |
+| `review.rating.reviewAspect`                        | This Review or Rating is relevant to this part or facet of the itemReviewed.                                                                         |
+| `review.rating.worstRating`                         | The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed.                                                             |
+| `review.rating.bestRating`                          | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed                                                              |
+| `areasServed`                                       | The geographic area where a service or offered item is provided.                                                                                     |
+| `areasServed.GeoCircle`                             | A GeoCircle is a GeoShape representing a circular geographic area.                                                                                   |
+| `areasServed.GeoCircle.geoMidpoint`                 | Indicates the GeoCoordinates at the centre of a GeoShape e.g. GeoCircle.                                                                             |
+| `areasServed.GeoCircle.geoMidpoint.latitude`        | The latitude of a location. For example 37.42242                                                                                                     |
+| `areasServed.GeoCircle.geoMidpoint.longitude`       | The name of the item.                                                                                                                                |
+| `areasServed.GeoCircle.geoRadius`                   | Indicates the approximate radius of a GeoCircle (metres unless indicated otherwise via Distance notation).                                           |
+| `makesOffer`                                        | A pointer to products or services offered by the organization or person.                                                                             |
+| `makesOffer.offer`                                  | An offer to transfer some rights to an item or to provide a service                                                                                  |
+| `makesOffer.offer.priceSpecification`               | One or more detailed price specifications, indicating the unit price and delivery or payment charges.                                                |
+| `makesOffer.offer.priceSpecification.priceCurrency` | The currency of the price, or a price component when attached to PriceSpecification and its subtypes.                                                |
+| `makesOffer.offer.priceSpecification.price`         | The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.                                          |
+| `makesOffer.offer.itemOffered`                      | An item being offered (or demanded)                                                                                                                  |
+| `makesOffer.offer.itemOffered.name`                 | The name of the item                                                                                                                                 |
+| `makesOffer.offer.itemOffered.description`          | The description of the item.                                                                                                                         |
+| `action`                                            | An action performed by a direct agent and indirect participants upon a direct object.                                                                |
+| `action.target`                                     | Indicates a target EntryPoint for an Action.                                                                                                         |
 
 **NOTE:**
 
