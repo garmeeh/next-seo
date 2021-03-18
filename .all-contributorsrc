@@ -422,6 +422,60 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "shaswatsaxena",
+      "name": "Shaswat Saxena",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12628996?v=4",
+      "profile": "https://infilimits.com",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "Roohn",
+      "name": "Ronald",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22071649?v=4",
+      "profile": "https://github.com/Roohn",
+      "contributions": [
+        "doc",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "MrNossiom",
+      "name": "Milo Moisson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43814157?v=4",
+      "profile": "https://github.com/MrNossiom",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "adrianu197",
+      "name": "adrianu197",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33718513?v=4",
+      "profile": "https://github.com/adrianu197",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "kaykdm",
+      "name": "kaykdm",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34934746?v=4",
+      "profile": "https://github.com/kaykdm",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,

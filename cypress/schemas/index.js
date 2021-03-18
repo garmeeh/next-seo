@@ -17,6 +17,7 @@ import datasetVersion from './dataset-schema';
 import recipeVersion from './recipe-schema';
 import siteLinksSearchBoxVersion from './site-links-search-box-schema';
 import qaPageVersions from './qa-page-schema';
+import softwareAppVersions from './software-app-schema';
 import collectionPageVersions from './collection-page-schema';
 import profilePageVersions from './profile-page-schema';
 
@@ -38,6 +39,7 @@ const schemas = combineSchemas(
   recipeVersion,
   siteLinksSearchBoxVersion,
   qaPageVersions,
+  softwareAppVersions,
   collectionPageVersions,
   profilePageVersions,
 );

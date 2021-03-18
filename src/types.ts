@@ -48,6 +48,25 @@ export interface BroadcastEvent {
   endDate: string;
 }
 
+export type Offers = {
+  price: string;
+  priceCurrency: string;
+  priceValidUntil?: string;
+  itemCondition?: string;
+  availability?: string;
+  url?: string;
+  seller: {
+    name: string;
+  };
+};
+
+export type AggregateOffer = {
+  priceCurrency: string;
+  lowPrice: string;
+  highPrice?: string;
+  offerCount?: string;
+};
+
 export interface OpenGraphVideoActors {
   profile: string;
   role?: string;
@@ -120,8 +139,18 @@ interface LanguageAlternate {
   href: string;
 }
 
+interface LinkTag {
+  rel: string;
+  href: string;
+  sizes?: string;
+  type?: string;
+  color?: string;
+  keyOverride?: string;
+}
+
 export interface BaseMetaTag {
   content: string;
+  keyOverride?: string;
 }
 
 export interface HTML5MetaTag extends BaseMetaTag {
@@ -177,6 +206,7 @@ export interface NextSeoProps {
   facebook?: { appId: string };
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
+  additionalLinkTags?: ReadonlyArray<LinkTag>;
 }
 
 export interface DefaultSeoProps extends NextSeoProps {

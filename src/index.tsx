@@ -44,6 +44,10 @@ export {
   SiteLinksSearchBoxJsonLdProps,
 } from './jsonld/siteLinksSearchBox';
 export {
+  default as SoftwareAppJsonLd,
+  SoftwareAppJsonLdProps,
+} from './jsonld/softwareApp';
+export {
   default as CollectionPageJsonLd,
   CollectionPageJsonLdProps,
 } from './jsonld/collectionPage';

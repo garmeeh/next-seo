@@ -34,6 +34,7 @@ looking for inspiration on what to add.
     - [Canonical URL](#canonical-url)
     - [Alternate](#alternate)
     - [Additional Meta Tags](#additional-meta-tags)
+    - [Additional Link Tags](#additional-link-tags)
 - [Open Graph](#open-graph)
   - [Open Graph Examples](#open-graph-examples)
     - [Basic](#basic)
@@ -68,6 +69,7 @@ looking for inspiration on what to add.
     - [Course](#course-1)
     - [Movie](#movie)
     - [Recipe](#recipe-1)
+  - [Software App](#software-app)
 - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -260,6 +262,7 @@ From now on all of your pages will have the defaults above applied.
 | `mobileAlternate.href`             | string                  | Set the mobile page alternate url                                                                                                                                                    |
 | `languageAlternates`               | array                   | Set the language of the alternate urls. Expects array of objects with the shape: `{ hrefLang: string, href: string }`                                                                |
 | `additionalMetaTags`               | array                   | Allows you to add a meta tag that is not documented here. [More Info](#additional-meta-tags)                                                                                         |
+| `additionalLinkTags`               | array                   | Allows you to add a link tag that is not documented here. [More Info](#additional-link-tags)                                                                                         |
 | `twitter.cardType`                 | string                  | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player`                                                                                             |
 | `twitter.site`                     | string                  | @username for the website used in the card footer                                                                                                                                    |
 | `twitter.handle`                   | string                  | @username for the content creator / author (outputs as `twitter:creator`)                                                                                                            |
@@ -541,6 +544,44 @@ it will result in this being rendered:
 
 ```html
 <meta property="dc:creator" content="Jane Doe" />,
+```
+
+#### Additional Link Tags
+
+This allows you to add any other link tags that are not covered in the `config`.
+
+`rel` and `href` is required.
+
+Example:
+
+```js
+additionalLinkTags={[
+  {
+    rel: 'icon',
+    href: 'https://www.test.ie/favicon.ico',
+  },
+  {
+    rel: 'apple-touch-icon',
+    href: 'https://www.test.ie/touch-icon-ipad.jpg',
+    sizes: '76x76'
+  },
+  {
+    rel: 'manifest',
+    href: '/manifest.json'
+  }
+]}
+```
+
+it will result in this being rendered:
+
+```html
+<link rel="icon" href="https://www.test.ie/favicon.ico" />
+<link
+  rel="apple-touch-icon"
+  href="https://www.test.ie/touch-icon-ipad.jpg"
+  sizes="76x76"
+/>
+<link rel="manifest" href="/manifest.json" />
 ```
 
 ## Open Graph
@@ -1443,6 +1484,81 @@ Local business is supported with a sub-set of properties.
       validThrough: '2020-04-02',
     },
   ]}
+  rating={{
+    ratingValue: '4.5',
+    ratingCount: '2',
+  }}
+  review={[
+    {
+      author: 'John Doe',
+      datePublished: '2006-05-04',
+      name: 'A masterpiece of literature',
+      reviewBody:
+        'I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.',
+      reviewRating: {
+        bestRating: '5',
+        worstRating: '1',
+        reviewAspect: 'Ambiance',
+        ratingValue: '4',
+      },
+    },
+    {
+      author: 'Bob Smith',
+      datePublished: '2006-06-15',
+      name: 'A good read.',
+      reviewBody: "Catcher in the Rye is a fun book. It's a good book to read.",
+      reviewRating: {
+        ratingValue: '4',
+      },
+    },
+  ]}
+  makesOffer={[
+    {
+      priceSpecification: {
+        type: 'UnitPriceSpecification',
+        priceCurrency: 'EUR',
+        price: '1000-10000',
+      },
+      itemOffered: {
+        name: 'Motion Design Services',
+        description:
+          'We are the expert of animation and motion design productions.',
+      },
+    },
+    {
+      priceSpecification: {
+        type: 'UnitPriceSpecification',
+        priceCurrency: 'EUR',
+        price: '2000-10000',
+      },
+      itemOffered: {
+        name: 'Branding Services',
+        description:
+          'Real footage is a powerful tool when it comes to show what the business is about. Can be used to present your company, show your factory, promote a product packshot, or just tell any story. It can help create emotional links with your audience by showing punchy images.',
+      },
+    },
+  ]}
+  areaServed={[
+    {
+      geoMidpoint: {
+        latitude: '41.108237',
+        longitude: '-80.642982',
+      },
+      geoRadius: '1000',
+    },
+    {
+      geoMidpoint: {
+        latitude: '51.108237',
+        longitude: '-80.642982',
+      },
+      geoRadius: '1000',
+    },
+  ]}
+  action={{
+    actionName: 'potentialAction',
+    actionType: 'ReviewAction',
+    target: 'https://www.example.com/review/this/business',
+  }}
 />
 ```
 
@@ -1462,27 +1578,53 @@ Local business is supported with a sub-set of properties.
 
 **Supported properties**
 
-| Property                    | Info                                                                                                                                                 |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `description`               | Description of the business location                                                                                                                 |
-| `geo`                       | Geographic coordinates of the business.                                                                                                              |
-| `geo.latitude`              | The latitude of the business location                                                                                                                |
-| `geo.longitude`             | The longitude of the business location                                                                                                               |
-| `rating`                    | The average rating of business based on multiple ratings or reviews.                                                                                 |
-| `rating.ratingValue`        | The rating for the content.                                                                                                                          |
-| `rating.ratingCount`        | The count of total number of ratings.                                                                                                                |
-| `priceRange`                | The relative price range of the business.                                                                                                            |
-| `servesCuisine`             | The type of cuisine the restaurant serves.                                                                                                           |
-| `images`                    | An image or images of the business. Required for valid markup depending on the type                                                                  |
-| `telephone`                 | A business phone number meant to be the primary contact method for customers.                                                                        |
-| `url`                       | The fully-qualified URL of the specific business location.                                                                                           |
-| `sameAs`                    | An array of URLs that represent this business                                                                                                        |
-| `openingHours`              | Opening hour specification of business. You can provide this as a single object, or an array of objects with the properties below.                   |
-| `openingHours.opens`        | The opening hour of the place or service on the given day(s) of the week.                                                                            |
-| `openingHours.closes`       | The closing hour of the place or service on the given day(s) of the week.                                                                            |
-| `openingHours.dayOfWeek`    | The day of the week for which these opening hours are valid. Can be a string or array of strings. Refer to [DayOfWeek](https://schema.org/DayOfWeek) |
-| `openingHours.validFrom`    | The date when the item becomes valid.                                                                                                                |
-| `openingHours.validThrough` | The date after when the item is not valid.                                                                                                           |
+| Property                                            | Info                                                                                                                                                 |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `description`                                       | Description of the business location                                                                                                                 |
+| `geo`                                               | Geographic coordinates of the business.                                                                                                              |
+| `geo.latitude`                                      | The latitude of the business location                                                                                                                |
+| `geo.longitude`                                     | The longitude of the business location                                                                                                               |
+| `rating`                                            | The average rating of business based on multiple ratings or reviews.                                                                                 |
+| `rating.ratingValue`                                | The rating for the content.                                                                                                                          |
+| `rating.ratingCount`                                | The count of total number of ratings.                                                                                                                |
+| `priceRange`                                        | The relative price range of the business.                                                                                                            |
+| `servesCuisine`                                     | The type of cuisine the restaurant serves.                                                                                                           |
+| `images`                                            | An image or images of the business. Required for valid markup depending on the type                                                                  |
+| `telephone`                                         | A business phone number meant to be the primary contact method for customers.                                                                        |
+| `url`                                               | The fully-qualified URL of the specific business location.                                                                                           |
+| `sameAs`                                            | An array of URLs that represent this business                                                                                                        |
+| `openingHours`                                      | Opening hour specification of business. You can provide this as a single object, or an array of objects with the properties below.                   |
+| `openingHours.opens`                                | The opening hour of the place or service on the given day(s) of the week.                                                                            |
+| `openingHours.closes`                               | The closing hour of the place or service on the given day(s) of the week.                                                                            |
+| `openingHours.dayOfWeek`                            | The day of the week for which these opening hours are valid. Can be a string or array of strings. Refer to [DayOfWeek](https://schema.org/DayOfWeek) |
+| `openingHours.validFrom`                            | The date when the item becomes valid.                                                                                                                |
+| `openingHours.validThrough`                         | The date after when the item is not valid.                                                                                                           |
+| `review`                                            | A review of the local business.                                                                                                                      |
+| `review.author`                                     | The author of this content or rating.                                                                                                                |
+| `review.reviewBody`                                 | The actual body of the review.                                                                                                                       |
+| `review.datePublished`                              | Date of first broadcast/publication.                                                                                                                 |
+| `review.name`                                       | The name of the item.                                                                                                                                |
+| `review.rating`                                     | The rating given in this review                                                                                                                      |
+| `review.rating.ratingValue`                         | The rating for the content.                                                                                                                          |
+| `review.rating.reviewAspect`                        | This Review or Rating is relevant to this part or facet of the itemReviewed.                                                                         |
+| `review.rating.worstRating`                         | The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed.                                                             |
+| `review.rating.bestRating`                          | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed                                                              |
+| `areasServed`                                       | The geographic area where a service or offered item is provided.                                                                                     |
+| `areasServed.GeoCircle`                             | A GeoCircle is a GeoShape representing a circular geographic area.                                                                                   |
+| `areasServed.GeoCircle.geoMidpoint`                 | Indicates the GeoCoordinates at the centre of a GeoShape e.g. GeoCircle.                                                                             |
+| `areasServed.GeoCircle.geoMidpoint.latitude`        | The latitude of a location. For example 37.42242                                                                                                     |
+| `areasServed.GeoCircle.geoMidpoint.longitude`       | The name of the item.                                                                                                                                |
+| `areasServed.GeoCircle.geoRadius`                   | Indicates the approximate radius of a GeoCircle (metres unless indicated otherwise via Distance notation).                                           |
+| `makesOffer`                                        | A pointer to products or services offered by the organization or person.                                                                             |
+| `makesOffer.offer`                                  | An offer to transfer some rights to an item or to provide a service                                                                                  |
+| `makesOffer.offer.priceSpecification`               | One or more detailed price specifications, indicating the unit price and delivery or payment charges.                                                |
+| `makesOffer.offer.priceSpecification.priceCurrency` | The currency of the price, or a price component when attached to PriceSpecification and its subtypes.                                                |
+| `makesOffer.offer.priceSpecification.price`         | The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.                                          |
+| `makesOffer.offer.itemOffered`                      | An item being offered (or demanded)                                                                                                                  |
+| `makesOffer.offer.itemOffered.name`                 | The name of the item                                                                                                                                 |
+| `makesOffer.offer.itemOffered.description`          | The description of the item.                                                                                                                         |
+| `action`                                            | An action performed by a direct agent and indirect participants upon a direct object.                                                                |
+| `action.target`                                     | Indicates a target EntryPoint for an Action.                                                                                                         |
 
 **NOTE:**
 
@@ -1793,6 +1935,38 @@ const Page = () => (
       url="https://example.com/my-event"
       images={['https://example.com/photos/photo.jpg']}
       description="My event @ my place"
+      offers={[
+        {
+          price: '119.99',
+          priceCurrency: 'USD',
+          priceValidUntil: '2020-11-05',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.com/executive-anvil',
+          seller: {
+            name: 'John Doe',
+          },
+        },
+        {
+          price: '139.99',
+          priceCurrency: 'CAD',
+          priceValidUntil: '2020-09-05',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.ca/executive-anvil',
+          seller: {
+            name: 'John Doe Sr.',
+          },
+        },
+      ]}
+      performers={[
+        {
+          name: 'Adele',
+        },
+        {
+          name: 'Kira and Morrison',
+        },
+      ]}
     />
   </>
 );
@@ -1811,12 +1985,52 @@ export default Page;
 
 **Supported properties**
 
-| Property          | Info                                  |
-| ----------------- | ------------------------------------- |
-| `description`     | Description of the event              |
-| `location.sameAs` | Description of the event location     |
-| `images`          | An image or images of the event.      |
-| `url`             | The fully-qualified URL of the event. |
+| Property          | Info                                                                                                                                                            |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `description`     | Description of the event                                                                                                                                        |
+| `location.sameAs` | Description of the event location                                                                                                                               |
+| `images`          | An image or images of the event.                                                                                                                                |
+| `url`             | The fully-qualified URL of the event.                                                                                                                           |
+| `offers`          | An offer to transfer some rights to an item or to provide a service. You can provide this as a single object, or an array of objects with the properties below. |
+| `performers`      | All artists that perform at this event. You can provide this as a single object, or an array of objects with the properties below.                              |
+| `performers.name` | The name of the performer                                                                                                                                       |
+
+**`offers` Required properties**
+
+| Property               | Info                      |
+| ---------------------- | ------------------------- |
+| `offers.price`         | The cost of the offer     |
+| `offers.priceCurrency` | The currency of the offer |
+
+**`offers` Recommended properties**
+
+| Property                 | Info                                                                                |
+| ------------------------ | ----------------------------------------------------------------------------------- |
+| `offers.priceValidUntil` | Until when the price of the offer expires                                           |
+| `offers.itemCondition`   | The condition of the product or service                                             |
+| `offers.availability`    | The availability of this item — for example In stock, Out of stock, Pre-order, etc. |
+| `offers.url`             | URL of the item                                                                     |
+| `offers.seller`          | The person who is selling this item                                                 |
+| `offers.seller.name`     | The name of the person                                                              |
+
+The property `aggregateOffer` is also available:
+(It is ignored if `offers` is set)
+
+**Required properties**
+
+| Property        | Info                                                                              |
+| --------------- | --------------------------------------------------------------------------------- |
+| `lowPrice`      | The lowest price of all offers available. Use a floating point number.            |
+| `priceCurrency` | The currency used to describe the product price, in three-letter ISO 4217 format. |
+
+**Recommended properties**
+
+| Property     | Info                                                                    |
+| ------------ | ----------------------------------------------------------------------- |
+| `highPrice`  | The highest price of all offers available. Use a floating point number. |
+| `offerCount` | The number of offers for the product.                                   |
+
+For reference and more info check [Google's Search Event DataType](https://developers.google.com/search/docs/data-types/event)
 
 ### Q&A
 
@@ -2368,6 +2582,46 @@ export default () => (
 | `instructions.text` | The directions of the instruction step. |
 | `url`               | URL of the item's detailed page.        |
 
+### Software App
+
+```jsx
+import React from 'react';
+import { SoftwareAppJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Software App JSON-LD</h1>
+    <SoftwareAppJsonLd
+      name="Angry Birds"
+      price="1.00"
+      priceCurrency="USD"
+      aggregateRating={{ ratingValue: '4.6', reviewCount: '8864' }}
+      operatingSystem="ANDROID"
+      applicationCategory="GameApplication"
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property          | Info                                                                      |
+| ----------------- | ------------------------------------------------------------------------- |
+| `name`            | The name of the app.                                                      |
+| `price`           | Price of the app. If the app is free of charge, set offers.price to 0     |
+| `priceCurrency`   | If the app has a price greater than 0, you must include offers.currency.  |
+| `aggregateRating` | The average review score of the app. (Not required if review is present.) |
+| `review`          | A single review of the app. (Not required if aggregateRating is present.) |
+
+**Data Recommended properties**
+
+| Property              | Info                             |
+| --------------------- | -------------------------------- |
+| `operatingSystem`     | The directors of the movie.      |
+| `applicationCategory` | The date the movie was released. |
+
+For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
@@ -2428,6 +2682,13 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="https://trevorblades.com"><img src="https://avatars.githubusercontent.com/u/1216917?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Trevor Blades</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://httgp.com"><img src="https://avatars.githubusercontent.com/u/5381764?v=4?s=100" width="100px;" alt=""/><br /><sub><b>GP</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Tests">⚠️</a></td>
     <td align="center"><a href="https://twitter.com/sebascomeau"><img src="https://avatars.githubusercontent.com/u/2814465?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sébastien Comeau</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=sebascomeau" title="Code">💻</a></td>
+    <td align="center"><a href="https://infilimits.com"><img src="https://avatars.githubusercontent.com/u/12628996?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shaswat Saxena</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Tests">⚠️</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Roohn"><img src="https://avatars.githubusercontent.com/u/22071649?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ronald</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/MrNossiom"><img src="https://avatars.githubusercontent.com/u/43814157?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Milo Moisson</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=MrNossiom" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=MrNossiom" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/adrianu197"><img src="https://avatars.githubusercontent.com/u/33718513?v=4?s=100" width="100px;" alt=""/><br /><sub><b>adrianu197</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=adrianu197" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=adrianu197" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=adrianu197" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/kaykdm"><img src="https://avatars.githubusercontent.com/u/34934746?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kaykdm</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kaykdm" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kaykdm" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kaykdm" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
