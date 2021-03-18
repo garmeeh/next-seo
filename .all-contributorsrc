@@ -444,6 +444,16 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "MrNossiom",
+      "name": "Milo Moisson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43814157?v=4",
+      "profile": "https://github.com/MrNossiom",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
