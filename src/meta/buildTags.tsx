@@ -504,6 +504,7 @@ const buildTags = (config: BuildTagsParams) => {
             key={`og:image:0${index}`}
             property="og:image"
             content={image.url}
+            {...(index === 0 && { itemProp: 'image' })}
           />,
         );
 

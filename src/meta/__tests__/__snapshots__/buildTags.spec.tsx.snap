@@ -79,6 +79,7 @@ exports[`Article SEO renders correctly 1`] = `
   />
   <meta
     content="https://www.test.ie/og-image-article-title-01.jpg"
+    itemprop="image"
     property="og:image"
   />
   <meta
@@ -187,6 +188,7 @@ exports[`Book SEO renders correctly 1`] = `
   />
   <meta
     content="https://www.test.ie/og-image-book-title-01.jpg"
+    itemprop="image"
     property="og:image"
   />
   <meta
@@ -287,6 +289,7 @@ exports[`Profile SEO renders correctly 1`] = `
   />
   <meta
     content="https://www.test.ie/og-image-firstlast123-01.jpg"
+    itemprop="image"
     property="og:image"
   />
   <meta
@@ -419,6 +422,7 @@ exports[`Video SEO renders correctly 1`] = `
   />
   <meta
     content="https://www.test.ie/og-image-video-title-01.jpg"
+    itemprop="image"
     property="og:image"
   />
   <meta
@@ -522,6 +526,7 @@ exports[`renders correctly 1`] = `
   />
   <meta
     content="https://www.test.ie/image-01.jpg"
+    itemprop="image"
     property="og:image"
   />
   <meta

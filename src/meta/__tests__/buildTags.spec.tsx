@@ -141,9 +141,9 @@ it('returns full array for default seo object', () => {
     'meta[property="og:description"]',
   );
   const ogImage00 = container.querySelectorAll(
-    `meta[content="${SEO.openGraph.images[0].url}"]`,
+    `meta[content="${SEO.openGraph.images[0].url}"][itemprop="image"]`,
   );
-  const ogImageTag00 = tags.filter(item => item.key === 'og:image:01');
+  const ogImageTag00 = tags.filter(item => item.key === 'og:image:00');
   const ogImage01 = container.querySelectorAll(
     `meta[content="${SEO.openGraph.images[1].url}"]`,
   );
