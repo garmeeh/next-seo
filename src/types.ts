@@ -139,6 +139,15 @@ interface LanguageAlternate {
   href: string;
 }
 
+interface LinkTag {
+  rel: string;
+  href: string;
+  sizes?: string;
+  type?: string;
+  color?: string;
+  keyOverride?: string;
+}
+
 export interface BaseMetaTag {
   content: string;
   keyOverride?: string;
@@ -197,6 +206,7 @@ export interface NextSeoProps {
   facebook?: { appId: string };
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
+  additionalLinkTags?: ReadonlyArray<LinkTag>;
 }
 
 export interface DefaultSeoProps extends NextSeoProps {

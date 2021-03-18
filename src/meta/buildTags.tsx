@@ -662,6 +662,14 @@ const buildTags = (config: BuildTagsParams) => {
     });
   }
 
+  if (config.additionalLinkTags?.length) {
+    config.additionalLinkTags.forEach(tag => {
+      tagsToRender.push(
+        <link key={`link${tag.keyOverride ?? tag.href}${tag.rel}`} {...tag} />,
+      );
+    });
+  }
+
   return tagsToRender;
 };
 

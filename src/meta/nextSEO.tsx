@@ -19,6 +19,7 @@ export default class extends Component<NextSeoProps, {}> {
       titleTemplate,
       mobileAlternate,
       languageAlternates,
+      additionalLinkTags,
     } = this.props;
 
     return (
@@ -37,6 +38,7 @@ export default class extends Component<NextSeoProps, {}> {
           titleTemplate,
           mobileAlternate,
           languageAlternates,
+          additionalLinkTags,
         })}
       </Head>
     );

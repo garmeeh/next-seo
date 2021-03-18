@@ -584,5 +584,28 @@ exports[`renders correctly 1`] = `
     href="https://www.canonical.ie"
     rel="canonical"
   />
+  <link
+    href="https://www.test.ie/favicon.ico"
+    rel="icon"
+  />
+  <link
+    href="https://www.test.ie/touch-icon-ipad.jpg"
+    rel="apple-touch-icon"
+    sizes="76x76"
+  />
+  <link
+    href="https://www.test.ie/touch-icon-iphone-retina.jpg"
+    rel="apple-touch-icon"
+    sizes="120x120"
+  />
+  <link
+    color="#193860"
+    href="https://www.test.ie/safari-pinned-tab.svg"
+    rel="mask-icon"
+  />
+  <link
+    href="/manifest.json"
+    rel="manifest"
+  />
 </div>
 `;
