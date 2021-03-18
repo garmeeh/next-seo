@@ -1,6 +1,5 @@
 import React from 'react';
 import { BuildTagsParams } from '../types';
-
 const defaults = {
   templateTitle: '',
   noindex: false,
@@ -27,7 +26,7 @@ const buildTags = (config: BuildTagsParams) => {
   } else if (config.defaultTitle) {
     updatedTitle = config.defaultTitle;
   }
-  
+
   if (updatedTitle) {
     tagsToRender.push(<title key="title">{updatedTitle}</title>);
   }
@@ -653,7 +652,12 @@ const buildTags = (config: BuildTagsParams) => {
   if (config.additionalMetaTags && config.additionalMetaTags.length > 0) {
     config.additionalMetaTags.forEach(tag => {
       tagsToRender.push(
-        <meta key={tag.name || tag.property || tag.httpEquiv} {...tag} />,
+        <meta
+          key={`meta:${
+            tag.keyOverride ?? tag.name ?? tag.property ?? tag.httpEquiv
+          }`}
+          {...tag}
+        />,
       );
     });
   }
