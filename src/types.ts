@@ -141,6 +141,7 @@ interface LanguageAlternate {
 
 export interface BaseMetaTag {
   content: string;
+  keyOverride?: string;
 }
 
 export interface HTML5MetaTag extends BaseMetaTag {
