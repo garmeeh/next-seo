@@ -6,14 +6,34 @@ import formatIfArray from '../utils/formatIfArray';
 import buildAddress from '../utils/buildAddress';
 import { Address } from '../types';
 
+type Action = {
+  actionName: string;
+  actionType: string;
+  target: string;
+};
+
+type AggregateRating = {
+  ratingValue: string;
+  ratingCount: string;
+};
+
+type AreaServed = GeoCircle[];
+
 type Geo = {
   latitude: string;
   longitude: string;
 };
 
-type Rating = {
-  ratingValue: string;
-  ratingCount: string;
+type GeoCircle = {
+  geoMidpoint: Geo;
+  geoRadius: string;
+};
+
+type MakesOffer = Offer[];
+
+type Offer = {
+  priceSpecification: PriceSpecification;
+  itemOffered: Service;
 };
 
 type OpeningHoursSpecification = {
@@ -22,6 +42,32 @@ type OpeningHoursSpecification = {
   dayOfWeek: string | string[];
   validFrom?: string;
   validThrough?: string;
+};
+
+type PriceSpecification = {
+  type: string;
+  priceCurrency: string;
+  price: string;
+};
+
+type Rating = {
+  ratingValue: string;
+  worstRating?: string;
+  bestRating?: string;
+  reviewAspect?: string;
+};
+
+type Review = {
+  author: string;
+  datePublished: string;
+  reviewBody: string;
+  reviewRating: Rating;
+  name?: string;
+};
+
+type Service = {
+  name: string;
+  description: string;
 };
 
 export interface LocalBusinessJsonLdProps {
@@ -35,12 +81,37 @@ export interface LocalBusinessJsonLdProps {
   address: Address;
   geo?: Geo;
   images?: string[];
-  rating?: Rating;
+  rating?: AggregateRating;
+  review?: Review[];
   priceRange?: string;
   servesCuisine?: string | string[];
   sameAs?: string[];
   openingHours?: OpeningHoursSpecification | OpeningHoursSpecification[];
+  action?: Action;
+  areaServed?: AreaServed;
+  makesOffer?: MakesOffer;
 }
+
+const buildAction = (action: Action) => `
+  "${action.actionName}": {
+    "@type": "${action.actionType}",
+    "target": "${action.target}"
+  }
+`;
+
+const buildAreaServed = (areaServed: AreaServed) => `
+  "areaServed": [
+    ${areaServed.map(area => buildGeoCircle(area))}
+  ]
+`;
+
+const buildAggregateRating = (aggregateRating: AggregateRating) => `
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "${aggregateRating.ratingValue}",
+    "ratingCount": "${aggregateRating.ratingCount}"
+  },
+`;
 
 const buildGeo = (geo: Geo) => `
   "geo": {
@@ -50,12 +121,30 @@ const buildGeo = (geo: Geo) => `
   },
 `;
 
-const buildRating = (rating: Rating) => `
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "${rating.ratingValue}",
-    "ratingCount": "${rating.ratingCount}"
-  },
+const buildGeoCircle = (geoCircle: GeoCircle) => `
+  {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "${geoCircle.geoMidpoint.latitude}",
+      "longitude": "${geoCircle.geoMidpoint.longitude}"
+    },
+    "geoRadius": "${geoCircle.geoRadius}"
+  }
+`;
+
+const buildMakesOffer = (makesOffer: MakesOffer) => `
+  "makesOffer":[
+    ${makesOffer.map(offer => buildOffer(offer))}
+  ]
+`;
+
+const buildOffer = (offer: Offer) => `
+  {
+    "@type": "Offer",
+    ${buildPriceSpecification(offer.priceSpecification)},
+    ${buildItemOffered(offer.itemOffered)}
+  }
 `;
 
 const buildOpeningHours = (openingHours: OpeningHoursSpecification) => `
@@ -77,6 +166,49 @@ const buildOpeningHours = (openingHours: OpeningHoursSpecification) => `
   }
 `;
 
+const buildPriceSpecification = (priceSpecification: PriceSpecification) => `
+  "priceSpecification": {
+    "@type": "${priceSpecification.type}",
+    "priceCurrency": "${priceSpecification.priceCurrency}",
+    "price": "${priceSpecification.price}"
+  }
+`;
+
+const buildRating = (rating: Rating) => `
+  {
+    "@type": "Rating",
+    ${rating.bestRating ? `"bestRating": "${rating.bestRating}",` : ''}
+    ${rating.reviewAspect ? `"reviewAspect": "${rating.reviewAspect}",` : ''}
+    ${rating.worstRating ? `"worstRating": "${rating.worstRating}",` : ''}
+    "ratingValue": "${rating.ratingValue}"
+  }
+`;
+
+const buildReview = (reviews: Review[]) => `
+  "review": [
+    ${reviews.map(
+      review => `
+      {
+        "@type": "Review",
+        "author": "${review.author}",
+        "datePublished": "${review.datePublished}",
+        ${review.name ? `"name": "${review.name}",` : ''}
+        "reviewBody": "${review.reviewBody}",
+        "reviewRating": ${buildRating(review.reviewRating)}
+      }
+    `,
+    )}
+  ],
+`;
+
+const buildItemOffered = (service: Service) => `
+  "itemOffered": {
+    "@type": "Service",
+    "name": "${service.name}",
+    "description": "${service.description}"
+  }
+`;
+
 const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   keyOverride,
   type,
@@ -89,10 +221,14 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
   geo,
   images,
   rating,
+  review,
   priceRange,
   servesCuisine,
   sameAs,
   openingHours,
+  action,
+  areaServed,
+  makesOffer,
 }) => {
   const jslonld = `{
     "@context": "https://schema.org",
@@ -103,7 +239,11 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
     ${telephone ? `"telephone": "${telephone}",` : ''}
     ${buildAddress(address)}
     ${geo ? `${buildGeo(geo)}` : ''}
-    ${rating ? `${buildRating(rating)}` : ''}
+    ${rating ? `${buildAggregateRating(rating)}` : ''}
+    ${review ? `${buildReview(review)}` : ''}
+    ${action ? `${buildAction(action)},` : ''}
+    ${areaServed ? `${buildAreaServed(areaServed)},` : ''}
+    ${makesOffer ? `${buildMakesOffer(makesOffer)},` : ''}
     ${priceRange ? `"priceRange": "${priceRange}",` : ''}
     ${servesCuisine ? `"servesCuisine":${formatIfArray(servesCuisine)},` : ''}
     ${images ? `"image":${formatIfArray(images)},` : ''}
