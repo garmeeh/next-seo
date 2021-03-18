@@ -454,6 +454,17 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "adrianu197",
+      "name": "adrianu197",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33718513?v=4",
+      "profile": "https://github.com/adrianu197",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
