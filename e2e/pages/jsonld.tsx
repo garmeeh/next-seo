@@ -18,6 +18,8 @@ import {
   SiteLinksSearchBoxJsonLd,
   QAPageJsonld,
   SoftwareAppJsonLd,
+  ProfilePageJsonLd,
+  CollectionPageJsonLd,
 } from '../..';
 import Links from '../components/links';
 
@@ -596,6 +598,45 @@ const JsonLD = () => (
       aggregateRating={{ ratingValue: '4.6', ratingCount: '8864' }}
       operatingSystem="ANDROID"
       applicationCategory="GameApplication"
+    />
+        
+    <CollectionPageJsonLd
+      name="Resistance 3: Fall of Man"
+      hasPart={[
+        {
+          about:
+            'Britten Four Sea Interludes and Passacaglia from Peter Grimes',
+          author: 'John Doe',
+          name: 'Schema.org Ontology',
+          datePublished: '2021-03-09',
+          audience: 'Internet',
+          keywords: 'schema',
+          thumbnailUrl: 'https://i.ytimg.com/vi/eXSJ3PO9Tas/hqdefault.jpg',
+          image: 'hqdefault.jpg',
+        },
+        {
+          about: 'Shostakovich Symphony No. 7 (Leningrad)',
+          author: 'John Smith',
+          name: 'Creative work name',
+          datePublished: '2014-10-01T19:30',
+        },
+      ]}
+    />
+
+    <ProfilePageJsonLd
+      lastReviewed="2014-10-01T19:30"
+      breadcrumb={[
+        {
+          position: 1,
+          name: 'Books',
+          item: 'https://example.com/books',
+        },
+        {
+          position: 2,
+          name: 'Authors',
+          item: 'https://example.com/books/authors',
+        },
+      ]}
     />
 
     <Links />

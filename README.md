@@ -62,6 +62,8 @@ looking for inspiration on what to add.
   - [Video](#video-1)
   - [Event](#event)
   - [Q&A](#qa)
+  - [Profile Page](#profile-page)
+  - [Collection Page](#collection-page)
   - [Carousel](#carousel)
     - [Default (Summary List)](#default-summary-list)
     - [Course](#course-1)
@@ -2128,6 +2130,124 @@ export default Page;
 | `url`         | A URL that links directly to this answer.                                 |
 
 For reference and more info check [Google's Search Q&A DataType](https://developers.google.com/search/docs/data-types/qapage)
+
+### Collection Page
+
+Collection pages are web pages. Every web page is implicitly assumed to be declared to be of type WebPage, so the various properties about that webpage, such as breadcrumb may be used. We recommend explicit declaration if these properties are specified, but if they are found outside of an itemscope, they will be assumed to be about the page.
+
+```jsx
+import { CollectionPageJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Collection Page JSON-LD</h1>
+    <CollectionPageJsonLd
+      name="Resistance 3: Fall of Man"
+      hasPart={[
+        {
+          about:
+            'Britten Four Sea Interludes and Passacaglia from Peter Grimes',
+          author: 'John Doe',
+          name: 'Schema.org Ontology',
+          datePublished: '2021-03-09',
+          audience: 'Internet',
+          keywords: 'schema',
+          thumbnailUrl: 'https://i.ytimg.com/vi/eXSJ3PO9Tas/hqdefault.jpg',
+          image: 'hqdefault.jpg',
+        },
+        {
+          about: 'Shostakovich Symphony No. 7 (Leningrad)',
+          author: 'John Smith',
+          name: 'Creative work name',
+          datePublished: '2014-10-01T19:30',
+        },
+      ]}
+    />
+  </>
+);
+
+export default Page;
+```
+
+
+**Required properties**
+
+| Property     | Info                                                                                                   |
+| ------------ | ------------------------------------------------------------------------------------------------------ |
+| `name`       | The name of the item.                                                                                  |
+| `hasPart`    | Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense).          |
+
+**Supported properties**
+
+| Property      | Info                                                                      |
+| ------------- | ------------------------------------------------------------------------- |
+| `hasPart.creativeWork`| The most generic kind of [creative work](https://schema.org/CreativeWork), including books, movies, photographs, software programs, etc |
+
+**`creativeWork` Required properties**
+
+| Property                              | Info                                                                                                                          |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `hasPart.creativeWork.author`       | The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably. |
+| `hasPart.creativeWork.about`        | The subject matter of the content.|
+| `hasPart.creativeWork.datePublished`| Date of first broadcast/publication. |
+| `hasPart.creativeWork.name`         | The name of the item. |
+
+**`creativeWork` Supported properties**
+
+| Property      | Info                                                                      |
+| ------------- | ------------------------------------------------------------------------- |
+| `hasPart.creativeWork.audience`     | An intended audience, i.e. a group for whom something was created. |
+| `hasPart.creativeWork.keywords`     | Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas. |
+| `hasPart.creativeWork.thumbnailUrl` | A thumbnail image relevant to the Thing. |
+| `hasPart.creativeWork.image`        | An image of the item. This can be a URL or a fully described ImageObject. |
+
+For reference and more info check [Collection Page DataType](https://schema.org/CollectionPage)
+
+### Profile page
+
+Profile pages are web pages. Every web page is implicitly assumed to be declared to be of type WebPage, so the various properties about that webpage, such as breadcrumb may be used. We recommend explicit declaration if these properties are specified, but if they are found outside of an itemscope, they will be assumed to be about the page.
+
+```jsx
+import { ProfilePageJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Profile page JSON-LD</h1>
+    <ProfilePageJsonLd
+      lastReviewed="2014-10-01T19:30"
+      breadcrumb={[
+        {
+          position: 1,
+          name: 'Books',
+          item: 'https://example.com/books',
+        },
+        {
+          position: 2,
+          name: 'Authors',
+          item: 'https://example.com/books/authors',
+        },
+      ]}
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property     | Info                                                                                                   |
+| ------------ | ------------------------------------------------------------------------------------------------------ |
+| `breadcrumb` | A set of links that can help a user understand and navigate a website hierarchy represented as string or [BreadcrumbList](#breadcrumb).|
+
+**Supported properties**
+
+| Property      | Info                                                                      |
+| ------------- | ------------------------------------------------------------------------- |
+| `lastReviewed`| Date on which the content on this web page was last reviewed for accuracy and/or completeness.                                               |
+
+For reference and more info check [Profile Page DataType](https://schema.org/ProfilePage)
+
 
 ### Carousel
 
