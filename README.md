@@ -62,8 +62,8 @@ looking for inspiration on what to add.
   - [Video](#video-1)
   - [Event](#event)
   - [Q&A](#qa)
-  - [Profile Page](#profile-page)
   - [Collection Page](#collection-page)
+  - [Profile page](#profile-page)
   - [Carousel](#carousel)
     - [Default (Summary List)](#default-summary-list)
     - [Course](#course-1)
@@ -2169,37 +2169,36 @@ const Page = () => (
 export default Page;
 ```
 
-
 **Required properties**
 
-| Property     | Info                                                                                                   |
-| ------------ | ------------------------------------------------------------------------------------------------------ |
-| `name`       | The name of the item.                                                                                  |
-| `hasPart`    | Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense).          |
+| Property  | Info                                                                                          |
+| --------- | --------------------------------------------------------------------------------------------- |
+| `name`    | The name of the item.                                                                         |
+| `hasPart` | Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense). |
 
 **Supported properties**
 
-| Property      | Info                                                                      |
-| ------------- | ------------------------------------------------------------------------- |
-| `hasPart.creativeWork`| The most generic kind of [creative work](https://schema.org/CreativeWork), including books, movies, photographs, software programs, etc |
+| Property               | Info                                                                                                                                    |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `hasPart.creativeWork` | The most generic kind of [creative work](https://schema.org/CreativeWork), including books, movies, photographs, software programs, etc |
 
 **`creativeWork` Required properties**
 
-| Property                              | Info                                                                                                                          |
-| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| `hasPart.creativeWork.author`       | The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably. |
-| `hasPart.creativeWork.about`        | The subject matter of the content.|
-| `hasPart.creativeWork.datePublished`| Date of first broadcast/publication. |
-| `hasPart.creativeWork.name`         | The name of the item. |
+| Property                             | Info                                                                                                                                                                                                                        |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hasPart.creativeWork.author`        | The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably. |
+| `hasPart.creativeWork.about`         | The subject matter of the content.                                                                                                                                                                                          |
+| `hasPart.creativeWork.datePublished` | Date of first broadcast/publication.                                                                                                                                                                                        |
+| `hasPart.creativeWork.name`          | The name of the item.                                                                                                                                                                                                       |
 
 **`creativeWork` Supported properties**
 
-| Property      | Info                                                                      |
-| ------------- | ------------------------------------------------------------------------- |
-| `hasPart.creativeWork.audience`     | An intended audience, i.e. a group for whom something was created. |
+| Property                            | Info                                                                                                                   |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `hasPart.creativeWork.audience`     | An intended audience, i.e. a group for whom something was created.                                                     |
 | `hasPart.creativeWork.keywords`     | Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas. |
-| `hasPart.creativeWork.thumbnailUrl` | A thumbnail image relevant to the Thing. |
-| `hasPart.creativeWork.image`        | An image of the item. This can be a URL or a fully described ImageObject. |
+| `hasPart.creativeWork.thumbnailUrl` | A thumbnail image relevant to the Thing.                                                                               |
+| `hasPart.creativeWork.image`        | An image of the item. This can be a URL or a fully described ImageObject.                                              |
 
 For reference and more info check [Collection Page DataType](https://schema.org/CollectionPage)
 
@@ -2236,18 +2235,17 @@ export default Page;
 
 **Required properties**
 
-| Property     | Info                                                                                                   |
-| ------------ | ------------------------------------------------------------------------------------------------------ |
-| `breadcrumb` | A set of links that can help a user understand and navigate a website hierarchy represented as string or [BreadcrumbList](#breadcrumb).|
+| Property     | Info                                                                                                                                    |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `breadcrumb` | A set of links that can help a user understand and navigate a website hierarchy represented as string or [BreadcrumbList](#breadcrumb). |
 
 **Supported properties**
 
-| Property      | Info                                                                      |
-| ------------- | ------------------------------------------------------------------------- |
-| `lastReviewed`| Date on which the content on this web page was last reviewed for accuracy and/or completeness.                                               |
+| Property       | Info                                                                                           |
+| -------------- | ---------------------------------------------------------------------------------------------- |
+| `lastReviewed` | Date on which the content on this web page was last reviewed for accuracy and/or completeness. |
 
 For reference and more info check [Profile Page DataType](https://schema.org/ProfilePage)
-
 
 ### Carousel
 
