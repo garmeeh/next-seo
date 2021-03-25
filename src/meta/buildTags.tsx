@@ -90,7 +90,7 @@ const buildTags = (config: BuildTagsParams) => {
         }${robotsParams}`}
       />,
     );
-  } else {
+  } else if (robotsParams) {
     tagsToRender.push(
       <meta
         key="robots"
