@@ -18,16 +18,6 @@ describe('SEO Meta', () => {
       'href',
       'https://www.canonical.ie/a',
     );
-    cy.get('head meta[name="robots"]').should(
-      'have.attr',
-      'content',
-      'index,follow',
-    );
-    cy.get('head meta[name="googlebot"]').should(
-      'have.attr',
-      'content',
-      'index,follow',
-    );
     cy.get('head meta[property="og:type"]').should(
       'have.attr',
       'content',
