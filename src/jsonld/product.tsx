@@ -34,7 +34,9 @@ export type Review = {
 
 export type AggregateRating = {
   ratingValue: string;
-  reviewCount: string;
+  reviewCount?: string;
+  ratingCount?: string;
+  bestRating?: string;
 };
 
 export interface ProductJsonLdProps {
@@ -116,8 +118,22 @@ export const buildReviews = (reviews: Review[]) => `
 export const buildAggregateRating = (aggregateRating: AggregateRating) => `
   "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "${aggregateRating.ratingValue}",
-      "reviewCount": "${aggregateRating.reviewCount}"
+      ${
+        aggregateRating.ratingCount
+          ? `"ratingCount": "${aggregateRating.ratingCount}",`
+          : ''
+      }
+      ${
+        aggregateRating.reviewCount
+          ? `"reviewCount": "${aggregateRating.reviewCount}",`
+          : ''
+      }
+      ${
+        aggregateRating.bestRating
+          ? `"bestRating": "${aggregateRating.bestRating}",`
+          : ''
+      }
+      "ratingValue": "${aggregateRating.ratingValue}"
     },
 `;
 

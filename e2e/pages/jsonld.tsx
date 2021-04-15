@@ -265,8 +265,10 @@ const JsonLD = () => (
         },
       ]}
       aggregateRating={{
-        ratingValue: '4.4',
+        ratingValue: '44',
         reviewCount: '89',
+        ratingCount: '684',
+        bestRating: '100',
       }}
       offers={[
         {
