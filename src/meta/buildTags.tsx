@@ -619,6 +619,26 @@ const buildTags = (config: BuildTagsParams) => {
             />,
           );
         }
+
+        if (video.secureUrl) {
+          tagsToRender.push(
+            <meta
+              key={`og:video:secure_url${index}`}
+              property="og:video:secure_url"
+              content={video.secureUrl.toString()}
+            />,
+          );
+        }
+
+        if (video.type) {
+          tagsToRender.push(
+            <meta
+              key={`og:video:type${index}`}
+              property="og:video:type"
+              content={video.type.toString()}
+            />,
+          );
+        }
       });
     }
 
