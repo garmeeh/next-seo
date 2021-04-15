@@ -497,6 +497,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "AryanBeezadhur",
+      "name": "Aryan Beezadhur",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34424160?v=4",
+      "profile": "https://aryanbeezadhur.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
