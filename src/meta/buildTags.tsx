@@ -1,6 +1,5 @@
 import React from 'react';
 import { BuildTagsParams } from '../types';
-
 const defaults = {
   templateTitle: '',
   noindex: false,
@@ -24,6 +23,11 @@ const buildTags = (config: BuildTagsParams) => {
     if (defaults.templateTitle) {
       updatedTitle = defaults.templateTitle.replace(/%s/g, () => updatedTitle);
     }
+  } else if (config.defaultTitle) {
+    updatedTitle = config.defaultTitle;
+  }
+
+  if (updatedTitle) {
     tagsToRender.push(<title key="title">{updatedTitle}</title>);
   }
 
@@ -35,6 +39,30 @@ const buildTags = (config: BuildTagsParams) => {
     config.nofollow ||
     defaults.nofollow ||
     config.dangerouslySetAllPagesToNoFollow;
+
+  let robotsParams = '';
+  if (config.robotsProps) {
+    const {
+      nosnippet,
+      maxSnippet,
+      maxImagePreview,
+      maxVideoPreview,
+      noarchive,
+      noimageindex,
+      notranslate,
+      unavailableAfter,
+    } = config.robotsProps;
+
+    robotsParams = `${nosnippet ? ',nosnippet' : ''}${
+      maxSnippet ? `,max-snippet:${maxSnippet}` : ''
+    }${maxImagePreview ? `,max-image-preview:${maxImagePreview}` : ''}${
+      noarchive ? ',noarchive' : ''
+    }${unavailableAfter ? `,unavailable_after:${unavailableAfter}` : ''}${
+      noimageindex ? ',noimageindex' : ''
+    }${maxVideoPreview ? `,max-video-preview:${maxVideoPreview}` : ''}${
+      notranslate ? ',notranslate' : ''
+    }`;
+  }
 
   if (noindex || nofollow) {
     if (config.dangerouslySetAllPagesToNoIndex) {
@@ -50,7 +78,7 @@ const buildTags = (config: BuildTagsParams) => {
         name="robots"
         content={`${noindex ? 'noindex' : 'index'},${
           nofollow ? 'nofollow' : 'follow'
-        }`}
+        }${robotsParams}`}
       />,
     );
     tagsToRender.push(
@@ -59,15 +87,23 @@ const buildTags = (config: BuildTagsParams) => {
         name="googlebot"
         content={`${noindex ? 'noindex' : 'index'},${
           nofollow ? 'nofollow' : 'follow'
-        }`}
+        }${robotsParams}`}
       />,
     );
   } else {
     tagsToRender.push(
-      <meta key="robots" name="robots" content="index,follow" />,
+      <meta
+        key="robots"
+        name="robots"
+        content={`index,follow${robotsParams}`}
+      />,
     );
     tagsToRender.push(
-      <meta key="googlebot" name="googlebot" content="index,follow" />,
+      <meta
+        key="googlebot"
+        name="googlebot"
+        content={`index,follow${robotsParams}`}
+      />,
     );
   }
 
@@ -636,7 +672,20 @@ const buildTags = (config: BuildTagsParams) => {
   if (config.additionalMetaTags && config.additionalMetaTags.length > 0) {
     config.additionalMetaTags.forEach(tag => {
       tagsToRender.push(
-        <meta key={tag.name ? tag.name : tag.property} {...tag} />,
+        <meta
+          key={`meta:${
+            tag.keyOverride ?? tag.name ?? tag.property ?? tag.httpEquiv
+          }`}
+          {...tag}
+        />,
+      );
+    });
+  }
+
+  if (config.additionalLinkTags?.length) {
+    config.additionalLinkTags.forEach(tag => {
+      tagsToRender.push(
+        <link key={`link${tag.keyOverride ?? tag.href}${tag.rel}`} {...tag} />,
       );
     });
   }

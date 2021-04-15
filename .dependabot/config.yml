@@ -15,3 +15,5 @@ update_configs:
           dependency_name: 'cypress-testing-library'
       - match:
           dependency_name: 'react-testing-library'
+      - match:
+          dependency_name: 'husky'

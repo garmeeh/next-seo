@@ -5,12 +5,12 @@
 
 Next SEO is a plugin that makes managing your SEO easier in Next.js projects.
 
-Version 2.x is compatible with `next@v8.1.1-canary.54+` and above
-Version 1.x is compatible with `next@6.0.0` and above
+Pull requests are very welcome. Also make sure to check out the issues for feature requests if you are
+looking for inspiration on what to add.
 
-**Both versions are still maintained. If upgrading from v1 to v2, please note that the `NextSeo` component has been changed from a default to a named export, so you need to update the import statements in your pages accordingly to avoid errors. Also, values are now passed down as properties to the SEO components instead of only using a `config` object so refactor your code accordingly (this would fail silently and your metadata will not be there, so double check and inspect your pages' HTML).**
+**Feel like supporting this free plugin?**
 
-Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/support/1.x)
+<a href="https://www.buymeacoffee.com/garmeeh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 **Table of Contents**
 
@@ -23,15 +23,18 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Default SEO Configuration](#default-seo-configuration)
   - [NextSeo Options](#nextseo-options)
     - [Title Template](#title-template)
+    - [Default Title](#default-title)
     - [No Index](#no-index)
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
     - [No Follow](#no-follow)
     - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
+    - [robotsProps](#robotsprops)
     - [Twitter](#twitter)
     - [facebook](#facebook)
     - [Canonical URL](#canonical-url)
     - [Alternate](#alternate)
     - [Additional Meta Tags](#additional-meta-tags)
+    - [Additional Link Tags](#additional-link-tags)
 - [Open Graph](#open-graph)
   - [Open Graph Examples](#open-graph-examples)
     - [Basic](#basic)
@@ -40,11 +43,12 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
     - [Book](#book)
     - [Profile](#profile)
 - [JSON-LD](#json-ld)
-  - [Handling multiple instances...](#handling-multiple-instances)
+  - [Handling multiple instances](#handling-multiple-instances)
   - [Article](#article-1)
   - [Breadcrumb](#breadcrumb)
   - [Blog](#blog)
   - [Recipe](#recipe)
+  - [Sitelinks Search Box](#sitelinks-search-box)
   - [Course](#course)
   - [Dataset](#dataset)
   - [Corporate Contact](#corporate-contact)
@@ -55,12 +59,17 @@ Version One docs can be found [here](https://github.com/garmeeh/next-seo/tree/su
   - [Product](#product)
   - [Social Profile](#social-profile)
   - [News Article](#news-article)
+  - [Video](#video-1)
   - [Event](#event)
+  - [Q&A](#qa)
+  - [Collection Page](#collection-page)
+  - [Profile page](#profile-page)
   - [Carousel](#carousel)
     - [Default (Summary List)](#default-summary-list)
     - [Course](#course-1)
     - [Movie](#movie)
     - [Recipe](#recipe-1)
+  - [Software App](#software-app)
 - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -243,14 +252,17 @@ From now on all of your pages will have the defaults above applied.
 | ---------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `titleTemplate`                    | string                  | Allows you to set default title template that will be added to your title [More Info](#title-template)                                                                               |
 | `title`                            | string                  | Set the meta title of the page                                                                                                                                                       |
+| `defaultTitle`                     | string                  | If no title is set on a page, this string will be used instead of an empty `titleTemplate` [More Info](#default-title)                                                               |
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
 | `nofollow`                         | boolean (default false) | Sets whether page should be followed or not [More Info](#no-follow)                                                                                                                  |
+| `additionRobotsProps`              | Object                  | Set the more meta information for the `X-Robots-Tag` [More Info](#additionalrobotsprops)                                                                                             |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                        |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                           |
 | `mobileAlternate.media`            | string                  | Set what screen size the mobile website should be served from                                                                                                                        |
 | `mobileAlternate.href`             | string                  | Set the mobile page alternate url                                                                                                                                                    |
 | `languageAlternates`               | array                   | Set the language of the alternate urls. Expects array of objects with the shape: `{ hrefLang: string, href: string }`                                                                |
 | `additionalMetaTags`               | array                   | Allows you to add a meta tag that is not documented here. [More Info](#additional-meta-tags)                                                                                         |
+| `additionalLinkTags`               | array                   | Allows you to add a link tag that is not documented here. [More Info](#additional-link-tags)                                                                                         |
 | `twitter.cardType`                 | string                  | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player`                                                                                             |
 | `twitter.site`                     | string                  | @username for the website used in the card footer                                                                                                                                    |
 | `twitter.handle`                   | string                  | @username for the content creator / author (outputs as `twitter:creator`)                                                                                                            |
@@ -294,6 +306,15 @@ titleTemplate = '%s | Next SEO';
 // outputs: This is my title | Next SEO
 ```
 
+#### Default Title
+
+```js
+title = undefined;
+titleTemplate = 'Next SEO | %s';
+defaultTitle = 'Next SEO';
+// outputs: Next SEO
+```
+
 #### No Index
 
 Setting this to `true` will set `noindex,follow` (to set `nofollow`, please refer to [`nofollow`](#noFollow)). This works on a page by page basis. This property works in tandem with the `nofollow` property and together they populate the `robots` and `googlebot` meta tags.
@@ -332,7 +353,7 @@ The only way to unset this, is by removing the prop from the `DefaultSeo` in you
 
 Setting this to `true` will set `index,nofollow` (to set `noindex`, please refer to [`noindex`](#noIndex)). This works on a page by page basis. This property works in tandem with the `noindex` property and together they populate the `robots` and `googlebot` meta tags.
 
-**Note:** The `noindex` and the [`nofollow`](#noFollow) properties are a little different than all the others in the sense that setting them as a default does not work as expected. This is due to the fact Next SEO already has a default of `index,follow` because `next-seo` is a SEO plugin after all. So if you want to globally these properties, please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToNoFollow](#dangerouslySetAllPagesToNoFollow).
+**Note:** Unlike for the other properties, setting `noindex` and [`nofollow`](#noFollow) by default does not work as expected. This is because Next SEO has a default of `index,follow`, since `next-seo` is an SEO plugin after all. If you want to globally allow these properties, see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToNoFollow](#dangerouslySetAllPagesToNoFollow).
 
 **Example No Follow on a single page:**
 
@@ -371,6 +392,55 @@ The only way to unset this, is by removing the prop from the `DefaultSeo` in you
 | --        | true       | `index,nofollow`                        |
 | false     | true       | `index,nofollow`                        |
 | true      | true       | `noindex,nofollow`                      |
+
+#### robotsProps
+
+In addition to `index, follow` the `robots` meta tag accepts more properties to archive a more accurate crawling and serve better snippets for SEO bots that crawl your page.
+
+Example:
+
+```jsx
+import { NextSeo } from 'next-seo';
+
+const Page = () => (
+  <>
+    <NextSeo
+      robotsProps={{
+        nosnippet: true,
+        notranslate: true,
+        noimageindex: true,
+        noarchive: true,
+        maxSnippet: -1,
+        maxImagePreview: 'none',
+        maxVideoPreview: -1,
+      }}
+    />
+    <p>Additional robots props in Next-SEO!!</p>
+  </>
+);
+
+export default Page;
+
+/*
+<meta name="robots" content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate">
+<meta name="googlebot" content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate">
+*/
+```
+
+**Available properties**
+
+| Property            | Type                      | Description                                                                                                                                                                                     |
+| ------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `noarchive`         | boolean                   | Do not show a [cached link](https://support.google.com/websearch/answer/1687222) in search results.                                                                                             |
+| `nosnippet`         | boolean                   | Do not show a text snippet or video preview in the search results for this page.                                                                                                                |
+| `max-snippet`       | number                    | Use a maximum of [number] characters as a textual snippet for this search result. [Read more](https://developers.google.com/search/reference/robots_meta_tag?hl=en-GB#directives)               |
+| `max-image-preview` | 'none','standard','large' | Set the maximum size of an image preview for this page in a search results.                                                                                                                     |
+| `max-video-preview` | number                    | Use a maximum of [number] seconds as a video snippet for videos on this page in search results. [Read more](https://developers.google.com/search/reference/robots_meta_tag?hl=en-GB#directives) |
+| `notranslate`       | boolean                   | Do not offer translation of this page in search results.                                                                                                                                        |
+| `noimageindex`      | boolean                   | Do not index images on this page.                                                                                                                                                               |
+| `unavailable_after` | string                    | Do not show this page in search results after the specified date/time. The date/time must be specified in a widely adopted format including, but not limited to RFC 822, RFC 850, and ISO 8601. |
+
+For more reference about the `X-Robots-Tag` visit [Google Search Central - Control Crawling and Indexing](https://developers.google.com/search/reference/robots_meta_tag?hl=en-GB#directives)
 
 #### Twitter
 
@@ -420,7 +490,7 @@ languageAlternates={[{
 
 This allows you to add any other meta tags that are not covered in the `config`.
 
-`content` is required. Then either `name` or `property`. (Only one on each)
+`content` is required. Then either `name`, `property` or `httpEquiv`. (Only one on each)
 
 Example:
 
@@ -431,12 +501,15 @@ additionalMetaTags={[{
 }, {
   name: 'application-name',
   content: 'NextSeo'
+}, {
+  httpEquiv: 'x-ua-compatible',
+  content: 'IE=edge; chrome=1'
 }]}
 ```
 
 Invalid Examples:
 
-These are invalid as they contain `property` and `name` on the same entry.
+These are invalid as they contain more than one of `name`, `property` and `httpEquiv` on the same entry.
 
 ```js
 additionalMetaTags={[{
@@ -445,13 +518,13 @@ additionalMetaTags={[{
   content: 'Jane Doe'
 }, {
   property: 'application-name',
-  name: 'application-name',
+  httpEquiv: 'application-name',
   content: 'NextSeo'
 }]}
 ```
 
 One thing to note on this is that it currently only supports unique tags.
-This means it will only render one tag per unique `name` / `property`. The last one defined will be rendered.
+This means it will only render one tag per unique `name` / `property` / `httpEquiv`. The last one defined will be rendered.
 
 Example:
 
@@ -471,6 +544,44 @@ it will result in this being rendered:
 
 ```html
 <meta property="dc:creator" content="Jane Doe" />,
+```
+
+#### Additional Link Tags
+
+This allows you to add any other link tags that are not covered in the `config`.
+
+`rel` and `href` is required.
+
+Example:
+
+```js
+additionalLinkTags={[
+  {
+    rel: 'icon',
+    href: 'https://www.test.ie/favicon.ico',
+  },
+  {
+    rel: 'apple-touch-icon',
+    href: 'https://www.test.ie/touch-icon-ipad.jpg',
+    sizes: '76x76'
+  },
+  {
+    rel: 'manifest',
+    href: '/manifest.json'
+  }
+]}
+```
+
+it will result in this being rendered:
+
+```html
+<link rel="icon" href="https://www.test.ie/favicon.ico" />
+<link
+  rel="apple-touch-icon"
+  href="https://www.test.ie/touch-icon-ipad.jpg"
+  sizes="76x76"
+/>
+<link rel="manifest" href="/manifest.json" />
 ```
 
 ## Open Graph
@@ -525,7 +636,7 @@ export default Page;
 
 **Note**
 
-Multiple images is only available in version `7.0.0-canary.0`+
+Multiple images is available from next.js version `7.0.0-canary.0`
 
 For versions `6.0.0` - `7.0.0-canary.0` you just need to supply a single item array:
 
@@ -598,7 +709,7 @@ export default Page;
 
 **Note**
 
-Multiple images is only available in version `7.0.0-canary.0`+
+Multiple images is available from next.js version `7.0.0-canary.0`
 
 For versions `6.0.0` - `7.0.0-canary.0` you just need to supply a single item array:
 
@@ -658,7 +769,7 @@ export default Page;
 
 **Note**
 
-Multiple images, authors, tags is only available in version `7.0.0-canary.0`+
+Multiple images, authors, tags is available from next.js version `7.0.0-canary.0`
 
 For versions `6.0.0` - `7.0.0-canary.0` you just need to supply a single item array:
 
@@ -732,7 +843,7 @@ export default Page;
 
 **Note**
 
-Multiple images, authors, tags is only available in version `7.0.0-canary.0`+
+Multiple images, authors, tags is available from next.js version `7.0.0-canary.0`
 
 For versions `6.0.0` - `7.0.0-canary.0` you just need to supply a single item array:
 
@@ -803,7 +914,7 @@ export default Page;
 
 **Note**
 
-Multiple images is only available in version `7.0.0-canary.0`+
+Multiple images is available from next.js version `7.0.0-canary.0`
 
 For versions `6.0.0` - `7.0.0-canary.0` you just need to supply a single item array:
 
@@ -832,6 +943,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Breadcrumb](#breadcrumb)
 - [Blog](#blog)
 - [Recipe](#recipe)
+- [Sitelinks Search Box](#sitelinks-search-box)
 - [Course](#course)
 - [Dataset](#dataset)
 - [Corporate Contact](#corporate-contact)
@@ -844,7 +956,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 
 Pull request very welcome to add any from the list [found on here](https://developers.google.com/search/docs/data-types/article)
 
-#### Handling multiple instances...
+#### Handling multiple instances
 
 If your page requires multiple instances of a given JSON-LD component, you can specify unique `keyOverride` properties, and `next-seo` will handle the rest.
 
@@ -1054,6 +1166,42 @@ export default Page;
 | `instructions.name` | The name of the instruction step.                                   |
 | `instructions.text` | The directions of the instruction step.                             |
 
+### Sitelinks Search Box
+
+```jsx
+import { SiteLinksSearchBoxJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Sitelinks Search Box JSON-LD</h1>
+    <SiteLinksSearchBoxJsonLd
+      url="https://www.example.com"
+      potentialActions={[
+        {
+          target: 'https://query.example.com/search?q',
+          queryInput: 'search_term_string',
+        },
+        {
+          target: 'android-app://com.example/https/query.example.com/search/?q',
+          queryInput: 'search_term_string',
+        },
+      ]}
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property                      | Info                                                                                                                                                                            |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `url`                         | URL of the website associated with the sitelinks searchbox                                                                                                                      |
+| `potentialActions`            | Array of one or two SearchAction objects. Describes the URI to send the query to, and the syntax of the request that is sent                                                    |
+| `potentialActions.target`     | For websites, the URL of the handler that should receive and handle the search query; for apps, the URI of the intent handler for your search engine that should handle queries |
+| `potentialActions.queryInput` | Placeholder used in target, gets substituted for user given query                                                                                                               |
+
 ### Course
 
 ```jsx
@@ -1235,7 +1383,7 @@ const Page = () => (
       title="Job Title"
       baseSalary={{
         currency: 'EUR',
-        value: 40,
+        value: 40, // Can also be a salary range, like [40, 50]
         unitText: 'HOUR',
       }}
       employmentType="FULL_TIME"
@@ -1251,34 +1399,34 @@ export default Page;
 
 **Required properties**
 
-| Property                      | Info                                                                                                   |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `datePosted`                  | The original date that employer posted the job in ISO 8601 format                                      |
-| `description`                 | The full description of the job in HTML format                                                         |
-| `hiringOrganization`          |                                                                                                        |
-| `hiringOrganization.name`     | Name of the company offering the job position                                                          |
-| `hiringOrganization.sameAs`   | URL of a reference Web page                                                                            |
-| `jobLocation`                 |                                                                                                        |
-| `jobLocation.streetAddress`   | The street address. For example, 1600 Amphitheatre Pkwy                                                |
-| `jobLocation.addressLocality` | The locality. For example, Mountain View.                                                              |
-| `jobLocation.addressRegion`   | The region. For example, CA.                                                                           |
-| `jobLocation.postalCode`      | The postal code. For example, 94043                                                                    |
-| `jobLocation.addressCountry`  | The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.    |
-| `title`                       | The title of the job (not the title of the posting)                                                    |
-| `validThrough`                | The date when the job posting will expire in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) |
+| Property                    | Info                                                                                                   |
+| --------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `datePosted`                | The original date that employer posted the job in ISO 8601 format                                      |
+| `description`               | The full description of the job in HTML format                                                         |
+| `hiringOrganization`        |                                                                                                        |
+| `hiringOrganization.name`   | Name of the company offering the job position                                                          |
+| `hiringOrganization.sameAs` | URL of a reference Web page                                                                            |
+| `title`                     | The title of the job (not the title of the posting)                                                    |
+| `validThrough`              | The date when the job posting will expire in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) |
 
 **Supported properties**
 
-| Property                        | Info                                                                                                                                                |
-| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `applicantLocationRequirements` | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                  |
-| `baseSalary`                    |                                                                                                                                                     |
-| `baseSalary.currency`           | The currency in which the monetary amount is expressed                                                                                              |
-| `baseSalary.value`              | The value of the quantitative value                                                                                                                 |
-| `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)    |
-| `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                        |  |
-| `jobLocationType`               | A description of the job location [Job Location type guideline](https://developers.google.com/search/docs/data-types/job-posting#job-location-type) |
-| `hiringOrganization.logo`       | Logos on third-party job sites [Hiring Organization guideline](https://developers.google.com/search/docs/data-types/job-posting#hiring)             |
+| Property                        | Info                                                                                                                                                        |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `applicantLocationRequirements` | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                          |
+| `baseSalary`                    |                                                                                                                                                             |
+| `baseSalary.currency`           | The currency in which the monetary amount is expressed                                                                                                      |
+| `baseSalary.value`              | The value of the quantitative value. You can also provide an array of minimum and maximum salaries. .                                                       |
+| `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)            |
+| `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                                |
+| `jobLocation`                   | The physical location(s) of the business where the employee will report to work (such as an office or worksite), not the location where the job was posted. |  |
+| `jobLocation.streetAddress`     | The street address. For example, 1600 Amphitheatre Pkwy                                                                                                     |
+| `jobLocation.addressLocality`   | The locality. For example, Mountain View.                                                                                                                   |
+| `jobLocation.addressRegion`     | The region. For example, CA.                                                                                                                                |
+| `jobLocation.postalCode`        | The postal code. For example, 94043                                                                                                                         |
+| `jobLocation.addressCountry`    | The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.                                                         |
+| `jobLocationType`               | A description of the job location [Job Location type guideline](https://developers.google.com/search/docs/data-types/job-posting#job-location-type)         |
+| `hiringOrganization.logo`       | Logos on third-party job sites [Hiring Organization guideline](https://developers.google.com/search/docs/data-types/job-posting#hiring)                     |
 
 ### Local Business
 
@@ -1308,6 +1456,11 @@ Local business is supported with a sub-set of properties.
     'https://example.com/photos/4x3/photo.jpg',
     'https://example.com/photos/16x9/photo.jpg',
   ]}
+  sameAs={[
+    'www.company-website-url1.dev',
+    'www.company-website-url2.dev',
+    'www.company-website-url3.dev',
+  ]}
   openingHours={[
     {
       opens: '08:00',
@@ -1331,6 +1484,81 @@ Local business is supported with a sub-set of properties.
       validThrough: '2020-04-02',
     },
   ]}
+  rating={{
+    ratingValue: '4.5',
+    ratingCount: '2',
+  }}
+  review={[
+    {
+      author: 'John Doe',
+      datePublished: '2006-05-04',
+      name: 'A masterpiece of literature',
+      reviewBody:
+        'I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.',
+      reviewRating: {
+        bestRating: '5',
+        worstRating: '1',
+        reviewAspect: 'Ambiance',
+        ratingValue: '4',
+      },
+    },
+    {
+      author: 'Bob Smith',
+      datePublished: '2006-06-15',
+      name: 'A good read.',
+      reviewBody: "Catcher in the Rye is a fun book. It's a good book to read.",
+      reviewRating: {
+        ratingValue: '4',
+      },
+    },
+  ]}
+  makesOffer={[
+    {
+      priceSpecification: {
+        type: 'UnitPriceSpecification',
+        priceCurrency: 'EUR',
+        price: '1000-10000',
+      },
+      itemOffered: {
+        name: 'Motion Design Services',
+        description:
+          'We are the expert of animation and motion design productions.',
+      },
+    },
+    {
+      priceSpecification: {
+        type: 'UnitPriceSpecification',
+        priceCurrency: 'EUR',
+        price: '2000-10000',
+      },
+      itemOffered: {
+        name: 'Branding Services',
+        description:
+          'Real footage is a powerful tool when it comes to show what the business is about. Can be used to present your company, show your factory, promote a product packshot, or just tell any story. It can help create emotional links with your audience by showing punchy images.',
+      },
+    },
+  ]}
+  areaServed={[
+    {
+      geoMidpoint: {
+        latitude: '41.108237',
+        longitude: '-80.642982',
+      },
+      geoRadius: '1000',
+    },
+    {
+      geoMidpoint: {
+        latitude: '51.108237',
+        longitude: '-80.642982',
+      },
+      geoRadius: '1000',
+    },
+  ]}
+  action={{
+    actionName: 'potentialAction',
+    actionType: 'ReviewAction',
+    target: 'https://www.example.com/review/this/business',
+  }}
 />
 ```
 
@@ -1350,27 +1578,53 @@ Local business is supported with a sub-set of properties.
 
 **Supported properties**
 
-| Property                    | Info                                                                                                                                                 |
-| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `description`               | Description of the business location                                                                                                                 |
-| `geo`                       | Geographic coordinates of the business.                                                                                                              |
-| `geo.latitude`              | The latitude of the business location                                                                                                                |
-| `geo.longitude`             | The longitude of the business location                                                                                                               |
-| `rating`                    | The average rating of business based on multiple ratings or reviews.                                                                                 |
-| `rating.ratingValue`        | The rating for the content.                                                                                                                          |
-| `rating.ratingCount`        | The count of total number of ratings.                                                                                                                |
-| `priceRange`                | The relative price range of the business.                                                                                                            |
-| `servesCuisine`             | The type of cuisine the restaurant serves.                                                                                                            |
-| `images`                    | An image or images of the business. Required for valid markup depending on the type                                                                  |
-| `telephone`                 | A business phone number meant to be the primary contact method for customers.                                                                        |
-| `url`                       | The fully-qualified URL of the specific business location.                                                                                           |
-| `sameAs`                    | An array of URLs that represent this business                                                                                                        |
-| `openingHours`              | Opening hour specification of business. You can provide this as a single object, or an array of objects with the properties below.                   |
-| `openingHours.opens`        | The opening hour of the place or service on the given day(s) of the week.                                                                            |
-| `openingHours.closes`       | The closing hour of the place or service on the given day(s) of the week.                                                                            |
-| `openingHours.dayOfWeek`    | The day of the week for which these opening hours are valid. Can be a string or array of strings. Refer to [DayOfWeek](https://schema.org/DayOfWeek) |
-| `openingHours.validFrom`    | The date when the item becomes valid.                                                                                                                |
-| `openingHours.validThrough` | The date after when the item is not valid.                                                                                                           |
+| Property                                            | Info                                                                                                                                                 |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `description`                                       | Description of the business location                                                                                                                 |
+| `geo`                                               | Geographic coordinates of the business.                                                                                                              |
+| `geo.latitude`                                      | The latitude of the business location                                                                                                                |
+| `geo.longitude`                                     | The longitude of the business location                                                                                                               |
+| `rating`                                            | The average rating of business based on multiple ratings or reviews.                                                                                 |
+| `rating.ratingValue`                                | The rating for the content.                                                                                                                          |
+| `rating.ratingCount`                                | The count of total number of ratings.                                                                                                                |
+| `priceRange`                                        | The relative price range of the business.                                                                                                            |
+| `servesCuisine`                                     | The type of cuisine the restaurant serves.                                                                                                           |
+| `images`                                            | An image or images of the business. Required for valid markup depending on the type                                                                  |
+| `telephone`                                         | A business phone number meant to be the primary contact method for customers.                                                                        |
+| `url`                                               | The fully-qualified URL of the specific business location.                                                                                           |
+| `sameAs`                                            | An array of URLs that represent this business                                                                                                        |
+| `openingHours`                                      | Opening hour specification of business. You can provide this as a single object, or an array of objects with the properties below.                   |
+| `openingHours.opens`                                | The opening hour of the place or service on the given day(s) of the week.                                                                            |
+| `openingHours.closes`                               | The closing hour of the place or service on the given day(s) of the week.                                                                            |
+| `openingHours.dayOfWeek`                            | The day of the week for which these opening hours are valid. Can be a string or array of strings. Refer to [DayOfWeek](https://schema.org/DayOfWeek) |
+| `openingHours.validFrom`                            | The date when the item becomes valid.                                                                                                                |
+| `openingHours.validThrough`                         | The date after when the item is not valid.                                                                                                           |
+| `review`                                            | A review of the local business.                                                                                                                      |
+| `review.author`                                     | The author of this content or rating.                                                                                                                |
+| `review.reviewBody`                                 | The actual body of the review.                                                                                                                       |
+| `review.datePublished`                              | Date of first broadcast/publication.                                                                                                                 |
+| `review.name`                                       | The name of the item.                                                                                                                                |
+| `review.rating`                                     | The rating given in this review                                                                                                                      |
+| `review.rating.ratingValue`                         | The rating for the content.                                                                                                                          |
+| `review.rating.reviewAspect`                        | This Review or Rating is relevant to this part or facet of the itemReviewed.                                                                         |
+| `review.rating.worstRating`                         | The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed.                                                             |
+| `review.rating.bestRating`                          | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed                                                              |
+| `areasServed`                                       | The geographic area where a service or offered item is provided.                                                                                     |
+| `areasServed.GeoCircle`                             | A GeoCircle is a GeoShape representing a circular geographic area.                                                                                   |
+| `areasServed.GeoCircle.geoMidpoint`                 | Indicates the GeoCoordinates at the centre of a GeoShape e.g. GeoCircle.                                                                             |
+| `areasServed.GeoCircle.geoMidpoint.latitude`        | The latitude of a location. For example 37.42242                                                                                                     |
+| `areasServed.GeoCircle.geoMidpoint.longitude`       | The name of the item.                                                                                                                                |
+| `areasServed.GeoCircle.geoRadius`                   | Indicates the approximate radius of a GeoCircle (metres unless indicated otherwise via Distance notation).                                           |
+| `makesOffer`                                        | A pointer to products or services offered by the organization or person.                                                                             |
+| `makesOffer.offer`                                  | An offer to transfer some rights to an item or to provide a service                                                                                  |
+| `makesOffer.offer.priceSpecification`               | One or more detailed price specifications, indicating the unit price and delivery or payment charges.                                                |
+| `makesOffer.offer.priceSpecification.priceCurrency` | The currency of the price, or a price component when attached to PriceSpecification and its subtypes.                                                |
+| `makesOffer.offer.priceSpecification.price`         | The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.                                          |
+| `makesOffer.offer.itemOffered`                      | An item being offered (or demanded)                                                                                                                  |
+| `makesOffer.offer.itemOffered.name`                 | The name of the item                                                                                                                                 |
+| `makesOffer.offer.itemOffered.description`          | The description of the item.                                                                                                                         |
+| `action`                                            | An action performed by a direct agent and indirect participants upon a direct object.                                                                |
+| `action.target`                                     | Indicates a target EntryPoint for an Action.                                                                                                         |
 
 **NOTE:**
 
@@ -1416,6 +1670,16 @@ const Page = () => (
       ]}
       description="Sleeker than ACME's Classic Anvil, the Executive Anvil is perfect for the business traveler looking for something to drop from a height."
       brand="ACME"
+      color="blue"
+      manufacturerName="Gary Meehan"
+      manufacturerLogo="https://www.example.com/photos/logo.jpg"
+      material="steel"
+      slogan="For the business traveller looking for something to drop from a height."
+      disambiguatingDescription="Executive Anvil, perfect for the business traveller."
+      releaseDate="2014-02-05T08:00:00+08:00"
+      productionDate="2015-02-05T08:00:00+08:00"
+      purchaseDate="2015-02-06T08:00:00+08:00"
+      award="Best Executive Anvil Award."
       reviews={[
         {
           author: {
@@ -1482,7 +1746,7 @@ Valid values for `offers.itemCondition`:
 - <https://schema.org/RefurbishedCondition>
 - <https://schema.org/UsedCondition>
 
-Valid values fro `offers.availability`:
+Valid values for `offers.availability`:
 
 - <https://schema.org/Discontinued>
 - <https://schema.org/InStock>
@@ -1681,6 +1945,38 @@ const Page = () => (
       url="https://example.com/my-event"
       images={['https://example.com/photos/photo.jpg']}
       description="My event @ my place"
+      offers={[
+        {
+          price: '119.99',
+          priceCurrency: 'USD',
+          priceValidUntil: '2020-11-05',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.com/executive-anvil',
+          seller: {
+            name: 'John Doe',
+          },
+        },
+        {
+          price: '139.99',
+          priceCurrency: 'CAD',
+          priceValidUntil: '2020-09-05',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.ca/executive-anvil',
+          seller: {
+            name: 'John Doe Sr.',
+          },
+        },
+      ]}
+      performers={[
+        {
+          name: 'Adele',
+        },
+        {
+          name: 'Kira and Morrison',
+        },
+      ]}
     />
   </>
 );
@@ -1699,12 +1995,267 @@ export default Page;
 
 **Supported properties**
 
-| Property          | Info                                  |
-| ----------------- | ------------------------------------- |
-| `description`     | Description of the event              |
-| `location.sameAs` | Description of the event location     |
-| `images`          | An image or images of the event.      |
-| `url`             | The fully-qualified URL of the event. |
+| Property          | Info                                                                                                                                                            |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `description`     | Description of the event                                                                                                                                        |
+| `location.sameAs` | Description of the event location                                                                                                                               |
+| `images`          | An image or images of the event.                                                                                                                                |
+| `url`             | The fully-qualified URL of the event.                                                                                                                           |
+| `offers`          | An offer to transfer some rights to an item or to provide a service. You can provide this as a single object, or an array of objects with the properties below. |
+| `performers`      | All artists that perform at this event. You can provide this as a single object, or an array of objects with the properties below.                              |
+| `performers.name` | The name of the performer                                                                                                                                       |
+
+**`offers` Required properties**
+
+| Property               | Info                      |
+| ---------------------- | ------------------------- |
+| `offers.price`         | The cost of the offer     |
+| `offers.priceCurrency` | The currency of the offer |
+
+**`offers` Recommended properties**
+
+| Property                 | Info                                                                                |
+| ------------------------ | ----------------------------------------------------------------------------------- |
+| `offers.priceValidUntil` | Until when the price of the offer expires                                           |
+| `offers.itemCondition`   | The condition of the product or service                                             |
+| `offers.availability`    | The availability of this item — for example In stock, Out of stock, Pre-order, etc. |
+| `offers.url`             | URL of the item                                                                     |
+| `offers.seller`          | The person who is selling this item                                                 |
+| `offers.seller.name`     | The name of the person                                                              |
+
+The property `aggregateOffer` is also available:
+(It is ignored if `offers` is set)
+
+**Required properties**
+
+| Property        | Info                                                                              |
+| --------------- | --------------------------------------------------------------------------------- |
+| `lowPrice`      | The lowest price of all offers available. Use a floating point number.            |
+| `priceCurrency` | The currency used to describe the product price, in three-letter ISO 4217 format. |
+
+**Recommended properties**
+
+| Property     | Info                                                                    |
+| ------------ | ----------------------------------------------------------------------- |
+| `highPrice`  | The highest price of all offers available. Use a floating point number. |
+| `offerCount` | The number of offers for the product.                                   |
+
+For reference and more info check [Google's Search Event DataType](https://developers.google.com/search/docs/data-types/event)
+
+### Q&A
+
+Q&A pages are web pages that contain data in a question and answer format, which is one question followed by its answers.
+
+```jsx
+import { QAPageJsonld } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Q&A Page JSON-LD</h1>
+    <QAPageJsonld
+      mainEntity={{
+        name: 'How many ounces are there in a pound?',
+        text:
+          'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
+        answerCount: 3,
+        upvotedCount: 26,
+        dateCreated: '2016-07-23T21:11Z',
+        author: {
+          name: 'New Baking User',
+        },
+        acceptedAnswer: {
+          text: '1 pound (lb) is equal to 16 ounces (oz).',
+          dateCreated: '2016-11-02T21:11Z',
+          upvotedCount: 1337,
+          url: 'https://example.com/question1#acceptedAnswer',
+          author: {
+            name: 'SomeUser',
+          },
+        },
+        suggestedAnswer: [
+          {
+            text:
+              'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
+            dateCreated: '2016-11-02T21:11Z',
+            upvotedCount: 42,
+            url: 'https://example.com/question1#suggestedAnswer1',
+            author: {
+              name: 'AnotherUser',
+            },
+          },
+          {
+            text: `I can't remember exactly, but I think 18 ounces in a lb. You might want to double check that.`,
+            dateCreated: '2016-11-06T21:11Z',
+            upvotedCount: 0,
+            url: 'https://example.com/question1#suggestedAnswer2',
+            author: {
+              name: 'ConfusedUser',
+            },
+          },
+        ],
+      }}
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property     | Info                                                                                                   |
+| ------------ | ------------------------------------------------------------------------------------------------------ |
+| `mainEntity` | The Question for this page must be nested under the mainEntity property of the QAPageJsonld component. |
+
+**`mainEntity` Required properties**
+
+| Property                              | Info                                                                                                                          |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `answerCount`                         | The total number of answers to the question.                                                                                  |
+| `acceptedAnswer` or `suggestedAnswer` | To be eligible for the rich result, a question must have at least one answer – either an acceptedAnswer or a suggestedAnswer. |
+| `name`                                | The full text of the short form of the question.                                                                              |
+
+**`mainEntity` Supported properties**
+
+| Property      | Info                                                                      |
+| ------------- | ------------------------------------------------------------------------- |
+| `author`      | The author of the question.                                               |
+| `dateCreated` | The date at which the question was added to the page, in ISO-8601 format. |
+| `text`        | The full text of the long form of the question.                           |
+| `upvoteCount` | The total number of votes that this question has received.                |
+
+**`acceptedAnswer`/`suggestedAnswer` Required properties**
+
+| Property | Info                         |
+| -------- | ---------------------------- |
+| `text`   | The full text of the answer. |
+
+**`acceptedAnswer`/`suggestedAnswer` Supported properties**
+
+| Property      | Info                                                                      |
+| ------------- | ------------------------------------------------------------------------- |
+| `author`      | The author of the question.                                               |
+| `dateCreated` | The date at which the question was added to the page, in ISO-8601 format. |
+| `upvoteCount` | The total number of votes that this question has received.                |
+| `url`         | A URL that links directly to this answer.                                 |
+
+For reference and more info check [Google's Search Q&A DataType](https://developers.google.com/search/docs/data-types/qapage)
+
+### Collection Page
+
+Collection pages are web pages. Every web page is implicitly assumed to be declared to be of type WebPage, so the various properties about that webpage, such as breadcrumb may be used. We recommend explicit declaration if these properties are specified, but if they are found outside of an itemscope, they will be assumed to be about the page.
+
+```jsx
+import { CollectionPageJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Collection Page JSON-LD</h1>
+    <CollectionPageJsonLd
+      name="Resistance 3: Fall of Man"
+      hasPart={[
+        {
+          about:
+            'Britten Four Sea Interludes and Passacaglia from Peter Grimes',
+          author: 'John Doe',
+          name: 'Schema.org Ontology',
+          datePublished: '2021-03-09',
+          audience: 'Internet',
+          keywords: 'schema',
+          thumbnailUrl: 'https://i.ytimg.com/vi/eXSJ3PO9Tas/hqdefault.jpg',
+          image: 'hqdefault.jpg',
+        },
+        {
+          about: 'Shostakovich Symphony No. 7 (Leningrad)',
+          author: 'John Smith',
+          name: 'Creative work name',
+          datePublished: '2014-10-01T19:30',
+        },
+      ]}
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property  | Info                                                                                          |
+| --------- | --------------------------------------------------------------------------------------------- |
+| `name`    | The name of the item.                                                                         |
+| `hasPart` | Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense). |
+
+**Supported properties**
+
+| Property               | Info                                                                                                                                    |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `hasPart.creativeWork` | The most generic kind of [creative work](https://schema.org/CreativeWork), including books, movies, photographs, software programs, etc |
+
+**`creativeWork` Required properties**
+
+| Property                             | Info                                                                                                                                                                                                                        |
+| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hasPart.creativeWork.author`        | The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably. |
+| `hasPart.creativeWork.about`         | The subject matter of the content.                                                                                                                                                                                          |
+| `hasPart.creativeWork.datePublished` | Date of first broadcast/publication.                                                                                                                                                                                        |
+| `hasPart.creativeWork.name`          | The name of the item.                                                                                                                                                                                                       |
+
+**`creativeWork` Supported properties**
+
+| Property                            | Info                                                                                                                   |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `hasPart.creativeWork.audience`     | An intended audience, i.e. a group for whom something was created.                                                     |
+| `hasPart.creativeWork.keywords`     | Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas. |
+| `hasPart.creativeWork.thumbnailUrl` | A thumbnail image relevant to the Thing.                                                                               |
+| `hasPart.creativeWork.image`        | An image of the item. This can be a URL or a fully described ImageObject.                                              |
+
+For reference and more info check [Collection Page DataType](https://schema.org/CollectionPage)
+
+### Profile page
+
+Profile pages are web pages. Every web page is implicitly assumed to be declared to be of type WebPage, so the various properties about that webpage, such as breadcrumb may be used. We recommend explicit declaration if these properties are specified, but if they are found outside of an itemscope, they will be assumed to be about the page.
+
+```jsx
+import { ProfilePageJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Profile page JSON-LD</h1>
+    <ProfilePageJsonLd
+      lastReviewed="2014-10-01T19:30"
+      breadcrumb={[
+        {
+          position: 1,
+          name: 'Books',
+          item: 'https://example.com/books',
+        },
+        {
+          position: 2,
+          name: 'Authors',
+          item: 'https://example.com/books/authors',
+        },
+      ]}
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property     | Info                                                                                                                                    |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `breadcrumb` | A set of links that can help a user understand and navigate a website hierarchy represented as string or [BreadcrumbList](#breadcrumb). |
+
+**Supported properties**
+
+| Property       | Info                                                                                           |
+| -------------- | ---------------------------------------------------------------------------------------------- |
+| `lastReviewed` | Date on which the content on this web page was last reviewed for accuracy and/or completeness. |
+
+For reference and more info check [Profile Page DataType](https://schema.org/ProfilePage)
 
 ### Carousel
 
@@ -1820,9 +2371,14 @@ export default () => (
           url: 'http://example.com/movie-1.html',
           image:
             'https://i.pinimg.com/originals/96/a0/0d/96a00d42b0ff8f80b7cdf2926a211e47.jpg',
-          director: {
-            name: 'Mary Doe',
-          },
+          director: [
+            {
+              name: 'Mary Doe',
+            },
+            {
+              name: 'John Doe',
+            },
+          ],
           review: {
             author: { type: 'Person', name: 'Ronan Farrow' },
             reviewBody:
@@ -1848,7 +2404,7 @@ export default () => (
 
 | Property          | Info                                   |
 | ----------------- | -------------------------------------- |
-| `director`        | The director of the movie.             |
+| `director`        | The directors of the movie.            |
 | `dateCreated`     | The date the movie was released.       |
 | `aggregateRating` | Aggregate Rating object for the movie. |
 | `review`          | Review for the movie.                  |
@@ -2034,6 +2590,46 @@ export default () => (
 | `instructions.text` | The directions of the instruction step. |
 | `url`               | URL of the item's detailed page.        |
 
+### Software App
+
+```jsx
+import React from 'react';
+import { SoftwareAppJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Software App JSON-LD</h1>
+    <SoftwareAppJsonLd
+      name="Angry Birds"
+      price="1.00"
+      priceCurrency="USD"
+      aggregateRating={{ ratingValue: '4.6', reviewCount: '8864' }}
+      operatingSystem="ANDROID"
+      applicationCategory="GameApplication"
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property          | Info                                                                      |
+| ----------------- | ------------------------------------------------------------------------- |
+| `name`            | The name of the app.                                                      |
+| `price`           | Price of the app. If the app is free of charge, set offers.price to 0     |
+| `priceCurrency`   | If the app has a price greater than 0, you must include offers.currency.  |
+| `aggregateRating` | The average review score of the app. (Not required if review is present.) |
+| `review`          | A single review of the app. (Not required if aggregateRating is present.) |
+
+**Data Recommended properties**
+
+| Property              | Info                             |
+| --------------------- | -------------------------------- |
+| `operatingSystem`     | The directors of the movie.      |
+| `applicationCategory` | The date the movie was released. |
+
+For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
+
 ## Contributors
 
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
@@ -2043,52 +2639,73 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://www.garymeehan.ie/"><img src="https://avatars1.githubusercontent.com/u/13333582?v=4" width="100px;" alt=""/><br /><sub><b>Gary Meehan</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=garmeeh" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=garmeeh" title="Documentation">📖</a> <a href="#example-garmeeh" title="Examples">💡</a> <a href="https://github.com/garmeeh/next-seo/commits?author=garmeeh" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://www.jeromefitzgerald.com/"><img src="https://avatars3.githubusercontent.com/u/3099369?v=4" width="100px;" alt=""/><br /><sub><b>Jerome Fitzgerald</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=JeromeFitz" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/erickeno"><img src="https://avatars0.githubusercontent.com/u/3820632?v=4" width="100px;" alt=""/><br /><sub><b>erick B</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=erickeno" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.erikcondie.com"><img src="https://avatars2.githubusercontent.com/u/15269328?v=4" width="100px;" alt=""/><br /><sub><b>Erik Condie</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=econdie" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=econdie" title="Tests">⚠️</a> <a href="#example-econdie" title="Examples">💡</a> <a href="#ideas-econdie" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="http://timothyreynolds.co.uk"><img src="https://avatars1.githubusercontent.com/u/168870?v=4" width="100px;" alt=""/><br /><sub><b>Tim Reynolds</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=timReynolds" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=timReynolds" title="Tests">⚠️</a> <a href="#example-timReynolds" title="Examples">💡</a> <a href="https://github.com/garmeeh/next-seo/commits?author=timReynolds" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/Ktchan825"><img src="https://avatars3.githubusercontent.com/u/20606631?v=4" width="100px;" alt=""/><br /><sub><b>Ktchan825</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Ktchan825" title="Tests">⚠️</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Ktchan825" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ctxquentin"><img src="https://avatars1.githubusercontent.com/u/36331776?v=4" width="100px;" alt=""/><br /><sub><b>ctxquentin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=ctxquentin" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=ctxquentin" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=ctxquentin" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://www.garymeehan.ie/"><img src="https://avatars1.githubusercontent.com/u/13333582?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gary Meehan</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=garmeeh" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=garmeeh" title="Documentation">📖</a> <a href="#example-garmeeh" title="Examples">💡</a> <a href="https://github.com/garmeeh/next-seo/commits?author=garmeeh" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://www.jeromefitzgerald.com/"><img src="https://avatars3.githubusercontent.com/u/3099369?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jerome Fitzgerald</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=JeromeFitz" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/erickeno"><img src="https://avatars0.githubusercontent.com/u/3820632?v=4?s=100" width="100px;" alt=""/><br /><sub><b>erick B</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=erickeno" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.erikcondie.com"><img src="https://avatars2.githubusercontent.com/u/15269328?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Erik Condie</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=econdie" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=econdie" title="Tests">⚠️</a> <a href="#example-econdie" title="Examples">💡</a> <a href="#ideas-econdie" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="http://timothyreynolds.co.uk"><img src="https://avatars1.githubusercontent.com/u/168870?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tim Reynolds</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=timReynolds" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=timReynolds" title="Tests">⚠️</a> <a href="#example-timReynolds" title="Examples">💡</a> <a href="https://github.com/garmeeh/next-seo/commits?author=timReynolds" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/Ktchan825"><img src="https://avatars3.githubusercontent.com/u/20606631?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ktchan825</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Ktchan825" title="Tests">⚠️</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Ktchan825" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/ctxquentin"><img src="https://avatars1.githubusercontent.com/u/36331776?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ctxquentin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=ctxquentin" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=ctxquentin" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=ctxquentin" title="Tests">⚠️</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/bolonio"><img src="https://avatars0.githubusercontent.com/u/1288407?v=4" width="100px;" alt=""/><br /><sub><b>Adrián Bolonio</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=bolonio" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=bolonio" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=bolonio" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://erikhofer.de"><img src="https://avatars2.githubusercontent.com/u/17194301?v=4" width="100px;" alt=""/><br /><sub><b>Erik Hofer</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=erikhofer" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://ermakov.io"><img src="https://avatars0.githubusercontent.com/u/301917?v=4" width="100px;" alt=""/><br /><sub><b>Dmitry Ermakov</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=zetoke" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/duckranger"><img src="https://avatars0.githubusercontent.com/u/2087890?v=4" width="100px;" alt=""/><br /><sub><b>Nimo Naamani</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=duckranger" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/calvinvoo2"><img src="https://avatars2.githubusercontent.com/u/12223423?v=4" width="100px;" alt=""/><br /><sub><b>Calvin Ng Tjioe</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=calvinvoo2" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/petertulala"><img src="https://avatars1.githubusercontent.com/u/613623?v=4" width="100px;" alt=""/><br /><sub><b>Peter Tulala</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=petertulala" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=petertulala" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/nik-john"><img src="https://avatars2.githubusercontent.com/u/1117182?v=4" width="100px;" alt=""/><br /><sub><b>nikjohn</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=nik-john" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nik-john" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nik-john" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/bolonio"><img src="https://avatars0.githubusercontent.com/u/1288407?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adrián Bolonio</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=bolonio" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=bolonio" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=bolonio" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://erikhofer.de"><img src="https://avatars2.githubusercontent.com/u/17194301?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Erik Hofer</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=erikhofer" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://ermakov.io"><img src="https://avatars0.githubusercontent.com/u/301917?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dmitry Ermakov</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=zetoke" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/duckranger"><img src="https://avatars0.githubusercontent.com/u/2087890?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nimo Naamani</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=duckranger" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/calvinvoo2"><img src="https://avatars2.githubusercontent.com/u/12223423?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Calvin Ng Tjioe</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=calvinvoo2" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/petertulala"><img src="https://avatars1.githubusercontent.com/u/613623?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Peter Tulala</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=petertulala" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=petertulala" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/nik-john"><img src="https://avatars2.githubusercontent.com/u/1117182?v=4?s=100" width="100px;" alt=""/><br /><sub><b>nikjohn</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=nik-john" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nik-john" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nik-john" title="Tests">⚠️</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/0x54321"><img src="https://avatars0.githubusercontent.com/u/34850754?v=4" width="100px;" alt=""/><br /><sub><b>0x54321</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=0x54321" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=0x54321" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=0x54321" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/nateetorn"><img src="https://avatars0.githubusercontent.com/u/365585?v=4" width="100px;" alt=""/><br /><sub><b>Nateetorn L.</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=nateetorn" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nateetorn" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nateetorn" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/Myoxocephalus"><img src="https://avatars0.githubusercontent.com/u/2316544?v=4" width="100px;" alt=""/><br /><sub><b>Myoxocephalus</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/kenleytomlin"><img src="https://avatars3.githubusercontent.com/u/3004590?v=4" width="100px;" alt=""/><br /><sub><b>Kenley Tomlin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://twovit.com"><img src="https://avatars0.githubusercontent.com/u/20168220?v=4" width="100px;" alt=""/><br /><sub><b>Ryu Nishida</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://ykzts.com/"><img src="https://avatars0.githubusercontent.com/u/12539?v=4" width="100px;" alt=""/><br /><sub><b>Yamagishi Kazutoshi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=ykzts" title="Code">💻</a> <a href="#infra-ykzts" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    <td align="center"><a href="http://mgmcdermott.com"><img src="https://avatars3.githubusercontent.com/u/8161781?v=4" width="100px;" alt=""/><br /><sub><b>Michael McDermott</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=michaelgmcd" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=michaelgmcd" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/0x54321"><img src="https://avatars0.githubusercontent.com/u/34850754?v=4?s=100" width="100px;" alt=""/><br /><sub><b>0x54321</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=0x54321" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=0x54321" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=0x54321" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/nateetorn"><img src="https://avatars0.githubusercontent.com/u/365585?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nateetorn L.</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=nateetorn" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nateetorn" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nateetorn" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/Myoxocephalus"><img src="https://avatars0.githubusercontent.com/u/2316544?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Myoxocephalus</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/kenleytomlin"><img src="https://avatars3.githubusercontent.com/u/3004590?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kenley Tomlin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://twovit.com"><img src="https://avatars0.githubusercontent.com/u/20168220?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ryu Nishida</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://ykzts.com/"><img src="https://avatars0.githubusercontent.com/u/12539?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yamagishi Kazutoshi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=ykzts" title="Code">💻</a> <a href="#infra-ykzts" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    <td align="center"><a href="http://mgmcdermott.com"><img src="https://avatars3.githubusercontent.com/u/8161781?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michael McDermott</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=michaelgmcd" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=michaelgmcd" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://lukejones.co"><img src="https://avatars0.githubusercontent.com/u/6657011?v=4" width="100px;" alt=""/><br /><sub><b>Luke Jones</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=luke-j" title="Code">💻</a> <a href="#infra-luke-j" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    <td align="center"><a href="https://github.com/pueyo5"><img src="https://avatars1.githubusercontent.com/u/8959368?v=4" width="100px;" alt=""/><br /><sub><b>Albert Pueyo</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=pueyo5" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=pueyo5" title="Code">💻</a></td>
-    <td align="center"><a href="http://Qrymy.com"><img src="https://avatars1.githubusercontent.com/u/26219456?v=4" width="100px;" alt=""/><br /><sub><b>Qrymy</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Qrymy" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.yuuniworks.com/"><img src="https://avatars0.githubusercontent.com/u/10986861?v=4" width="100px;" alt=""/><br /><sub><b>Shota Tamura</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=junkboy0315" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/kahoowkh"><img src="https://avatars3.githubusercontent.com/u/26565078?v=4" width="100px;" alt=""/><br /><sub><b>kahoowkh</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kahoowkh" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kahoowkh" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kahoowkh" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/gtodd876"><img src="https://avatars1.githubusercontent.com/u/28220658?v=4" width="100px;" alt=""/><br /><sub><b>Todd Matthews</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=gtodd876" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=gtodd876" title="Code">💻</a></td>
-    <td align="center"><a href="http://mohamedshadab.me"><img src="https://avatars1.githubusercontent.com/u/22408263?v=4" width="100px;" alt=""/><br /><sub><b>Mohamed Shadab</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://lukejones.co"><img src="https://avatars0.githubusercontent.com/u/6657011?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Luke Jones</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=luke-j" title="Code">💻</a> <a href="#infra-luke-j" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    <td align="center"><a href="https://github.com/pueyo5"><img src="https://avatars1.githubusercontent.com/u/8959368?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Albert Pueyo</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=pueyo5" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=pueyo5" title="Code">💻</a></td>
+    <td align="center"><a href="http://Qrymy.com"><img src="https://avatars1.githubusercontent.com/u/26219456?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Qrymy</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Qrymy" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.yuuniworks.com/"><img src="https://avatars0.githubusercontent.com/u/10986861?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shota Tamura</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=junkboy0315" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/kahoowkh"><img src="https://avatars3.githubusercontent.com/u/26565078?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kahoowkh</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kahoowkh" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kahoowkh" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kahoowkh" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/gtodd876"><img src="https://avatars1.githubusercontent.com/u/28220658?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Todd Matthews</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=gtodd876" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=gtodd876" title="Code">💻</a></td>
+    <td align="center"><a href="http://mohamedshadab.me"><img src="https://avatars1.githubusercontent.com/u/22408263?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mohamed Shadab</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Tests">⚠️</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="http://drewgoodwin.com"><img src="https://avatars1.githubusercontent.com/u/63794?v=4" width="100px;" alt=""/><br /><sub><b>Drew Goodwin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=tacomanator" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://schlosser.io"><img src="https://avatars0.githubusercontent.com/u/2433509?v=4" width="100px;" alt=""/><br /><sub><b>Dan Schlosser</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=schlosser" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/matamatanot"><img src="https://avatars2.githubusercontent.com/u/39780486?v=4" width="100px;" alt=""/><br /><sub><b>matamatanot</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=matamatanot" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://kloc.io/"><img src="https://avatars2.githubusercontent.com/u/9046616?v=4" width="100px;" alt=""/><br /><sub><b>Daniel Reinoso</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=danielr18" title="Code">💻</a></td>
-    <td align="center"><a href="https://marcovalsecchi.it"><img src="https://avatars0.githubusercontent.com/u/1492995?v=4" width="100px;" alt=""/><br /><sub><b>Marco Valsecchi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=valse" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=valse" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://drewgoodwin.com"><img src="https://avatars1.githubusercontent.com/u/63794?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Drew Goodwin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=tacomanator" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://schlosser.io"><img src="https://avatars0.githubusercontent.com/u/2433509?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dan Schlosser</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=schlosser" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/matamatanot"><img src="https://avatars2.githubusercontent.com/u/39780486?v=4?s=100" width="100px;" alt=""/><br /><sub><b>matamatanot</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=matamatanot" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://kloc.io/"><img src="https://avatars2.githubusercontent.com/u/9046616?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Daniel Reinoso</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=danielr18" title="Code">💻</a></td>
+    <td align="center"><a href="https://marcovalsecchi.it"><img src="https://avatars0.githubusercontent.com/u/1492995?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marco Valsecchi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=valse" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=valse" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/pbrandone"><img src="https://avatars2.githubusercontent.com/u/5202712?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pedro Brandão</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=pbrandone" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/omar-dulaimi"><img src="https://avatars0.githubusercontent.com/u/11743389?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Omar Dulaimi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=omar-dulaimi" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=omar-dulaimi" title="Tests">⚠️</a> <a href="https://github.com/garmeeh/next-seo/commits?author=omar-dulaimi" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="http://rodzy.vercel.app"><img src="https://avatars2.githubusercontent.com/u/49137701?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Isaac Rodríguez</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://iainmchugh.github.io/portfolio/"><img src="https://avatars.githubusercontent.com/u/46798029?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Iain McHugh</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=IainMcHugh" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://www.wiedergruen.com"><img src="https://avatars.githubusercontent.com/u/5861026?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Simon</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=simonschllng" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://trevorblades.com"><img src="https://avatars.githubusercontent.com/u/1216917?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Trevor Blades</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://httgp.com"><img src="https://avatars.githubusercontent.com/u/5381764?v=4?s=100" width="100px;" alt=""/><br /><sub><b>GP</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://twitter.com/sebascomeau"><img src="https://avatars.githubusercontent.com/u/2814465?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sébastien Comeau</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=sebascomeau" title="Code">💻</a></td>
+    <td align="center"><a href="https://infilimits.com"><img src="https://avatars.githubusercontent.com/u/12628996?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shaswat Saxena</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Tests">⚠️</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/Roohn"><img src="https://avatars.githubusercontent.com/u/22071649?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ronald</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/MrNossiom"><img src="https://avatars.githubusercontent.com/u/43814157?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Milo Moisson</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=MrNossiom" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=MrNossiom" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/adrianu197"><img src="https://avatars.githubusercontent.com/u/33718513?v=4?s=100" width="100px;" alt=""/><br /><sub><b>adrianu197</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=adrianu197" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=adrianu197" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=adrianu197" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/kaykdm"><img src="https://avatars.githubusercontent.com/u/34934746?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kaykdm</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kaykdm" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kaykdm" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kaykdm" title="Tests">⚠️</a></td>
+    <td align="center"><a href="http://www.apolexian.xyz"><img src="https://avatars.githubusercontent.com/u/20223409?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ivan Nikitin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Apolexian" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Apolexian" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Apolexian" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://github.com/hsynlms"><img src="https://avatars.githubusercontent.com/u/1780171?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Huseyin ELMAS</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=hsynlms" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=hsynlms" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://aryanbeezadhur.com"><img src="https://avatars.githubusercontent.com/u/34424160?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aryan Beezadhur</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=AryanBeezadhur" title="Documentation">📖</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

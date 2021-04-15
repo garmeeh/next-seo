@@ -38,7 +38,7 @@ export interface MovieJsonLdProps {
   url: string;
   image: string;
   dateCreated?: string;
-  director?: Director;
+  director?: Director | Director[];
   review?: Review;
   aggregateRating?: AggregateRating;
 }
@@ -101,11 +101,22 @@ const CarouselJsonLd: FC<CarouselJsonLdProps> = ({ type, data }) => {
           "image": "${item.image}",
           ${item.dateCreated ? `"dateCreated": "${item.dateCreated}",` : ``}
           ${
-            item.director?.name
-              ? `"director": {
-            "@type": "Person",
-            "name": "${item.director.name}"
-          }`
+            item.director
+              ? `"director": ${
+                  Array.isArray(item.director)
+                    ? `[${item.director
+                        .map(
+                          director => `{
+                          "@type": "Person",
+                          "name": "${director.name}"
+                        }`,
+                        )
+                        .join(',')}]`
+                    : `{
+                      "@type": "Person",
+                      "name": "${item.director.name}"
+                    }`
+                }`
               : ''
           }
           ${

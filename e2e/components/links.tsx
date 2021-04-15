@@ -9,6 +9,11 @@ const Links = () => (
       </Link>
     </li>
     <li>
+      <Link href="/robots">
+        <a>All Robots props</a>
+      </Link>
+    </li>
+    <li>
       <Link href="/article">
         <a>Article SEO</a>
       </Link>

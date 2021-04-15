@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 16;
+const expectedJSONResults = 22;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -16,9 +16,15 @@ const corporateContactIndex = 9;
 const newsarticleLdJsonIndex = 10;
 const faqPageLdJsonIndex = 11;
 const jobPostingLdJsonIndex = 12;
-const eventLdJsonIndex = 13;
-const datasetLdJsonIndex = 14;
-const recipeLdJsonIndex = 15;
+const jobPostingLdSecondJsonIndex = 13;
+const eventLdJsonIndex = 14;
+const datasetLdJsonIndex = 15;
+const recipeLdJsonIndex = 16;
+const siteLinksSearchBoxLdJsonIndex = 17;
+const qaPageLdJsonIndex = 18;
+const softwareAppJsonIndex = 19;
+const collectionPageLdJsonIndex = 20;
+const profilePageLdJsonIndex = 21;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -209,7 +215,7 @@ describe('Validates JSON-LD For:', () => {
       .should('have.length', expectedJSONResults)
       .then(tags => {
         const jsonLD = JSON.parse(tags[localBusinessLdJsonIndex].innerHTML);
-        assertSchema(schemas)('Local Business', '1.1.0')(jsonLD);
+        assertSchema(schemas)('Local Business', '1.3.0')(jsonLD);
       });
   });
 
@@ -272,6 +278,94 @@ describe('Validates JSON-LD For:', () => {
               validThrough: '2020-04-02',
             },
           ],
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.5',
+            ratingCount: '2',
+          },
+          review: [
+            {
+              '@type': 'Review',
+              author: 'John Doe',
+              datePublished: '2006-05-04',
+              name: 'A masterpiece of literature',
+              reviewBody:
+                'I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.',
+              reviewRating: {
+                '@type': 'Rating',
+                bestRating: '5',
+                worstRating: '1',
+                reviewAspect: 'Ambiance',
+                ratingValue: '4',
+              },
+            },
+            {
+              '@type': 'Review',
+              author: 'Bob Smith',
+              datePublished: '2006-06-15',
+              name: 'A good read.',
+              reviewBody:
+                "Catcher in the Rye is a fun book. It's a good book to read.",
+              reviewRating: {
+                '@type': 'Rating',
+                ratingValue: '4',
+              },
+            },
+          ],
+          areaServed: [
+            {
+              '@type': 'GeoCircle',
+              geoMidpoint: {
+                '@type': 'GeoCoordinates',
+                latitude: '41.108237',
+                longitude: '-80.642982',
+              },
+              geoRadius: '1000',
+            },
+            {
+              '@type': 'GeoCircle',
+              geoMidpoint: {
+                '@type': 'GeoCoordinates',
+                latitude: '51.108237',
+                longitude: '-80.642982',
+              },
+              geoRadius: '1000',
+            },
+          ],
+          makesOffer: [
+            {
+              '@type': 'Offer',
+              priceSpecification: {
+                '@type': 'UnitPriceSpecification',
+                priceCurrency: 'EUR',
+                price: '1000-10000',
+              },
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Motion Design Services',
+                description:
+                  'We are the expert of animation and motion design productions.',
+              },
+            },
+            {
+              '@type': 'Offer',
+              priceSpecification: {
+                '@type': 'UnitPriceSpecification',
+                priceCurrency: 'EUR',
+                price: '2000-10000',
+              },
+              itemOffered: {
+                '@type': 'Service',
+                name: 'Branding Services',
+                description:
+                  'Real footage is a powerful tool when it comes to show what the business is about. Can be used to present your company, show your factory, promote a product packshot, or just tell any story. It can help create emotional links with your audience by showing punchy images.',
+              },
+            },
+          ],
+          potentialAction: {
+            '@type': 'ReviewAction',
+            target: 'https://www.example.com/review/this/business',
+          },
         });
       });
   });
@@ -328,6 +422,24 @@ describe('Validates JSON-LD For:', () => {
             '@type': 'Thing',
             name: 'ACME',
           },
+          color: 'blue',
+          manufacturer: {
+            '@type': 'Organization',
+            name: 'Gary Meehan',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://www.example.com/photos/logo.jpg',
+            },
+          },
+          material: 'steel',
+          slogan:
+            'For the business traveller looking for something to drop from a height.',
+          disambiguatingDescription:
+            'Executive Anvil, perfect for the business traveller.',
+          releaseDate: '2014-02-05T08:00:00+08:00',
+          productionDate: '2015-02-05T08:00:00+08:00',
+          purchaseDate: '2015-02-06T08:00:00+08:00',
+          award: 'Best Executive Anvil Award.',
           review: [
             {
               '@type': 'Review',
@@ -353,8 +465,10 @@ describe('Validates JSON-LD For:', () => {
           ],
           aggregateRating: {
             '@type': 'AggregateRating',
-            ratingValue: '4.4',
+            ratingValue: '44',
             reviewCount: '89',
+            ratingCount: '684',
+            bestRating: '100',
           },
           offers: [
             {
@@ -572,6 +686,16 @@ describe('Validates JSON-LD For:', () => {
       });
   });
 
+  it('Second Job Posting (With Salary Range)', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[jobPostingLdSecondJsonIndex].innerHTML);
+        assertSchema(schemas)('Job Posting', '1.0.0')(jsonLD);
+      });
+  });
+
   it('Job Posting Matches', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
@@ -624,6 +748,59 @@ describe('Validates JSON-LD For:', () => {
       });
   });
 
+  it('Second Job Posting (With Salary Range) Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[jobPostingLdSecondJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org',
+          '@type': 'JobPosting',
+
+          baseSalary: {
+            '@type': 'MonetaryAmount',
+            currency: 'EUR',
+            value: {
+              '@type': 'QuantitativeValue',
+              minValue: '40',
+              maxValue: '75',
+              unitText: 'HOUR',
+            },
+          },
+
+          datePosted: '2020-01-06T03:37:40Z',
+          description: 'Company is looking for another software developer....',
+          employmentType: 'FULL_TIME',
+          hiringOrganization: {
+            '@type': 'Organization',
+            name: 'company name',
+            sameAs: 'http://www.company-website-url.dev',
+            logo: 'http://www.company-website-url.dev/images/logo.png',
+          },
+
+          jobLocation: {
+            '@type': 'Place',
+            address: {
+              '@type': 'PostalAddress',
+              addressLocality: 'Paris',
+              addressRegion: 'Ile-de-France',
+              postalCode: '75001',
+              streetAddress: '17 street address',
+              addressCountry: 'France',
+            },
+          },
+          applicantLocationRequirements: {
+            '@type': 'Country',
+            name: 'FR',
+          },
+          jobLocationType: 'TELECOMMUTE',
+          validThrough: '2020-01-06',
+          title: 'Job Title #2',
+        });
+      });
+  });
+
   it('Event', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
@@ -662,6 +839,42 @@ describe('Validates JSON-LD For:', () => {
           },
           image: ['https://example.com/photos/photo.jpg'],
           description: 'My event @ my place',
+          offers: [
+            {
+              '@type': 'Offer',
+              price: '119.99',
+              priceCurrency: 'USD',
+              priceValidUntil: '2020-11-05',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.com/offer',
+              seller: {
+                '@type': 'Organization',
+                name: 'John Doe',
+              },
+            },
+            {
+              '@type': 'Offer',
+              price: '139.99',
+              priceCurrency: 'CAD',
+              priceValidUntil: '2020-09-05',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.ca/other-offer',
+              seller: {
+                '@type': 'Organization',
+                name: 'John Doe sr.',
+              },
+            },
+          ],
+          performer: [
+            {
+              '@type': 'PerformingGroup',
+              name: 'Adele',
+            },
+            {
+              '@type': 'PerformingGroup',
+              name: 'Kira and Morrison',
+            },
+          ],
         });
       });
   });
@@ -788,6 +1001,212 @@ describe('Validates JSON-LD For:', () => {
         };
 
         expect(jsonLD).to.deep.equal(expectedObject);
+      });
+  });
+
+  it('Sitelinks Search Box', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(
+          tags[siteLinksSearchBoxLdJsonIndex].innerHTML,
+        );
+        assertSchema(schemas)('Sitelinks Search Box', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Sitelinks Search Box Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(
+          tags[siteLinksSearchBoxLdJsonIndex].innerHTML,
+        );
+        const expectedObject = {
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          url: 'https://example.com',
+          potentialAction: [
+            {
+              '@type': 'SearchAction',
+              target: 'https://query.example.com/search?q={search_term_string}',
+              'query-input': 'required name=search_term_string',
+            },
+            {
+              '@type': 'SearchAction',
+              target:
+                'android-app://com.example/https/query.example.com/search/?q={search_term_string}',
+              'query-input': 'required name=search_term_string',
+            },
+          ],
+        };
+
+        expect(jsonLD).to.deep.equal(expectedObject);
+      });
+  });
+
+  it('Q&A Page', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[qaPageLdJsonIndex].innerHTML);
+        assertSchema(schemas)('Q&A Page', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Q&A Page Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[qaPageLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org',
+          '@type': 'QAPage',
+          mainEntity: {
+            '@type': 'Question',
+            name: 'How many ounces are there in a pound?',
+            text:
+              'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
+            answerCount: 3,
+            upvoteCount: 26,
+            dateCreated: '2016-07-23T21:11Z',
+            author: {
+              '@type': 'Person',
+              name: 'New Baking User',
+            },
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: '1 pound (lb) is equal to 16 ounces (oz).',
+              dateCreated: '2016-11-02T21:11Z',
+              upvoteCount: 1337,
+              url: 'https://example.com/question1#acceptedAnswer',
+              author: {
+                '@type': 'Person',
+                name: 'SomeUser',
+              },
+            },
+            suggestedAnswer: [
+              {
+                '@type': 'Answer',
+                text:
+                  'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
+                dateCreated: '2016-11-02T21:11Z',
+                upvoteCount: 42,
+                url: 'https://example.com/question1#suggestedAnswer1',
+                author: {
+                  '@type': 'Person',
+                  name: 'AnotherUser',
+                },
+              },
+              {
+                '@type': 'Answer',
+                text:
+                  "I can't remember exactly, but I think 18 ounces in a lb. You might want to double check that.",
+                dateCreated: '2016-11-06T21:11Z',
+                upvoteCount: 0,
+                url: 'https://example.com/question1#suggestedAnswer2',
+                author: {
+                  '@type': 'Person',
+                  name: 'ConfusedUser',
+                },
+              },
+            ],
+          },
+        });
+      });
+  });
+
+  it('CollectionPage', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[collectionPageLdJsonIndex].innerHTML);
+        assertSchema(schemas)('CollectionPage', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('CollectionPage Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[collectionPageLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: 'Resistance 3: Fall of Man',
+          hasPart: [
+            {
+              '@type': 'CreativeWork',
+              about:
+                'Britten Four Sea Interludes and Passacaglia from Peter Grimes',
+              author: 'John Doe',
+              name: 'Schema.org Ontology',
+              audience: 'Internet',
+              keywords: 'schema',
+              thumbnailUrl: 'https://i.ytimg.com/vi/eXSJ3PO9Tas/hqdefault.jpg',
+              image: 'hqdefault.jpg',
+              datePublished: '2021-03-09',
+            },
+            {
+              '@type': 'CreativeWork',
+              about: 'Shostakovich Symphony No. 7 (Leningrad)',
+              author: 'John Smith',
+              name: 'Creative work name',
+              datePublished: '2014-10-01T19:30',
+            },
+          ],
+        });
+      });
+  });
+
+  it('ProfilePage', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[profilePageLdJsonIndex].innerHTML);
+        assertSchema(schemas)('ProfilePage', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('ProfilePage Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[profilePageLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org',
+          '@type': 'ProfilePage',
+          lastReviewed: '2014-10-01T19:30',
+          breadcrumb: {
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                item: {
+                  '@id': 'https://example.com/books',
+                  name: 'Books',
+                },
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                item: {
+                  '@id': 'https://example.com/books/authors',
+                  name: 'Authors',
+                },
+              },
+            ],
+          },
+        });
       });
   });
 
@@ -1122,6 +1541,44 @@ describe('Validates JSON-LD For:', () => {
               },
             },
           ],
+        };
+
+        expect(jsonLD).to.deep.equal(expectedObject);
+      });
+  });
+
+  it('Software App', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[softwareAppJsonIndex].innerHTML);
+        assertSchema(schemas)('Software App', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Software App Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[softwareAppJsonIndex].innerHTML);
+        const expectedObject = {
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: 'Angry Birds',
+          operatingSystem: 'ANDROID',
+          applicationCategory: 'GameApplication',
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.6',
+            ratingCount: '8864',
+          },
+          offers: {
+            '@type': 'Offer',
+            price: '1.00',
+            priceCurrency: 'USD',
+          },
         };
 
         expect(jsonLD).to.deep.equal(expectedObject);

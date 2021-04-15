@@ -15,10 +15,15 @@ import {
   EventJsonLd,
   DatasetJsonLd,
   RecipeJsonLd,
+  SiteLinksSearchBoxJsonLd,
+  QAPageJsonld,
+  SoftwareAppJsonLd,
+  ProfilePageJsonLd,
+  CollectionPageJsonLd,
 } from '../..';
 import Links from '../components/links';
 
-export default () => (
+const JsonLD = () => (
   <>
     <h1>All JSON-LD</h1>
     <ArticleJsonLd
@@ -130,6 +135,82 @@ export default () => (
           validThrough: '2020-04-02',
         },
       ]}
+      rating={{
+        ratingValue: '4.5',
+        ratingCount: '2',
+      }}
+      review={[
+        {
+          author: 'John Doe',
+          datePublished: '2006-05-04',
+          name: 'A masterpiece of literature',
+          reviewBody:
+            'I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.',
+          reviewRating: {
+            bestRating: '5',
+            worstRating: '1',
+            reviewAspect: 'Ambiance',
+            ratingValue: '4',
+          },
+        },
+        {
+          author: 'Bob Smith',
+          datePublished: '2006-06-15',
+          name: 'A good read.',
+          reviewBody:
+            "Catcher in the Rye is a fun book. It's a good book to read.",
+          reviewRating: {
+            ratingValue: '4',
+          },
+        },
+      ]}
+      makesOffer={[
+        {
+          priceSpecification: {
+            type: 'UnitPriceSpecification',
+            priceCurrency: 'EUR',
+            price: '1000-10000',
+          },
+          itemOffered: {
+            name: 'Motion Design Services',
+            description:
+              'We are the expert of animation and motion design productions.',
+          },
+        },
+        {
+          priceSpecification: {
+            type: 'UnitPriceSpecification',
+            priceCurrency: 'EUR',
+            price: '2000-10000',
+          },
+          itemOffered: {
+            name: 'Branding Services',
+            description:
+              'Real footage is a powerful tool when it comes to show what the business is about. Can be used to present your company, show your factory, promote a product packshot, or just tell any story. It can help create emotional links with your audience by showing punchy images.',
+          },
+        },
+      ]}
+      areaServed={[
+        {
+          geoMidpoint: {
+            latitude: '41.108237',
+            longitude: '-80.642982',
+          },
+          geoRadius: '1000',
+        },
+        {
+          geoMidpoint: {
+            latitude: '51.108237',
+            longitude: '-80.642982',
+          },
+          geoRadius: '1000',
+        },
+      ]}
+      action={{
+        actionName: 'potentialAction',
+        actionType: 'ReviewAction',
+        target: 'https://www.example.com/review/this/business',
+      }}
     />
 
     <LogoJsonLd
@@ -152,6 +233,16 @@ export default () => (
       ]}
       description="Sleeker than ACME's Classic Anvil, the Executive Anvil is perfect for the business traveler looking for something to drop from a height."
       brand="ACME"
+      color="blue"
+      manufacturerName="Gary Meehan"
+      manufacturerLogo="https://www.example.com/photos/logo.jpg"
+      material="steel"
+      slogan="For the business traveller looking for something to drop from a height."
+      disambiguatingDescription="Executive Anvil, perfect for the business traveller."
+      releaseDate="2014-02-05T08:00:00+08:00"
+      productionDate="2015-02-05T08:00:00+08:00"
+      purchaseDate="2015-02-06T08:00:00+08:00"
+      award="Best Executive Anvil Award."
       reviews={[
         {
           author: {
@@ -174,8 +265,10 @@ export default () => (
         },
       ]}
       aggregateRating={{
-        ratingValue: '4.4',
+        ratingValue: '44',
         reviewCount: '89',
+        ratingCount: '684',
+        bestRating: '100',
       }}
       offers={[
         {
@@ -307,6 +400,34 @@ export default () => (
       applicantLocationRequirements="FR"
     />
 
+    <JobPostingJsonLd
+      datePosted="2020-01-06T03:37:40Z"
+      description="Company is looking for another software developer...."
+      hiringOrganization={{
+        name: 'company name',
+        sameAs: 'http://www.company-website-url.dev',
+        logo: 'http://www.company-website-url.dev/images/logo.png',
+      }}
+      jobLocation={{
+        streetAddress: '17 street address',
+        addressLocality: 'Paris',
+        addressRegion: 'Ile-de-France',
+        postalCode: '75001',
+        addressCountry: 'France',
+      }}
+      title="Job Title #2"
+      baseSalary={{
+        currency: 'EUR',
+        value: [40, 75],
+        unitText: 'HOUR',
+      }}
+      employmentType="FULL_TIME"
+      jobLocationType="TELECOMMUTE"
+      validThrough="2020-01-06"
+      applicantLocationRequirements="FR"
+      keyOverride="second-job-posting-with-salary-range"
+    />
+
     <EventJsonLd
       name="My Event"
       startDate="2020-01-23T00:00:00.000Z"
@@ -325,6 +446,42 @@ export default () => (
       url="https://example.com/my-event"
       images={['https://example.com/photos/photo.jpg']}
       description="My event @ my place"
+      offers={[
+        {
+          price: '119.99',
+          priceCurrency: 'USD',
+          priceValidUntil: '2020-11-05',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.com/offer',
+          seller: {
+            name: 'John Doe',
+          },
+        },
+        {
+          price: '139.99',
+          priceCurrency: 'CAD',
+          priceValidUntil: '2020-09-05',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.ca/other-offer',
+          seller: {
+            name: 'John Doe sr.',
+          },
+        },
+      ]}
+      aggregateOffer={{
+        priceCurrency: 'USD',
+        lowPrice: '119.99',
+        highPrice: '139.99',
+        offerCount: '5',
+      }}
+      performers={[
+        {
+          name: 'Adele',
+        },
+        {
+          name: 'Kira and Morrison',
+        },
+      ]}
     />
 
     <DatasetJsonLd
@@ -390,6 +547,112 @@ export default () => (
       }}
     />
 
+    <SiteLinksSearchBoxJsonLd
+      url="https://example.com"
+      potentialActions={[
+        {
+          target: 'https://query.example.com/search?q',
+          queryInput: 'search_term_string',
+        },
+        {
+          target: 'android-app://com.example/https/query.example.com/search/?q',
+          queryInput: 'search_term_string',
+        },
+      ]}
+    />
+
+    <QAPageJsonld
+      mainEntity={{
+        name: 'How many ounces are there in a pound?',
+        text:
+          'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
+        answerCount: 3,
+        upvotedCount: 26,
+        dateCreated: '2016-07-23T21:11Z',
+        author: { name: 'New Baking User' },
+        acceptedAnswer: {
+          text: '1 pound (lb) is equal to 16 ounces (oz).',
+          dateCreated: '2016-11-02T21:11Z',
+          upvotedCount: 1337,
+          url: 'https://example.com/question1#acceptedAnswer',
+          author: {
+            name: 'SomeUser',
+          },
+        },
+        suggestedAnswer: [
+          {
+            text:
+              'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
+            dateCreated: '2016-11-02T21:11Z',
+            upvotedCount: 42,
+            url: 'https://example.com/question1#suggestedAnswer1',
+            author: {
+              name: 'AnotherUser',
+            },
+          },
+          {
+            text: `I can't remember exactly, but I think 18 ounces in a lb. You might want to double check that.`,
+            dateCreated: '2016-11-06T21:11Z',
+            upvotedCount: 0,
+            url: 'https://example.com/question1#suggestedAnswer2',
+            author: {
+              name: 'ConfusedUser',
+            },
+          },
+        ],
+      }}
+    />
+
+    <SoftwareAppJsonLd
+      name="Angry Birds"
+      price="1.00"
+      priceCurrency="USD"
+      aggregateRating={{ ratingValue: '4.6', ratingCount: '8864' }}
+      operatingSystem="ANDROID"
+      applicationCategory="GameApplication"
+    />
+
+    <CollectionPageJsonLd
+      name="Resistance 3: Fall of Man"
+      hasPart={[
+        {
+          about:
+            'Britten Four Sea Interludes and Passacaglia from Peter Grimes',
+          author: 'John Doe',
+          name: 'Schema.org Ontology',
+          datePublished: '2021-03-09',
+          audience: 'Internet',
+          keywords: 'schema',
+          thumbnailUrl: 'https://i.ytimg.com/vi/eXSJ3PO9Tas/hqdefault.jpg',
+          image: 'hqdefault.jpg',
+        },
+        {
+          about: 'Shostakovich Symphony No. 7 (Leningrad)',
+          author: 'John Smith',
+          name: 'Creative work name',
+          datePublished: '2014-10-01T19:30',
+        },
+      ]}
+    />
+
+    <ProfilePageJsonLd
+      lastReviewed="2014-10-01T19:30"
+      breadcrumb={[
+        {
+          position: 1,
+          name: 'Books',
+          item: 'https://example.com/books',
+        },
+        {
+          position: 2,
+          name: 'Authors',
+          item: 'https://example.com/books/authors',
+        },
+      ]}
+    />
+
     <Links />
   </>
 );
+
+export default JsonLD;

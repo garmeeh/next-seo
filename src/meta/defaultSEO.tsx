@@ -9,6 +9,7 @@ export default class extends Component<DefaultSeoProps, {}> {
     const {
       title,
       titleTemplate,
+      defaultTitle,
       dangerouslySetAllPagesToNoIndex = false,
       dangerouslySetAllPagesToNoFollow = false,
       description,
@@ -23,6 +24,7 @@ export default class extends Component<DefaultSeoProps, {}> {
       defaultOpenGraphVideoHeight,
       mobileAlternate,
       languageAlternates,
+      additionalLinkTags,
     } = this.props;
 
     return (
@@ -30,6 +32,7 @@ export default class extends Component<DefaultSeoProps, {}> {
         {buildTags({
           title,
           titleTemplate,
+          defaultTitle,
           dangerouslySetAllPagesToNoIndex,
           dangerouslySetAllPagesToNoFollow,
           description,
@@ -44,6 +47,7 @@ export default class extends Component<DefaultSeoProps, {}> {
           defaultOpenGraphVideoHeight,
           mobileAlternate,
           languageAlternates,
+          additionalLinkTags,
         })}
       </Head>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import { NextSeo } from '../..';
 import Links from '../components/links';
 
-export default () => (
+const Video = () => (
   <>
     <NextSeo
       title="Video Page Title"
@@ -78,3 +78,5 @@ export default () => (
     <Links />
   </>
 );
+
+export default Video;

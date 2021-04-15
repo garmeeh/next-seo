@@ -3,18 +3,22 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 import formatIfArray from '../utils/formatIfArray';
-type ReviewRating = {
+import { AggregateOffer, Offers } from '../types';
+import { buildOffers } from '../utils/buildOffers';
+import { buildAggregateOffer } from '../utils/buildAggregateOffer';
+
+export type ReviewRating = {
   bestRating?: string;
   ratingValue: string;
   worstRating?: string;
 };
 
-type Author = {
+export type Author = {
   type: string;
   name: string;
 };
 
-type Publisher = {
+export type Publisher = {
   type: string;
   name: string;
 };
@@ -28,28 +32,11 @@ export type Review = {
   reviewRating: ReviewRating;
 };
 
-type Offers = {
-  price: string;
-  priceCurrency: string;
-  priceValidUntil?: string;
-  itemCondition?: string;
-  availability?: string;
-  url?: string;
-  seller: {
-    name: string;
-  };
-};
-
-type AggregateOffer = {
-  priceCurrency: string;
-  lowPrice: string;
-  highPrice?: string;
-  offerCount?: string;
-};
-
 export type AggregateRating = {
   ratingValue: string;
-  reviewCount: string;
+  reviewCount?: string;
+  ratingCount?: string;
+  bestRating?: string;
 };
 
 export interface ProductJsonLdProps {
@@ -67,6 +54,16 @@ export interface ProductJsonLdProps {
   gtin13?: string;
   gtin14?: string;
   mpn?: string;
+  color?: string;
+  manufacturerName?: string;
+  manufacturerLogo?: string;
+  material?: string | ProductJsonLdProps;
+  slogan?: string;
+  disambiguatingDescription?: string;
+  productionDate?: string;
+  purchaseDate?: string;
+  releaseDate?: string;
+  award?: string;
 }
 
 const buildBrand = (brand: string) => `
@@ -100,7 +97,7 @@ export const buildPublisher = (publisher: Publisher) => `
   },
 `;
 
-const buildReviews = (reviews: Review[]) => `
+export const buildReviews = (reviews: Review[]) => `
 "review": [
   ${reviews.map(
     review => `{
@@ -118,50 +115,26 @@ const buildReviews = (reviews: Review[]) => `
   }`,
   )}],`;
 
-const buildAggregateRating = (aggregateRating: AggregateRating) => `
+export const buildAggregateRating = (aggregateRating: AggregateRating) => `
   "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "${aggregateRating.ratingValue}",
-      "reviewCount": "${aggregateRating.reviewCount}"
+      ${
+        aggregateRating.ratingCount
+          ? `"ratingCount": "${aggregateRating.ratingCount}",`
+          : ''
+      }
+      ${
+        aggregateRating.reviewCount
+          ? `"reviewCount": "${aggregateRating.reviewCount}",`
+          : ''
+      }
+      ${
+        aggregateRating.bestRating
+          ? `"bestRating": "${aggregateRating.bestRating}",`
+          : ''
+      }
+      "ratingValue": "${aggregateRating.ratingValue}"
     },
-`;
-
-// TODO: Docs for offers itemCondition & availability
-// TODO: Seller type, make dynamic
-const buildOffers = (offers: Offers) => `
-  {
-    "@type": "Offer",
-    "priceCurrency": "${offers.priceCurrency}",
-    ${
-      offers.priceValidUntil
-        ? `"priceValidUntil": "${offers.priceValidUntil}",`
-        : ''
-    }
-    ${offers.itemCondition ? `"itemCondition": "${offers.itemCondition}",` : ''}
-    ${offers.availability ? `"availability": "${offers.availability}",` : ''}
-    ${offers.url ? `"url": "${offers.url}",` : ''}
-    ${
-      offers.seller
-        ? `
-      "seller": {
-      "@type": "Organization",
-      "name": "${offers.seller.name}"
-    },
-    `
-        : ''
-    }
-    "price": "${offers.price}"
-  }
-`;
-
-const buildAggregateOffer = (offer: AggregateOffer) => `
-  {
-    "@type": "AggregateOffer",
-    "priceCurrency": "${offer.priceCurrency}",
-    ${offer.highPrice ? `"highPrice": "${offer.highPrice}",` : ''}
-    ${offer.offerCount ? `"offerCount": "${offer.offerCount}",` : ''}
-    "lowPrice": "${offer.lowPrice}"
-  }
 `;
 
 const ProductJsonLd: FC<ProductJsonLdProps> = ({
@@ -179,6 +152,16 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
   aggregateRating,
   offers,
   aggregateOffer,
+  color,
+  manufacturerName,
+  manufacturerLogo,
+  material,
+  slogan,
+  disambiguatingDescription,
+  productionDate,
+  releaseDate,
+  purchaseDate,
+  award,
 }) => {
   const jslonld = `{
     "@context": "https://schema.org/",
@@ -193,6 +176,26 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
     ${brand ? buildBrand(brand) : ''}
     ${reviews.length ? buildReviews(reviews) : ''}
     ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
+    ${color ? `"color": "${color}",` : ''}
+    ${material ? `"material": "${material}",` : ''}
+    ${slogan ? `"slogan": "${slogan}",` : ''}
+    ${
+      disambiguatingDescription
+        ? `"disambiguatingDescription": "${disambiguatingDescription}",`
+        : ''
+    }
+    ${productionDate ? `"productionDate": "${productionDate}",` : ''}
+    ${releaseDate ? `"releaseDate": "${releaseDate}",` : ''}
+    ${purchaseDate ? `"purchaseDate": "${purchaseDate}",` : ''}
+    ${award ? `"award": "${award}",` : ''}
+    "manufacturer": {
+      "@type": "Organization",
+      "name": "${manufacturerName}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "${manufacturerLogo}"
+      }
+    },
     ${
       offers
         ? `"offers": ${

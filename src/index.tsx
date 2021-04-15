@@ -33,10 +33,27 @@ export {
 } from './jsonld/newsarticle';
 export { default as EventJsonLd, EventJsonLdProps } from './jsonld/event';
 export { default as VideoJsonLd, VideoJsonLdProps } from './jsonld/video';
+export { default as QAPageJsonld, QAPageJsonldProps } from './jsonld/qaPage';
 export { default as RecipeJsonLd, RecipeJsonLdProps } from './jsonld/recipe';
 export {
   default as CarouselJsonLd,
   CarouselJsonLdProps,
 } from './jsonld/carousel';
+export {
+  default as SiteLinksSearchBoxJsonLd,
+  SiteLinksSearchBoxJsonLdProps,
+} from './jsonld/siteLinksSearchBox';
+export {
+  default as SoftwareAppJsonLd,
+  SoftwareAppJsonLdProps,
+} from './jsonld/softwareApp';
+export {
+  default as CollectionPageJsonLd,
+  CollectionPageJsonLdProps,
+} from './jsonld/collectionPage';
+export {
+  default as ProfilePageJsonLd,
+  ProfilePageJsonLdProps,
+} from './jsonld/profilePage';
 
 export { DefaultSeoProps, NextSeoProps } from './types';

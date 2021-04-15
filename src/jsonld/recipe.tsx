@@ -7,16 +7,32 @@ import buildVideo from '../utils/buildVideo';
 
 import { Video } from '../types';
 
-type AggregateRating = {
+export type AggregateRating = {
   ratingValue: string;
-  ratingCount: string;
+  reviewCount?: string;
+  ratingCount?: string;
+  bestRating?: string;
 };
 
 export const buildAggregateRating = (aggregateRating: AggregateRating) => `
   "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": "${aggregateRating.ratingValue}",
-      "ratingCount": "${aggregateRating.ratingCount}"
+      ${
+        aggregateRating.ratingCount
+          ? `"ratingCount": "${aggregateRating.ratingCount}",`
+          : ''
+      }
+      ${
+        aggregateRating.reviewCount
+          ? `"reviewCount": "${aggregateRating.reviewCount}",`
+          : ''
+      }
+      ${
+        aggregateRating.bestRating
+          ? `"bestRating": "${aggregateRating.bestRating}",`
+          : ''
+      }
+      "ratingValue": "${aggregateRating.ratingValue}"
     },
 `;
 

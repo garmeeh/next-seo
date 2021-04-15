@@ -2,7 +2,7 @@ import React from 'react';
 import { NextSeo } from '../..';
 import Links from '../components/links';
 
-export default () => (
+const Overridden = () => (
   <>
     <NextSeo
       noindex={true}
@@ -71,8 +71,31 @@ export default () => (
       facebook={{
         appId: '987654321',
       }}
+      additionalMetaTags={[
+        {
+          property: 'dc:creator',
+          content: 'Jane Doe',
+        },
+        {
+          name: 'application-name',
+          content: 'NextSeo',
+        },
+        {
+          httpEquiv: 'x-ua-compatible',
+          content: 'IE=edge; chrome=1',
+        },
+      ]}
+      additionalLinkTags={[
+        {
+          rel: 'apple-touch-icon',
+          href: 'https://www.test.ie/touch-icon-iphone.jpg',
+          sizes: '180x180',
+        },
+      ]}
     />
     <h1>Overridden Seo</h1>
     <Links />
   </>
 );
+
+export default Overridden;

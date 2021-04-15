@@ -22,7 +22,7 @@ export interface Address {
   addressCountry: string;
 }
 
-export interface Video {  
+export interface Video {
   name: string;
   description: string;
   thumbnailUrls: string[];
@@ -41,13 +41,32 @@ export interface Clip {
   name: string;
   startOffset: number;
   url: string;
-};
+}
 
 export interface BroadcastEvent {
   name?: string;
   isLiveBroadcast: boolean;
   startDate: string;
   endDate: string;
+}
+
+export type Offers = {
+  price: string;
+  priceCurrency: string;
+  priceValidUntil?: string;
+  itemCondition?: string;
+  availability?: string;
+  url?: string;
+  seller: {
+    name: string;
+  };
+};
+
+export type AggregateOffer = {
+  priceCurrency: string;
+  lowPrice: string;
+  highPrice?: string;
+  offerCount?: string;
 };
 
 export interface OpenGraphVideoActors {
@@ -122,27 +141,65 @@ interface LanguageAlternate {
   href: string;
 }
 
+interface LinkTag {
+  rel: string;
+  href: string;
+  sizes?: string;
+  type?: string;
+  color?: string;
+  keyOverride?: string;
+}
+
 export interface BaseMetaTag {
   content: string;
+  keyOverride?: string;
 }
 
 export interface HTML5MetaTag extends BaseMetaTag {
   name: string;
   property?: undefined;
+  httpEquiv?: undefined;
 }
 
 export interface RDFaMetaTag extends BaseMetaTag {
   property: string;
   name?: undefined;
+  httpEquiv?: undefined;
 }
 
-export type MetaTag = HTML5MetaTag | RDFaMetaTag;
+export interface HTTPEquivMetaTag extends BaseMetaTag {
+  httpEquiv:
+    | 'content-security-policy'
+    | 'content-type'
+    | 'default-style'
+    | 'x-ua-compatible'
+    | 'refresh';
+  name?: undefined;
+  property?: undefined;
+}
+
+export type MetaTag = HTML5MetaTag | RDFaMetaTag | HTTPEquivMetaTag;
+
+export type ImagePrevSize = 'none' | 'standard' | 'large';
+
+export interface AdditionalRobotsProps {
+  nosnippet?: boolean;
+  maxSnippet?: number;
+  maxImagePreview?: ImagePrevSize;
+  maxVideoPreview?: number;
+  noarchive?: boolean;
+  unavailableAfter?: string;
+  noimageindex?: boolean;
+  notranslate?: boolean;
+}
 
 export interface NextSeoProps {
   title?: string;
   titleTemplate?: string;
+  defaultTitle?: string;
   noindex?: boolean;
   nofollow?: boolean;
+  robotsProps?: AdditionalRobotsProps;
   description?: string;
   canonical?: string;
   mobileAlternate?: MobileAlternate;
@@ -151,6 +208,7 @@ export interface NextSeoProps {
   facebook?: { appId: string };
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
+  additionalLinkTags?: ReadonlyArray<LinkTag>;
 }
 
 export interface DefaultSeoProps extends NextSeoProps {

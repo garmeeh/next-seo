@@ -9,6 +9,7 @@ export default class extends Component<NextSeoProps, {}> {
       title,
       noindex = false,
       nofollow,
+      robotsProps,
       description,
       canonical,
       openGraph,
@@ -18,6 +19,7 @@ export default class extends Component<NextSeoProps, {}> {
       titleTemplate,
       mobileAlternate,
       languageAlternates,
+      additionalLinkTags,
     } = this.props;
 
     return (
@@ -26,6 +28,7 @@ export default class extends Component<NextSeoProps, {}> {
           title,
           noindex,
           nofollow,
+          robotsProps,
           description,
           canonical,
           facebook,
@@ -35,6 +38,7 @@ export default class extends Component<NextSeoProps, {}> {
           titleTemplate,
           mobileAlternate,
           languageAlternates,
+          additionalLinkTags,
         })}
       </Head>
     );

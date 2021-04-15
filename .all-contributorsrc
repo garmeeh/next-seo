@@ -342,6 +342,170 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "pbrandone",
+      "name": "Pedro Brandão",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/5202712?v=4",
+      "profile": "https://github.com/pbrandone",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "omar-dulaimi",
+      "name": "Omar Dulaimi",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/11743389?v=4",
+      "profile": "https://github.com/omar-dulaimi",
+      "contributions": [
+        "doc",
+        "test",
+        "code"
+      ]
+    },
+    {
+      "login": "rodzy",
+      "name": "Isaac Rodríguez",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/49137701?v=4",
+      "profile": "http://rodzy.vercel.app",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "IainMcHugh",
+      "name": "Iain McHugh",
+      "avatar_url": "https://avatars.githubusercontent.com/u/46798029?v=4",
+      "profile": "https://iainmchugh.github.io/portfolio/",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "simonschllng",
+      "name": "Simon",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5861026?v=4",
+      "profile": "https://www.wiedergruen.com",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "trevorblades",
+      "name": "Trevor Blades",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1216917?v=4",
+      "profile": "https://trevorblades.com",
+      "contributions": [
+        "doc",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "paambaati",
+      "name": "GP",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5381764?v=4",
+      "profile": "https://httgp.com",
+      "contributions": [
+        "doc",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "sebascomeau",
+      "name": "Sébastien Comeau",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2814465?v=4",
+      "profile": "https://twitter.com/sebascomeau",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "shaswatsaxena",
+      "name": "Shaswat Saxena",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12628996?v=4",
+      "profile": "https://infilimits.com",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "Roohn",
+      "name": "Ronald",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22071649?v=4",
+      "profile": "https://github.com/Roohn",
+      "contributions": [
+        "doc",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "MrNossiom",
+      "name": "Milo Moisson",
+      "avatar_url": "https://avatars.githubusercontent.com/u/43814157?v=4",
+      "profile": "https://github.com/MrNossiom",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "adrianu197",
+      "name": "adrianu197",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33718513?v=4",
+      "profile": "https://github.com/adrianu197",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "kaykdm",
+      "name": "kaykdm",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34934746?v=4",
+      "profile": "https://github.com/kaykdm",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "Apolexian",
+      "name": "Ivan Nikitin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/20223409?v=4",
+      "profile": "http://www.apolexian.xyz",
+      "contributions": [
+        "doc",
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "hsynlms",
+      "name": "Huseyin ELMAS",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1780171?v=4",
+      "profile": "https://github.com/hsynlms",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "AryanBeezadhur",
+      "name": "Aryan Beezadhur",
+      "avatar_url": "https://avatars.githubusercontent.com/u/34424160?v=4",
+      "profile": "https://aryanbeezadhur.com",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

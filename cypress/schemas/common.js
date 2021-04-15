@@ -50,6 +50,10 @@ export const aggregateRating100 = {
         type: 'string',
         description: 'The count of total number of reviews.',
       },
+      bestRating: {
+        type: 'string',
+        description: 'Highest rating',
+      },
     },
     example: {
       '@type': 'AggregateRating',

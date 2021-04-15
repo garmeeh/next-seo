@@ -100,6 +100,41 @@ describe('SEO Meta', () => {
       'content',
       'summary_large_image',
     );
+    cy.get('head link[rel="icon"]').should(
+      'have.attr',
+      'href',
+      'https://www.test.ie/favicon.ico',
+    );
+    cy.get('head link[rel="apple-touch-icon"]')
+      .should('have.length', 2)
+      .then(tags => {
+        expect(tags[0].sizes[0]).to.equal('76x76');
+        expect(tags[1].sizes[0]).to.equal('120x120');
+      });
+    cy.get('head link[rel="mask-icon"]')
+      .should('have.attr', 'href', 'https://www.test.ie/safari-pinned-tab.svg')
+      .should('have.attr', 'color', '#193860');
+    cy.get('head link[rel="manifest"]').should(
+      'have.attr',
+      'href',
+      '/manifest.json',
+    );
+  });
+
+  it('SEO Robots props applied correctly', () => {
+    cy.visit('http://localhost:3000/robots');
+    cy.get('h1').should('contain', 'Robots meta properties');
+    cy.get('head title').should('contain', 'Robots meta title');
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate',
+    );
+    cy.get('head meta[name="googlebot"]').should(
+      'have.attr',
+      'content',
+      'index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate',
+    );
   });
 
   it('SEO overrides apply correctly', () => {
@@ -226,6 +261,28 @@ describe('SEO Meta', () => {
       'content',
       'summary_large_image',
     );
+    cy.get('head meta[property="dc:creator"]').should(
+      'have.attr',
+      'content',
+      'Jane Doe',
+    );
+    cy.get('head meta[name="application-name"]').should(
+      'have.attr',
+      'content',
+      'NextSeo',
+    );
+    cy.get('head meta[http-equiv="x-ua-compatible"]').should(
+      'have.attr',
+      'content',
+      'IE=edge; chrome=1',
+    );
+    cy.get('head link[rel="apple-touch-icon"]')
+      .should('have.length', 3)
+      .then(tags => {
+        expect(tags[0].sizes[0]).to.equal('76x76');
+        expect(tags[1].sizes[0]).to.equal('120x120');
+        expect(tags[2].sizes[0]).to.equal('180x180');
+      });
   });
 
   it('Profile SEO loads correctly', () => {
