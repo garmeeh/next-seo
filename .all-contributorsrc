@@ -487,6 +487,16 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "hsynlms",
+      "name": "Huseyin ELMAS",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1780171?v=4",
+      "profile": "https://github.com/hsynlms",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
