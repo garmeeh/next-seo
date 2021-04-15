@@ -233,6 +233,16 @@ const JsonLD = () => (
       ]}
       description="Sleeker than ACME's Classic Anvil, the Executive Anvil is perfect for the business traveler looking for something to drop from a height."
       brand="ACME"
+      color="blue"
+      manufacturerName="Gary Meehan"
+      manufacturerLogo="https://www.example.com/photos/logo.jpg"
+      material="steel"
+      slogan="For the business traveller looking for something to drop from a height."
+      disambiguatingDescription="Executive Anvil, perfect for the business traveller."
+      releaseDate="2014-02-05T08:00:00+08:00"
+      productionDate="2015-02-05T08:00:00+08:00"
+      purchaseDate="2015-02-06T08:00:00+08:00"
+      award="Best Executive Anvil Award."
       reviews={[
         {
           author: {
@@ -599,7 +609,7 @@ const JsonLD = () => (
       operatingSystem="ANDROID"
       applicationCategory="GameApplication"
     />
-        
+
     <CollectionPageJsonLd
       name="Resistance 3: Fall of Man"
       hasPart={[

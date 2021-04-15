@@ -52,6 +52,16 @@ export interface ProductJsonLdProps {
   gtin13?: string;
   gtin14?: string;
   mpn?: string;
+  color?: string;
+  manufacturerName?: string;
+  manufacturerLogo?: string;
+  material?: string | ProductJsonLdProps;
+  slogan?: string;
+  disambiguatingDescription?: string;
+  productionDate?: string;
+  purchaseDate?: string;
+  releaseDate?: string;
+  award?: string;
 }
 
 const buildBrand = (brand: string) => `
@@ -126,6 +136,16 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
   aggregateRating,
   offers,
   aggregateOffer,
+  color,
+  manufacturerName,
+  manufacturerLogo,
+  material,
+  slogan,
+  disambiguatingDescription,
+  productionDate,
+  releaseDate,
+  purchaseDate,
+  award,
 }) => {
   const jslonld = `{
     "@context": "https://schema.org/",
@@ -140,6 +160,26 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
     ${brand ? buildBrand(brand) : ''}
     ${reviews.length ? buildReviews(reviews) : ''}
     ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
+    ${color ? `"color": "${color}",` : ''}
+    ${material ? `"material": "${material}",` : ''}
+    ${slogan ? `"slogan": "${slogan}",` : ''}
+    ${
+      disambiguatingDescription
+        ? `"disambiguatingDescription": "${disambiguatingDescription}",`
+        : ''
+    }
+    ${productionDate ? `"productionDate": "${productionDate}",` : ''}
+    ${releaseDate ? `"releaseDate": "${releaseDate}",` : ''}
+    ${purchaseDate ? `"purchaseDate": "${purchaseDate}",` : ''}
+    ${award ? `"award": "${award}",` : ''}
+    "manufacturer": {
+      "@type": "Organization",
+      "name": "${manufacturerName}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "${manufacturerLogo}"
+      }
+    },
     ${
       offers
         ? `"offers": ${

@@ -422,6 +422,24 @@ describe('Validates JSON-LD For:', () => {
             '@type': 'Thing',
             name: 'ACME',
           },
+          color: 'blue',
+          manufacturer: {
+            '@type': 'Organization',
+            name: 'Gary Meehan',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://www.example.com/photos/logo.jpg',
+            },
+          },
+          material: 'steel',
+          slogan:
+            'For the business traveller looking for something to drop from a height.',
+          disambiguatingDescription:
+            'Executive Anvil, perfect for the business traveller.',
+          releaseDate: '2014-02-05T08:00:00+08:00',
+          productionDate: '2015-02-05T08:00:00+08:00',
+          purchaseDate: '2015-02-06T08:00:00+08:00',
+          award: 'Best Executive Anvil Award.',
           review: [
             {
               '@type': 'Review',
