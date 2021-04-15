@@ -506,6 +506,15 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "TomPradat",
+      "name": "TomPradat",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16164512?v=4",
+      "profile": "https://github.com/TomPradat",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
