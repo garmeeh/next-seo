@@ -45,23 +45,10 @@ type Instruction = {
 
 export const buildInstruction = (instruction: Instruction) => `{
   "@type": "HowToStep",
-  ${
-    instruction.name
-      ? `"name": "${instruction.name}",`
-      : ''
-  }
-  ${
-    instruction.image
-      ? `"image": "${instruction.image}",`
-      : ''
-  }
-  ${
-    instruction.url
-      ? `"url": "${instruction.url}",`
-      : ''
-  }
-    "text": "${instruction.text}"
-  },
+  ${instruction.name ? `"name": "${instruction.name}",` : ''}
+  ${instruction.image ? `"image": "${instruction.image}",` : ''}
+  ${instruction.url ? `"url": "${instruction.url}",` : ''}
+  "text": "${instruction.text}"
 }`;
 
 export interface RecipeJsonLdProps {
