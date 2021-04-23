@@ -1,6 +1,10 @@
 import React from 'react';
-import { getByText, cleanup, render } from 'react-testing-library';
-import { BuildTagsParams, ImagePrevSize } from '../../types';
+import {
+  value getByText,
+  value cleanup,
+  value render,
+} from 'react-testing-library';
+import { value BuildTagsParams, value ImagePrevSize } from '../../types';
 
 import buildTags from '../buildTags';
 
@@ -884,8 +888,8 @@ it('correctly read noindex & nofollow false', () => {
     'meta[content="noindex,nofollow"]',
   );
 
-  expect(Array.from(indexfollow).length).toBe(0);
-  expect(Array.from(noindexnofollow).length).toBe(1);
+  expect(Array.from(indexfollow).length).toBe(1);
+  expect(Array.from(noindexnofollow).length).toBe(0);
 });
 
 it('correctly read all robots props', () => {
