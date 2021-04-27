@@ -2172,6 +2172,12 @@ const Page = () => (
           datePublished: '2014-10-01T19:30',
         },
       ]}
+      mainEntity={[
+        {
+          name: 'something else',
+          url: 'https://example.com/something-else',
+        },
+      ]}
     />
   </>
 );
@@ -2181,16 +2187,19 @@ export default Page;
 
 **Required properties**
 
-| Property  | Info                                                                                          |
-| --------- | --------------------------------------------------------------------------------------------- |
-| `name`    | The name of the item.                                                                         |
-| `hasPart` | Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense). |
+| Property       | Info                        |
+| -------------- | --------------------------- |
+| `name`         | The name of the item.       |
+| `dateModified` | The date of the last update |
 
 **Supported properties**
 
 | Property               | Info                                                                                                                                    |
 | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `hasPart`              | Indicates an item or CreativeWork that is part of this item, or CreativeWork (in some sense).                                           |
 | `hasPart.creativeWork` | The most generic kind of [creative work](https://schema.org/CreativeWork), including books, movies, photographs, software programs, etc |
+| `mainEntity`           | Indicates a list of [ListItem](https://schema.org/ListItem) objects                                                                     |
+| `mainEntity.listItem`  | Details of items on this page                                                                                                           |
 
 **`creativeWork` Required properties**
 
@@ -2209,6 +2218,13 @@ export default Page;
 | `hasPart.creativeWork.keywords`     | Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas. |
 | `hasPart.creativeWork.thumbnailUrl` | A thumbnail image relevant to the Thing.                                                                               |
 | `hasPart.creativeWork.image`        | An image of the item. This can be a URL or a fully described ImageObject.                                              |
+
+**`listItem` Required properties**
+
+| Property                   | Info                          |
+| -------------------------- | ----------------------------- |
+| `mainEntity.listItem.name` | The name of the item.         |
+| `mainEntity.listItem.url`  | The url relating to the item. |
 
 For reference and more info check [Collection Page DataType](https://schema.org/CollectionPage)
 
