@@ -70,6 +70,30 @@ const collectionPage100 = {
           },
         },
       },
+      mainEntity: {
+        type: 'object',
+        itemListElement: {
+          type: 'array',
+          properties: {
+            '@type': {
+              type: 'string',
+              description: 'ListItem',
+            },
+            name: {
+              type: 'string',
+              description: 'The name of the item',
+            },
+            url: {
+              type: 'string',
+              description: 'A link to the item',
+            },
+            position: {
+              type: 'number',
+              description: 'The index position in the list',
+            },
+          },
+        },
+      },
     },
     required: true,
     additionalProperties: false,

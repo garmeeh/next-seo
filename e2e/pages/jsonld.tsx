@@ -633,6 +633,12 @@ const JsonLD = () => (
           datePublished: '2014-10-01T19:30',
         },
       ]}
+      mainEntity={[
+        {
+          name: 'something else',
+          url: 'https://example.com/something-else',
+        },
+      ]}
     />
 
     <ProfilePageJsonLd

@@ -6,8 +6,15 @@ import markup from '../utils/markup';
 export interface CollectionPageJsonLdProps {
   keyOverride?: string;
   name: string;
-  hasPart: CreativeWork[];
+  hasPart?: CreativeWork[];
+  mainEntity?: ListItem[];
 }
+
+export interface ListItem {
+  name: string;
+  url: string;
+}
+
 export interface CreativeWork {
   author: string;
   about: string;
@@ -23,14 +30,17 @@ const CollectionPageJsonLd: FC<CollectionPageJsonLdProps> = ({
   keyOverride,
   name,
   hasPart = [],
+  mainEntity = [],
 }) => {
   const jslonld = `{
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "${name}",
     "hasPart": [
-      ${hasPart.map(
-        creativeWork => `{
+      ${
+        hasPart && hasPart.length > 0
+          ? hasPart.map(
+              creativeWork => `{
         "@type": "CreativeWork",
         "author": "${creativeWork.author}",
         "about": "${creativeWork.about}",
@@ -49,9 +59,28 @@ const CollectionPageJsonLd: FC<CollectionPageJsonLdProps> = ({
         ${creativeWork.image ? `"image": "${creativeWork.image}",` : ''}
         "datePublished": "${creativeWork.datePublished}"
       }`,
-      )}
-     ]
-  }`;
+            )
+          : ''
+      }
+    ]
+    ${
+      mainEntity && mainEntity.length > 0
+        ? `,"mainEntity": {
+        "@type": "ItemList",
+        "itemListElement": [
+          ${mainEntity.map(
+            (entity, index) => `{
+                "@type": "ListItem",
+                "name": "${entity.name}",
+                "url": "${entity.url}",
+                "position": ${index + 1}
+              }`,
+          )}
+        ]
+      }`
+        : ''
+    }
+    }`;
 
   return (
     <Head>

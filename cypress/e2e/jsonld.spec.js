@@ -1161,6 +1161,17 @@ describe('Validates JSON-LD For:', () => {
               datePublished: '2014-10-01T19:30',
             },
           ],
+          mainEntity: {
+            '@type': 'ItemList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                name: 'something else',
+                url: 'https://example.com/something-else',
+                position: 1,
+              },
+            ],
+          },
         });
       });
   });
