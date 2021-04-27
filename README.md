@@ -2153,6 +2153,7 @@ const Page = () => (
     <h1>Collection Page JSON-LD</h1>
     <CollectionPageJsonLd
       name="Resistance 3: Fall of Man"
+      dateModified="2021-04-26"
       hasPart={[
         {
           about:

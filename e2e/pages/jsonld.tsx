@@ -613,6 +613,7 @@ const JsonLD = () => (
     />
 
     <CollectionPageJsonLd
+      dateModified="2021-04-26"
       name="Resistance 3: Fall of Man"
       hasPart={[
         {

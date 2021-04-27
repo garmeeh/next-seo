@@ -24,6 +24,10 @@ const collectionPage100 = {
         type: 'string',
         description: 'The name of the item.',
       },
+      dateModified: {
+        type: 'string',
+        description: 'The date the last update was made to the content',
+      },
       hasPart: {
         type: 'array',
         item: {

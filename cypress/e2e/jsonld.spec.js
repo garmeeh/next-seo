@@ -1140,6 +1140,7 @@ describe('Validates JSON-LD For:', () => {
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
           name: 'Resistance 3: Fall of Man',
+          dateModified: '2021-04-26',
           hasPart: [
             {
               '@type': 'CreativeWork',

@@ -6,6 +6,7 @@ import markup from '../utils/markup';
 export interface CollectionPageJsonLdProps {
   keyOverride?: string;
   name: string;
+  dateModified: string;
   hasPart?: CreativeWork[];
   mainEntity?: ListItem[];
 }
@@ -29,6 +30,7 @@ export interface CreativeWork {
 const CollectionPageJsonLd: FC<CollectionPageJsonLdProps> = ({
   keyOverride,
   name,
+  dateModified,
   hasPart = [],
   mainEntity = [],
 }) => {
@@ -36,6 +38,7 @@ const CollectionPageJsonLd: FC<CollectionPageJsonLdProps> = ({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "name": "${name}",
+    "dateModified": "${dateModified}",
     "hasPart": [
       ${
         hasPart && hasPart.length > 0
