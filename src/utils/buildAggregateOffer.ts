@@ -3,9 +3,9 @@ import { AggregateOffer } from '../types';
 export const buildAggregateOffer = (offer: AggregateOffer) => `
   {
     "@type": "AggregateOffer",
-    "priceCurrency": "${offer.priceCurrency}",
-    ${offer.highPrice ? `"highPrice": "${offer.highPrice}",` : ''}
-    ${offer.offerCount ? `"offerCount": "${offer.offerCount}",` : ''}
-    "lowPrice": "${offer.lowPrice}"
+    "priceCurrency": "${escape(offer.priceCurrency)}",
+    ${offer.highPrice ? `"highPrice": "${escape(offer.highPrice)}",` : ''}
+    ${offer.offerCount ? `"offerCount": "${escape(offer.offerCount)}",` : ''}
+    "lowPrice": "${escape(offer.lowPrice)}"
   }
 `;

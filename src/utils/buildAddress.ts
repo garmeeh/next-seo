@@ -3,14 +3,14 @@ import { Address } from '../types';
 export default (address: Address) => `
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "${address.streetAddress}",
-    "addressLocality": "${address.addressLocality}",
+    "streetAddress": "${escape(address.streetAddress)}",
+    "addressLocality": "${escape(address.addressLocality)}",
     ${
       address.addressRegion
-        ? `"addressRegion": "${address.addressRegion}",`
+        ? `"addressRegion": "${escape(address.addressRegion)}",`
         : ''
     }
-    "postalCode": "${address.postalCode}",
-    "addressCountry": "${address.addressCountry}"
+    "postalCode": "${escape(address.postalCode)}",
+    "addressCountry": "${escape(address.addressCountry)}"
   },
 `;
