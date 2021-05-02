@@ -32,7 +32,7 @@ const BreadCrumbJsonLd: FC<BreadCrumbJsonLdProps> = ({
         }
       }`,
       )}
-     ]
+    ]
   }`;
 
   return (

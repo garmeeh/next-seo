@@ -35,12 +35,12 @@ const ArticleJsonLd: FC<ArticleJsonLdProps> = ({
     "@type": "Article",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "${escape(url)}"
+      "@id": "${url}"
     },
     "headline": "${escape(title)}",
     "image": [
       ${images.map(image => `"${image}"`)}
-     ],
+    ],
     "datePublished": "${datePublished}",
     "dateModified": "${dateModified || datePublished}",
     "author": ${formatAuthorName(authorName)},
