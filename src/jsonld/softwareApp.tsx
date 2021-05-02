@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 
+import escape from '../utils/escape';
 import markup from '../utils/markup';
 import {
   Review,
@@ -31,8 +32,12 @@ const buildReview = (review: Review) => `
             ? `"datePublished": "${review.datePublished}",`
             : ''
         }
-        ${review.reviewBody ? `"reviewBody": "${review.reviewBody}",` : ''}
-        ${review.name ? `"name": "${review.name}",` : ''}
+        ${
+          review.reviewBody
+            ? `"reviewBody": "${escape(review.reviewBody)}",`
+            : ''
+        }
+        ${review.name ? `"name": "${escape(review.name)}",` : ''}
         ${buildReviewRating(review.reviewRating)}
       },
   `;
@@ -57,13 +62,13 @@ const SoftwareAppJsonLd: FC<SoftwareAppJsonLdProps> = ({
     },
     ${
       applicationCategory
-        ? `"applicationCategory": "${applicationCategory}",`
+        ? `"applicationCategory": "${escape(applicationCategory)}",`
         : ''
     }
-    ${operatingSystem ? `"operatingSystem": "${operatingSystem}",` : ''}
+    ${operatingSystem ? `"operatingSystem": "${escape(operatingSystem)}",` : ''}
     ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
     ${review ? buildReview(review) : ''}
-    "name": "${name}"
+    "name": "${escape(name)}"
   }`;
 
   return (

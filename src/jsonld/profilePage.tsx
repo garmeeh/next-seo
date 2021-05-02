@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 
+import escape from '../utils/escape';
 import markup from '../utils/markup';
 
 export interface ProfilePageJsonLdProps {
@@ -27,7 +28,7 @@ const buildBreadcrumbList = (itemListElements: ItemListElements[]) => `[
     "position": ${itemListElement.position},
     "item": {
       "@id": "${itemListElement.item}",
-      "name": "${itemListElement.name}"
+      "name": "${escape(itemListElement.name)}"
     }
   }`,
   )}

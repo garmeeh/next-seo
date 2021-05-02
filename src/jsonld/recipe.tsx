@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 
+import escape from '../utils/escape';
 import markup from '../utils/markup';
 import formatAuthorName from '../utils/formatAuthorName';
 import buildVideo from '../utils/buildVideo';
@@ -29,8 +30,8 @@ type Instruction = {
 
 export const buildInstruction = (instruction: Instruction) => `{
   "@type": "HowToStep",
-  "name": "${instruction.name}",
-  "text": "${instruction.text}",
+  "name": "${escape(instruction.name)}",
+  "text": "${escape(instruction.text)}",
   "url": "${instruction.url}",
   "image": "${instruction.image}"
 }`;
@@ -77,8 +78,8 @@ const RecipeJsonLd: FC<RecipeJsonLdProps> = ({
   const jslonld = `{
     "@context": "https://schema.org/",
     "@type": "Recipe",
-    "name": "${name}",
-    "description": "${description}",
+    "name": "${escape(name)}",
+    "description": "${escape(description)}",
     "datePublished": "${datePublished}",
     "author": ${formatAuthorName(authorName)},
     "image": [
@@ -87,10 +88,10 @@ const RecipeJsonLd: FC<RecipeJsonLdProps> = ({
     ${prepTime ? `"prepTime": "${prepTime}",` : ``}
     ${cookTime ? `"cookTime": "${cookTime}",` : ``}
     ${totalTime ? `"totalTime": "${totalTime}",` : ``}
-    ${keywords ? `"keywords": "${keywords}",` : ``}
-    ${yields ? `"recipeYield": "${yields}",` : ``}
-    ${category ? `"recipeCategory": "${category}",` : ``}
-    ${cuisine ? `"recipeCuisine": "${cuisine}",` : ``}
+    ${keywords ? `"keywords": "${escape(keywords)}",` : ``}
+    ${yields ? `"recipeYield": "${escape(yields)}",` : ``}
+    ${category ? `"recipeCategory": "${escape(category)}",` : ``}
+    ${cuisine ? `"recipeCuisine": "${escape(cuisine)}",` : ``}
     ${
       calories
         ? `"nutrition": { "@type": "NutritionInformation", "calories": "${calories} calories" },`
@@ -99,7 +100,7 @@ const RecipeJsonLd: FC<RecipeJsonLdProps> = ({
     ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
     ${video ? `"video": ${buildVideo(video)},` : ''}
     "recipeIngredient": [
-      ${ingredients.map(ingredient => `"${ingredient}"`).join(',')}
+      ${ingredients.map(ingredient => `"${escape(ingredient)}"`).join(',')}
     ],
     "recipeInstructions": [
       ${instructions.map(buildInstruction).join(',')}

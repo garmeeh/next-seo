@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 
+import escape from '../utils/escape';
 import markup from '../utils/markup';
 import formatIfArray from '../utils/formatIfArray';
 import { AggregateOffer, Offers } from '../types';
@@ -74,14 +75,14 @@ export const buildReviewRating = (rating: ReviewRating) =>
 export const buildAuthor = (author: Author) => `
   "author": {
       "@type": "${author.type}",
-      "name": "${author.name}"
+      "name": "${escape(author.name)}"
   },
 `;
 
 export const buildPublisher = (publisher: Publisher) => `
   "publisher": {
       "@type": "${publisher.type}",
-      "name": "${publisher.name}"
+      "name": "${escape(publisher.name)}"
   },
 `;
 
@@ -131,7 +132,7 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
     "@context": "https://schema.org/",
     "@type": "Product",
     "image":${formatIfArray(images)},
-    ${description ? `"description": "${description}",` : ''}
+    ${description ? `"description": "${escape(description)}",` : ''}
     ${mpn ? `"mpn": "${mpn}",` : ''}
     ${sku ? `"sku": "${sku}",` : ''}
     ${gtin8 ? `"gtin8": "${gtin8}",` : ''}
@@ -154,7 +155,7 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
         ? `"offers": ${buildAggregateOffer(aggregateOffer)},`
         : ''
     }
-    "name": "${productName}"
+    "name": "${escape(productName)}"
   }`;
 
   return (

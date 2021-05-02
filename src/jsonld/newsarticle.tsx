@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 
+import escape from '../utils/escape';
 import markup from '../utils/markup';
 import formatAuthorName from '../utils/formatAuthorName';
 
@@ -44,26 +45,26 @@ const NewsArticleJsonLd: FC<NewsArticleJsonLdProps> = ({
       "@type": "WebPage",
       "@id": "${url}"
     },
-    "headline": "${title}",
+    "headline": "${escape(title)}",
     "image": [
       ${images.map(image => `"${image}"`)}
-     ],
-    "articleSection":"${section}",
-    "keywords": "${keywords}",
+    ],
+    "articleSection":"${escape(section)}",
+    "keywords": "${escape(keywords)}",
     "datePublished": "${datePublished}",
     "dateCreated": "${dateCreated || datePublished}",
     "dateModified": "${dateModified || datePublished}",
     "author": ${formatAuthorName(authorName)},
     "publisher": {
       "@type": "Organization",
-      "name": "${publisherName}",
+      "name": "${escape(publisherName)}",
       "logo": {
         "@type": "ImageObject",
         "url": "${publisherLogo}"
       }
     },
-    "description": "${description}",
-    "articleBody": "${body}"
+    "description": "${escape(description)}",
+    "articleBody": "${escape(body)}"
   }`;
 
   return (

@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
+
 export interface PotentialAction {
   target: string;
   queryInput: string;
@@ -29,7 +30,7 @@ const SiteLinksSearchBoxJsonLd: FC<SiteLinksSearchBoxJsonLdProps> = ({
         "query-input": "required name=${queryInput}"
       }`,
       )}
-     ]
+    ]
   }`;
   return (
     <Head>

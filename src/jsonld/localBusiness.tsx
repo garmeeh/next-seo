@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 
+import escape from '../utils/escape';
 import markup from '../utils/markup';
 import formatIfArray from '../utils/formatIfArray';
 import buildAddress from '../utils/buildAddress';
@@ -95,7 +96,7 @@ export interface LocalBusinessJsonLdProps {
 const buildAction = (action: Action) => `
   "${action.actionName}": {
     "@type": "${action.actionType}",
-    "target": "${action.target}"
+    "target": "${escape(action.target)}"
   }
 `;
 
@@ -190,10 +191,10 @@ const buildReview = (reviews: Review[]) => `
       review => `
       {
         "@type": "Review",
-        "author": "${review.author}",
+        "author": "${escape(review.author)}",
         "datePublished": "${review.datePublished}",
-        ${review.name ? `"name": "${review.name}",` : ''}
-        "reviewBody": "${review.reviewBody}",
+        ${review.name ? `"name": "${escape(review.name)}",` : ''}
+        "reviewBody": "${escape(review.reviewBody)}",
         "reviewRating": ${buildRating(review.reviewRating)}
       }
     `,
@@ -204,8 +205,8 @@ const buildReview = (reviews: Review[]) => `
 const buildItemOffered = (service: Service) => `
   "itemOffered": {
     "@type": "Service",
-    "name": "${service.name}",
-    "description": "${service.description}"
+    "name": "${escape(service.name)}",
+    "description": "${escape(service.description)}"
   }
 `;
 
@@ -234,7 +235,7 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
     "@context": "https://schema.org",
     "@type": "${type}",
     ${id ? `"@id": "${id}",` : ''}
-    ${description ? `"description": "${description}",` : ''}
+    ${description ? `"description": "${escape(description)}",` : ''}
     ${url ? `"url": "${url}",` : ''}
     ${telephone ? `"telephone": "${telephone}",` : ''}
     ${buildAddress(address)}
@@ -257,7 +258,7 @@ const LocalBusinessJsonLd: FC<LocalBusinessJsonLdProps> = ({
           },`
         : ''
     }
-    "name": "${name}"
+    "name": "${escape(name)}"
   }`;
 
   return (
