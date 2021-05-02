@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
+
 export interface ContactPoint {
   contactType: string;
   telephone: string;
@@ -37,7 +38,7 @@ const buildContactPoint = (contactPoint: ContactPoint[]) =>
     }${
       contact.contactOption
         ? `,
-    "contactOption": "${contact.contactOption}"`
+    "contactOption": "${formatIfArray(contact.contactOption)}"`
         : ''
     }
     }`,

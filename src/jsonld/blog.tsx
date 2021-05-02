@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
+import escape from '../utils/escape';
 import formatAuthorName from '../utils/formatAuthorName';
 
 export interface BlogJsonLdProps {
@@ -30,16 +31,16 @@ const BlogJsonLd: FC<BlogJsonLdProps> = ({
     "@type": "Blog",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "${url}"
+      "@id": "${escape(url)}"
     },
-    "headline": "${title}",
+    "headline": "${escape(title)}",
     "image": [
       ${images.map(image => `"${image}"`)}
      ],
     "datePublished": "${datePublished}",
     "dateModified": "${dateModified || datePublished}",
     "author": ${formatAuthorName(authorName)},
-    "description": "${description}"
+    "description": "${escape(description)}"
   }`;
 
   return (

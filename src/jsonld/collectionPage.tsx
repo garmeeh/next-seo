@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 
+import escape from '../utils/escape';
 import markup from '../utils/markup';
 
 export interface CollectionPageJsonLdProps {
@@ -32,14 +33,18 @@ const CollectionPageJsonLd: FC<CollectionPageJsonLdProps> = ({
       ${hasPart.map(
         creativeWork => `{
         "@type": "CreativeWork",
-        "author": "${creativeWork.author}",
-        "about": "${creativeWork.about}",
-        "name": "${creativeWork.name}",
+        "author": "${escape(creativeWork.author)}",
+        "about": "${escape(creativeWork.about)}",
+        "name": "${escape(creativeWork.name)}",
         ${
-          creativeWork.audience ? `"audience": "${creativeWork.audience}",` : ''
+          creativeWork.audience
+            ? `"audience": "${escape(creativeWork.audience)}",`
+            : ''
         }
         ${
-          creativeWork.keywords ? `"keywords": "${creativeWork.keywords}",` : ''
+          creativeWork.keywords
+            ? `"keywords": "${escape(creativeWork.keywords)}",`
+            : ''
         }
         ${
           creativeWork.thumbnailUrl
@@ -50,7 +55,7 @@ const CollectionPageJsonLd: FC<CollectionPageJsonLdProps> = ({
         "datePublished": "${creativeWork.datePublished}"
       }`,
       )}
-     ]
+    ]
   }`;
 
   return (

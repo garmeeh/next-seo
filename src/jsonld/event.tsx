@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 
+import escape from '../utils/escape';
 import markup from '../utils/markup';
 import formatIfArray from '../utils/formatIfArray';
 import buildAddress from '../utils/buildAddress';
@@ -36,14 +37,14 @@ const buildLocation = (location: Location) => `
     "@type": "Place",
     ${buildAddress(location.address)}
     ${location.sameAs ? `"sameAs": "${location.sameAs}",` : ``}
-    "name": "${location.name}"
+    "name": "${escape(location.name)}"
   },
 `;
 
 const buildPerformer = (performer: Performer) => `
   {
     "@type": "PerformingGroup",
-    "name": "${performer.name}"
+    "name": "${escape(performer.name)}"
   }
 `;
 
@@ -67,7 +68,7 @@ const EventJsonLd: FC<EventJsonLdProps> = ({
     ${buildLocation(location)}
     ${images ? `"image":${formatIfArray(images)},` : ``}
     ${url ? `"url": "${url}",` : ``}
-    ${description ? `"description": "${description}",` : ``}
+    ${description ? `"description": "${escape(description)}",` : ``}
     ${
       offers
         ? `"offers": ${
@@ -93,7 +94,7 @@ const EventJsonLd: FC<EventJsonLdProps> = ({
           },`
         : ''
     }
-    "name": "${name}"
+    "name": "${escape(name)}"
   }`;
 
   return (

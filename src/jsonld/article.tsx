@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
+import escape from '../utils/escape';
 import formatAuthorName from '../utils/formatAuthorName';
 
 export interface ArticleJsonLdProps {
@@ -34,9 +35,9 @@ const ArticleJsonLd: FC<ArticleJsonLdProps> = ({
     "@type": "Article",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "${url}"
+      "@id": "${escape(url)}"
     },
-    "headline": "${title}",
+    "headline": "${escape(title)}",
     "image": [
       ${images.map(image => `"${image}"`)}
      ],
@@ -45,13 +46,13 @@ const ArticleJsonLd: FC<ArticleJsonLdProps> = ({
     "author": ${formatAuthorName(authorName)},
     "publisher": {
       "@type": "Organization",
-      "name": "${publisherName}",
+      "name": "${escape(publisherName)}",
       "logo": {
         "@type": "ImageObject",
         "url": "${publisherLogo}"
       }
     },
-    "description": "${description}"
+    "description": "${escape(description)}"
   }`;
 
   return (

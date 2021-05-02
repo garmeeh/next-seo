@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
 import Head from 'next/head';
 
+import escape from '../utils/escape';
 import markup from '../utils/markup';
+
 export interface ItemListElements {
   item: string;
   name: string;
@@ -26,7 +28,7 @@ const BreadCrumbJsonLd: FC<BreadCrumbJsonLdProps> = ({
         "position": ${itemListElement.position},
         "item": {
           "@id": "${itemListElement.item}",
-          "name": "${itemListElement.name}"
+          "name": "${escape(itemListElement.name)}"
         }
       }`,
       )}
