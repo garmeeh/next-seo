@@ -2623,10 +2623,10 @@ export default () => (
 
 **Data Recommended properties**
 
-| Property              | Info                             |
-| --------------------- | -------------------------------- |
-| `operatingSystem`     | The directors of the movie.      |
-| `applicationCategory` | The date the movie was released. |
+| Property              | Info                                                           |
+| --------------------- | -------------------------------------------------------------- |
+| `operatingSystem`     | The operating system(s) required to use the app.               |
+| `applicationCategory` | The type of app. Check following link for supported app types. |
 
 For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
 
