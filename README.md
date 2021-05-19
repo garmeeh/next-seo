@@ -2625,8 +2625,9 @@ export default () => (
 
 | Property              | Info                             |
 | --------------------- | -------------------------------- |
-| `operatingSystem`     | The directors of the movie.      |
-| `applicationCategory` | The date the movie was released. |
+| `operatingSystem`     | The operating System suuported   |
+|                       | By the game it self.             |
+| `applicationCategory` | Desktop Software or Video Game...|
 
 For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
 
