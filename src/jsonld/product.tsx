@@ -3,41 +3,12 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 import formatIfArray from '../utils/formatIfArray';
-import { AggregateOffer, Offers } from '../types';
 import { buildOffers } from '../utils/buildOffers';
 import { buildAggregateOffer } from '../utils/buildAggregateOffer';
+import { buildAggregateRating } from '../utils/buildAggregateRating';
+import { buildReviews } from '../utils/buildReviews';
 
-export type ReviewRating = {
-  bestRating?: string;
-  ratingValue: string;
-  worstRating?: string;
-};
-
-export type Author = {
-  type: string;
-  name: string;
-};
-
-export type Publisher = {
-  type: string;
-  name: string;
-};
-
-export type Review = {
-  author: Author;
-  datePublished?: string;
-  reviewBody?: string;
-  name?: string;
-  publisher?: Publisher;
-  reviewRating: ReviewRating;
-};
-
-export type AggregateRating = {
-  ratingValue: string;
-  reviewCount?: string;
-  ratingCount?: string;
-  bestRating?: string;
-};
+import { AggregateOffer, Offers, AggregateRating, Review } from '../types';
 
 export interface ProductJsonLdProps {
   keyOverride?: string;
@@ -70,70 +41,6 @@ const buildBrand = (brand: string) => `
   "brand": {
       "@type": "Thing",
       "name": "${brand}"
-    },
-`;
-
-export const buildReviewRating = (rating: ReviewRating) =>
-  rating
-    ? `"reviewRating": {
-          "@type": "Rating",
-          ${rating.bestRating ? `"bestRating": "${rating.bestRating}",` : ''}
-          ${rating.worstRating ? `"worstRating": "${rating.worstRating}",` : ''}
-          "ratingValue": "${rating.ratingValue}"
-        }`
-    : '';
-
-export const buildAuthor = (author: Author) => `
-  "author": {
-      "@type": "${author.type}",
-      "name": "${author.name}"
-  },
-`;
-
-export const buildPublisher = (publisher: Publisher) => `
-  "publisher": {
-      "@type": "${publisher.type}",
-      "name": "${publisher.name}"
-  },
-`;
-
-export const buildReviews = (reviews: Review[]) => `
-"review": [
-  ${reviews.map(
-    review => `{
-      "@type": "Review",
-      ${review.author ? buildAuthor(review.author) : ''}
-      ${review.publisher ? buildPublisher(review.publisher) : ''}
-      ${
-        review.datePublished
-          ? `"datePublished": "${review.datePublished}",`
-          : ''
-      }
-      ${review.reviewBody ? `"reviewBody": "${review.reviewBody}",` : ''}
-      ${review.name ? `"name": "${review.name}",` : ''}
-      ${buildReviewRating(review.reviewRating)}
-  }`,
-  )}],`;
-
-export const buildAggregateRating = (aggregateRating: AggregateRating) => `
-  "aggregateRating": {
-      "@type": "AggregateRating",
-      ${
-        aggregateRating.ratingCount
-          ? `"ratingCount": "${aggregateRating.ratingCount}",`
-          : ''
-      }
-      ${
-        aggregateRating.reviewCount
-          ? `"reviewCount": "${aggregateRating.reviewCount}",`
-          : ''
-      }
-      ${
-        aggregateRating.bestRating
-          ? `"bestRating": "${aggregateRating.bestRating}",`
-          : ''
-      }
-      "ratingValue": "${aggregateRating.ratingValue}"
     },
 `;
 
