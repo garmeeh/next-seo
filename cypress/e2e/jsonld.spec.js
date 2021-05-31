@@ -592,6 +592,40 @@ describe('Validates JSON-LD For:', () => {
       });
   });
 
+  it('Product AggregateOffer (single)', () => {
+    cy.visit('http://localhost:3000/product-jsonld/aggregateOffer2');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', 1)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[0].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org/',
+          '@type': 'Product',
+          name: 'Executive Anvil',
+          offers: {
+            '@type': 'AggregateOffer',
+            priceCurrency: 'USD',
+            lowPrice: '119.99',
+            highPrice: '139.99',
+            offerCount: '5',
+            offers: {
+              '@type': 'Offer',
+              price: '119.99',
+              priceCurrency: 'USD',
+              priceValidUntil: '2020-11-05',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.com/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
+            },
+          },
+        });
+      });
+  });
+
   it('Product Offers', () => {
     cy.visit('http://localhost:3000/product-jsonld/offers');
     cy.get('head script[type="application/ld+json"]')
