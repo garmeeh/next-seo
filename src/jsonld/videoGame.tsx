@@ -19,7 +19,7 @@ import {
 
 export interface VideoGameJsonLdProps {
   keyOverride?: string;
-  gameName: string;
+  name: string;
   url?: string;
   image?: string;
   description?: string;
@@ -49,7 +49,7 @@ export interface VideoGameJsonLdProps {
 
 const VideoGameJsonLd: FC<VideoGameJsonLdProps> = ({
   keyOverride,
-  gameName,
+  name,
   url,
   image,
   description,
@@ -79,7 +79,7 @@ const VideoGameJsonLd: FC<VideoGameJsonLdProps> = ({
   const jslonld = `{
     "@context": "https://schema.org/",
     "@type": "VideoGame",
-    "name": "${gameName}",
+    "name": "${name}",
     ${description ? `"description": "${description}",` : ''}
     ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
     ${datePublished ? `"datePublished": "${datePublished}",` : ''}

@@ -650,7 +650,7 @@ const JsonLD = () => (
     />
 
     <VideoGameJsonLd
-      gameName="Red Dead Redemption 2"
+      name="Red Dead Redemption 2"
       translatorName={['Translator 1', 'Translator 2']}
       languageName={['English', 'Kurdish']}
       description="Arthur Morgan and the Van der Linde gang are outlaws on the run. With federal agents and the best bounty hunters in the nation massing on their heels, the gang must rob, steal and fight their way across the rugged heartland of America in order to survive."
