@@ -188,14 +188,26 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
     ${releaseDate ? `"releaseDate": "${releaseDate}",` : ''}
     ${purchaseDate ? `"purchaseDate": "${purchaseDate}",` : ''}
     ${award ? `"award": "${award}",` : ''}
-    "manufacturer": {
-      "@type": "Organization",
-      "name": "${manufacturerName}",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "${manufacturerLogo}"
-      }
-    },
+    ${
+      manufacturerName
+        ? `
+        "manufacturer": {
+          "@type": "Organization",
+          ${
+            manufacturerLogo
+              ? `
+              "logo": {
+                "@type": "ImageObject",
+                "url": "${manufacturerLogo}"
+              },
+              `
+              : ''
+          }
+          "name": "${manufacturerName}"
+        },
+        `
+        : ''
+    }
     ${
       offers
         ? `"offers": ${
