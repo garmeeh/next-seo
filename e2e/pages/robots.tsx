@@ -2,7 +2,7 @@ import React from 'react';
 import { NextSeo } from '../..';
 import Links from '../components/links';
 
-export default () => (
+const Robots = () => (
   <>
     <NextSeo
       title="Robots meta title"
@@ -20,3 +20,5 @@ export default () => (
     <Links />
   </>
 );
+
+export default Robots;

@@ -1109,8 +1109,7 @@ const Page = () => (
       instructions={[
         {
           name: 'Preheat',
-          text:
-            'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+          text: 'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
           url: 'https://example.com/party-coffee-cake#step1',
           image: 'https://example.com/photos/party-coffee-cake/step1.jpg',
         },
@@ -1412,14 +1411,14 @@ export default Page;
 **Supported properties**
 
 | Property                        | Info                                                                                                                                                        |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
 | `applicantLocationRequirements` | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                          |
 | `baseSalary`                    |                                                                                                                                                             |
 | `baseSalary.currency`           | The currency in which the monetary amount is expressed                                                                                                      |
 | `baseSalary.value`              | The value of the quantitative value. You can also provide an array of minimum and maximum salaries. .                                                       |
 | `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)            |
 | `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                                |
-| `jobLocation`                   | The physical location(s) of the business where the employee will report to work (such as an office or worksite), not the location where the job was posted. |  |
+| `jobLocation`                   | The physical location(s) of the business where the employee will report to work (such as an office or worksite), not the location where the job was posted. |     |
 | `jobLocation.streetAddress`     | The street address. For example, 1600 Amphitheatre Pkwy                                                                                                     |
 | `jobLocation.addressLocality`   | The locality. For example, Mountain View.                                                                                                                   |
 | `jobLocation.addressRegion`     | The region. For example, CA.                                                                                                                                |
@@ -2055,8 +2054,7 @@ const Page = () => (
     <QAPageJsonld
       mainEntity={{
         name: 'How many ounces are there in a pound?',
-        text:
-          'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
+        text: 'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
         answerCount: 3,
         upvotedCount: 26,
         dateCreated: '2016-07-23T21:11Z',
@@ -2074,8 +2072,7 @@ const Page = () => (
         },
         suggestedAnswer: [
           {
-            text:
-              'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
+            text: 'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
             dateCreated: '2016-11-02T21:11Z',
             upvotedCount: 42,
             url: 'https://example.com/question1#suggestedAnswer1',
@@ -2452,15 +2449,13 @@ export default () => (
           instructions: [
             {
               name: 'Preheat',
-              text:
-                'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+              text: 'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
               url: 'https://example.com/party-coffee-cake#step1',
               image: 'https://example.com/photos/party-coffee-cake/step1.jpg',
             },
             {
               name: 'Mix dry ingredients',
-              text:
-                'In a large bowl, combine flour, sugar, baking powder, and salt.',
+              text: 'In a large bowl, combine flour, sugar, baking powder, and salt.',
               url: 'https://example.com/party-coffee-cake#step2',
               image: 'https://example.com/photos/party-coffee-cake/step2.jpg',
             },
@@ -2527,15 +2522,13 @@ export default () => (
           instructions: [
             {
               name: 'Preheat',
-              text:
-                'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+              text: 'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
               url: 'https://example.com/party-coffee-cake#step1',
               image: 'https://example.com/photos/party-coffee-cake/step1.jpg',
             },
             {
               name: 'Mix dry ingredients',
-              text:
-                'In a large bowl, combine flour, sugar, baking powder, and salt.',
+              text: 'In a large bowl, combine flour, sugar, baking powder, and salt.',
               url: 'https://example.com/party-coffee-cake#step2',
               image: 'https://example.com/photos/party-coffee-cake/step2.jpg',
             },
