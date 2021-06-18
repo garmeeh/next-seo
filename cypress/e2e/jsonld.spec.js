@@ -231,8 +231,7 @@ describe('Validates JSON-LD For:', () => {
           '@id': 'http://davesdeptstore.example.com',
           name: "Dave's Department Store",
           description: "Dave's latest department store in San Jose, now open",
-          url:
-            'http://www.example.com/store-locator/sl/San-Jose-Westgate-Store/1427',
+          url: 'http://www.example.com/store-locator/sl/San-Jose-Westgate-Store/1427',
           telephone: '+14088717984',
           address: {
             '@type': 'PostalAddress',
@@ -470,6 +469,173 @@ describe('Validates JSON-LD For:', () => {
             ratingCount: '684',
             bestRating: '100',
           },
+          offers: [
+            {
+              '@type': 'Offer',
+              price: '119.99',
+              priceCurrency: 'USD',
+              priceValidUntil: '2020-11-05',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.com/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
+            },
+            {
+              '@type': 'Offer',
+              price: '139.99',
+              priceCurrency: 'CAD',
+              priceValidUntil: '2020-09-05',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.ca/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
+            },
+          ],
+        });
+      });
+  });
+
+  it('Product AggregateOffer and Offers (AggregateOffer ignored)', () => {
+    cy.visit('http://localhost:3000/product-jsonld/aggregateOfferAndOffers');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', 1)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[0].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org/',
+          '@type': 'Product',
+          name: 'Executive Anvil',
+          offers: [
+            {
+              '@type': 'Offer',
+              price: '119.99',
+              priceCurrency: 'USD',
+              priceValidUntil: '2020-11-05',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.com/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
+            },
+            {
+              '@type': 'Offer',
+              price: '139.99',
+              priceCurrency: 'CAD',
+              priceValidUntil: '2020-09-05',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.ca/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
+            },
+          ],
+        });
+      });
+  });
+
+  it('Product AggregateOffer', () => {
+    cy.visit('http://localhost:3000/product-jsonld/aggregateOffer');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', 1)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[0].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org/',
+          '@type': 'Product',
+          name: 'Executive Anvil',
+          offers: {
+            '@type': 'AggregateOffer',
+            priceCurrency: 'USD',
+            lowPrice: '119.99',
+            highPrice: '139.99',
+            offerCount: '5',
+            offers: [
+              {
+                '@type': 'Offer',
+                price: '119.99',
+                priceCurrency: 'USD',
+                priceValidUntil: '2020-11-05',
+                itemCondition: 'https://schema.org/UsedCondition',
+                availability: 'https://schema.org/InStock',
+                url: 'https://www.example.com/executive-anvil',
+                seller: {
+                  '@type': 'Organization',
+                  name: 'Executive Objects',
+                },
+              },
+              {
+                '@type': 'Offer',
+                price: '139.99',
+                priceCurrency: 'CAD',
+                priceValidUntil: '2020-09-05',
+                itemCondition: 'https://schema.org/UsedCondition',
+                availability: 'https://schema.org/InStock',
+                url: 'https://www.example.ca/executive-anvil',
+                seller: {
+                  '@type': 'Organization',
+                  name: 'Executive Objects',
+                },
+              },
+            ],
+          },
+        });
+      });
+  });
+
+  it('Product AggregateOffer (single)', () => {
+    cy.visit('http://localhost:3000/product-jsonld/aggregateOffer2');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', 1)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[0].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org/',
+          '@type': 'Product',
+          name: 'Executive Anvil',
+          offers: {
+            '@type': 'AggregateOffer',
+            priceCurrency: 'USD',
+            lowPrice: '119.99',
+            highPrice: '139.99',
+            offerCount: '5',
+            offers: {
+              '@type': 'Offer',
+              price: '119.99',
+              priceCurrency: 'USD',
+              priceValidUntil: '2020-11-05',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.com/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
+            },
+          },
+        });
+      });
+  });
+
+  it('Product Offers', () => {
+    cy.visit('http://localhost:3000/product-jsonld/offers');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', 1)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[0].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org/',
+          '@type': 'Product',
+          name: 'Executive Anvil',
           offers: [
             {
               '@type': 'Offer',
@@ -967,8 +1133,7 @@ describe('Validates JSON-LD For:', () => {
             {
               '@type': 'HowToStep',
               name: 'Preheat',
-              text:
-                'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+              text: 'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
               url: 'https://example.com/party-coffee-cake#step1',
               image: 'https://example.com/photos/party-coffee-cake/step1.jpg',
             },
@@ -1069,8 +1234,7 @@ describe('Validates JSON-LD For:', () => {
           mainEntity: {
             '@type': 'Question',
             name: 'How many ounces are there in a pound?',
-            text:
-              'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
+            text: 'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
             answerCount: 3,
             upvoteCount: 26,
             dateCreated: '2016-07-23T21:11Z',
@@ -1092,8 +1256,7 @@ describe('Validates JSON-LD For:', () => {
             suggestedAnswer: [
               {
                 '@type': 'Answer',
-                text:
-                  'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
+                text: 'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
                 dateCreated: '2016-11-02T21:11Z',
                 upvoteCount: 42,
                 url: 'https://example.com/question1#suggestedAnswer1',
@@ -1104,8 +1267,7 @@ describe('Validates JSON-LD For:', () => {
               },
               {
                 '@type': 'Answer',
-                text:
-                  "I can't remember exactly, but I think 18 ounces in a lb. You might want to double check that.",
+                text: "I can't remember exactly, but I think 18 ounces in a lb. You might want to double check that.",
                 dateCreated: '2016-11-06T21:11Z',
                 upvoteCount: 0,
                 url: 'https://example.com/question1#suggestedAnswer2',
@@ -1411,8 +1573,7 @@ describe('Validates JSON-LD For:', () => {
                   {
                     '@type': 'HowToStep',
                     name: 'Preheat',
-                    text:
-                      'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+                    text: 'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
                     url: 'https://example.com/party-coffee-cake#step1',
                     image:
                       'https://example.com/photos/party-coffee-cake/step1.jpg',
@@ -1420,8 +1581,7 @@ describe('Validates JSON-LD For:', () => {
                   {
                     '@type': 'HowToStep',
                     name: 'Mix dry ingredients',
-                    text:
-                      'In a large bowl, combine flour, sugar, baking powder, and salt.',
+                    text: 'In a large bowl, combine flour, sugar, baking powder, and salt.',
                     url: 'https://example.com/party-coffee-cake#step2',
                     image:
                       'https://example.com/photos/party-coffee-cake/step2.jpg',
@@ -1506,8 +1666,7 @@ describe('Validates JSON-LD For:', () => {
                   {
                     '@type': 'HowToStep',
                     name: 'Preheat',
-                    text:
-                      'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+                    text: 'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
                     url: 'https://example.com/party-coffee-cake#step1',
                     image:
                       'https://example.com/photos/party-coffee-cake/step1.jpg',
@@ -1515,8 +1674,7 @@ describe('Validates JSON-LD For:', () => {
                   {
                     '@type': 'HowToStep',
                     name: 'Mix dry ingredients',
-                    text:
-                      'In a large bowl, combine flour, sugar, baking powder, and salt.',
+                    text: 'In a large bowl, combine flour, sugar, baking powder, and salt.',
                     url: 'https://example.com/party-coffee-cake#step2',
                     image:
                       'https://example.com/photos/party-coffee-cake/step2.jpg',

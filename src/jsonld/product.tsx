@@ -166,7 +166,7 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
   const jslonld = `{
     "@context": "https://schema.org/",
     "@type": "Product",
-    "image":${formatIfArray(images)},
+    ${images.length ? `"image":${formatIfArray(images)},` : ''}
     ${description ? `"description": "${description}",` : ''}
     ${mpn ? `"mpn": "${mpn}",` : ''}
     ${sku ? `"sku": "${sku}",` : ''}
@@ -188,14 +188,26 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
     ${releaseDate ? `"releaseDate": "${releaseDate}",` : ''}
     ${purchaseDate ? `"purchaseDate": "${purchaseDate}",` : ''}
     ${award ? `"award": "${award}",` : ''}
-    "manufacturer": {
-      "@type": "Organization",
-      "name": "${manufacturerName}",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "${manufacturerLogo}"
-      }
-    },
+    ${
+      manufacturerName
+        ? `
+        "manufacturer": {
+          "@type": "Organization",
+          ${
+            manufacturerLogo
+              ? `
+              "logo": {
+                "@type": "ImageObject",
+                "url": "${manufacturerLogo}"
+              },
+              `
+              : ''
+          }
+          "name": "${manufacturerName}"
+        },
+        `
+        : ''
+    }
     ${
       offers
         ? `"offers": ${

@@ -1769,10 +1769,11 @@ The property `aggregateOffer` is also available:
 
 **Recommended properties**
 
-| Property     | Info                                                                    |
-| ------------ | ----------------------------------------------------------------------- |
-| `highPrice`  | The highest price of all offers available. Use a floating point number. |
-| `offerCount` | The number of offers for the product.                                   |
+| Property     | Info                                                                                                                                                            |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `highPrice`  | The highest price of all offers available. Use a floating point number.                                                                                         |
+| `offerCount` | The number of offers for the product.                                                                                                                           |
+| `offers`     | An offer to transfer some rights to an item or to provide a service. You can provide this as a single object, or an array of objects with the properties below. |
 
 More info on the product data type can be found [here](https://developers.google.com/search/docs/data-types/product).
 
