@@ -256,7 +256,7 @@ From now on all of your pages will have the defaults above applied.
 | `defaultTitle`                     | string                  | If no title is set on a page, this string will be used instead of an empty `titleTemplate` [More Info](#default-title)                                                               |
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
 | `nofollow`                         | boolean (default false) | Sets whether page should be followed or not [More Info](#no-follow)                                                                                                                  |
-| `additionRobotsProps`              | Object                  | Set the more meta information for the `X-Robots-Tag` [More Info](#robotsprops)                                                                                             |
+| `additionRobotsProps`              | Object                  | Set the more meta information for the `X-Robots-Tag` [More Info](#robotsprops)                                                                                                       |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                        |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                           |
 | `mobileAlternate.media`            | string                  | Set what screen size the mobile website should be served from                                                                                                                        |
@@ -2707,11 +2707,11 @@ export default () => (
 
 **Data Recommended properties**
 
-| Property              | Info                             |
-| --------------------- | -------------------------------- |
-| `operatingSystem`     | The operating System suuported   |
-|                       | By the game it self.             |
-| `applicationCategory` | Desktop Software or Video Game...|
+| Property              | Info                              |
+| --------------------- | --------------------------------- |
+| `operatingSystem`     | The operating System suuported    |
+|                       | By the game it self.              |
+| `applicationCategory` | Desktop Software or Video Game... |
 
 For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
 
