@@ -67,6 +67,7 @@ export type AggregateOffer = {
   lowPrice: string;
   highPrice?: string;
   offerCount?: string;
+  offers?: Offers | Offers[];
 };
 
 export interface OpenGraphVideoActors {
