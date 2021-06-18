@@ -1,37 +1,5 @@
 import { versionSchemas } from '@cypress/schema-tools';
-
-const provider100 = {
-  version: {
-    major: 1,
-    minor: 0,
-    patch: 0,
-  },
-  schema: {
-    type: 'object',
-    description: 'Course provider',
-    properties: {
-      '@type': {
-        type: 'string',
-        description: 'Provider type',
-      },
-      name: {
-        type: 'string',
-        description: 'Provider name',
-      },
-      sameAs: {
-        type: 'string',
-        description: 'Provider url',
-      },
-    },
-    required: ['@type', 'name'],
-    additionalProperties: false,
-    example: {
-      '@type': 'Organization',
-      name: 'Course',
-      sameAs: 'https//www.example.com/provider',
-    },
-  },
-};
+import { provider100 } from './common';
 
 const course100 = {
   // has semantic version numbers

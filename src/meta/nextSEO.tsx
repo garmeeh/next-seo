@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import buildTags from './buildTags';
 import { NextSeoProps } from '../types';
 
-export default class extends Component<NextSeoProps, {}> {
+export default class NextSeo extends Component<NextSeoProps, {}> {
   render() {
     const {
       title,

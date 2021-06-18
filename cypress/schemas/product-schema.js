@@ -62,6 +62,28 @@ const product100 = {
         ...aggregateRating100.schema,
         see: aggregateRating100,
       },
+      aggregateOffer: {
+        priceCurrency: {
+          type: 'string',
+          description: 'The product price currency',
+        },
+        lowPrice: {
+          type: 'string',
+          description: 'The lowest product price',
+        },
+        highPrice: {
+          type: 'string',
+          description: 'The highest product price',
+        },
+        offerCount: {
+          type: 'string',
+          description: 'The product offers count',
+        },
+        offers: {
+          ...offers101.schema,
+          see: offers101,
+        },
+      },
       offers: {
         ...offers101.schema,
         see: offers101,
@@ -111,6 +133,36 @@ const product100 = {
       '@type': 'AggregateRating',
       ratingValue: '4.4',
       reviewCount: '89',
+    },
+    aggregateOffer: {
+      priceCurrency: 'USD',
+      lowPrice: '119.99',
+      highPrice: '139.99',
+      offerCount: '5',
+      offers: [
+        {
+          price: '119.99',
+          priceCurrency: 'USD',
+          priceValidUntil: '2020-11-05',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.com/executive-anvil',
+          seller: {
+            name: 'Executive Objects',
+          },
+        },
+        {
+          price: '139.99',
+          priceCurrency: 'CAD',
+          priceValidUntil: '2020-09-05',
+          itemCondition: 'https://schema.org/UsedCondition',
+          availability: 'https://schema.org/InStock',
+          url: 'https://www.example.ca/executive-anvil',
+          seller: {
+            name: 'Executive Objects',
+          },
+        },
+      ],
     },
     offers: [
       {

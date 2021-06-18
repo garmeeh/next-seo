@@ -515,6 +515,24 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "PezeM",
+      "name": "PezeM",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16854655?v=4",
+      "profile": "https://github.com/PezeM",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "darklight147",
+      "name": "darklight147",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39389636?v=4",
+      "profile": "https://github.com/darklight147",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,

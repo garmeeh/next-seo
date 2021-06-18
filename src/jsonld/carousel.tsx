@@ -3,19 +3,18 @@ import Head from 'next/head';
 
 import markup from '../utils/markup';
 import buildVideo from '../utils/buildVideo';
-import { CourseJsonLdProps } from './course';
 import {
-  Review,
-  AggregateRating,
   buildAuthor,
   buildPublisher,
   buildReviewRating,
-} from './product';
-import {
-  RecipeJsonLdProps,
-  buildAggregateRating,
-  buildInstruction,
-} from './recipe';
+} from '../utils/buildReviews';
+import { buildAggregateRating } from '../utils/buildAggregateRating';
+
+import { RecipeJsonLdProps, buildInstruction } from './recipe';
+
+import { CourseJsonLdProps } from './course';
+
+import { AggregateRating, Review } from '../types';
 
 type Director = {
   name: string;

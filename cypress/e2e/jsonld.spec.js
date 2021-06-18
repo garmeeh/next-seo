@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 22;
+const expectedJSONResults = 23;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -25,6 +25,7 @@ const qaPageLdJsonIndex = 18;
 const softwareAppJsonIndex = 19;
 const collectionPageLdJsonIndex = 20;
 const profilePageLdJsonIndex = 21;
+const videoGameLdJsonIndex = 22;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -231,8 +232,7 @@ describe('Validates JSON-LD For:', () => {
           '@id': 'http://davesdeptstore.example.com',
           name: "Dave's Department Store",
           description: "Dave's latest department store in San Jose, now open",
-          url:
-            'http://www.example.com/store-locator/sl/San-Jose-Westgate-Store/1427',
+          url: 'http://www.example.com/store-locator/sl/San-Jose-Westgate-Store/1427',
           telephone: '+14088717984',
           address: {
             '@type': 'PostalAddress',
@@ -470,6 +470,173 @@ describe('Validates JSON-LD For:', () => {
             ratingCount: '684',
             bestRating: '100',
           },
+          offers: [
+            {
+              '@type': 'Offer',
+              price: '119.99',
+              priceCurrency: 'USD',
+              priceValidUntil: '2020-11-05',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.com/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
+            },
+            {
+              '@type': 'Offer',
+              price: '139.99',
+              priceCurrency: 'CAD',
+              priceValidUntil: '2020-09-05',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.ca/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
+            },
+          ],
+        });
+      });
+  });
+
+  it('Product AggregateOffer and Offers (AggregateOffer ignored)', () => {
+    cy.visit('http://localhost:3000/product-jsonld/aggregateOfferAndOffers');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', 1)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[0].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org/',
+          '@type': 'Product',
+          name: 'Executive Anvil',
+          offers: [
+            {
+              '@type': 'Offer',
+              price: '119.99',
+              priceCurrency: 'USD',
+              priceValidUntil: '2020-11-05',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.com/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
+            },
+            {
+              '@type': 'Offer',
+              price: '139.99',
+              priceCurrency: 'CAD',
+              priceValidUntil: '2020-09-05',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.ca/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
+            },
+          ],
+        });
+      });
+  });
+
+  it('Product AggregateOffer', () => {
+    cy.visit('http://localhost:3000/product-jsonld/aggregateOffer');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', 1)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[0].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org/',
+          '@type': 'Product',
+          name: 'Executive Anvil',
+          offers: {
+            '@type': 'AggregateOffer',
+            priceCurrency: 'USD',
+            lowPrice: '119.99',
+            highPrice: '139.99',
+            offerCount: '5',
+            offers: [
+              {
+                '@type': 'Offer',
+                price: '119.99',
+                priceCurrency: 'USD',
+                priceValidUntil: '2020-11-05',
+                itemCondition: 'https://schema.org/UsedCondition',
+                availability: 'https://schema.org/InStock',
+                url: 'https://www.example.com/executive-anvil',
+                seller: {
+                  '@type': 'Organization',
+                  name: 'Executive Objects',
+                },
+              },
+              {
+                '@type': 'Offer',
+                price: '139.99',
+                priceCurrency: 'CAD',
+                priceValidUntil: '2020-09-05',
+                itemCondition: 'https://schema.org/UsedCondition',
+                availability: 'https://schema.org/InStock',
+                url: 'https://www.example.ca/executive-anvil',
+                seller: {
+                  '@type': 'Organization',
+                  name: 'Executive Objects',
+                },
+              },
+            ],
+          },
+        });
+      });
+  });
+
+  it('Product AggregateOffer (single)', () => {
+    cy.visit('http://localhost:3000/product-jsonld/aggregateOffer2');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', 1)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[0].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org/',
+          '@type': 'Product',
+          name: 'Executive Anvil',
+          offers: {
+            '@type': 'AggregateOffer',
+            priceCurrency: 'USD',
+            lowPrice: '119.99',
+            highPrice: '139.99',
+            offerCount: '5',
+            offers: {
+              '@type': 'Offer',
+              price: '119.99',
+              priceCurrency: 'USD',
+              priceValidUntil: '2020-11-05',
+              itemCondition: 'https://schema.org/UsedCondition',
+              availability: 'https://schema.org/InStock',
+              url: 'https://www.example.com/executive-anvil',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Objects',
+              },
+            },
+          },
+        });
+      });
+  });
+
+  it('Product Offers', () => {
+    cy.visit('http://localhost:3000/product-jsonld/offers');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', 1)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[0].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org/',
+          '@type': 'Product',
+          name: 'Executive Anvil',
           offers: [
             {
               '@type': 'Offer',
@@ -967,8 +1134,7 @@ describe('Validates JSON-LD For:', () => {
             {
               '@type': 'HowToStep',
               name: 'Preheat',
-              text:
-                'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+              text: 'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
               url: 'https://example.com/party-coffee-cake#step1',
               image: 'https://example.com/photos/party-coffee-cake/step1.jpg',
             },
@@ -1069,8 +1235,7 @@ describe('Validates JSON-LD For:', () => {
           mainEntity: {
             '@type': 'Question',
             name: 'How many ounces are there in a pound?',
-            text:
-              'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
+            text: 'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
             answerCount: 3,
             upvoteCount: 26,
             dateCreated: '2016-07-23T21:11Z',
@@ -1092,8 +1257,7 @@ describe('Validates JSON-LD For:', () => {
             suggestedAnswer: [
               {
                 '@type': 'Answer',
-                text:
-                  'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
+                text: 'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
                 dateCreated: '2016-11-02T21:11Z',
                 upvoteCount: 42,
                 url: 'https://example.com/question1#suggestedAnswer1',
@@ -1104,8 +1268,7 @@ describe('Validates JSON-LD For:', () => {
               },
               {
                 '@type': 'Answer',
-                text:
-                  "I can't remember exactly, but I think 18 ounces in a lb. You might want to double check that.",
+                text: "I can't remember exactly, but I think 18 ounces in a lb. You might want to double check that.",
                 dateCreated: '2016-11-06T21:11Z',
                 upvoteCount: 0,
                 url: 'https://example.com/question1#suggestedAnswer2',
@@ -1411,8 +1574,7 @@ describe('Validates JSON-LD For:', () => {
                   {
                     '@type': 'HowToStep',
                     name: 'Preheat',
-                    text:
-                      'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+                    text: 'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
                     url: 'https://example.com/party-coffee-cake#step1',
                     image:
                       'https://example.com/photos/party-coffee-cake/step1.jpg',
@@ -1420,8 +1582,7 @@ describe('Validates JSON-LD For:', () => {
                   {
                     '@type': 'HowToStep',
                     name: 'Mix dry ingredients',
-                    text:
-                      'In a large bowl, combine flour, sugar, baking powder, and salt.',
+                    text: 'In a large bowl, combine flour, sugar, baking powder, and salt.',
                     url: 'https://example.com/party-coffee-cake#step2',
                     image:
                       'https://example.com/photos/party-coffee-cake/step2.jpg',
@@ -1506,8 +1667,7 @@ describe('Validates JSON-LD For:', () => {
                   {
                     '@type': 'HowToStep',
                     name: 'Preheat',
-                    text:
-                      'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+                    text: 'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
                     url: 'https://example.com/party-coffee-cake#step1',
                     image:
                       'https://example.com/photos/party-coffee-cake/step1.jpg',
@@ -1515,8 +1675,7 @@ describe('Validates JSON-LD For:', () => {
                   {
                     '@type': 'HowToStep',
                     name: 'Mix dry ingredients',
-                    text:
-                      'In a large bowl, combine flour, sugar, baking powder, and salt.',
+                    text: 'In a large bowl, combine flour, sugar, baking powder, and salt.',
                     url: 'https://example.com/party-coffee-cake#step2',
                     image:
                       'https://example.com/photos/party-coffee-cake/step2.jpg',
@@ -1582,6 +1741,108 @@ describe('Validates JSON-LD For:', () => {
         };
 
         expect(jsonLD).to.deep.equal(expectedObject);
+      });
+  });
+
+  it('VideoGame', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[videoGameLdJsonIndex].innerHTML);
+        assertSchema(schemas)('VideoGame', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('VideoGame Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[videoGameLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org/',
+          '@type': 'VideoGame',
+          name: 'Red Dead Redemption 2',
+          translator: ['Translator 1', 'Translator 2'],
+          inLanguage: ['English', 'Kurdish'],
+          description:
+            'Arthur Morgan and the Van der Linde gang are outlaws on the run. With federal agents and the best bounty hunters in the nation massing on their heels, the gang must rob, steal and fight their way across the rugged heartland of America in order to survive.',
+          processorRequirements: '4 GHz',
+          memoryRequirements: '16 Gb',
+          playMode: 'SinglePlayer',
+          applicationCategory: 'Game',
+          url: 'https://example.com/rdr2-game',
+          gamePlatform: ['PC game', 'PlayStation 4'],
+          operatingSystem: 'windows',
+          keywords: 'outlaw, gang, federal agents',
+          datePublished: '2019-02-05T08:00:00+08:00',
+          image: {
+            '@type': 'ImageObject',
+            url: 'https://example.com/photos/1x1/photo.jpg',
+          },
+          publisher: 'Vertical Games',
+          producer: {
+            '@type': 'Organization',
+            name: 'Rockstar Games',
+            sameAs: 'https//www.example.com/producer',
+          },
+          offers: [
+            {
+              '@type': 'Offer',
+              price: '119.99',
+              priceCurrency: 'USD',
+              priceValidUntil: '2020-11-05',
+              availability: 'https://schema.org/InStock',
+              url: 'https://example.net/rdr2-game',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Gaming',
+              },
+            },
+            {
+              '@type': 'Offer',
+              price: '139.99',
+              priceCurrency: 'CAD',
+              priceValidUntil: '2020-09-05',
+              availability: 'https://schema.org/InStock',
+              url: 'https://example.org/rdr2-game',
+              seller: {
+                '@type': 'Organization',
+                name: 'Executive Gaming',
+              },
+            },
+          ],
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '44',
+            reviewCount: '89',
+            ratingCount: '684',
+            bestRating: '100',
+          },
+          review: [
+            {
+              '@type': 'Review',
+              author: {
+                '@type': 'Person',
+                name: 'AhmetKaya',
+              },
+              publisher: {
+                '@type': 'Organization',
+                name: 'Gam Production',
+              },
+              datePublished: '2017-01-06T03:37:40Z',
+              reviewBody: 'Iki gozum.',
+              name: 'Rica ederim.',
+              reviewRating: {
+                '@type': 'Rating',
+                bestRating: '5',
+                ratingValue: '5',
+                worstRating: '1',
+              },
+            },
+          ],
+        });
       });
   });
 });
