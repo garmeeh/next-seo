@@ -9,7 +9,7 @@ import { buildAggregateRating } from '../utils/buildAggregateRating';
 import { Video, AggregateRating } from '../types';
 
 type Instruction = {
-  name: string;
+  name?: string;
   text: string;
   url?: string;
   image?: string;
@@ -17,10 +17,10 @@ type Instruction = {
 
 export const buildInstruction = (instruction: Instruction) => `{
   "@type": "HowToStep",
-  "name": "${instruction.name}",
-  "text": "${instruction.text}",
-  "url": "${instruction.url}",
-  "image": "${instruction.image}"
+  ${instruction.name ? `"name": "${instruction.name}",` : ''}
+  ${instruction.image ? `"image": "${instruction.image}",` : ''}
+  ${instruction.url ? `"url": "${instruction.url}",` : ''}
+  "text": "${instruction.text}"
 }`;
 
 export interface RecipeJsonLdProps {
