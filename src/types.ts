@@ -183,6 +183,64 @@ export type MetaTag = HTML5MetaTag | RDFaMetaTag | HTTPEquivMetaTag;
 
 export type ImagePrevSize = 'none' | 'standard' | 'large';
 
+export type AggregateRating = {
+  ratingValue: string;
+  reviewCount?: string;
+  ratingCount?: string;
+  bestRating?: string;
+};
+
+export type GamePlayMode = 'CoOp' | 'MultiPlayer' | 'SinglePlayer';
+
+export type Review = {
+  author: Author;
+  datePublished?: string;
+  reviewBody?: string;
+  name?: string;
+  publisher?: Publisher;
+  reviewRating: ReviewRating;
+};
+
+export type ReviewRating = {
+  bestRating?: string;
+  ratingValue: string;
+  worstRating?: string;
+};
+
+export type Author = {
+  type: string;
+  name: string;
+};
+
+export type Publisher = {
+  type: string;
+  name: string;
+};
+
+export type ApplicationCategory =
+  | 'Game'
+  | 'SocialNetworking'
+  | 'Travel'
+  | 'Shopping'
+  | 'Sports'
+  | 'Lifestyle'
+  | 'Business'
+  | 'Design'
+  | 'Developer'
+  | 'Driver'
+  | 'Educational'
+  | 'Health'
+  | 'Finance'
+  | 'Security'
+  | 'Browser'
+  | 'Communication'
+  | 'DesktopEnhancement'
+  | 'Entertainment'
+  | 'Multimedia'
+  | 'Home'
+  | 'Utilities'
+  | 'Reference';
+
 export interface AdditionalRobotsProps {
   nosnippet?: boolean;
   maxSnippet?: number;

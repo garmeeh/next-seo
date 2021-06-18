@@ -91,6 +91,70 @@ export const seller100 = {
   },
 };
 
+export const provider100 = {
+  version: {
+    major: 1,
+    minor: 0,
+    patch: 0,
+  },
+  schema: {
+    type: 'object',
+    description: 'Provider',
+    properties: {
+      '@type': {
+        type: 'string',
+        description: 'Provider type',
+      },
+      name: {
+        type: 'string',
+        description: 'Provider name',
+      },
+      sameAs: {
+        type: 'string',
+        description: 'Provider url',
+      },
+    },
+    additionalProperties: false,
+    example: {
+      '@type': 'Organization',
+      name: 'Course',
+      sameAs: 'https//www.example.com/provider',
+    },
+  },
+};
+
+export const producer100 = {
+  version: {
+    major: 1,
+    minor: 0,
+    patch: 0,
+  },
+  schema: {
+    type: 'object',
+    description: 'Producer',
+    properties: {
+      '@type': {
+        type: 'string',
+        description: 'Producer type',
+      },
+      name: {
+        type: 'string',
+        description: 'Producer name',
+      },
+      sameAs: {
+        type: 'string',
+        description: 'Producer url',
+      },
+    },
+    additionalProperties: false,
+    example: {
+      '@type': 'Organization',
+      name: 'Course',
+      sameAs: 'https//www.example.com/producer',
+    },
+  },
+};
+
 export const offers100 = {
   version: {
     major: 1,
@@ -366,4 +430,81 @@ export const review100 = {
       },
     },
   },
+};
+
+export const exampleVideo = {
+  '@type': 'VideoObject',
+  name: 'How to make a Party Coffee Cake',
+  description: 'This is how you make a Party Coffee Cake.',
+  thumbnailUrl: [
+    'https://example.com/photos/1x1/photo.jpg',
+    'https://example.com/photos/4x3/photo.jpg',
+    'https://example.com/photos/16x9/photo.jpg',
+  ],
+  contentUrl: 'http://www.example.com/video123.mp4',
+  embedUrl: 'http://www.example.com/videoplayer?video=123',
+  uploadDate: '2018-02-05T08:00:00+08:00',
+  duration: 'PT1M33S',
+  interactionStatistic: {
+    '@type': 'InteractionCounter',
+    interactionType: { '@type': 'https://schema.org/WatchAction' },
+    userInteractionCount: 2347,
+  },
+  expires: '2019-02-05T08:00:00+08:00',
+};
+
+export const videoObject100 = {
+  version: {
+    major: 1,
+    minor: 0,
+    patch: 0,
+  },
+  schema: {
+    type: 'object',
+    title: 'Video Object',
+    description: 'A video',
+    properties: {
+      '@type': {
+        type: 'string',
+        description: 'Schema.org type',
+      },
+      name: {
+        type: 'string',
+        description: 'The name of the recipe.',
+      },
+      description: {
+        type: 'string',
+        description: 'The description of the recipe.',
+      },
+      thumbnailUrl: {
+        type: 'array',
+        items: {
+          type: 'string',
+        },
+        description: 'Array of images for the video.',
+      },
+      contentUrl: {
+        type: 'string',
+        description: 'URL for the content of the video',
+      },
+      embedUrl: {
+        type: 'string',
+        description: 'URL for the embed version of the video',
+      },
+      uploadDate: {
+        type: 'string',
+        description: 'Upload date of the video',
+      },
+      duration: {
+        type: 'string',
+        description: 'Duration of the video',
+      },
+      expires: {
+        type: 'string',
+        description: 'Expiration date of the video',
+      },
+    },
+    additionalProperties: true,
+  },
+  example: exampleVideo,
 };

@@ -2,13 +2,14 @@ import React, { FC } from 'react';
 import Head from 'next/head';
 
 import markup from '../utils/markup';
+import { buildAggregateRating } from '../utils/buildAggregateRating';
 import {
-  Review,
   buildAuthor,
   buildPublisher,
   buildReviewRating,
-} from './product';
-import { AggregateRating, buildAggregateRating } from './recipe';
+} from '../utils/buildReviews';
+
+import { AggregateRating, Review } from '../types';
 
 export interface SoftwareAppJsonLdProps {
   keyOverride?: string;
