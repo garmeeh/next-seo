@@ -515,6 +515,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "PezeM",
+      "name": "PezeM",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16854655?v=4",
+      "profile": "https://github.com/PezeM",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
