@@ -58,6 +58,21 @@ const Links = () => (
         <a>Carousel Recipe JSON-LD</a>
       </Link>
     </li>
+    <li>
+      <Link href="/product-jsonld/aggregateOffer">
+        <a>Product JSON-LD AggregateOffer</a>
+      </Link>
+    </li>
+    <li>
+      <Link href="/product-jsonld/offers">
+        <a>Product JSON-LD Offers</a>
+      </Link>
+    </li>
+    <li>
+      <Link href="/product-jsonld/aggregateOfferAndOffers">
+        <a>Product JSON-LD AggregateOffer and Offers</a>
+      </Link>
+    </li>
   </ul>
 );
 

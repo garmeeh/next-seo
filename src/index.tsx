@@ -36,6 +36,10 @@ export { default as VideoJsonLd, VideoJsonLdProps } from './jsonld/video';
 export { default as QAPageJsonld, QAPageJsonldProps } from './jsonld/qaPage';
 export { default as RecipeJsonLd, RecipeJsonLdProps } from './jsonld/recipe';
 export {
+  default as VideoGameJsonLd,
+  VideoGameJsonLdProps,
+} from './jsonld/videoGame';
+export {
   default as CarouselJsonLd,
   CarouselJsonLdProps,
 } from './jsonld/carousel';
