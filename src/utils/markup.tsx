@@ -1,3 +1,3 @@
-const markup = (jsonld: string) => ({ __html: jsonld.split("\n").map(e => e.trim()).join("") });
+const markup = (jsonld: string) => ({ __html: JSON.stringify(JSON.parse(jsonld)) });
 
 export default markup;
