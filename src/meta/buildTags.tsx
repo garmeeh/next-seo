@@ -32,13 +32,13 @@ const buildTags = (config: BuildTagsParams) => {
   }
 
   const noindex =
-    config.noindex ||
-    defaults.noindex ||
-    config.dangerouslySetAllPagesToNoIndex;
+    config.noindex != null
+      ? config.noindex
+      : defaults.noindex || config.dangerouslySetAllPagesToNoIndex;
   const nofollow =
-    config.nofollow ||
-    defaults.nofollow ||
-    config.dangerouslySetAllPagesToNoFollow;
+    config.nofollow != null
+      ? config.nofollow
+      : defaults.nofollow || config.dangerouslySetAllPagesToNoFollow;
 
   let robotsParams = '';
   if (config.robotsProps) {
