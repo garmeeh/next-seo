@@ -1303,6 +1303,7 @@ describe('Validates JSON-LD For:', () => {
           '@context': 'https://schema.org',
           '@type': 'CollectionPage',
           name: 'Resistance 3: Fall of Man',
+          dateModified: '2021-04-26',
           hasPart: [
             {
               '@type': 'CreativeWork',
@@ -1324,6 +1325,17 @@ describe('Validates JSON-LD For:', () => {
               datePublished: '2014-10-01T19:30',
             },
           ],
+          mainEntity: {
+            '@type': 'ItemList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                name: 'something else',
+                url: 'https://example.com/something-else',
+                position: 1,
+              },
+            ],
+          },
         });
       });
   });

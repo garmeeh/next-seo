@@ -611,6 +611,7 @@ const JsonLD = () => (
     />
 
     <CollectionPageJsonLd
+      dateModified="2021-04-26"
       name="Resistance 3: Fall of Man"
       hasPart={[
         {
@@ -629,6 +630,12 @@ const JsonLD = () => (
           author: 'John Smith',
           name: 'Creative work name',
           datePublished: '2014-10-01T19:30',
+        },
+      ]}
+      mainEntity={[
+        {
+          name: 'something else',
+          url: 'https://example.com/something-else',
         },
       ]}
     />

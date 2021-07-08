@@ -24,6 +24,10 @@ const collectionPage100 = {
         type: 'string',
         description: 'The name of the item.',
       },
+      dateModified: {
+        type: 'string',
+        description: 'The date the last update was made to the content',
+      },
       hasPart: {
         type: 'array',
         item: {
@@ -66,6 +70,30 @@ const collectionPage100 = {
             datePublished: {
               type: 'string',
               description: 'Date of first broadcast/publication.',
+            },
+          },
+        },
+      },
+      mainEntity: {
+        type: 'object',
+        itemListElement: {
+          type: 'array',
+          properties: {
+            '@type': {
+              type: 'string',
+              description: 'ListItem',
+            },
+            name: {
+              type: 'string',
+              description: 'The name of the item',
+            },
+            url: {
+              type: 'string',
+              description: 'A link to the item',
+            },
+            position: {
+              type: 'number',
+              description: 'The index position in the list',
             },
           },
         },
