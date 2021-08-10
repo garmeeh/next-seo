@@ -11,30 +11,28 @@ export interface FAQPageJsonLdProps {
   mainEntity: Question[];
 }
 
-const buildQuestions = (mainEntity: Question[]) => `
-  ${mainEntity.map(
-    question => `{
-      "@type": "Question",
-      "name": "${question.questionName}",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "${question.acceptedAnswerText}"
-      }
-  }`,
-  )}`;
+const buildQuestions = (mainEntity: Question[]) =>
+  mainEntity.map((question) => ({
+    "@type": "Question",
+    name: question.questionName,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: question.acceptedAnswerText,
+    },
+  }));
 
 const FAQPageJsonLd: React.FC<FAQPageJsonLdProps> = ({ mainEntity = [] }) => {
-  const jslonld = `{
+  const jsonld = JSON.stringify({
     "@context": "https://schema.org/",
     "@type": "FAQPage",
-    "mainEntity": [${buildQuestions(mainEntity)}]
-  }`;
+    mainEntity: [buildQuestions(mainEntity)],
+  });
 
   return (
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
+        dangerouslySetInnerHTML={markup(jsonld)}
         key="jsonld-faq-page"
       />
     </Head>
