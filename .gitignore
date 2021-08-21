@@ -2,6 +2,7 @@ node_modules
 *.log
 .next
 .history
+.yarn*
 dist
 cypress/videos
 coverage

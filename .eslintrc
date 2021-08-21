@@ -1,5 +1,5 @@
 {
-  "extends": ["eslint-config-next"],
+  "extends": ["next/babel", "eslint-config-next"],
   "rules": {
     "react/no-array-index-key": 0,
     "no-prototype-builtins": 0,
