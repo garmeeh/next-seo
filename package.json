@@ -65,7 +65,7 @@
   "homepage": "https://github.com/garmeeh/next-seo#readme",
   "devDependencies": {
     "@cypress/schema-tools": "^4.7.1",
-    "@types/jest": "^26.0.0",
+    "@types/jest": "^27.0.1",
     "@types/node": "^15.0.1",
     "@types/react": "^17.0.1",
     "@types/react-dom": "^17.0.1",

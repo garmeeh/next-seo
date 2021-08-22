@@ -3,29 +3,31 @@ import schemas from '../schemas';
 
 const expectedJSONResults = 23;
 
-const articleLdJsonIndex = 0;
-const breadcrumbLdJsonIndex = 1;
-const blogLdJsonIndex = 2;
-const courseLdJsonIndex = 3;
-const localBusinessLdJsonIndex = 4;
-const logoLdJsonIndex = 5;
-const logoLdSecondJsonIndex = 6;
-const productLdJsonIndex = 7;
-const socialProfileLdJsonIndex = 8;
-const corporateContactIndex = 9;
-const newsarticleLdJsonIndex = 10;
-const faqPageLdJsonIndex = 11;
-const jobPostingLdJsonIndex = 12;
-const jobPostingLdSecondJsonIndex = 13;
-const eventLdJsonIndex = 14;
-const datasetLdJsonIndex = 15;
-const recipeLdJsonIndex = 16;
-const siteLinksSearchBoxLdJsonIndex = 17;
-const qaPageLdJsonIndex = 18;
-const softwareAppJsonIndex = 19;
-const collectionPageLdJsonIndex = 20;
-const profilePageLdJsonIndex = 21;
-const videoGameLdJsonIndex = 22;
+const [
+  articleLdJsonIndex,
+  breadcrumbLdJsonIndex,
+  blogLdJsonIndex,
+  courseLdJsonIndex,
+  localBusinessLdJsonIndex,
+  logoLdJsonIndex,
+  logoLdSecondJsonIndex,
+  productLdJsonIndex,
+  socialProfileLdJsonIndex,
+  corporateContactIndex,
+  newsarticleLdJsonIndex,
+  faqPageLdJsonIndex,
+  jobPostingLdJsonIndex,
+  jobPostingLdSecondJsonIndex,
+  eventLdJsonIndex,
+  datasetLdJsonIndex,
+  recipeLdJsonIndex,
+  siteLinksSearchBoxLdJsonIndex,
+  qaPageLdJsonIndex,
+  softwareAppJsonIndex,
+  collectionPageLdJsonIndex,
+  profilePageLdJsonIndex,
+  videoGameLdJsonIndex,
+] = [...Array(expectedJSONResults).keys()];
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -63,10 +65,17 @@ describe('Validates JSON-LD For:', () => {
             {
               '@type': 'Person',
               name: 'Jane Blogs',
+              url: 'https://www.example.com/author/janeblogs123',
             },
             {
               '@type': 'Person',
               name: 'Mary Stone',
+              url: 'https://www.example.com/author/marystone123',
+            },
+            {
+              '@type': 'Organization',
+              name: 'Acme',
+              url: 'https://www.example.com/organization/acme123',
             },
           ],
           publisher: {

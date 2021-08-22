@@ -210,6 +210,14 @@ export type ReviewRating = {
 export type Author = {
   type: string;
   name: string;
+  url: string;
+};
+
+export const isAuthor = (author: Author | string): author is Author => {
+  return (
+    (author as Author).name !== undefined &&
+    (author as Author).url !== undefined
+  );
 };
 
 export type Publisher = {

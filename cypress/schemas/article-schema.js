@@ -46,12 +46,17 @@ const author100 = {
         type: 'string',
         description: 'Name of the author',
       },
+      url: {
+        type: 'string',
+        description: 'Url of the authors page',
+      },
     },
     required: true,
     additionalProperties: false,
     example: {
       '@type': 'Person',
       name: 'Jane Blogs',
+      url: 'https://www.example.com/author/janeblogs123',
     },
   },
 };
@@ -196,6 +201,7 @@ const article100 = {
     author: {
       '@type': 'Person',
       name: 'Jane Blogs',
+      url: 'https://www.example.com/author/janeblogs123',
     },
     publisher: {
       '@type': 'Organization',
