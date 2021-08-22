@@ -998,6 +998,51 @@ const Page = () => (
 export default Page;
 ```
 
+If you need to add an URL to link to the auhtors pages the [new Google Structured Data for Article](https://searchengineland.com/google-adds-author-url-property-to-uniquely-identify-authors-of-articles-351131) is also available.
+
+```jsx
+import { ArticleJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Article JSON-LD</h1>
+    <ArticleJsonLd
+      url="https://example.com/article"
+      title="Article headline"
+      images={[
+        'https://example.com/photos/1x1/photo.jpg',
+        'https://example.com/photos/4x3/photo.jpg',
+        'https://example.com/photos/16x9/photo.jpg',
+      ]}
+      datePublished="2015-02-05T08:00:00+08:00"
+      dateModified="2015-02-05T09:00:00+08:00"
+      author={
+        ([
+          (type: 'Person'),
+          (name: 'Jane Blogs'),
+          (url: 'https://www.example.com/author/janeblogs123'),
+        ],
+        [
+          (type: 'Person'),
+          (name: 'Mary Stone'),
+          (url: 'https://www.example.com/author/marystone123'),
+        ],
+        [
+          (type: 'Organization'),
+          (name: 'Acme'),
+          (url: 'https://www.example.com/organization/acme123'),
+        ])
+      }
+      publisherName="Gary Meehan"
+      publisherLogo="https://www.example.com/photos/logo.jpg"
+      description="This is a mighty good description of this article."
+    />
+  </>
+);
+
+export default Page;
+```
+
 ### Breadcrumb
 
 ```jsx

@@ -1,6 +1,12 @@
 import { formatAuthorName, buildAuthor } from '../buildArticle';
 import { Author } from '../../types';
 
+it('supports no or empty authors', () => {
+  expect(buildAuthor(null)).toStrictEqual('');
+  expect(buildAuthor(undefined)).toStrictEqual('');
+  expect(buildAuthor([])).toStrictEqual([]);
+});
+
 it('format an author from a string', () => {
   expect(formatAuthorName('John Doe')).toHaveProperty('name', 'John Doe');
   expect(formatAuthorName('John Doe')).toHaveProperty('@type', 'Person');
@@ -74,6 +80,23 @@ it('build an author from an array of Author', () => {
       '@type': 'Organization',
       name: 'Acme',
       url: 'https://www.example.com/organization/acme123',
+    },
+  ]);
+});
+
+it('build an author from a string or an array of string', () => {
+  expect(buildAuthor('John Doe')).toStrictEqual({
+    '@type': 'Person',
+    name: 'John Doe',
+  });
+  expect(buildAuthor(['John Doe', 'Jane Roe'])).toStrictEqual([
+    {
+      '@type': 'Person',
+      name: 'John Doe',
+    },
+    {
+      '@type': 'Person',
+      name: 'Jane Roe',
     },
   ]);
 });

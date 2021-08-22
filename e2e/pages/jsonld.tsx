@@ -28,6 +28,7 @@ const JsonLD = () => (
   <>
     <h1>All JSON-LD</h1>
     <ArticleJsonLd
+      keyOverride="article-with-author-url"
       url="https://example.com/article"
       title="Article headline"
       images={[
@@ -54,6 +55,23 @@ const JsonLD = () => (
           url: 'https://www.example.com/organization/acme123',
         },
       ]}
+      publisherName="Gary Meehan"
+      publisherLogo="https://www.example.com/photos/logo.jpg"
+      description="This is a mighty good description of this article."
+    />
+
+    <ArticleJsonLd
+      keyOverride="article-with-author-name-list"
+      url="https://example.com/article"
+      title="Article headline backward compatible"
+      images={[
+        'https://example.com/photos/1x1/photo.jpg',
+        'https://example.com/photos/4x3/photo.jpg',
+        'https://example.com/photos/16x9/photo.jpg',
+      ]}
+      datePublished="2015-02-05T08:00:00+08:00"
+      dateModified="2015-02-05T09:00:00+08:00"
+      authorName={['Jane Blogs', 'Mary Stone']}
       publisherName="Gary Meehan"
       publisherLogo="https://www.example.com/photos/logo.jpg"
       description="This is a mighty good description of this article."

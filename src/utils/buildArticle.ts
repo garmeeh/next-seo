@@ -5,7 +5,12 @@ export const formatAuthorName = (authorName: string | string[]) =>
     ? authorName.map(name => ({ '@type': 'Person', name: name }))
     : { '@type': 'Person', name: authorName };
 
-export const buildAuthor = (author: Author | Author[] | string | string[]) => {
+export const buildAuthor = (
+  author: Author | Author[] | string | string[] | undefined | null,
+) => {
+  if (author === undefined || author === null) {
+    return '';
+  }
   return Array.isArray(author)
     ? author.map(author =>
         isAuthor(author)

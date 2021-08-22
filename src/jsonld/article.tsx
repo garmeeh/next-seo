@@ -13,8 +13,8 @@ export interface ArticleJsonLdProps {
   images: ReadonlyArray<string>;
   datePublished: string;
   dateModified?: string;
-  authorName: string | string[];
-  author: Author | Author[];
+  authorName?: string | string[];
+  author?: Author | Author[];
   description: string;
   publisherName: string;
   publisherLogo: string;
@@ -33,7 +33,7 @@ const ArticleJsonLd: FC<ArticleJsonLdProps> = ({
   publisherName,
   publisherLogo,
 }) => {
-  const jslonld = JSON.stringify(
+  const jsonld = JSON.stringify(
     {
       '@context': 'https://schema.org',
       '@type': 'Article',
@@ -64,7 +64,7 @@ const ArticleJsonLd: FC<ArticleJsonLdProps> = ({
     <Head>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
+        dangerouslySetInnerHTML={markup(jsonld)}
         key={`jsonld-article${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>

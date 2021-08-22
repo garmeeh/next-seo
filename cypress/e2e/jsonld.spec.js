@@ -1,10 +1,11 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 23;
+const expectedJSONResults = 24;
 
 const [
   articleLdJsonIndex,
+  articleLdBackwardCompatibleJsonIndex,
   breadcrumbLdJsonIndex,
   blogLdJsonIndex,
   courseLdJsonIndex,
@@ -45,8 +46,8 @@ describe('Validates JSON-LD For:', () => {
     cy.get('head script[type="application/ld+json"]')
       .should('have.length', expectedJSONResults)
       .then(tags => {
-        const jsonLD = JSON.parse(tags[articleLdJsonIndex].innerHTML);
-        expect(jsonLD).to.deep.equal({
+        const jsonLD1 = JSON.parse(tags[articleLdJsonIndex].innerHTML);
+        expect(jsonLD1).to.deep.equal({
           '@context': 'https://schema.org',
           '@type': 'Article',
           mainEntityOfPage: {
@@ -76,6 +77,44 @@ describe('Validates JSON-LD For:', () => {
               '@type': 'Organization',
               name: 'Acme',
               url: 'https://www.example.com/organization/acme123',
+            },
+          ],
+          publisher: {
+            '@type': 'Organization',
+            name: 'Gary Meehan',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://www.example.com/photos/logo.jpg',
+            },
+          },
+          description: 'This is a mighty good description of this article.',
+        });
+        const jsonLD2 = JSON.parse(
+          tags[articleLdBackwardCompatibleJsonIndex].innerHTML,
+        );
+        expect(jsonLD2).to.deep.equal({
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': 'https://example.com/article',
+          },
+          headline: 'Article headline backward compatible',
+          image: [
+            'https://example.com/photos/1x1/photo.jpg',
+            'https://example.com/photos/4x3/photo.jpg',
+            'https://example.com/photos/16x9/photo.jpg',
+          ],
+          datePublished: '2015-02-05T08:00:00+08:00',
+          dateModified: '2015-02-05T09:00:00+08:00',
+          author: [
+            {
+              '@type': 'Person',
+              name: 'Jane Blogs',
+            },
+            {
+              '@type': 'Person',
+              name: 'Mary Stone',
             },
           ],
           publisher: {
