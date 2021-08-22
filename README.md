@@ -998,7 +998,7 @@ const Page = () => (
 export default Page;
 ```
 
-If you need to add an URL to link to the auhtors pages the [new Google Structured Data for Article](https://searchengineland.com/google-adds-author-url-property-to-uniquely-identify-authors-of-articles-351131) is also available.
+If you need to add an URL to link to the authors pages the [new Google Structured Data for Article](https://searchengineland.com/google-adds-author-url-property-to-uniquely-identify-authors-of-articles-351131) is also available.
 
 ```jsx
 import { ArticleJsonLd } from 'next-seo';
