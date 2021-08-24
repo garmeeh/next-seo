@@ -1,13 +1,4 @@
-export interface OpenGraphImages {
-  url: string;
-  width?: number;
-  height?: number;
-  alt?: string;
-  type?: string;
-  secureUrl?: string;
-}
-
-export interface OpenGraphVideos {
+export interface OpenGraphMedia {
   url: string;
   width?: number;
   height?: number;
@@ -82,8 +73,8 @@ export interface OpenGraph {
   type?: string;
   title?: string;
   description?: string;
-  images?: ReadonlyArray<OpenGraphImages>;
-  videos?: ReadonlyArray<OpenGraphVideos>;
+  images?: ReadonlyArray<OpenGraphMedia>;
+  videos?: ReadonlyArray<OpenGraphMedia>;
   defaultImageHeight?: number;
   defaultImageWidth?: number;
   locale?: string;
