@@ -1,5 +1,5 @@
 import React, { ReactNodeArray } from 'react';
-import { BuildTagsParams, OpenGraphImages } from '../types';
+import { BuildTagsParams, OpenGraphMedia } from '../types';
 const defaults = {
   templateTitle: '',
   noindex: false,
@@ -12,7 +12,7 @@ const defaults = {
 
 const buildOpenGraphMediaTags = (
   mediaType: 'image' | 'video',
-  media: ReadonlyArray<OpenGraphImages> = [],
+  media: ReadonlyArray<OpenGraphMedia> = [],
   {
     defaultWidth,
     defaultHeight,
