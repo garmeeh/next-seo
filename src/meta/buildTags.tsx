@@ -517,6 +517,26 @@ const buildTags = (config: BuildTagsParams) => {
           );
         }
 
+        if (image.secureUrl) {
+          tagsToRender.push(
+            <meta
+              key={`og:image:secure_url0${index}`}
+              property="og:image:secure_url"
+              content={image.secureUrl.toString()}
+            />,
+          );
+        }
+
+        if (image.type) {
+          tagsToRender.push(
+            <meta
+              key={`og:image:type0${index}`}
+              property="og:image:type"
+              content={image.type.toString()}
+            />,
+          );
+        }
+
         if (image.width) {
           tagsToRender.push(
             <meta

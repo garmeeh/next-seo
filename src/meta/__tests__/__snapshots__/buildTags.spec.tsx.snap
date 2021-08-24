@@ -529,6 +529,14 @@ exports[`renders correctly 1`] = `
     property="og:image:alt"
   />
   <meta
+    content="https://www.test.ie/secure-image-01.jpg"
+    property="og:image:secure_url"
+  />
+  <meta
+    content="image/jpeg"
+    property="og:image:type"
+  />
+  <meta
     content="800"
     property="og:image:width"
   />

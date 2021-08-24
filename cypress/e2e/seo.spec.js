@@ -65,6 +65,18 @@ describe('SEO Meta', () => {
       .then(tags => {
         expect(tags[0].content).to.equal('Og Image Alt A');
       });
+    cy.get('head meta[property="og:image:type"]')
+      .should('have.length', 1)
+      .then(tags => {
+        expect(tags[0].content).to.equal('image/jpeg');
+      });
+    cy.get('head meta[property="og:image:secure_url"]')
+      .should('have.length', 1)
+      .then(tags => {
+        expect(tags[0].content).to.equal(
+          'https://www.test.ie/secure-og-image-a-01.jpg',
+        );
+      });
     cy.get('head meta[property="og:image:width"]')
       .should('have.length', 1)
       .then(tags => {
