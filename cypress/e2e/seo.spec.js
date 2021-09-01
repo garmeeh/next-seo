@@ -285,6 +285,27 @@ describe('SEO Meta', () => {
       });
   });
 
+  it('SEO overrides title without openGraph prop correctly', () => {
+    cy.visit('http://localhost:3000/overridden/titleWithoutOpenGraph');
+    cy.get('h1').should('contain', 'Overridden Title Seo');
+    cy.get('head title').should('contain', 'Title C | Next SEO');
+    cy.get('head meta[name="description"]').should(
+      'have.attr',
+      'content',
+      'Description C',
+    );
+    cy.get('head meta[property="og:title"]').should(
+      'have.attr',
+      'content',
+      'Title C | Next SEO',
+    );
+    cy.get('head meta[property="og:description"]').should(
+      'have.attr',
+      'content',
+      'Description C',
+    );
+  });
+
   it('Profile SEO loads correctly', () => {
     cy.visit('http://localhost:3000/profile');
     cy.get('h1').should('contain', 'Profile Page SEO');

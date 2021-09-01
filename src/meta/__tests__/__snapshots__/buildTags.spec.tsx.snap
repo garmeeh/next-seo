@@ -30,6 +30,14 @@ exports[`Article SEO renders correctly 1`] = `
     name="twitter:creator"
   />
   <meta
+    content="Open Graph Article Title"
+    property="og:title"
+  />
+  <meta
+    content="Description of open graph article"
+    property="og:description"
+  />
+  <meta
     content="https://www.example.com/articles/article-title"
     property="og:url"
   />
@@ -68,14 +76,6 @@ exports[`Article SEO renders correctly 1`] = `
   <meta
     content="Tag B"
     property="article:tag"
-  />
-  <meta
-    content="Open Graph Article Title"
-    property="og:title"
-  />
-  <meta
-    content="Description of open graph article"
-    property="og:description"
   />
   <meta
     content="https://www.test.ie/og-image-article-title-01.jpg"
@@ -146,6 +146,14 @@ exports[`Book SEO renders correctly 1`] = `
     name="twitter:creator"
   />
   <meta
+    content="Open Graph Book Title"
+    property="og:title"
+  />
+  <meta
+    content="Description of open graph book"
+    property="og:description"
+  />
+  <meta
     content="https://www.example.com/books/book-title"
     property="og:url"
   />
@@ -176,14 +184,6 @@ exports[`Book SEO renders correctly 1`] = `
   <meta
     content="Tag B"
     property="book:tag"
-  />
-  <meta
-    content="Open Graph Book Title"
-    property="og:title"
-  />
-  <meta
-    content="Description of open graph book"
-    property="og:description"
   />
   <meta
     content="https://www.test.ie/og-image-book-title-01.jpg"
@@ -254,6 +254,14 @@ exports[`Profile SEO renders correctly 1`] = `
     name="twitter:creator"
   />
   <meta
+    content="Open Graph Profile Title"
+    property="og:title"
+  />
+  <meta
+    content="Description of open graph profile"
+    property="og:description"
+  />
+  <meta
     content="https://www.example.com/@firstlast123"
     property="og:url"
   />
@@ -276,14 +284,6 @@ exports[`Profile SEO renders correctly 1`] = `
   <meta
     content="male"
     property="profile:gender"
-  />
-  <meta
-    content="Open Graph Profile Title"
-    property="og:title"
-  />
-  <meta
-    content="Description of open graph profile"
-    property="og:description"
   />
   <meta
     content="https://www.test.ie/og-image-firstlast123-01.jpg"
@@ -354,6 +354,14 @@ exports[`Video SEO renders correctly 1`] = `
     name="twitter:creator"
   />
   <meta
+    content="Open Graph Video Title"
+    property="og:title"
+  />
+  <meta
+    content="Description of open graph video"
+    property="og:description"
+  />
+  <meta
     content="https://www.example.com/videos/video-title"
     property="og:url"
   />
@@ -408,14 +416,6 @@ exports[`Video SEO renders correctly 1`] = `
   <meta
     content="Tag B"
     property="video:tag"
-  />
-  <meta
-    content="Open Graph Video Title"
-    property="og:title"
-  />
-  <meta
-    content="Description of open graph video"
-    property="og:description"
   />
   <meta
     content="https://www.test.ie/og-image-video-title-01.jpg"
@@ -505,20 +505,20 @@ exports[`renders correctly 1`] = `
     property="fb:app_id"
   />
   <meta
-    content="https://www.url.ie"
-    property="og:url"
-  />
-  <meta
-    content="website"
-    property="og:type"
-  />
-  <meta
     content="Open graph title"
     property="og:title"
   />
   <meta
     content="This is testing og:description."
     property="og:description"
+  />
+  <meta
+    content="https://www.url.ie"
+    property="og:url"
+  />
+  <meta
+    content="website"
+    property="og:type"
   />
   <meta
     content="https://www.test.ie/image-01.jpg"
