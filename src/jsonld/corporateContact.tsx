@@ -19,7 +19,7 @@ export interface CorporateContactJsonLdProps {
 const formatIfArray = (value: string[] | string) =>
   Array.isArray(value) ? `[${value.map(val => `"${val}"`)}]` : `"${value}"`;
 
-const buildContactPoint = (contactPoint: ContactPoint[]) =>
+export const buildContactPoint = (contactPoint: ContactPoint[]) =>
   contactPoint.map(
     contact => `{
     "@type": "ContactPoint",
