@@ -52,7 +52,7 @@ const webPage100 = {
     '@type': 'WebPage',
     '@id': 'https://www.purpule-fox.io/#corporation',
     logo: 'https://www.example.com/photos/logo.jpg',
-    slogan: 'What does the fox say?',
+    lastReviewed: '2021-05-26T05:59:02.085Z',
     reviewedBy: {
       name: 'Garmeeh',
     },
