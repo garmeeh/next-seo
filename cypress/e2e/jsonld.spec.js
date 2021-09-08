@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 24;
+const expectedJSONResults = 26;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -27,6 +27,8 @@ const collectionPageLdJsonIndex = 20;
 const profilePageLdJsonIndex = 21;
 const videoGameLdJsonIndex = 22;
 const organizationLdJsonIndex = 23;
+const brandLdJsonIndex = 24;
+const webPageLdJsonIndex = 25;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -1890,6 +1892,66 @@ describe('Validates JSON-LD For:', () => {
             },
           ],
           sameAs: ['https://www.orange-fox.com'],
+        });
+      });
+  });
+  it('Brand', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[brandLdJsonIndex].innerHTML);
+        assertSchema(schemas)('Brand', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Brand Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[brandLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org',
+          '@type': 'Brand',
+          '@id': 'https://www.purpule-fox.io/#brand',
+          logo: 'https://www.example.com/photos/logo.jpg',
+          slogan: 'What does the fox say?',
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.4',
+            reviewCount: '89',
+          },
+        });
+      });
+  });
+
+  it('WebPage', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[webPageLdJsonIndex].innerHTML);
+        assertSchema(schemas)('WebPage', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('WebPage Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[webPageLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          '@id': 'https://www.purpule-fox.io/#info',
+          description: 'This is a description.',
+          lastReviewed: '2021-05-26T05:59:02.085Z',
+          reviewedBy: {
+            '@type': 'Organization',
+            name: 'Garmeeh',
+          },
         });
       });
   });

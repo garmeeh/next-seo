@@ -22,6 +22,8 @@ import collectionPageVersions from './collection-page-schema';
 import profilePageVersions from './profile-page-schema';
 import videoGameVersions from './videogame-schema';
 import organizationVersions from './organization-schema';
+import brandVersions from './brand-schema';
+import webPageVersions from './web-page-schema';
 
 const schemas = combineSchemas(
   articleVersions,
@@ -46,5 +48,7 @@ const schemas = combineSchemas(
   profilePageVersions,
   videoGameVersions,
   organizationVersions,
+  brandVersions,
+  webPageVersions,
 );
 export default schemas;
