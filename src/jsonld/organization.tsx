@@ -7,7 +7,7 @@ import { buildContactPoint, ContactPoint } from './corporateContact';
 import buildAddress from '../utils/buildAddress';
 
 export interface OrganizationJsonLdProps {
-  organizationType: OrganizationCategory;
+  organizationType?: OrganizationCategory;
   id?: string;
   name: string;
   logo?: string;
@@ -30,7 +30,7 @@ const OrganizationJsonLd: React.FC<OrganizationJsonLdProps> = ({
   contactPoints = [],
 }) => {
   const jslonld = `{
-    "@context": "https://schema.org/",
+    "@context": "https://schema.org",
     "@type": "${organizationType}",
     ${id ? `"@id": "${id}",` : ''}
     ${logo ? `"logo": "${logo}",` : ''}
@@ -44,7 +44,7 @@ const OrganizationJsonLd: React.FC<OrganizationJsonLdProps> = ({
     }
     ${
       contactPoints.length > 0
-        ? `"contactPoint": [${buildContactPoint(contactPoints)}],`
+        ? `"contactPoints": [${buildContactPoint(contactPoints)}],`
         : ''
     }
     "url": "${url}"
@@ -55,7 +55,7 @@ const OrganizationJsonLd: React.FC<OrganizationJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-faq-page"
+        key="jsonld-organization-page"
       />
     </Head>
   );

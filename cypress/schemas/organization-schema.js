@@ -25,17 +25,21 @@ const organization100 = {
         type: 'string',
         description: 'URL to main entity of page',
       },
-      name: {
+      logo: {
         type: 'string',
-        description: 'Name of the organization, e.g Purple Fox',
+        description: "Url of the Organization's logo",
       },
       legalName: {
         type: 'string',
         description: 'Legal name of the organization, e.g Purple Fox SA or LLC',
       },
-      logo: {
+      name: {
         type: 'string',
-        description: "Url of the Organization's logo",
+        description: 'Name of the organization, e.g Purple Fox',
+      },
+      address: {
+        ...address100.schema,
+        see: address100,
       },
       sameAs: {
         type: 'array',
@@ -45,27 +49,33 @@ const organization100 = {
         description:
           "Array of Organization's URL's, usually social urls like instagram, facebook etc.",
       },
-      address: address100.schema,
       contactPoints: {
         type: 'array',
         items: {
           ...contactPoint100.schema,
+          see: contactPoint100,
         },
+        description: 'Array with contact points objects.',
+      },
+      url: {
+        type: 'string',
+        description: 'URL to main entity of page',
       },
     },
+    required: ['name', 'url'],
     additionalProperties: false,
   },
   example: {
     '@context': 'https://schema.org',
     '@type': 'Corporation',
     '@id': 'https://www.purpule-fox.io/#corporation',
-    name: 'Purple Fox',
-    legalName: 'Purple Fox LLC',
     logo: 'https://www.example.com/photos/logo.jpg',
-    url: 'https://www.purpule-fox.io/',
+    legalName: 'Purple Fox LLC',
+    name: 'Purple Fox',
     address: address100.example,
     contactPoints: [contactPoint100.example],
     sameAs: ['https://www.orange-fox.com'],
+    url: 'https://www.purpule-fox.io/',
   },
 };
 
