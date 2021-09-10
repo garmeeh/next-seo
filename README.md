@@ -2729,7 +2729,7 @@ export default () => (
   <>
     <h1>Organization JSON-LD</h1>
     <OrganizationJsonLd
-      organizationType: "Corporation"
+      organizationType= "Corporation"
       id="https://www.purpule-fox.io/#corporation"
       logo="https://www.example.com/photos/logo.jpg"
       legalName="Purple Fox LLC"
@@ -2762,8 +2762,8 @@ export default () => (
           availableLanguage: ['English', 'French'],
         },
       ]}
-      sameAs: ['https://www.orange-fox.com'],
-      url: 'https://www.purpule-fox.io/'
+      sameAs={['https://www.orange-fox.com']}
+      url= 'https://www.purpule-fox.io/'
     />
   </>
 );
@@ -2808,7 +2808,7 @@ export default () => (
   <>
     <h1>Brand JSON-LD</h1>
     <BrandJsonLd
-      slogan: "What does the fox say?"
+      slogan= "What does the fox say?"
       id="https://www.purpule-fox.io/#corporation"
       logo="https://www.example.com/photos/logo.jpg"
       aggregateRating={{
@@ -2851,7 +2851,7 @@ export default () => (
   <>
     <h1>WebPage JSON-LD</h1>
     <WebPageJsonLd
-      description: "What does the fox say?"
+      description= "What does the fox say?"
       id="https://www.purpule-fox.io/#corporation"
       lastReviewed="2021-05-26T05:59:02.085Z"
       reviewedBy={{
