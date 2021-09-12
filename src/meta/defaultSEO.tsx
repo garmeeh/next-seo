@@ -25,6 +25,7 @@ export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
       mobileAlternate,
       languageAlternates,
       additionalLinkTags,
+      robotsProps,
     } = this.props;
 
     return (
@@ -48,6 +49,7 @@ export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
           mobileAlternate,
           languageAlternates,
           additionalLinkTags,
+          robotsProps,
         })}
       </Head>
     );
