@@ -28,6 +28,7 @@ looking for inspiration on what to add.
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
     - [No Follow](#no-follow)
     - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
+    - [dangerouslyDisableGoogleBot](#dangerouslydisablegooglebot)
     - [robotsProps](#robotsprops)
     - [Twitter](#twitter)
     - [facebook](#facebook)
@@ -393,6 +394,12 @@ The only way to unset this, is by removing the prop from the `DefaultSeo` in you
 | --        | true       | `index,nofollow`                        |
 | false     | true       | `index,nofollow`                        |
 | true      | true       | `noindex,nofollow`                      |
+
+#### dangerouslyDisableGoogleBot
+
+It has the prefix of `dangerously` because it will remove googlebot tags from all pages. As this is an SEO plugin, that is kinda dangerous action. It is **not** bad to use this, just please be sure you want to remove googlebot tags from **EVERY** page.
+
+The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom `<App>`.
 
 #### robotsProps
 
