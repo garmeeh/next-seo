@@ -29,6 +29,21 @@ const Links = () => (
       </Link>
     </li>
     <li>
+      <Link href="/dangerously/disable-googlebot">
+        <a>Disabled Googlebot</a>
+      </Link>
+    </li>
+    <li>
+      <Link href="/dangerously/noindex">
+        <a>Dangerously AllPagesToNoIndex</a>
+      </Link>
+    </li>
+    <li>
+      <Link href="/dangerously/nofollow">
+        <a>Dangerously AllPagesToNoFollow</a>
+      </Link>
+    </li>
+    <li>
       <Link href="/overridden">
         <a>Overridden Seo</a>
       </Link>

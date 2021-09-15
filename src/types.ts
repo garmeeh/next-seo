@@ -271,6 +271,7 @@ export interface NextSeoProps {
 }
 
 export interface DefaultSeoProps extends NextSeoProps {
+  dangerouslyDisableGoogleBot?: boolean;
   dangerouslySetAllPagesToNoIndex?: boolean;
   dangerouslySetAllPagesToNoFollow?: boolean;
   defaultOpenGraphImageWidth?: number;

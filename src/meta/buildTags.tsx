@@ -81,15 +81,17 @@ const buildTags = (config: BuildTagsParams) => {
         }${robotsParams}`}
       />,
     );
-    tagsToRender.push(
-      <meta
-        key="googlebot"
-        name="googlebot"
-        content={`${noindex ? 'noindex' : 'index'},${
-          nofollow ? 'nofollow' : 'follow'
-        }${robotsParams}`}
-      />,
-    );
+    if (!config.dangerouslyDisableGoogleBot) {
+      tagsToRender.push(
+        <meta
+          key="googlebot"
+          name="googlebot"
+          content={`${noindex ? 'noindex' : 'index'},${
+            nofollow ? 'nofollow' : 'follow'
+          }${robotsParams}`}
+        />,
+      );
+    }
   } else {
     tagsToRender.push(
       <meta
@@ -98,13 +100,15 @@ const buildTags = (config: BuildTagsParams) => {
         content={`index,follow${robotsParams}`}
       />,
     );
-    tagsToRender.push(
-      <meta
-        key="googlebot"
-        name="googlebot"
-        content={`index,follow${robotsParams}`}
-      />,
-    );
+    if (!config.dangerouslyDisableGoogleBot) {
+      tagsToRender.push(
+        <meta
+          key="googlebot"
+          name="googlebot"
+          content={`index,follow${robotsParams}`}
+        />,
+      );
+    }
   }
 
   if (config.description) {

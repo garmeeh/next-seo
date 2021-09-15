@@ -285,6 +285,58 @@ describe('SEO Meta', () => {
       });
   });
 
+  it('SEO dangerouslyDisableGoogleBot overrides tag correctly', () => {
+    cy.visit('http://localhost:3000/dangerously/disable-googlebot');
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'index,follow',
+    );
+    cy.get('head meta[name="googlebot"]').should('not.exist');
+  });
+
+  it('SEO dangerouslySetAllPagesToNoIndex', () => {
+    cy.visit('http://localhost:3000/dangerously/noindex');
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'noindex,follow',
+    );
+    cy.get('head meta[name="googlebot"]').should(
+      'have.attr',
+      'content',
+      'noindex,follow',
+    );
+  });
+
+  it('SEO dangerouslySetAllPagesToNoFollow', () => {
+    cy.visit('http://localhost:3000/dangerously/nofollow');
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'index,nofollow',
+    );
+    cy.get('head meta[name="googlebot"]').should(
+      'have.attr',
+      'content',
+      'index,nofollow',
+    );
+  });
+
+  it('SEO dangerouslySetAllPagesToNoFollow and dangerouslySetAllPagesToNoIndex', () => {
+    cy.visit('http://localhost:3000/dangerously/nofollow-and-noindex');
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'noindex,nofollow',
+    );
+    cy.get('head meta[name="googlebot"]').should(
+      'have.attr',
+      'content',
+      'noindex,nofollow',
+    );
+  });
+
   it('Profile SEO loads correctly', () => {
     cy.visit('http://localhost:3000/profile');
     cy.get('h1').should('contain', 'Profile Page SEO');
