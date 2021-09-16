@@ -89,7 +89,7 @@ const buildTags = (config: BuildTagsParams) => {
         }${robotsParams}`}
       />,
     );
-    if (disableGooglebot) {
+    if (!disableGooglebot) {
       tagsToRender.push(
         <meta
           key="googlebot"
@@ -108,7 +108,7 @@ const buildTags = (config: BuildTagsParams) => {
         content={`index,follow${robotsParams}`}
       />,
     );
-    if (disableGooglebot) {
+    if (!disableGooglebot) {
       tagsToRender.push(
         <meta
           key="googlebot"
