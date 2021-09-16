@@ -542,6 +542,16 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "sushantdhiman",
+      "name": "Sushant",
+      "avatar_url": "https://avatars.githubusercontent.com/u/9989487?v=4",
+      "profile": "https://sushantdhiman.com",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
