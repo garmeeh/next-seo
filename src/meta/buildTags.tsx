@@ -272,6 +272,26 @@ const buildTags = (config: BuildTagsParams) => {
     }
   }
 
+  if (config.openGraph?.title || config.title) {
+    tagsToRender.push(
+      <meta
+        key="og:title"
+        property="og:title"
+        content={config.openGraph?.title || updatedTitle}
+      />,
+    );
+  }
+
+  if (config.openGraph?.description || config.description) {
+    tagsToRender.push(
+      <meta
+        key="og:description"
+        property="og:description"
+        content={config.openGraph?.description || config.description}
+      />,
+    );
+  }
+
   if (config.openGraph) {
     if (config.openGraph.url || config.canonical) {
       tagsToRender.push(
@@ -553,26 +573,6 @@ const buildTags = (config: BuildTagsParams) => {
           );
         }
       }
-    }
-
-    if (config.openGraph.title || config.title) {
-      tagsToRender.push(
-        <meta
-          key="og:title"
-          property="og:title"
-          content={config.openGraph.title || updatedTitle}
-        />,
-      );
-    }
-
-    if (config.openGraph.description || config.description) {
-      tagsToRender.push(
-        <meta
-          key="og:description"
-          property="og:description"
-          content={config.openGraph.description || config.description}
-        />,
-      );
     }
 
     // images
