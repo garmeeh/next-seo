@@ -4,13 +4,15 @@ import buildTags from './buildTags';
 
 import { DefaultSeoProps } from '../types';
 
+const SeoContext = React.createContext('light');
+
 export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
   render() {
     const {
       title,
       titleTemplate,
       defaultTitle,
-      dangerouslyDisableGoogleBot = false,
+      dangerouslyDisableGooglebot = false,
       dangerouslySetAllPagesToNoIndex = false,
       dangerouslySetAllPagesToNoFollow = false,
       description,
@@ -49,7 +51,7 @@ export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
           mobileAlternate,
           languageAlternates,
           additionalLinkTags,
-          dangerouslyDisableGoogleBot,
+          dangerouslyDisableGooglebot,
         })}
       </Head>
     );

@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       {router.pathname}
       <DefaultSeo
         {...SEO}
-        dangerouslyDisableGoogleBot={
+        dangerouslyDisableGooglebot={
           router.pathname === '/dangerously/disable-googlebot'
         }
         dangerouslySetAllPagesToNoFollow={

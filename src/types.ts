@@ -268,10 +268,11 @@ export interface NextSeoProps {
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
   additionalLinkTags?: ReadonlyArray<LinkTag>;
+  disableGooglebot?: boolean;
 }
 
 export interface DefaultSeoProps extends NextSeoProps {
-  dangerouslyDisableGoogleBot?: boolean;
+  dangerouslyDisableGooglebot?: boolean;
   dangerouslySetAllPagesToNoIndex?: boolean;
   dangerouslySetAllPagesToNoFollow?: boolean;
   defaultOpenGraphImageWidth?: number;

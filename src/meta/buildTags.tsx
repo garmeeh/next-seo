@@ -8,6 +8,7 @@ const defaults = {
   defaultOpenGraphImageHeight: 0,
   defaultOpenGraphVideoWidth: 0,
   defaultOpenGraphVideoHeight: 0,
+  disableGooglebot: false,
 };
 
 const buildTags = (config: BuildTagsParams) => {
@@ -39,6 +40,10 @@ const buildTags = (config: BuildTagsParams) => {
     config.nofollow ||
     defaults.nofollow ||
     config.dangerouslySetAllPagesToNoFollow;
+  const disableGooglebot =
+    config.disableGooglebot ||
+    defaults.disableGooglebot ||
+    config.dangerouslyDisableGooglebot;
 
   let robotsParams = '';
   if (config.robotsProps) {
@@ -71,6 +76,9 @@ const buildTags = (config: BuildTagsParams) => {
     if (config.dangerouslySetAllPagesToNoFollow) {
       defaults.nofollow = true;
     }
+    if (disableGooglebot && config.dangerouslyDisableGooglebot) {
+      defaults.disableGooglebot = true;
+    }
 
     tagsToRender.push(
       <meta
@@ -81,7 +89,7 @@ const buildTags = (config: BuildTagsParams) => {
         }${robotsParams}`}
       />,
     );
-    if (!config.dangerouslyDisableGoogleBot) {
+    if (disableGooglebot) {
       tagsToRender.push(
         <meta
           key="googlebot"
@@ -100,7 +108,7 @@ const buildTags = (config: BuildTagsParams) => {
         content={`index,follow${robotsParams}`}
       />,
     );
-    if (!config.dangerouslyDisableGoogleBot) {
+    if (disableGooglebot) {
       tagsToRender.push(
         <meta
           key="googlebot"

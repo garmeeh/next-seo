@@ -285,7 +285,7 @@ describe('SEO Meta', () => {
       });
   });
 
-  it('SEO dangerouslyDisableGoogleBot overrides tag correctly', () => {
+  it('SEO dangerouslyDisableGooglebot overrides tag correctly', () => {
     cy.visit('http://localhost:3000/dangerously/disable-googlebot');
     cy.get('head meta[name="robots"]').should(
       'have.attr',
