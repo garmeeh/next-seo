@@ -1,5 +1,5 @@
-import React from 'react';
-import { BuildTagsParams } from '../types';
+import React, { ReactNodeArray } from 'react';
+import { BuildTagsParams, OpenGraphMedia } from '../types';
 const defaults = {
   templateTitle: '',
   noindex: false,
@@ -10,8 +10,95 @@ const defaults = {
   defaultOpenGraphVideoHeight: 0,
 };
 
+const buildOpenGraphMediaTags = (
+  mediaType: 'image' | 'video',
+  media: ReadonlyArray<OpenGraphMedia> = [],
+  {
+    defaultWidth,
+    defaultHeight,
+  }: { defaultWidth?: number; defaultHeight?: number } = {},
+) => {
+  return media.reduce((tags, medium, index) => {
+    tags.push(
+      <meta
+        key={`og:${mediaType}:0${index}`}
+        property={`og:${mediaType}`}
+        content={medium.url}
+      />,
+    );
+
+    if (medium.alt) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:alt0${index}`}
+          property={`og:${mediaType}:alt`}
+          content={medium.alt}
+        />,
+      );
+    }
+
+    if (medium.secureUrl) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:secure_url0${index}`}
+          property={`og:${mediaType}:secure_url`}
+          content={medium.secureUrl.toString()}
+        />,
+      );
+    }
+
+    if (medium.type) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:type0${index}`}
+          property={`og:${mediaType}:type`}
+          content={medium.type.toString()}
+        />,
+      );
+    }
+
+    if (medium.width) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:width0${index}`}
+          property={`og:${mediaType}:width`}
+          content={medium.width.toString()}
+        />,
+      );
+    } else if (defaultWidth) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:width0${index}`}
+          property={`og:${mediaType}:width`}
+          content={defaultWidth.toString()}
+        />,
+      );
+    }
+
+    if (medium.height) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:height${index}`}
+          property={`og:${mediaType}:height`}
+          content={medium.height.toString()}
+        />,
+      );
+    } else if (defaultHeight) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:height${index}`}
+          property={`og:${mediaType}:height`}
+          content={defaultHeight.toString()}
+        />,
+      );
+    }
+
+    return tags;
+  }, [] as ReactNodeArray);
+};
+
 const buildTags = (config: BuildTagsParams) => {
-  const tagsToRender = [];
+  const tagsToRender: ReactNodeArray = [];
 
   if (config.titleTemplate) {
     defaults.templateTitle = config.titleTemplate;
@@ -498,61 +585,12 @@ const buildTags = (config: BuildTagsParams) => {
     }
 
     if (config.openGraph.images && config.openGraph.images.length) {
-      config.openGraph.images.forEach((image, index) => {
-        tagsToRender.push(
-          <meta
-            key={`og:image:0${index}`}
-            property="og:image"
-            content={image.url}
-          />,
-        );
-
-        if (image.alt) {
-          tagsToRender.push(
-            <meta
-              key={`og:image:alt0${index}`}
-              property="og:image:alt"
-              content={image.alt}
-            />,
-          );
-        }
-
-        if (image.width) {
-          tagsToRender.push(
-            <meta
-              key={`og:image:width0${index}`}
-              property="og:image:width"
-              content={image.width.toString()}
-            />,
-          );
-        } else if (defaults.defaultOpenGraphImageWidth) {
-          tagsToRender.push(
-            <meta
-              key={`og:image:width0${index}`}
-              property="og:image:width"
-              content={defaults.defaultOpenGraphImageWidth.toString()}
-            />,
-          );
-        }
-
-        if (image.height) {
-          tagsToRender.push(
-            <meta
-              key={`og:image:height${index}`}
-              property="og:image:height"
-              content={image.height.toString()}
-            />,
-          );
-        } else if (defaults.defaultOpenGraphImageHeight) {
-          tagsToRender.push(
-            <meta
-              key={`og:image:height${index}`}
-              property="og:image:height"
-              content={defaults.defaultOpenGraphImageHeight.toString()}
-            />,
-          );
-        }
-      });
+      tagsToRender.push(
+        ...buildOpenGraphMediaTags('image', config.openGraph.images, {
+          defaultWidth: defaults.defaultOpenGraphImageWidth,
+          defaultHeight: defaults.defaultOpenGraphImageHeight,
+        }),
+      );
     }
 
     // videos
@@ -565,81 +603,12 @@ const buildTags = (config: BuildTagsParams) => {
     }
 
     if (config.openGraph.videos && config.openGraph.videos.length) {
-      config.openGraph.videos.forEach((video, index) => {
-        tagsToRender.push(
-          <meta
-            key={`og:video:0${index}`}
-            property="og:video"
-            content={video.url}
-          />,
-        );
-
-        if (video.alt) {
-          tagsToRender.push(
-            <meta
-              key={`og:video:alt0${index}`}
-              property="og:video:alt"
-              content={video.alt}
-            />,
-          );
-        }
-
-        if (video.width) {
-          tagsToRender.push(
-            <meta
-              key={`og:video:width0${index}`}
-              property="og:video:width"
-              content={video.width.toString()}
-            />,
-          );
-        } else if (defaults.defaultOpenGraphVideoWidth) {
-          tagsToRender.push(
-            <meta
-              key={`og:video:width0${index}`}
-              property="og:video:width"
-              content={defaults.defaultOpenGraphVideoWidth.toString()}
-            />,
-          );
-        }
-
-        if (video.height) {
-          tagsToRender.push(
-            <meta
-              key={`og:video:height${index}`}
-              property="og:video:height"
-              content={video.height.toString()}
-            />,
-          );
-        } else if (defaults.defaultOpenGraphVideoHeight) {
-          tagsToRender.push(
-            <meta
-              key={`og:video:height${index}`}
-              property="og:video:height"
-              content={defaults.defaultOpenGraphVideoHeight.toString()}
-            />,
-          );
-        }
-
-        if (video.secureUrl) {
-          tagsToRender.push(
-            <meta
-              key={`og:video:secure_url${index}`}
-              property="og:video:secure_url"
-              content={video.secureUrl.toString()}
-            />,
-          );
-        }
-
-        if (video.type) {
-          tagsToRender.push(
-            <meta
-              key={`og:video:type${index}`}
-              property="og:video:type"
-              content={video.type.toString()}
-            />,
-          );
-        }
-      });
+      tagsToRender.push(
+        ...buildOpenGraphMediaTags('video', config.openGraph.videos, {
+          defaultWidth: defaults.defaultOpenGraphVideoWidth,
+          defaultHeight: defaults.defaultOpenGraphVideoHeight,
+        }),
+      );
     }
 
     if (config.openGraph.locale) {
