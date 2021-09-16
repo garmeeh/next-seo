@@ -552,6 +552,17 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "simrobin",
+      "name": "Simon Robin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10052336?v=4",
+      "profile": "https://simrobin.fr",
+      "contributions": [
+        "doc",
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 7,
