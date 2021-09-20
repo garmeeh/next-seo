@@ -65,6 +65,18 @@ describe('SEO Meta', () => {
       .then(tags => {
         expect(tags[0].content).to.equal('Og Image Alt A');
       });
+    cy.get('head meta[property="og:image:type"]')
+      .should('have.length', 1)
+      .then(tags => {
+        expect(tags[0].content).to.equal('image/jpeg');
+      });
+    cy.get('head meta[property="og:image:secure_url"]')
+      .should('have.length', 1)
+      .then(tags => {
+        expect(tags[0].content).to.equal(
+          'https://www.test.ie/secure-og-image-a-01.jpg',
+        );
+      });
     cy.get('head meta[property="og:image:width"]')
       .should('have.length', 1)
       .then(tags => {
@@ -334,6 +346,25 @@ describe('SEO Meta', () => {
       'have.attr',
       'content',
       'noindex,nofollow',
+
+  it('SEO overrides title without openGraph prop correctly', () => {
+    cy.visit('http://localhost:3000/overridden/titleWithoutOpenGraph');
+    cy.get('h1').should('contain', 'Overridden Title Seo');
+    cy.get('head title').should('contain', 'Title C | Next SEO');
+    cy.get('head meta[name="description"]').should(
+      'have.attr',
+      'content',
+      'Description C',
+    );
+    cy.get('head meta[property="og:title"]').should(
+      'have.attr',
+      'content',
+      'Title C | Next SEO',
+    );
+    cy.get('head meta[property="og:description"]').should(
+      'have.attr',
+      'content',
+      'Description C',
     );
   });
 

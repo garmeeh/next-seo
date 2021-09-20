@@ -139,12 +139,14 @@ const Page = () => (
             width: 800,
             height: 600,
             alt: 'Og Image Alt',
+            type: 'image/jpeg',
           },
           {
             url: 'https://www.example.ie/og-image-02.jpg',
             width: 900,
             height: 800,
             alt: 'Og Image Alt Second',
+            type: 'image/jpeg',
           },
           { url: 'https://www.example.ie/og-image-03.jpg' },
           { url: 'https://www.example.ie/og-image-04.jpg' },
@@ -2798,6 +2800,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="https://github.com/PezeM"><img src="https://avatars.githubusercontent.com/u/16854655?v=4?s=100" width="100px;" alt=""/><br /><sub><b>PezeM</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=PezeM" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/darklight147"><img src="https://avatars.githubusercontent.com/u/39389636?v=4?s=100" width="100px;" alt=""/><br /><sub><b>darklight147</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=darklight147" title="Documentation">📖</a></td>
     <td align="center"><a href="https://shabith.com"><img src="https://avatars.githubusercontent.com/u/143546?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shabith Ishan Thennakone</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=shabith" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://sushantdhiman.com"><img src="https://avatars.githubusercontent.com/u/9989487?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sushant</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=sushantdhiman" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=sushantdhiman" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://simrobin.fr"><img src="https://avatars.githubusercontent.com/u/10052336?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Simon Robin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=simrobin" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=simrobin" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=simrobin" title="Tests">⚠️</a></td>
   </tr>
 </table>
 
