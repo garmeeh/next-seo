@@ -2,11 +2,11 @@ import React from 'react';
 import { NextSeo } from '../../../';
 import Links from '../../components/links';
 
-const NoFollow = () => (
+const DangerouslyNoFollow = () => (
   <>
-    <NextSeo title="NoFollow" />
+    <NextSeo title="Dangerously NoFollow" />
     <h1>dangerouslySetAllPagesToNoFollow</h1>
     <Links />
   </>
 );
-export default NoFollow;
+export default DangerouslyNoFollow;

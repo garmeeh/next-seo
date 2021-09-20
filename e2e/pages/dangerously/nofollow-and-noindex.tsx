@@ -2,13 +2,13 @@ import React from 'react';
 import { NextSeo } from '../../../';
 import Links from '../../components/links';
 
-const NoFollowAndNoIndex = () => (
+const DangerouslyNoFollowAndNoIndex = () => (
   <>
     <h1>
-      <NextSeo title="NoFollowAndNoIndex" />
+      <NextSeo title="Dangerously NoFollow And NoIndex" />
       dangerouslySetAllPagesToNoFollow and dangerouslySetAllPagesToNoIndex
     </h1>
     <Links />
   </>
 );
-export default NoFollowAndNoIndex;
+export default DangerouslyNoFollowAndNoIndex;

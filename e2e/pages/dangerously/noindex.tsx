@@ -2,11 +2,11 @@ import React from 'react';
 import { NextSeo } from '../../../';
 import Links from '../../components/links';
 
-const NoIndex = () => (
+const DangerouslyNoIndex = () => (
   <>
-    <NextSeo title="NoIndex" />
+    <NextSeo title="Dangerously NoIndex" />
     <h1>dangerouslySetAllPagesToNoIndex</h1>
     <Links />
   </>
 );
-export default NoIndex;
+export default DangerouslyNoIndex;

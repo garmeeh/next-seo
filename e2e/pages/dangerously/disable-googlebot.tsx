@@ -2,11 +2,11 @@ import React from 'react';
 import { NextSeo } from '../../../';
 import Links from '../../components/links';
 
-const DisableGoogleBot = () => (
+const DangerouslyDisableGoogleBot = () => (
   <>
-    <NextSeo title="DisableGoogleBot" />
-    <h1>Disabled googlebot tag</h1>
+    <NextSeo title="Dangerously DisableGoogleBot" />
+    <h1>Disable googlebot tag</h1>
     <Links />
   </>
 );
-export default DisableGoogleBot;
+export default DangerouslyDisableGoogleBot;
