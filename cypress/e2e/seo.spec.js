@@ -297,7 +297,17 @@ describe('SEO Meta', () => {
       });
   });
 
-  it('SEO dangerouslyDisableGooglebot overrides tag correctly', () => {
+  it('SEO disableGooglebot disable googlebot tags correctly', () => {
+    cy.visit('http://localhost:3000/disable-googlebot');
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'index,follow',
+    );
+    cy.get('head meta[name="googlebot"]').should('not.exist');
+  });
+
+  it('SEO dangerouslyDisableGooglebot disable googlebot tags correctly', () => {
     cy.visit('http://localhost:3000/dangerously/disable-googlebot');
     cy.get('head meta[name="robots"]').should(
       'have.attr',
@@ -346,6 +356,8 @@ describe('SEO Meta', () => {
       'have.attr',
       'content',
       'noindex,nofollow',
+    );
+  });
 
   it('SEO overrides title without openGraph prop correctly', () => {
     cy.visit('http://localhost:3000/overridden/titleWithoutOpenGraph');
