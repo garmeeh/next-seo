@@ -6,7 +6,6 @@ import { DefaultSeo } from '../..';
 function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <>
-      {router.pathname}
       <DefaultSeo
         {...SEO}
         dangerouslyDisableGooglebot={
