@@ -297,68 +297,6 @@ describe('SEO Meta', () => {
       });
   });
 
-  it('SEO disableGooglebot disable googlebot tags correctly', () => {
-    cy.visit('http://localhost:3000/disable-googlebot');
-    cy.get('head meta[name="robots"]').should(
-      'have.attr',
-      'content',
-      'index,follow',
-    );
-    cy.get('head meta[name="googlebot"]').should('not.exist');
-  });
-
-  it('SEO dangerouslyDisableGooglebot disable googlebot tags correctly', () => {
-    cy.visit('http://localhost:3000/dangerously/disable-googlebot');
-    cy.get('head meta[name="robots"]').should(
-      'have.attr',
-      'content',
-      'index,follow',
-    );
-    cy.get('head meta[name="googlebot"]').should('not.exist');
-  });
-
-  it('SEO dangerouslySetAllPagesToNoIndex', () => {
-    cy.visit('http://localhost:3000/dangerously/noindex');
-    cy.get('head meta[name="robots"]').should(
-      'have.attr',
-      'content',
-      'noindex,follow',
-    );
-    cy.get('head meta[name="googlebot"]').should(
-      'have.attr',
-      'content',
-      'noindex,follow',
-    );
-  });
-
-  it('SEO dangerouslySetAllPagesToNoFollow', () => {
-    cy.visit('http://localhost:3000/dangerously/nofollow');
-    cy.get('head meta[name="robots"]').should(
-      'have.attr',
-      'content',
-      'index,nofollow',
-    );
-    cy.get('head meta[name="googlebot"]').should(
-      'have.attr',
-      'content',
-      'index,nofollow',
-    );
-  });
-
-  it('SEO dangerouslySetAllPagesToNoFollow and dangerouslySetAllPagesToNoIndex', () => {
-    cy.visit('http://localhost:3000/dangerously/nofollow-and-noindex');
-    cy.get('head meta[name="robots"]').should(
-      'have.attr',
-      'content',
-      'noindex,nofollow',
-    );
-    cy.get('head meta[name="googlebot"]').should(
-      'have.attr',
-      'content',
-      'noindex,nofollow',
-    );
-  });
-
   it('SEO overrides title without openGraph prop correctly', () => {
     cy.visit('http://localhost:3000/overridden/titleWithoutOpenGraph');
     cy.get('h1').should('contain', 'Overridden Title Seo');
@@ -879,5 +817,15 @@ describe('SEO Meta', () => {
       'content',
       'summary_large_image',
     );
+  });
+
+  it('SEO disableGooglebot disable googlebot tags correctly', () => {
+    cy.visit('http://localhost:3000/disable-googlebot');
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'index,follow',
+    );
+    cy.get('head meta[name="googlebot"]').should('not.exist');
   });
 });

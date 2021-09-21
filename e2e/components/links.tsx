@@ -89,6 +89,11 @@ const Links = () => (
         </Link>
       </li>
       <li>
+        <Link href="/dangerously/disable-googlebot-nofollow-and-noindex">
+          <a>Dangerously Disable Googlebot and NoFollow and NoIndex</a>
+        </Link>
+      </li>
+      <li>
         <Link href="/dangerously/noindex">
           <a>Dangerously AllPagesToNoIndex</a>
         </Link>

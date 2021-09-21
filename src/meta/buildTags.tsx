@@ -127,6 +127,7 @@ const buildTags = (config: BuildTagsParams) => {
     config.nofollow ||
     defaults.nofollow ||
     config.dangerouslySetAllPagesToNoFollow;
+
   const disableGooglebot =
     config.disableGooglebot ||
     defaults.disableGooglebot ||
@@ -156,15 +157,16 @@ const buildTags = (config: BuildTagsParams) => {
     }`;
   }
 
+  if (config.dangerouslyDisableGooglebot) {
+    defaults.disableGooglebot = true;
+  }
+
   if (noindex || nofollow) {
     if (config.dangerouslySetAllPagesToNoIndex) {
       defaults.noindex = true;
     }
     if (config.dangerouslySetAllPagesToNoFollow) {
       defaults.nofollow = true;
-    }
-    if (disableGooglebot && config.dangerouslyDisableGooglebot) {
-      defaults.disableGooglebot = true;
     }
 
     tagsToRender.push(
