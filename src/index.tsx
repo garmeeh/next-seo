@@ -20,10 +20,6 @@ export {
 export { default as LogoJsonLd, LogoJsonLdProps } from './jsonld/logo';
 export { default as ProductJsonLd, ProductJsonLdProps } from './jsonld/product';
 export {
-  default as SocialProfileJsonLd,
-  SocialProfileJsonLdProps,
-} from './jsonld/socialProfile';
-export {
   default as CorporateContactJsonLd,
   CorporateContactJsonLdProps,
 } from './jsonld/corporateContact';
@@ -59,5 +55,6 @@ export {
   default as ProfilePageJsonLd,
   ProfilePageJsonLdProps,
 } from './jsonld/profilePage';
+export { default as SocialProfileJsonLd } from './jsonld-new/socialProfile';
 
 export { DefaultSeoProps, NextSeoProps } from './types';

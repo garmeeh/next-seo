@@ -7,7 +7,6 @@ import {
   LocalBusinessJsonLd,
   LogoJsonLd,
   ProductJsonLd,
-  SocialProfileJsonLd,
   CorporateContactJsonLd,
   NewsArticleJsonLd,
   FAQPageJsonLd,
@@ -21,7 +20,9 @@ import {
   ProfilePageJsonLd,
   CollectionPageJsonLd,
   VideoGameJsonLd,
+  SocialProfileJsonLd,
 } from '../..';
+
 import Links from '../components/links';
 
 const JsonLD = () => (
