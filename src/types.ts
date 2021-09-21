@@ -1,11 +1,4 @@
-export interface OpenGraphImages {
-  url: string;
-  width?: number;
-  height?: number;
-  alt?: string;
-}
-
-export interface OpenGraphVideos {
+export interface OpenGraphMedia {
   url: string;
   width?: number;
   height?: number;
@@ -80,8 +73,8 @@ export interface OpenGraph {
   type?: string;
   title?: string;
   description?: string;
-  images?: ReadonlyArray<OpenGraphImages>;
-  videos?: ReadonlyArray<OpenGraphVideos>;
+  images?: ReadonlyArray<OpenGraphMedia>;
+  videos?: ReadonlyArray<OpenGraphMedia>;
   defaultImageHeight?: number;
   defaultImageWidth?: number;
   locale?: string;
@@ -268,9 +261,11 @@ export interface NextSeoProps {
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
   additionalLinkTags?: ReadonlyArray<LinkTag>;
+  disableGooglebot?: boolean;
 }
 
 export interface DefaultSeoProps extends NextSeoProps {
+  dangerouslyDisableGooglebot?: boolean;
   dangerouslySetAllPagesToNoIndex?: boolean;
   dangerouslySetAllPagesToNoFollow?: boolean;
   defaultOpenGraphImageWidth?: number;

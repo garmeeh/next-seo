@@ -63,6 +63,8 @@ const SEO: BuildTagsParams = {
         width: 800,
         height: 600,
         alt: 'Alt text right here',
+        type: 'image/jpeg',
+        secureUrl: 'https://www.test.ie/secure-image-01.jpg',
       },
       { url: 'https://www.test.ie/image-02.jpg' },
       { url: 'https://www.test.ie/image-03.jpg' },
@@ -168,6 +170,12 @@ it('returns full array for default seo object', () => {
   const ogSetImageAlt = container.querySelectorAll(
     `meta[content="${SEO.openGraph.images[0].alt}"]`,
   );
+  const ogSetImageType = container.querySelectorAll(
+    `meta[content="${SEO.openGraph.images[0].type}"]`,
+  );
+  const ogSetImageSecureUrl = container.querySelectorAll(
+    `meta[content="${SEO.openGraph.images[0].secureUrl}"]`,
+  );
   const ogLocale = container.querySelectorAll(
     `meta[content="${SEO.openGraph.locale}"]`,
   );
@@ -242,6 +250,8 @@ it('returns full array for default seo object', () => {
   expect(Array.from(ogSetImageHeight).length).toBe(1);
   expect(Array.from(ogSetImageWidth).length).toBe(1);
   expect(Array.from(ogSetImageAlt).length).toBe(1);
+  expect(Array.from(ogSetImageType).length).toBe(1);
+  expect(Array.from(ogSetImageSecureUrl).length).toBe(1);
   expect(Array.from(ogLocale).length).toBe(1);
   expect(Array.from(ogLocaleTag).length).toBe(1);
   expect(Array.from(ogSiteName).length).toBe(1);
@@ -277,9 +287,25 @@ it('correctly sets nofollow', () => {
   const indexnofollow = container.querySelectorAll(
     'meta[content="index,nofollow"]',
   );
-
   expect(Array.from(indexfollow).length).toBe(0);
   expect(Array.from(indexnofollow).length).toBe(2);
+});
+
+it('correctly overrides googlebot tag', () => {
+  const overrideProps = {
+    ...SEO,
+    disableGooglebot: true,
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+  const indexfollow = container.querySelectorAll(
+    'meta[content="index,follow"]',
+  );
+  const robots = container.querySelectorAll('meta[name="robots"]');
+  const googlebot = container.querySelectorAll('meta[name="googlebot"]');
+
+  expect(Array.from(robots).length).toBe(1);
+  expect(Array.from(googlebot).length).toBe(0);
 });
 
 it('correctly sets noindex, nofollow', () => {
