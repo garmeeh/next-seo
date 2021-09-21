@@ -818,4 +818,14 @@ describe('SEO Meta', () => {
       'summary_large_image',
     );
   });
+
+  it('SEO disableGooglebot disable googlebot tags correctly', () => {
+    cy.visit('http://localhost:3000/disable-googlebot');
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'index,follow',
+    );
+    cy.get('head meta[name="googlebot"]').should('not.exist');
+  });
 });

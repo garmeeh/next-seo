@@ -28,6 +28,7 @@ looking for inspiration on what to add.
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
     - [No Follow](#no-follow)
     - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
+    - [dangerouslyDisableGooglebot](#dangerouslydisablegooglebot)
     - [robotsProps](#robotsprops)
     - [Twitter](#twitter)
     - [facebook](#facebook)
@@ -259,6 +260,7 @@ From now on all of your pages will have the defaults above applied.
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
 | `nofollow`                         | boolean (default false) | Sets whether page should be followed or not [More Info](#no-follow)                                                                                                                  |
 | `additionRobotsProps`              | Object                  | Set the more meta information for the `X-Robots-Tag` [More Info](#robotsprops)                                                                                                       |
+| `disableGooglebot`                 | boolean (default false) | Disable googlebot metatags from being added to the page.                                                                                                                             |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                        |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                           |
 | `mobileAlternate.media`            | string                  | Set what screen size the mobile website should be served from                                                                                                                        |
@@ -395,6 +397,12 @@ The only way to unset this, is by removing the prop from the `DefaultSeo` in you
 | --        | true       | `index,nofollow`                        |
 | false     | true       | `index,nofollow`                        |
 | true      | true       | `noindex,nofollow`                      |
+
+#### dangerouslyDisableGooglebot
+
+It has the prefix of `dangerously` because it will remove googlebot tags from all pages. As this is an SEO plugin, that is kinda dangerous action. It is **not** bad to use this, just please be sure you want to remove googlebot tags from **EVERY** page.
+
+The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom `<App>`.
 
 #### robotsProps
 
