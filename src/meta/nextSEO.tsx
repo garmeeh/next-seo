@@ -20,6 +20,7 @@ export default class NextSeo extends Component<NextSeoProps, {}> {
       mobileAlternate,
       languageAlternates,
       additionalLinkTags,
+      disableGooglebot,
     } = this.props;
 
     return (
@@ -39,6 +40,7 @@ export default class NextSeo extends Component<NextSeoProps, {}> {
           mobileAlternate,
           languageAlternates,
           additionalLinkTags,
+          disableGooglebot,
         })}
       </Head>
     );

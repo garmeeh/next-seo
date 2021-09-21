@@ -8,6 +8,7 @@ const defaults = {
   defaultOpenGraphImageHeight: 0,
   defaultOpenGraphVideoWidth: 0,
   defaultOpenGraphVideoHeight: 0,
+  disableGooglebot: false,
 };
 
 const buildOpenGraphMediaTags = (
@@ -127,6 +128,11 @@ const buildTags = (config: BuildTagsParams) => {
     defaults.nofollow ||
     config.dangerouslySetAllPagesToNoFollow;
 
+  const disableGooglebot =
+    config.disableGooglebot ||
+    defaults.disableGooglebot ||
+    config.dangerouslyDisableGooglebot;
+
   let robotsParams = '';
   if (config.robotsProps) {
     const {
@@ -151,6 +157,10 @@ const buildTags = (config: BuildTagsParams) => {
     }`;
   }
 
+  if (config.dangerouslyDisableGooglebot) {
+    defaults.disableGooglebot = true;
+  }
+
   if (noindex || nofollow) {
     if (config.dangerouslySetAllPagesToNoIndex) {
       defaults.noindex = true;
@@ -168,15 +178,17 @@ const buildTags = (config: BuildTagsParams) => {
         }${robotsParams}`}
       />,
     );
-    tagsToRender.push(
-      <meta
-        key="googlebot"
-        name="googlebot"
-        content={`${noindex ? 'noindex' : 'index'},${
-          nofollow ? 'nofollow' : 'follow'
-        }${robotsParams}`}
-      />,
-    );
+    if (!disableGooglebot) {
+      tagsToRender.push(
+        <meta
+          key="googlebot"
+          name="googlebot"
+          content={`${noindex ? 'noindex' : 'index'},${
+            nofollow ? 'nofollow' : 'follow'
+          }${robotsParams}`}
+        />,
+      );
+    }
   } else {
     tagsToRender.push(
       <meta
@@ -185,13 +197,15 @@ const buildTags = (config: BuildTagsParams) => {
         content={`index,follow${robotsParams}`}
       />,
     );
-    tagsToRender.push(
-      <meta
-        key="googlebot"
-        name="googlebot"
-        content={`index,follow${robotsParams}`}
-      />,
-    );
+    if (!disableGooglebot) {
+      tagsToRender.push(
+        <meta
+          key="googlebot"
+          name="googlebot"
+          content={`index,follow${robotsParams}`}
+        />,
+      );
+    }
   }
 
   if (config.description) {
