@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import buildTags from './buildTags';
 
 import { DefaultSeoProps } from '../types';
-
 export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
   render() {
     const {
       title,
       titleTemplate,
       defaultTitle,
+      dangerouslyDisableGooglebot = false,
       dangerouslySetAllPagesToNoIndex = false,
       dangerouslySetAllPagesToNoFollow = false,
       description,
@@ -50,6 +50,7 @@ export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
           languageAlternates,
           additionalLinkTags,
           robotsProps,
+          dangerouslyDisableGooglebot,
         })}
       </Head>
     );
