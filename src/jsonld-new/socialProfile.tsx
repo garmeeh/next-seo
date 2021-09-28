@@ -1,10 +1,8 @@
 import React from 'react';
-import Head from 'next/head';
 
-import toJson from '../utils/toJson';
+import { JsonLd, JsonLdProps } from './jsonld';
 
-export interface SocialProfileJsonLdProps {
-  keyOverride?: string;
+export interface SocialProfileJsonLdProps extends JsonLdProps {
   type: 'Person' | 'Organization';
   name: string;
   url: string;
@@ -17,13 +15,12 @@ function SocialProfileJsonLd({
   ...rest
 }: SocialProfileJsonLdProps) {
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={toJson(type, { ...rest })}
-        key={`jsonld-social${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...rest}
+      scriptKey="social"
+    />
   );
 }
 

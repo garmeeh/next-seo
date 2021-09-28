@@ -669,37 +669,6 @@ describe('Validates JSON-LD For:', () => {
       });
   });
 
-  it('Social Profile', () => {
-    cy.visit('http://localhost:3000/jsonld');
-    cy.get('head script[type="application/ld+json"]')
-      .should('have.length', expectedJSONResults)
-      .then(tags => {
-        const jsonLD = JSON.parse(tags[socialProfileLdJsonIndex].innerHTML);
-        assertSchema(schemas)('Social Profile', '1.0.0')(jsonLD);
-      });
-  });
-
-  it('Social Profile Matches', () => {
-    cy.visit('http://localhost:3000/jsonld');
-    cy.get('head script[type="application/ld+json"]')
-      .should('have.length', expectedJSONResults)
-      .then(tags => {
-        const jsonLD = JSON.parse(tags[socialProfileLdJsonIndex].innerHTML);
-        expect(jsonLD).to.deep.equal({
-          '@context': 'https://schema.org',
-          '@type': 'Person',
-          name: 'your name',
-          url: 'http://www.your-site.com',
-          sameAs: [
-            'http://www.facebook.com/your-profile',
-            'http://instagram.com/yourProfile',
-            'http://www.linkedin.com/in/yourprofile',
-            'http://plus.google.com/your_profile',
-          ],
-        });
-      });
-  });
-
   it('CorporateContact', () => {
     cy.visit('http://localhost:3000/jsonld');
     cy.get('head script[type="application/ld+json"]')
