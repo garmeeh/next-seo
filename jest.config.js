@@ -1,7 +1,5 @@
 module.exports = {
-  transform: {
-    '.(ts|tsx)': 'ts-jest',
-  },
+  testEnvironment: 'jsdom',
   testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js|jsx)$',
   moduleFileExtensions: ['ts', 'tsx', 'js'],
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
@@ -12,9 +10,4 @@ module.exports = {
     '<rootDir>/e2e/',
     '<rootDir>/lib/',
   ],
-  globals: {
-    'ts-jest': {
-      diagnostics: false,
-    },
-  },
 };
