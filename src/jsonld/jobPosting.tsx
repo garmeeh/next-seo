@@ -9,11 +9,11 @@ export interface HiringOrganization {
 }
 
 export interface Place {
-  addressLocality: string;
-  addressRegion: string;
-  postalCode: string;
-  streetAddress: string;
-  addressCountry: string;
+  addressLocality?: string;
+  addressRegion?: string;
+  postalCode?: string;
+  streetAddress?: string;
+  addressCountry?: string;
 }
 
 export interface MonetaryAmount {
@@ -98,11 +98,11 @@ const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
       "@type": "Place",
       "address": {
         "@type": "PostalAddress",
-        "addressLocality": "${jobLocation.addressLocality}",
-        "addressRegion": "${jobLocation.addressRegion}",
-        "postalCode" : "${jobLocation.postalCode}",
-        "streetAddress" : "${jobLocation.streetAddress}",
-        "addressCountry" : "${jobLocation.addressCountry}"
+        ${jobLocation.addressLocality ? `"addressLocality": "${jobLocation.addressLocality}",` : ''},
+        ${jobLocation.addressRegion ? `"addressRegion": "${jobLocation.addressRegion}",` : ''},
+        ${jobLocation.postalCode ? `"postalCode": "${jobLocation.postalCode}",` : ''},
+        ${jobLocation.streetAddress ? `"streetAddress": "${jobLocation.streetAddress}",` : ''},
+        ${jobLocation.addressCountry ? `"addressCountry": "${jobLocation.addressCountry}",` : ''},
           }
       },`
         : ''
