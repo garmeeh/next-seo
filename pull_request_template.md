@@ -10,6 +10,7 @@ Some things to help get a PR reviewed and merged faster:
 
 The above are generally required on all PR's.
 
+
 Please have a read of the Contributing Guide for full details.
 
 https://github.com/garmeeh/next-seo/blob/master/CONTRIBUTING.md
