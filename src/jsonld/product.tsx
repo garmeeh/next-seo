@@ -39,7 +39,7 @@ export interface ProductJsonLdProps {
 
 const buildBrand = (brand: string) => `
   "brand": {
-      "@type": "Thing",
+      "@type": "Brand",
       "name": "${brand}"
     },
 `;
