@@ -1197,13 +1197,20 @@ describe('Validates JSON-LD For:', () => {
           potentialAction: [
             {
               '@type': 'SearchAction',
-              target: 'https://query.example.com/search?q={search_term_string}',
+              target: {
+                '@type': 'EntryPoint',
+                urlTemplate:
+                  'https://query.example.com/search?q={search_term_string}',
+              },
               'query-input': 'required name=search_term_string',
             },
             {
               '@type': 'SearchAction',
-              target:
-                'android-app://com.example/https/query.example.com/search/?q={search_term_string}',
+              target: {
+                '@type': 'EntryPoint',
+                urlTemplate:
+                  'android-app://com.example/https/query.example.com/search/?q={search_term_string}',
+              },
               'query-input': 'required name=search_term_string',
             },
           ],

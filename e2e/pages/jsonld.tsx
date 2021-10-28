@@ -551,11 +551,12 @@ const JsonLD = () => (
       url="https://example.com"
       potentialActions={[
         {
-          target: 'https://query.example.com/search?q',
+          target: 'https://query.example.com/search?q=',
           queryInput: 'search_term_string',
         },
         {
-          target: 'android-app://com.example/https/query.example.com/search/?q',
+          target:
+            'android-app://com.example/https/query.example.com/search/?q=',
           queryInput: 'search_term_string',
         },
       ]}

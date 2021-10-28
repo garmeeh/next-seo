@@ -25,7 +25,10 @@ const SiteLinksSearchBoxJsonLd: FC<SiteLinksSearchBoxJsonLdProps> = ({
       ${potentialActions.map(
         ({ target, queryInput }) => `{
         "@type": "SearchAction",
-        "target": "${target}={${queryInput}}",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "${target}{${queryInput}}"
+        },
         "query-input": "required name=${queryInput}"
       }`,
       )}
