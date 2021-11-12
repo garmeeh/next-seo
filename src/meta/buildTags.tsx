@@ -286,7 +286,7 @@ const buildTags = (config: BuildTagsParams) => {
     }
   }
 
-  if (config.openGraph?.title || config.title) {
+  if (config.openGraph?.title || updatedTitle) {
     tagsToRender.push(
       <meta
         key="og:title"
