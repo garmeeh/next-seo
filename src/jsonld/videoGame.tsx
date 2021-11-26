@@ -79,7 +79,6 @@ const VideoGameJsonLd: FC<VideoGameJsonLdProps> = ({
   const jslonld = `{
     "@context": "https://schema.org/",
     "@type": "VideoGame",
-    "name": "${name}",
     ${description ? `"description": "${description}",` : ''}
     ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
     ${datePublished ? `"datePublished": "${datePublished}",` : ''}
@@ -208,9 +207,10 @@ const VideoGameJsonLd: FC<VideoGameJsonLdProps> = ({
             Array.isArray(offers)
               ? `[${offers.map(offer => `${buildOffers(offer)}`)}]`
               : buildOffers(offers)
-          }`
+          },`
         : ''
     }
+    "name": "${name}"
   }`;
 
   return (
