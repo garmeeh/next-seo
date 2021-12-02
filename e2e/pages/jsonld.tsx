@@ -338,6 +338,13 @@ const JsonLD = () => (
           areaServed: ['US', 'CA'],
           availableLanguage: ['English', 'French'],
         },
+        {
+          telephone: '+91-558-665-7894',
+          email: 'support@yourbusiness.com',
+          contactType: 'technical support',
+          contactOption: 'TollFree',
+          availableLanguage: ['English', 'Hindi'],
+        },
       ]}
     />
 

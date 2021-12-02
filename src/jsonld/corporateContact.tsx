@@ -4,7 +4,8 @@ import Head from 'next/head';
 import markup from '../utils/markup';
 export interface ContactPoint {
   contactType: string;
-  telephone: string;
+  telephone?: string;
+  email?: string;
   areaServed?: string | string[];
   availableLanguage?: string | string[];
   contactOption?: string | string[];
@@ -23,7 +24,8 @@ const buildContactPoint = (contactPoint: ContactPoint[]) =>
   contactPoint.map(
     contact => `{
     "@type": "ContactPoint",
-    "telephone": "${contact.telephone}",
+    ${contact.telephone ? `"telephone": "${contact.telephone}",` : ''}
+    ${contact.email ? `"email": "${contact.email}",` : ''}
     "contactType": "${contact.contactType}"${
       contact.areaServed
         ? `,
@@ -56,7 +58,6 @@ const CorporateContactJsonLd: FC<CorporateContactJsonLdProps> = ({
     ${logo ? `"logo": "${logo}",` : ''}
     "contactPoint": [${buildContactPoint(contactPoint)}]
   }`;
-
   return (
     <Head>
       <script

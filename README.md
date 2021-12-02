@@ -1328,11 +1328,12 @@ export default Page;
 
 **Recommended ContactPoint properties**
 
-| Property                         | Info                                                                                                       |
-| -------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `contactPoint.areaServed`        | `String` or `Array` of geographical regions served by the business. Example `"US"` or `["US", "CA", "MX"]` |
-| `contactPoint.availableLanguage` | Details about the language spoken. Example `"English"` or `["English", "French"]`                          |
-| `gecontactPointo.contactOption`  | Details about the phone number. Example `"TollFree"`                                                       |
+| Property                         | Info                                                                                                                                               |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `contactPoint.email`             | `String`: Email string for that business purpose. Example for customer care `"care@yourbusiness.com"` or for press enquiry `"pr@yourbusiness.com"` |
+| `contactPoint.areaServed`        | `String` or `Array` of geographical regions served by the business. Example `"US"` or `["US", "CA", "MX"]`                                         |
+| `contactPoint.availableLanguage` | Details about the language spoken. Example `"English"` or `["English", "French"]`                                                                  |
+| `gecontactPointo.contactOption`  | Details about the phone number. Example `"TollFree"`                                                                                               |
 
 ### FAQ Page
 
