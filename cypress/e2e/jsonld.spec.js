@@ -744,6 +744,14 @@ describe('Validates JSON-LD For:', () => {
               areaServed: ['US', 'CA'],
               availableLanguage: ['English', 'French'],
             },
+            {
+              '@type': 'ContactPoint',
+              telephone: '+91-558-665-7894',
+              email: 'support@yourbusiness.com',
+              contactType: 'technical support',
+              contactOption: 'TollFree',
+              availableLanguage: ['English', 'Hindi'],
+            },
           ],
         });
       });
