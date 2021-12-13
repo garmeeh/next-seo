@@ -67,4 +67,20 @@ describe('SEO Meta Dangerously', () => {
       'noindex,nofollow',
     );
   });
+
+  it('SEO nofollow and noindex but not valid props, it is ignored', () => {
+    cy.visit(
+      'http://localhost:3000/dangerously/nofollow-and-noindex-invalid-props',
+    );
+    cy.get('head meta[name="robots"]').should(
+      'have.attr',
+      'content',
+      'index,follow',
+    );
+    cy.get('head meta[name="googlebot"]').should(
+      'have.attr',
+      'content',
+      'index,follow',
+    );
+  });
 });

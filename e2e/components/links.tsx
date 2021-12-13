@@ -108,6 +108,11 @@ const Links = () => (
           <a>Dangerously AllPagesToNoFollow and AllPagesToNoIndex</a>
         </Link>
       </li>
+      <li>
+        <Link href="/dangerously/nofollow-and-noindex-invalid-props">
+          <a>Dangerously nofollow and noindex But not valid props</a>
+        </Link>
+      </li>
     </ul>
   </>
 );
