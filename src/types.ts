@@ -264,7 +264,11 @@ export interface NextSeoProps {
   disableGooglebot?: boolean;
 }
 
-export interface DefaultSeoProps extends NextSeoProps {
+export interface DefaultSeoProps
+  extends Omit<
+    NextSeoProps,
+    'noindex' | 'nofollow' | 'disableGooglebot' | 'robotsProps'
+  > {
   dangerouslyDisableGooglebot?: boolean;
   dangerouslySetAllPagesToNoIndex?: boolean;
   dangerouslySetAllPagesToNoFollow?: boolean;
