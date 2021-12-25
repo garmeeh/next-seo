@@ -17,62 +17,64 @@ looking for inspiration on what to add.
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Usage](#usage)
-  - [Setup](#setup)
-  - [Add SEO to Page](#add-seo-to-page)
-  - [Default SEO Configuration](#default-seo-configuration)
-  - [NextSeo Options](#nextseo-options)
-    - [Title Template](#title-template)
-    - [Default Title](#default-title)
-    - [No Index](#no-index)
-    - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
-    - [No Follow](#no-follow)
-    - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
-    - [dangerouslyDisableGooglebot](#dangerouslydisablegooglebot)
-    - [robotsProps](#robotsprops)
-    - [Twitter](#twitter)
-    - [facebook](#facebook)
-    - [Canonical URL](#canonical-url)
-    - [Alternate](#alternate)
-    - [Additional Meta Tags](#additional-meta-tags)
-    - [Additional Link Tags](#additional-link-tags)
-- [Open Graph](#open-graph)
-  - [Open Graph Examples](#open-graph-examples)
-    - [Basic](#basic)
-    - [Video](#video)
-    - [Article](#article)
-    - [Book](#book)
-    - [Profile](#profile)
-- [JSON-LD](#json-ld)
-  - [Handling multiple instances](#handling-multiple-instances)
-  - [Article](#article-1)
-  - [Breadcrumb](#breadcrumb)
-  - [Blog](#blog)
-  - [Recipe](#recipe)
-  - [Sitelinks Search Box](#sitelinks-search-box)
-  - [Course](#course)
-  - [Dataset](#dataset)
-  - [Corporate Contact](#corporate-contact)
-  - [FAQ Page](#faq-page)
-  - [Job Posting](#job-posting)
-  - [Local Business](#local-business)
-  - [Logo](#logo)
-  - [Product](#product)
-  - [Social Profile](#social-profile)
-  - [News Article](#news-article)
-  - [Video](#video-1)
-  - [VideoGame](#videogame)
-  - [Event](#event)
-  - [Q&A](#qa)
-  - [Collection Page](#collection-page)
-  - [Profile page](#profile-page)
-  - [Carousel](#carousel)
-    - [Default (Summary List)](#default-summary-list)
-    - [Course](#course-1)
-    - [Movie](#movie)
-    - [Recipe](#recipe-1)
-  - [Software App](#software-app)
-- [Contributors](#contributors)
+- [Next SEO](#next-seo)
+  - [Usage](#usage)
+    - [Setup](#setup)
+    - [Add SEO to Page](#add-seo-to-page)
+    - [Default SEO Configuration](#default-seo-configuration)
+    - [NextSeo Options](#nextseo-options)
+      - [Title Template](#title-template)
+      - [Default Title](#default-title)
+      - [No Index](#no-index)
+      - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
+      - [No Follow](#no-follow)
+      - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
+      - [dangerouslyDisableGooglebot](#dangerouslydisablegooglebot)
+      - [robotsProps](#robotsprops)
+      - [Twitter](#twitter)
+      - [facebook](#facebook)
+      - [Canonical URL](#canonical-url)
+      - [Alternate](#alternate)
+      - [Additional Meta Tags](#additional-meta-tags)
+      - [Additional Link Tags](#additional-link-tags)
+  - [Open Graph](#open-graph)
+    - [Open Graph Examples](#open-graph-examples)
+      - [Basic](#basic)
+      - [Video](#video)
+      - [Article](#article)
+      - [Book](#book)
+      - [Profile](#profile)
+  - [JSON-LD](#json-ld)
+      - [Handling multiple instances](#handling-multiple-instances)
+    - [Article](#article-1)
+    - [Breadcrumb](#breadcrumb)
+    - [Blog](#blog)
+    - [Recipe](#recipe)
+    - [Sitelinks Search Box](#sitelinks-search-box)
+    - [Course](#course)
+    - [Dataset](#dataset)
+    - [Corporate Contact](#corporate-contact)
+    - [FAQ Page](#faq-page)
+    - [Job Posting](#job-posting)
+    - [Local Business](#local-business)
+    - [Logo](#logo)
+    - [Product](#product)
+    - [Social Profile](#social-profile)
+    - [News Article](#news-article)
+    - [Video](#video-1)
+    - [VideoGame](#videogame)
+    - [Event](#event)
+    - [Q&A](#qa)
+    - [Collection Page](#collection-page)
+    - [Profile page](#profile-page)
+    - [Carousel](#carousel)
+      - [Default (Summary List)](#default-summary-list)
+      - [Course](#course-1)
+      - [Movie](#movie)
+      - [Recipe](#recipe-1)
+    - [Software App](#software-app)
+    - [Book](#book-1)
+  - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -2724,6 +2726,57 @@ export default () => (
 | `applicationCategory` | Desktop Software or Video Game... |
 
 For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
+
+### Book
+
+```jsx
+import React from 'react';
+import { BookJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Book JSON-LD</h1>
+    <BookJsonLd
+      name="Story of next-seo"
+      authorName="John Doe"
+      publisherName="Muffin Books"
+      publishDate="2021-12-12"
+      image="https://example.com/photos/1x1/photo.jpg"
+      language="fr-FR"
+      isbn="00000"
+      numberOfPages="42"
+      price="1.00"
+      priceCurrency="USD"
+      ratingValue="4.6"
+      reviewCount="200"
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property          | Info                                                                      |
+| ----------------- | ------------------------------------------------------------------------- |
+| `name`            | The name of the book.                                                      |
+| `authorName`      | The name of the author.     |
+
+**Data Recommended properties**
+
+| Property              | Info                              |
+| --------------------- | --------------------------------- |
+| `publisherName`     | The name of the publisher    |
+| `publishDate`     | The date of publication    |
+| `image` | Cover of the book |
+| `language`     | The name of the publisher    |
+| `publishDate`     | The date of publication    |
+| `image` | Cover of the book |
+| `isbn` | Cover of the book |
+| `numberOfPages`     | Number of pages of the book   |
+| `price` | Price of the book |
+| `priceCurrency` | Price currency of the book |
+
+For reference and more info check [this link](https://schema.org/Book)
 
 ## Contributors
 

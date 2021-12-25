@@ -11,6 +11,7 @@ export {
   JobPostingJsonLdProps,
 } from './jsonld/jobPosting';
 export { default as BlogJsonLd, BlogJsonLdProps } from './jsonld/blog';
+export { default as BookJsonLd, BookJsonLdProps } from './jsonld/book';
 export { default as CourseJsonLd, CourseJsonLdProps } from './jsonld/course';
 export { default as DatasetJsonLd, DatasetJsonLdProps } from './jsonld/dataset';
 export {
