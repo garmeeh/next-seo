@@ -67,7 +67,7 @@ const BookJsonLd: FC<BookJsonLdProps> = ({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-article${keyOverride ? `-${keyOverride}` : ''}`}
+        key={`jsonld-book${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>
   );
