@@ -48,6 +48,7 @@ describe('Event JSON-LD', () => {
               '@type': 'Organization',
               name: 'John Doe',
             },
+            validFrom: '2020-11-01T00:00:00.000Z',
           },
           {
             '@type': 'Offer',
@@ -60,6 +61,7 @@ describe('Event JSON-LD', () => {
               '@type': 'Organization',
               name: 'John Doe sr.',
             },
+            validFrom: '2020-08-05T00:00:00.000Z',
           },
         ],
         performer: [
@@ -72,6 +74,13 @@ describe('Event JSON-LD', () => {
             name: 'Kira and Morrison',
           },
         ],
+        organizer: {
+          '@type': 'Organization',
+          name: 'Unnamed organization',
+          url: 'https://www.unnamed.com',
+        },
+        eventStatus: 'https://schema.org/EventScheduled',
+        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
       });
     });
   });

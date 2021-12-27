@@ -33,6 +33,7 @@ function Event() {
             seller: {
               name: 'John Doe',
             },
+            validFrom: '2020-11-01T00:00:00.000Z',
           },
           {
             price: '139.99',
@@ -43,6 +44,7 @@ function Event() {
             seller: {
               name: 'John Doe sr.',
             },
+            validFrom: '2020-08-05T00:00:00.000Z',
           },
         ]}
         aggregateOffer={{
@@ -59,6 +61,13 @@ function Event() {
             name: 'Kira and Morrison',
           },
         ]}
+        organizer={{
+          type: 'Organization',
+          name: 'Unnamed organization',
+          url: 'https://www.unnamed.com',
+        }}
+        eventStatus="EventScheduled"
+        eventAttendanceMode="OfflineEventAttendanceMode"
       />
     </>
   );
