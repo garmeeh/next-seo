@@ -21,6 +21,7 @@ export interface ProductJsonLdProps {
   offers?: Offers | Offers[];
   aggregateOffer?: AggregateOffer;
   sku?: string;
+  isbn?: string;
   gtin8?: string;
   gtin13?: string;
   gtin14?: string;
@@ -50,6 +51,7 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
   images = [],
   description,
   sku,
+  isbn,
   gtin8,
   gtin13,
   gtin14,
@@ -77,6 +79,7 @@ const ProductJsonLd: FC<ProductJsonLdProps> = ({
     ${description ? `"description": "${description}",` : ''}
     ${mpn ? `"mpn": "${mpn}",` : ''}
     ${sku ? `"sku": "${sku}",` : ''}
+    ${isbn ? `"isbn": "${isbn}",` : ''}
     ${gtin8 ? `"gtin8": "${gtin8}",` : ''}
     ${gtin13 ? `"gtin13": "${gtin13}",` : ''}
     ${gtin14 ? `"gtin14": "${gtin14}",` : ''}
