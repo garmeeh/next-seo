@@ -1,14 +1,14 @@
-import React, { FC } from 'react';
 import Head from 'next/head';
-
-import markup from '../utils/markup';
-import formatIfArray from '../utils/formatIfArray';
-import { buildOffers } from '../utils/buildOffers';
+import React, { FC } from 'react';
+import { AggregateOffer, AggregateRating, Offers, Review } from '../types';
 import { buildAggregateOffer } from '../utils/buildAggregateOffer';
 import { buildAggregateRating } from '../utils/buildAggregateRating';
+import { buildOffers } from '../utils/buildOffers';
 import { buildReviews } from '../utils/buildReviews';
+import formatIfArray from '../utils/formatIfArray';
+import markup from '../utils/markup';
 
-import { AggregateOffer, Offers, AggregateRating, Review } from '../types';
+
 
 export interface ProductJsonLdProps {
   keyOverride?: string;
@@ -39,7 +39,7 @@ export interface ProductJsonLdProps {
 
 const buildBrand = (brand: string) => `
   "brand": {
-      "@type": "Thing",
+      "@type": "Organization",
       "name": "${brand}"
     },
 `;
