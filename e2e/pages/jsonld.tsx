@@ -21,6 +21,9 @@ import {
   ProfilePageJsonLd,
   CollectionPageJsonLd,
   VideoGameJsonLd,
+  OrganizationJsonLd,
+  BrandJsonLd,
+  WebPageJsonLd,
 } from '../..';
 import Links from '../components/links';
 
@@ -715,6 +718,49 @@ const JsonLD = () => (
           },
         },
       ]}
+    />
+
+    <OrganizationJsonLd
+      organizationType="Corporation"
+      id="https://www.purpule-fox.io/#corporation"
+      name="Purple Fox"
+      legalName="Purple Fox LLC"
+      logo="https://www.example.com/photos/logo.jpg"
+      url="https://www.purpule-fox.io/"
+      address={{
+        streetAddress: '1600 Saratoga Ave',
+        addressLocality: 'San Jose',
+        addressRegion: 'CA',
+        postalCode: '95129',
+        addressCountry: 'US',
+      }}
+      contactPoints={[
+        {
+          contactType: 'customer service',
+          telephone: '+1-877-746-0909',
+          areaServed: 'US',
+          availableLanguage: ['English', 'Spanish', 'French'],
+          contactOption: 'TollFree',
+        },
+      ]}
+      sameAs={['https://www.orange-fox.com']}
+    />
+    <BrandJsonLd
+      id="https://www.purpule-fox.io/#brand"
+      logo="https://www.example.com/photos/logo.jpg"
+      slogan="What does the fox say?"
+      aggregateRating={{
+        ratingValue: '4.4',
+        reviewCount: '89',
+      }}
+    />
+    <WebPageJsonLd
+      id="https://www.purpule-fox.io/#info"
+      description="This is a description."
+      lastReviewed="2021-05-26T05:59:02.085Z"
+      reviewedBy={{
+        name: 'Garmeeh',
+      }}
     />
 
     <Links />

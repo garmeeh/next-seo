@@ -234,6 +234,25 @@ export type ApplicationCategory =
   | 'Utilities'
   | 'Reference';
 
+export type OrganizationCategory =
+  | 'Airline'
+  | 'Consortium'
+  | 'Corporation'
+  | 'EducationalOrganization'
+  | 'FundingScheme'
+  | 'GovernmentOrganization'
+  | 'LibrarySystem'
+  | 'LocalBusiness'
+  | 'MedicalOrganization'
+  | 'NGO'
+  | 'NewsMediaOrganization'
+  | 'PerformingGroup'
+  | 'Project'
+  | 'ResearchOrganization'
+  | 'SportsOrganization'
+  | 'WorkersUnion'
+  | 'Organization';
+
 export interface AdditionalRobotsProps {
   nosnippet?: boolean;
   maxSnippet?: number;
