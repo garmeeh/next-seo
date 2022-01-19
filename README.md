@@ -72,6 +72,9 @@ looking for inspiration on what to add.
     - [Movie](#movie)
     - [Recipe](#recipe-1)
   - [Software App](#software-app)
+  - [Organization](#organization)
+  - [Brand](#brand)
+  - [WebPage](#webpage)
 - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -2724,6 +2727,170 @@ export default () => (
 | `applicationCategory` | Desktop Software or Video Game... |
 
 For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
+
+
+### Organization
+
+```jsx
+import React from 'react';
+import { OrganizationJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Organization JSON-LD</h1>
+    <OrganizationJsonLd
+      organizationType= "Corporation"
+      id="https://www.purpule-fox.io/#corporation"
+      logo="https://www.example.com/photos/logo.jpg"
+      legalName="Purple Fox LLC"
+      name="Purple Fox"
+      address={{
+        streetAddress: '1600 Saratoga Ave',
+        addressLocality: 'San Jose',
+        addressRegion: 'CA',
+        postalCode: '95129',
+        addressCountry: 'US',
+      }}
+      contactPoint={[
+        {
+          telephone: '+1-401-555-1212',
+          contactType: 'customer service',
+          areaServed: 'US',
+          availableLanguage: ['English', 'Spanish', 'French'],
+        },
+        {
+          telephone: '+1-877-746-0909',
+          contactType: 'customer service',
+          contactOption: 'TollFree',
+          availableLanguage: 'English',
+        },
+        {
+          telephone: '+1-877-453-1304',
+          contactType: 'technical support',
+          contactOption: 'TollFree',
+          areaServed: ['US', 'CA'],
+          availableLanguage: ['English', 'French'],
+        },
+      ]}
+      sameAs={['https://www.orange-fox.com']}
+      url= 'https://www.purpule-fox.io/'
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property                   | Info                                                                                                     |
+| -------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `name`                     | The name of the Organization.                                                                            |
+| `url`                      | Url of the organization                                                                                  |
+| `contactPoint`             |                                                                                                          |
+| `contactPoint.telephone`   | An internationalized version of the phone number, starting with the "+" symbol and country code          |
+| `contactPoint.contactType` | Description of the purpose of the phone number i.e. `Technical Support`.                                 |
+**Data Recommended properties**
+
+| Property                         | Info                                                                                                       |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `logo`                           | ImageObject or URL an associated logo to the Organization.                                                 |
+| `organizationType`               | Organization type, check [here](https://schema.org/Organization#subtypes)                                  |
+| `legalName`                      | The official name of the organization, e.g. the registered company name.                                   |
+| `sameAs`                         | URL of a reference Web page that unambiguously indicates the item's identity.                              |
+| `address`                        | Address of the specific business location                                                                  |
+| `address.addressCountry`         | The 2-letter ISO 3166-1 alpha-2 country code                                                               |
+| `address.addressLocality`        | City                                                                                                       |
+| `address.addressRegion`          | State or province, if applicable.                                                                          |
+| `address.postalCode`             | Postal or zip code.                                                                                        |
+| `address.streetAddress`          | Street number, street name, and unit number.                                                               |
+| `contactPoint.areaServed`        | `String` or `Array` of geographical regions served by the business. Example `"US"` or `["US", "CA", "MX"]` |
+| `contactPoint.availableLanguage` | Details about the language spoken. Example `"English"` or `["English", "French"]`                          |
+
+For reference and more info check [Docs](https://schema.org/Organization)
+
+
+### Brand
+
+```jsx
+import React from 'react';
+import { BrandJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Brand JSON-LD</h1>
+    <BrandJsonLd
+      slogan= "What does the fox say?"
+      id="https://www.purpule-fox.io/#corporation"
+      logo="https://www.example.com/photos/logo.jpg"
+      aggregateRating={{
+        ratingValue: '5',
+        ratingCount: '18',
+      }}
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property                   | Info                                                                                                     |
+| -------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `id`                       | 'URL to main entity of page'                                                                             |
+
+**Data Recommended properties**
+
+| Property                        | Info                                                                                                       |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `logo`                          | ImageObject or URL an associated logo to the Organization.                                                 |
+| `slogan`                        | A slogan or motto associated with the item.                                                                |
+| `aggregateRating.ratingValue`   | The rating for the content.(Check the [reference](https://schema.org/ratingValue)                          |
+| `aggregateRating.ratingCount`   | The count of total number of ratings.                                                                      |
+| `aggregateRating.reviewCount`   | The count of total number of reviews.                                                                      |
+| `aggregateRating.bestRating`    | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed.                   |
+
+
+For reference and more info check [Docs](https://schema.org/Brand)
+
+
+### WebPage
+
+```jsx
+import React from 'react';
+import { WebPageJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>WebPage JSON-LD</h1>
+    <WebPageJsonLd
+      description= "What does the fox say?"
+      id="https://www.purpule-fox.io/#corporation"
+      lastReviewed="2021-05-26T05:59:02.085Z"
+      reviewedBy={{
+        type: 'Person',
+        name: 'Garmeeh',
+      }}
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property                   | Info                                                                                                     |
+| -------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `id`                       | 'URL to main entity of page'                                                                             |
+
+**Data Recommended properties**
+
+| Property                        | Info                                                                                                       |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `description`                   | ImageObject or URL an associated logo to the Organization.                                                 |
+| `lastReviewed`                  | Date on which the content on this web page was last reviewed for accuracy and/or completeness.             |
+| `reviewedBy.type`               | People or organizations that will review the content of the web page.                                      |
+| `reviewedBy.name`               | Name of the entity that have reviewed the content on this web page for accuracy and/or completeness.       |
+
+
+For reference and more info check [Docs](https://schema.org/Brand)
+
 
 ## Contributors
 
