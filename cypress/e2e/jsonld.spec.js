@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 23;
+const expectedJSONResults = 26;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -26,6 +26,9 @@ const softwareAppJsonIndex = 19;
 const collectionPageLdJsonIndex = 20;
 const profilePageLdJsonIndex = 21;
 const videoGameLdJsonIndex = 22;
+const organizationLdJsonIndex = 23;
+const brandLdJsonIndex = 24;
+const webPageLdJsonIndex = 25;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -1842,6 +1845,113 @@ describe('Validates JSON-LD For:', () => {
               },
             },
           ],
+        });
+      });
+  });
+
+  it('Organization', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[organizationLdJsonIndex].innerHTML);
+        assertSchema(schemas)('Organization', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Organization Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[organizationLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org',
+          '@id': 'https://www.purpule-fox.io/#corporation',
+          '@type': 'Corporation',
+          name: 'Purple Fox',
+          legalName: 'Purple Fox LLC',
+          logo: 'https://www.example.com/photos/logo.jpg',
+          url: 'https://www.purpule-fox.io/',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: '1600 Saratoga Ave',
+            addressLocality: 'San Jose',
+            addressRegion: 'CA',
+            postalCode: '95129',
+            addressCountry: 'US',
+          },
+          contactPoints: [
+            {
+              '@type': 'ContactPoint',
+              contactType: 'customer service',
+              telephone: '+1-877-746-0909',
+              areaServed: 'US',
+              availableLanguage: ['English', 'Spanish', 'French'],
+              contactOption: 'TollFree',
+            },
+          ],
+          sameAs: ['https://www.orange-fox.com'],
+        });
+      });
+  });
+  it('Brand', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[brandLdJsonIndex].innerHTML);
+        assertSchema(schemas)('Brand', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('Brand Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[brandLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org',
+          '@type': 'Brand',
+          '@id': 'https://www.purpule-fox.io/#brand',
+          logo: 'https://www.example.com/photos/logo.jpg',
+          slogan: 'What does the fox say?',
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.4',
+            reviewCount: '89',
+          },
+        });
+      });
+  });
+
+  it('WebPage', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[webPageLdJsonIndex].innerHTML);
+        assertSchema(schemas)('WebPage', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('WebPage Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[webPageLdJsonIndex].innerHTML);
+        expect(jsonLD).to.deep.equal({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          '@id': 'https://www.purpule-fox.io/#info',
+          description: 'This is a description.',
+          lastReviewed: '2021-05-26T05:59:02.085Z',
+          reviewedBy: {
+            '@type': 'Organization',
+            name: 'Garmeeh',
+          },
         });
       });
   });
