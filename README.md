@@ -2728,7 +2728,6 @@ export default () => (
 
 For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
 
-
 ### Organization
 
 ```jsx
@@ -2739,7 +2738,7 @@ export default () => (
   <>
     <h1>Organization JSON-LD</h1>
     <OrganizationJsonLd
-      organizationType= "Corporation"
+      organizationType="Corporation"
       id="https://www.purpule-fox.io/#corporation"
       logo="https://www.example.com/photos/logo.jpg"
       legalName="Purple Fox LLC"
@@ -2773,7 +2772,7 @@ export default () => (
         },
       ]}
       sameAs={['https://www.orange-fox.com']}
-      url= 'https://www.purpule-fox.io/'
+      url="https://www.purpule-fox.io/"
     />
   </>
 );
@@ -2781,13 +2780,14 @@ export default () => (
 
 **Data required properties**
 
-| Property                   | Info                                                                                                     |
-| -------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `name`                     | The name of the Organization.                                                                            |
-| `url`                      | Url of the organization                                                                                  |
-| `contactPoint`             |                                                                                                          |
-| `contactPoint.telephone`   | An internationalized version of the phone number, starting with the "+" symbol and country code          |
-| `contactPoint.contactType` | Description of the purpose of the phone number i.e. `Technical Support`.                                 |
+| Property                   | Info                                                                                            |
+| -------------------------- | ----------------------------------------------------------------------------------------------- |
+| `name`                     | The name of the Organization.                                                                   |
+| `url`                      | Url of the organization                                                                         |
+| `contactPoint`             |                                                                                                 |
+| `contactPoint.telephone`   | An internationalized version of the phone number, starting with the "+" symbol and country code |
+| `contactPoint.contactType` | Description of the purpose of the phone number i.e. `Technical Support`.                        |
+
 **Data Recommended properties**
 
 | Property                         | Info                                                                                                       |
@@ -2807,7 +2807,6 @@ export default () => (
 
 For reference and more info check [Docs](https://schema.org/Organization)
 
-
 ### Brand
 
 ```jsx
@@ -2818,7 +2817,7 @@ export default () => (
   <>
     <h1>Brand JSON-LD</h1>
     <BrandJsonLd
-      slogan= "What does the fox say?"
+      slogan="What does the fox say?"
       id="https://www.purpule-fox.io/#corporation"
       logo="https://www.example.com/photos/logo.jpg"
       aggregateRating={{
@@ -2832,24 +2831,22 @@ export default () => (
 
 **Data required properties**
 
-| Property                   | Info                                                                                                     |
-| -------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `id`                       | 'URL to main entity of page'                                                                             |
+| Property | Info                         |
+| -------- | ---------------------------- |
+| `id`     | 'URL to main entity of page' |
 
 **Data Recommended properties**
 
-| Property                        | Info                                                                                                       |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `logo`                          | ImageObject or URL an associated logo to the Organization.                                                 |
-| `slogan`                        | A slogan or motto associated with the item.                                                                |
-| `aggregateRating.ratingValue`   | The rating for the content.(Check the [reference](https://schema.org/ratingValue)                          |
-| `aggregateRating.ratingCount`   | The count of total number of ratings.                                                                      |
-| `aggregateRating.reviewCount`   | The count of total number of reviews.                                                                      |
-| `aggregateRating.bestRating`    | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed.                   |
-
+| Property                      | Info                                                                                     |
+| ----------------------------- | ---------------------------------------------------------------------------------------- |
+| `logo`                        | ImageObject or URL an associated logo to the Organization.                               |
+| `slogan`                      | A slogan or motto associated with the item.                                              |
+| `aggregateRating.ratingValue` | The rating for the content.(Check the [reference](https://schema.org/ratingValue)        |
+| `aggregateRating.ratingCount` | The count of total number of ratings.                                                    |
+| `aggregateRating.reviewCount` | The count of total number of reviews.                                                    |
+| `aggregateRating.bestRating`  | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed. |
 
 For reference and more info check [Docs](https://schema.org/Brand)
-
 
 ### WebPage
 
@@ -2861,7 +2858,7 @@ export default () => (
   <>
     <h1>WebPage JSON-LD</h1>
     <WebPageJsonLd
-      description= "What does the fox say?"
+      description="What does the fox say?"
       id="https://www.purpule-fox.io/#corporation"
       lastReviewed="2021-05-26T05:59:02.085Z"
       reviewedBy={{
@@ -2875,22 +2872,20 @@ export default () => (
 
 **Data required properties**
 
-| Property                   | Info                                                                                                     |
-| -------------------------- | -------------------------------------------------------------------------------------------------------- |
-| `id`                       | 'URL to main entity of page'                                                                             |
+| Property | Info                         |
+| -------- | ---------------------------- |
+| `id`     | 'URL to main entity of page' |
 
 **Data Recommended properties**
 
-| Property                        | Info                                                                                                       |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| `description`                   | ImageObject or URL an associated logo to the Organization.                                                 |
-| `lastReviewed`                  | Date on which the content on this web page was last reviewed for accuracy and/or completeness.             |
-| `reviewedBy.type`               | People or organizations that will review the content of the web page.                                      |
-| `reviewedBy.name`               | Name of the entity that have reviewed the content on this web page for accuracy and/or completeness.       |
-
+| Property          | Info                                                                                                 |
+| ----------------- | ---------------------------------------------------------------------------------------------------- |
+| `description`     | ImageObject or URL an associated logo to the Organization.                                           |
+| `lastReviewed`    | Date on which the content on this web page was last reviewed for accuracy and/or completeness.       |
+| `reviewedBy.type` | People or organizations that will review the content of the web page.                                |
+| `reviewedBy.name` | Name of the entity that have reviewed the content on this web page for accuracy and/or completeness. |
 
 For reference and more info check [Docs](https://schema.org/Brand)
-
 
 ## Contributors
 
