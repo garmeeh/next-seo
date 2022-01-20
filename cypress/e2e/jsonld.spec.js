@@ -422,7 +422,7 @@ describe('Validates JSON-LD For:', () => {
             "Sleeker than ACME's Classic Anvil, the Executive Anvil is perfect for the business traveler looking for something to drop from a height.",
           mpn: '925872',
           brand: {
-            '@type': 'Thing',
+            '@type': 'Brand',
             name: 'ACME',
           },
           color: 'blue',
