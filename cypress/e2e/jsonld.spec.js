@@ -1,7 +1,7 @@
 import { assertSchema } from '@cypress/schema-tools';
 import schemas from '../schemas';
 
-const expectedJSONResults = 23;
+const expectedJSONResults = 24;
 
 const articleLdJsonIndex = 0;
 const breadcrumbLdJsonIndex = 1;
@@ -26,6 +26,7 @@ const softwareAppJsonIndex = 19;
 const collectionPageLdJsonIndex = 20;
 const profilePageLdJsonIndex = 21;
 const videoGameLdJsonIndex = 22;
+const howToLdJsonIndex = 23;
 
 describe('Validates JSON-LD For:', () => {
   it('Article', () => {
@@ -1843,6 +1844,87 @@ describe('Validates JSON-LD For:', () => {
             },
           ],
         });
+      });
+  });
+
+  it('How To', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[howToLdJsonIndex].innerHTML);
+        console.log(schemas);
+        assertSchema(schemas)('HowTo', '1.0.0')(jsonLD);
+      });
+  });
+
+  it('How To Matches', () => {
+    cy.visit('http://localhost:3000/jsonld');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', expectedJSONResults)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[howToLdJsonIndex].innerHTML);
+        const expectedObject = {
+          '@context': 'https://schema.org/',
+          '@type': 'HowTo',
+          name: 'How to tie a tie',
+          image: 'https://example.com/photos/1x1/photo.jpg',
+          supply: [
+            {
+              '@type': 'HowToSupply',
+              name: 'A tie',
+            },
+            {
+              '@type': 'HowToSupply',
+              name: 'A collared shirt',
+            },
+          ],
+          tool: [
+            {
+              '@type': 'HowToTool',
+              name: 'A mirror',
+            },
+          ],
+          totalTime: 'PT2M',
+          video: {
+            '@type': 'VideoObject',
+            name: 'Tie a Tie',
+            description: 'How to tie a four-in-hand knot.',
+            thumbnailUrl: ['https://example.com/photos/photo.jpg'],
+            contentUrl: 'http://www.example.com/videos/123_600x400.mp4',
+            duration: 'P1MT10S',
+            embedUrl: 'http://www.example.com/videoplayer?id=123',
+            uploadDate: '2019-01-05T08:00:00+08:00',
+          },
+          step: [
+            {
+              '@type': 'HowToStep',
+              image: 'https://example.com/1x1/photo.jpg',
+              text: "Button your shirt how you'd like to wear it, then drape the tie around your neck. Make the thick end about 1/3rd longer than the short end. For formal button down shirts, it usually works best with the small end of the tie between 4th and 5th button.",
+            },
+            {
+              '@type': 'HowToStep',
+              image: 'https://example.com/1x1/photo.jpg',
+              text: 'Cross the long end over the short end. This will form the basis for your knot.',
+            },
+            {
+              '@type': 'HowToStep',
+              image: 'https://example.com/1x1/photo.jpg',
+              text: 'Bring the long end back under the short end, then throw it back over the top of the short end in the other direction. ',
+            },
+            {
+              '@type': 'HowToStep',
+              image: 'https://example.com/1x1/photo.jpg',
+              text: 'Now pull the long and through the loop near your neck, forming another loop near your neck.',
+            },
+            {
+              '@type': 'HowToStep',
+              image: 'https://example.com/1x1/photo.jpg',
+              text: 'Pull the long end through that new loop and tighten to fit!',
+            },
+          ],
+        };
+        expect(jsonLD).to.deep.equal(expectedObject);
       });
   });
 });

@@ -21,6 +21,7 @@ import {
   ProfilePageJsonLd,
   CollectionPageJsonLd,
   VideoGameJsonLd,
+  HowToJsonLd,
 } from '../..';
 import Links from '../components/links';
 
@@ -715,6 +716,45 @@ const JsonLD = () => (
           },
         },
       ]}
+    />
+
+    <HowToJsonLd
+      name="How to tie a tie"
+      image="https://example.com/photos/1x1/photo.jpg"
+      video={{
+        name: 'Tie a Tie',
+        description: 'How to tie a four-in-hand knot.',
+        thumbnailUrls: ['https://example.com/photos/photo.jpg'],
+        uploadDate: '2019-01-05T08:00:00+08:00',
+        duration: 'P1MT10S',
+        contentUrl: 'http://www.example.com/videos/123_600x400.mp4',
+        embedUrl: 'http://www.example.com/videoplayer?id=123',
+      }}
+      supply={['A tie', 'A collared shirt']}
+      tool={['A mirror']}
+      steps={[
+        {
+          text: "Button your shirt how you'd like to wear it, then drape the tie around your neck. Make the thick end about 1/3rd longer than the short end. For formal button down shirts, it usually works best with the small end of the tie between 4th and 5th button.",
+          image: 'https://example.com/1x1/photo.jpg',
+        },
+        {
+          text: 'Cross the long end over the short end. This will form the basis for your knot.',
+          image: 'https://example.com/1x1/photo.jpg',
+        },
+        {
+          text: 'Bring the long end back under the short end, then throw it back over the top of the short end in the other direction. ',
+          image: 'https://example.com/1x1/photo.jpg',
+        },
+        {
+          text: 'Now pull the long and through the loop near your neck, forming another loop near your neck.',
+          image: 'https://example.com/1x1/photo.jpg',
+        },
+        {
+          text: 'Pull the long end through that new loop and tighten to fit!',
+          image: 'https://example.com/1x1/photo.jpg',
+        },
+      ]}
+      totalTime="PT2M"
     />
 
     <Links />

@@ -54,6 +54,7 @@ looking for inspiration on what to add.
   - [Dataset](#dataset)
   - [Corporate Contact](#corporate-contact)
   - [FAQ Page](#faq-page)
+  - [How To](#how-to)
   - [Job Posting](#job-posting)
   - [Local Business](#local-business)
   - [Logo](#logo)
@@ -959,6 +960,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Dataset](#dataset)
 - [Corporate Contact](#corporate-contact)
 - [FAQ Page](#faq-page)
+- [How To](#how-to)
 - [Job Posting](#job-posting)
 - [Local Business](#local-business)
 - [Product](#product)
@@ -1367,6 +1369,81 @@ export default Page;
 | `mainEntity`                    |                                                                               |
 | `mainEntity.questionName`       | The full text of the question. For example, "How long is the delivery time?". |
 | `mainEntity.acceptedAnswerText` | The full answer to the question.                                              |
+
+### How To
+
+```jsx
+import { HowToJsonLd } from 'next-seo';
+
+const Page = () => (
+  <HowToJsonLd
+    name="How to tie a tie"
+    image="https://example.com/photos/1x1/photo.jpg"
+    video={{
+      name: 'Tie a Tie',
+      description: 'How to tie a four-in-hand knot.',
+      thumbnailUrls: ['https://example.com/photos/photo.jpg'],
+      uploadDate: '2019-01-05T08:00:00+08:00',
+      duration: 'P1MT10S',
+      contentUrl: 'http://www.example.com/videos/123_600x400.mp4',
+      embedUrl: 'http://www.example.com/videoplayer?id=123',
+    }}
+    supply={['A tie', 'A collared shirt']}
+    tool={['A mirror']}
+    steps={[
+      {
+        text: "Button your shirt how you'd like to wear it, then drape the tie around your neck. Make the thick end about 1/3rd longer than the short end. For formal button down shirts, it usually works best with the small end of the tie between 4th and 5th button.",
+        image: 'https://example.com/1x1/photo.jpg',
+      },
+      {
+        text: 'Cross the long end over the short end. This will form the basis for your knot.',
+        image: 'https://example.com/1x1/photo.jpg',
+      },
+      {
+        text: 'Bring the long end back under the short end, then throw it back over the top of the short end in the other direction. ',
+        image: 'https://example.com/1x1/photo.jpg',
+      },
+      {
+        text: 'Now pull the long and through the loop near your neck, forming another loop near your neck.',
+        image: 'https://example.com/1x1/photo.jpg',
+      },
+      {
+        text: 'Pull the long end through that new loop and tighten to fit!',
+        image: 'https://example.com/1x1/photo.jpg',
+      },
+    ]}
+    totalTime="PT2M"
+  />
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property                     | Info                                                                                   |
+| ---------------------------- | -------------------------------------------------------------------------------------- |
+| `name`                       | The title of the how-to. For example, "How to tie a tie".                              |
+| `steps`                      | -                                                                                      |
+| `steps.text`                 | The full instruction text of this step. Optional if `itemListElement` is used.         |
+| `steps.itemListElement`      | A list of detailed substeps, including directions or tips. Optional if `text` is used. |
+| `steps.itemListElement.type` | If the substep is a tip or a direction                                                 |
+| `steps.itemListElement.text` | The text of the direction or tip.                                                      |
+
+**Recommended properties**
+
+| Property        | Info                                                                                                                                                                                         |
+| --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `estimatedCost` | The estimated cost of the supplies consumed when performing instructions. Can be string or MonetaryAmount.                                                                                   |
+| `image`         | Image of the completed how-to.                                                                                                                                                               |
+| `supply`        | A supply consumed when performing instructions or a direction.                                                                                                                               |
+| `tool`          | An object used (but not consumed) when performing instructions or a direction.                                                                                                               |
+| `totalTime`     | The total time required to perform all instructions or directions (including time to prepare the supplies), in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601#Durations) duration format. |
+| `video`         | A video of the how-to.                                                                                                                                                                       |
+| `steps.image`   | An image for the step.                                                                                                                                                                       |
+| `steps.name`    | The word or short phrase summarizing the step (for example, "Attach wires to post" or "Dig").                                                                                                |
+| `steps.url`     | A url that directly links to the step (if one is available).                                                                                                                                 |
+| `steps.video`   | A video for this step or a clip of the video.                                                                                                                                                |
 
 ### Job Posting
 

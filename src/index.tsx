@@ -59,5 +59,6 @@ export {
   default as ProfilePageJsonLd,
   ProfilePageJsonLdProps,
 } from './jsonld/profilePage';
+export { default as HowToJsonLd, HowToJsonLdProps } from './jsonld/howTo';
 
 export { DefaultSeoProps, NextSeoProps } from './types';
