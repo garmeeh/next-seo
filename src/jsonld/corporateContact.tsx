@@ -19,29 +19,31 @@ export interface CorporateContactJsonLdProps {
 const formatIfArray = (value: string[] | string) =>
   Array.isArray(value) ? `[${value.map(val => `"${val}"`)}]` : `"${value}"`;
 
-const buildContactPoint = (contactPoint: ContactPoint[]) =>
-  contactPoint.map(
-    contact => `{
+export const buildContactPoint = (contactPoint: ContactPoint[]) =>
+  contactPoint
+    .map(
+      contact => `{
     "@type": "ContactPoint",
     "telephone": "${contact.telephone}",
     "contactType": "${contact.contactType}"${
-      contact.areaServed
-        ? `,
+        contact.areaServed
+          ? `,
     "areaServed": ${formatIfArray(contact.areaServed)}`
-        : ''
-    }${
-      contact.availableLanguage
-        ? `,
+          : ''
+      }${
+        contact.availableLanguage
+          ? `,
     "availableLanguage": ${formatIfArray(contact.availableLanguage)}`
-        : ''
-    }${
-      contact.contactOption
-        ? `,
+          : ''
+      }${
+        contact.contactOption
+          ? `,
     "contactOption": "${contact.contactOption}"`
-        : ''
-    }
+          : ''
+      }
     }`,
-  );
+    )
+    .join(',');
 
 const CorporateContactJsonLd: FC<CorporateContactJsonLdProps> = ({
   keyOverride,

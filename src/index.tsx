@@ -59,6 +59,12 @@ export {
   default as ProfilePageJsonLd,
   ProfilePageJsonLdProps,
 } from './jsonld/profilePage';
+export {
+  default as OrganizationJsonLd,
+  OrganizationJsonLdProps,
+} from './jsonld/organization';
+export { default as WebPageJsonLd, WebPageJsonLdProps } from './jsonld/webPage';
+export { default as BrandJsonLd, BrandJsonLdProps } from './jsonld/brand';
 export { default as HowToJsonLd, HowToJsonLdProps } from './jsonld/howTo';
 
 export { DefaultSeoProps, NextSeoProps } from './types';
