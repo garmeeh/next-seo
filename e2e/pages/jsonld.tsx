@@ -1,18 +1,11 @@
 import React from 'react';
 import {
-  ArticleJsonLd,
-  BreadcrumbJsonLd,
-  BlogJsonLd,
-  CourseJsonLd,
   LocalBusinessJsonLd,
-  LogoJsonLd,
   ProductJsonLd,
   CorporateContactJsonLd,
   NewsArticleJsonLd,
-  FAQPageJsonLd,
   JobPostingJsonLd,
   EventJsonLd,
-  DatasetJsonLd,
   RecipeJsonLd,
   SiteLinksSearchBoxJsonLd,
   QAPageJsonld,
@@ -21,8 +14,6 @@ import {
   CollectionPageJsonLd,
   VideoGameJsonLd,
   OrganizationJsonLd,
-  BrandJsonLd,
-  WebPageJsonLd,
   SocialProfileJsonLd,
 } from '../..';
 
@@ -31,67 +22,6 @@ import Links from '../components/links';
 const JsonLD = () => (
   <>
     <h1>All JSON-LD</h1>
-    <ArticleJsonLd
-      url="https://example.com/article"
-      title="Article headline"
-      images={[
-        'https://example.com/photos/1x1/photo.jpg',
-        'https://example.com/photos/4x3/photo.jpg',
-        'https://example.com/photos/16x9/photo.jpg',
-      ]}
-      datePublished="2015-02-05T08:00:00+08:00"
-      dateModified="2015-02-05T09:00:00+08:00"
-      authorName={['Jane Blogs', 'Mary Stone']}
-      publisherName="Gary Meehan"
-      publisherLogo="https://www.example.com/photos/logo.jpg"
-      description="This is a mighty good description of this article."
-    />
-
-    <BreadcrumbJsonLd
-      itemListElements={[
-        {
-          position: 1,
-          name: 'Books',
-          item: 'https://example.com/books',
-        },
-        {
-          position: 2,
-          name: 'Authors',
-          item: 'https://example.com/books/authors',
-        },
-        {
-          position: 3,
-          name: 'Ann Leckie',
-          item: 'https://example.com/books/authors/annleckie',
-        },
-        {
-          position: 4,
-          name: 'Ancillary Justice',
-          item: 'https://example.com/books/authors/annleckie/ancillaryjustice',
-        },
-      ]}
-    />
-
-    <BlogJsonLd
-      url="https://example.com/blog"
-      title="Blog headline"
-      images={[
-        'https://example.com/photos/1x1/photo.jpg',
-        'https://example.com/photos/4x3/photo.jpg',
-        'https://example.com/photos/16x9/photo.jpg',
-      ]}
-      datePublished="2015-02-05T08:00:00+08:00"
-      dateModified="2015-02-05T09:00:00+08:00"
-      authorName="Jane Blogs"
-      description="This is a mighty good description of this blog."
-    />
-
-    <CourseJsonLd
-      courseName="Course Name"
-      providerName="Course Provider"
-      providerUrl="https//www.example.com/provider"
-      description="Course description goes right here"
-    />
 
     <LocalBusinessJsonLd
       type="Store"
@@ -216,17 +146,6 @@ const JsonLD = () => (
         actionType: 'ReviewAction',
         target: 'https://www.example.com/review/this/business',
       }}
-    />
-
-    <LogoJsonLd
-      logo="http://www.your-site.com/images/logo.jpg"
-      url="http://www.and-this-one.com"
-    />
-
-    <LogoJsonLd
-      logo="http://www.your-site.com/images/logo.jpg"
-      url="http://www.check-override-of-key.com"
-      keyOverride="check-override-of-key"
     />
 
     <ProductJsonLd
@@ -365,19 +284,6 @@ const JsonLD = () => (
       body="This is article body of news article"
     />
 
-    <FAQPageJsonLd
-      mainEntity={[
-        {
-          questionName: 'How long is the delivery time?',
-          acceptedAnswerText: '3-5 business days.',
-        },
-        {
-          questionName: 'Where can I find information about product recalls?',
-          acceptedAnswerText: 'Read more on under information.',
-        },
-      ]}
-    />
-
     <JobPostingJsonLd
       datePosted="2020-01-06T03:37:40Z"
       description="Company is looking for a software developer...."
@@ -487,12 +393,6 @@ const JsonLD = () => (
           name: 'Kira and Morrison',
         },
       ]}
-    />
-
-    <DatasetJsonLd
-      description="The description needs to be at least 50 characters long"
-      name="name of the dataset"
-      license="https//www.example.com"
     />
 
     <RecipeJsonLd
@@ -651,117 +551,6 @@ const JsonLD = () => (
           item: 'https://example.com/books/authors',
         },
       ]}
-    />
-
-    <VideoGameJsonLd
-      name="Red Dead Redemption 2"
-      translatorName={['Translator 1', 'Translator 2']}
-      languageName={['English', 'Kurdish']}
-      description="Arthur Morgan and the Van der Linde gang are outlaws on the run. With federal agents and the best bounty hunters in the nation massing on their heels, the gang must rob, steal and fight their way across the rugged heartland of America in order to survive."
-      processorRequirements="4 GHz"
-      memoryRequirements="16 Gb"
-      playMode="SinglePlayer"
-      applicationCategory="Game"
-      url="https://example.com/rdr2-game"
-      platformName={['PC game', 'PlayStation 4']}
-      operatingSystemName="windows"
-      keywords="outlaw, gang, federal agents"
-      datePublished="2019-02-05T08:00:00+08:00"
-      image="https://example.com/photos/1x1/photo.jpg"
-      publisherName="Vertical Games"
-      producerName="Rockstar Games"
-      producerUrl="https//www.example.com/producer"
-      offers={[
-        {
-          price: '119.99',
-          priceCurrency: 'USD',
-          priceValidUntil: '2020-11-05',
-          availability: 'https://schema.org/InStock',
-          url: 'https://example.net/rdr2-game',
-          seller: {
-            name: 'Executive Gaming',
-          },
-        },
-        {
-          price: '139.99',
-          priceCurrency: 'CAD',
-          priceValidUntil: '2020-09-05',
-          availability: 'https://schema.org/InStock',
-          url: 'https://example.org/rdr2-game',
-          seller: {
-            name: 'Executive Gaming',
-          },
-        },
-      ]}
-      aggregateRating={{
-        ratingValue: '44',
-        reviewCount: '89',
-        ratingCount: '684',
-        bestRating: '100',
-      }}
-      reviews={[
-        {
-          author: {
-            type: 'Person',
-            name: 'AhmetKaya',
-          },
-          publisher: {
-            type: 'Organization',
-            name: 'Gam Production',
-          },
-          datePublished: '2017-01-06T03:37:40Z',
-          reviewBody: 'Iki gozum.',
-          name: 'Rica ederim.',
-          reviewRating: {
-            bestRating: '5',
-            ratingValue: '5',
-            worstRating: '1',
-          },
-        },
-      ]}
-    />
-
-    <OrganizationJsonLd
-      organizationType="Corporation"
-      id="https://www.purpule-fox.io/#corporation"
-      name="Purple Fox"
-      legalName="Purple Fox LLC"
-      logo="https://www.example.com/photos/logo.jpg"
-      url="https://www.purpule-fox.io/"
-      address={{
-        streetAddress: '1600 Saratoga Ave',
-        addressLocality: 'San Jose',
-        addressRegion: 'CA',
-        postalCode: '95129',
-        addressCountry: 'US',
-      }}
-      contactPoints={[
-        {
-          contactType: 'customer service',
-          telephone: '+1-877-746-0909',
-          areaServed: 'US',
-          availableLanguage: ['English', 'Spanish', 'French'],
-          contactOption: 'TollFree',
-        },
-      ]}
-      sameAs={['https://www.orange-fox.com']}
-    />
-    <BrandJsonLd
-      id="https://www.purpule-fox.io/#brand"
-      logo="https://www.example.com/photos/logo.jpg"
-      slogan="What does the fox say?"
-      aggregateRating={{
-        ratingValue: '4.4',
-        reviewCount: '89',
-      }}
-    />
-    <WebPageJsonLd
-      id="https://www.purpule-fox.io/#info"
-      description="This is a description."
-      lastReviewed="2021-05-26T05:59:02.085Z"
-      reviewedBy={{
-        name: 'Garmeeh',
-      }}
     />
 
     <Links />

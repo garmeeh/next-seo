@@ -1,4 +1,4 @@
-import { Review, Author, Publisher, ReviewRating } from '../types';
+import { Review, Publisher, ReviewRating } from '../types';
 
 export const buildReviewRating = (rating: ReviewRating) =>
   rating
@@ -10,7 +10,7 @@ export const buildReviewRating = (rating: ReviewRating) =>
         }`
     : '';
 
-export const buildAuthor = (author: Author) => `
+export const buildAuthor = (author: any) => `
   "author": {
       "@type": "${author.type}",
       "name": "${author.name}"

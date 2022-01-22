@@ -4,13 +4,13 @@ import Head from 'next/head';
 import toJson from '../utils/toJson';
 
 export interface JsonLdProps {
-  type: string;
-  keyOverride?: string;
+  type?: string;
   scriptId?: string;
+  [key: string]: any;
 }
 
 function JsonLd({
-  type,
+  type = 'Thing',
   keyOverride,
   scriptKey,
   scriptId = undefined,

@@ -1,3 +1,29 @@
+export interface Producer {
+  name: string;
+  url?: string;
+}
+export interface ContactPoint {
+  contactType: string;
+  telephone: string;
+  areaServed?: string | string[];
+  availableLanguage?: string | string[];
+  contactOption?: string | string[];
+}
+
+export interface Question {
+  questionName: string;
+  acceptedAnswerText: string;
+}
+export interface Provider {
+  type?: 'Organization' | 'Person';
+  name: string;
+  url?: string;
+}
+export interface ItemListElements {
+  item: string;
+  name: string;
+  position: number;
+}
 export interface OpenGraphMedia {
   url: string;
   width?: number;
@@ -186,7 +212,7 @@ export type AggregateRating = {
 export type GamePlayMode = 'CoOp' | 'MultiPlayer' | 'SinglePlayer';
 
 export type Review = {
-  author: Author;
+  author: string;
   datePublished?: string;
   reviewBody?: string;
   name?: string;
