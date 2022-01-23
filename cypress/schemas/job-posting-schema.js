@@ -15,7 +15,7 @@ const baseSalaryValue100 = {
         description: 'type of value',
       },
       value: {
-        type: 'string',
+        type: 'number',
         description: 'amount of baseSalary',
       },
       unitText: {

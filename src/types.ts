@@ -1,3 +1,98 @@
+export type OpeningHoursSpecification = {
+  opens: string;
+  closes: string;
+  dayOfWeek: string | string[];
+  validFrom?: string;
+  validThrough?: string;
+};
+
+export type Offer = {
+  priceSpecification: PriceSpecification;
+  itemOffered: Service;
+};
+
+export type PriceSpecification = {
+  type: string;
+  priceCurrency: string;
+  price: string;
+};
+
+export type Service = {
+  name: string;
+  description: string;
+};
+
+export type Geo = {
+  latitude: string;
+  longitude: string;
+};
+
+export type GeoCircle = {
+  geoMidpoint: Geo;
+  geoRadius: string;
+};
+
+export type Action = {
+  actionName: string;
+  actionType: string;
+  target: string;
+};
+
+export interface Person {
+  name: string;
+}
+export interface Answer {
+  text: string;
+  dateCreated?: string;
+  upvoteCount?: number;
+  url?: string;
+  author?: Person;
+}
+
+export interface Question {
+  name: string;
+  answerCount: number;
+  acceptedAnswer?: Answer;
+  suggestedAnswer?: Answer[];
+  text?: string;
+  author?: Person;
+  upvoteCount?: number;
+  dateCreated?: string;
+}
+
+export interface Instruction {
+  name?: string;
+  text: string;
+  url?: string;
+  image?: string;
+}
+export interface Performer {
+  name: string;
+}
+
+export interface Location {
+  name: string;
+  address: Address;
+  sameAs?: string;
+}
+export interface ContactPoint {
+  contactType: string;
+  telephone: string;
+  areaServed?: string | string[];
+  availableLanguage?: string | string[];
+  contactOption?: string | string[];
+}
+export interface CreativeWork {
+  author: string;
+  about: string;
+  name: string;
+  datePublished: string;
+  audience?: string;
+  keywords?: string;
+  thumbnailUrl?: string;
+  image?: string;
+}
+
 export interface Producer {
   name: string;
   url?: string;

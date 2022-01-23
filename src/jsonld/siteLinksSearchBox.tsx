@@ -1,45 +1,48 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
+import { JsonLd, JsonLdProps } from './jsonld';
+
 export interface PotentialAction {
   target: string;
   queryInput: string;
 }
-export interface SiteLinksSearchBoxJsonLdProps {
-  keyOverride?: string;
+
+export interface SiteLinksSearchBoxJsonLdProps extends JsonLdProps {
   url: string;
   potentialActions: PotentialAction[];
 }
 
-const SiteLinksSearchBoxJsonLd: FC<SiteLinksSearchBoxJsonLdProps> = ({
+function SiteLinksSearchBoxJsonLd({
+  type = 'WebSite',
   keyOverride,
-  url,
-  potentialActions = [],
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "url": "${url}",
-    "potentialAction": [
-      ${potentialActions.map(
-        ({ target, queryInput }) => `{
-        "@type": "SearchAction",
-        "target": "${target}={${queryInput}}",
-        "query-input": "required name=${queryInput}"
-      }`,
-      )}
-     ]
-  }`;
+  potentialActions,
+  ...rest
+}: SiteLinksSearchBoxJsonLdProps) {
+  function setPotentialAction(action: PotentialAction) {
+    if (action) {
+      const { target, queryInput } = action;
+      return {
+        '@type': 'SearchAction',
+        target: `${target}={${queryInput}}`,
+        'query-input': `required name=${queryInput}`,
+      };
+    }
+    return undefined;
+  }
+
+  const data = {
+    ...rest,
+    potentialAction: potentialActions.map(setPotentialAction),
+  };
+
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-siteLinksSearchBox${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="jsonld-siteLinksSearchBox"
+    />
   );
-};
+}
 
 export default SiteLinksSearchBoxJsonLd;

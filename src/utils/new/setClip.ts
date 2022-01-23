@@ -3,10 +3,8 @@ import { Clip } from 'src/types';
 export function setClip(clips?: Clip | Clip[]) {
   function mapClip(clip: Clip) {
     return {
-      geo: {
-        ...clip,
-        '@type': 'Clip',
-      },
+      ...clip,
+      '@type': 'Clip',
     };
   }
 

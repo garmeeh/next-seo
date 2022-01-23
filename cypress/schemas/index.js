@@ -24,6 +24,7 @@ import videoGameVersions from './videogame-schema';
 import organizationVersions from './organization-schema';
 import brandVersions from './brand-schema';
 import webPageVersions from './web-page-schema';
+import videoVersions from './video-schema';
 
 const schemas = combineSchemas(
   articleVersions,
@@ -50,5 +51,6 @@ const schemas = combineSchemas(
   organizationVersions,
   brandVersions,
   webPageVersions,
+  videoVersions,
 );
 export default schemas;
