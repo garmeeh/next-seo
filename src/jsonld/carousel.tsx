@@ -20,12 +20,12 @@ interface DefaultDataProps {
 }
 
 interface ExtendedCourseJsonLdProps
-  extends CourseJsonLdProps,
-    DefaultDataProps {}
+  extends DefaultDataProps,
+    CourseJsonLdProps {}
 
 interface ExtendedRecipeJsonLdProps
-  extends RecipeJsonLdProps,
-    DefaultDataProps {}
+  extends DefaultDataProps,
+    RecipeJsonLdProps {}
 
 export interface MovieJsonLdProps {
   name: string;
@@ -40,6 +40,7 @@ export interface MovieJsonLdProps {
 export interface CarouselJsonLdProps extends JsonLdProps {
   ofType: 'default' | 'movie' | 'recipe' | 'course';
   data:
+    | any
     | DefaultDataProps[]
     | MovieJsonLdProps[]
     | ExtendedCourseJsonLdProps[]
