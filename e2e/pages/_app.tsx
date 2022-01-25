@@ -15,11 +15,6 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       {pageWithDefaultSeo && (
         <DefaultSeo
           {...SEO}
-          dangerouslyDisableGooglebot={
-            router.pathname === '/dangerously/disable-googlebot' ||
-            router.pathname ===
-              '/dangerously/disable-googlebot-nofollow-and-noindex'
-          }
           dangerouslySetAllPagesToNoFollow={
             router.pathname === '/dangerously/nofollow' ||
             router.pathname === '/dangerously/nofollow-and-noindex'

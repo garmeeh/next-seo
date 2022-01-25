@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { Question } from 'src/types';
 import { JsonLd, JsonLdProps } from './jsonld';
-import { setQuestions } from 'src/utils/new/setQuestions';
+import { setQuestions } from 'src/utils/schema/setQuestions';
 
 export interface FAQPageJsonLdProps extends JsonLdProps {
   mainEntity: Question[];

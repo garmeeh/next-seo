@@ -8,14 +8,14 @@ import type {
   Review,
   ApplicationCategory,
 } from 'src/types';
-import { setAggregateRating } from 'src/utils/new/setAggregateRating';
-import { setAuthor } from 'src/utils/new/setAuthor';
-import { setImage } from 'src/utils/new/setImage';
-import { setOffers } from 'src/utils/new/setOffers';
-import { setProducer } from 'src/utils/new/setProducer';
-import { setProvider } from 'src/utils/new/setProvider';
-import { setReviews } from 'src/utils/new/setReviews';
-import { setVideo } from 'src/utils/new/setVideo';
+import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
+import { setAuthor } from 'src/utils/schema/setAuthor';
+import { setImage } from 'src/utils/schema/setImage';
+import { setOffers } from 'src/utils/schema/setOffers';
+import { setProducer } from 'src/utils/schema/setProducer';
+import { setProvider } from 'src/utils/schema/setProvider';
+import { setReviews } from 'src/utils/schema/setReviews';
+import { setVideo } from 'src/utils/schema/setVideo';
 
 import { JsonLd, JsonLdProps } from './jsonld';
 

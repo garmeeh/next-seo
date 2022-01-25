@@ -8,12 +8,12 @@ import type {
   Offers,
 } from 'src/types';
 
-import { setOffers } from 'src/utils/new/setOffers';
-import { setReviews } from 'src/utils/new/setReviews';
-import { setAggregateRating } from 'src/utils/new/setAggregateRating';
-import { setAggregateOffer } from 'src/utils/new/setAggregateOffer';
-import { setManufacturer } from 'src/utils/new/setManufacturer';
-import { setBrand } from 'src/utils/new/setBrand';
+import { setOffers } from 'src/utils/schema/setOffers';
+import { setReviews } from 'src/utils/schema/setReviews';
+import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
+import { setAggregateOffer } from 'src/utils/schema/setAggregateOffer';
+import { setManufacturer } from 'src/utils/schema/setManufacturer';
+import { setBrand } from 'src/utils/schema/setBrand';
 
 export interface ProductJsonLdProps extends JsonLdProps {
   productName: string;

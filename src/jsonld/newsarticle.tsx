@@ -1,6 +1,6 @@
 import React from 'react';
-import { setAuthor } from 'src/utils/new/setAuthor';
-import { setPublisher } from 'src/utils/new/setPublisher';
+import { setAuthor } from 'src/utils/schema/setAuthor';
+import { setPublisher } from 'src/utils/schema/setPublisher';
 
 import { JsonLd, JsonLdProps } from './jsonld';
 

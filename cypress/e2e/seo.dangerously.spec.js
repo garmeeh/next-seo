@@ -4,28 +4,6 @@ describe('SEO Meta Dangerously', () => {
     cy.get('h1').should('contain', 'Default SEO');
   });
 
-  it('SEO dangerouslyDisableGooglebot disable googlebot tags correctly', () => {
-    cy.visit('http://localhost:3000/dangerously/disable-googlebot');
-    cy.get('head meta[name="robots"]').should(
-      'have.attr',
-      'content',
-      'index,follow',
-    );
-    cy.get('head meta[name="googlebot"]').should('not.exist');
-  });
-
-  it('SEO dangerouslyDisableGooglebot works with noindex and nofollow', () => {
-    cy.visit(
-      'http://localhost:3000/dangerously/disable-googlebot-nofollow-and-noindex',
-    );
-    cy.get('head meta[name="robots"]').should(
-      'have.attr',
-      'content',
-      'noindex,nofollow',
-    );
-    cy.get('head meta[name="googlebot"]').should('not.exist');
-  });
-
   it('SEO dangerouslySetAllPagesToNoIndex', () => {
     cy.visit('http://localhost:3000/dangerously/noindex');
     cy.get('head meta[name="robots"]').should(

@@ -28,7 +28,6 @@ looking for inspiration on what to add.
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
     - [No Follow](#no-follow)
     - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
-    - [dangerouslyDisableGooglebot](#dangerouslydisablegooglebot)
     - [robotsProps](#robotsprops)
     - [Twitter](#twitter)
     - [facebook](#facebook)
@@ -255,48 +254,48 @@ From now on all of your pages will have the defaults above applied.
 
 ### NextSeo Options
 
-| Property                           | Type                    | Description                                                                                                                                                                          |
-| ---------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `titleTemplate`                    | string                  | Allows you to set default title template that will be added to your title [More Info](#title-template)                                                                               |
-| `title`                            | string                  | Set the meta title of the page                                                                                                                                                       |
-| `defaultTitle`                     | string                  | If no title is set on a page, this string will be used instead of an empty `titleTemplate` [More Info](#default-title)                                                               |
-| `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
-| `nofollow`                         | boolean (default false) | Sets whether page should be followed or not [More Info](#no-follow)                                                                                                                  |
-| `additionRobotsProps`              | Object                  | Set the more meta information for the `X-Robots-Tag` [More Info](#robotsprops)                                                                                                       |
-| `disableGooglebot`                 | boolean (default false) | Disable googlebot metatags from being added to the page.                                                                                                                             |
-| `description`                      | string                  | Set the page meta description                                                                                                                                                        |
-| `canonical`                        | string                  | Set the page canonical url                                                                                                                                                           |
-| `mobileAlternate.media`            | string                  | Set what screen size the mobile website should be served from                                                                                                                        |
-| `mobileAlternate.href`             | string                  | Set the mobile page alternate url                                                                                                                                                    |
-| `languageAlternates`               | array                   | Set the language of the alternate urls. Expects array of objects with the shape: `{ hrefLang: string, href: string }`                                                                |
-| `additionalMetaTags`               | array                   | Allows you to add a meta tag that is not documented here. [More Info](#additional-meta-tags)                                                                                         |
-| `additionalLinkTags`               | array                   | Allows you to add a link tag that is not documented here. [More Info](#additional-link-tags)                                                                                         |
-| `twitter.cardType`                 | string                  | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player`                                                                                             |
-| `twitter.site`                     | string                  | @username for the website used in the card footer                                                                                                                                    |
-| `twitter.handle`                   | string                  | @username for the content creator / author (outputs as `twitter:creator`)                                                                                                            |
-| `facebook.appId`                   | string                  | Used for Facebook Insights, you must add a facebook app ID to your page to for it [More Info](#facebook)                                                                             |
-| `openGraph.url`                    | string                  | The canonical URL of your object that will be used as its permanent ID in the graph                                                                                                  |
-| `openGraph.type`                   | string                  | The type of your object. Depending on the type you specify, other properties may also be required [More Info](#open-graph)                                                           |
-| `openGraph.title`                  | string                  | The open graph title, this can be different than your meta title.                                                                                                                    |
-| `openGraph.description`            | string                  | The open graph description, this can be different than your meta description.                                                                                                        |
-| `openGraph.images`                 | array                   | An array of images (object) to be used by social media platforms, slack etc as a preview. If multiple supplied you can choose one when sharing. [See Examples](#open-graph-examples) |
-| `openGraph.videos`                 | array                   | An array of videos (object)                                                                                                                                                          |
-| `openGraph.locale`                 | string                  | The locale the open graph tags are marked up in. Of the format language_TERRITORY. Default is en_US.                                                                                 |
-| `openGraph.site_name`              | string                  | If your object is part of a larger web site, the name which should be displayed for the overall site.                                                                                |
-| `openGraph.profile.firstName`      | string                  | Person's first name.                                                                                                                                                                 |
-| `openGraph.profile.lastName`       | string                  | Person's last name.                                                                                                                                                                  |
-| `openGraph.profile.username`       | string                  | Person's username.                                                                                                                                                                   |
-| `openGraph.profile.gender`         | string                  | Person's gender.                                                                                                                                                                     |
-| `openGraph.book.authors`           | string[]                | Writers of the article. [See Examples](#open-graph-examples)                                                                                                                         |
-| `openGraph.book.isbn`              | string                  | The [ISBN](https://en.wikipedia.org/wiki/International_Standard_Book_Number)                                                                                                         |
-| `openGraph.book.releaseDate`       | datetime                | The date the book was released.                                                                                                                                                      |
-| `openGraph.book.tags`              | string[]                | Tag words associated with this book.                                                                                                                                                 |
-| `openGraph.article.publishedTime`  | datetime                | When the article was first published. [See Examples](#open-graph-examples)                                                                                                           |
-| `openGraph.article.modifiedTime`   | datetime                | When the article was last changed.                                                                                                                                                   |
-| `openGraph.article.expirationTime` | datetime                | When the article is out of date after.                                                                                                                                               |
-| `openGraph.article.authors`        | string[]                | Writers of the article.                                                                                                                                                              |
-| `openGraph.article.section`        | string                  | A high-level section name. E.g. Technology                                                                                                                                           |
-| `openGraph.article.tags`           | string[]                | Tag words associated with this article.                                                                                                                                              |
+| Property              | Type                    | Description                                                                                                            |
+| --------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `titleTemplate`       | string                  | Allows you to set default title template that will be added to your title [More Info](#title-template)                 |
+| `title`               | string                  | Set the meta title of the page                                                                                         |
+| `defaultTitle`        | string                  | If no title is set on a page, this string will be used instead of an empty `titleTemplate` [More Info](#default-title) |
+| `noindex`             | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                      |
+| `nofollow`            | boolean (default false) | Sets whether page should be followed or not [More Info](#no-follow)                                                    |
+| `additionRobotsProps` | Object                  | Set the more meta information for the `X-Robots-Tag` [More Info](#robotsprops)                                         |
+
+| `description` | string | Set the page meta description |
+| `canonical` | string | Set the page canonical url |
+| `mobileAlternate.media` | string | Set what screen size the mobile website should be served from |
+| `mobileAlternate.href` | string | Set the mobile page alternate url |
+| `languageAlternates` | array | Set the language of the alternate urls. Expects array of objects with the shape: `{ hrefLang: string, href: string }` |
+| `additionalMetaTags` | array | Allows you to add a meta tag that is not documented here. [More Info](#additional-meta-tags) |
+| `additionalLinkTags` | array | Allows you to add a link tag that is not documented here. [More Info](#additional-link-tags) |
+| `twitter.cardType` | string | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player` |
+| `twitter.site` | string | @username for the website used in the card footer |
+| `twitter.handle` | string | @username for the content creator / author (outputs as `twitter:creator`) |
+| `facebook.appId` | string | Used for Facebook Insights, you must add a facebook app ID to your page to for it [More Info](#facebook) |
+| `openGraph.url` | string | The canonical URL of your object that will be used as its permanent ID in the graph |
+| `openGraph.type` | string | The type of your object. Depending on the type you specify, other properties may also be required [More Info](#open-graph) |
+| `openGraph.title` | string | The open graph title, this can be different than your meta title. |
+| `openGraph.description` | string | The open graph description, this can be different than your meta description. |
+| `openGraph.images` | array | An array of images (object) to be used by social media platforms, slack etc as a preview. If multiple supplied you can choose one when sharing. [See Examples](#open-graph-examples) |
+| `openGraph.videos` | array | An array of videos (object) |
+| `openGraph.locale` | string | The locale the open graph tags are marked up in. Of the format language_TERRITORY. Default is en_US. |
+| `openGraph.site_name` | string | If your object is part of a larger web site, the name which should be displayed for the overall site. |
+| `openGraph.profile.firstName` | string | Person's first name. |
+| `openGraph.profile.lastName` | string | Person's last name. |
+| `openGraph.profile.username` | string | Person's username. |
+| `openGraph.profile.gender` | string | Person's gender. |
+| `openGraph.book.authors` | string[] | Writers of the article. [See Examples](#open-graph-examples) |
+| `openGraph.book.isbn` | string | The [ISBN](https://en.wikipedia.org/wiki/International_Standard_Book_Number) |
+| `openGraph.book.releaseDate` | datetime | The date the book was released. |
+| `openGraph.book.tags` | string[] | Tag words associated with this book. |
+| `openGraph.article.publishedTime` | datetime | When the article was first published. [See Examples](#open-graph-examples) |
+| `openGraph.article.modifiedTime` | datetime | When the article was last changed. |
+| `openGraph.article.expirationTime` | datetime | When the article is out of date after. |
+| `openGraph.article.authors` | string[] | Writers of the article. |
+| `openGraph.article.section` | string | A high-level section name. E.g. Technology |
+| `openGraph.article.tags` | string[] | Tag words associated with this article. |
 
 #### Title Template
 
@@ -400,12 +399,6 @@ The only way to unset this, is by removing the prop from the `DefaultSeo` in you
 | --        | true       | `index,nofollow`                        |
 | false     | true       | `index,nofollow`                        |
 | true      | true       | `noindex,nofollow`                      |
-
-#### dangerouslyDisableGooglebot
-
-It has the prefix of `dangerously` because it will remove googlebot tags from all pages. As this is an SEO plugin, that is kinda dangerous action. It is **not** bad to use this, just please be sure you want to remove googlebot tags from **EVERY** page.
-
-The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom `<App>`.
 
 #### robotsProps
 
@@ -2889,89 +2882,4 @@ For reference and more info check [Docs](https://schema.org/Brand)
 
 ## Contributors
 
-Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://www.garymeehan.ie/"><img src="https://avatars1.githubusercontent.com/u/13333582?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gary Meehan</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=garmeeh" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=garmeeh" title="Documentation">📖</a> <a href="#example-garmeeh" title="Examples">💡</a> <a href="https://github.com/garmeeh/next-seo/commits?author=garmeeh" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://www.jeromefitzgerald.com/"><img src="https://avatars3.githubusercontent.com/u/3099369?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jerome Fitzgerald</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=JeromeFitz" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/erickeno"><img src="https://avatars0.githubusercontent.com/u/3820632?v=4?s=100" width="100px;" alt=""/><br /><sub><b>erick B</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=erickeno" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.erikcondie.com"><img src="https://avatars2.githubusercontent.com/u/15269328?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Erik Condie</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=econdie" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=econdie" title="Tests">⚠️</a> <a href="#example-econdie" title="Examples">💡</a> <a href="#ideas-econdie" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="http://timothyreynolds.co.uk"><img src="https://avatars1.githubusercontent.com/u/168870?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tim Reynolds</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=timReynolds" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=timReynolds" title="Tests">⚠️</a> <a href="#example-timReynolds" title="Examples">💡</a> <a href="https://github.com/garmeeh/next-seo/commits?author=timReynolds" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/Ktchan825"><img src="https://avatars3.githubusercontent.com/u/20606631?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ktchan825</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Ktchan825" title="Tests">⚠️</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Ktchan825" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ctxquentin"><img src="https://avatars1.githubusercontent.com/u/36331776?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ctxquentin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=ctxquentin" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=ctxquentin" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=ctxquentin" title="Tests">⚠️</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/bolonio"><img src="https://avatars0.githubusercontent.com/u/1288407?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adrián Bolonio</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=bolonio" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=bolonio" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=bolonio" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://erikhofer.de"><img src="https://avatars2.githubusercontent.com/u/17194301?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Erik Hofer</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=erikhofer" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://ermakov.io"><img src="https://avatars0.githubusercontent.com/u/301917?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dmitry Ermakov</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=zetoke" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/duckranger"><img src="https://avatars0.githubusercontent.com/u/2087890?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nimo Naamani</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=duckranger" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/calvinvoo2"><img src="https://avatars2.githubusercontent.com/u/12223423?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Calvin Ng Tjioe</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=calvinvoo2" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/petertulala"><img src="https://avatars1.githubusercontent.com/u/613623?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Peter Tulala</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=petertulala" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=petertulala" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/nik-john"><img src="https://avatars2.githubusercontent.com/u/1117182?v=4?s=100" width="100px;" alt=""/><br /><sub><b>nikjohn</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=nik-john" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nik-john" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nik-john" title="Tests">⚠️</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/0x54321"><img src="https://avatars0.githubusercontent.com/u/34850754?v=4?s=100" width="100px;" alt=""/><br /><sub><b>0x54321</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=0x54321" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=0x54321" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=0x54321" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/nateetorn"><img src="https://avatars0.githubusercontent.com/u/365585?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nateetorn L.</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=nateetorn" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nateetorn" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nateetorn" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/Myoxocephalus"><img src="https://avatars0.githubusercontent.com/u/2316544?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Myoxocephalus</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/kenleytomlin"><img src="https://avatars3.githubusercontent.com/u/3004590?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kenley Tomlin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://twovit.com"><img src="https://avatars0.githubusercontent.com/u/20168220?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ryu Nishida</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://ykzts.com/"><img src="https://avatars0.githubusercontent.com/u/12539?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yamagishi Kazutoshi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=ykzts" title="Code">💻</a> <a href="#infra-ykzts" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    <td align="center"><a href="http://mgmcdermott.com"><img src="https://avatars3.githubusercontent.com/u/8161781?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michael McDermott</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=michaelgmcd" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=michaelgmcd" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://lukejones.co"><img src="https://avatars0.githubusercontent.com/u/6657011?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Luke Jones</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=luke-j" title="Code">💻</a> <a href="#infra-luke-j" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    <td align="center"><a href="https://github.com/pueyo5"><img src="https://avatars1.githubusercontent.com/u/8959368?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Albert Pueyo</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=pueyo5" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=pueyo5" title="Code">💻</a></td>
-    <td align="center"><a href="http://Qrymy.com"><img src="https://avatars1.githubusercontent.com/u/26219456?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Qrymy</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Qrymy" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.yuuniworks.com/"><img src="https://avatars0.githubusercontent.com/u/10986861?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shota Tamura</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=junkboy0315" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/kahoowkh"><img src="https://avatars3.githubusercontent.com/u/26565078?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kahoowkh</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kahoowkh" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kahoowkh" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kahoowkh" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/gtodd876"><img src="https://avatars1.githubusercontent.com/u/28220658?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Todd Matthews</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=gtodd876" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=gtodd876" title="Code">💻</a></td>
-    <td align="center"><a href="http://mohamedshadab.me"><img src="https://avatars1.githubusercontent.com/u/22408263?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mohamed Shadab</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Tests">⚠️</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="http://drewgoodwin.com"><img src="https://avatars1.githubusercontent.com/u/63794?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Drew Goodwin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=tacomanator" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://schlosser.io"><img src="https://avatars0.githubusercontent.com/u/2433509?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dan Schlosser</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=schlosser" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/matamatanot"><img src="https://avatars2.githubusercontent.com/u/39780486?v=4?s=100" width="100px;" alt=""/><br /><sub><b>matamatanot</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=matamatanot" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://kloc.io/"><img src="https://avatars2.githubusercontent.com/u/9046616?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Daniel Reinoso</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=danielr18" title="Code">💻</a></td>
-    <td align="center"><a href="https://marcovalsecchi.it"><img src="https://avatars0.githubusercontent.com/u/1492995?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marco Valsecchi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=valse" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=valse" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/pbrandone"><img src="https://avatars2.githubusercontent.com/u/5202712?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pedro Brandão</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=pbrandone" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/omar-dulaimi"><img src="https://avatars0.githubusercontent.com/u/11743389?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Omar Dulaimi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=omar-dulaimi" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=omar-dulaimi" title="Tests">⚠️</a> <a href="https://github.com/garmeeh/next-seo/commits?author=omar-dulaimi" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="http://rodzy.vercel.app"><img src="https://avatars2.githubusercontent.com/u/49137701?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Isaac Rodríguez</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://iainmchugh.github.io/portfolio/"><img src="https://avatars.githubusercontent.com/u/46798029?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Iain McHugh</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=IainMcHugh" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://www.wiedergruen.com"><img src="https://avatars.githubusercontent.com/u/5861026?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Simon</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=simonschllng" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://trevorblades.com"><img src="https://avatars.githubusercontent.com/u/1216917?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Trevor Blades</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://httgp.com"><img src="https://avatars.githubusercontent.com/u/5381764?v=4?s=100" width="100px;" alt=""/><br /><sub><b>GP</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://twitter.com/sebascomeau"><img src="https://avatars.githubusercontent.com/u/2814465?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sébastien Comeau</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=sebascomeau" title="Code">💻</a></td>
-    <td align="center"><a href="https://infilimits.com"><img src="https://avatars.githubusercontent.com/u/12628996?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shaswat Saxena</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Tests">⚠️</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/Roohn"><img src="https://avatars.githubusercontent.com/u/22071649?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ronald</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/MrNossiom"><img src="https://avatars.githubusercontent.com/u/43814157?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Milo Moisson</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=MrNossiom" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=MrNossiom" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/adrianu197"><img src="https://avatars.githubusercontent.com/u/33718513?v=4?s=100" width="100px;" alt=""/><br /><sub><b>adrianu197</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=adrianu197" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=adrianu197" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=adrianu197" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/kaykdm"><img src="https://avatars.githubusercontent.com/u/34934746?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kaykdm</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kaykdm" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kaykdm" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kaykdm" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://www.apolexian.xyz"><img src="https://avatars.githubusercontent.com/u/20223409?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ivan Nikitin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Apolexian" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Apolexian" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Apolexian" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/hsynlms"><img src="https://avatars.githubusercontent.com/u/1780171?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Huseyin ELMAS</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=hsynlms" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=hsynlms" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://aryanbeezadhur.com"><img src="https://avatars.githubusercontent.com/u/34424160?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aryan Beezadhur</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=AryanBeezadhur" title="Documentation">📖</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/TomPradat"><img src="https://avatars.githubusercontent.com/u/16164512?v=4?s=100" width="100px;" alt=""/><br /><sub><b>TomPradat</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=TomPradat" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/PezeM"><img src="https://avatars.githubusercontent.com/u/16854655?v=4?s=100" width="100px;" alt=""/><br /><sub><b>PezeM</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=PezeM" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/darklight147"><img src="https://avatars.githubusercontent.com/u/39389636?v=4?s=100" width="100px;" alt=""/><br /><sub><b>darklight147</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=darklight147" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://shabith.com"><img src="https://avatars.githubusercontent.com/u/143546?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shabith Ishan Thennakone</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=shabith" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://sushantdhiman.com"><img src="https://avatars.githubusercontent.com/u/9989487?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sushant</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=sushantdhiman" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=sushantdhiman" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://simrobin.fr"><img src="https://avatars.githubusercontent.com/u/10052336?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Simon Robin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=simrobin" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=simrobin" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=simrobin" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://riccardogiorato.com/"><img src="https://avatars.githubusercontent.com/u/4527364?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Riccardo Giorato</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=riccardogiorato" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=riccardogiorato" title="Tests">⚠️</a> <a href="https://github.com/garmeeh/next-seo/commits?author=riccardogiorato" title="Documentation">📖</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
+A massive thank you to [everyone who contributes](https://github.com/garmeeh/next-seo/graphs/contributors) to this project 👏

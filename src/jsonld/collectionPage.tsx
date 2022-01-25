@@ -2,7 +2,7 @@ import React from 'react';
 
 import { JsonLd, JsonLdProps } from './jsonld';
 import type { CreativeWork } from 'src/types';
-import { setCreativeWork } from 'src/utils/new/setCreativeWork';
+import { setCreativeWork } from 'src/utils/schema/setCreativeWork';
 
 export interface CollectionPageJsonLdProps extends JsonLdProps {
   name: string;

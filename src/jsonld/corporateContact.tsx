@@ -3,7 +3,7 @@ import React from 'react';
 import { JsonLd, JsonLdProps } from './jsonld';
 import type { ContactPoint } from 'src/types';
 
-import { setContactPoint } from 'src/utils/new/setContactPoint';
+import { setContactPoint } from 'src/utils/schema/setContactPoint';
 
 export interface CorporateContactJsonLdProps extends JsonLdProps {
   url: string;

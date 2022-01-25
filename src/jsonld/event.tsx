@@ -2,10 +2,10 @@ import React from 'react';
 
 import { JsonLd, JsonLdProps } from './jsonld';
 import type { Location, AggregateOffer, Offers, Performer } from 'src/types';
-import { setLocation } from 'src/utils/new/setLocation';
-import { setPerformer } from 'src/utils/new/setPerformer';
-import { setOffers } from 'src/utils/new/setOffers';
-import { setAggregateOffer } from 'src/utils/new/setAggregateOffer';
+import { setLocation } from 'src/utils/schema/setLocation';
+import { setPerformer } from 'src/utils/schema/setPerformer';
+import { setOffers } from 'src/utils/schema/setOffers';
+import { setAggregateOffer } from 'src/utils/schema/setAggregateOffer';
 
 export interface EventJsonLdProps extends JsonLdProps {
   name: string;

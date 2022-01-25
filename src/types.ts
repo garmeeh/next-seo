@@ -401,16 +401,27 @@ export interface NextSeoProps {
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
   additionalLinkTags?: ReadonlyArray<LinkTag>;
-  disableGooglebot?: boolean;
 }
 
-export interface DefaultSeoProps extends NextSeoProps {
-  dangerouslyDisableGooglebot?: boolean;
+export interface DefaultSeoProps {
   dangerouslySetAllPagesToNoIndex?: boolean;
   dangerouslySetAllPagesToNoFollow?: boolean;
   defaultOpenGraphImageWidth?: number;
   defaultOpenGraphImageHeight?: number;
   defaultOpenGraphVideoWidth?: number;
   defaultOpenGraphVideoHeight?: number;
+  title?: string;
+  titleTemplate?: string;
+  defaultTitle?: string;
+  robotsProps?: AdditionalRobotsProps;
+  description?: string;
+  canonical?: string;
+  mobileAlternate?: MobileAlternate;
+  languageAlternates?: ReadonlyArray<LanguageAlternate>;
+  openGraph?: OpenGraph;
+  facebook?: { appId: string };
+  twitter?: Twitter;
+  additionalMetaTags?: ReadonlyArray<MetaTag>;
+  additionalLinkTags?: ReadonlyArray<LinkTag>;
 }
 export interface BuildTagsParams extends DefaultSeoProps, NextSeoProps {}
