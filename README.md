@@ -324,7 +324,7 @@ defaultTitle = 'Next SEO';
 
 #### No Index
 
-Setting this to `true` will set `noindex,follow` (to set `nofollow`, please refer to [`nofollow`](#noFollow)). This works on a page by page basis. This property works in tandem with the `nofollow` property and together they populate the `robots` and `googlebot` meta tags.
+Setting this to `true` will set `noindex,follow` (to set `nofollow`, please refer to [`nofollow`](#noFollow)). This works on a page by page basis. This property works in tandem with the `nofollow` property and together they populate the `robots` meta tag.
 
 **Note:** The `noindex` and the [`nofollow`](#noFollow) properties are a little different than all the others in the sense that setting them as a default does not work as expected. This is due to the fact Next SEO already has a default of `index,follow` because `next-seo` is a SEO plugin after all. So if you want to globally these properties, please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToNoFollow](#dangerouslySetAllPagesToNoFollow).
 
@@ -346,7 +346,6 @@ export default Page;
 
 /*
 <meta name="robots" content="noindex,follow">
-<meta name="googlebot" content="noindex,follow">
 */
 ```
 
@@ -358,7 +357,7 @@ The only way to unset this, is by removing the prop from the `DefaultSeo` in you
 
 #### No Follow
 
-Setting this to `true` will set `index,nofollow` (to set `noindex`, please refer to [`noindex`](#noIndex)). This works on a page by page basis. This property works in tandem with the `noindex` property and together they populate the `robots` and `googlebot` meta tags.
+Setting this to `true` will set `index,nofollow` (to set `noindex`, please refer to [`noindex`](#noIndex)). This works on a page by page basis. This property works in tandem with the `noindex` property and together they populate the `robots` meta tag.
 
 **Note:** Unlike for the other properties, setting `noindex` and [`nofollow`](#noFollow) by default does not work as expected. This is because Next SEO has a default of `index,follow`, since `next-seo` is an SEO plugin after all. If you want to globally allow these properties, see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToNoFollow](#dangerouslySetAllPagesToNoFollow).
 
@@ -380,7 +379,6 @@ export default Page;
 
 /*
 <meta name="robots" content="index,nofollow">
-<meta name="googlebot" content="index,nofollow">
 */
 ```
 
@@ -390,15 +388,15 @@ It has the prefix of `dangerously` because it will `nofollow` all pages. As this
 
 The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom `<App>`.
 
-| `noindex` | `nofollow` | `meta` content of `robots`, `googlebot` |
-| --------- | ---------- | --------------------------------------- |
-| --        | --         | `index,follow` (default)                |
-| false     | false      | `index,follow`                          |
-| true      | --         | `noindex,follow`                        |
-| true      | false      | `noindex,follow`                        |
-| --        | true       | `index,nofollow`                        |
-| false     | true       | `index,nofollow`                        |
-| true      | true       | `noindex,nofollow`                      |
+| `noindex` | `nofollow` | `meta` content of `robots` |
+| --------- | ---------- | -------------------------- |
+| --        | --         | `index,follow` (default)   |
+| false     | false      | `index,follow`             |
+| true      | --         | `noindex,follow`           |
+| true      | false      | `noindex,follow`           |
+| --        | true       | `index,nofollow`           |
+| false     | true       | `index,nofollow`           |
+| true      | true       | `noindex,nofollow`         |
 
 #### robotsProps
 
@@ -430,7 +428,6 @@ export default Page;
 
 /*
 <meta name="robots" content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate">
-<meta name="googlebot" content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate">
 */
 ```
 

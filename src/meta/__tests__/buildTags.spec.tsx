@@ -220,7 +220,7 @@ it('returns full array for default seo object', () => {
   });
 
   expect(title).toBeDefined();
-  expect(Array.from(index).length).toBe(2);
+  expect(Array.from(index).length).toBe(1);
   expect(Array.from(description).length).toBe(1);
   expect(Array.from(descriptionTag).length).toBe(1);
   expect(Array.from(facebookAppId).length).toBe(1);
@@ -271,7 +271,7 @@ it('correctly sets noindex', () => {
   const noindex = container.querySelectorAll('meta[content="noindex,follow"]');
 
   expect(Array.from(index).length).toBe(0);
-  expect(Array.from(noindex).length).toBe(2);
+  expect(Array.from(noindex).length).toBe(1);
 });
 
 it('correctly sets nofollow', () => {
@@ -288,7 +288,7 @@ it('correctly sets nofollow', () => {
     'meta[content="index,nofollow"]',
   );
   expect(Array.from(indexfollow).length).toBe(0);
-  expect(Array.from(indexnofollow).length).toBe(2);
+  expect(Array.from(indexnofollow).length).toBe(1);
 });
 
 it('correctly sets noindex, nofollow', () => {
@@ -307,7 +307,7 @@ it('correctly sets noindex, nofollow', () => {
   );
 
   expect(Array.from(indexfollow).length).toBe(0);
-  expect(Array.from(noindexnofollow).length).toBe(2);
+  expect(Array.from(noindexnofollow).length).toBe(1);
 });
 
 it('displays title with titleTemplate integrated', () => {
@@ -848,7 +848,7 @@ it('correctly sets noindex default', () => {
   );
 
   expect(Array.from(indexfollow).length).toBe(0);
-  expect(Array.from(noindexfollow).length).toBe(2);
+  expect(Array.from(noindexfollow).length).toBe(1);
 });
 
 it('correctly sets nofollow default', () => {
@@ -866,7 +866,7 @@ it('correctly sets nofollow default', () => {
   );
 
   expect(Array.from(indexfollow).length).toBe(0);
-  expect(Array.from(noindexnofollow).length).toBe(2);
+  expect(Array.from(noindexnofollow).length).toBe(1);
 });
 
 it('correctly read noindex & nofollow false', () => {
@@ -885,7 +885,7 @@ it('correctly read noindex & nofollow false', () => {
   );
 
   expect(Array.from(indexfollow).length).toBe(0);
-  expect(Array.from(noindexnofollow).length).toBe(2);
+  expect(Array.from(noindexnofollow).length).toBe(1);
 });
 
 it('correctly read all robots props', () => {
@@ -913,5 +913,5 @@ it('correctly read all robots props', () => {
     'meta[content="noindex,nofollow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate"]',
   );
   expect(Array.from(content).length).toBe(0);
-  expect(Array.from(contentOverride).length).toBe(2);
+  expect(Array.from(contentOverride).length).toBe(1);
 });

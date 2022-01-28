@@ -11,11 +11,6 @@ describe('SEO Meta Dangerously', () => {
       'content',
       'noindex,follow',
     );
-    cy.get('head meta[name="googlebot"]').should(
-      'have.attr',
-      'content',
-      'noindex,follow',
-    );
   });
 
   it('SEO dangerouslySetAllPagesToNoFollow', () => {
@@ -25,21 +20,11 @@ describe('SEO Meta Dangerously', () => {
       'content',
       'index,nofollow',
     );
-    cy.get('head meta[name="googlebot"]').should(
-      'have.attr',
-      'content',
-      'index,nofollow',
-    );
   });
 
   it('SEO dangerouslySetAllPagesToNoFollow and dangerouslySetAllPagesToNoIndex', () => {
     cy.visit('http://localhost:3000/dangerously/nofollow-and-noindex');
     cy.get('head meta[name="robots"]').should(
-      'have.attr',
-      'content',
-      'noindex,nofollow',
-    );
-    cy.get('head meta[name="googlebot"]').should(
       'have.attr',
       'content',
       'noindex,nofollow',
