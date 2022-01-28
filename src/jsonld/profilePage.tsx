@@ -1,63 +1,38 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
+import { JsonLd, JsonLdProps } from './jsonld';
+import type { ItemListElements } from 'src/types';
+import { setItemListElements } from 'src/utils/schema/setItemListElements';
 
-export interface ProfilePageJsonLdProps {
-  keyOverride?: string;
+export interface ProfilePageJsonLdProps extends JsonLdProps {
   breadcrumb: string | ItemListElements[];
   lastReviewed?: string;
 }
 
-export interface ItemListElements {
-  item: string;
-  name: string;
-  position: number;
-}
-
-const buildBreadcrumb = (itemListElements: ItemListElements[]) => `{
-  "@type": "BreadcrumbList",
-  "itemListElement": ${buildBreadcrumbList(itemListElements)}
-}`;
-
-const buildBreadcrumbList = (itemListElements: ItemListElements[]) => `[
-  ${itemListElements.map(
-    itemListElement => `{
-    "@type": "ListItem",
-    "position": ${itemListElement.position},
-    "item": {
-      "@id": "${itemListElement.item}",
-      "name": "${itemListElement.name}"
-    }
-  }`,
-  )}
-]`;
-
-const ProfilePageJsonLd: FC<ProfilePageJsonLdProps> = ({
+function ProfilePageJsonLd({
+  type = 'ProfilePage',
   keyOverride,
   breadcrumb,
-  lastReviewed,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    ${lastReviewed ? `"lastReviewed": "${lastReviewed}",` : ''}
-    "breadcrumb": ${
-      typeof breadcrumb === 'string'
-        ? `"${breadcrumb}"`
-        : buildBreadcrumb(breadcrumb)
-    }
-  }`;
+  ...rest
+}: ProfilePageJsonLdProps) {
+  const data = {
+    ...rest,
+    breadcrumb: Array.isArray(breadcrumb)
+      ? {
+          '@type': 'BreadcrumbList',
+          itemListElement: setItemListElements(breadcrumb),
+        }
+      : breadcrumb,
+  };
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-profile-page${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="ProfilePage"
+    />
   );
-};
+}
 
 export default ProfilePageJsonLd;

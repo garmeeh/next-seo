@@ -1,24 +1,13 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
-import formatIfArray from '../utils/formatIfArray';
-import buildAddress from '../utils/buildAddress';
-import { Address, AggregateOffer, Offers } from '../types';
-import { buildOffers } from '../utils/buildOffers';
-import { buildAggregateOffer } from '../utils/buildAggregateOffer';
+import { JsonLd, JsonLdProps } from './jsonld';
+import type { Location, AggregateOffer, Offers, Performer } from 'src/types';
+import { setLocation } from 'src/utils/schema/setLocation';
+import { setPerformer } from 'src/utils/schema/setPerformer';
+import { setOffers } from 'src/utils/schema/setOffers';
+import { setAggregateOffer } from 'src/utils/schema/setAggregateOffer';
 
-type Location = {
-  name: string;
-  address: Address;
-  sameAs?: string;
-};
-
-type Performer = {
-  name: string;
-};
-
-export interface EventJsonLdProps {
+export interface EventJsonLdProps extends JsonLdProps {
   name: string;
   startDate: string;
   endDate: string;
@@ -31,80 +20,28 @@ export interface EventJsonLdProps {
   performers?: Performer | Performer[];
 }
 
-const buildLocation = (location: Location) => `
-  "location": {
-    "@type": "Place",
-    ${buildAddress(location.address)}
-    ${location.sameAs ? `"sameAs": "${location.sameAs}",` : ``}
-    "name": "${location.name}"
-  },
-`;
-
-const buildPerformer = (performer: Performer) => `
-  {
-    "@type": "PerformingGroup",
-    "name": "${performer.name}"
-  }
-`;
-
-const EventJsonLd: FC<EventJsonLdProps> = ({
-  name,
-  startDate,
-  endDate,
+function EventJsonLd({
+  type = 'Event',
+  keyOverride,
   location,
-  url,
-  description,
   images,
   offers,
   aggregateOffer,
   performers,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "startDate": "${startDate}",
-    "endDate": "${endDate}",
-    ${buildLocation(location)}
-    ${images ? `"image":${formatIfArray(images)},` : ``}
-    ${url ? `"url": "${url}",` : ``}
-    ${description ? `"description": "${description}",` : ``}
-    ${
-      offers
-        ? `"offers": ${
-            Array.isArray(offers)
-              ? `[${offers.map(offer => `${buildOffers(offer)}`)}]`
-              : buildOffers(offers)
-          },`
-        : ''
-    }
-    ${
-      aggregateOffer && !offers
-        ? `"offers": ${buildAggregateOffer(aggregateOffer)},`
-        : ''
-    }
-    ${
-      performers
-        ? `"performer": ${
-            Array.isArray(performers)
-              ? `[${performers.map(
-                  performer => `${buildPerformer(performer)}`,
-                )}]`
-              : buildPerformer(performers)
-          },`
-        : ''
-    }
-    "name": "${name}"
-  }`;
-
+  ...rest
+}: EventJsonLdProps) {
+  const data = {
+    ...rest,
+    location: setLocation(location),
+    image: images,
+    offers: offers ? setOffers(offers) : setAggregateOffer(aggregateOffer),
+    performer: Array.isArray(performers)
+      ? performers.map(setPerformer)
+      : setPerformer(performers),
+  };
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-event"
-      />
-    </Head>
+    <JsonLd type={type} keyOverride={keyOverride} {...data} scriptKey="Event" />
   );
-};
+}
 
 export default EventJsonLd;

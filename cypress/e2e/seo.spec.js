@@ -23,11 +23,6 @@ describe('SEO Meta', () => {
       'content',
       'index,follow',
     );
-    cy.get('head meta[name="googlebot"]').should(
-      'have.attr',
-      'content',
-      'index,follow',
-    );
     cy.get('head meta[property="og:type"]').should(
       'have.attr',
       'content',
@@ -142,11 +137,6 @@ describe('SEO Meta', () => {
       'content',
       'index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate',
     );
-    cy.get('head meta[name="googlebot"]').should(
-      'have.attr',
-      'content',
-      'index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate',
-    );
   });
 
   it('SEO overrides apply correctly', () => {
@@ -164,11 +154,6 @@ describe('SEO Meta', () => {
       'https://www.canonical.ie/b',
     );
     cy.get('head meta[name="robots"]').should(
-      'have.attr',
-      'content',
-      'noindex,nofollow',
-    );
-    cy.get('head meta[name="googlebot"]').should(
       'have.attr',
       'content',
       'noindex,nofollow',
@@ -817,15 +802,5 @@ describe('SEO Meta', () => {
       'content',
       'summary_large_image',
     );
-  });
-
-  it('SEO disableGooglebot disable googlebot tags correctly', () => {
-    cy.visit('http://localhost:3000/disable-googlebot');
-    cy.get('head meta[name="robots"]').should(
-      'have.attr',
-      'content',
-      'index,follow',
-    );
-    cy.get('head meta[name="googlebot"]').should('not.exist');
   });
 });

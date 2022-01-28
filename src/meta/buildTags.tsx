@@ -1,4 +1,4 @@
-import React, { ReactNodeArray } from 'react';
+import React, { ReactNode } from 'react';
 import { BuildTagsParams, OpenGraphMedia } from '../types';
 const defaults = {
   templateTitle: '',
@@ -8,7 +8,6 @@ const defaults = {
   defaultOpenGraphImageHeight: 0,
   defaultOpenGraphVideoWidth: 0,
   defaultOpenGraphVideoHeight: 0,
-  disableGooglebot: false,
 };
 
 const buildOpenGraphMediaTags = (
@@ -95,11 +94,11 @@ const buildOpenGraphMediaTags = (
     }
 
     return tags;
-  }, [] as ReactNodeArray);
+  }, [] as ReactNode[]);
 };
 
 const buildTags = (config: BuildTagsParams) => {
-  const tagsToRender: ReactNodeArray = [];
+  const tagsToRender: ReactNode[] = [];
 
   if (config.titleTemplate) {
     defaults.templateTitle = config.titleTemplate;
@@ -128,11 +127,6 @@ const buildTags = (config: BuildTagsParams) => {
     defaults.nofollow ||
     config.dangerouslySetAllPagesToNoFollow;
 
-  const disableGooglebot =
-    config.disableGooglebot ||
-    defaults.disableGooglebot ||
-    config.dangerouslyDisableGooglebot;
-
   let robotsParams = '';
   if (config.robotsProps) {
     const {
@@ -157,10 +151,6 @@ const buildTags = (config: BuildTagsParams) => {
     }`;
   }
 
-  if (config.dangerouslyDisableGooglebot) {
-    defaults.disableGooglebot = true;
-  }
-
   if (noindex || nofollow) {
     if (config.dangerouslySetAllPagesToNoIndex) {
       defaults.noindex = true;
@@ -178,17 +168,6 @@ const buildTags = (config: BuildTagsParams) => {
         }${robotsParams}`}
       />,
     );
-    if (!disableGooglebot) {
-      tagsToRender.push(
-        <meta
-          key="googlebot"
-          name="googlebot"
-          content={`${noindex ? 'noindex' : 'index'},${
-            nofollow ? 'nofollow' : 'follow'
-          }${robotsParams}`}
-        />,
-      );
-    }
   } else {
     tagsToRender.push(
       <meta
@@ -197,15 +176,6 @@ const buildTags = (config: BuildTagsParams) => {
         content={`index,follow${robotsParams}`}
       />,
     );
-    if (!disableGooglebot) {
-      tagsToRender.push(
-        <meta
-          key="googlebot"
-          name="googlebot"
-          content={`index,follow${robotsParams}`}
-        />,
-      );
-    }
   }
 
   if (config.description) {
@@ -286,7 +256,7 @@ const buildTags = (config: BuildTagsParams) => {
     }
   }
 
-  if (config.openGraph?.title || config.title) {
+  if (config.openGraph?.title || updatedTitle) {
     tagsToRender.push(
       <meta
         key="og:title"

@@ -1,73 +1,34 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
-export interface ContactPoint {
-  contactType: string;
-  telephone: string;
-  areaServed?: string | string[];
-  availableLanguage?: string | string[];
-  contactOption?: string | string[];
-}
-export interface CorporateContactJsonLdProps {
-  keyOverride?: string;
+import { JsonLd, JsonLdProps } from './jsonld';
+import type { ContactPoint } from 'src/types';
+
+import { setContactPoint } from 'src/utils/schema/setContactPoint';
+
+export interface CorporateContactJsonLdProps extends JsonLdProps {
   url: string;
   contactPoint: ContactPoint[];
   logo?: string;
 }
 
-const formatIfArray = (value: string[] | string) =>
-  Array.isArray(value) ? `[${value.map(val => `"${val}"`)}]` : `"${value}"`;
-
-export const buildContactPoint = (contactPoint: ContactPoint[]) =>
-  contactPoint
-    .map(
-      contact => `{
-    "@type": "ContactPoint",
-    "telephone": "${contact.telephone}",
-    "contactType": "${contact.contactType}"${
-        contact.areaServed
-          ? `,
-    "areaServed": ${formatIfArray(contact.areaServed)}`
-          : ''
-      }${
-        contact.availableLanguage
-          ? `,
-    "availableLanguage": ${formatIfArray(contact.availableLanguage)}`
-          : ''
-      }${
-        contact.contactOption
-          ? `,
-    "contactOption": "${contact.contactOption}"`
-          : ''
-      }
-    }`,
-    )
-    .join(',');
-
-const CorporateContactJsonLd: FC<CorporateContactJsonLdProps> = ({
+function CorporateContactJsonLd({
+  type = 'Organization',
   keyOverride,
-  url,
-  logo,
   contactPoint,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "url": "${url}",
-    ${logo ? `"logo": "${logo}",` : ''}
-    "contactPoint": [${buildContactPoint(contactPoint)}]
-  }`;
-
+  ...rest
+}: CorporateContactJsonLdProps) {
+  const data = {
+    ...rest,
+    contactPoint: contactPoint.map(setContactPoint),
+  };
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-corporate-contact${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="CorporateContact"
+    />
   );
-};
+}
 
 export default CorporateContactJsonLd;
