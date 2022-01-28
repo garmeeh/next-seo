@@ -1054,12 +1054,13 @@ export default Page;
 ### Blog
 
 ```jsx
-import { BlogJsonLd } from 'next-seo';
+import { ArticleJsonLd } from 'next-seo';
 
 const Page = () => (
   <>
     <h1>Blog JSON-LD</h1>
-    <BlogJsonLd
+    <ArticleJsonLd
+      type="Blog"
       url="https://example.com/blog"
       title="Blog headline"
       images={[
@@ -1218,9 +1219,11 @@ const Page = () => (
     <h1>Course JSON-LD</h1>
     <CourseJsonLd
       courseName="Course Name"
-      providerName="Course Provider"
-      providerUrl="https//www.example.com/provider"
-      description="Course description goes right here"
+      description="Introductory CS course laying out the basics."
+      provider={{
+        name: 'Course Provider',
+        url: 'https//www.example.com/provider',
+      }}
     />
   </>
 );
@@ -1230,11 +1233,12 @@ export default Page;
 
 **Required properties**
 
-| Property       | Info                                                         |
-| -------------- | ------------------------------------------------------------ |
-| `courseName`   | The title of the course.                                     |
-| `description`  | A description of the course. Display limit of 60 characters. |
-| `providerName` | The course provider name.                                    |
+| Property        | Info                                                         |
+| --------------- | ------------------------------------------------------------ |
+| `courseName`    | The title of the course.                                     |
+| `description`   | A description of the course. Display limit of 60 characters. |
+| `provider.name` | The course provider name.                                    |
+| `provider.url`  | The course provider name url.                                |
 
 **Recommended properties**
 
@@ -1688,10 +1692,7 @@ const Page = () => (
       award="Best Executive Anvil Award."
       reviews={[
         {
-          author: {
-            type: 'Person',
-            name: 'Jim',
-          },
+          author: 'Jim',
           datePublished: '2017-01-06T03:37:40Z',
           reviewBody:
             'This is my favorite product yet! Thanks Nate for the example products and reviews.',
@@ -2143,21 +2144,19 @@ For reference and more info check [Google's Search Event DataType](https://devel
 Q&A pages are web pages that contain data in a question and answer format, which is one question followed by its answers.
 
 ```jsx
-import { QAPageJsonld } from 'next-seo';
+import { QAPageJsonLd } from 'next-seo';
 
 const Page = () => (
   <>
     <h1>Q&A Page JSON-LD</h1>
-    <QAPageJsonld
+    <QAPageJsonLd
       mainEntity={{
         name: 'How many ounces are there in a pound?',
         text: 'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
         answerCount: 3,
         upvoteCount: 26,
         dateCreated: '2016-07-23T21:11Z',
-        author: {
-          name: 'New Baking User',
-        },
+        author: { name: 'New Baking User' },
         acceptedAnswer: {
           text: '1 pound (lb) is equal to 16 ounces (oz).',
           dateCreated: '2016-11-02T21:11Z',
@@ -2370,7 +2369,7 @@ export default () => (
   <>
     <h1>Carousel Default JSON-LD</h1>
     <CarouselJsonLd
-      type="default"
+      ofType="default"
       data={[
         { url: 'http://example.com/peanut-butter-cookies.html' },
         {
@@ -2398,7 +2397,7 @@ export default () => (
   <>
     <h1>Carousel Course JSON-LD</h1>
     <CarouselJsonLd
-      type="course"
+      ofType="course"
       data={[
         {
           courseName: 'Course 1',
@@ -2443,7 +2442,7 @@ export default () => (
   <>
     <h1>Carousel Movie JSON-LD</h1>
     <CarouselJsonLd
-      type="movie"
+      ofType="movie"
       data={[
         {
           name: 'Movie 1',
@@ -2513,7 +2512,7 @@ export default () => (
   <>
     <h1>Carousel Recipe JSON-LD</h1>
     <CarouselJsonLd
-      type="recipe"
+      ofType="recipe"
       data={[
         {
           name: 'Party Coffee Cake',
@@ -2731,7 +2730,7 @@ export default () => (
   <>
     <h1>Organization JSON-LD</h1>
     <OrganizationJsonLd
-      organizationType="Corporation"
+      type="Corporation"
       id="https://www.purpule-fox.io/#corporation"
       logo="https://www.example.com/photos/logo.jpg"
       legalName="Purple Fox LLC"
@@ -2786,7 +2785,7 @@ export default () => (
 | Property                         | Info                                                                                                       |
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `logo`                           | ImageObject or URL an associated logo to the Organization.                                                 |
-| `organizationType`               | Organization type, check [here](https://schema.org/Organization#subtypes)                                  |
+| `type`                           | Organization type, check [here](https://schema.org/Organization#subtypes)                                  |
 | `legalName`                      | The official name of the organization, e.g. the registered company name.                                   |
 | `sameAs`                         | URL of a reference Web page that unambiguously indicates the item's identity.                              |
 | `address`                        | Address of the specific business location                                                                  |
