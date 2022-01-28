@@ -1,4 +1,4 @@
-import React, { ReactNodeArray } from 'react';
+import React, { ReactNode } from 'react';
 import { BuildTagsParams, OpenGraphMedia } from '../types';
 const defaults = {
   templateTitle: '',
@@ -94,11 +94,11 @@ const buildOpenGraphMediaTags = (
     }
 
     return tags;
-  }, [] as ReactNodeArray);
+  }, [] as ReactNode[]);
 };
 
 const buildTags = (config: BuildTagsParams) => {
-  const tagsToRender: ReactNodeArray = [];
+  const tagsToRender: ReactNode[] = [];
 
   if (config.titleTemplate) {
     defaults.templateTitle = config.titleTemplate;
