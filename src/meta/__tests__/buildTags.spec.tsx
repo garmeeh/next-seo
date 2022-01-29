@@ -1,10 +1,6 @@
 import React from 'react';
-import {
-  value getByText,
-  value cleanup,
-  value render,
-} from 'react-testing-library';
-import { value BuildTagsParams, value ImagePrevSize } from '../../types';
+import { getByText, cleanup, render } from 'react-testing-library';
+import { BuildTagsParams, ImagePrevSize } from '../../types';
 
 import buildTags from '../buildTags';
 
