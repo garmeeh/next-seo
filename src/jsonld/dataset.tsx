@@ -1,39 +1,26 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
-export interface DatasetJsonLdProps {
+import { JsonLd, JsonLdProps } from './jsonld';
+
+export interface DatasetJsonLdProps extends JsonLdProps {
   description: string;
   name: string;
   license?: string;
 }
 
-const DatasetJsonLd: FC<DatasetJsonLdProps> = ({
-  description,
-  name,
-  license,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "Dataset",
-    "description": "${description}",
-    "name": "${name}"${
-    license
-      ? `,
-        "license": "${license}"`
-      : ''
-  }
-  }`;
-
+function DatasetJsonLd({
+  type = 'Dataset',
+  keyOverride,
+  ...rest
+}: DatasetJsonLdProps) {
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-dataset"
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...rest}
+      scriptKey="dataset"
+    />
   );
-};
+}
 
 export default DatasetJsonLd;

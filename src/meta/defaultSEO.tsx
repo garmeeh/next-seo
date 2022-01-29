@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import buildTags from './buildTags';
 
 import { DefaultSeoProps } from '../types';
-
 export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
   render() {
     const {
@@ -25,6 +24,7 @@ export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
       mobileAlternate,
       languageAlternates,
       additionalLinkTags,
+      robotsProps,
     } = this.props;
 
     return (
@@ -48,6 +48,7 @@ export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
           mobileAlternate,
           languageAlternates,
           additionalLinkTags,
+          robotsProps,
         })}
       </Head>
     );

@@ -1,11 +1,125 @@
-export interface OpenGraphImages {
-  url: string;
-  width?: number;
-  height?: number;
-  alt?: string;
+export type OpeningHoursSpecification = {
+  opens: string;
+  closes: string;
+  dayOfWeek: string | string[];
+  validFrom?: string;
+  validThrough?: string;
+};
+
+export type Offer = {
+  priceSpecification: PriceSpecification;
+  itemOffered: Service;
+};
+
+export type PriceSpecification = {
+  type: string;
+  priceCurrency: string;
+  price: string;
+};
+
+export type Service = {
+  name: string;
+  description: string;
+};
+
+export type Geo = {
+  latitude: string;
+  longitude: string;
+};
+
+export type GeoCircle = {
+  geoMidpoint: Geo;
+  geoRadius: string;
+};
+
+export type Action = {
+  actionName: string;
+  actionType: string;
+  target: string;
+};
+
+export interface Person {
+  name: string;
+}
+export interface Answer {
+  text: string;
+  dateCreated?: string;
+  upvoteCount?: number;
+  url?: string;
+  author?: Person;
 }
 
-export interface OpenGraphVideos {
+export interface Question {
+  name: string;
+  answerCount: number;
+  acceptedAnswer?: Answer;
+  suggestedAnswer?: Answer[];
+  text?: string;
+  author?: Person;
+  upvoteCount?: number;
+  dateCreated?: string;
+}
+
+export interface Instruction {
+  name?: string;
+  text: string;
+  url?: string;
+  image?: string;
+}
+export interface Performer {
+  name: string;
+}
+
+export interface Location {
+  name: string;
+  address: Address;
+  sameAs?: string;
+}
+export interface ContactPoint {
+  contactType: string;
+  telephone: string;
+  areaServed?: string | string[];
+  availableLanguage?: string | string[];
+  contactOption?: string | string[];
+}
+export interface CreativeWork {
+  author: string;
+  about: string;
+  name: string;
+  datePublished: string;
+  audience?: string;
+  keywords?: string;
+  thumbnailUrl?: string;
+  image?: string;
+}
+
+export interface Producer {
+  name: string;
+  url?: string;
+}
+export interface ContactPoint {
+  contactType: string;
+  telephone: string;
+  areaServed?: string | string[];
+  availableLanguage?: string | string[];
+  contactOption?: string | string[];
+}
+
+export interface Question {
+  questionName: string;
+  acceptedAnswerText: string;
+}
+export interface Provider {
+  type?: 'Organization' | 'Person';
+  name: string;
+  url?: string;
+}
+export interface ItemListElements {
+  item: string;
+  name: string;
+  position: number;
+}
+export interface OpenGraphMedia {
   url: string;
   width?: number;
   height?: number;
@@ -80,8 +194,8 @@ export interface OpenGraph {
   type?: string;
   title?: string;
   description?: string;
-  images?: ReadonlyArray<OpenGraphImages>;
-  videos?: ReadonlyArray<OpenGraphVideos>;
+  images?: ReadonlyArray<OpenGraphMedia>;
+  videos?: ReadonlyArray<OpenGraphMedia>;
   defaultImageHeight?: number;
   defaultImageWidth?: number;
   locale?: string;
@@ -193,7 +307,7 @@ export type AggregateRating = {
 export type GamePlayMode = 'CoOp' | 'MultiPlayer' | 'SinglePlayer';
 
 export type Review = {
-  author: Author;
+  author: string;
   datePublished?: string;
   reviewBody?: string;
   name?: string;
@@ -241,6 +355,25 @@ export type ApplicationCategory =
   | 'Utilities'
   | 'Reference';
 
+export type OrganizationCategory =
+  | 'Airline'
+  | 'Consortium'
+  | 'Corporation'
+  | 'EducationalOrganization'
+  | 'FundingScheme'
+  | 'GovernmentOrganization'
+  | 'LibrarySystem'
+  | 'LocalBusiness'
+  | 'MedicalOrganization'
+  | 'NGO'
+  | 'NewsMediaOrganization'
+  | 'PerformingGroup'
+  | 'Project'
+  | 'ResearchOrganization'
+  | 'SportsOrganization'
+  | 'WorkersUnion'
+  | 'Organization';
+
 export interface AdditionalRobotsProps {
   nosnippet?: boolean;
   maxSnippet?: number;
@@ -270,12 +403,25 @@ export interface NextSeoProps {
   additionalLinkTags?: ReadonlyArray<LinkTag>;
 }
 
-export interface DefaultSeoProps extends NextSeoProps {
+export interface DefaultSeoProps {
   dangerouslySetAllPagesToNoIndex?: boolean;
   dangerouslySetAllPagesToNoFollow?: boolean;
   defaultOpenGraphImageWidth?: number;
   defaultOpenGraphImageHeight?: number;
   defaultOpenGraphVideoWidth?: number;
   defaultOpenGraphVideoHeight?: number;
+  title?: string;
+  titleTemplate?: string;
+  defaultTitle?: string;
+  robotsProps?: AdditionalRobotsProps;
+  description?: string;
+  canonical?: string;
+  mobileAlternate?: MobileAlternate;
+  languageAlternates?: ReadonlyArray<LanguageAlternate>;
+  openGraph?: OpenGraph;
+  facebook?: { appId: string };
+  twitter?: Twitter;
+  additionalMetaTags?: ReadonlyArray<MetaTag>;
+  additionalLinkTags?: ReadonlyArray<LinkTag>;
 }
 export interface BuildTagsParams extends DefaultSeoProps, NextSeoProps {}

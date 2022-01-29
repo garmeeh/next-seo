@@ -23,11 +23,6 @@ describe('SEO Meta', () => {
       'content',
       'index,follow',
     );
-    cy.get('head meta[name="googlebot"]').should(
-      'have.attr',
-      'content',
-      'index,follow',
-    );
     cy.get('head meta[property="og:type"]').should(
       'have.attr',
       'content',
@@ -64,6 +59,18 @@ describe('SEO Meta', () => {
       .should('have.length', 1)
       .then(tags => {
         expect(tags[0].content).to.equal('Og Image Alt A');
+      });
+    cy.get('head meta[property="og:image:type"]')
+      .should('have.length', 1)
+      .then(tags => {
+        expect(tags[0].content).to.equal('image/jpeg');
+      });
+    cy.get('head meta[property="og:image:secure_url"]')
+      .should('have.length', 1)
+      .then(tags => {
+        expect(tags[0].content).to.equal(
+          'https://www.test.ie/secure-og-image-a-01.jpg',
+        );
       });
     cy.get('head meta[property="og:image:width"]')
       .should('have.length', 1)
@@ -130,11 +137,6 @@ describe('SEO Meta', () => {
       'content',
       'index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate',
     );
-    cy.get('head meta[name="googlebot"]').should(
-      'have.attr',
-      'content',
-      'index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate',
-    );
   });
 
   it('SEO overrides apply correctly', () => {
@@ -152,11 +154,6 @@ describe('SEO Meta', () => {
       'https://www.canonical.ie/b',
     );
     cy.get('head meta[name="robots"]').should(
-      'have.attr',
-      'content',
-      'noindex,nofollow',
-    );
-    cy.get('head meta[name="googlebot"]').should(
       'have.attr',
       'content',
       'noindex,nofollow',
@@ -283,6 +280,27 @@ describe('SEO Meta', () => {
         expect(tags[1].sizes[0]).to.equal('120x120');
         expect(tags[2].sizes[0]).to.equal('180x180');
       });
+  });
+
+  it('SEO overrides title without openGraph prop correctly', () => {
+    cy.visit('http://localhost:3000/overridden/titleWithoutOpenGraph');
+    cy.get('h1').should('contain', 'Overridden Title Seo');
+    cy.get('head title').should('contain', 'Title C | Next SEO');
+    cy.get('head meta[name="description"]').should(
+      'have.attr',
+      'content',
+      'Description C',
+    );
+    cy.get('head meta[property="og:title"]').should(
+      'have.attr',
+      'content',
+      'Title C | Next SEO',
+    );
+    cy.get('head meta[property="og:description"]').should(
+      'have.attr',
+      'content',
+      'Description C',
+    );
   });
 
   it('Profile SEO loads correctly', () => {

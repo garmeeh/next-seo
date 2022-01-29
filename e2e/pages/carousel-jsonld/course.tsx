@@ -7,7 +7,7 @@ const Course = () => (
     <h1>Carousel Course JSON-LD</h1>
 
     <CarouselJsonLd
-      type="course"
+      ofType="course"
       data={[
         {
           courseName: 'Course 1',

@@ -1,18 +1,11 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
-import { buildAggregateRating } from '../utils/buildAggregateRating';
-import {
-  buildAuthor,
-  buildPublisher,
-  buildReviewRating,
-} from '../utils/buildReviews';
+import { JsonLd, JsonLdProps } from './jsonld';
+import type { Review, AggregateRating } from 'src/types';
+import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
+import { setReviews } from 'src/utils/schema/setReviews';
 
-import { AggregateRating, Review } from '../types';
-
-export interface SoftwareAppJsonLdProps {
-  keyOverride?: string;
+export interface SoftwareAppJsonLdProps extends JsonLdProps {
   name: string;
   price: string;
   priceCurrency: string;
@@ -22,60 +15,33 @@ export interface SoftwareAppJsonLdProps {
   aggregateRating?: AggregateRating;
 }
 
-const buildReview = (review: Review) => `
-    "review": {
-        "@type": "Review",
-        ${review.author ? buildAuthor(review.author) : ''}
-        ${review.publisher ? buildPublisher(review.publisher) : ''}
-        ${
-          review.datePublished
-            ? `"datePublished": "${review.datePublished}",`
-            : ''
-        }
-        ${review.reviewBody ? `"reviewBody": "${review.reviewBody}",` : ''}
-        ${review.name ? `"name": "${review.name}",` : ''}
-        ${buildReviewRating(review.reviewRating)}
-      },
-  `;
-
-const SoftwareAppJsonLd: FC<SoftwareAppJsonLdProps> = ({
+function SoftwareAppJsonLd({
+  type = 'SoftwareApplication',
   keyOverride,
-  name,
-  applicationCategory,
-  operatingSystem,
   priceCurrency,
   price,
   aggregateRating,
   review,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "${priceCurrency}",
-      "price": "${price}"
+  ...rest
+}: SoftwareAppJsonLdProps) {
+  const data = {
+    ...rest,
+    offers: {
+      '@type': 'Offer',
+      price,
+      priceCurrency: priceCurrency,
     },
-    ${
-      applicationCategory
-        ? `"applicationCategory": "${applicationCategory}",`
-        : ''
-    }
-    ${operatingSystem ? `"operatingSystem": "${operatingSystem}",` : ''}
-    ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
-    ${review ? buildReview(review) : ''}
-    "name": "${name}"
-  }`;
-
+    aggregateRating: setAggregateRating(aggregateRating),
+    review: setReviews(review),
+  };
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-softwareApp${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="SoftwareApp"
+    />
   );
-};
+}
 
 export default SoftwareAppJsonLd;
