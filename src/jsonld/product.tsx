@@ -1,17 +1,21 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
-import formatIfArray from '../utils/formatIfArray';
-import { buildOffers } from '../utils/buildOffers';
-import { buildAggregateOffer } from '../utils/buildAggregateOffer';
-import { buildAggregateRating } from '../utils/buildAggregateRating';
-import { buildReviews } from '../utils/buildReviews';
+import { JsonLd, JsonLdProps } from './jsonld';
+import type {
+  Review,
+  AggregateRating,
+  AggregateOffer,
+  Offers,
+} from 'src/types';
 
-import { AggregateOffer, Offers, AggregateRating, Review } from '../types';
+import { setOffers } from 'src/utils/schema/setOffers';
+import { setReviews } from 'src/utils/schema/setReviews';
+import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
+import { setAggregateOffer } from 'src/utils/schema/setAggregateOffer';
+import { setManufacturer } from 'src/utils/schema/setManufacturer';
+import { setBrand } from 'src/utils/schema/setBrand';
 
-export interface ProductJsonLdProps {
-  keyOverride?: string;
+export interface ProductJsonLdProps extends JsonLdProps {
   productName: string;
   images?: string[];
   description?: string;
@@ -28,7 +32,7 @@ export interface ProductJsonLdProps {
   color?: string;
   manufacturerName?: string;
   manufacturerLogo?: string;
-  material?: string | ProductJsonLdProps;
+  material?: string;
   slogan?: string;
   disambiguatingDescription?: string;
   productionDate?: string;
@@ -37,110 +41,38 @@ export interface ProductJsonLdProps {
   award?: string;
 }
 
-const buildBrand = (brand: string) => `
-  "brand": {
-      "@type": "Thing",
-      "name": "${brand}"
-    },
-`;
-
-const ProductJsonLd: FC<ProductJsonLdProps> = ({
+function ProductJsonLd({
+  type = 'Product',
   keyOverride,
-  productName,
-  images = [],
-  description,
-  sku,
-  gtin8,
-  gtin13,
-  gtin14,
-  mpn,
+  images,
   brand,
-  reviews = [],
+  reviews,
   aggregateRating,
+  manufacturerLogo,
+  manufacturerName,
   offers,
   aggregateOffer,
-  color,
-  manufacturerName,
-  manufacturerLogo,
-  material,
-  slogan,
-  disambiguatingDescription,
-  productionDate,
-  releaseDate,
-  purchaseDate,
-  award,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org/",
-    "@type": "Product",
-    ${images.length ? `"image":${formatIfArray(images)},` : ''}
-    ${description ? `"description": "${description}",` : ''}
-    ${mpn ? `"mpn": "${mpn}",` : ''}
-    ${sku ? `"sku": "${sku}",` : ''}
-    ${gtin8 ? `"gtin8": "${gtin8}",` : ''}
-    ${gtin13 ? `"gtin13": "${gtin13}",` : ''}
-    ${gtin14 ? `"gtin14": "${gtin14}",` : ''}
-    ${brand ? buildBrand(brand) : ''}
-    ${reviews.length ? buildReviews(reviews) : ''}
-    ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
-    ${color ? `"color": "${color}",` : ''}
-    ${material ? `"material": "${material}",` : ''}
-    ${slogan ? `"slogan": "${slogan}",` : ''}
-    ${
-      disambiguatingDescription
-        ? `"disambiguatingDescription": "${disambiguatingDescription}",`
-        : ''
-    }
-    ${productionDate ? `"productionDate": "${productionDate}",` : ''}
-    ${releaseDate ? `"releaseDate": "${releaseDate}",` : ''}
-    ${purchaseDate ? `"purchaseDate": "${purchaseDate}",` : ''}
-    ${award ? `"award": "${award}",` : ''}
-    ${
-      manufacturerName
-        ? `
-        "manufacturer": {
-          "@type": "Organization",
-          ${
-            manufacturerLogo
-              ? `
-              "logo": {
-                "@type": "ImageObject",
-                "url": "${manufacturerLogo}"
-              },
-              `
-              : ''
-          }
-          "name": "${manufacturerName}"
-        },
-        `
-        : ''
-    }
-    ${
-      offers
-        ? `"offers": ${
-            Array.isArray(offers)
-              ? `[${offers.map(offer => `${buildOffers(offer)}`)}]`
-              : buildOffers(offers)
-          },`
-        : ''
-    }
-    ${
-      aggregateOffer && !offers
-        ? `"offers": ${buildAggregateOffer(aggregateOffer)},`
-        : ''
-    }
-    "name": "${productName}"
-  }`;
-
+  productName,
+  ...rest
+}: ProductJsonLdProps) {
+  const data = {
+    ...rest,
+    image: images,
+    brand: setBrand(brand),
+    review: setReviews(reviews),
+    aggregateRating: setAggregateRating(aggregateRating),
+    manufacturer: setManufacturer({ manufacturerLogo, manufacturerName }),
+    offers: offers ? setOffers(offers) : setAggregateOffer(aggregateOffer),
+    name: productName,
+  };
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-product${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="Product"
+    />
   );
-};
+}
 
 export default ProductJsonLd;

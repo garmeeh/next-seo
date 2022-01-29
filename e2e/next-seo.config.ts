@@ -55,6 +55,8 @@ const APP_DEFAULT_SEO: DefaultSeoProps = {
         width: 800,
         height: 600,
         alt: 'Og Image Alt A',
+        type: 'image/jpeg',
+        secureUrl: 'https://www.test.ie/secure-og-image-a-01.jpg',
       },
     ],
     site_name: 'SiteName A',

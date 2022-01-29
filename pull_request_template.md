@@ -2,13 +2,12 @@
 
 ---
 
-Some things to help get a PR reviewed and merged faster:
+To help get PR's merged faster, the following is required:
 
-- Have you updated the documentation to go with your changes?
-- Have you written or updated unit tests?
-- Have you written an integration test in the test app supplied?
+[] Updated the documentation
+[] Unit/Cypress test covering all cases
 
-The above are generally required on all PR's.
+Please link to relevant Google Docs or schema.org docs for what you are adding so we can review.
 
 Please have a read of the Contributing Guide for full details.
 
