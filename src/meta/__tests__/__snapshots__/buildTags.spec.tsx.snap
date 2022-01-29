@@ -10,10 +10,6 @@ exports[`Article SEO renders correctly 1`] = `
     name="robots"
   />
   <meta
-    content="index,follow"
-    name="googlebot"
-  />
-  <meta
     content="Description of article page"
     name="description"
   />
@@ -126,10 +122,6 @@ exports[`Book SEO renders correctly 1`] = `
     name="robots"
   />
   <meta
-    content="index,follow"
-    name="googlebot"
-  />
-  <meta
     content="Description of book page"
     name="description"
   />
@@ -234,10 +226,6 @@ exports[`Profile SEO renders correctly 1`] = `
     name="robots"
   />
   <meta
-    content="index,follow"
-    name="googlebot"
-  />
-  <meta
     content="Description of profile page"
     name="description"
   />
@@ -332,10 +320,6 @@ exports[`Video SEO renders correctly 1`] = `
   <meta
     content="index,follow"
     name="robots"
-  />
-  <meta
-    content="index,follow"
-    name="googlebot"
   />
   <meta
     content="Description of video page"
@@ -464,10 +448,6 @@ exports[`renders correctly 1`] = `
   <meta
     content="index,follow"
     name="robots"
-  />
-  <meta
-    content="index,follow"
-    name="googlebot"
   />
   <meta
     content="This is a test description."

@@ -30,12 +30,6 @@ const Links = () => (
         </Link>
       </li>
       <li>
-        <Link href="/disable-googlebot">
-          <a>Disable Googlebot</a>
-        </Link>
-      </li>
-
-      <li>
         <Link href="/overridden">
           <a>Overridden Seo</a>
         </Link>
@@ -83,16 +77,6 @@ const Links = () => (
     </ul>
     <h3> Dangerously </h3>
     <ul>
-      <li>
-        <Link href="/dangerously/disable-googlebot">
-          <a>Dangerously Disable Googlebot</a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/dangerously/disable-googlebot-nofollow-and-noindex">
-          <a>Dangerously Disable Googlebot and NoFollow and NoIndex</a>
-        </Link>
-      </li>
       <li>
         <Link href="/dangerously/noindex">
           <a>Dangerously AllPagesToNoIndex</a>

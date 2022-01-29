@@ -1,47 +1,36 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
-export interface CourseJsonLdProps {
-  keyOverride?: string;
+import type { Provider } from 'src/types';
+import { setProvider } from 'src/utils/schema/setProvider';
+
+import { JsonLd, JsonLdProps } from './jsonld';
+
+export interface CourseJsonLdProps extends JsonLdProps {
   courseName: string;
   description: string;
-  providerName: string;
-  providerUrl?: string;
+  provider: Provider;
 }
 
-const CourseJsonLd: FC<CourseJsonLdProps> = ({
+function CourseJsonLd({
+  type = 'Course',
   keyOverride,
   courseName,
-  description,
-  providerName,
-  providerUrl,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "Course",
-    "name": "${courseName}",
-    "description": "${description}",
-    "provider": {
-      "@type": "Organization",
-      "name": "${providerName}"${
-    providerUrl
-      ? `,
-      "sameAs": "${providerUrl}"`
-      : ''
-  }
-    }
-  }`;
-
+  provider,
+  ...rest
+}: CourseJsonLdProps) {
+  const data = {
+    name: courseName,
+    ...rest,
+    provider: setProvider(provider),
+  };
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-course${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="course"
+    />
   );
-};
+}
 
 export default CourseJsonLd;

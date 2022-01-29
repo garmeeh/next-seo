@@ -1,140 +1,54 @@
 import React from 'react';
-import Head from 'next/head';
 
-import markup from '../utils/markup';
+import type { Question } from 'src/types';
+import { setAuthor } from 'src/utils/schema/setAuthor';
 
-export interface Person {
-  name: string;
-}
+import { JsonLd, JsonLdProps } from './jsonld';
 
-export interface Answer {
-  text: string;
-  dateCreated?: string;
-  upvotedCount?: number;
-  url?: string;
-  author?: Person;
-}
-
-export interface Question {
-  name: string;
-  answerCount: number;
-  acceptedAnswer?: Answer;
-  suggestedAnswer?: Answer[];
-  text?: string;
-  author?: Person;
-  upvotedCount?: number;
-  dateCreated?: string;
-}
-
-export interface QAPageJsonldProps {
+export interface QAPageJsonLdProps extends JsonLdProps {
   mainEntity: Question;
-  keyOverride?: string;
 }
 
-const buildQuestions = (mainEntity: Question) => `{
-        "@type": "Question",
-        "name": "${mainEntity.name}",
-        ${mainEntity.text ? `"text": "${mainEntity.text}",` : ''}
-        "answerCount": ${mainEntity.answerCount},
-        ${
-          mainEntity.upvotedCount
-            ? `"upvoteCount": ${mainEntity.upvotedCount},`
-            : ''
-        }
-        ${
-          mainEntity.dateCreated
-            ? `"dateCreated": "${mainEntity.dateCreated}",`
-            : ''
-        }
-        ${
-          mainEntity.author
-            ? `"author": {
-          "@type": "Person",
-          "name": "${mainEntity.author.name}"
-        },`
-            : ''
-        }
-        ${
-          mainEntity.acceptedAnswer
-            ? `"acceptedAnswer": {
-          "@type": "Answer",
-          "text": "${mainEntity.acceptedAnswer.text}",
-          ${
-            mainEntity.acceptedAnswer.dateCreated
-              ? `"dateCreated": "${mainEntity.acceptedAnswer.dateCreated}",`
-              : ''
-          }
-          ${
-            mainEntity.acceptedAnswer.upvotedCount
-              ? `"upvoteCount": ${mainEntity.acceptedAnswer.upvotedCount},`
-              : ''
-          }
-          ${
-            mainEntity.acceptedAnswer.url
-              ? `"url": "${mainEntity.acceptedAnswer.url}",`
-              : ''
-          }
-          ${
-            mainEntity.acceptedAnswer.author
-              ? `"author": {
-            "@type": "Person",
-            "name": "${mainEntity.acceptedAnswer.author.name}"
-          }`
-              : ''
-          }
-        },`
-            : ''
-        }
-        ${
-          mainEntity.suggestedAnswer
-            ? `"suggestedAnswer": [${mainEntity.suggestedAnswer.map(
-                suggested => `{
-            "@type": "Answer",
-            "text": "${suggested.text}",
-            ${
-              suggested.dateCreated
-                ? `"dateCreated": "${suggested.dateCreated}",`
-                : ''
-            }
-            ${
-              suggested.upvotedCount
-                ? `"upvoteCount": ${suggested.upvotedCount},`
-                : `"upvoteCount": ${0},`
-            }
-            ${suggested.url ? `"url": "${suggested.url}",` : ''}
-              ${
-                suggested.author
-                  ? `"author": {
-                        "@type": "Person",
-                        "name": "${suggested.author.name}"
-                    }`
-                  : ''
-              }
-        }`,
-              )}
-    ]`
-            : ''
-        }
-}`;
-
-const QAPageJsonLd: React.FC<QAPageJsonldProps> = ({
-  mainEntity,
+function QAPageJsonLd({
+  type = 'QAPage',
   keyOverride,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "QAPage",
-    "mainEntity": ${buildQuestions(mainEntity)}
-    }`;
+  mainEntity,
+  ...rest
+}: QAPageJsonLdProps) {
+  const data = {
+    ...rest,
+    mainEntity: {
+      ...mainEntity,
+      '@type': 'Question',
+      author: setAuthor(mainEntity.author?.name),
+      ...(mainEntity.acceptedAnswer && {
+        acceptedAnswer: {
+          ...mainEntity.acceptedAnswer,
+          '@type': 'Answer',
+          author: setAuthor(mainEntity.acceptedAnswer?.author?.name),
+        },
+      }),
+      ...(mainEntity.suggestedAnswer && {
+        suggestedAnswer: mainEntity.suggestedAnswer.map(
+          ({ upvoteCount, ...rest }) => ({
+            ...rest,
+            '@type': 'Answer',
+            upvoteCount: upvoteCount || 0,
+            author: setAuthor(rest.author?.name),
+          }),
+        ),
+      }),
+    },
+  };
+
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-qa${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="QAPage"
+    />
   );
-};
+}
 
 export default QAPageJsonLd;

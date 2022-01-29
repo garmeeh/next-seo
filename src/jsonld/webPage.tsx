@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
+import { JsonLd } from './jsonld';
 
 export interface WebPageJsonLdProps {
+  keyOverride?: string;
   id: string;
   description?: string;
   lastReviewed?: string;
@@ -13,37 +13,23 @@ export interface WebPageJsonLdProps {
   };
 }
 
-const WebPageJsonLd: FC<WebPageJsonLdProps> = ({
-  id,
-  description,
-  lastReviewed,
+function WebPageJsonLd({
+  keyOverride,
   reviewedBy,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    ${description ? `"description": "${description}",` : ''}
-    ${lastReviewed ? `"lastReviewed": "${lastReviewed}",` : ''}
-    ${
-      reviewedBy
-        ? `"reviewedBy": {
-        "@type": "${reviewedBy.type || 'Organization'}",
-        "name": "${reviewedBy.name}"
-    },`
-        : ''
-    }
-    "@id": "${id}"
-    }`;
-
+  ...rest
+}: WebPageJsonLdProps) {
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-webpage"
-      />
-    </Head>
+    <JsonLd
+      keyOverride={keyOverride}
+      {...rest}
+      reviewedBy={{
+        '@type': reviewedBy?.type || 'Organization',
+        ...reviewedBy,
+      }}
+      type="WebPage"
+      scriptKey="WebPage"
+    />
   );
-};
+}
 
 export default WebPageJsonLd;

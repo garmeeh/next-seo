@@ -1,42 +1,32 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
+import type { AggregateRating } from 'src/types';
+import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
 
-import { AggregateRating } from '../types';
-import { buildAggregateRating } from '../utils/buildAggregateRating';
+import { JsonLd, JsonLdProps } from './jsonld';
 
-export interface BrandJsonLdProps {
+export interface BrandJsonLdProps extends JsonLdProps {
   id: string;
   slogan?: string;
   logo?: string;
   aggregateRating?: AggregateRating;
 }
 
-const BrandJsonLd: FC<BrandJsonLdProps> = ({
+function BrandJsonLd({
+  type = 'Brand',
   id,
-  slogan,
-  logo,
+  keyOverride,
   aggregateRating,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "Brand",
-    ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
-    ${slogan ? `"slogan": "${slogan}",` : ''}
-    ${logo ? `"logo": "${logo}",` : ''}
-    "@id": "${id}"
-  }`;
-
+  ...rest
+}: BrandJsonLdProps) {
+  const data = {
+    aggregateRating: setAggregateRating(aggregateRating),
+    '@id': id,
+    ...rest,
+  };
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-brand"
-      />
-    </Head>
+    <JsonLd type={type} keyOverride={keyOverride} {...data} scriptKey="brand" />
   );
-};
+}
 
 export default BrandJsonLd;

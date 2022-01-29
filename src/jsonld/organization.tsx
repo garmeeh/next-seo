@@ -1,13 +1,12 @@
 import React from 'react';
-import Head from 'next/head';
 
-import markup from '../utils/markup';
-import { Address, OrganizationCategory } from '../types';
-import { buildContactPoint, ContactPoint } from './corporateContact';
-import buildAddress from '../utils/buildAddress';
+import type { Address, OrganizationCategory, ContactPoint } from 'src/types';
+import { JsonLd, JsonLdProps } from './jsonld';
+import { setAddress } from 'src/utils/schema/setAddress';
+import { setContactPoints } from 'src/utils/schema/setContactPoints';
 
-export interface OrganizationJsonLdProps {
-  organizationType?: OrganizationCategory;
+export interface OrganizationJsonLdProps extends JsonLdProps {
+  type?: OrganizationCategory;
   id?: string;
   name: string;
   logo?: string;
@@ -18,47 +17,26 @@ export interface OrganizationJsonLdProps {
   contactPoints?: ContactPoint[];
 }
 
-const OrganizationJsonLd: React.FC<OrganizationJsonLdProps> = ({
-  organizationType = 'Organization',
-  id,
-  name,
-  logo,
-  url,
-  legalName,
-  sameAs = [],
+function OrganizationJsonLd({
+  type = 'Organization',
+  keyOverride,
   address,
-  contactPoints = [],
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "${organizationType}",
-    ${id ? `"@id": "${id}",` : ''}
-    ${logo ? `"logo": "${logo}",` : ''}
-    ${legalName ? `"legalName": "${legalName}",` : ''}
-    "name": "${name}",
-    ${address ? buildAddress(address) : ''}
-    ${
-      sameAs.length > 0
-        ? `"sameAs": [${sameAs.map(alias => `"${alias}"`).join(',')}],`
-        : ''
-    }
-    ${
-      contactPoints.length > 0
-        ? `"contactPoints": [${buildContactPoint(contactPoints)}],`
-        : ''
-    }
-    "url": "${url}"
-  }`;
-
+  contactPoints,
+  ...rest
+}: OrganizationJsonLdProps) {
+  const data = {
+    ...rest,
+    address: setAddress(address),
+    contactPoints: setContactPoints(contactPoints),
+  };
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-organization-page"
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="organization"
+    />
   );
-};
+}
 
 export default OrganizationJsonLd;

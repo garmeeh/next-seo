@@ -7,7 +7,7 @@ const Movie = () => (
     <h1>Carousel Movie JSON-LD</h1>
 
     <CarouselJsonLd
-      type="movie"
+      ofType="movie"
       data={[
         {
           name: 'Movie 1',
@@ -18,7 +18,7 @@ const Movie = () => (
             name: 'John Doe',
           },
           review: {
-            author: { type: 'Person', name: 'Ronan Farrow' },
+            author: 'Ronan Farrow',
             reviewBody:
               'Heartbreaking, inpsiring, moving. Bradley Cooper is a triple threat.',
             reviewRating: { ratingValue: '5' },
@@ -33,7 +33,7 @@ const Movie = () => (
             name: 'Mary Doe',
           },
           review: {
-            author: { type: 'Person', name: 'Ronan Farrow' },
+            author: 'Ronan Farrow',
             reviewBody:
               'Heartbreaking, inpsiring, moving. Rowan Atkinson is a triple threat.',
             reviewRating: { ratingValue: '5' },

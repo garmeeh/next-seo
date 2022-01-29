@@ -7,7 +7,7 @@ const Carousel = () => (
     <h1>Carousel Default JSON-LD</h1>
 
     <CarouselJsonLd
-      type="default"
+      ofType="default"
       data={[
         { url: 'http://example.com/peanut-butter-cookies.html' },
         {
