@@ -7,7 +7,7 @@ const Recipe = () => (
     <h1>Carousel Recipe JSON-LD</h1>
 
     <CarouselJsonLd
-      type="recipe"
+      ofType="recipe"
       data={[
         {
           name: 'Party Coffee Cake',
@@ -40,15 +40,13 @@ const Recipe = () => (
           instructions: [
             {
               name: 'Preheat',
-              text:
-                'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+              text: 'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
               url: 'https://example.com/party-coffee-cake#step1',
               image: 'https://example.com/photos/party-coffee-cake/step1.jpg',
             },
             {
               name: 'Mix dry ingredients',
-              text:
-                'In a large bowl, combine flour, sugar, baking powder, and salt.',
+              text: 'In a large bowl, combine flour, sugar, baking powder, and salt.',
               url: 'https://example.com/party-coffee-cake#step2',
               image: 'https://example.com/photos/party-coffee-cake/step2.jpg',
             },
@@ -115,15 +113,13 @@ const Recipe = () => (
           instructions: [
             {
               name: 'Preheat',
-              text:
-                'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
+              text: 'Preheat the oven to 350 degrees F. Grease and flour a 9x9 inch pan.',
               url: 'https://example.com/party-coffee-cake#step1',
               image: 'https://example.com/photos/party-coffee-cake/step1.jpg',
             },
             {
               name: 'Mix dry ingredients',
-              text:
-                'In a large bowl, combine flour, sugar, baking powder, and salt.',
+              text: 'In a large bowl, combine flour, sugar, baking powder, and salt.',
               url: 'https://example.com/party-coffee-cake#step2',
               image: 'https://example.com/photos/party-coffee-cake/step2.jpg',
             },

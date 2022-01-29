@@ -1,67 +1,32 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
+import { JsonLd, JsonLdProps } from './jsonld';
+import type { CreativeWork } from 'src/types';
+import { setCreativeWork } from 'src/utils/schema/setCreativeWork';
 
-export interface CollectionPageJsonLdProps {
-  keyOverride?: string;
+export interface CollectionPageJsonLdProps extends JsonLdProps {
   name: string;
   hasPart: CreativeWork[];
 }
-export interface CreativeWork {
-  author: string;
-  about: string;
-  name: string;
-  datePublished: string;
-  audience?: string;
-  keywords?: string;
-  thumbnailUrl?: string;
-  image?: string;
-}
 
-const CollectionPageJsonLd: FC<CollectionPageJsonLdProps> = ({
+function CollectionPageJsonLd({
+  type = 'CollectionPage',
   keyOverride,
-  name,
-  hasPart = [],
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "${name}",
-    "hasPart": [
-      ${hasPart.map(
-        creativeWork => `{
-        "@type": "CreativeWork",
-        "author": "${creativeWork.author}",
-        "about": "${creativeWork.about}",
-        "name": "${creativeWork.name}",
-        ${
-          creativeWork.audience ? `"audience": "${creativeWork.audience}",` : ''
-        }
-        ${
-          creativeWork.keywords ? `"keywords": "${creativeWork.keywords}",` : ''
-        }
-        ${
-          creativeWork.thumbnailUrl
-            ? `"thumbnailUrl": "${creativeWork.thumbnailUrl}",`
-            : ''
-        }
-        ${creativeWork.image ? `"image": "${creativeWork.image}",` : ''}
-        "datePublished": "${creativeWork.datePublished}"
-      }`,
-      )}
-     ]
-  }`;
-
+  hasPart,
+  ...rest
+}: CollectionPageJsonLdProps) {
+  const data = {
+    ...rest,
+    hasPart: hasPart.map(setCreativeWork),
+  };
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-collection-page${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="CollectionPage"
+    />
   );
-};
+}
 
 export default CollectionPageJsonLd;

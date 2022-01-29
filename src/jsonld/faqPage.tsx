@@ -1,44 +1,32 @@
 import React from 'react';
-import Head from 'next/head';
 
-import markup from '../utils/markup';
-export interface Question {
-  questionName: string;
-  acceptedAnswerText: string;
-}
+import type { Question } from 'src/types';
+import { JsonLd, JsonLdProps } from './jsonld';
+import { setQuestions } from 'src/utils/schema/setQuestions';
 
-export interface FAQPageJsonLdProps {
+export interface FAQPageJsonLdProps extends JsonLdProps {
   mainEntity: Question[];
 }
 
-const buildQuestions = (mainEntity: Question[]) => `
-  ${mainEntity.map(
-    question => `{
-      "@type": "Question",
-      "name": "${question.questionName}",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "${question.acceptedAnswerText}"
-      }
-  }`,
-  )}`;
-
-const FAQPageJsonLd: React.FC<FAQPageJsonLdProps> = ({ mainEntity = [] }) => {
-  const jslonld = `{
-    "@context": "https://schema.org/",
-    "@type": "FAQPage",
-    "mainEntity": [${buildQuestions(mainEntity)}]
-  }`;
+function FAQPageJsonLd({
+  type = 'FAQPage',
+  keyOverride,
+  mainEntity,
+  ...rest
+}: FAQPageJsonLdProps) {
+  const data = {
+    ...rest,
+    mainEntity: setQuestions(mainEntity),
+  };
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-faq-page"
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="faq-page"
+    />
   );
-};
+}
 
 export default FAQPageJsonLd;

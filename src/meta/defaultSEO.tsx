@@ -9,7 +9,6 @@ export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
       title,
       titleTemplate,
       defaultTitle,
-      dangerouslyDisableGooglebot = false,
       dangerouslySetAllPagesToNoIndex = false,
       dangerouslySetAllPagesToNoFollow = false,
       description,
@@ -25,6 +24,7 @@ export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
       mobileAlternate,
       languageAlternates,
       additionalLinkTags,
+      robotsProps,
     } = this.props;
 
     return (
@@ -48,7 +48,7 @@ export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
           mobileAlternate,
           languageAlternates,
           additionalLinkTags,
-          dangerouslyDisableGooglebot,
+          robotsProps,
         })}
       </Head>
     );

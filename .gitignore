@@ -4,6 +4,7 @@ node_modules
 .history
 dist
 cypress/videos
+cypress/screenshots
 coverage
 package-lock.json
 lib

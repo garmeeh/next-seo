@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
-import formatAuthorName from '../utils/formatAuthorName';
+import { JsonLd, JsonLdProps } from './jsonld';
+import { setAuthor } from 'src/utils/schema/setAuthor';
+import { setPublisher } from 'src/utils/schema/setPublisher';
 
-export interface ArticleJsonLdProps {
-  keyOverride?: string;
+export interface ArticleJsonLdProps extends JsonLdProps {
+  type?: 'Article' | 'Blog' | 'NewsArticle';
   url: string;
   title: string;
   images: ReadonlyArray<string>;
@@ -13,56 +13,44 @@ export interface ArticleJsonLdProps {
   dateModified?: string;
   authorName: string | string[];
   description: string;
-  publisherName: string;
-  publisherLogo: string;
+  publisherName?: string;
+  publisherLogo?: string;
 }
 
-const ArticleJsonLd: FC<ArticleJsonLdProps> = ({
+function ArticleJsonLd({
+  type = 'Article',
   keyOverride,
   url,
   title,
-  images = [],
+  images,
   datePublished,
-  dateModified = null,
+  dateModified,
   authorName,
+  publisherName = undefined,
+  publisherLogo = undefined,
   description,
-  publisherName,
-  publisherLogo,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "${url}"
+}: ArticleJsonLdProps) {
+  const data = {
+    datePublished,
+    description,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
     },
-    "headline": "${title}",
-    "image": [
-      ${images.map(image => `"${image}"`)}
-     ],
-    "datePublished": "${datePublished}",
-    "dateModified": "${dateModified || datePublished}",
-    "author": ${formatAuthorName(authorName)},
-    "publisher": {
-      "@type": "Organization",
-      "name": "${publisherName}",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "${publisherLogo}"
-      }
-    },
-    "description": "${description}"
-  }`;
-
+    headline: title,
+    image: images,
+    dateModified: dateModified || datePublished,
+    author: setAuthor(authorName),
+    publisher: setPublisher(publisherName, publisherLogo),
+  };
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-article${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="article"
+    />
   );
-};
+}
 
 export default ArticleJsonLd;
