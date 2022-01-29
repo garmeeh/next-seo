@@ -87,7 +87,7 @@ looking for inspiration on what to add.
 First, install it:
 
 ```bash
-npm install --save next-seo
+npm install next-seo
 ```
 
 or
