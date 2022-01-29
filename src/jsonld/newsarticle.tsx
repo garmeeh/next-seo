@@ -1,11 +1,10 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
+import { setAuthor } from 'src/utils/schema/setAuthor';
+import { setPublisher } from 'src/utils/schema/setPublisher';
 
-import markup from '../utils/markup';
-import formatAuthorName from '../utils/formatAuthorName';
+import { JsonLd, JsonLdProps } from './jsonld';
 
-export interface NewsArticleJsonLdProps {
-  keyOverride?: string;
+export interface NewsArticleJsonLdProps extends JsonLdProps {
   url: string;
   title: string;
   images: ReadonlyArray<string>;
@@ -21,60 +20,47 @@ export interface NewsArticleJsonLdProps {
   publisherLogo: string;
 }
 
-const NewsArticleJsonLd: FC<NewsArticleJsonLdProps> = ({
+function NewsArticleJsonLd({
+  type = 'NewsArticle',
   keyOverride,
   url,
   title,
-  images = [],
+  images,
   section,
-  keywords,
+  dateCreated,
   datePublished,
-  dateCreated = null,
-  dateModified = null,
+  dateModified,
   authorName,
-  description,
-  body,
   publisherName,
   publisherLogo,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "NewsArticle",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "${url}"
+  body,
+  ...rest
+}: NewsArticleJsonLdProps) {
+  const data = {
+    ...rest,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
     },
-    "headline": "${title}",
-    "image": [
-      ${images.map(image => `"${image}"`)}
-     ],
-    "articleSection":"${section}",
-    "keywords": "${keywords}",
-    "datePublished": "${datePublished}",
-    "dateCreated": "${dateCreated || datePublished}",
-    "dateModified": "${dateModified || datePublished}",
-    "author": ${formatAuthorName(authorName)},
-    "publisher": {
-      "@type": "Organization",
-      "name": "${publisherName}",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "${publisherLogo}"
-      }
-    },
-    "description": "${description}",
-    "articleBody": "${body}"
-  }`;
+    headline: title,
+    image: images,
+    articleSection: section,
+    dateCreated: dateCreated || datePublished,
+    datePublished: datePublished,
+    dateModified: dateModified || datePublished,
+    author: setAuthor(authorName),
+    publisher: setPublisher(publisherName, publisherLogo),
+    articleBody: body,
+  };
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-newsarticle${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="NewsArticle"
+    />
   );
-};
+}
 
 export default NewsArticleJsonLd;

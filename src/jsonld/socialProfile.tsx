@@ -1,41 +1,27 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
-export interface SocialProfileJsonLdProps {
-  keyOverride?: string;
-  type: string;
+import { JsonLd, JsonLdProps } from './jsonld';
+
+export interface SocialProfileJsonLdProps extends JsonLdProps {
+  type: 'Person' | 'Organization';
   name: string;
   url: string;
   sameAs: string[];
 }
 
-const SocialProfileJsonLd: FC<SocialProfileJsonLdProps> = ({
-  keyOverride,
+function SocialProfileJsonLd({
   type,
-  name,
-  url,
-  sameAs = [],
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "${type}",
-    "name": "${name}",
-    "url": "${url}",
-    "sameAs": [
-      ${sameAs.map(socialUrl => `"${socialUrl}"`)}
-     ]
-  }`;
-
+  keyOverride,
+  ...rest
+}: SocialProfileJsonLdProps) {
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-social${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...rest}
+      scriptKey="social"
+    />
   );
-};
+}
 
 export default SocialProfileJsonLd;

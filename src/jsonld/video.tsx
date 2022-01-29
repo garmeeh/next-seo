@@ -1,56 +1,20 @@
-import Head from 'next/head';
-import React, { FC } from 'react';
+import React from 'react';
+import { Video } from 'src/types';
 
-import { Video } from '../types';
-import buildVideo from '../utils/buildVideo';
-import markup from '../utils/markup';
+import { JsonLd, JsonLdProps } from './jsonld';
+import { setVideo } from 'src/utils/schema/setVideo';
 
-export interface VideoJsonLdProps extends Video {
-  keyOverride?: string;
-}
+export interface VideoJsonLdProps extends JsonLdProps, Video {}
 
-const VideoJsonLd: FC<VideoJsonLdProps> = ({
+function VideoJsonLd({
+  type = 'Video',
   keyOverride,
-  name,
-  description,
-  thumbnailUrls,
-  uploadDate,
-  contentUrl,
-  duration,
-  embedUrl,
-  expires,
-  hasPart,
-  watchCount,
-  publication,
-  regionsAllowed,
-}) => {
-  const jslonld = buildVideo(
-    {
-      name,
-      description,
-      thumbnailUrls,
-      uploadDate,
-      contentUrl,
-      duration,
-      embedUrl,
-      expires,
-      hasPart,
-      watchCount,
-      publication,
-      regionsAllowed,
-    },
-    true,
-  );
-
+  ...rest
+}: VideoJsonLdProps) {
+  const data = setVideo(rest, true);
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-video${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd type={type} keyOverride={keyOverride} {...data} scriptKey="Video" />
   );
-};
+}
 
 export default VideoJsonLd;
