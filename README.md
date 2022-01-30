@@ -2,6 +2,7 @@
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors)
 ![npm](https://img.shields.io/npm/dw/next-seo?style=flat-square)
+[![Known Vulnerabilities](https://snyk.io/test/npm/next-seo/badge.svg?style=flat-square)](https://snyk.io/test/npm/next-seo)
 
 Next SEO is a plugin that makes managing your SEO easier in Next.js projects.
 
