@@ -48,9 +48,6 @@ const video100 = {
       expires: {
         type: 'string',
       },
-      expires: {
-        type: 'string',
-      },
       hasPart: {
         type: 'array',
         items: {
