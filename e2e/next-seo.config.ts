@@ -41,6 +41,13 @@ const APP_DEFAULT_SEO: DefaultSeoProps = {
       rel: 'manifest',
       href: '/manifest.json',
     },
+    {
+      rel: 'preload',
+      href: 'https://www.test.ie/font/sample-font.woof2',
+      as: 'font',
+      type: 'font/woff2',
+      crossOrigin: 'anonymous',
+    },
   ],
   openGraph: {
     type: 'website',

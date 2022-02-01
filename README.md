@@ -573,6 +573,13 @@ additionalLinkTags={[
   {
     rel: 'manifest',
     href: '/manifest.json'
+  },
+  {
+    rel: 'preload',
+    href: 'https://www.test.ie/font/sample-font.woof2',
+    as: 'font',
+    type: 'font/woff2',
+    crossOrigin: 'anonymous'
   }
 ]}
 ```
@@ -587,6 +594,13 @@ it will result in this being rendered:
   sizes="76x76"
 />
 <link rel="manifest" href="/manifest.json" />
+<link
+  rel="preload"
+  href="https://www.test.ie/font/sample-font.woof2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
 ```
 
 ## Open Graph

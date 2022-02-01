@@ -263,6 +263,8 @@ interface LinkTag {
   type?: string;
   color?: string;
   keyOverride?: string;
+  as?: string;
+  crossOrigin?: string;
 }
 
 export interface BaseMetaTag {
