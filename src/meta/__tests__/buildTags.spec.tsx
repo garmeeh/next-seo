@@ -340,7 +340,11 @@ it('displays defaultTitle when no title is provided', () => {
       element.tagName.toLowerCase() === 'title' &&
       content.startsWith(defaultTitle),
   );
+  const ogTitle = container.querySelectorAll(`meta[content="${defaultTitle}"]`);
+  const ogTitleTag = container.querySelectorAll('meta[property="og:title"]');
   expect(title.innerHTML).toMatch(defaultTitle);
+  expect(Array.from(ogTitle).length).toBe(1);
+  expect(Array.from(ogTitleTag).length).toBe(1);
 });
 
 const ArticleSEO = {
