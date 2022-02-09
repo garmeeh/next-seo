@@ -18,6 +18,7 @@ looking for inspiration on what to add.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 - [Next SEO](#next-seo)
+- [- Contributors](#--contributors)
   - [Usage](#usage)
     - [Setup](#setup)
     - [Add SEO to Page](#add-seo-to-page)
@@ -29,7 +30,6 @@ looking for inspiration on what to add.
       - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
       - [No Follow](#no-follow)
       - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
-      - [dangerouslyDisableGooglebot](#dangerouslydisablegooglebot)
       - [robotsProps](#robotsprops)
       - [Twitter](#twitter)
       - [facebook](#facebook)
@@ -74,6 +74,9 @@ looking for inspiration on what to add.
       - [Recipe](#recipe-1)
     - [Software App](#software-app)
     - [Book](#book-1)
+- [For reference and more info check this link](#for-reference-and-more-info-check-this-link)
+    - [Brand](#brand)
+    - [WebPage](#webpage)
   - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -87,7 +90,7 @@ looking for inspiration on what to add.
 First, install it:
 
 ```bash
-npm install --save next-seo
+npm install next-seo
 ```
 
 or
@@ -170,13 +173,15 @@ export default Page;
 
 **A note on Twitter Tags**
 
+Props `cardType`, `site`, `handle` are equivalent to `twitter:card`, `twitter:site`, `twitter:creator`. Documentation can be founded [here](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/summary).
+
 Twitter will read the `og:title`, `og:image` and `og:description` tags for their card. `next-seo` omits `twitter:title`, `twitter:image` and `twitter:description` to avoid duplication.
 
 Some tools may report this an error. See [Issue #14](https://github.com/garmeeh/next-seo/issues/14)
 
 ### Default SEO Configuration
 
-`NextSeo` enables you to set some default SEO properties that will appear on all pages without needing to do include anything on them. You can also override these on a page by page basis if needed.
+`NextSeo` enables you to set some default SEO properties that will appear on all pages without needing to include anything on them. You can also override these on a page by page basis if needed.
 
 To achieve this, you will need to create a custom `<App>`. In your pages directory create a new file, `_app.js`. See the Next.js docs [here](https://nextjs.org/docs/advanced-features/custom-app) for more info on a custom `<App>`.
 
@@ -261,8 +266,7 @@ From now on all of your pages will have the defaults above applied.
 | `defaultTitle`                     | string                  | If no title is set on a page, this string will be used instead of an empty `titleTemplate` [More Info](#default-title)                                                               |
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
 | `nofollow`                         | boolean (default false) | Sets whether page should be followed or not [More Info](#no-follow)                                                                                                                  |
-| `additionRobotsProps`              | Object                  | Set the more meta information for the `X-Robots-Tag` [More Info](#robotsprops)                                                                                                       |
-| `disableGooglebot`                 | boolean (default false) | Disable googlebot metatags from being added to the page.                                                                                                                             |
+| `robotsProps`                      | Object                  | Set the more meta information for the `X-Robots-Tag` [More Info](#robotsprops)                                                                                                       |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                        |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                           |
 | `mobileAlternate.media`            | string                  | Set what screen size the mobile website should be served from                                                                                                                        |
@@ -324,7 +328,7 @@ defaultTitle = 'Next SEO';
 
 #### No Index
 
-Setting this to `true` will set `noindex,follow` (to set `nofollow`, please refer to [`nofollow`](#noFollow)). This works on a page by page basis. This property works in tandem with the `nofollow` property and together they populate the `robots` and `googlebot` meta tags.
+Setting this to `true` will set `noindex,follow` (to set `nofollow`, please refer to [`nofollow`](#noFollow)). This works on a page by page basis. This property works in tandem with the `nofollow` property and together they populate the `robots` meta tag.
 
 **Note:** The `noindex` and the [`nofollow`](#noFollow) properties are a little different than all the others in the sense that setting them as a default does not work as expected. This is due to the fact Next SEO already has a default of `index,follow` because `next-seo` is a SEO plugin after all. So if you want to globally these properties, please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToNoFollow](#dangerouslySetAllPagesToNoFollow).
 
@@ -346,7 +350,6 @@ export default Page;
 
 /*
 <meta name="robots" content="noindex,follow">
-<meta name="googlebot" content="noindex,follow">
 */
 ```
 
@@ -358,7 +361,7 @@ The only way to unset this, is by removing the prop from the `DefaultSeo` in you
 
 #### No Follow
 
-Setting this to `true` will set `index,nofollow` (to set `noindex`, please refer to [`noindex`](#noIndex)). This works on a page by page basis. This property works in tandem with the `noindex` property and together they populate the `robots` and `googlebot` meta tags.
+Setting this to `true` will set `index,nofollow` (to set `noindex`, please refer to [`noindex`](#noIndex)). This works on a page by page basis. This property works in tandem with the `noindex` property and together they populate the `robots` meta tag.
 
 **Note:** Unlike for the other properties, setting `noindex` and [`nofollow`](#noFollow) by default does not work as expected. This is because Next SEO has a default of `index,follow`, since `next-seo` is an SEO plugin after all. If you want to globally allow these properties, see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToNoFollow](#dangerouslySetAllPagesToNoFollow).
 
@@ -380,7 +383,6 @@ export default Page;
 
 /*
 <meta name="robots" content="index,nofollow">
-<meta name="googlebot" content="index,nofollow">
 */
 ```
 
@@ -390,21 +392,15 @@ It has the prefix of `dangerously` because it will `nofollow` all pages. As this
 
 The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom `<App>`.
 
-| `noindex` | `nofollow` | `meta` content of `robots`, `googlebot` |
-| --------- | ---------- | --------------------------------------- |
-| --        | --         | `index,follow` (default)                |
-| false     | false      | `index,follow`                          |
-| true      | --         | `noindex,follow`                        |
-| true      | false      | `noindex,follow`                        |
-| --        | true       | `index,nofollow`                        |
-| false     | true       | `index,nofollow`                        |
-| true      | true       | `noindex,nofollow`                      |
-
-#### dangerouslyDisableGooglebot
-
-It has the prefix of `dangerously` because it will remove googlebot tags from all pages. As this is an SEO plugin, that is kinda dangerous action. It is **not** bad to use this, just please be sure you want to remove googlebot tags from **EVERY** page.
-
-The only way to unset this, is by removing the prop from the `DefaultSeo` in your custom `<App>`.
+| `noindex` | `nofollow` | `meta` content of `robots` |
+| --------- | ---------- | -------------------------- |
+| --        | --         | `index,follow` (default)   |
+| false     | false      | `index,follow`             |
+| true      | --         | `noindex,follow`           |
+| true      | false      | `noindex,follow`           |
+| --        | true       | `index,nofollow`           |
+| false     | true       | `index,nofollow`           |
+| true      | true       | `noindex,nofollow`         |
 
 #### robotsProps
 
@@ -436,7 +432,6 @@ export default Page;
 
 /*
 <meta name="robots" content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate">
-<meta name="googlebot" content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate">
 */
 ```
 
@@ -581,6 +576,13 @@ additionalLinkTags={[
   {
     rel: 'manifest',
     href: '/manifest.json'
+  },
+  {
+    rel: 'preload',
+    href: 'https://www.test.ie/font/sample-font.woof2',
+    as: 'font',
+    type: 'font/woff2',
+    crossOrigin: 'anonymous'
   }
 ]}
 ```
@@ -595,6 +597,13 @@ it will result in this being rendered:
   sizes="76x76"
 />
 <link rel="manifest" href="/manifest.json" />
+<link
+  rel="preload"
+  href="https://www.test.ie/font/sample-font.woof2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
 ```
 
 ## Open Graph
@@ -1060,12 +1069,13 @@ export default Page;
 ### Blog
 
 ```jsx
-import { BlogJsonLd } from 'next-seo';
+import { ArticleJsonLd } from 'next-seo';
 
 const Page = () => (
   <>
     <h1>Blog JSON-LD</h1>
-    <BlogJsonLd
+    <ArticleJsonLd
+      type="Blog"
       url="https://example.com/blog"
       title="Blog headline"
       images={[
@@ -1224,9 +1234,11 @@ const Page = () => (
     <h1>Course JSON-LD</h1>
     <CourseJsonLd
       courseName="Course Name"
-      providerName="Course Provider"
-      providerUrl="https//www.example.com/provider"
-      description="Course description goes right here"
+      description="Introductory CS course laying out the basics."
+      provider={{
+        name: 'Course Provider',
+        url: 'https//www.example.com/provider',
+      }}
     />
   </>
 );
@@ -1236,11 +1248,12 @@ export default Page;
 
 **Required properties**
 
-| Property       | Info                                                         |
-| -------------- | ------------------------------------------------------------ |
-| `courseName`   | The title of the course.                                     |
-| `description`  | A description of the course. Display limit of 60 characters. |
-| `providerName` | The course provider name.                                    |
+| Property        | Info                                                         |
+| --------------- | ------------------------------------------------------------ |
+| `courseName`    | The title of the course.                                     |
+| `description`   | A description of the course. Display limit of 60 characters. |
+| `provider.name` | The course provider name.                                    |
+| `provider.url`  | The course provider name url.                                |
 
 **Recommended properties**
 
@@ -1424,14 +1437,14 @@ export default Page;
 **Supported properties**
 
 | Property                        | Info                                                                                                                                                        |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --- |
+| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `applicantLocationRequirements` | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                          |
 | `baseSalary`                    |                                                                                                                                                             |
 | `baseSalary.currency`           | The currency in which the monetary amount is expressed                                                                                                      |
 | `baseSalary.value`              | The value of the quantitative value. You can also provide an array of minimum and maximum salaries. .                                                       |
 | `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)            |
 | `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                                |
-| `jobLocation`                   | The physical location(s) of the business where the employee will report to work (such as an office or worksite), not the location where the job was posted. |     |
+| `jobLocation`                   | The physical location(s) of the business where the employee will report to work (such as an office or worksite), not the location where the job was posted. |
 | `jobLocation.streetAddress`     | The street address. For example, 1600 Amphitheatre Pkwy                                                                                                     |
 | `jobLocation.addressLocality`   | The locality. For example, Mountain View.                                                                                                                   |
 | `jobLocation.addressRegion`     | The region. For example, CA.                                                                                                                                |
@@ -1694,10 +1707,7 @@ const Page = () => (
       award="Best Executive Anvil Award."
       reviews={[
         {
-          author: {
-            type: 'Person',
-            name: 'Jim',
-          },
+          author: 'Jim',
           datePublished: '2017-01-06T03:37:40Z',
           reviewBody:
             'This is my favorite product yet! Thanks Nate for the example products and reviews.',
@@ -2149,25 +2159,23 @@ For reference and more info check [Google's Search Event DataType](https://devel
 Q&A pages are web pages that contain data in a question and answer format, which is one question followed by its answers.
 
 ```jsx
-import { QAPageJsonld } from 'next-seo';
+import { QAPageJsonLd } from 'next-seo';
 
 const Page = () => (
   <>
     <h1>Q&A Page JSON-LD</h1>
-    <QAPageJsonld
+    <QAPageJsonLd
       mainEntity={{
         name: 'How many ounces are there in a pound?',
         text: 'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
         answerCount: 3,
-        upvotedCount: 26,
+        upvoteCount: 26,
         dateCreated: '2016-07-23T21:11Z',
-        author: {
-          name: 'New Baking User',
-        },
+        author: { name: 'New Baking User' },
         acceptedAnswer: {
           text: '1 pound (lb) is equal to 16 ounces (oz).',
           dateCreated: '2016-11-02T21:11Z',
-          upvotedCount: 1337,
+          upvoteCount: 1337,
           url: 'https://example.com/question1#acceptedAnswer',
           author: {
             name: 'SomeUser',
@@ -2177,7 +2185,7 @@ const Page = () => (
           {
             text: 'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
             dateCreated: '2016-11-02T21:11Z',
-            upvotedCount: 42,
+            upvoteCount: 42,
             url: 'https://example.com/question1#suggestedAnswer1',
             author: {
               name: 'AnotherUser',
@@ -2186,7 +2194,7 @@ const Page = () => (
           {
             text: `I can't remember exactly, but I think 18 ounces in a lb. You might want to double check that.`,
             dateCreated: '2016-11-06T21:11Z',
-            upvotedCount: 0,
+            upvoteCount: 0,
             url: 'https://example.com/question1#suggestedAnswer2',
             author: {
               name: 'ConfusedUser',
@@ -2376,7 +2384,7 @@ export default () => (
   <>
     <h1>Carousel Default JSON-LD</h1>
     <CarouselJsonLd
-      type="default"
+      ofType="default"
       data={[
         { url: 'http://example.com/peanut-butter-cookies.html' },
         {
@@ -2404,7 +2412,7 @@ export default () => (
   <>
     <h1>Carousel Course JSON-LD</h1>
     <CarouselJsonLd
-      type="course"
+      ofType="course"
       data={[
         {
           courseName: 'Course 1',
@@ -2449,7 +2457,7 @@ export default () => (
   <>
     <h1>Carousel Movie JSON-LD</h1>
     <CarouselJsonLd
-      type="movie"
+      ofType="movie"
       data={[
         {
           name: 'Movie 1',
@@ -2519,7 +2527,7 @@ export default () => (
   <>
     <h1>Carousel Recipe JSON-LD</h1>
     <CarouselJsonLd
-      type="recipe"
+      ofType="recipe"
       data={[
         {
           name: 'Party Coffee Cake',
@@ -2727,12 +2735,170 @@ export default () => (
 
 For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
 
+### Organization
+
+```jsx
+import React from 'react';
+import { OrganizationJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Organization JSON-LD</h1>
+    <OrganizationJsonLd
+      type="Corporation"
+      id="https://www.purpule-fox.io/#corporation"
+      logo="https://www.example.com/photos/logo.jpg"
+      legalName="Purple Fox LLC"
+      name="Purple Fox"
+      address={{
+        streetAddress: '1600 Saratoga Ave',
+        addressLocality: 'San Jose',
+        addressRegion: 'CA',
+        postalCode: '95129',
+        addressCountry: 'US',
+      }}
+      contactPoint={[
+        {
+          telephone: '+1-401-555-1212',
+          contactType: 'customer service',
+          areaServed: 'US',
+          availableLanguage: ['English', 'Spanish', 'French'],
+        },
+        {
+          telephone: '+1-877-746-0909',
+          contactType: 'customer service',
+          contactOption: 'TollFree',
+          availableLanguage: 'English',
+        },
+        {
+          telephone: '+1-877-453-1304',
+          contactType: 'technical support',
+          contactOption: 'TollFree',
+          areaServed: ['US', 'CA'],
+          availableLanguage: ['English', 'French'],
+        },
+      ]}
+      sameAs={['https://www.orange-fox.com']}
+      url="https://www.purpule-fox.io/"
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property                   | Info                                                                                            |
+| -------------------------- | ----------------------------------------------------------------------------------------------- |
+| `name`                     | The name of the Organization.                                                                   |
+| `url`                      | Url of the organization                                                                         |
+| `contactPoint`             |                                                                                                 |
+| `contactPoint.telephone`   | An internationalized version of the phone number, starting with the "+" symbol and country code |
+| `contactPoint.contactType` | Description of the purpose of the phone number i.e. `Technical Support`.                        |
+
+**Data Recommended properties**
+
+| Property                         | Info                                                                                                       |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `logo`                           | ImageObject or URL an associated logo to the Organization.                                                 |
+| `type`                           | Organization type, check [here](https://schema.org/Organization#subtypes)                                  |
+| `legalName`                      | The official name of the organization, e.g. the registered company name.                                   |
+| `sameAs`                         | URL of a reference Web page that unambiguously indicates the item's identity.                              |
+| `address`                        | Address of the specific business location                                                                  |
+| `address.addressCountry`         | The 2-letter ISO 3166-1 alpha-2 country code                                                               |
+| `address.addressLocality`        | City                                                                                                       |
+| `address.addressRegion`          | State or province, if applicable.                                                                          |
+| `address.postalCode`             | Postal or zip code.                                                                                        |
+| `address.streetAddress`          | Street number, street name, and unit number.                                                               |
+| `contactPoint.areaServed`        | `String` or `Array` of geographical regions served by the business. Example `"US"` or `["US", "CA", "MX"]` |
+| `contactPoint.availableLanguage` | Details about the language spoken. Example `"English"` or `["English", "French"]`                          |
+
+For reference and more info check [Docs](https://schema.org/Organization)
+
+### Brand
+
+```jsx
+import React from 'react';
+import { BrandJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Brand JSON-LD</h1>
+    <BrandJsonLd
+      slogan="What does the fox say?"
+      id="https://www.purpule-fox.io/#corporation"
+      logo="https://www.example.com/photos/logo.jpg"
+      aggregateRating={{
+        ratingValue: '5',
+        ratingCount: '18',
+      }}
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property | Info                         |
+| -------- | ---------------------------- |
+| `id`     | 'URL to main entity of page' |
+
+**Data Recommended properties**
+
+| Property                      | Info                                                                                     |
+| ----------------------------- | ---------------------------------------------------------------------------------------- |
+| `logo`                        | ImageObject or URL an associated logo to the Organization.                               |
+| `slogan`                      | A slogan or motto associated with the item.                                              |
+| `aggregateRating.ratingValue` | The rating for the content.(Check the [reference](https://schema.org/ratingValue)        |
+| `aggregateRating.ratingCount` | The count of total number of ratings.                                                    |
+| `aggregateRating.reviewCount` | The count of total number of reviews.                                                    |
+| `aggregateRating.bestRating`  | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed. |
+
+For reference and more info check [Docs](https://schema.org/Brand)
+
+### WebPage
+
+```jsx
+import React from 'react';
+import { WebPageJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>WebPage JSON-LD</h1>
+    <WebPageJsonLd
+      description="What does the fox say?"
+      id="https://www.purpule-fox.io/#corporation"
+      lastReviewed="2021-05-26T05:59:02.085Z"
+      reviewedBy={{
+        type: 'Person',
+        name: 'Garmeeh',
+      }}
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property | Info                         |
+| -------- | ---------------------------- |
+| `id`     | 'URL to main entity of page' |
+
+**Data Recommended properties**
+
+| Property          | Info                                                                                                 |
+| ----------------- | ---------------------------------------------------------------------------------------------------- |
+| `description`     | ImageObject or URL an associated logo to the Organization.                                           |
+| `lastReviewed`    | Date on which the content on this web page was last reviewed for accuracy and/or completeness.       |
+| `reviewedBy.type` | People or organizations that will review the content of the web page.                                |
+| `reviewedBy.name` | Name of the entity that have reviewed the content on this web page for accuracy and/or completeness. |
+
+For reference and more info check [Docs](https://schema.org/Brand)
+
 ### Book
 
 ```jsx
 import React from 'react';
 import { BookJsonLd } from 'next-seo';
-
 export default () => (
   <>
     <h1>Book JSON-LD</h1>
@@ -2780,89 +2946,4 @@ For reference and more info check [this link](https://schema.org/Book)
 
 ## Contributors
 
-Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tr>
-    <td align="center"><a href="https://www.garymeehan.ie/"><img src="https://avatars1.githubusercontent.com/u/13333582?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gary Meehan</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=garmeeh" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=garmeeh" title="Documentation">📖</a> <a href="#example-garmeeh" title="Examples">💡</a> <a href="https://github.com/garmeeh/next-seo/commits?author=garmeeh" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://www.jeromefitzgerald.com/"><img src="https://avatars3.githubusercontent.com/u/3099369?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jerome Fitzgerald</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=JeromeFitz" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/erickeno"><img src="https://avatars0.githubusercontent.com/u/3820632?v=4?s=100" width="100px;" alt=""/><br /><sub><b>erick B</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=erickeno" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.erikcondie.com"><img src="https://avatars2.githubusercontent.com/u/15269328?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Erik Condie</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=econdie" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=econdie" title="Tests">⚠️</a> <a href="#example-econdie" title="Examples">💡</a> <a href="#ideas-econdie" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="http://timothyreynolds.co.uk"><img src="https://avatars1.githubusercontent.com/u/168870?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tim Reynolds</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=timReynolds" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=timReynolds" title="Tests">⚠️</a> <a href="#example-timReynolds" title="Examples">💡</a> <a href="https://github.com/garmeeh/next-seo/commits?author=timReynolds" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/Ktchan825"><img src="https://avatars3.githubusercontent.com/u/20606631?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ktchan825</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Ktchan825" title="Tests">⚠️</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Ktchan825" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/ctxquentin"><img src="https://avatars1.githubusercontent.com/u/36331776?v=4?s=100" width="100px;" alt=""/><br /><sub><b>ctxquentin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=ctxquentin" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=ctxquentin" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=ctxquentin" title="Tests">⚠️</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/bolonio"><img src="https://avatars0.githubusercontent.com/u/1288407?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adrián Bolonio</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=bolonio" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=bolonio" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=bolonio" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://erikhofer.de"><img src="https://avatars2.githubusercontent.com/u/17194301?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Erik Hofer</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=erikhofer" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://ermakov.io"><img src="https://avatars0.githubusercontent.com/u/301917?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dmitry Ermakov</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=zetoke" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/duckranger"><img src="https://avatars0.githubusercontent.com/u/2087890?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nimo Naamani</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=duckranger" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/calvinvoo2"><img src="https://avatars2.githubusercontent.com/u/12223423?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Calvin Ng Tjioe</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=calvinvoo2" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/petertulala"><img src="https://avatars1.githubusercontent.com/u/613623?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Peter Tulala</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=petertulala" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=petertulala" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/nik-john"><img src="https://avatars2.githubusercontent.com/u/1117182?v=4?s=100" width="100px;" alt=""/><br /><sub><b>nikjohn</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=nik-john" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nik-john" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nik-john" title="Tests">⚠️</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/0x54321"><img src="https://avatars0.githubusercontent.com/u/34850754?v=4?s=100" width="100px;" alt=""/><br /><sub><b>0x54321</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=0x54321" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=0x54321" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=0x54321" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/nateetorn"><img src="https://avatars0.githubusercontent.com/u/365585?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nateetorn L.</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=nateetorn" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nateetorn" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=nateetorn" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/Myoxocephalus"><img src="https://avatars0.githubusercontent.com/u/2316544?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Myoxocephalus</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Myoxocephalus" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/kenleytomlin"><img src="https://avatars3.githubusercontent.com/u/3004590?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kenley Tomlin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kenleytomlin" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://twovit.com"><img src="https://avatars0.githubusercontent.com/u/20168220?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ryu Nishida</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=NishidaRyu416" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://ykzts.com/"><img src="https://avatars0.githubusercontent.com/u/12539?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Yamagishi Kazutoshi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=ykzts" title="Code">💻</a> <a href="#infra-ykzts" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    <td align="center"><a href="http://mgmcdermott.com"><img src="https://avatars3.githubusercontent.com/u/8161781?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Michael McDermott</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=michaelgmcd" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=michaelgmcd" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://lukejones.co"><img src="https://avatars0.githubusercontent.com/u/6657011?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Luke Jones</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=luke-j" title="Code">💻</a> <a href="#infra-luke-j" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
-    <td align="center"><a href="https://github.com/pueyo5"><img src="https://avatars1.githubusercontent.com/u/8959368?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Albert Pueyo</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=pueyo5" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=pueyo5" title="Code">💻</a></td>
-    <td align="center"><a href="http://Qrymy.com"><img src="https://avatars1.githubusercontent.com/u/26219456?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Qrymy</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Qrymy" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.yuuniworks.com/"><img src="https://avatars0.githubusercontent.com/u/10986861?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shota Tamura</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=junkboy0315" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/kahoowkh"><img src="https://avatars3.githubusercontent.com/u/26565078?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kahoowkh</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kahoowkh" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kahoowkh" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kahoowkh" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/gtodd876"><img src="https://avatars1.githubusercontent.com/u/28220658?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Todd Matthews</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=gtodd876" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=gtodd876" title="Code">💻</a></td>
-    <td align="center"><a href="http://mohamedshadab.me"><img src="https://avatars1.githubusercontent.com/u/22408263?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mohamed Shadab</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=statebait" title="Tests">⚠️</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="http://drewgoodwin.com"><img src="https://avatars1.githubusercontent.com/u/63794?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Drew Goodwin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=tacomanator" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://schlosser.io"><img src="https://avatars0.githubusercontent.com/u/2433509?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dan Schlosser</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=schlosser" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/matamatanot"><img src="https://avatars2.githubusercontent.com/u/39780486?v=4?s=100" width="100px;" alt=""/><br /><sub><b>matamatanot</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=matamatanot" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://kloc.io/"><img src="https://avatars2.githubusercontent.com/u/9046616?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Daniel Reinoso</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=danielr18" title="Code">💻</a></td>
-    <td align="center"><a href="https://marcovalsecchi.it"><img src="https://avatars0.githubusercontent.com/u/1492995?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marco Valsecchi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=valse" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=valse" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/pbrandone"><img src="https://avatars2.githubusercontent.com/u/5202712?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pedro Brandão</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=pbrandone" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/omar-dulaimi"><img src="https://avatars0.githubusercontent.com/u/11743389?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Omar Dulaimi</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=omar-dulaimi" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=omar-dulaimi" title="Tests">⚠️</a> <a href="https://github.com/garmeeh/next-seo/commits?author=omar-dulaimi" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="http://rodzy.vercel.app"><img src="https://avatars2.githubusercontent.com/u/49137701?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Isaac Rodríguez</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=rodzy" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://iainmchugh.github.io/portfolio/"><img src="https://avatars.githubusercontent.com/u/46798029?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Iain McHugh</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=IainMcHugh" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://www.wiedergruen.com"><img src="https://avatars.githubusercontent.com/u/5861026?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Simon</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=simonschllng" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://trevorblades.com"><img src="https://avatars.githubusercontent.com/u/1216917?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Trevor Blades</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=trevorblades" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://httgp.com"><img src="https://avatars.githubusercontent.com/u/5381764?v=4?s=100" width="100px;" alt=""/><br /><sub><b>GP</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=paambaati" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://twitter.com/sebascomeau"><img src="https://avatars.githubusercontent.com/u/2814465?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sébastien Comeau</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=sebascomeau" title="Code">💻</a></td>
-    <td align="center"><a href="https://infilimits.com"><img src="https://avatars.githubusercontent.com/u/12628996?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shaswat Saxena</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=shaswatsaxena" title="Tests">⚠️</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/Roohn"><img src="https://avatars.githubusercontent.com/u/22071649?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ronald</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Roohn" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/MrNossiom"><img src="https://avatars.githubusercontent.com/u/43814157?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Milo Moisson</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=MrNossiom" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=MrNossiom" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/adrianu197"><img src="https://avatars.githubusercontent.com/u/33718513?v=4?s=100" width="100px;" alt=""/><br /><sub><b>adrianu197</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=adrianu197" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=adrianu197" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=adrianu197" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/kaykdm"><img src="https://avatars.githubusercontent.com/u/34934746?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kaykdm</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=kaykdm" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kaykdm" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=kaykdm" title="Tests">⚠️</a></td>
-    <td align="center"><a href="http://www.apolexian.xyz"><img src="https://avatars.githubusercontent.com/u/20223409?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ivan Nikitin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=Apolexian" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Apolexian" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=Apolexian" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://github.com/hsynlms"><img src="https://avatars.githubusercontent.com/u/1780171?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Huseyin ELMAS</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=hsynlms" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=hsynlms" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://aryanbeezadhur.com"><img src="https://avatars.githubusercontent.com/u/34424160?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Aryan Beezadhur</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=AryanBeezadhur" title="Documentation">📖</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/TomPradat"><img src="https://avatars.githubusercontent.com/u/16164512?v=4?s=100" width="100px;" alt=""/><br /><sub><b>TomPradat</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=TomPradat" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/PezeM"><img src="https://avatars.githubusercontent.com/u/16854655?v=4?s=100" width="100px;" alt=""/><br /><sub><b>PezeM</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=PezeM" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/darklight147"><img src="https://avatars.githubusercontent.com/u/39389636?v=4?s=100" width="100px;" alt=""/><br /><sub><b>darklight147</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=darklight147" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://shabith.com"><img src="https://avatars.githubusercontent.com/u/143546?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shabith Ishan Thennakone</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=shabith" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://sushantdhiman.com"><img src="https://avatars.githubusercontent.com/u/9989487?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sushant</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=sushantdhiman" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=sushantdhiman" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://simrobin.fr"><img src="https://avatars.githubusercontent.com/u/10052336?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Simon Robin</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=simrobin" title="Documentation">📖</a> <a href="https://github.com/garmeeh/next-seo/commits?author=simrobin" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=simrobin" title="Tests">⚠️</a></td>
-    <td align="center"><a href="https://riccardogiorato.com/"><img src="https://avatars.githubusercontent.com/u/4527364?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Riccardo Giorato</b></sub></a><br /><a href="https://github.com/garmeeh/next-seo/commits?author=riccardogiorato" title="Code">💻</a> <a href="https://github.com/garmeeh/next-seo/commits?author=riccardogiorato" title="Tests">⚠️</a> <a href="https://github.com/garmeeh/next-seo/commits?author=riccardogiorato" title="Documentation">📖</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
+A massive thank you to [everyone who contributes](https://github.com/garmeeh/next-seo/graphs/contributors) to this project 👏

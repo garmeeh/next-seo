@@ -1,29 +1,15 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
-import formatAuthorName from '../utils/formatAuthorName';
-import buildVideo from '../utils/buildVideo';
-import { buildAggregateRating } from '../utils/buildAggregateRating';
+import { JsonLd, JsonLdProps } from './jsonld';
+import type { Instruction, AggregateRating, Video } from 'src/types';
 
-import { Video, AggregateRating } from '../types';
+import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
+import { setAuthor } from 'src/utils/schema/setAuthor';
+import { setVideo } from 'src/utils/schema/setVideo';
+import { setInstruction } from 'src/utils/schema/setInstruction';
+import { setNutrition } from 'src/utils/schema/setNutrition';
 
-type Instruction = {
-  name?: string;
-  text: string;
-  url?: string;
-  image?: string;
-};
-
-export const buildInstruction = (instruction: Instruction) => `{
-  "@type": "HowToStep",
-  ${instruction.name ? `"name": "${instruction.name}",` : ''}
-  ${instruction.image ? `"image": "${instruction.image}",` : ''}
-  ${instruction.url ? `"url": "${instruction.url}",` : ''}
-  "text": "${instruction.text}"
-}`;
-
-export interface RecipeJsonLdProps {
+export interface RecipeJsonLdProps extends JsonLdProps {
   name: string;
   description: string;
   authorName: string | string[];
@@ -43,66 +29,43 @@ export interface RecipeJsonLdProps {
   video?: Video;
 }
 
-const RecipeJsonLd: FC<RecipeJsonLdProps> = ({
-  name,
-  description,
+function RecipeJsonLd({
+  type = 'Recipe',
+  keyOverride,
   authorName,
-  images = [],
-  datePublished,
-  prepTime,
-  cookTime,
-  totalTime,
-  keywords,
+  images,
   yields,
   category,
   cuisine,
   calories,
-  ingredients,
-  instructions,
   aggregateRating,
   video,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org/",
-    "@type": "Recipe",
-    "name": "${name}",
-    "description": "${description}",
-    "datePublished": "${datePublished}",
-    "author": ${formatAuthorName(authorName)},
-    "image": [
-      ${images.map(image => `"${image}"`).join(',')}
-    ],
-    ${prepTime ? `"prepTime": "${prepTime}",` : ``}
-    ${cookTime ? `"cookTime": "${cookTime}",` : ``}
-    ${totalTime ? `"totalTime": "${totalTime}",` : ``}
-    ${keywords ? `"keywords": "${keywords}",` : ``}
-    ${yields ? `"recipeYield": "${yields}",` : ``}
-    ${category ? `"recipeCategory": "${category}",` : ``}
-    ${cuisine ? `"recipeCuisine": "${cuisine}",` : ``}
-    ${
-      calories
-        ? `"nutrition": { "@type": "NutritionInformation", "calories": "${calories} calories" },`
-        : ``
-    }
-    ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
-    ${video ? `"video": ${buildVideo(video)},` : ''}
-    "recipeIngredient": [
-      ${ingredients.map(ingredient => `"${ingredient}"`).join(',')}
-    ],
-    "recipeInstructions": [
-      ${instructions.map(buildInstruction).join(',')}
-    ]
-  }`;
+  ingredients,
+  instructions,
+  ...rest
+}: RecipeJsonLdProps) {
+  const data = {
+    ...rest,
+    author: setAuthor(authorName),
+    image: images,
+    recipeYield: yields,
+    recipeCategory: category,
+    recipeCuisine: cuisine,
+    nutrition: setNutrition(calories),
+    aggregateRating: setAggregateRating(aggregateRating),
+    video: setVideo(video),
+    recipeIngredient: ingredients,
+    recipeInstructions: instructions.map(setInstruction),
+  };
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-recipe"
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="recipe"
+    />
   );
-};
+}
 
 export default RecipeJsonLd;
