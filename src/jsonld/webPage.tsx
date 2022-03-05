@@ -1,16 +1,15 @@
 import React from 'react';
+import type { ReviewedBy } from 'src/types';
 
 import { JsonLd } from './jsonld';
+import { setReviewedBy } from 'src/utils/schema/setReviewedBy';
 
 export interface WebPageJsonLdProps {
   keyOverride?: string;
   id: string;
   description?: string;
   lastReviewed?: string;
-  reviewedBy?: {
-    type?: string;
-    name: string;
-  };
+  reviewedBy?: ReviewedBy;
 }
 
 function WebPageJsonLd({
@@ -18,14 +17,14 @@ function WebPageJsonLd({
   reviewedBy,
   ...rest
 }: WebPageJsonLdProps) {
+  const data = {
+    ...rest,
+    reviewedBy: setReviewedBy(reviewedBy),
+  };
   return (
     <JsonLd
       keyOverride={keyOverride}
-      {...rest}
-      reviewedBy={{
-        '@type': reviewedBy?.type || 'Organization',
-        ...reviewedBy,
-      }}
+      {...data}
       type="WebPage"
       scriptKey="WebPage"
     />

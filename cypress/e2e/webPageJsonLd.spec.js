@@ -27,4 +27,18 @@ describe('WebPage JSON-LD', () => {
       });
     });
   });
+
+  it('renders with all props (without reviewedBy)', () => {
+    cy.visit('http://localhost:3000/jsonld/webPage2');
+    cy.get('head script[type="application/ld+json"]').then(tags => {
+      const jsonLD = JSON.parse(tags[0].innerHTML);
+      expect(jsonLD).to.deep.equal({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        '@id': 'https://www.purpule-fox.io/#info',
+        description: 'This is a description.',
+        lastReviewed: '2021-05-26T05:59:02.085Z',
+      });
+    });
+  });
 });
