@@ -121,11 +121,11 @@ const buildTags = (config: BuildTagsParams) => {
   const noindex =
     config.noindex != null
       ? config.noindex
-      : defaults.noindex || config.dangerouslySetAllPagesToNoIndex;
+      : config.dangerouslySetAllPagesToNoIndex || defaults.noindex;
   const nofollow =
     config.nofollow != null
       ? config.nofollow
-      : defaults.nofollow || config.dangerouslySetAllPagesToNoFollow;
+      : config.dangerouslySetAllPagesToNoFollow || defaults.nofollow;
 
   let robotsParams = '';
   if (config.robotsProps) {
@@ -152,13 +152,6 @@ const buildTags = (config: BuildTagsParams) => {
   }
 
   if (noindex || nofollow) {
-    if (config.dangerouslySetAllPagesToNoIndex) {
-      defaults.noindex = true;
-    }
-    if (config.dangerouslySetAllPagesToNoFollow) {
-      defaults.nofollow = true;
-    }
-
     tagsToRender.push(
       <meta
         key="robots"
