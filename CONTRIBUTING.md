@@ -31,7 +31,7 @@ yarn build
 You can now run the Next.js app in dev mode:
 
 ```
-yarn e2eL:dev
+yarn e2e:dev
 ```
 
 Or do a production build:

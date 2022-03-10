@@ -126,6 +126,11 @@ describe('SEO Meta', () => {
       'href',
       '/manifest.json',
     );
+    cy.get('head link[rel="preload"]')
+      .should('have.attr', 'href', 'https://www.test.ie/font/sample-font.woof2')
+      .should('have.attr', 'as', 'font')
+      .should('have.attr', 'type', 'font/woff2')
+      .should('have.attr', 'crossorigin', 'anonymous');
   });
 
   it('SEO Robots props applied correctly', () => {

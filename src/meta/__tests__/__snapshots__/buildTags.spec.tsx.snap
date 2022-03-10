@@ -595,5 +595,12 @@ exports[`renders correctly 1`] = `
     href="/manifest.json"
     rel="manifest"
   />
+  <link
+    as="font"
+    crossorigin="anonymous"
+    href="https://www.test.ie/font/sample-font.woof2"
+    rel="preload"
+    type="font/woff2"
+  />
 </div>
 `;

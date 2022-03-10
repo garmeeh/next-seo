@@ -263,7 +263,7 @@ From now on all of your pages will have the defaults above applied.
 | `defaultTitle`                     | string                  | If no title is set on a page, this string will be used instead of an empty `titleTemplate` [More Info](#default-title)                                                               |
 | `noindex`                          | boolean (default false) | Sets whether page should be indexed or not [More Info](#no-index)                                                                                                                    |
 | `nofollow`                         | boolean (default false) | Sets whether page should be followed or not [More Info](#no-follow)                                                                                                                  |
-| `additionRobotsProps`              | Object                  | Set the more meta information for the `X-Robots-Tag` [More Info](#robotsprops)                                                                                                       |
+| `robotsProps`                      | Object                  | Set the more meta information for the `X-Robots-Tag` [More Info](#robotsprops)                                                                                                       |
 | `description`                      | string                  | Set the page meta description                                                                                                                                                        |
 | `canonical`                        | string                  | Set the page canonical url                                                                                                                                                           |
 | `mobileAlternate.media`            | string                  | Set what screen size the mobile website should be served from                                                                                                                        |
@@ -573,6 +573,13 @@ additionalLinkTags={[
   {
     rel: 'manifest',
     href: '/manifest.json'
+  },
+  {
+    rel: 'preload',
+    href: 'https://www.test.ie/font/sample-font.woof2',
+    as: 'font',
+    type: 'font/woff2',
+    crossOrigin: 'anonymous'
   }
 ]}
 ```
@@ -587,6 +594,13 @@ it will result in this being rendered:
   sizes="76x76"
 />
 <link rel="manifest" href="/manifest.json" />
+<link
+  rel="preload"
+  href="https://www.test.ie/font/sample-font.woof2"
+  as="font"
+  type="font/woff2"
+  crossorigin="anonymous"
+/>
 ```
 
 ## Open Graph

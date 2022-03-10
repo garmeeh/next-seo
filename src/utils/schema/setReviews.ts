@@ -17,7 +17,6 @@ export function setReviews(reviews?: Review | Review[]) {
   if (Array.isArray(reviews)) {
     return reviews.map(mapReview);
   } else if (reviews) {
-    console.log(mapReview(reviews));
     return mapReview(reviews);
   }
 
