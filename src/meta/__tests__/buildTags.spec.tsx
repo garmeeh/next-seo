@@ -862,7 +862,7 @@ it('correctly sets nofollow default', () => {
     'meta[content="index,follow"]',
   );
   const noindexnofollow = container.querySelectorAll(
-    'meta[content="noindex,nofollow"]',
+    'meta[content="index,nofollow"]',
   );
 
   expect(Array.from(indexfollow).length).toBe(0);
