@@ -38,6 +38,19 @@ export type Action = {
   target: string;
 };
 
+export type Step = {
+  type: string;
+  name: string;
+  url?: string;
+  itemListElement?: StepDetails[];
+  image?: string;
+};
+
+export type StepDetails = {
+  type: 'HowToTip' | 'HowToDirection';
+  text: string;
+};
+
 export interface Person {
   name: string;
 }
