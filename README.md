@@ -968,7 +968,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Dataset](#dataset)
 - [Corporate Contact](#corporate-contact)
 - [FAQ Page](#faq-page)
-- [How-to](#How-to)
+- [How-to](#how-to)
 - [Job Posting](#job-posting)
 - [Local Business](#local-business)
 - [Product](#product)
