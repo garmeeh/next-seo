@@ -10,6 +10,12 @@ looking for inspiration on what to add.
 
 **Feel like supporting this free plugin?**
 
+It takes a lot of time to maintain an open source project so any small contribution is greatly appreciated.
+
+**Web3**: [next-seo.wallet](https://unstoppabledomains.com/d/next-seo.wallet) (ERC20 & SOL)
+
+Coffee fuels coding ☕️
+
 <a href="https://www.buymeacoffee.com/garmeeh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 **Table of Contents**
@@ -43,6 +49,7 @@ looking for inspiration on what to add.
     - [Book](#book)
     - [Profile](#profile)
 - [JSON-LD](#json-ld)
+  - [JSON-LD Security](#json-ld-security)
   - [Handling multiple instances](#handling-multiple-instances)
   - [Article](#article-1)
   - [Breadcrumb](#breadcrumb)
@@ -974,6 +981,14 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [News Article](#news-article)
 
 Pull request very welcome to add any from the list [found on here](https://developers.google.com/search/docs/data-types/article)
+
+#### JSON-LD Security
+
+Just a quick note on security. To get JSON-LD onto the page it needs to be in a script tag. `next-seo` achieves this by using a script tag with `dangerouslySetInnerHTML`.
+
+So if passing anything directly from a URL to one of the components below please ensure you sanitize it first if needed.
+
+View `toJson.tsx` for implementation detail.
 
 #### Handling multiple instances
 

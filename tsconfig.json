@@ -25,7 +25,8 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "next/head": ["./node_modules/next/head.d.ts"]
+      "next/head": ["./node_modules/next/head.d.ts"],
+      "next/script": ["./node_modules/next/script.d.ts"]
     }
   },
   "include": ["src/**/*"],
