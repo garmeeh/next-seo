@@ -37,21 +37,14 @@ export interface MovieJsonLdProps {
   aggregateRating?: AggregateRating;
 }
 
-export interface CustomJsonLdProps {
-  position?: number;
-  name: string;
-  type: string;
-}
-
 export interface CarouselJsonLdProps extends JsonLdProps {
-  ofType: 'default' | 'movie' | 'recipe' | 'course' | 'custom';
+  ofType: 'default' | 'movie' | 'recipe' | 'course';
   data:
     | any
     | DefaultDataProps[]
     | MovieJsonLdProps[]
     | ExtendedCourseJsonLdProps[]
-    | ExtendedRecipeJsonLdProps[]
-    | CustomJsonLdProps[];
+    | ExtendedRecipeJsonLdProps[];
 }
 
 function CarouselJsonLd({
@@ -59,7 +52,6 @@ function CarouselJsonLd({
   keyOverride,
   ofType,
   data,
-  ...rest
 }: CarouselJsonLdProps) {
   function generateList(
     data: CarouselJsonLdProps['data'],
@@ -154,22 +146,11 @@ function CarouselJsonLd({
             },
           }),
         );
-
-      case 'custom':
-        return (data as CustomJsonLdProps[]).map((item, index) => ({
-          '@type': 'ListItem',
-          position: item.position ? item.position : index + 1,
-          item: {
-            '@type': item.type,
-            name: item.name,
-          },
-        }));
     }
   }
 
   const d = {
     '@type': 'ItemList',
-    ...rest,
     itemListElement: generateList(data, ofType),
   };
 
