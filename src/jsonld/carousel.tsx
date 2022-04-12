@@ -158,7 +158,7 @@ function CarouselJsonLd({
       case 'custom':
         return (data as CustomJsonLdProps[]).map((item, index) => ({
           '@type': 'ListItem',
-          position: item.position ? item.position : index + 1,
+          position: item.position ?? index + 1,
           item: {
             '@type': item.type,
             name: item.name,
