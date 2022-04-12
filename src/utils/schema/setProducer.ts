@@ -1,4 +1,4 @@
-import type { Producer } from 'src/types';
+import type { Producer } from '../../types';
 
 export function setProducer(producer?: Producer) {
   if (producer) {

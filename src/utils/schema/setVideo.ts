@@ -1,4 +1,4 @@
-import type { Video } from 'src/types';
+import type { Video } from '../../types';
 
 import { setClip } from './setClip';
 import { setInteractionStatistic } from './setInteractionStatistic';
