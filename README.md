@@ -2745,6 +2745,12 @@ export default () => (
 | `type`   | Type of the item. |
 | `name`   | Name of the item. |
 
+**Data Recommended properties**
+
+| Property              | Info                                                                      |
+| --------------------- | ------------------------------------------------------------------------- |
+| `position`            | Position of the item. If not pass property, it will increase regularly.   |
+
 ### Software App
 
 ```jsx
