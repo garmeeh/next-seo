@@ -1,4 +1,4 @@
-import { CreativeWork } from 'src/types';
+import { CreativeWork } from '../../types';
 
 export function setCreativeWork(creativeWork: CreativeWork) {
   if (creativeWork) {

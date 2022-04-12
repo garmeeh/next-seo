@@ -7,15 +7,15 @@ import type {
   Video,
   Review,
   ApplicationCategory,
-} from 'src/types';
-import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
-import { setAuthor } from 'src/utils/schema/setAuthor';
-import { setImage } from 'src/utils/schema/setImage';
-import { setOffers } from 'src/utils/schema/setOffers';
-import { setProducer } from 'src/utils/schema/setProducer';
-import { setProvider } from 'src/utils/schema/setProvider';
-import { setReviews } from 'src/utils/schema/setReviews';
-import { setVideo } from 'src/utils/schema/setVideo';
+} from '../types';
+import { setAggregateRating } from '../utils/schema/setAggregateRating';
+import { setAuthor } from '../utils/schema/setAuthor';
+import { setImage } from '../utils/schema/setImage';
+import { setOffers } from '../utils/schema/setOffers';
+import { setProducer } from '../utils/schema/setProducer';
+import { setProvider } from '../utils/schema/setProvider';
+import { setReviews } from '../utils/schema/setReviews';
+import { setVideo } from '../utils/schema/setVideo';
 
 import { JsonLd, JsonLdProps } from './jsonld';
 

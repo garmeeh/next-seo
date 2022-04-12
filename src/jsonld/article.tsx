@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { JsonLd, JsonLdProps } from './jsonld';
-import { setAuthor } from 'src/utils/schema/setAuthor';
-import { setPublisher } from 'src/utils/schema/setPublisher';
+import { setAuthor } from '../utils/schema/setAuthor';
+import { setPublisher } from '../utils/schema/setPublisher';
 
 export interface ArticleJsonLdProps extends JsonLdProps {
   type?: 'Article' | 'Blog' | 'NewsArticle';

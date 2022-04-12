@@ -1,4 +1,4 @@
-import { Location } from 'src/types';
+import { Location } from '../../types';
 import { setAddress } from './setAddress';
 
 export function setLocation(location: Location) {

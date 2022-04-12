@@ -1,4 +1,4 @@
-import { Instruction } from 'src/types';
+import { Instruction } from '../../types';
 
 export function setInstruction(instruction: Instruction) {
   if (instruction) {

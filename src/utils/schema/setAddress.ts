@@ -1,4 +1,4 @@
-import { Address } from 'src/types';
+import { Address } from '../../types';
 
 export function setAddress(address?: Address) {
   if (address) {

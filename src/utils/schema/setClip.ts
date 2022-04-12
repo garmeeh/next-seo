@@ -1,4 +1,4 @@
-import { Clip } from 'src/types';
+import { Clip } from '../../types';
 
 export function setClip(clips?: Clip | Clip[]) {
   function mapClip(clip: Clip) {

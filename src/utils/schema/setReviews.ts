@@ -1,4 +1,4 @@
-import type { Review } from 'src/types';
+import type { Review } from '../../types';
 import { setAuthor } from './setAuthor';
 import { setPublisher } from './setPublisher';
 import { setReviewRating } from './setReviewRating';

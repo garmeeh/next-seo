@@ -1,4 +1,4 @@
-import type { ContactPoint } from 'src/types';
+import type { ContactPoint } from '../../types';
 
 export function setContactPoints(contactPoint?: ContactPoint[]) {
   if (contactPoint && contactPoint.length) {

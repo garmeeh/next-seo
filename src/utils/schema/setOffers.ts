@@ -1,4 +1,4 @@
-import { Offers } from 'src/types';
+import { Offers } from '../../types';
 
 export function setOffers(offers?: Offers | Offers[]) {
   function mapOffer({ seller, ...rest }: Offers) {
