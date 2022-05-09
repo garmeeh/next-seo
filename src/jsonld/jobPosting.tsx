@@ -24,6 +24,10 @@ export interface MonetaryAmount {
 
 export type UnitTextType = 'HOUR' | 'DAY' | 'WEEK' | 'MONTH' | 'YEAR';
 
+export enum HiringOrganizationType {
+  confidential = 'confidential'
+}
+
 export type EmploymentType =
   | 'FULL_TIME'
   | 'PART_TIME'
@@ -38,7 +42,7 @@ export interface JobPostingJsonLdProps extends JsonLdProps {
   keyOverride?: string;
   datePosted: string;
   description: string;
-  hiringOrganization: HiringOrganization;
+  hiringOrganization: HiringOrganization | HiringOrganizationType;
   title: string;
   validThrough: string;
   applicantLocationRequirements?: string;
@@ -78,7 +82,11 @@ function JobPostingJsonLd({
     return undefined;
   }
 
-  function setHiringOrganization(org: HiringOrganization) {
+  function setHiringOrganization(org: HiringOrganization | HiringOrganizationType) {
+    if (org === HiringOrganizationType.confidential) {
+      return org;
+    }
+
     return {
       '@type': 'Organization',
       name: org.name,
