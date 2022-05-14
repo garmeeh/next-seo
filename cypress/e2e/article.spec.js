@@ -33,10 +33,12 @@ describe('Article JSON-LD', () => {
           {
             '@type': 'Person',
             name: 'Jane Blogs',
+            url: 'https://example.com',
           },
           {
             '@type': 'Person',
             name: 'Mary Stone',
+            url: 'https://example.com',
           },
         ],
         publisher: {
