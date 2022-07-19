@@ -5,8 +5,8 @@ import { ArticleAuthor } from '../../types';
  * @param author
  * @returns
  */
-function includeNameAndUrl(author: ArticleAuthor) {
-  return typeof author === 'object' && author.name && author.url;
+function includeNameAndUrl(author: ArticleAuthor): boolean {
+  return typeof author === 'object' && !!(author.name && author.url);
 }
 
 export function setAuthor(
