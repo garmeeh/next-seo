@@ -2147,6 +2147,7 @@ const Page = () => (
           seller: {
             name: 'John Doe',
           },
+          validFrom: '2020-11-01T00:00:00.000Z',
         },
         {
           price: '139.99',
@@ -2158,6 +2159,7 @@ const Page = () => (
           seller: {
             name: 'John Doe Sr.',
           },
+          validFrom: '2020-08-05T00:00:00.000Z',
         },
       ]}
       performers={[
@@ -2168,6 +2170,13 @@ const Page = () => (
           name: 'Kira and Morrison',
         },
       ]}
+      organizer={{
+        type: 'Organization',
+        name: 'Unnamed organization',
+        url: 'https://www.unnamed.com',
+      }}
+      eventStatus="EventScheduled"
+      eventAttendanceMode="OfflineEventAttendanceMode"
     />
   </>
 );
@@ -2177,24 +2186,52 @@ export default Page;
 
 **Required properties**
 
-| Property    | Info                                               |
-| ----------- | -------------------------------------------------- |
-| `name`      | The name of the event                              |
-| `startDate` | The start date time of the event in iso8601 format |
-| `endDate`   | The end date time of the event in iso8601 format   |
-| `location`  | Place type with a nested Address type              |
+| Property    | Info                                                       |
+| ----------- | ---------------------------------------------------------- |
+| `name`      | The name of the event                                      |
+| `startDate` | The start date time of the event in iso8601 format         |
+| `endDate`   | The end date time of the event in iso8601 format           |
+| `location`  | Location of the event, can be `Place` or `VirtualLocation` |
+
+**`Place` type**
+Requires `address` property and `name`.
+
+**`VirtualLocation` type**
+Requires `url` property, doesn't require `name`.
 
 **Supported properties**
 
-| Property          | Info                                                                                                                                                            |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `description`     | Description of the event                                                                                                                                        |
-| `location.sameAs` | Description of the event location                                                                                                                               |
-| `images`          | An image or images of the event.                                                                                                                                |
-| `url`             | The fully-qualified URL of the event.                                                                                                                           |
-| `offers`          | An offer to transfer some rights to an item or to provide a service. You can provide this as a single object, or an array of objects with the properties below. |
-| `performers`      | All artists that perform at this event. You can provide this as a single object, or an array of objects with the properties below.                              |
-| `performers.name` | The name of the performer                                                                                                                                       |
+| Property              | Info                                                                                                                                                            |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `description`         | Description of the event                                                                                                                                        |
+| `location.name`       | Name of the location                                                                                                                                            |
+| `location.sameAs`     | URL of a reference web page that identifies location                                                                                                            |
+| `images`              | An image or images of the event.                                                                                                                                |
+| `url`                 | The fully-qualified URL of the event.                                                                                                                           |
+| `offers`              | An offer to transfer some rights to an item or to provide a service. You can provide this as a single object, or an array of objects with the properties below. |
+| `performers`          | All artists that perform at this event. You can provide this as a single object, or an array of objects with the properties below.                              |
+| `performers.name`     | The name of the performer                                                                                                                                       |
+| `performers.type`     | Either `Person` or `PerformingGroup`                                                                                                                            |
+| `organizer`           | The organizer of the event                                                                                                                                      |
+| `organizer.type`      | Either `Organization` or `Person`                                                                                                                               |
+| `organizer.name`      | Name of the organizer of the event                                                                                                                              |
+| `organizer.url`       | URL of the organizer of the event                                                                                                                               |
+| `eventStatus`         | Status of the event, type `EventStatus`                                                                                                                         |
+| `eventAttendanceMode` | Attendance mode of the event, type `EventAttendanceMode`                                                                                                        |
+
+**`EventStatus` type**
+
+- 'EventCancelled'
+- 'EventMovedOnline'
+- 'EventPostponed'
+- 'EventRescheduled'
+- 'EventScheduled'
+
+**`EventAttendanceMode` type**
+
+- 'MixedEventAttendanceMode'
+- 'OfflineEventAttendanceMode'
+- 'OnlineEventAttendanceMode'
 
 **`offers` Required properties**
 
@@ -2213,6 +2250,7 @@ export default Page;
 | `offers.url`             | URL of the item                                                                     |
 | `offers.seller`          | The person who is selling this item                                                 |
 | `offers.seller.name`     | The name of the person                                                              |
+| `offers.validFrom`       | Since when the price of the offer is valid                                          |
 
 The property `aggregateOffer` is also available:
 (It is ignored if `offers` is set)

@@ -80,14 +80,41 @@ export interface Instruction {
   image?: string;
 }
 export interface Performer {
+  type?: 'Person' | 'PerformingGroup';
   name: string;
 }
-
-export interface Location {
+export interface Place {
   name: string;
   address: Address;
   sameAs?: string;
 }
+
+export interface VirtualLocation {
+  name?: string;
+  sameAs?: string;
+  url: string;
+}
+
+export type Location = Place | VirtualLocation;
+
+export type EventStatus =
+  | 'EventCancelled'
+  | 'EventMovedOnline'
+  | 'EventPostponed'
+  | 'EventRescheduled'
+  | 'EventScheduled';
+
+export type EventAttendanceMode =
+  | 'MixedEventAttendanceMode'
+  | 'OfflineEventAttendanceMode'
+  | 'OnlineEventAttendanceMode';
+
+export interface Organizer {
+  type: 'Person' | 'Organization';
+  name: string;
+  url: string;
+}
+
 export interface ContactPoint {
   contactType: string;
   telephone: string;
@@ -187,6 +214,7 @@ export type Offers = {
   seller: {
     name: string;
   };
+  validFrom?: string;
 };
 
 export type AggregateOffer = {
