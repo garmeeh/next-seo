@@ -2908,4 +2908,6 @@ For reference and more info check [Docs](https://schema.org/Brand)
 
 ## Contributors
 
+[Contributing Guide](./CONTRIBUTING.md)
+
 A massive thank you to [everyone who contributes](https://github.com/garmeeh/next-seo/graphs/contributors) to this project 👏
