@@ -60,6 +60,7 @@ Coffee fuels coding ☕️
   - [Dataset](#dataset)
   - [Corporate Contact](#corporate-contact)
   - [FAQ Page](#faq-page)
+  - [How-to](#how-to)
   - [Job Posting](#job-posting)
   - [Local Business](#local-business)
   - [Logo](#logo)
@@ -974,6 +975,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Dataset](#dataset)
 - [Corporate Contact](#corporate-contact)
 - [FAQ Page](#faq-page)
+- [How-to](#how-to)
 - [Job Posting](#job-posting)
 - [Local Business](#local-business)
 - [Product](#product)
@@ -1403,6 +1405,62 @@ export default Page;
 | `mainEntity`                    |                                                                               |
 | `mainEntity.questionName`       | The full text of the question. For example, "How long is the delivery time?". |
 | `mainEntity.acceptedAnswerText` | The full answer to the question.                                              |
+
+### How-to
+
+```jsx
+import { HowToJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>How-to JSON-LD</h1>
+    <HowToJsonLd
+      name="How to tile a kitchen backsplash"
+      image="https://example.com/photos/1x1/photo.jpg"
+      estimatedCost={{ currency: 'USD', value: '100' }}
+      supply={['tiles', 'thin-set', 'mortar', 'tile grout', 'grout sealer']}
+      tool={['notched trowel', 'bucket', 'large sponge']}
+      step={[
+        {
+          url: 'https://example.com/kitchen#step1',
+          name: 'Prepare the surfaces',
+          itemListElement: [
+            {
+              type: 'HowToTip',
+              text: 'Turn off the power to the kitchen and then remove everything that is on the wall, such as outlet covers, switchplates, and any other item in the area that is to be tiled.',
+            },
+            {
+              type: 'HowToDirection',
+              text: 'Then clean the surface thoroughly to remove any grease or other debris and tape off the area.',
+            },
+          ],
+          image: 'https://example.com/photos/1x1/photo-step1.jpg',
+        },
+      ]}
+      totalTime="P2D"
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property | Info                                                                               |
+| -------- | ---------------------------------------------------------------------------------- |
+| `name`   | Name of the HowTo                                                                  |
+| `step`   | An array of HowToStep elements which comprise the full instructions of the how-to. |
+
+**Supported properties**
+
+| Property        | Info                                                                                                                                     |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `estimatedCost` | The estimated cost of the supplies consumed when performing instructions.                                                                |
+| `image`         | Image of the completed how-to.                                                                                                           |
+| `supply`        | A supply consumed when performing instructions or a direction.                                                                           |
+| `tool`          | An object used (but not consumed) when performing instructions or a direction.                                                           |
+| `totalTime`     | The total time required to perform all instructions or directions (including time to prepare the supplies), in ISO 8601 duration format. |
 
 ### Job Posting
 

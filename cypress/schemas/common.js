@@ -508,3 +508,30 @@ export const videoObject100 = {
   },
   example: exampleVideo,
 };
+
+export const image100 = {
+  version: {
+    major: 1,
+    minor: 0,
+    patch: 0,
+  },
+  schema: {
+    type: 'object',
+    description: 'Image',
+    properties: {
+      '@type': {
+        type: 'string',
+        description: 'Should be ImageObject',
+      },
+      url: {
+        type: 'string',
+        description: 'URL to the image',
+      },
+    },
+    additionalProperties: false,
+    example: {
+      '@type': 'ImageObject',
+      url: 'https://example.com/photos/1x1/photo.jpg',
+    },
+  },
+};
