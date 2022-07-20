@@ -4,7 +4,7 @@ import { ArticleJsonLd } from '../../..';
 function Article() {
   return (
     <>
-      <h1>Article</h1>
+      <h1>Article Old</h1>
       <ArticleJsonLd
         url="https://example.com/article"
         title="Article headline"
@@ -15,16 +15,7 @@ function Article() {
         ]}
         datePublished="2015-02-05T08:00:00+08:00"
         dateModified="2015-02-05T09:00:00+08:00"
-        authorName={[
-          {
-            name: 'Jane Blogs',
-            url: 'https://example.com',
-          },
-          {
-            name: 'Mary Stone',
-            url: 'https://example.com',
-          },
-        ]}
+        authorName={['Jane Blogs', 'Mary Stone']}
         publisherName="Gary Meehan"
         publisherLogo="https://www.example.com/photos/logo.jpg"
         description="This is a mighty good description of this article."

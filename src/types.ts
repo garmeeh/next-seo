@@ -328,6 +328,11 @@ export type Author = {
   name: string;
 };
 
+export type ArticleAuthor = {
+  name: string;
+  url: string;
+};
+
 export type Publisher = {
   type: string;
   name: string;
