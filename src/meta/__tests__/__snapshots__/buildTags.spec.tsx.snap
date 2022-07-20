@@ -10,10 +10,6 @@ exports[`Article SEO renders correctly 1`] = `
     name="robots"
   />
   <meta
-    content="index,follow"
-    name="googlebot"
-  />
-  <meta
     content="Description of article page"
     name="description"
   />
@@ -28,6 +24,14 @@ exports[`Article SEO renders correctly 1`] = `
   <meta
     content="@handle"
     name="twitter:creator"
+  />
+  <meta
+    content="Open Graph Article Title"
+    property="og:title"
+  />
+  <meta
+    content="Description of open graph article"
+    property="og:description"
   />
   <meta
     content="https://www.example.com/articles/article-title"
@@ -68,14 +72,6 @@ exports[`Article SEO renders correctly 1`] = `
   <meta
     content="Tag B"
     property="article:tag"
-  />
-  <meta
-    content="Open Graph Article Title"
-    property="og:title"
-  />
-  <meta
-    content="Description of open graph article"
-    property="og:description"
   />
   <meta
     content="https://www.test.ie/og-image-article-title-01.jpg"
@@ -126,10 +122,6 @@ exports[`Book SEO renders correctly 1`] = `
     name="robots"
   />
   <meta
-    content="index,follow"
-    name="googlebot"
-  />
-  <meta
     content="Description of book page"
     name="description"
   />
@@ -144,6 +136,14 @@ exports[`Book SEO renders correctly 1`] = `
   <meta
     content="@handle"
     name="twitter:creator"
+  />
+  <meta
+    content="Open Graph Book Title"
+    property="og:title"
+  />
+  <meta
+    content="Description of open graph book"
+    property="og:description"
   />
   <meta
     content="https://www.example.com/books/book-title"
@@ -176,14 +176,6 @@ exports[`Book SEO renders correctly 1`] = `
   <meta
     content="Tag B"
     property="book:tag"
-  />
-  <meta
-    content="Open Graph Book Title"
-    property="og:title"
-  />
-  <meta
-    content="Description of open graph book"
-    property="og:description"
   />
   <meta
     content="https://www.test.ie/og-image-book-title-01.jpg"
@@ -234,10 +226,6 @@ exports[`Profile SEO renders correctly 1`] = `
     name="robots"
   />
   <meta
-    content="index,follow"
-    name="googlebot"
-  />
-  <meta
     content="Description of profile page"
     name="description"
   />
@@ -252,6 +240,14 @@ exports[`Profile SEO renders correctly 1`] = `
   <meta
     content="@handle"
     name="twitter:creator"
+  />
+  <meta
+    content="Open Graph Profile Title"
+    property="og:title"
+  />
+  <meta
+    content="Description of open graph profile"
+    property="og:description"
   />
   <meta
     content="https://www.example.com/@firstlast123"
@@ -276,14 +272,6 @@ exports[`Profile SEO renders correctly 1`] = `
   <meta
     content="male"
     property="profile:gender"
-  />
-  <meta
-    content="Open Graph Profile Title"
-    property="og:title"
-  />
-  <meta
-    content="Description of open graph profile"
-    property="og:description"
   />
   <meta
     content="https://www.test.ie/og-image-firstlast123-01.jpg"
@@ -334,10 +322,6 @@ exports[`Video SEO renders correctly 1`] = `
     name="robots"
   />
   <meta
-    content="index,follow"
-    name="googlebot"
-  />
-  <meta
     content="Description of video page"
     name="description"
   />
@@ -352,6 +336,14 @@ exports[`Video SEO renders correctly 1`] = `
   <meta
     content="@handle"
     name="twitter:creator"
+  />
+  <meta
+    content="Open Graph Video Title"
+    property="og:title"
+  />
+  <meta
+    content="Description of open graph video"
+    property="og:description"
   />
   <meta
     content="https://www.example.com/videos/video-title"
@@ -410,14 +402,6 @@ exports[`Video SEO renders correctly 1`] = `
     property="video:tag"
   />
   <meta
-    content="Open Graph Video Title"
-    property="og:title"
-  />
-  <meta
-    content="Description of open graph video"
-    property="og:description"
-  />
-  <meta
     content="https://www.test.ie/og-image-video-title-01.jpg"
     property="og:image"
   />
@@ -466,10 +450,6 @@ exports[`renders correctly 1`] = `
     name="robots"
   />
   <meta
-    content="index,follow"
-    name="googlebot"
-  />
-  <meta
     content="This is a test description."
     name="description"
   />
@@ -505,14 +485,6 @@ exports[`renders correctly 1`] = `
     property="fb:app_id"
   />
   <meta
-    content="https://www.url.ie"
-    property="og:url"
-  />
-  <meta
-    content="website"
-    property="og:type"
-  />
-  <meta
     content="Open graph title"
     property="og:title"
   />
@@ -521,12 +493,28 @@ exports[`renders correctly 1`] = `
     property="og:description"
   />
   <meta
+    content="https://www.url.ie"
+    property="og:url"
+  />
+  <meta
+    content="website"
+    property="og:type"
+  />
+  <meta
     content="https://www.test.ie/image-01.jpg"
     property="og:image"
   />
   <meta
     content="Alt text right here"
     property="og:image:alt"
+  />
+  <meta
+    content="https://www.test.ie/secure-image-01.jpg"
+    property="og:image:secure_url"
+  />
+  <meta
+    content="image/jpeg"
+    property="og:image:type"
   />
   <meta
     content="800"
@@ -606,6 +594,13 @@ exports[`renders correctly 1`] = `
   <link
     href="/manifest.json"
     rel="manifest"
+  />
+  <link
+    as="font"
+    crossorigin="anonymous"
+    href="https://www.test.ie/font/sample-font.woof2"
+    rel="preload"
+    type="font/woff2"
   />
 </div>
 `;

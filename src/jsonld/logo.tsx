@@ -1,30 +1,20 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
-export interface LogoJsonLdProps {
-  keyOverride?: string;
+import { JsonLd, JsonLdProps } from './jsonld';
+
+export interface LogoJsonLdProps extends JsonLdProps {
   logo: string;
   url: string;
 }
 
-const LogoJsonLd: FC<LogoJsonLdProps> = ({ keyOverride, url, logo }) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "url": "${url}",
-    "logo": "${logo}"
-  }`;
-
+function LogoJsonLd({
+  type = 'Organization',
+  keyOverride,
+  ...rest
+}: LogoJsonLdProps) {
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-logo${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd type={type} keyOverride={keyOverride} {...rest} scriptKey="Logo" />
   );
-};
+}
 
 export default LogoJsonLd;

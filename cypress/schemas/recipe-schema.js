@@ -1,5 +1,10 @@
 import { versionSchemas } from '@cypress/schema-tools';
-import { author100, aggregateRating100 } from './common';
+import {
+  author100,
+  aggregateRating100,
+  videoObject100,
+  exampleVideo,
+} from './common';
 
 const exampleHowToStep = {
   '@type': 'HowToStep',
@@ -76,84 +81,6 @@ const nutrition100 = {
     additionalProperties: false,
   },
   example: exampleNutrition,
-};
-
-const exampleVideo = {
-  '@type': 'VideoObject',
-  name: 'How to make a Party Coffee Cake',
-  description: 'This is how you make a Party Coffee Cake.',
-  thumbnailUrl: [
-    'https://example.com/photos/1x1/photo.jpg',
-    'https://example.com/photos/4x3/photo.jpg',
-    'https://example.com/photos/16x9/photo.jpg',
-  ],
-  contentUrl: 'http://www.example.com/video123.mp4',
-  embedUrl: 'http://www.example.com/videoplayer?video=123',
-  uploadDate: '2018-02-05T08:00:00+08:00',
-  duration: 'PT1M33S',
-  interactionStatistic: {
-    '@type': 'InteractionCounter',
-    interactionType: { '@type': 'https://schema.org/WatchAction' },
-    userInteractionCount: 2347,
-  },
-  expires: '2019-02-05T08:00:00+08:00',
-};
-
-const videoObject100 = {
-  version: {
-    major: 1,
-    minor: 0,
-    patch: 0,
-  },
-  schema: {
-    type: 'object',
-    title: 'Video Object',
-    description: 'A video',
-    properties: {
-      '@type': {
-        type: 'string',
-        description: 'Schema.org type',
-      },
-      name: {
-        type: 'string',
-        description: 'The name of the recipe.',
-      },
-      description: {
-        type: 'string',
-        description: 'The description of the recipe.',
-      },
-      thumbnailUrl: {
-        type: 'array',
-        items: {
-          type: 'string',
-        },
-        description: 'Array of images for the video.',
-      },
-      contentUrl: {
-        type: 'string',
-        description: 'URL for the content of the video',
-      },
-      embedUrl: {
-        type: 'string',
-        description: 'URL for the embed version of the video',
-      },
-      uploadDate: {
-        type: 'string',
-        description: 'Upload date of the video',
-      },
-      duration: {
-        type: 'string',
-        description: 'Duration of the video',
-      },
-      expires: {
-        type: 'string',
-        description: 'Expiration date of the video',
-      },
-    },
-    required: true,
-    additionalProperties: true,
-  },
-  example: exampleVideo,
 };
 
 const recipe100 = {
@@ -252,6 +179,7 @@ const recipe100 = {
       },
       video: {
         ...videoObject100.schema,
+        required: true,
         see: videoObject100,
       },
     },

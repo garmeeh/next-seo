@@ -1,7 +1,7 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
+import { JsonLd, JsonLdProps } from './jsonld';
+
 export interface HiringOrganization {
   name: string;
   sameAs: string;
@@ -34,7 +34,7 @@ export type EmploymentType =
   | 'PER_DIEM'
   | 'OTHER';
 
-export interface JobPostingJsonLdProps {
+export interface JobPostingJsonLdProps extends JsonLdProps {
   keyOverride?: string;
   datePosted: string;
   description: string;
@@ -48,87 +48,91 @@ export interface JobPostingJsonLdProps {
   jobLocationType?: string;
 }
 
-const buildBaseSalary = (baseSalary: MonetaryAmount) => `
-  "baseSalary": {
-    "@type": "MonetaryAmount",
-    ${baseSalary.currency ? `"currency": "${baseSalary.currency}",` : ''}
-    "value": {
-      ${
-        baseSalary.value
-          ? Array.isArray(baseSalary.value)
-            ? `"minValue": "${baseSalary.value[0]}", "maxValue": "${baseSalary.value[1]}",`
-            : `"value": "${baseSalary.value}",`
-          : ''
-      }
-      ${baseSalary.unitText ? `"unitText": "${baseSalary.unitText}",` : ''}
-      "@type": "QuantitativeValue"
-    }
-  },
-`;
-
-const JobPostingJsonLd: FC<JobPostingJsonLdProps> = ({
+function JobPostingJsonLd({
+  type = 'JobPosting',
   keyOverride,
   baseSalary,
-  datePosted,
-  description,
-  employmentType,
   hiringOrganization,
-  jobLocation,
   applicantLocationRequirements,
-  jobLocationType,
-  title,
-  validThrough,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org",
-    "@type": "JobPosting",
-    ${baseSalary ? buildBaseSalary(baseSalary) : ''}
-    "datePosted": "${datePosted}",
-    "description": "${description}",
-    ${employmentType ? `"employmentType": "${employmentType}",` : ''}
-    "hiringOrganization" : {
-      "@type" : "Organization",
-      "name" : "${hiringOrganization.name}",
-      "sameAs" : "${hiringOrganization.sameAs}"
-      ${hiringOrganization.logo ? `,"logo": "${hiringOrganization.logo}"` : ''}
-    },
-    ${
-      jobLocation
-        ? `"jobLocation": {
-      "@type": "Place",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "${jobLocation.addressLocality}",
-        "addressRegion": "${jobLocation.addressRegion}",
-        "postalCode" : "${jobLocation.postalCode}",
-        "streetAddress" : "${jobLocation.streetAddress}",
-        "addressCountry" : "${jobLocation.addressCountry}"
-          }
-      },`
-        : ''
+  jobLocation,
+  ...rest
+}: JobPostingJsonLdProps) {
+  function setBaseSalary(baseSalary?: MonetaryAmount) {
+    if (baseSalary) {
+      return {
+        '@type': 'MonetaryAmount',
+        currency: baseSalary.currency,
+        value: {
+          '@type': 'QuantitativeValue',
+          unitText: baseSalary.unitText,
+          ...(Array.isArray(baseSalary.value)
+            ? {
+                minValue: baseSalary.value[0],
+                maxValue: baseSalary.value[1],
+              }
+            : { value: baseSalary.value }),
+        },
+      };
     }
-    ${
-      applicantLocationRequirements
-        ? ` "applicantLocationRequirements": {
-        "@type": "Country",
-        "name": "${applicantLocationRequirements}"
-    },`
-        : ''
+
+    return undefined;
+  }
+
+  function setHiringOrganization(org: HiringOrganization) {
+    return {
+      '@type': 'Organization',
+      name: org.name,
+      sameAs: org.sameAs,
+      logo: org.logo,
+    };
+  }
+
+  function setJobLocation(location?: Place) {
+    if (location) {
+      return {
+        '@type': 'Place',
+        address: {
+          '@type': 'PostalAddress',
+          addressCountry: location.addressCountry,
+          addressLocality: location.addressLocality,
+          addressRegion: location.addressRegion,
+          postalCode: location.postalCode,
+          streetAddress: location.streetAddress,
+        },
+      };
     }
-    ${jobLocationType ? `"jobLocationType": "${jobLocationType}",` : ''}
-    ${validThrough ? `"validThrough": "${validThrough}",` : ''}
-    "title": "${title}"
-  }`;
+
+    return undefined;
+  }
+
+  function setApplicantLocationRequirements(requirements?: string) {
+    if (requirements) {
+      return {
+        '@type': 'Country',
+        name: requirements,
+      };
+    }
+    return undefined;
+  }
+
+  const data = {
+    ...rest,
+    baseSalary: setBaseSalary(baseSalary),
+    hiringOrganization: setHiringOrganization(hiringOrganization),
+    jobLocation: setJobLocation(jobLocation),
+    applicantLocationRequirements: setApplicantLocationRequirements(
+      applicantLocationRequirements,
+    ),
+  };
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key={`jsonld-jobposting${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="JobPosting"
+    />
   );
-};
+}
 
 export default JobPostingJsonLd;

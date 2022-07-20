@@ -1,57 +1,15 @@
-import React, { FC } from 'react';
-import Head from 'next/head';
+import React from 'react';
 
-import markup from '../utils/markup';
-import formatAuthorName from '../utils/formatAuthorName';
-import buildVideo from '../utils/buildVideo';
+import { JsonLd, JsonLdProps } from './jsonld';
+import type { Instruction, AggregateRating, Video } from 'src/types';
 
-import { Video } from '../types';
+import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
+import { setAuthor } from 'src/utils/schema/setAuthor';
+import { setVideo } from 'src/utils/schema/setVideo';
+import { setInstruction } from 'src/utils/schema/setInstruction';
+import { setNutrition } from 'src/utils/schema/setNutrition';
 
-export type AggregateRating = {
-  ratingValue: string;
-  reviewCount?: string;
-  ratingCount?: string;
-  bestRating?: string;
-};
-
-export const buildAggregateRating = (aggregateRating: AggregateRating) => `
-  "aggregateRating": {
-      "@type": "AggregateRating",
-      ${
-        aggregateRating.ratingCount
-          ? `"ratingCount": "${aggregateRating.ratingCount}",`
-          : ''
-      }
-      ${
-        aggregateRating.reviewCount
-          ? `"reviewCount": "${aggregateRating.reviewCount}",`
-          : ''
-      }
-      ${
-        aggregateRating.bestRating
-          ? `"bestRating": "${aggregateRating.bestRating}",`
-          : ''
-      }
-      "ratingValue": "${aggregateRating.ratingValue}"
-    },
-`;
-
-type Instruction = {
-  name: string;
-  text: string;
-  url?: string;
-  image?: string;
-};
-
-export const buildInstruction = (instruction: Instruction) => `{
-  "@type": "HowToStep",
-  "name": "${instruction.name}",
-  "text": "${instruction.text}",
-  "url": "${instruction.url}",
-  "image": "${instruction.image}"
-}`;
-
-export interface RecipeJsonLdProps {
+export interface RecipeJsonLdProps extends JsonLdProps {
   name: string;
   description: string;
   authorName: string | string[];
@@ -71,66 +29,43 @@ export interface RecipeJsonLdProps {
   video?: Video;
 }
 
-const RecipeJsonLd: FC<RecipeJsonLdProps> = ({
-  name,
-  description,
+function RecipeJsonLd({
+  type = 'Recipe',
+  keyOverride,
   authorName,
-  images = [],
-  datePublished,
-  prepTime,
-  cookTime,
-  totalTime,
-  keywords,
+  images,
   yields,
   category,
   cuisine,
   calories,
-  ingredients,
-  instructions,
   aggregateRating,
   video,
-}) => {
-  const jslonld = `{
-    "@context": "https://schema.org/",
-    "@type": "Recipe",
-    "name": "${name}",
-    "description": "${description}",
-    "datePublished": "${datePublished}",
-    "author": ${formatAuthorName(authorName)},
-    "image": [
-      ${images.map(image => `"${image}"`).join(',')}
-    ],
-    ${prepTime ? `"prepTime": "${prepTime}",` : ``}
-    ${cookTime ? `"cookTime": "${cookTime}",` : ``}
-    ${totalTime ? `"totalTime": "${totalTime}",` : ``}
-    ${keywords ? `"keywords": "${keywords}",` : ``}
-    ${yields ? `"recipeYield": "${yields}",` : ``}
-    ${category ? `"recipeCategory": "${category}",` : ``}
-    ${cuisine ? `"recipeCuisine": "${cuisine}",` : ``}
-    ${
-      calories
-        ? `"nutrition": { "@type": "NutritionInformation", "calories": "${calories} calories" },`
-        : ``
-    }
-    ${aggregateRating ? buildAggregateRating(aggregateRating) : ''}
-    ${video ? `"video": ${buildVideo(video)},` : ''}
-    "recipeIngredient": [
-      ${ingredients.map(ingredient => `"${ingredient}"`).join(',')}
-    ],
-    "recipeInstructions": [
-      ${instructions.map(buildInstruction).join(',')}
-    ]
-  }`;
+  ingredients,
+  instructions,
+  ...rest
+}: RecipeJsonLdProps) {
+  const data = {
+    ...rest,
+    author: setAuthor(authorName),
+    image: images,
+    recipeYield: yields,
+    recipeCategory: category,
+    recipeCuisine: cuisine,
+    nutrition: setNutrition(calories),
+    aggregateRating: setAggregateRating(aggregateRating),
+    video: setVideo(video),
+    recipeIngredient: ingredients,
+    recipeInstructions: instructions.map(setInstruction),
+  };
 
   return (
-    <Head>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={markup(jslonld)}
-        key="jsonld-recipe"
-      />
-    </Head>
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...data}
+      scriptKey="recipe"
+    />
   );
-};
+}
 
 export default RecipeJsonLd;

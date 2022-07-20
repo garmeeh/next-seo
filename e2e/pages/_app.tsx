@@ -1,17 +1,25 @@
-import App, { Container } from 'next/app';
-import React from 'react';
-import { DefaultSeo } from '../..';
+import type { AppProps } from 'next/app';
 
 import SEO from '../next-seo.config';
+import { DefaultSeo } from '../..';
 
-export default class MyApp extends App {
-  render() {
-    const { Component, pageProps } = this.props;
-    return (
-      <Container>
-        <DefaultSeo {...SEO} />
-        <Component {...pageProps} />
-      </Container>
-    );
-  }
+function MyApp({ Component, pageProps, router }: AppProps) {
+  return (
+    <>
+      <DefaultSeo
+        {...SEO}
+        dangerouslySetAllPagesToNoFollow={
+          router.pathname === '/dangerously/nofollow' ||
+          router.pathname === '/dangerously/nofollow-and-noindex'
+        }
+        dangerouslySetAllPagesToNoIndex={
+          router.pathname === '/dangerously/noindex' ||
+          router.pathname === '/dangerously/nofollow-and-noindex'
+        }
+      />
+      <Component {...pageProps} />
+    </>
+  );
 }
+
+export default MyApp;
