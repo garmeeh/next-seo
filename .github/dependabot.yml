@@ -1,0 +1,23 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: cypress-testing-library
+    versions:
+    - ">= 0"
+  - dependency-name: husky
+    versions:
+    - ">= 0"
+  - dependency-name: react-testing-library
+    versions:
+    - ">= 0"
+  - dependency-name: "@types/node"
+    versions:
+    - 15.0.0
+  - dependency-name: next
+    versions:
+    - 10.1.0
