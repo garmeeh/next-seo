@@ -48,6 +48,11 @@ describe('SEO Meta', () => {
       'content',
       'Open Graph Description A',
     );
+    cy.get('head meta[name="theme-color"]').should(
+      'have.attr',
+      'content',
+      '#73fa97',
+    );
     cy.get('head meta[property="og:image"]')
       .should('have.length', 1)
       .then(tags => {

@@ -8,6 +8,7 @@ afterEach(cleanup);
 
 const SEO: BuildTagsParams = {
   title: 'This is a test title.',
+  themeColor: '#73fa97',
   description: 'This is a test description.',
   canonical: 'https://www.canonical.ie',
   defaultOpenGraphImageHeight: 1200,

@@ -3,6 +3,7 @@ import { DefaultSeoProps } from '..';
 const APP_DEFAULT_SEO: DefaultSeoProps = {
   title: 'Title A',
   titleTemplate: '%s | Next SEO',
+  themeColor: '#73fa97',
   description: 'Description A',
   canonical: 'https://www.canonical.ie/a',
   defaultOpenGraphImageHeight: 1200,

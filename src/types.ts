@@ -467,6 +467,7 @@ export interface DefaultSeoProps {
   defaultOpenGraphVideoHeight?: number;
   title?: string;
   titleTemplate?: string;
+  themeColor?: string;
   defaultTitle?: string;
   robotsProps?: AdditionalRobotsProps;
   description?: string;
