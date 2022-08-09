@@ -188,6 +188,16 @@ const buildTags = (config: BuildTagsParams) => {
     );
   }
 
+  if(config.themeColor){
+    tagsToRender.push(
+      <meta
+        key="theme-color"
+        name="theme-color"
+        content={config.themeColor}
+      />
+    );
+  }
+
   if (config.mobileAlternate) {
     tagsToRender.push(
       <link

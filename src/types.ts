@@ -443,6 +443,7 @@ export interface NextSeoProps {
   title?: string;
   titleTemplate?: string;
   defaultTitle?: string;
+  themeColor?: string;
   noindex?: boolean;
   nofollow?: boolean;
   robotsProps?: AdditionalRobotsProps;
