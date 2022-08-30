@@ -55,7 +55,9 @@ function RecipeJsonLd({
     aggregateRating: setAggregateRating(aggregateRating),
     video: setVideo(video),
     recipeIngredient: ingredients,
-    recipeInstructions: instructions.map(setInstruction),
+    recipeInstructions: instructions
+      ? instructions.map(setInstruction)
+      : undefined,
   };
 
   return (
