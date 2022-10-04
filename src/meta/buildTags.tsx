@@ -11,7 +11,7 @@ const defaults = {
 };
 
 const buildOpenGraphMediaTags = (
-  mediaType: 'image' | 'video',
+  mediaType: 'image' | 'video' | 'audio',
   media: ReadonlyArray<OpenGraphMedia> = [],
   {
     defaultWidth,
@@ -556,36 +556,6 @@ const buildTags = (config: BuildTagsParams) => {
             />,
           );
         }
-      } else if (type === 'music.song' && config.openGraph.audio) {
-        if (config.openGraph.audio.url) {
-          tagsToRender.push(
-            <meta
-              key="og:audio:url"
-              property="og:audio:url"
-              content={config.openGraph.audio.url}
-            />,
-          );
-        }
-
-        if (config.openGraph.audio.secureUrl) {
-          tagsToRender.push(
-            <meta
-              key="og:audio:secureUrl"
-              property="og:audio:secureUrl"
-              content={config.openGraph.audio.secureUrl}
-            />,
-          );
-        }
-
-        if (config.openGraph.audio.type) {
-          tagsToRender.push(
-            <meta
-              key="og:audio:type"
-              property="og:audio:type"
-              content={config.openGraph.audio.type}
-            />,
-          );
-        }
       }
     }
 
@@ -622,6 +592,13 @@ const buildTags = (config: BuildTagsParams) => {
           defaultWidth: defaults.defaultOpenGraphVideoWidth,
           defaultHeight: defaults.defaultOpenGraphVideoHeight,
         }),
+      );
+    }
+
+    // audio
+    if (config.openGraph.audio) {
+      tagsToRender.push(
+        ...buildOpenGraphMediaTags('audio', config.openGraph.audio),
       );
     }
 

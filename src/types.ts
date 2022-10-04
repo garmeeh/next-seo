@@ -237,6 +237,7 @@ export interface OpenGraph {
   description?: string;
   images?: ReadonlyArray<OpenGraphMedia>;
   videos?: ReadonlyArray<OpenGraphMedia>;
+  audio?: ReadonlyArray<OpenGraphMedia>;
   defaultImageHeight?: number;
   defaultImageWidth?: number;
   locale?: string;
@@ -245,7 +246,6 @@ export interface OpenGraph {
   book?: OpenGraphBook;
   article?: OpenGraphArticle;
   video?: OpenGraphVideo;
-  audio?: OpenGraphAudio;
 }
 
 export interface OpenGraphProfile {

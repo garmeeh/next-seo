@@ -622,6 +622,7 @@ Next SEO currently supports:
 - [article](#article)
 - [book](#book)
 - [profile](#profile)
+- [audio](#audio)
 
 ### Open Graph Examples
 
