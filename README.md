@@ -45,6 +45,7 @@ Coffee fuels coding ☕️
   - [Open Graph Examples](#open-graph-examples)
     - [Basic](#basic)
     - [Video](#video)
+    - [Audio](#audio)
     - [Article](#article)
     - [Book](#book)
     - [Profile](#profile)
@@ -753,6 +754,44 @@ images: [
 ```
 
 Supplying multiple images will not break anything, but only one will be added to the head.
+
+#### Audio
+
+Full info on [http://ogp.me/](https://ogp.me/#structured)
+
+```jsx
+import { NextSeo } from 'next-seo';
+
+const Page = () => (
+  <>
+    <NextSeo
+      title="Audio Page Title"
+      description="Description of audio page"
+      openGraph={{
+        title: 'Open Graph Audio',
+        description: 'Description of open graph audio',
+        url: 'https://www.example.com/audio/audio',
+        audio: [
+          {
+            url: 'http://examples.opengraphprotocol.us/media/audio/1khz.mp3,
+            secureUrl: 'https://d72cgtgi6hvvl.cloudfront.net/media/audio/1khz.mp3,
+            type: "audio/mpeg"
+          },
+          {
+            url: 'http://examples.opengraphprotocol.us/media/audio/250hz.mp3,
+            secureUrl: 'https://d72cgtgi6hvvl.cloudfront.net/media/audio/250hz.mp3,
+            type: "audio/mpeg"
+          },
+        ]
+        site_name: 'SiteName',
+      }}
+    />
+    <h1>Audio Page SEO</h1>
+  </>
+);
+
+export default Page;
+```
 
 #### Article
 
