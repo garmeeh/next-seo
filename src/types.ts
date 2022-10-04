@@ -245,6 +245,7 @@ export interface OpenGraph {
   book?: OpenGraphBook;
   article?: OpenGraphArticle;
   video?: OpenGraphVideo;
+  audio?: OpenGraphAudio;
 }
 
 export interface OpenGraphProfile {
@@ -279,6 +280,13 @@ export interface OpenGraphVideo {
   releaseDate?: string;
   tags?: ReadonlyArray<string>;
   series?: string;
+}
+
+export interface OpenGraphAudio {
+  audio?: string;
+  url?: string;
+  secureUrl?: string;
+  type?: string;
 }
 
 export interface Twitter {

@@ -556,6 +556,36 @@ const buildTags = (config: BuildTagsParams) => {
             />,
           );
         }
+      } else if (type === 'music.song' && config.openGraph.audio) {
+        if (config.openGraph.audio.url) {
+          tagsToRender.push(
+            <meta
+              key="og:audio:url"
+              property="og:audio:url"
+              content={config.openGraph.audio.url}
+            />,
+          );
+        }
+
+        if (config.openGraph.audio.secureUrl) {
+          tagsToRender.push(
+            <meta
+              key="og:audio:secureUrl"
+              property="og:audio:secureUrl"
+              content={config.openGraph.audio.secureUrl}
+            />,
+          );
+        }
+
+        if (config.openGraph.audio.type) {
+          tagsToRender.push(
+            <meta
+              key="og:audio:type"
+              property="og:audio:type"
+              content={config.openGraph.audio.type}
+            />,
+          );
+        }
       }
     }
 

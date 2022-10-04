@@ -66,5 +66,3 @@ export { default as WebPageJsonLd, WebPageJsonLdProps } from './jsonld/webPage';
 export { default as DefaultSeo } from './meta/defaultSEO';
 export { default as NextSeo } from './meta/nextSEO';
 export { DefaultSeoProps, NextSeoProps } from './types';
-
-console.log('test');
