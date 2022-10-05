@@ -23,6 +23,7 @@ Coffee fuels coding ☕️
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [Usage](#usage)
   - [Setup](#setup)
   - [Add SEO to Page](#add-seo-to-page)
