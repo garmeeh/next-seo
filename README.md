@@ -773,13 +773,13 @@ const Page = () => (
         url: 'https://www.example.com/audio/audio',
         audio: [
           {
-            url: 'http://examples.opengraphprotocol.us/media/audio/1khz.mp3,
-            secureUrl: 'https://d72cgtgi6hvvl.cloudfront.net/media/audio/1khz.mp3,
+            url: 'http://examples.opengraphprotocol.us/media/audio/1khz.mp3',
+            secureUrl: 'https://d72cgtgi6hvvl.cloudfront.net/media/audio/1khz.mp3',
             type: "audio/mpeg"
           },
           {
-            url: 'http://examples.opengraphprotocol.us/media/audio/250hz.mp3,
-            secureUrl: 'https://d72cgtgi6hvvl.cloudfront.net/media/audio/250hz.mp3,
+            url: 'http://examples.opengraphprotocol.us/media/audio/250hz.mp3',
+            secureUrl: 'https://d72cgtgi6hvvl.cloudfront.net/media/audio/250hz.mp3',
             type: "audio/mpeg"
           },
         ]
