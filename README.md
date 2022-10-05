@@ -624,7 +624,6 @@ Next SEO currently supports:
 - [article](#article)
 - [book](#book)
 - [profile](#profile)
-- [audio](#audio)
 
 ### Open Graph Examples
 
@@ -762,7 +761,6 @@ Full info on [http://ogp.me/](https://ogp.me/#structured)
 
 ```jsx
 import { NextSeo } from 'next-seo';
-
 const Page = () => (
   <>
     <NextSeo
@@ -790,7 +788,6 @@ const Page = () => (
     <h1>Audio Page SEO</h1>
   </>
 );
-
 export default Page;
 ```
 
