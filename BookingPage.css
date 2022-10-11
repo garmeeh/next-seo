@@ -1,0 +1,25 @@
+body{
+    background-image:url(img_forest.jpg);
+    background-size: cover;
+    background-color: rgb(16, 15, 14);
+}
+h1{
+    text-align: center;
+    background: radial-gradient(circle,rgb(124, 237, 124),rgb(237, 223, 71));
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    font-size: 50px;
+    border:4px solid rgb(240, 237, 237) ;
+    
+}
+form{
+    text-align: center;
+    font-size: larger;
+     color: rgb(247, 251, 172);
+}
+tr{
+    border:4px solid rgb(240, 237, 237) ;
+}
+table{
+   align-items: center;
+}

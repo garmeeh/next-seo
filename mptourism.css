@@ -1,0 +1,105 @@
+body{
+    background-color: rgb(16, 15, 14);
+}
+#qwe{
+    width: 600px;
+  height: 100px;
+  position: relative;
+    animation: mymove 5s infinite;
+    animation-delay: 2s;
+}
+h1{
+    margin-left: 20px;
+    background: linear-gradient(to bottom left,rgb(29, 129, 29),yellow);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    font-size: 50px;
+    border:4px solid rgb(240, 237, 237) ;
+    
+}
+@keyframes mymove{
+    from{left:0px;}
+    to{left: 200px;}
+}
+h2{
+    text-align: center;
+    background: linear-gradient(to bottom left,rgb(29, 129, 29),yellow);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    border:4px solid rgb(240, 237, 237) ;
+}
+a{
+    border:4px solid rgb(240, 237, 237);
+    color:greenyellow;
+    
+}
+a:link{
+    text-decoration: none;
+}
+a:hover{
+    color:red;
+    text-decoration: underline;
+}
+th{
+    font-size: larger;
+    padding: 5px;
+}
+sub{
+    text-align: center;
+    text-underline-position: auto;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: large;
+    color: aliceblue;
+    text-decoration: underline;
+}
+td{
+    font-size: larger;
+    padding: 20px;
+}
+#b{
+    border:4px solid rgb(240, 237, 237);
+    color:greenyellow;
+    padding: 0px 90px;
+}
+#b:hover{
+    color: red;
+}
+pre{
+    color: aliceblue;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+h3{
+    text-align: center;
+    background: linear-gradient(to bottom left,rgb(29, 129, 29),yellow);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    border:4px solid rgb(240, 237, 237) ;
+}
+#q{
+    text-align: center;
+    padding: 50px;
+}
+#qw{
+    border: 4px solid white;
+    border-collapse: collapse;
+}
+p{
+    color: aliceblue;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border: 10px solid transparent;
+    padding: 15px;
+    border-image: url(border.png) 30 stretch;
+}
+pre{
+    border: 10px solid transparent;
+    padding: 15px;
+    border-image: url(border.png) 30 stretch;
+}
+#chirag{
+    margin-left: -50px;
+    color: aliceblue;
+    height: 300px;
+    width: max-content;
+    background-image: url("sunset.jfif");
+    background-size:  cover;
+}
