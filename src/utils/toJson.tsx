@@ -79,4 +79,7 @@ const safeJsonLdReplacer: JsonReplacer = (() => {
 // Utility: Assert never
 function isNever(_: never): void {}
 
+export const stringify = (data: any) =>
+  JSON.stringify(data, safeJsonLdReplacer);
+
 export default toJson;

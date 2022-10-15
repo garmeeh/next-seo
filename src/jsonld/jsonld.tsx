@@ -21,6 +21,7 @@ function JsonLd({
       <script
         type="application/ld+json"
         id={scriptId}
+        data-testid={scriptId}
         dangerouslySetInnerHTML={toJson(type, { ...rest })}
         key={`jsonld-${scriptKey}${keyOverride ? `-${keyOverride}` : ''}`}
       />
