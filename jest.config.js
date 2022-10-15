@@ -15,7 +15,13 @@ const customJestConfig = {
   modulePaths: ['.'],
   moduleDirectories: ['node_modules', '.'],
   moduleFileExtensions: ['ts', 'tsx', 'js'],
-  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/types.ts',
+    '!src/index.tsx',
+    '!src/jsonld/TEMPLATE.tsx',
+    '!src/utils/toJson.tsx',
+  ],
   testPathIgnorePatterns: [
     '<rootDir>/.history/',
     '<rootDir>/node_modules/',

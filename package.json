@@ -17,6 +17,7 @@
   },
   "scripts": {
     "test": "jest",
+    "test:coverage": "jest --verbose --coverage",
     "test:watch": "jest --watch",
     "pretest:e2e:ci": "yarn e2e:build",
     "test:e2e": "npm-run-all --parallel e2e:dev cy:open",
