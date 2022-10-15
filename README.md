@@ -23,7 +23,6 @@ Coffee fuels coding ☕️
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [Usage](#usage)
   - [Setup](#setup)
   - [Add SEO to Page](#add-seo-to-page)
@@ -51,8 +50,8 @@ Coffee fuels coding ☕️
     - [Book](#book)
     - [Profile](#profile)
 - [JSON-LD](#json-ld)
-    - [JSON-LD Security](#json-ld-security)
-    - [Handling multiple instances](#handling-multiple-instances)
+  - [JSON-LD Security](#json-ld-security)
+  - [Handling multiple instances](#handling-multiple-instances)
   - [Article](#article-1)
   - [Breadcrumb](#breadcrumb)
   - [Blog](#blog)
