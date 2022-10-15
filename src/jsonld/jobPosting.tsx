@@ -34,6 +34,27 @@ export type EmploymentType =
   | 'PER_DIEM'
   | 'OTHER';
 
+export type OccupationalExperienceRequirements = {
+  '@type'?: 'OccupationalExperienceRequirements' | 'no requirements' | string;
+  minimumMonthsOfExperience: number;
+};
+
+export type EducationalOccupationalCredential = {
+  '@type'?: 'EducationalOccupationalCredential' | string;
+  credentialCategory:
+    | 'high school'
+    | 'associate degree'
+    | 'bachelor degree'
+    | 'professional certificate'
+    | 'postgraduate degree';
+};
+
+export type ExperienceRequirements = {
+  occupational?: OccupationalExperienceRequirements;
+  educational?: EducationalOccupationalCredential;
+  experienceInPlaceOfEducation?: boolean;
+};
+
 export interface JobPostingJsonLdProps extends JsonLdProps {
   keyOverride?: string;
   datePosted: string;
@@ -46,6 +67,7 @@ export interface JobPostingJsonLdProps extends JsonLdProps {
   employmentType?: EmploymentType | EmploymentType[];
   jobLocation?: Place;
   jobLocationType?: string;
+  experienceRequirements?: ExperienceRequirements;
 }
 
 function JobPostingJsonLd({
@@ -54,6 +76,7 @@ function JobPostingJsonLd({
   baseSalary,
   hiringOrganization,
   applicantLocationRequirements,
+  experienceRequirements,
   jobLocation,
   ...rest
 }: JobPostingJsonLdProps) {
@@ -115,6 +138,34 @@ function JobPostingJsonLd({
     return undefined;
   }
 
+  function setOccupationalExperienceRequirements(
+    requirements?: OccupationalExperienceRequirements,
+  ) {
+    if (requirements) {
+      return {
+        '@type': requirements['@type']
+          ? requirements['@type']
+          : 'OccupationalExperienceRequirements',
+        monthsOfExperience: requirements.minimumMonthsOfExperience,
+      };
+    }
+    return undefined;
+  }
+
+  function setEducationalOccupationalCredential(
+    requirements?: EducationalOccupationalCredential,
+  ) {
+    if (requirements) {
+      return {
+        '@type': requirements['@type']
+          ? requirements['@type']
+          : 'EducationalOccupationalCredential',
+        credentialCategory: requirements.credentialCategory,
+      };
+    }
+    return undefined;
+  }
+
   const data = {
     ...rest,
     baseSalary: setBaseSalary(baseSalary),
@@ -123,6 +174,14 @@ function JobPostingJsonLd({
     applicantLocationRequirements: setApplicantLocationRequirements(
       applicantLocationRequirements,
     ),
+    experienceRequirements: setOccupationalExperienceRequirements(
+      experienceRequirements?.occupational,
+    ),
+    educationRequirements: setEducationalOccupationalCredential(
+      experienceRequirements?.educational,
+    ),
+    experienceInPlaceOfEducation:
+      experienceRequirements?.experienceInPlaceOfEducation,
   };
 
   return (

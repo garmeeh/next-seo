@@ -30,6 +30,11 @@ function JobPosting() {
         jobLocationType="TELECOMMUTE"
         validThrough="2020-01-06"
         applicantLocationRequirements="FR"
+        experienceRequirements={{
+          occupational: { minimumMonthsOfExperience: 12 },
+          educational: { credentialCategory: 'high school' },
+          experienceInPlaceOfEducation: true,
+        }}
       />
 
       <JobPostingJsonLd
