@@ -26,8 +26,8 @@ jobs:
 
       # Install required deps for action
       - name: Install Dependencies
-        run: npm install
+        run: yarn
 
       # Finally, run our tests
       - name: Run the tests
-        run: npm run test
+        run: yarn test
