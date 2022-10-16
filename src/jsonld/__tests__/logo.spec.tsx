@@ -19,7 +19,7 @@ describe('Logo JSON-LD', () => {
     const expected = {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      logo: 'https://example.com/logo.png',
+      logo: 'https://example.com/logo.pngFAIl',
       url: 'https://example.com',
     };
 
