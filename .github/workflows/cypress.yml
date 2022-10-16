@@ -7,6 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     container: cypress/browsers:node12.18.3-chrome87-ff82
     steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16'
       - name: Checkout
         uses: actions/checkout@v2
 
