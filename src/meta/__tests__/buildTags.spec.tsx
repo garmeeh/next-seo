@@ -1,5 +1,5 @@
 import React from 'react';
-import { getByText, cleanup, render } from 'react-testing-library';
+import { getByText, cleanup, render } from '@testing-library/react';
 import { BuildTagsParams, ImagePrevSize } from '../../types';
 
 import buildTags from '../buildTags';

@@ -17,6 +17,7 @@
   },
   "scripts": {
     "test": "jest",
+    "test:coverage": "jest --verbose --coverage",
     "test:watch": "jest --watch",
     "pretest:e2e:ci": "yarn e2e:build",
     "test:e2e": "npm-run-all --parallel e2e:dev cy:open",
@@ -68,6 +69,8 @@
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
     "@cypress/schema-tools": "^4.7.9",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
     "@types/jest": "^27.4.0",
     "@types/node": "^17.0.13",
     "@types/react": "^17.0.43",
@@ -85,7 +88,6 @@
     "prettier": "2.5.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-testing-library": "7.0.0",
     "rimraf": "3.0.2",
     "typescript": "^4.5.5"
   },
