@@ -237,6 +237,7 @@ export interface OpenGraph {
   description?: string;
   images?: ReadonlyArray<OpenGraphMedia>;
   videos?: ReadonlyArray<OpenGraphMedia>;
+  audio?: ReadonlyArray<OpenGraphMedia>;
   defaultImageHeight?: number;
   defaultImageWidth?: number;
   locale?: string;
@@ -279,6 +280,13 @@ export interface OpenGraphVideo {
   releaseDate?: string;
   tags?: ReadonlyArray<string>;
   series?: string;
+}
+
+export interface OpenGraphAudio {
+  audio?: string;
+  url?: string;
+  secureUrl?: string;
+  type?: string;
 }
 
 export interface Twitter {

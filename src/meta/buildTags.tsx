@@ -11,7 +11,7 @@ const defaults = {
 };
 
 const buildOpenGraphMediaTags = (
-  mediaType: 'image' | 'video',
+  mediaType: 'image' | 'video' | 'audio',
   media: ReadonlyArray<OpenGraphMedia> = [],
   {
     defaultWidth,
@@ -592,6 +592,13 @@ const buildTags = (config: BuildTagsParams) => {
           defaultWidth: defaults.defaultOpenGraphVideoWidth,
           defaultHeight: defaults.defaultOpenGraphVideoHeight,
         }),
+      );
+    }
+
+    // audio
+    if (config.openGraph.audio) {
+      tagsToRender.push(
+        ...buildOpenGraphMediaTags('audio', config.openGraph.audio),
       );
     }
 

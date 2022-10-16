@@ -561,6 +561,30 @@ exports[`renders correctly 1`] = `
     property="og:image:height"
   />
   <meta
+    content="http://examples.opengraphprotocol.us/media/audio/1khz.mp3"
+    property="og:audio"
+  />
+  <meta
+    content="https://d72cgtgi6hvvl.cloudfront.net/media/audio/1khz.mp3"
+    property="og:audio:secure_url"
+  />
+  <meta
+    content="audio/mpeg"
+    property="og:audio:type"
+  />
+  <meta
+    content="http://examples.opengraphprotocol.us/media/audio/250hz.mp3"
+    property="og:audio"
+  />
+  <meta
+    content="https://d72cgtgi6hvvl.cloudfront.net/media/audio/250hz.mp3"
+    property="og:audio:secure_url"
+  />
+  <meta
+    content="audio/mpeg"
+    property="og:audio:type"
+  />
+  <meta
     content="en_IE"
     property="og:locale"
   />

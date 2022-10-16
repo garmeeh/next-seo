@@ -77,6 +77,18 @@ const SEO: BuildTagsParams = {
       { url: 'https://www.test.ie/image-03.jpg' },
       { url: 'https://www.test.ie/image-04.jpg' },
     ],
+    audio: [
+      {
+        url: 'http://examples.opengraphprotocol.us/media/audio/1khz.mp3',
+        secureUrl: 'https://d72cgtgi6hvvl.cloudfront.net/media/audio/1khz.mp3',
+        type: 'audio/mpeg',
+      },
+      {
+        url: 'http://examples.opengraphprotocol.us/media/audio/250hz.mp3',
+        secureUrl: 'https://d72cgtgi6hvvl.cloudfront.net/media/audio/250hz.mp3',
+        type: 'audio/mpeg',
+      },
+    ],
     site_name: 'SiteName',
   },
   twitter: {
@@ -165,6 +177,14 @@ it('returns full array for default seo object', () => {
     `meta[content="${SEO.openGraph.images[3].url}"]`,
   );
   const ogImageTag03 = tags.filter(item => item.key === 'og:image:03');
+  const ogAudio00 = container.querySelectorAll(
+    `meta[content="${SEO.openGraph?.audio[0].url}"]`,
+  );
+  const ogAudioTag00 = tags.filter(item => item.key === 'og:audio:01');
+  const ogAudio01 = container.querySelectorAll(
+    `meta[content="${SEO.openGraph?.audio[1].url}"]`,
+  );
+  const ogAudioTag01 = tags.filter(item => item.key === 'og:audio:02');
   const ogDefaultImageWidthHeight = container.querySelectorAll(
     `meta[content="${SEO.defaultOpenGraphImageHeight}"]`,
   );
@@ -253,6 +273,8 @@ it('returns full array for default seo object', () => {
   expect(Array.from(ogImageTag02).length).toBe(1);
   expect(Array.from(ogImage03).length).toBe(1);
   expect(Array.from(ogImageTag03).length).toBe(1);
+  expect(Array.from(ogAudio00).length).toBe(1);
+  expect(Array.from(ogAudioTag00).length).toBe(1);
   expect(Array.from(ogDefaultImageWidthHeight).length).toBe(6);
   expect(Array.from(ogSetImageHeight).length).toBe(1);
   expect(Array.from(ogSetImageWidth).length).toBe(1);

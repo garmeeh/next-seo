@@ -45,6 +45,7 @@ Coffee fuels coding ☕️
   - [Open Graph Examples](#open-graph-examples)
     - [Basic](#basic)
     - [Video](#video)
+    - [Audio](#audio)
     - [Article](#article)
     - [Book](#book)
     - [Profile](#profile)
@@ -752,6 +753,42 @@ images: [
 ```
 
 Supplying multiple images will not break anything, but only one will be added to the head.
+
+#### Audio
+
+Full info on [http://ogp.me/](https://ogp.me/#structured)
+
+```jsx
+import { NextSeo } from 'next-seo';
+const Page = () => (
+  <>
+    <NextSeo
+      title="Audio Page Title"
+      description="Description of audio page"
+      openGraph={{
+        title: 'Open Graph Audio',
+        description: 'Description of open graph audio',
+        url: 'https://www.example.com/audio/audio',
+        audio: [
+          {
+            url: 'http://examples.opengraphprotocol.us/media/audio/1khz.mp3',
+            secureUrl: 'https://d72cgtgi6hvvl.cloudfront.net/media/audio/1khz.mp3',
+            type: "audio/mpeg"
+          },
+          {
+            url: 'http://examples.opengraphprotocol.us/media/audio/250hz.mp3',
+            secureUrl: 'https://d72cgtgi6hvvl.cloudfront.net/media/audio/250hz.mp3',
+            type: "audio/mpeg"
+          },
+        ]
+        site_name: 'SiteName',
+      }}
+    />
+    <h1>Audio Page SEO</h1>
+  </>
+);
+export default Page;
+```
 
 #### Article
 
@@ -1494,6 +1531,15 @@ const Page = () => (
       jobLocationType="TELECOMMUTE"
       validThrough="2020-01-06"
       applicantLocationRequirements="FR"
+      experienceRequirements={{
+        occupational: {
+          minimumMonthsOfExperience: 12,
+        },
+        educational: {
+          credentialCategory: 'high school',
+        },
+        experienceInPlaceOfEducation: true,
+      }}
     />
   </>
 );
@@ -1515,22 +1561,25 @@ export default Page;
 
 **Supported properties**
 
-| Property                        | Info                                                                                                                                                        |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `applicantLocationRequirements` | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                          |
-| `baseSalary`                    |                                                                                                                                                             |
-| `baseSalary.currency`           | The currency in which the monetary amount is expressed                                                                                                      |
-| `baseSalary.value`              | The value of the quantitative value. You can also provide an array of minimum and maximum salaries. .                                                       |
-| `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)            |
-| `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                                |
-| `jobLocation`                   | The physical location(s) of the business where the employee will report to work (such as an office or worksite), not the location where the job was posted. |
-| `jobLocation.streetAddress`     | The street address. For example, 1600 Amphitheatre Pkwy                                                                                                     |
-| `jobLocation.addressLocality`   | The locality. For example, Mountain View.                                                                                                                   |
-| `jobLocation.addressRegion`     | The region. For example, CA.                                                                                                                                |
-| `jobLocation.postalCode`        | The postal code. For example, 94043                                                                                                                         |
-| `jobLocation.addressCountry`    | The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.                                                         |
-| `jobLocationType`               | A description of the job location [Job Location type guideline](https://developers.google.com/search/docs/data-types/job-posting#job-location-type)         |
-| `hiringOrganization.logo`       | Logos on third-party job sites [Hiring Organization guideline](https://developers.google.com/search/docs/data-types/job-posting#hiring)                     |
+| Property                                                        | Info                                                                                                                                                                                                                                                    |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `applicantLocationRequirements`                                 | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                                                                                                                      |
+| `baseSalary`                                                    |                                                                                                                                                                                                                                                         |
+| `baseSalary.currency`                                           | The currency in which the monetary amount is expressed                                                                                                                                                                                                  |
+| `baseSalary.value`                                              | The value of the quantitative value. You can also provide an array of minimum and maximum salaries. .                                                                                                                                                   |
+| `baseSalary.unitText`                                           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                                                                                                        |
+| `employmentType`                                                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                                                                                                                            |
+| `jobLocation`                                                   | The physical location(s) of the business where the employee will report to work (such as an office or worksite), not the location where the job was posted.                                                                                             |
+| `jobLocation.streetAddress`                                     | The street address. For example, 1600 Amphitheatre Pkwy                                                                                                                                                                                                 |
+| `jobLocation.addressLocality`                                   | The locality. For example, Mountain View.                                                                                                                                                                                                               |
+| `jobLocation.addressRegion`                                     | The region. For example, CA.                                                                                                                                                                                                                            |
+| `jobLocation.postalCode`                                        | The postal code. For example, 94043                                                                                                                                                                                                                     |
+| `jobLocation.addressCountry`                                    | The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.                                                                                                                                                     |
+| `jobLocationType`                                               | A description of the job location [Job Location type guideline](https://developers.google.com/search/docs/data-types/job-posting#job-location-type)                                                                                                     |
+| `hiringOrganization.logo`                                       | Logos on third-party job sites [Hiring Organization guideline](https://developers.google.com/search/docs/data-types/job-posting#hiring)                                                                                                                 |
+| `experienceRequirements.occupational.minimumMonthsOfExperience` | The minimum number of months of experience that are required for the job posting. [Experience and Education Requirements](https://developers.google.com/search/docs/appearance/structured-data/job-posting#education-and-experience-properties-beta)    |
+| `experienceRequirements.educational.credentialCategory`         | The level of education that's required for the job posting. Use one of the following: `high school`, `associate degree`, `bachelor degree`, `professional certificate`, `postgraduate degree`                                                           |
+| `experienceRequirements.experienceInPlaceOfEducation`           | Boolean: If set to true, this property indicates whether a job posting will accept experience in place of its formal educational qualifications. If set to true, you must include both the experienceRequirements and educationRequirements properties. |
 
 ### Local Business
 

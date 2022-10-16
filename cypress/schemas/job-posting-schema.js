@@ -212,6 +212,62 @@ const applicantLocationRequirements100 = {
   },
 };
 
+const experienceRequirements100 = {
+  version: {
+    major: 1,
+    minor: 0,
+    patch: 0,
+  },
+  schema: {
+    type: 'object',
+    descrption: 'experience requirements for applicants',
+    properties: {
+      '@type': {
+        type: 'string',
+        description: 'type of experience requirement',
+      },
+      monthsOfExperience: {
+        type: 'number',
+        description: 'minimum number of months of experience required',
+      },
+    },
+    required: false,
+    additionalProperties: false,
+    example: {
+      '@type': 'OccupationalExperienceRequirements',
+      monthsOfExperience: '12',
+    },
+  },
+};
+
+const educationRequirements100 = {
+  version: {
+    major: 1,
+    minor: 0,
+    patch: 0,
+  },
+  schema: {
+    type: 'object',
+    descrption: 'education requirements for applicants',
+    properties: {
+      '@type': {
+        type: 'string',
+        description: 'type of education requirement',
+      },
+      credentialCategory: {
+        type: 'string',
+        description: 'minimum education level required',
+      },
+    },
+    required: false,
+    additionalProperties: false,
+    example: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'high school',
+    },
+  },
+};
+
 const jobPosting100 = {
   version: {
     major: 1,
@@ -271,6 +327,19 @@ const jobPosting100 = {
         type: 'string',
         description: 'title of the job offer',
       },
+      experienceRequirements: {
+        ...experienceRequirements100.schema,
+        see: experienceRequirements100,
+      },
+      educationRequirements: {
+        ...educationRequirements100.schema,
+        see: educationRequirements100,
+      },
+      experienceInPlaceOfEducation: {
+        type: 'boolean',
+        description: 'whether experience can be used in place of education',
+        required: false,
+      },
     },
     required: true,
     additionalProperties: false,
@@ -303,6 +372,15 @@ const jobPosting100 = {
       jobLocationType: 'TELECOMMUTE',
       validThrough: '2020-12-12',
       title: 'Software developer',
+      experienceRequirements: {
+        ...experienceRequirements100.example,
+        see: experienceRequirements100,
+      },
+      educationRequirements: {
+        ...educationRequirements100.example,
+        see: educationRequirements100,
+      },
+      experienceInPlaceOfEducation: true,
     },
   },
 };
