@@ -3,11 +3,11 @@ import React from 'react';
 import { JsonLd, JsonLdProps } from './jsonld';
 import type { ContactPoint } from 'src/types';
 
-import { setContactPoint } from 'src/utils/schema/setContactPoint';
+import { setContactPoints } from 'src/utils/schema/setContactPoints';
 
 export interface CorporateContactJsonLdProps extends JsonLdProps {
   url: string;
-  contactPoint: ContactPoint[];
+  contactPoint: ContactPoint[] | ContactPoint[];
   logo?: string;
 }
 
@@ -19,7 +19,7 @@ function CorporateContactJsonLd({
 }: CorporateContactJsonLdProps) {
   const data = {
     ...rest,
-    contactPoint: contactPoint.map(setContactPoint),
+    contactPoint: contactPoint && setContactPoints(contactPoint),
   };
   return (
     <JsonLd

@@ -1,12 +1,10 @@
 import type { ContactPoint } from 'src/types';
+import { setContactPoint } from './setContactPoint';
 
-export function setContactPoints(contactPoint?: ContactPoint[]) {
-  if (contactPoint && contactPoint.length) {
-    return contactPoint.map(contactPoint => ({
-      '@type': 'ContactPoint',
-      ...contactPoint,
-    }));
+export function setContactPoints(contactPoint: ContactPoint[] | ContactPoint) {
+  if (Array.isArray(contactPoint)) {
+    return contactPoint.map(setContactPoint);
   }
 
-  return undefined;
+  return setContactPoint(contactPoint);
 }
