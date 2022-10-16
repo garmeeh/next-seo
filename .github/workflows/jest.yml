@@ -8,7 +8,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '12'
+          node-version: '16'
 
       # Speed up subsequent runs with caching
       - name: Cache node modules
@@ -26,7 +26,7 @@ jobs:
 
       # Install required deps for action
       - name: Install Dependencies
-        run: yarn
+        run: yarn --frozen-lockfile
 
       # Finally, run our tests
       - name: Run the tests
