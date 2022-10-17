@@ -10,6 +10,15 @@ describe('Image JSON-LD', () => {
     });
   });
 
+  it('array matches schema', () => {
+    cy.visit('http://localhost:3000/jsonld/imageArray');
+    cy.get('head script[type="application/ld+json"]').then(tags => {
+      const jsonLD = JSON.parse(tags[0].innerHTML);
+      assertSchema(schemas)('Image Metadata', '1.0.0')(jsonLD[0]);
+      assertSchema(schemas)('Image Metadata', '1.0.0')(jsonLD[1]);
+    });
+  });
+
   it('renders with all props', () => {
     cy.visit('http://localhost:3000/jsonld/image');
     cy.get('head script[type="application/ld+json"]').then(tags => {
