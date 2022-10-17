@@ -66,7 +66,7 @@ const APP_DEFAULT_SEO: DefaultSeoProps = {
         secureUrl: 'https://www.test.ie/secure-og-image-a-01.jpg',
       },
     ],
-    site_name: 'SiteName A',
+    siteName: 'SiteName A',
   },
   twitter: {
     handle: '@handlea',

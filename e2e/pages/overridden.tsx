@@ -61,7 +61,7 @@ const Overridden = () => (
           { url: 'https://www.test.ie/og-video-b-03.jpg' },
           { url: 'https://www.test.ie/og-video-b-04.jpg' },
         ],
-        site_name: 'SiteName B',
+        siteName: 'SiteName B',
       }}
       twitter={{
         handle: '@handleb',

@@ -66,7 +66,7 @@ const Video = () => (
             alt: 'Og Image Alt Video Title D',
           },
         ],
-        site_name: 'SiteName',
+        siteName: 'SiteName',
       }}
       twitter={{
         handle: '@handle',
