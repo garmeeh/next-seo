@@ -23,7 +23,8 @@ jobs:
           name: build
           if-no-files-found: error
           path: |
-            .lib
+            node_modules
+            lib
             e2e/.next
   ui-chrome-tests:
     runs-on: ubuntu-latest
