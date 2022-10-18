@@ -1,24 +1,34 @@
 import React from 'react';
-import { LocalBusinessJsonLd } from '../../..';
+import { LocalBusinessJsonLd } from '../../../..';
 
-function LocalBusiness() {
+function MultipleAddresses() {
   return (
     <>
-      <h1>LocalBusiness</h1>
+      <h1>LocalBusiness with multiple addresses</h1>
+
       <LocalBusinessJsonLd
         type="Store"
-        id="http://davesdeptstore.example.com"
+        id="http://davesdeptstore.example.com/multiple-addresses"
         name="Dave's Department Store"
         description="Dave's latest department store in San Jose, now open"
         url="http://www.example.com/store-locator/sl/San-Jose-Westgate-Store/1427"
         telephone="+14088717984"
-        address={{
-          streetAddress: '1600 Saratoga Ave',
-          addressLocality: 'San Jose',
-          addressRegion: 'CA',
-          postalCode: '95129',
-          addressCountry: 'US',
-        }}
+        address={[
+          {
+            streetAddress: '1600 Saratoga Ave',
+            addressLocality: 'San Jose',
+            addressRegion: 'CA',
+            postalCode: '95129',
+            addressCountry: 'US',
+          },
+          {
+            streetAddress: '17 street address',
+            addressLocality: 'Paris',
+            addressRegion: 'Ile-de-France',
+            postalCode: '75001',
+            addressCountry: 'France',
+          },
+        ]}
         geo={{
           latitude: '37.293058',
           longitude: '-121.988331',
@@ -133,4 +143,4 @@ function LocalBusiness() {
   );
 }
 
-export default LocalBusiness;
+export default MultipleAddresses;
