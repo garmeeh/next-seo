@@ -26,6 +26,7 @@ import brandVersions from './brand-schema';
 import webPageVersions from './web-page-schema';
 import videoVersions from './video-schema';
 import howToVersions from './how-to-schema';
+import imageVersions from './image-schema';
 
 const schemas = combineSchemas(
   articleVersions,
@@ -54,5 +55,6 @@ const schemas = combineSchemas(
   webPageVersions,
   videoVersions,
   howToVersions,
+  imageVersions,
 );
 export default schemas;

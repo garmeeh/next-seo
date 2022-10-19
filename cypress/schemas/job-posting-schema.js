@@ -192,7 +192,7 @@ const applicantLocationRequirements100 = {
   },
   schema: {
     type: 'object',
-    descrption: 'location requirements for applicants',
+    description: 'location requirements for applicants',
     properties: {
       '@type': {
         type: 'string',
@@ -220,7 +220,7 @@ const experienceRequirements100 = {
   },
   schema: {
     type: 'object',
-    descrption: 'experience requirements for applicants',
+    description: 'experience requirements for applicants',
     properties: {
       '@type': {
         type: 'string',
@@ -248,7 +248,7 @@ const educationRequirements100 = {
   },
   schema: {
     type: 'object',
-    descrption: 'education requirements for applicants',
+    description: 'education requirements for applicants',
     properties: {
       '@type': {
         type: 'string',
