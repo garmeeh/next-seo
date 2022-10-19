@@ -5,23 +5,18 @@ on: [pull_request]
 jobs:
   install:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '16'
+    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: Cypress install
-        uses: cypress-io/github-action@v3.1.0
+        uses: cypress-io/github-action@v4.2.0
         with:
           # Disable running of tests within install job
           runTests: false
           command-prefix: yarn dlx
-          install-command: yarn install 
+          install-command: yarn install
           build: yarn build:test
 
       - name: Save build folder
@@ -34,6 +29,7 @@ jobs:
             e2e/.next
   ui-chrome-tests:
     runs-on: ubuntu-latest
+    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
     needs: install
     strategy:
       fail-fast: false
@@ -41,10 +37,6 @@ jobs:
         # run copies of the current job in parallel
         containers: [1, 2, 3, 4, 5]
     steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '16'
       - name: Checkout
         uses: actions/checkout@v2
 
@@ -54,12 +46,12 @@ jobs:
           name: build
 
       - name: 'UI Tests - Chrome'
-        uses: cypress-io/github-action@v3.1.0
+        uses: cypress-io/github-action@v4.2.0
         with:
           # we have already installed all dependencies above
           install: false
           command-prefix: yarn dlx
-          install-command: yarn install 
+          install-command: yarn install
           start: yarn e2e:start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
