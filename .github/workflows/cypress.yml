@@ -5,7 +5,13 @@ on: [pull_request]
 jobs:
   install:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16'
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -15,7 +21,9 @@ jobs:
         with:
           # Disable running of tests within install job
           runTests: false
-          build: npm run build:test
+          command-prefix: yarn dlx
+          install-command: yarn install 
+          build: yarn build:test
 
       - name: Save build folder
         uses: actions/upload-artifact@v2
@@ -48,7 +56,9 @@ jobs:
         with:
           # we have already installed all dependencies above
           install: false
-          start: npm run e2e:start
+          command-prefix: yarn dlx
+          install-command: yarn install 
+          start: yarn e2e:start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
           browser: chrome
