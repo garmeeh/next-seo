@@ -15,6 +15,7 @@ jobs:
         with:
           # Disable running of tests within install job
           runTests: false
+          install-command: yarn --frozen-lockfile
           build: yarn build:test
 
       - name: Save build folder
@@ -47,7 +48,7 @@ jobs:
         uses: cypress-io/github-action@v4.2.0
         with:
           # we have already installed all dependencies above
-          install: true
+          install: false
           start: yarn e2e:start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
