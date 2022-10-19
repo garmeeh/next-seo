@@ -242,6 +242,9 @@ export interface OpenGraph {
   defaultImageWidth?: number;
   locale?: string;
   siteName?: string;
+  /**
+   * @deprecated use siteName instead. site_name will be removed in the next major version
+   */
   site_name?: string;
   profile?: OpenGraphProfile;
   book?: OpenGraphBook;
