@@ -1,4 +1,19 @@
 const toJson = (type: string, jsonld: any) => {
+  let data = jsonld;
+
+  if (Array.isArray(data) && data.length === 1) {
+    data = { ...jsonld[0] };
+  }
+  const jsonLdObject = Array.isArray(data)
+    ? data.map(item => formatObjectForSchema(type, item))
+    : formatObjectForSchema(type, data);
+
+  return {
+    __html: JSON.stringify(jsonLdObject, safeJsonLdReplacer),
+  };
+};
+
+const formatObjectForSchema = (type: string, jsonld: any) => {
   const { id = undefined } = jsonld;
   const updated = {
     ...(id ? { '@id': jsonld.id } : {}),
@@ -7,14 +22,9 @@ const toJson = (type: string, jsonld: any) => {
   delete updated.id;
 
   return {
-    __html: JSON.stringify(
-      {
-        '@context': 'https://schema.org',
-        '@type': type,
-        ...updated,
-      },
-      safeJsonLdReplacer,
-    ),
+    '@context': 'https://schema.org',
+    '@type': type,
+    ...updated,
   };
 };
 
