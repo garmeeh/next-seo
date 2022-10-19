@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Cypress install
-        uses: cypress-io/github-action@v4.2.0
+        uses: cypress-io/github-action@v3.1.0
         with:
           # Disable running of tests within install job
           runTests: false
@@ -44,7 +44,7 @@ jobs:
           name: build
 
       - name: 'UI Tests - Chrome'
-        uses: cypress-io/github-action@v4.2.0
+        uses: cypress-io/github-action@v3.1.0
         with:
           # we have already installed all dependencies above
           install: false
