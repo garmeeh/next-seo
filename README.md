@@ -502,7 +502,8 @@ languageAlternates={[{
 
 #### Additional Meta Tags
 
-This allows you to add any other meta tags that are not covered in the `config`.
+This allows you to add any other meta tags that are not covered in the `config` and
+should be used instead of `children` prop.
 
 `content` is required. Then either `name`, `property` or `httpEquiv`. (Only one on each)
 

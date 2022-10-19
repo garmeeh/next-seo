@@ -463,6 +463,7 @@ export interface NextSeoProps {
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
   additionalLinkTags?: ReadonlyArray<LinkTag>;
+  children?: never;
 }
 
 export interface DefaultSeoProps {
