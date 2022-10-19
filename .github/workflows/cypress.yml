@@ -15,8 +15,7 @@ jobs:
         with:
           # Disable running of tests within install job
           runTests: false
-          install-command: yarn --frozen-lockfile
-          build: yarn build:test
+          build: npm run build:test
 
       - name: Save build folder
         uses: actions/upload-artifact@v2
@@ -49,7 +48,7 @@ jobs:
         with:
           # we have already installed all dependencies above
           install: false
-          start: yarn e2e:start
+          start: npm run e2e:start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120
           browser: chrome
