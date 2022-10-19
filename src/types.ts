@@ -241,6 +241,7 @@ export interface OpenGraph {
   defaultImageHeight?: number;
   defaultImageWidth?: number;
   locale?: string;
+  siteName?: string;
   site_name?: string;
   profile?: OpenGraphProfile;
   book?: OpenGraphBook;

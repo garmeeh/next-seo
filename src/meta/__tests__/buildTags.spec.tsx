@@ -90,6 +90,7 @@ const SEO: BuildTagsParams = {
       },
     ],
     site_name: 'SiteName',
+    siteName: 'SiteName',
   },
   twitter: {
     handle: '@handle',
@@ -208,7 +209,7 @@ it('returns full array for default seo object', () => {
   );
   const ogLocaleTag = tags.filter(item => item.key === 'og:locale');
   const ogSiteName = container.querySelectorAll(
-    `meta[content="${SEO.openGraph.site_name}"]`,
+    `meta[content="${SEO.openGraph.siteName || SEO.openGraph?.site_name}"]`,
   );
   const ogSiteNameTag = tags.filter(item => item.key === 'og:site_name');
   const canonicalTag = tags.filter(item => item.key === 'canonical');
@@ -409,6 +410,7 @@ const ArticleSEO = {
         alt: 'Og Image Alt Article Title B',
       },
     ],
+    siteName: 'SiteName',
     site_name: 'SiteName',
   },
   twitter: {
@@ -528,6 +530,7 @@ const BookSEO = {
         alt: 'Og Image Alt Book Title B',
       },
     ],
+    siteName: 'SiteName',
     site_name: 'SiteName',
   },
   twitter: {
@@ -624,6 +627,7 @@ const ProfileSEO = {
         alt: 'Og Image Alt firstlast123 B',
       },
     ],
+    siteName: 'SiteName',
     site_name: 'SiteName',
   },
   twitter: {
@@ -729,6 +733,7 @@ const VideoSEO = {
         alt: 'Og Image Alt Video Title B',
       },
     ],
+    siteName: 'SiteName',
     site_name: 'SiteName',
   },
   twitter: {

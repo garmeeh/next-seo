@@ -50,8 +50,8 @@ Coffee fuels coding ☕️
     - [Book](#book)
     - [Profile](#profile)
 - [JSON-LD](#json-ld)
-  - [JSON-LD Security](#json-ld-security)
-  - [Handling multiple instances](#handling-multiple-instances)
+    - [JSON-LD Security](#json-ld-security)
+    - [Handling multiple instances](#handling-multiple-instances)
   - [Article](#article-1)
   - [Breadcrumb](#breadcrumb)
   - [Blog](#blog)
@@ -162,7 +162,7 @@ const Page = () => (
           { url: 'https://www.example.ie/og-image-03.jpg' },
           { url: 'https://www.example.ie/og-image-04.jpg' },
         ],
-        site_name: 'SiteName',
+        siteName: 'SiteName',
       }}
       twitter={{
         handle: '@handle',
@@ -212,7 +212,7 @@ export default class MyApp extends App {
             type: 'website',
             locale: 'en_IE',
             url: 'https://www.url.ie/',
-            site_name: 'SiteName',
+            siteName: 'SiteName',
           }}
           twitter={{
             handle: '@handle',
@@ -237,7 +237,7 @@ export default {
     type: 'website',
     locale: 'en_IE',
     url: 'https://www.url.ie/',
-    site_name: 'SiteName',
+    siteName: 'SiteName',
   },
   twitter: {
     handle: '@handle',
@@ -291,7 +291,7 @@ From now on all of your pages will have the defaults above applied.
 | `openGraph.images`                 | array                   | An array of images (object) to be used by social media platforms, slack etc as a preview. If multiple supplied you can choose one when sharing. [See Examples](#open-graph-examples) |
 | `openGraph.videos`                 | array                   | An array of videos (object)                                                                                                                                                          |
 | `openGraph.locale`                 | string                  | The locale the open graph tags are marked up in. Of the format language_TERRITORY. Default is en_US.                                                                                 |
-| `openGraph.site_name`              | string                  | If your object is part of a larger web site, the name which should be displayed for the overall site.                                                                                |
+| `openGraph.siteName`               | string                  | If your object is part of a larger web site, the name which should be displayed for the overall site.                                                                                |
 | `openGraph.profile.firstName`      | string                  | Person's first name.                                                                                                                                                                 |
 | `openGraph.profile.lastName`       | string                  | Person's last name.                                                                                                                                                                  |
 | `openGraph.profile.username`       | string                  | Person's username.                                                                                                                                                                   |
@@ -726,7 +726,7 @@ const Page = () => (
           // Multiple Open Graph tags is only available in version `7.0.2-canary.35`+ of next
           tags: ['Tag A', 'Tag B', 'Tag C'],
         },
-        site_name: 'SiteName',
+        siteName: 'SiteName',
       }}
     />
     <h1>Video Page SEO</h1>
