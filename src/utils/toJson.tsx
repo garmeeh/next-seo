@@ -1,7 +1,12 @@
 const toJson = (type: string, jsonld: any) => {
-  const jsonLdObject = Array.isArray(jsonld)
-    ? jsonld.map(item => formatObjectForSchema(type, item))
-    : formatObjectForSchema(type, jsonld);
+  let data = jsonld;
+
+  if (Array.isArray(data) && data.length === 1) {
+    data = { ...jsonld[0] };
+  }
+  const jsonLdObject = Array.isArray(data)
+    ? data.map(item => formatObjectForSchema(type, item))
+    : formatObjectForSchema(type, data);
 
   return {
     __html: JSON.stringify(jsonLdObject, safeJsonLdReplacer),

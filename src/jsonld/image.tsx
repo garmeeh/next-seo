@@ -17,44 +17,16 @@ interface ImageJsonLd {
 }
 
 export interface ImageJsonLdProps extends JsonLdProps {
-  images?: ImageJsonLd[];
+  images: ImageJsonLd[];
 }
 
-function ImageJsonLd({
-  keyOverride,
-  contentUrl,
-  license,
-  acquireLicensePage,
-  creditText,
-  creator,
-  copyrightNotice,
-  images,
-}: ImageJsonLdProps) {
-  if (images) {
-    return (
-      <JsonLd
-        type="ImageObject"
-        keyOverride={keyOverride}
-        dataArray={images}
-        scriptKey="image"
-      />
-    );
-  }
-
-  const data = {
-    license,
-    acquireLicensePage,
-    creditText,
-    creator,
-    copyrightNotice,
-    contentUrl,
-  };
-
+function ImageJsonLd({ keyOverride, images, ...rest }: ImageJsonLdProps) {
   return (
     <JsonLd
+      {...rest}
       type="ImageObject"
       keyOverride={keyOverride}
-      {...data}
+      dataArray={images}
       scriptKey="image"
     />
   );
