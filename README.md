@@ -50,8 +50,8 @@ Coffee fuels coding ☕️
     - [Book](#book)
     - [Profile](#profile)
 - [JSON-LD](#json-ld)
-    - [JSON-LD Security](#json-ld-security)
-    - [Handling multiple instances](#handling-multiple-instances)
+  - [JSON-LD Security](#json-ld-security)
+  - [Handling multiple instances](#handling-multiple-instances)
   - [Article](#article-1)
   - [Breadcrumb](#breadcrumb)
   - [Blog](#blog)
@@ -83,6 +83,7 @@ Coffee fuels coding ☕️
   - [Organization](#organization)
   - [Brand](#brand)
   - [WebPage](#webpage)
+  - [Image Metadata](#image-metadata)
 - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -3060,6 +3061,51 @@ export default () => (
 | `reviewedBy.name` | Name of the entity that have reviewed the content on this web page for accuracy and/or completeness. |
 
 For reference and more info check [Docs](https://schema.org/Brand)
+
+### Image Metadata
+
+```jsx
+import React from 'react';
+import { ImageJsonLd } from 'next-seo';
+
+function Image() {
+  return (
+    <>
+      <h1>Image</h1>
+      <ImageJsonLd
+        images={[
+          {
+            contentUrl: 'http://www.example.com/images/image.png',
+            creator: {
+              '@type': 'Person',
+              name: 'Jane Doe',
+            },
+            creditText: 'Jane Doe',
+            copyrightNotice: '© Jane Doe',
+            license: 'http://www.example.com/license',
+            acquireLicensePage: 'http://www.example.com/acquire-license',
+          },
+        ]}
+      />
+    </>
+  );
+}
+
+export default Image;
+```
+
+**Data Recommended properties**
+
+| Property             | Info                                                                                                                                                    |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `contentUrl`         | A URL to the actual image content. Google uses contentUrl to determine which image the photo metadata applies to.                                       |
+| `creator.name`       | The name of the creator.                                                                                                                                |
+| `creditText`         | The name of person and/or organization that is credited for the image when it's published.                                                              |
+| `copyrightNotice`    | The copyright notice for claiming the intellectual property for this photograph. This identifies the current owner of the copyright for the photograph. |
+| `license`            | A URL to a page that describes the license governing an image's use. For example, it could be the terms and conditions that you have on your website.   |
+| `acquireLicensePage` | A URL to a page where the user can find information on how to license that image.                                                                       |
+
+For reference and more info check [Google Docs](https://developers.google.com/search/docs/appearance/structured-data/image-license-metadata)
 
 ## Contributors
 
