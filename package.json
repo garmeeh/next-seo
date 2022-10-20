@@ -82,7 +82,7 @@
     "husky": "4.3.8",
     "jest": "^27.4.7",
     "lint-staged": "11.1.1",
-    "microbundle": "^0.14.2",
+    "microbundle": "^0.15.1",
     "next": "^12.1.4",
     "npm-run-all": "4.1.5",
     "prettier": "2.5.1",
