@@ -34,9 +34,9 @@
     "build:test": "npm-run-all --sequential build e2e:build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "e2e:dev": "yarn next e2e",
-    "e2e:build": "yarn next build e2e",
-    "e2e:start": "yarn next start e2e"
+    "e2e:dev": "next e2e",
+    "e2e:build": "next build e2e",
+    "e2e:start": "next start e2e"
   },
   "prettier": {
     "singleQuote": true,
@@ -76,7 +76,7 @@
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
     "babel-jest": "^27.4.6",
-    "cypress": "^9.3.1",
+    "cypress": "^10.10.0",
     "cypress-testing-library": "^4.0.0",
     "doctoc": "^2.1.0",
     "husky": "4.3.8",
