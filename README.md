@@ -1137,7 +1137,7 @@ const Page = () => (
   <>
     <h1>Blog JSON-LD</h1>
     <ArticleJsonLd
-      type="Blog"
+      type="BlogPosting"
       url="https://example.com/blog"
       title="Blog headline"
       images={[
