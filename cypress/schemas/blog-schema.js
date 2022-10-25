@@ -64,8 +64,8 @@ const blog100 = {
   },
   schema: {
     type: 'object',
-    title: 'Blog',
-    description: 'An example schema describing JSON-LD for type: Blog',
+    title: 'BlogPosting',
+    description: 'An example schema describing JSON-LD for type: BlogPosting',
     properties: {
       '@context': {
         type: 'string',
@@ -112,7 +112,7 @@ const blog100 = {
   },
   example: {
     '@context': 'https://schema.org',
-    '@type': 'Blog',
+    '@type': 'BlogPosting',
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': 'https://example.com/blog',
