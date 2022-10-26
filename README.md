@@ -1074,6 +1074,7 @@ const Page = () => (
       publisherName="Gary Meehan"
       publisherLogo="https://www.example.com/photos/logo.jpg"
       description="This is a mighty good description of this article."
+      isAccessibleForFree={true}
     />
   </>
 );
@@ -2002,6 +2003,7 @@ const Page = () => (
       publisherLogo="https://www.example.com/photos/logo.jpg"
       description="This is a mighty good description of this article."
       body="This is all text for this news article"
+      isAccessibleForFree={true}
     />
   </>
 );

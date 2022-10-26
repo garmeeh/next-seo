@@ -16,6 +16,7 @@ export interface ArticleJsonLdProps extends JsonLdProps {
   description: string;
   publisherName?: string;
   publisherLogo?: string;
+  isAccessibleForFree?: boolean;
 }
 
 function ArticleJsonLd({
@@ -30,6 +31,7 @@ function ArticleJsonLd({
   publisherName = undefined,
   publisherLogo = undefined,
   description,
+  isAccessibleForFree,
 }: ArticleJsonLdProps) {
   const data = {
     datePublished,
@@ -43,6 +45,7 @@ function ArticleJsonLd({
     dateModified: dateModified || datePublished,
     author: setAuthor(authorName),
     publisher: setPublisher(publisherName, publisherLogo),
+    isAccessibleForFree: isAccessibleForFree,
   };
   return (
     <JsonLd

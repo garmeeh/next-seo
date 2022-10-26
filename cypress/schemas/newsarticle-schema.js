@@ -190,6 +190,12 @@ const newsarticle100 = {
         type: 'string',
         description: 'The article body of the News Article',
       },
+      isAccessibleForFree: {
+        type: 'boolean',
+        description:
+          'A flag to signal that the News Article is accessible for free.',
+        required: false,
+      },
     },
     required: true,
     additionalProperties: false,
@@ -226,6 +232,7 @@ const newsarticle100 = {
     },
     description: 'This is a mighty good description of this article.',
     articleBody: 'This is article body of news article',
+    isAccessibleForFree: true,
   },
 };
 

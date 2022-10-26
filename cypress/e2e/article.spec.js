@@ -92,6 +92,7 @@ describe('Article JSON-LD', () => {
           },
         },
         description: 'This is a mighty good description of this article.',
+        isAccessibleForFree: true,
       });
     });
   });

@@ -18,6 +18,7 @@ export interface NewsArticleJsonLdProps extends JsonLdProps {
   body: string;
   publisherName: string;
   publisherLogo: string;
+  isAccessibleForFree?: boolean;
 }
 
 function NewsArticleJsonLd({
@@ -34,6 +35,7 @@ function NewsArticleJsonLd({
   publisherName,
   publisherLogo,
   body,
+  isAccessibleForFree,
   ...rest
 }: NewsArticleJsonLdProps) {
   const data = {
@@ -51,6 +53,7 @@ function NewsArticleJsonLd({
     author: setAuthor(authorName),
     publisher: setPublisher(publisherName, publisherLogo),
     articleBody: body,
+    isAccessibleForFree: isAccessibleForFree,
   };
 
   return (
