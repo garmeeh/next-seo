@@ -138,7 +138,6 @@ const Page = () => (
     <NextSeo
       title="Using More of Config"
       description="This example uses more of the available config options."
-      colorTheme="#73fa97"
       canonical="https://www.canonical.ie/"
       openGraph={{
         url: 'https://www.url.ie/a',
