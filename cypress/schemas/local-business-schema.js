@@ -2,10 +2,10 @@ import { versionSchemas } from '@cypress/schema-tools';
 
 import address100 from './address';
 
-const localBusiness130 = {
+const localBusiness140 = {
   version: {
     major: 1,
-    minor: 3,
+    minor: 4,
     patch: 0,
   },
   schema: {
@@ -307,7 +307,7 @@ const localBusiness130 = {
     '@id': 'http://davesdeptstore.example.com',
     name: "Dave's Department Store",
     description: 'Some form of description',
-    address: address100.example,
+    address: [address100.example],
     geo: {
       '@type': 'GeoCoordinates',
       latitude: '37.293058',
@@ -431,5 +431,5 @@ const localBusiness130 = {
   },
 };
 
-const localBusiness = versionSchemas(localBusiness130);
+const localBusiness = versionSchemas(localBusiness140);
 export default localBusiness;

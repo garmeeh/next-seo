@@ -237,9 +237,14 @@ export interface OpenGraph {
   description?: string;
   images?: ReadonlyArray<OpenGraphMedia>;
   videos?: ReadonlyArray<OpenGraphMedia>;
+  audio?: ReadonlyArray<OpenGraphMedia>;
   defaultImageHeight?: number;
   defaultImageWidth?: number;
   locale?: string;
+  siteName?: string;
+  /**
+   * @deprecated use siteName instead. site_name will be removed in the next major version
+   */
   site_name?: string;
   profile?: OpenGraphProfile;
   book?: OpenGraphBook;
@@ -279,6 +284,13 @@ export interface OpenGraphVideo {
   releaseDate?: string;
   tags?: ReadonlyArray<string>;
   series?: string;
+}
+
+export interface OpenGraphAudio {
+  audio?: string;
+  url?: string;
+  secureUrl?: string;
+  type?: string;
 }
 
 export interface Twitter {
@@ -455,6 +467,7 @@ export interface NextSeoProps {
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
   additionalLinkTags?: ReadonlyArray<LinkTag>;
+  children?: never;
 }
 
 export interface DefaultSeoProps {

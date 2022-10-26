@@ -11,7 +11,7 @@ const defaults = {
 };
 
 const buildOpenGraphMediaTags = (
-  mediaType: 'image' | 'video',
+  mediaType: 'image' | 'video' | 'audio',
   media: ReadonlyArray<OpenGraphMedia> = [],
   {
     defaultWidth,
@@ -595,6 +595,13 @@ const buildTags = (config: BuildTagsParams) => {
       );
     }
 
+    // audio
+    if (config.openGraph.audio) {
+      tagsToRender.push(
+        ...buildOpenGraphMediaTags('audio', config.openGraph.audio),
+      );
+    }
+
     if (config.openGraph.locale) {
       tagsToRender.push(
         <meta
@@ -605,12 +612,12 @@ const buildTags = (config: BuildTagsParams) => {
       );
     }
 
-    if (config.openGraph.site_name) {
+    if (config.openGraph.siteName || config.openGraph.site_name) {
       tagsToRender.push(
         <meta
           key="og:site_name"
           property="og:site_name"
-          content={config.openGraph.site_name}
+          content={config.openGraph.siteName || config.openGraph.site_name}
         />,
       );
     }

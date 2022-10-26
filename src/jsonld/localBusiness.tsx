@@ -27,7 +27,7 @@ export interface LocalBusinessJsonLdProps extends JsonLdProps {
   description: string;
   url?: string;
   telephone?: string;
-  address: Address;
+  address: Address | Address[];
   geo?: Geo;
   images?: string[];
   rating?: AggregateRating;

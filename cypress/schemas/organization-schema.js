@@ -2,10 +2,10 @@ import { versionSchemas } from '@cypress/schema-tools';
 import address100 from './address';
 import contactPoint100 from './contactPoint';
 
-const organization100 = {
+const organization110 = {
   version: {
     major: 1,
-    minor: 0,
+    minor: 1,
     patch: 0,
   },
   schema: {
@@ -72,12 +72,12 @@ const organization100 = {
     logo: 'https://www.example.com/photos/logo.jpg',
     legalName: 'Purple Fox LLC',
     name: 'Purple Fox',
-    address: address100.example,
+    address: [address100.example],
     contactPoints: [contactPoint100.example],
     sameAs: ['https://www.orange-fox.com'],
     url: 'https://www.purpule-fox.io/',
   },
 };
 
-const organizationVersions = versionSchemas(organization100);
+const organizationVersions = versionSchemas(organization110);
 export default organizationVersions;

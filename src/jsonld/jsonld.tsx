@@ -6,6 +6,7 @@ import toJson from 'src/utils/toJson';
 export interface JsonLdProps {
   type?: string;
   scriptId?: string;
+  dataArray?: any[];
   [key: string]: any;
 }
 
@@ -14,6 +15,7 @@ function JsonLd({
   keyOverride,
   scriptKey,
   scriptId = undefined,
+  dataArray,
   ...rest
 }: JsonLdProps & { scriptKey: string }) {
   return (
@@ -21,7 +23,11 @@ function JsonLd({
       <script
         type="application/ld+json"
         id={scriptId}
-        dangerouslySetInnerHTML={toJson(type, { ...rest })}
+        data-testid={scriptId}
+        dangerouslySetInnerHTML={toJson(
+          type,
+          dataArray === undefined ? { ...rest } : dataArray,
+        )}
         key={`jsonld-${scriptKey}${keyOverride ? `-${keyOverride}` : ''}`}
       />
     </Head>

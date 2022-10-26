@@ -45,6 +45,7 @@ Coffee fuels coding ☕️
   - [Open Graph Examples](#open-graph-examples)
     - [Basic](#basic)
     - [Video](#video)
+    - [Audio](#audio)
     - [Article](#article)
     - [Book](#book)
     - [Profile](#profile)
@@ -82,6 +83,7 @@ Coffee fuels coding ☕️
   - [Organization](#organization)
   - [Brand](#brand)
   - [WebPage](#webpage)
+  - [Image Metadata](#image-metadata)
 - [Contributors](#contributors)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -161,7 +163,7 @@ const Page = () => (
           { url: 'https://www.example.ie/og-image-03.jpg' },
           { url: 'https://www.example.ie/og-image-04.jpg' },
         ],
-        site_name: 'SiteName',
+        siteName: 'SiteName',
       }}
       twitter={{
         handle: '@handle',
@@ -211,7 +213,7 @@ export default class MyApp extends App {
             type: 'website',
             locale: 'en_IE',
             url: 'https://www.url.ie/',
-            site_name: 'SiteName',
+            siteName: 'SiteName',
           }}
           twitter={{
             handle: '@handle',
@@ -236,7 +238,7 @@ export default {
     type: 'website',
     locale: 'en_IE',
     url: 'https://www.url.ie/',
-    site_name: 'SiteName',
+    siteName: 'SiteName',
   },
   twitter: {
     handle: '@handle',
@@ -245,6 +247,32 @@ export default {
   },
 };
 ```
+
+<details><summary>or like this, if you are using TypeScript</summary>
+<p>
+
+```ts
+import { DefaultSeoProps } from 'next-seo';
+
+const config: DefaultSeoProps = {
+  openGraph: {
+    type: 'website',
+    locale: 'en_IE',
+    url: 'https://www.url.ie/',
+    siteName: 'SiteName',
+  },
+  twitter: {
+    handle: '@handle',
+    site: '@site',
+    cardType: 'summary_large_image',
+  },
+};
+
+export default config;
+```
+
+</p>
+</details>
 
 import at the top of `_app.js`
 
@@ -290,7 +318,7 @@ From now on all of your pages will have the defaults above applied.
 | `openGraph.images`                 | array                   | An array of images (object) to be used by social media platforms, slack etc as a preview. If multiple supplied you can choose one when sharing. [See Examples](#open-graph-examples) |
 | `openGraph.videos`                 | array                   | An array of videos (object)                                                                                                                                                          |
 | `openGraph.locale`                 | string                  | The locale the open graph tags are marked up in. Of the format language_TERRITORY. Default is en_US.                                                                                 |
-| `openGraph.site_name`              | string                  | If your object is part of a larger web site, the name which should be displayed for the overall site.                                                                                |
+| `openGraph.siteName`               | string                  | If your object is part of a larger web site, the name which should be displayed for the overall site.                                                                                |
 | `openGraph.profile.firstName`      | string                  | Person's first name.                                                                                                                                                                 |
 | `openGraph.profile.lastName`       | string                  | Person's last name.                                                                                                                                                                  |
 | `openGraph.profile.username`       | string                  | Person's username.                                                                                                                                                                   |
@@ -501,7 +529,8 @@ languageAlternates={[{
 
 #### Additional Meta Tags
 
-This allows you to add any other meta tags that are not covered in the `config`.
+This allows you to add any other meta tags that are not covered in the `config` and
+should be used instead of `children` prop.
 
 `content` is required. Then either `name`, `property` or `httpEquiv`. (Only one on each)
 
@@ -724,7 +753,7 @@ const Page = () => (
           // Multiple Open Graph tags is only available in version `7.0.2-canary.35`+ of next
           tags: ['Tag A', 'Tag B', 'Tag C'],
         },
-        site_name: 'SiteName',
+        siteName: 'SiteName',
       }}
     />
     <h1>Video Page SEO</h1>
@@ -752,6 +781,42 @@ images: [
 ```
 
 Supplying multiple images will not break anything, but only one will be added to the head.
+
+#### Audio
+
+Full info on [http://ogp.me/](https://ogp.me/#structured)
+
+```jsx
+import { NextSeo } from 'next-seo';
+const Page = () => (
+  <>
+    <NextSeo
+      title="Audio Page Title"
+      description="Description of audio page"
+      openGraph={{
+        title: 'Open Graph Audio',
+        description: 'Description of open graph audio',
+        url: 'https://www.example.com/audio/audio',
+        audio: [
+          {
+            url: 'http://examples.opengraphprotocol.us/media/audio/1khz.mp3',
+            secureUrl: 'https://d72cgtgi6hvvl.cloudfront.net/media/audio/1khz.mp3',
+            type: "audio/mpeg"
+          },
+          {
+            url: 'http://examples.opengraphprotocol.us/media/audio/250hz.mp3',
+            secureUrl: 'https://d72cgtgi6hvvl.cloudfront.net/media/audio/250hz.mp3',
+            type: "audio/mpeg"
+          },
+        ]
+        site_name: 'SiteName',
+      }}
+    />
+    <h1>Audio Page SEO</h1>
+  </>
+);
+export default Page;
+```
 
 #### Article
 
@@ -1494,6 +1559,15 @@ const Page = () => (
       jobLocationType="TELECOMMUTE"
       validThrough="2020-01-06"
       applicantLocationRequirements="FR"
+      experienceRequirements={{
+        occupational: {
+          minimumMonthsOfExperience: 12,
+        },
+        educational: {
+          credentialCategory: 'high school',
+        },
+        experienceInPlaceOfEducation: true,
+      }}
     />
   </>
 );
@@ -1515,22 +1589,25 @@ export default Page;
 
 **Supported properties**
 
-| Property                        | Info                                                                                                                                                        |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `applicantLocationRequirements` | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                          |
-| `baseSalary`                    |                                                                                                                                                             |
-| `baseSalary.currency`           | The currency in which the monetary amount is expressed                                                                                                      |
-| `baseSalary.value`              | The value of the quantitative value. You can also provide an array of minimum and maximum salaries. .                                                       |
-| `baseSalary.unitText`           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)            |
-| `employmentType`                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                                |
-| `jobLocation`                   | The physical location(s) of the business where the employee will report to work (such as an office or worksite), not the location where the job was posted. |
-| `jobLocation.streetAddress`     | The street address. For example, 1600 Amphitheatre Pkwy                                                                                                     |
-| `jobLocation.addressLocality`   | The locality. For example, Mountain View.                                                                                                                   |
-| `jobLocation.addressRegion`     | The region. For example, CA.                                                                                                                                |
-| `jobLocation.postalCode`        | The postal code. For example, 94043                                                                                                                         |
-| `jobLocation.addressCountry`    | The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.                                                         |
-| `jobLocationType`               | A description of the job location [Job Location type guideline](https://developers.google.com/search/docs/data-types/job-posting#job-location-type)         |
-| `hiringOrganization.logo`       | Logos on third-party job sites [Hiring Organization guideline](https://developers.google.com/search/docs/data-types/job-posting#hiring)                     |
+| Property                                                        | Info                                                                                                                                                                                                                                                    |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `applicantLocationRequirements`                                 | The geographic location(s) in which employees may be located for to be eligible for the remote job                                                                                                                                                      |
+| `baseSalary`                                                    |                                                                                                                                                                                                                                                         |
+| `baseSalary.currency`                                           | The currency in which the monetary amount is expressed                                                                                                                                                                                                  |
+| `baseSalary.value`                                              | The value of the quantitative value. You can also provide an array of minimum and maximum salaries. .                                                                                                                                                   |
+| `baseSalary.unitText`                                           | A string indicating the unit of measurement [Base salary guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                                                                                                        |
+| `employmentType`                                                | Type of employment [Employement type guideline](https://developers.google.com/search/docs/data-types/job-posting#basesalary)                                                                                                                            |
+| `jobLocation`                                                   | The physical location(s) of the business where the employee will report to work (such as an office or worksite), not the location where the job was posted.                                                                                             |
+| `jobLocation.streetAddress`                                     | The street address. For example, 1600 Amphitheatre Pkwy                                                                                                                                                                                                 |
+| `jobLocation.addressLocality`                                   | The locality. For example, Mountain View.                                                                                                                                                                                                               |
+| `jobLocation.addressRegion`                                     | The region. For example, CA.                                                                                                                                                                                                                            |
+| `jobLocation.postalCode`                                        | The postal code. For example, 94043                                                                                                                                                                                                                     |
+| `jobLocation.addressCountry`                                    | The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code.                                                                                                                                                     |
+| `jobLocationType`                                               | A description of the job location [Job Location type guideline](https://developers.google.com/search/docs/data-types/job-posting#job-location-type)                                                                                                     |
+| `hiringOrganization.logo`                                       | Logos on third-party job sites [Hiring Organization guideline](https://developers.google.com/search/docs/data-types/job-posting#hiring)                                                                                                                 |
+| `experienceRequirements.occupational.minimumMonthsOfExperience` | The minimum number of months of experience that are required for the job posting. [Experience and Education Requirements](https://developers.google.com/search/docs/appearance/structured-data/job-posting#education-and-experience-properties-beta)    |
+| `experienceRequirements.educational.credentialCategory`         | The level of education that's required for the job posting. Use one of the following: `high school`, `associate degree`, `bachelor degree`, `professional certificate`, `postgraduate degree`                                                           |
+| `experienceRequirements.experienceInPlaceOfEducation`           | Boolean: If set to true, this property indicates whether a job posting will accept experience in place of its formal educational qualifications. If set to true, you must include both the experienceRequirements and educationRequirements properties. |
 
 ### Local Business
 
@@ -3010,6 +3087,51 @@ export default () => (
 | `reviewedBy.name` | Name of the entity that have reviewed the content on this web page for accuracy and/or completeness. |
 
 For reference and more info check [Docs](https://schema.org/Brand)
+
+### Image Metadata
+
+```jsx
+import React from 'react';
+import { ImageJsonLd } from 'next-seo';
+
+function Image() {
+  return (
+    <>
+      <h1>Image</h1>
+      <ImageJsonLd
+        images={[
+          {
+            contentUrl: 'http://www.example.com/images/image.png',
+            creator: {
+              '@type': 'Person',
+              name: 'Jane Doe',
+            },
+            creditText: 'Jane Doe',
+            copyrightNotice: '© Jane Doe',
+            license: 'http://www.example.com/license',
+            acquireLicensePage: 'http://www.example.com/acquire-license',
+          },
+        ]}
+      />
+    </>
+  );
+}
+
+export default Image;
+```
+
+**Data Recommended properties**
+
+| Property             | Info                                                                                                                                                    |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `contentUrl`         | A URL to the actual image content. Google uses contentUrl to determine which image the photo metadata applies to.                                       |
+| `creator.name`       | The name of the creator.                                                                                                                                |
+| `creditText`         | The name of person and/or organization that is credited for the image when it's published.                                                              |
+| `copyrightNotice`    | The copyright notice for claiming the intellectual property for this photograph. This identifies the current owner of the copyright for the photograph. |
+| `license`            | A URL to a page that describes the license governing an image's use. For example, it could be the terms and conditions that you have on your website.   |
+| `acquireLicensePage` | A URL to a page where the user can find information on how to license that image.                                                                       |
+
+For reference and more info check [Google Docs](https://developers.google.com/search/docs/appearance/structured-data/image-license-metadata)
 
 ## Contributors
 

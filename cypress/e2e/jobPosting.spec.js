@@ -55,6 +55,15 @@ describe('Job Posting JSON-LD', () => {
         jobLocationType: 'TELECOMMUTE',
         validThrough: '2020-01-06',
         title: 'Job Title',
+        experienceRequirements: {
+          '@type': 'OccupationalExperienceRequirements',
+          monthsOfExperience: 12,
+        },
+        educationRequirements: {
+          '@type': 'EducationalOccupationalCredential',
+          credentialCategory: 'high school',
+        },
+        experienceInPlaceOfEducation: true,
       });
     });
   });

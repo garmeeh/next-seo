@@ -13,7 +13,7 @@ export interface OrganizationJsonLdProps extends JsonLdProps {
   url: string;
   legalName?: string;
   sameAs?: string[];
-  address?: Address;
+  address?: Address | Address[];
   contactPoints?: ContactPoint[];
 }
 
