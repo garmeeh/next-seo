@@ -1313,6 +1313,8 @@ export default Page;
 | `potentialActions.target`     | For websites, the URL of the handler that should receive and handle the search query; for apps, the URI of the intent handler for your search engine that should handle queries |
 | `potentialActions.queryInput` | Placeholder used in target, gets substituted for user given query                                                                                                               |
 
+Read the [documentation](https://developers.google.com/search/docs/appearance/structured-data/sitelinks-searchbox)
+
 ### Course
 
 ```jsx
