@@ -453,6 +453,10 @@ exports[`renders correctly 1`] = `
     content="This is a test description."
     name="description"
   />
+  <meta
+    content="#73fa97"
+    name="theme-color"
+  />
   <link
     href="https://m.canonical.ie"
     media="only screen and (max-width: 640px)"
