@@ -248,6 +248,32 @@ export default {
 };
 ```
 
+<details><summary>or like this, if you are using TypeScript</summary>
+<p>
+
+```ts
+import { DefaultSeoProps } from 'next-seo';
+
+const config: DefaultSeoProps = {
+  openGraph: {
+    type: 'website',
+    locale: 'en_IE',
+    url: 'https://www.url.ie/',
+    siteName: 'SiteName',
+  },
+  twitter: {
+    handle: '@handle',
+    site: '@site',
+    cardType: 'summary_large_image',
+  },
+};
+
+export default config;
+```
+
+</p>
+</details>
+
 import at the top of `_app.js`
 
 ```jsx
