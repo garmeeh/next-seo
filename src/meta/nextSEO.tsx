@@ -7,6 +7,7 @@ export default class NextSeo extends Component<NextSeoProps, {}> {
   render() {
     const {
       title,
+      themeColor,
       noindex = false,
       nofollow,
       robotsProps,
@@ -27,6 +28,7 @@ export default class NextSeo extends Component<NextSeoProps, {}> {
       <Head>
         {buildTags({
           title,
+          themeColor,
           noindex,
           nofollow,
           robotsProps,
