@@ -119,13 +119,14 @@ const buildTags = (config: BuildTagsParams) => {
   }
 
   const noindex =
-    config.noindex ||
-    defaults.noindex ||
-    config.dangerouslySetAllPagesToNoIndex;
+    config.noindex === undefined
+      ? defaults.noindex || config.dangerouslySetAllPagesToNoIndex
+      : config.noindex;
+
   const nofollow =
-    config.nofollow ||
-    defaults.nofollow ||
-    config.dangerouslySetAllPagesToNoFollow;
+    config.nofollow === undefined
+      ? defaults.nofollow || config.dangerouslySetAllPagesToNoFollow
+      : config.nofollow;
 
   let robotsParams = '';
   if (config.robotsProps) {
@@ -188,13 +189,9 @@ const buildTags = (config: BuildTagsParams) => {
     );
   }
 
-  if(config.themeColor){
+  if (config.themeColor) {
     tagsToRender.push(
-      <meta
-        key="theme-color"
-        name="theme-color"
-        content={config.themeColor}
-      />
+      <meta key="theme-color" name="theme-color" content={config.themeColor} />,
     );
   }
 

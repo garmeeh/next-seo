@@ -8,7 +8,7 @@ export default class NextSeo extends Component<NextSeoProps, {}> {
     const {
       title,
       themeColor,
-      noindex = false,
+      noindex,
       nofollow,
       robotsProps,
       description,
