@@ -923,8 +923,8 @@ it('correctly read noindex & nofollow false', () => {
     'meta[content="noindex,nofollow"]',
   );
 
-  expect(Array.from(indexfollow).length).toBe(0);
-  expect(Array.from(noindexnofollow).length).toBe(1);
+  expect(Array.from(indexfollow).length).toBe(1);
+  expect(Array.from(noindexnofollow).length).toBe(0);
 });
 
 it('correctly read all robots props', () => {
