@@ -5,91 +5,63 @@ const Links = () => (
   <>
     <ul>
       <li>
-        <Link href="/">
-          <a>Default SEO</a>
-        </Link>
+        <Link href="/">Default SEO</Link>
       </li>
       <li>
-        <Link href="/robots">
-          <a>All Robots props</a>
-        </Link>
+        <Link href="/robots">All Robots props</Link>
       </li>
       <li>
-        <Link href="/article">
-          <a>Article SEO</a>
-        </Link>
+        <Link href="/article">Article SEO</Link>
       </li>
       <li>
-        <Link href="/book">
-          <a>Book SEO</a>
-        </Link>
+        <Link href="/book">Book SEO</Link>
       </li>
       <li>
-        <Link href="/profile">
-          <a>Profile SEO</a>
-        </Link>
+        <Link href="/profile">Profile SEO</Link>
       </li>
       <li>
-        <Link href="/overridden">
-          <a>Overridden Seo</a>
-        </Link>
+        <Link href="/overridden">Overridden Seo</Link>
       </li>
       <li>
-        <Link href="/jsonld">
-          <a>All JSON-LD</a>
-        </Link>
+        <Link href="/jsonld">All JSON-LD</Link>
       </li>
       <li>
-        <Link href="/carousel-jsonld/default">
-          <a>Carousel Default JSON-LD</a>
-        </Link>
+        <Link href="/carousel-jsonld/default">Carousel Default JSON-LD</Link>
       </li>
       <li>
-        <Link href="/carousel-jsonld/course">
-          <a>Carousel Course JSON-LD</a>
-        </Link>
+        <Link href="/carousel-jsonld/course">Carousel Course JSON-LD</Link>
       </li>
       <li>
-        <Link href="/carousel-jsonld/movie">
-          <a>Carousel Movie JSON-LD</a>
-        </Link>
+        <Link href="/carousel-jsonld/movie">Carousel Movie JSON-LD</Link>
       </li>
       <li>
-        <Link href="/carousel-jsonld/recipe">
-          <a>Carousel Recipe JSON-LD</a>
-        </Link>
+        <Link href="/carousel-jsonld/recipe">Carousel Recipe JSON-LD</Link>
       </li>
       <li>
         <Link href="/product-jsonld/aggregateOffer">
-          <a>Product JSON-LD AggregateOffer</a>
+          Product JSON-LD AggregateOffer
         </Link>
       </li>
       <li>
-        <Link href="/product-jsonld/offers">
-          <a>Product JSON-LD Offers</a>
-        </Link>
+        <Link href="/product-jsonld/offers">Product JSON-LD Offers</Link>
       </li>
       <li>
         <Link href="/product-jsonld/aggregateOfferAndOffers">
-          <a>Product JSON-LD AggregateOffer and Offers</a>
+          Product JSON-LD AggregateOffer and Offers
         </Link>
       </li>
     </ul>
     <h3> Dangerously </h3>
     <ul>
       <li>
-        <Link href="/dangerously/noindex">
-          <a>Dangerously AllPagesToNoIndex</a>
-        </Link>
+        <Link href="/dangerously/noindex">Dangerously AllPagesToNoIndex</Link>
       </li>
       <li>
-        <Link href="/dangerously/nofollow">
-          <a>Dangerously AllPagesToNoFollow</a>
-        </Link>
+        <Link href="/dangerously/nofollow">Dangerously AllPagesToNoFollow</Link>
       </li>
       <li>
         <Link href="/dangerously/nofollow-and-noindex">
-          <a>Dangerously AllPagesToNoFollow and AllPagesToNoIndex</a>
+          Dangerously AllPagesToNoFollow and AllPagesToNoIndex
         </Link>
       </li>
     </ul>

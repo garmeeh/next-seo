@@ -36,9 +36,7 @@ const Home = () => (
     <h1>All JSON-LD Pages</h1>
     {allJsonLDPages.map(page => (
       <li key={page}>
-        <Link href={`/jsonld/${page}`}>
-          <a>{page}</a>
-        </Link>
+        <Link href={`/jsonld/${page}`}>{page}</Link>
       </li>
     ))}
   </>
