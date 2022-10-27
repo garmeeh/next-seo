@@ -13,8 +13,10 @@ function BreadCrumbJsonLd({
   type = 'BreadcrumbList',
   keyOverride,
   itemListElements,
+  ...rest
 }: BreadCrumbJsonLdProps) {
   const data = {
+    ...rest,
     itemListElement: setItemListElements(itemListElements),
   };
 
