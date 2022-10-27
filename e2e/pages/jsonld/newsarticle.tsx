@@ -23,6 +23,7 @@ function NewsArticle() {
         publisherLogo="https://www.example.com/photos/logo.jpg"
         description="This is a mighty good description of this news article."
         body="This is article body of news article"
+        isAccessibleForFree={true}
       />
     </>
   );

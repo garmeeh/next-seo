@@ -174,6 +174,12 @@ const article100 = {
         type: 'string',
         description: 'The description of the Article',
       },
+      isAccessibleForFree: {
+        type: 'boolean',
+        description:
+          'A flag to signal that the Article is accessible for free.',
+        required: false,
+      },
     },
     required: true,
     additionalProperties: false,
@@ -206,6 +212,7 @@ const article100 = {
       },
     },
     description: 'This is a mighty good description of this article.',
+    isAccessibleForFree: true,
   },
 };
 
