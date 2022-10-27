@@ -455,6 +455,7 @@ export interface NextSeoProps {
   title?: string;
   titleTemplate?: string;
   defaultTitle?: string;
+  themeColor?: string;
   noindex?: boolean;
   nofollow?: boolean;
   robotsProps?: AdditionalRobotsProps;
@@ -479,6 +480,7 @@ export interface DefaultSeoProps {
   defaultOpenGraphVideoHeight?: number;
   title?: string;
   titleTemplate?: string;
+  themeColor?: string;
   defaultTitle?: string;
   robotsProps?: AdditionalRobotsProps;
   description?: string;

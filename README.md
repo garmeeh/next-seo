@@ -180,7 +180,7 @@ export default Page;
 
 **A note on Twitter Tags**
 
-Props `cardType`, `site`, `handle` are equivalent to `twitter:card`, `twitter:site`, `twitter:creator`. Documentation can be founded [here](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/summary).
+Props `cardType`, `site`, `handle` are equivalent to `twitter:card`, `twitter:site`, `twitter:creator`. Documentation can be found [here](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/summary).
 
 Twitter will read the `og:title`, `og:image` and `og:description` tags for their card. `next-seo` omits `twitter:title`, `twitter:image` and `twitter:description` to avoid duplication.
 
@@ -248,6 +248,32 @@ export default {
 };
 ```
 
+<details><summary>or like this, if you are using TypeScript</summary>
+<p>
+
+```ts
+import { DefaultSeoProps } from 'next-seo';
+
+const config: DefaultSeoProps = {
+  openGraph: {
+    type: 'website',
+    locale: 'en_IE',
+    url: 'https://www.url.ie/',
+    siteName: 'SiteName',
+  },
+  twitter: {
+    handle: '@handle',
+    site: '@site',
+    cardType: 'summary_large_image',
+  },
+};
+
+export default config;
+```
+
+</p>
+</details>
+
 import at the top of `_app.js`
 
 ```jsx
@@ -279,6 +305,7 @@ From now on all of your pages will have the defaults above applied.
 | `mobileAlternate.media`            | string                  | Set what screen size the mobile website should be served from                                                                                                                        |
 | `mobileAlternate.href`             | string                  | Set the mobile page alternate url                                                                                                                                                    |
 | `languageAlternates`               | array                   | Set the language of the alternate urls. Expects array of objects with the shape: `{ hrefLang: string, href: string }`                                                                |
+| `themeColor`                       | string                  | Indicates a suggested color that user agents should use to customize the display of the page or of the surrounding user interface. Must contain a valid CSS color                    |
 | `additionalMetaTags`               | array                   | Allows you to add a meta tag that is not documented here. [More Info](#additional-meta-tags)                                                                                         |
 | `additionalLinkTags`               | array                   | Allows you to add a link tag that is not documented here. [More Info](#additional-link-tags)                                                                                         |
 | `twitter.cardType`                 | string                  | The card type, which will be one of `summary`, `summary_large_image`, `app`, or `player`                                                                                             |
@@ -335,9 +362,9 @@ defaultTitle = 'Next SEO';
 
 #### No Index
 
-Setting this to `true` will set `noindex,follow` (to set `nofollow`, please refer to [`nofollow`](#noFollow)). This works on a page by page basis. This property works in tandem with the `nofollow` property and together they populate the `robots` meta tag.
+Setting this to `true` will set `noindex,follow` (to set `nofollow`, please refer to [`nofollow`](#no-follow)). This works on a page by page basis. This property works in tandem with the `nofollow` property and together they populate the `robots` meta tag.
 
-**Note:** The `noindex` and the [`nofollow`](#noFollow) properties are a little different than all the others in the sense that setting them as a default does not work as expected. This is due to the fact Next SEO already has a default of `index,follow` because `next-seo` is a SEO plugin after all. So if you want to globally these properties, please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToNoFollow](#dangerouslySetAllPagesToNoFollow).
+**Note:** The `noindex` and the [`nofollow`](#no-follow) properties are a little different than all the others in the sense that setting them as a default does not work as expected. This is due to the fact Next SEO already has a default of `index,follow` because `next-seo` is a SEO plugin after all. So if you want to globally these properties, please see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToNoFollow](#dangerouslySetAllPagesToNoFollow).
 
 **Example No Index on a single page:**
 
@@ -368,9 +395,9 @@ The only way to unset this, is by removing the prop from the `DefaultSeo` in you
 
 #### No Follow
 
-Setting this to `true` will set `index,nofollow` (to set `noindex`, please refer to [`noindex`](#noIndex)). This works on a page by page basis. This property works in tandem with the `noindex` property and together they populate the `robots` meta tag.
+Setting this to `true` will set `index,nofollow` (to set `noindex`, please refer to [`noindex`](#no-index)). This works on a page by page basis. This property works in tandem with the `noindex` property and together they populate the `robots` meta tag.
 
-**Note:** Unlike for the other properties, setting `noindex` and [`nofollow`](#noFollow) by default does not work as expected. This is because Next SEO has a default of `index,follow`, since `next-seo` is an SEO plugin after all. If you want to globally allow these properties, see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToNoFollow](#dangerouslySetAllPagesToNoFollow).
+**Note:** Unlike for the other properties, setting `noindex` and `nofollow` by default does not work as expected. This is because Next SEO has a default of `index,follow`, since `next-seo` is an SEO plugin after all. If you want to globally allow these properties, see [dangerouslySetAllPagesToNoIndex](#dangerouslySetAllPagesToNoIndex) and [dangerouslySetAllPagesToNoFollow](#dangerouslySetAllPagesToNoFollow).
 
 **Example No Follow on a single page:**
 
@@ -1285,6 +1312,8 @@ export default Page;
 | `potentialActions`            | Array of one or two SearchAction objects. Describes the URI to send the query to, and the syntax of the request that is sent                                                    |
 | `potentialActions.target`     | For websites, the URL of the handler that should receive and handle the search query; for apps, the URI of the intent handler for your search engine that should handle queries |
 | `potentialActions.queryInput` | Placeholder used in target, gets substituted for user given query                                                                                                               |
+
+Read the [documentation](https://developers.google.com/search/docs/appearance/structured-data/sitelinks-searchbox)
 
 ### Course
 
