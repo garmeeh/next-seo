@@ -6,7 +6,7 @@ import { setPublisher } from 'src/utils/schema/setPublisher';
 import { ArticleAuthor } from 'src/types';
 
 export interface ArticleJsonLdProps extends JsonLdProps {
-  type?: 'Article' | 'Blog' | 'NewsArticle';
+  type?: 'Article' | 'BlogPosting' | 'NewsArticle' | 'Blog';
   url: string;
   title: string;
   images: ReadonlyArray<string>;
