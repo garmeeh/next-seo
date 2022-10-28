@@ -30,7 +30,7 @@ describe('Organization JSON-LD', () => {
           postalCode: '95129',
           addressCountry: 'US',
         },
-        contactPoints: [
+        contactPoint: [
           {
             '@type': 'ContactPoint',
             contactType: 'customer service',
@@ -75,7 +75,7 @@ describe('Organization JSON-LD', () => {
             addressCountry: 'France',
           },
         ],
-        contactPoints: [
+        contactPoint: [
           {
             '@type': 'ContactPoint',
             contactType: 'customer service',
