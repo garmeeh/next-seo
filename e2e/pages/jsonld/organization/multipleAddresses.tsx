@@ -32,6 +32,7 @@ function MultipleAddresses() {
           {
             contactType: 'customer service',
             telephone: '+1-877-746-0909',
+            email: 'email@email.com',
             areaServed: 'US',
             availableLanguage: ['English', 'Spanish', 'French'],
             contactOption: 'TollFree',

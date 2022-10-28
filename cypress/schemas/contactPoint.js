@@ -18,6 +18,10 @@ const contactPoint100 = {
         type: 'string',
         description: 'Telephone number of the company',
       },
+      email: {
+        type: 'string',
+        description: 'Email of the company',
+      },
       contactType: {
         type: 'string',
         description: 'The main usage of the phone number',
@@ -42,6 +46,7 @@ const contactPoint100 = {
     '@type': 'ContactPoint',
     contactType: 'customer service',
     telephone: '+1-877-746-0909',
+    email: 'customerservice@gmail.com',
     areaServed: 'US',
     availableLanguage: ['English', 'Spanish', 'French'],
     contactOption: 'TollFree',

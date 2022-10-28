@@ -23,6 +23,7 @@ function Organization() {
           {
             contactType: 'customer service',
             telephone: '+1-877-746-0909',
+            email: 'customerservice@email.com',
             areaServed: 'US',
             availableLanguage: ['English', 'Spanish', 'French'],
             contactOption: 'TollFree',

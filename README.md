@@ -1400,12 +1400,14 @@ const Page = () => (
         {
           telephone: '+1-401-555-1212',
           contactType: 'customer service',
+          email: 'customerservice@email.com',
           areaServed: 'US',
           availableLanguage: ['English', 'Spanish', 'French'],
         },
         {
           telephone: '+1-877-746-0909',
           contactType: 'customer service',
+          email: 'servicecustomer@email.com',
           contactOption: 'TollFree',
           availableLanguage: 'English',
         },
@@ -1439,6 +1441,7 @@ export default Page;
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `contactPoint.areaServed`        | `String` or `Array` of geographical regions served by the business. Example `"US"` or `["US", "CA", "MX"]` |
 | `contactPoint.availableLanguage` | Details about the language spoken. Example `"English"` or `["English", "French"]`                          |
+| `contactPoint.email`             | Email asscosiated with the business`                                                                       |
 | `gecontactPointo.contactOption`  | Details about the phone number. Example `"TollFree"`                                                       |
 
 ### FAQ Page
@@ -2960,12 +2963,14 @@ export default () => (
         {
           telephone: '+1-401-555-1212',
           contactType: 'customer service',
+          email: 'customerservice@email.com',
           areaServed: 'US',
           availableLanguage: ['English', 'Spanish', 'French'],
         },
         {
           telephone: '+1-877-746-0909',
           contactType: 'customer service',
+          email: 'servicecustomer@email.com',
           contactOption: 'TollFree',
           availableLanguage: 'English',
         },
@@ -3010,6 +3015,7 @@ export default () => (
 | `address.streetAddress`          | Street number, street name, and unit number.                                                               |
 | `contactPoint.areaServed`        | `String` or `Array` of geographical regions served by the business. Example `"US"` or `["US", "CA", "MX"]` |
 | `contactPoint.availableLanguage` | Details about the language spoken. Example `"English"` or `["English", "French"]`                          |
+| `contactPoint.email`             | Email asscosiated with the business`                                                                       |
 
 For reference and more info check [Docs](https://schema.org/Organization)
 

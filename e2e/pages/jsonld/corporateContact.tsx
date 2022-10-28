@@ -12,12 +12,14 @@ function CorporateContact() {
           {
             telephone: '+1-401-555-1212',
             contactType: 'customer service',
+            email: 'customerservice@email.com',
             areaServed: 'US',
             availableLanguage: ['English', 'Spanish', 'French'],
           },
           {
             telephone: '+1-877-746-0909',
             contactType: 'customer service',
+            email: 'servicecustomer@email.com',
             contactOption: 'TollFree',
             availableLanguage: 'English',
           },
