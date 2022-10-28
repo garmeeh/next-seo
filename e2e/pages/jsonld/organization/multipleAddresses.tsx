@@ -28,7 +28,7 @@ function MultipleAddresses() {
             addressCountry: 'France',
           },
         ]}
-        contactPoints={[
+        contactPoint={[
           {
             contactType: 'customer service',
             telephone: '+1-877-746-0909',
