@@ -19,7 +19,7 @@ function Organization() {
           postalCode: '95129',
           addressCountry: 'US',
         }}
-        contactPoints={[
+        contactPoint={[
           {
             contactType: 'customer service',
             telephone: '+1-877-746-0909',
