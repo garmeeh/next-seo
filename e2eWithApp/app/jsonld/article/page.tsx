@@ -4,7 +4,7 @@ import { ArticleJsonLd } from '../../../..';
 const Article = () => (
   <>
     <h1>Article</h1>
-    <p>Inspect head tag for output.</p>
+    <p>Inspect page for output.</p>
     <ArticleJsonLd
       useAppDir={true}
       url="https://example.com/article"

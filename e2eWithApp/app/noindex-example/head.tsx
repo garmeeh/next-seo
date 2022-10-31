@@ -1,10 +1,11 @@
 import { NextSeo, NextSeoProps } from '../../../';
 
 export default async function Head() {
-  const updateMeta: NextSeoProps = {
+  const meta: NextSeoProps = {
     title: 'No Index Example Page',
     description: 'This is an example without config.',
     noindex: true,
   };
-  return <NextSeo {...updateMeta} useAppDir={true} />;
+
+  return <NextSeo {...meta} useAppDir={true} />;
 }
