@@ -20,8 +20,8 @@ function CourseJsonLd({
 }: CourseJsonLdProps) {
   const data = {
     name: courseName,
-    provider: setProvider(provider),
     ...rest,
+    provider: setProvider(provider),
   };
   return (
     <JsonLd
