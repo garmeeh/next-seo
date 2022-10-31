@@ -7,6 +7,7 @@ export interface JsonLdProps {
   type?: string;
   scriptId?: string;
   dataArray?: any[];
+  useAppDir?: boolean;
   [key: string]: any;
 }
 
@@ -16,22 +17,26 @@ function JsonLd({
   scriptKey,
   scriptId = undefined,
   dataArray,
+  useAppDir = false,
   ...rest
 }: JsonLdProps & { scriptKey: string }) {
-  return (
-    <Head>
-      <script
-        type="application/ld+json"
-        id={scriptId}
-        data-testid={scriptId}
-        dangerouslySetInnerHTML={toJson(
-          type,
-          dataArray === undefined ? { ...rest } : dataArray,
-        )}
-        key={`jsonld-${scriptKey}${keyOverride ? `-${keyOverride}` : ''}`}
-      />
-    </Head>
+  const JsonLdScript = () => (
+    <script
+      type="application/ld+json"
+      id={scriptId}
+      data-testid={scriptId}
+      dangerouslySetInnerHTML={toJson(
+        type,
+        dataArray === undefined ? { ...rest } : dataArray,
+      )}
+      key={`jsonld-${scriptKey}${keyOverride ? `-${keyOverride}` : ''}`}
+    />
   );
+
+  if (useAppDir) {
+    return <JsonLdScript />;
+  }
+  return <Head>{JsonLdScript()}</Head>;
 }
 
 export { JsonLd };

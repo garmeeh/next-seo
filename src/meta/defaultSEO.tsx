@@ -1,58 +1,52 @@
-import Head from 'next/head';
-import React, { Component } from 'react';
-import buildTags from './buildTags';
+import React from 'react';
 
 import { DefaultSeoProps } from '../types';
-export default class DefaultSeo extends Component<DefaultSeoProps, {}> {
-  render() {
-    const {
-      title,
-      titleTemplate,
-      defaultTitle,
-      themeColor,
-      dangerouslySetAllPagesToNoIndex = false,
-      dangerouslySetAllPagesToNoFollow = false,
-      description,
-      canonical,
-      facebook,
-      openGraph,
-      additionalMetaTags,
-      twitter,
-      defaultOpenGraphImageWidth,
-      defaultOpenGraphImageHeight,
-      defaultOpenGraphVideoWidth,
-      defaultOpenGraphVideoHeight,
-      mobileAlternate,
-      languageAlternates,
-      additionalLinkTags,
-      robotsProps,
-    } = this.props;
+import { WithHead } from './withHead';
 
-    return (
-      <Head>
-        {buildTags({
-          title,
-          titleTemplate,
-          defaultTitle,
-          themeColor,
-          dangerouslySetAllPagesToNoIndex,
-          dangerouslySetAllPagesToNoFollow,
-          description,
-          canonical,
-          facebook,
-          openGraph,
-          additionalMetaTags,
-          twitter,
-          defaultOpenGraphImageWidth,
-          defaultOpenGraphImageHeight,
-          defaultOpenGraphVideoWidth,
-          defaultOpenGraphVideoHeight,
-          mobileAlternate,
-          languageAlternates,
-          additionalLinkTags,
-          robotsProps,
-        })}
-      </Head>
-    );
-  }
-}
+export const DefaultSeo = ({
+  title,
+  titleTemplate,
+  defaultTitle,
+  themeColor,
+  dangerouslySetAllPagesToNoIndex = false,
+  dangerouslySetAllPagesToNoFollow = false,
+  description,
+  canonical,
+  facebook,
+  openGraph,
+  additionalMetaTags,
+  twitter,
+  defaultOpenGraphImageWidth,
+  defaultOpenGraphImageHeight,
+  defaultOpenGraphVideoWidth,
+  defaultOpenGraphVideoHeight,
+  mobileAlternate,
+  languageAlternates,
+  additionalLinkTags,
+  robotsProps,
+}: DefaultSeoProps) => {
+  return (
+    <WithHead
+      title={title}
+      titleTemplate={titleTemplate}
+      defaultTitle={defaultTitle}
+      themeColor={themeColor}
+      dangerouslySetAllPagesToNoIndex={dangerouslySetAllPagesToNoIndex}
+      dangerouslySetAllPagesToNoFollow={dangerouslySetAllPagesToNoFollow}
+      description={description}
+      canonical={canonical}
+      facebook={facebook}
+      openGraph={openGraph}
+      additionalMetaTags={additionalMetaTags}
+      twitter={twitter}
+      defaultOpenGraphImageWidth={defaultOpenGraphImageWidth}
+      defaultOpenGraphImageHeight={defaultOpenGraphImageHeight}
+      defaultOpenGraphVideoWidth={defaultOpenGraphVideoWidth}
+      defaultOpenGraphVideoHeight={defaultOpenGraphVideoHeight}
+      mobileAlternate={mobileAlternate}
+      languageAlternates={languageAlternates}
+      additionalLinkTags={additionalLinkTags}
+      robotsProps={robotsProps}
+    />
+  );
+};

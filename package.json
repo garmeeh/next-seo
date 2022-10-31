@@ -35,6 +35,7 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "e2e:dev": "next e2e",
+    "e2e:devApp": "next e2eWithApp",
     "e2e:build": "next build e2e",
     "e2e:start": "next start e2e"
   },

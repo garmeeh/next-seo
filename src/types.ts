@@ -469,6 +469,7 @@ export interface NextSeoProps {
   additionalMetaTags?: ReadonlyArray<MetaTag>;
   additionalLinkTags?: ReadonlyArray<LinkTag>;
   children?: never;
+  useAppDir?: boolean;
 }
 
 export interface DefaultSeoProps {
@@ -492,5 +493,6 @@ export interface DefaultSeoProps {
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
   additionalLinkTags?: ReadonlyArray<LinkTag>;
+  children?: never;
 }
 export interface BuildTagsParams extends DefaultSeoProps, NextSeoProps {}

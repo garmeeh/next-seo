@@ -23,10 +23,10 @@ export interface ImageJsonLdProps extends JsonLdProps {
 function ImageJsonLd({ keyOverride, images, ...rest }: ImageJsonLdProps) {
   return (
     <JsonLd
-      {...rest}
       type="ImageObject"
       keyOverride={keyOverride}
       dataArray={images}
+      {...rest}
       scriptKey="image"
     />
   );
