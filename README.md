@@ -18,11 +18,15 @@ Coffee fuels coding ☕️
 
 <a href="https://www.buymeacoffee.com/garmeeh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-## Using Next.js app directory?
+---
+
+## Using Next.js app directory introduced in Next.js 13?
 
 If you are using Next.js app directory beta then it is important that you read the dedicated [documentation](APP_DIRECTORY.md)
 
-**Table of Contents**
+---
+
+### Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
