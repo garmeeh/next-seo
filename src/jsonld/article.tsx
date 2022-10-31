@@ -32,6 +32,7 @@ function ArticleJsonLd({
   publisherLogo = undefined,
   description,
   isAccessibleForFree,
+  ...rest
 }: ArticleJsonLdProps) {
   const data = {
     datePublished,
@@ -46,6 +47,7 @@ function ArticleJsonLd({
     author: setAuthor(authorName),
     publisher: setPublisher(publisherName, publisherLogo),
     isAccessibleForFree: isAccessibleForFree,
+    ...rest,
   };
   return (
     <JsonLd

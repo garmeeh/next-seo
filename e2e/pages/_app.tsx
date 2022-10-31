@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app';
 
-import SEO from '../next-seo.config';
+import SEO from '../default-seo.config';
 import { DefaultSeo } from '../..';
 
 function MyApp({ Component, pageProps, router }: AppProps) {

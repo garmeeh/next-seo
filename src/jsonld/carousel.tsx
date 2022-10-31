@@ -52,6 +52,7 @@ function CarouselJsonLd({
   keyOverride,
   ofType,
   data,
+  ...rest
 }: CarouselJsonLdProps) {
   function generateList(
     data: CarouselJsonLdProps['data'],
@@ -149,13 +150,19 @@ function CarouselJsonLd({
     }
   }
 
-  const d = {
+  const jsonLdData = {
     '@type': 'ItemList',
     itemListElement: generateList(data, ofType),
+    ...rest,
   };
 
   return (
-    <JsonLd type={type} keyOverride={keyOverride} {...d} scriptKey="Carousel" />
+    <JsonLd
+      type={type}
+      keyOverride={keyOverride}
+      {...jsonLdData}
+      scriptKey="Carousel"
+    />
   );
 }
 
