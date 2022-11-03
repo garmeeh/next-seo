@@ -445,4 +445,4 @@ Hopefully this gets you up and running with the new app directory.
 
 If you have any feedback be sure to let me know over [here](https://github.com/garmeeh/next-seo/discussions/1073)
 
-The examples above can be found the example app in this repo [here](https://github.com/garmeeh/next-seo/e2eWithApp)
+The examples above can be found the example app in this repo [here](https://github.com/garmeeh/next-seo/tree/master/e2eWithApp)
