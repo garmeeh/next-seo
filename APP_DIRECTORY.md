@@ -1,5 +1,8 @@
 # Next.js App Directory Support
 
+> ⚠ Warning: Currently, the Head export does not re-render on client-side transitions, only on initial render. Read more [here](https://beta.nextjs.org/docs/api-reference/file-conventions/head#:~:text=Warning%3A%20Currently%2C%20the%20Head%20export%20does%20not%20re%2Drender%20on%20client%2Dside%20transitions%2C%20only%20on%20initial%20render.
+)
+
 With the introduction of the app directory there have been a lot of changes to how the `<head>` is now handled internally by Next.js.
 As a result of this, how we use `NextSeo` in our apps will also change.
 
