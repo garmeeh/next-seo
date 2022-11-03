@@ -188,13 +188,9 @@ const buildTags = (config: BuildTagsParams) => {
     );
   }
 
-  if(config.themeColor){
+  if (config.themeColor) {
     tagsToRender.push(
-      <meta
-        key="theme-color"
-        name="theme-color"
-        content={config.themeColor}
-      />
+      <meta key="theme-color" name="theme-color" content={config.themeColor} />,
     );
   }
 
@@ -640,11 +636,11 @@ const buildTags = (config: BuildTagsParams) => {
   }
 
   if (config.additionalMetaTags && config.additionalMetaTags.length > 0) {
-    config.additionalMetaTags.forEach(tag => {
+    config.additionalMetaTags.forEach(({ keyOverride, ...tag }) => {
       tagsToRender.push(
         <meta
           key={`meta:${
-            tag.keyOverride ?? tag.name ?? tag.property ?? tag.httpEquiv
+            keyOverride ?? tag.name ?? tag.property ?? tag.httpEquiv
           }`}
           {...tag}
         />,
