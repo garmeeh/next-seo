@@ -574,17 +574,16 @@ additionalMetaTags={[{
 }]}
 ```
 
-One thing to note on this is that it currently only supports unique tags.
-This means it will only render one tag per unique `name` / `property` / `httpEquiv`. The last one defined will be rendered.
+One thing to note on this is that it currently only supports unique tags, unless you use the `keyOverride` prop to provide a unique [key](https://reactjs.org/docs/lists-and-keys.html#keys) to each additional meta tag.
 
-Example:
+The default behaviour (without a `keyOverride` prop) is to render one tag per unique `name` / `property` / `httpEquiv`. The last one defined will be rendered.
 
-If you pass:
+For example if you pass 2 tags with the same `property`:
 
 ```js
 additionalMetaTags={[{
   property: 'dc:creator',
-  content: 'John Doe'
+  content: 'Joe Bloggs'
 }, {
   property: 'dc:creator',
   content: 'Jane Doe'
@@ -594,7 +593,28 @@ additionalMetaTags={[{
 it will result in this being rendered:
 
 ```html
-<meta property="dc:creator" content="Jane Doe" />,
+<meta property="dc:creator" content="Jane Doe" />
+```
+
+Providing an additional `keyOverride` property like this:
+
+```js
+additionalMetaTags={[{
+  property: 'dc:creator',
+  content: 'Joe Bloggs',
+  keyOverride: 'creator1',
+}, {
+  property: 'dc:creator',
+  content: 'Jane Doe',
+  keyOverride: 'creator2',
+}]}
+```
+
+results in the correct HTML being rendered:
+
+```html
+<meta property="dc:creator" content="Joe Bloggs" />
+<meta property="dc:creator" content="Jane Doe" />
 ```
 
 #### Additional Link Tags
