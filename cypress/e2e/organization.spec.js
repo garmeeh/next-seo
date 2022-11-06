@@ -82,6 +82,7 @@ describe('Organization JSON-LD', () => {
             contactType: 'customer service',
             telephone: '+1-877-746-0909',
             areaServed: 'US',
+            email: 'customerservice@email.com',
             availableLanguage: ['English', 'Spanish', 'French'],
             contactOption: 'TollFree',
           },
