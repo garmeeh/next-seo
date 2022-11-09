@@ -23,6 +23,7 @@ describe('DataSet JSON-LD', () => {
           {
             '@type': 'ContactPoint',
             telephone: '+1-401-555-1212',
+            email: 'customerservice@email.com',
             contactType: 'customer service',
             areaServed: 'US',
             availableLanguage: ['English', 'Spanish', 'French'],
@@ -30,6 +31,7 @@ describe('DataSet JSON-LD', () => {
           {
             '@type': 'ContactPoint',
             telephone: '+1-877-746-0909',
+            email: 'servicecustomer@email.com',
             contactType: 'customer service',
             contactOption: 'TollFree',
             availableLanguage: 'English',

@@ -118,6 +118,7 @@ export interface Organizer {
 export interface ContactPoint {
   contactType: string;
   telephone: string;
+  email?: string;
   areaServed?: string | string[];
   availableLanguage?: string | string[];
   contactOption?: string | string[];
@@ -136,13 +137,6 @@ export interface CreativeWork {
 export interface Producer {
   name: string;
   url?: string;
-}
-export interface ContactPoint {
-  contactType: string;
-  telephone: string;
-  areaServed?: string | string[];
-  availableLanguage?: string | string[];
-  contactOption?: string | string[];
 }
 
 export interface Question {
