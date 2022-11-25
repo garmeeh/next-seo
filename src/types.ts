@@ -155,8 +155,8 @@ export interface ItemListElements {
 }
 export interface OpenGraphMedia {
   url: string;
-  width?: number;
-  height?: number;
+  width?: number | null;
+  height?: number | null;
   alt?: string;
   type?: string;
   secureUrl?: string;
