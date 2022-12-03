@@ -56,8 +56,10 @@ function EventJsonLd({
     organizer: Array.isArray(organizer)
       ? organizer.map(setOrganizer)
       : setOrganizer(organizer),
-    eventStatus: `https://schema.org/${eventStatus}`,
-    eventAttendanceMode: `https://schema.org/${eventAttendanceMode}`,
+    eventStatus: eventStatus ? `https://schema.org/${eventStatus}` : undefined,
+    eventAttendanceMode: eventAttendanceMode
+      ? `https://schema.org/${eventAttendanceMode}`
+      : undefined,
   };
 
   return (
