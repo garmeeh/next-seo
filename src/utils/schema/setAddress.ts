@@ -2,7 +2,7 @@ import { Address } from 'src/types';
 
 export function setAddress(address?: Address | Address[]) {
   if (!address) return undefined;
-  
+
   if (!Array.isArray(address)) return toPostalAddress(address);
 
   // If array of one address, replace with single address
@@ -13,5 +13,6 @@ export function setAddress(address?: Address | Address[]) {
 }
 
 function toPostalAddress(address: Address) {
+  if (typeof address === 'string') return address;
   return { '@type': 'PostalAddress', ...address };
 }

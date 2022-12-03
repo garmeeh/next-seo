@@ -95,7 +95,7 @@ export interface VirtualLocation {
   url: string;
 }
 
-export type Location = Place | VirtualLocation;
+export type Location = string | Place | VirtualLocation;
 
 export type EventStatus =
   | 'EventCancelled'
@@ -162,13 +162,15 @@ export interface OpenGraphMedia {
   secureUrl?: string;
 }
 
-export interface Address {
-  streetAddress: string;
-  addressLocality: string;
-  addressRegion?: string;
-  postalCode: string;
-  addressCountry: string;
-}
+export type Address =
+  | string
+  | {
+      streetAddress: string;
+      addressLocality: string;
+      addressRegion?: string;
+      postalCode: string;
+      addressCountry: string;
+    };
 
 export interface Video {
   name: string;

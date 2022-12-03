@@ -22,6 +22,10 @@ describe('setAddress', () => {
     expect(setAddress(undefined)).toBeUndefined();
   });
 
+  test('should accepts simple string and returns it', () => {
+    expect(setAddress('AddressText')).toBe('AddressText');
+  });
+
   test('single address returns correctly', () => {
     const data = setAddress(addressOne);
 
