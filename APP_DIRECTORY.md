@@ -18,7 +18,7 @@ If you are interested I carried out some testing and gave feedback to the Next.j
 
 ### Key Changes
 
-- Next.js no longer de-duplicates tags in the head. This means that we can no longer use `<DefaultSeo />` in the same way. Going forward we will solely be use `<NextSeo />`
+- Next.js no longer de-duplicates tags in the head. This means that we can no longer use `<DefaultSeo />` in the same way. Going forward we will solely use `<NextSeo />`
 - `head.js` does not currently support `<script>` tags that do no have `src=""`. So for JSON-LD components they now have to be added via the page. This will result in them being added to the `<body>` of the page. This is 100% ok for SEO and not to worry about. This was confirmed by Google. I have also validated this using schema tool.
 - Next.js no longer auto adds the tags below to your app that you will likely need. I suggest adding them to your root layout in a `<head>` tag.
 
