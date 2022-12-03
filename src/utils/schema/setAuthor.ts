@@ -1,15 +1,6 @@
 import { ArticleAuthor } from '../../types';
 
 /**
- * Include name and url
- * @param author
- * @returns
- */
-function includeNameAndUrl(author: ArticleAuthor): boolean {
-  return typeof author === 'object' && !!(author.name && author.url);
-}
-
-/**
  * Generate author information
  * @param author
  * @returns
@@ -20,11 +11,11 @@ function generateAuthorInfo(author: string | ArticleAuthor) {
       '@type': 'Person',
       name: author,
     };
-  } else if (includeNameAndUrl(author)) {
+  } else if (!!author.name) {
     return {
-      '@type': 'Person',
+      '@type': author?.type ?? 'Person',
       name: author.name,
-      url: author.url,
+      url: author?.url,
     };
   }
 

@@ -380,7 +380,8 @@ export type Author = {
 
 export type ArticleAuthor = {
   name: string;
-  url: string;
+  url?: string;
+  type?: 'Person' | 'Organization';
 };
 
 export type Publisher = {
