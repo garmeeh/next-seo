@@ -10,7 +10,7 @@ const allJsonLDPages = [
   'corporateContact',
   'course',
   'dataset',
-  'even',
+  'event',
   'faq',
   'howTo',
   'jobPosting',
