@@ -3125,7 +3125,7 @@ export default () => (
 | `reviewedBy.type` | People or organizations that will review the content of the web page.                                |
 | `reviewedBy.name` | Name of the entity that have reviewed the content on this web page for accuracy and/or completeness. |
 
-For reference and more info check [Docs](https://schema.org/Brand)
+For reference and more info check [Docs](https://schema.org/WebPage)
 
 ### Image Metadata
 
