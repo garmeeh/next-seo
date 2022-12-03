@@ -20,7 +20,7 @@ export interface ProductJsonLdProps extends JsonLdProps {
   images?: string[];
   description?: string;
   brand?: string;
-  reviews?: Review[];
+  reviews?: Review | Review[];
   aggregateRating?: AggregateRating;
   offers?: Offers | Offers[];
   aggregateOffer?: AggregateOffer;
