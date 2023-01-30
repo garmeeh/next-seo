@@ -77,7 +77,7 @@
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
     "babel-jest": "^27.4.6",
-    "cypress": "^10.10.0",
+    "cypress": "^12.4.1",
     "cypress-testing-library": "^4.0.0",
     "doctoc": "^2.1.0",
     "husky": "4.3.8",
