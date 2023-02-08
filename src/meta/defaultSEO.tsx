@@ -24,6 +24,7 @@ export const DefaultSeo = ({
   languageAlternates,
   additionalLinkTags,
   robotsProps,
+  norobots,
 }: DefaultSeoProps) => {
   return (
     <WithHead
@@ -47,6 +48,7 @@ export const DefaultSeo = ({
       languageAlternates={languageAlternates}
       additionalLinkTags={additionalLinkTags}
       robotsProps={robotsProps}
+      norobots={norobots}
     />
   );
 };
