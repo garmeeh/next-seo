@@ -76,7 +76,7 @@
     "@types/node": "^18.11.7",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
-    "babel-jest": "^27.4.6",
+    "babel-jest": "^29.4.2",
     "cypress": "^10.10.0",
     "cypress-testing-library": "^4.0.0",
     "doctoc": "^2.1.0",
