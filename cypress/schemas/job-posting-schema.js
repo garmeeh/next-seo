@@ -385,5 +385,60 @@ const jobPosting100 = {
   },
 };
 
-const jobPostingVersions = versionSchemas(jobPosting100);
+const jobPosting101 = {
+  version: {
+    major: 1,
+    minor: 1,
+    patch: 0,
+  },
+  schema: {
+    type: 'object',
+    title: 'Job Posting',
+    description: 'An example schema describing JSON-LD for type: Job Posting',
+    properties: {
+      '@context': {
+        type: 'string',
+        description: 'Schema.org context',
+      },
+      '@type': {
+        type: 'string',
+        description: 'JSON-LD Type',
+      },
+      datePosted: {
+        type: 'string',
+        description: 'posted date of the job offer',
+      },
+      description: {
+        type: 'string',
+        description: 'description of the job offer',
+      },
+      hiringOrganization: {
+        type: 'string',
+        description: "the string 'confidential' when hiring anonymously",
+      },
+      validThrough: {
+        type: 'string',
+        description: 'job valid untill',
+      },
+      title: {
+        type: 'string',
+        description: 'title of the job offer',
+      },
+    },
+    required: true,
+    additionalProperties: false,
+    example: {
+      '@context': 'https://schema.org',
+      '@type': 'JobPosting',
+      datePosted: '2020-06-12',
+      description:
+        '<p>Maespirit is looking for a software developer for ....</p>',
+      hiringOrganization: 'confidential',
+      validThrough: '2020-12-12',
+      title: 'Software developer',
+    },
+  },
+};
+
+const jobPostingVersions = versionSchemas(jobPosting100, jobPosting101);
 export default jobPostingVersions;
