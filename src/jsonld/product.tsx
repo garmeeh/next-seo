@@ -39,7 +39,6 @@ export interface ProductJsonLdProps extends JsonLdProps {
   purchaseDate?: string;
   releaseDate?: string;
   award?: string;
-  category?: string
 }
 
 function ProductJsonLd({
