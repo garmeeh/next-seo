@@ -319,6 +319,7 @@ export interface LinkTag {
   referrerpolicy?: string;
   integrity?: string;
   keyOverride?: string;
+  color?: string;
 }
 
 export interface BaseMetaTag {
