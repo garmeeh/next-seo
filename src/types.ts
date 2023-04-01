@@ -95,7 +95,7 @@ export interface VirtualLocation {
   url: string;
 }
 
-export type Location = Place | VirtualLocation;
+export type Location = string | Place | VirtualLocation;
 
 export type EventStatus =
   | 'EventCancelled'
@@ -118,6 +118,7 @@ export interface Organizer {
 export interface ContactPoint {
   contactType: string;
   telephone: string;
+  email?: string;
   areaServed?: string | string[];
   availableLanguage?: string | string[];
   contactOption?: string | string[];
@@ -137,13 +138,6 @@ export interface Producer {
   name: string;
   url?: string;
 }
-export interface ContactPoint {
-  contactType: string;
-  telephone: string;
-  areaServed?: string | string[];
-  availableLanguage?: string | string[];
-  contactOption?: string | string[];
-}
 
 export interface Question {
   questionName: string;
@@ -161,20 +155,22 @@ export interface ItemListElements {
 }
 export interface OpenGraphMedia {
   url: string;
-  width?: number;
-  height?: number;
+  width?: number | null;
+  height?: number | null;
   alt?: string;
   type?: string;
   secureUrl?: string;
 }
 
-export interface Address {
-  streetAddress: string;
-  addressLocality: string;
-  addressRegion?: string;
-  postalCode: string;
-  addressCountry: string;
-}
+export type Address =
+  | string
+  | {
+      streetAddress: string;
+      addressLocality: string;
+      addressRegion?: string;
+      postalCode: string;
+      addressCountry: string;
+    };
 
 export interface Video {
   name: string;
@@ -309,16 +305,21 @@ interface LanguageAlternate {
   href: string;
 }
 
-interface LinkTag {
+export interface LinkTag {
   rel: string;
   href: string;
-  sizes?: string;
+  hrefLang?: string;
   media?: string;
+  sizes?: string;
   type?: string;
-  color?: string;
-  keyOverride?: string;
   as?: string;
   crossOrigin?: string;
+  imagesrcset?: string;
+  imagesizes?: string;
+  referrerpolicy?: string;
+  integrity?: string;
+  keyOverride?: string;
+  color?: string;
 }
 
 export interface BaseMetaTag {
@@ -384,7 +385,8 @@ export type Author = {
 
 export type ArticleAuthor = {
   name: string;
-  url: string;
+  url?: string;
+  type?: 'Person' | 'Organization';
 };
 
 export type Publisher = {
@@ -492,5 +494,6 @@ export interface DefaultSeoProps {
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
   additionalLinkTags?: ReadonlyArray<LinkTag>;
+  children?: never;
 }
 export interface BuildTagsParams extends DefaultSeoProps, NextSeoProps {}

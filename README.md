@@ -1,6 +1,5 @@
 # Next SEO
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors)
 ![npm](https://img.shields.io/npm/dw/next-seo?style=flat-square)
 
 Next SEO is a plugin that makes managing your SEO easier in Next.js projects.
@@ -12,13 +11,31 @@ looking for inspiration on what to add.
 
 It takes a lot of time to maintain an open source project so any small contribution is greatly appreciated.
 
-**Web3**: [next-seo.wallet](https://unstoppabledomains.com/d/next-seo.wallet) (ERC20 & SOL)
-
 Coffee fuels coding ☕️
 
 <a href="https://www.buymeacoffee.com/garmeeh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-**Table of Contents**
+[next-seo.wallet](https://unstoppabledomains.com/d/next-seo.wallet) (ERC20 & SOL)
+
+**Note on app directory**
+
+This note is only relevant if using the `app` directory.
+
+For standard meta data (eg: <meta>, <title>) then it is highly recommended that you use the built in `generateMetaData` method. You can check out the docs [here](https://beta.nextjs.org/docs/guides/seo#usage)
+
+For JSON-LD then the only change needed is you should add `useAppDir={true}` to the JSON-LD component in use. You should add use this component in your `page.js` and NOT your `head.js`.
+
+```
+<ArticleJsonLd
+  useAppDir={true}
+  url="https://example.com/article"
+  title="Article headline" <- required for app directory
+  />
+```
+
+If you are using **`pages`** directory then `NextSeo` is **exactly what you need** for your SEO needs!
+
+### Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -107,6 +124,16 @@ yarn add next-seo
 ```
 
 ### Add SEO to Page
+
+---
+
+**Using Next.js app directory introduced in Next.js 13?**
+
+If you are using Next.js app directory then it is highly recommended that you use the built in `generateMetaData` method. You can check out the docs [here](https://beta.nextjs.org/docs/guides/seo#usage)
+
+If you are using `pages` directory then `NextSeo` is exactly what you need for your SEO needs!
+
+---
 
 Then you need to import `NextSeo` and add the desired properties. This will render out the tags in the `<head>` for SEO. At a bare minimum, you should add a title and description.
 
@@ -566,17 +593,16 @@ additionalMetaTags={[{
 }]}
 ```
 
-One thing to note on this is that it currently only supports unique tags.
-This means it will only render one tag per unique `name` / `property` / `httpEquiv`. The last one defined will be rendered.
+One thing to note on this is that it currently only supports unique tags, unless you use the `keyOverride` prop to provide a unique [key](https://reactjs.org/docs/lists-and-keys.html#keys) to each additional meta tag.
 
-Example:
+The default behaviour (without a `keyOverride` prop) is to render one tag per unique `name` / `property` / `httpEquiv`. The last one defined will be rendered.
 
-If you pass:
+For example if you pass 2 tags with the same `property`:
 
 ```js
 additionalMetaTags={[{
   property: 'dc:creator',
-  content: 'John Doe'
+  content: 'Joe Bloggs'
 }, {
   property: 'dc:creator',
   content: 'Jane Doe'
@@ -586,7 +612,28 @@ additionalMetaTags={[{
 it will result in this being rendered:
 
 ```html
-<meta property="dc:creator" content="Jane Doe" />,
+<meta property="dc:creator" content="Jane Doe" />
+```
+
+Providing an additional `keyOverride` property like this:
+
+```js
+additionalMetaTags={[{
+  property: 'dc:creator',
+  content: 'Joe Bloggs',
+  keyOverride: 'creator1',
+}, {
+  property: 'dc:creator',
+  content: 'Jane Doe',
+  keyOverride: 'creator2',
+}]}
+```
+
+results in the correct HTML being rendered:
+
+```html
+<meta property="dc:creator" content="Joe Bloggs" />
+<meta property="dc:creator" content="Jane Doe" />
 ```
 
 #### Additional Link Tags
@@ -1030,6 +1077,8 @@ Next SEO now has the ability to set JSON-LD a form of structured data. Structure
 
 Google has excellent content on JSON-LD -> [HERE](https://developers.google.com/search/docs/data-types/article)
 
+**If using app directory then please ensure to add `useAppDir={false}` prop and that you are using the component in the `page.js`**
+
 Below you will find a very basic page implementing each of the available JSON-LD types:
 
 - [Article](#article-1)
@@ -1079,6 +1128,7 @@ const Page = () => (
   <>
     <h1>Article JSON-LD</h1>
     <ArticleJsonLd
+      useAppDir={false}
       url="https://example.com/article"
       title="Article headline"
       images={[
@@ -1101,6 +1151,7 @@ const Page = () => (
       publisherName="Gary Meehan"
       publisherLogo="https://www.example.com/photos/logo.jpg"
       description="This is a mighty good description of this article."
+      isAccessibleForFree={true}
     />
   </>
 );
@@ -1155,6 +1206,9 @@ export default Page;
 | `itemListElements.name`     | The title of the breadcrumb displayed for the user.                                                      |
 | `itemListElements.item`     | The URL to the webpage that represents the breadcrumb.                                                   |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 ### Blog
 
 ```jsx
@@ -1164,7 +1218,7 @@ const Page = () => (
   <>
     <h1>Blog JSON-LD</h1>
     <ArticleJsonLd
-      type="Blog"
+      type="BlogPosting"
       url="https://example.com/blog"
       title="Blog headline"
       images={[
@@ -1277,6 +1331,9 @@ export default Page;
 | `instructions.name` | The name of the instruction step.                                   |
 | `instructions.text` | The directions of the instruction step.                             |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 ### Sitelinks Search Box
 
 ```jsx
@@ -1312,6 +1369,9 @@ export default Page;
 | `potentialActions`            | Array of one or two SearchAction objects. Describes the URI to send the query to, and the syntax of the request that is sent                                                    |
 | `potentialActions.target`     | For websites, the URL of the handler that should receive and handle the search query; for apps, the URI of the intent handler for your search engine that should handle queries |
 | `potentialActions.queryInput` | Placeholder used in target, gets substituted for user given query                                                                                                               |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
 
 Read the [documentation](https://developers.google.com/search/docs/appearance/structured-data/sitelinks-searchbox)
 
@@ -1352,6 +1412,9 @@ export default Page;
 | ------------- | ------------------------------- |
 | `providerUrl` | The url to the course provider. |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 ### Dataset
 
 ```jsx
@@ -1384,6 +1447,9 @@ export default Page;
 | --------- | ------------------------------- |
 | `license` | The url to the course provider. |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 ### Corporate Contact
 
 ```jsx
@@ -1399,12 +1465,14 @@ const Page = () => (
         {
           telephone: '+1-401-555-1212',
           contactType: 'customer service',
+          email: 'customerservice@email.com',
           areaServed: 'US',
           availableLanguage: ['English', 'Spanish', 'French'],
         },
         {
           telephone: '+1-877-746-0909',
           contactType: 'customer service',
+          email: 'servicecustomer@email.com',
           contactOption: 'TollFree',
           availableLanguage: 'English',
         },
@@ -1438,7 +1506,11 @@ export default Page;
 | -------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | `contactPoint.areaServed`        | `String` or `Array` of geographical regions served by the business. Example `"US"` or `["US", "CA", "MX"]` |
 | `contactPoint.availableLanguage` | Details about the language spoken. Example `"English"` or `["English", "French"]`                          |
+| `contactPoint.email`             | Email asscosiated with the business`                                                                       |
 | `gecontactPointo.contactOption`  | Details about the phone number. Example `"TollFree"`                                                       |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
 
 ### FAQ Page
 
@@ -1473,6 +1545,9 @@ export default Page;
 | `mainEntity`                    |                                                                               |
 | `mainEntity.questionName`       | The full text of the question. For example, "How long is the delivery time?". |
 | `mainEntity.acceptedAnswerText` | The full answer to the question.                                              |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
 
 ### How-to
 
@@ -1530,6 +1605,9 @@ export default Page;
 | `tool`          | An object used (but not consumed) when performing instructions or a direction.                                                           |
 | `totalTime`     | The total time required to perform all instructions or directions (including time to prepare the supplies), in ISO 8601 duration format. |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 ### Job Posting
 
 ```jsx
@@ -1580,15 +1658,15 @@ export default Page;
 
 **Required properties**
 
-| Property                    | Info                                                                                                   |
-| --------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `datePosted`                | The original date that employer posted the job in ISO 8601 format                                      |
-| `description`               | The full description of the job in HTML format                                                         |
-| `hiringOrganization`        |                                                                                                        |
-| `hiringOrganization.name`   | Name of the company offering the job position                                                          |
-| `hiringOrganization.sameAs` | URL of a reference Web page                                                                            |
-| `title`                     | The title of the job (not the title of the posting)                                                    |
-| `validThrough`              | The date when the job posting will expire in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) |
+| Property                    | Info                                                                                                                                       |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `datePosted`                | The original date that employer posted the job in ISO 8601 format                                                                          |
+| `description`               | The full description of the job in HTML format                                                                                             |
+| `hiringOrganization`        | An object containing information about the company hiring with the following fields or the string `'confidential'` when hiring anonymously |
+| `hiringOrganization.name`   | Name of the company offering the job position                                                                                              |
+| `hiringOrganization.sameAs` | URL of a reference Web page                                                                                                                |
+| `title`                     | The title of the job (not the title of the posting)                                                                                        |
+| `validThrough`              | The date when the job posting will expire in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601)                                     |
 
 **Supported properties**
 
@@ -1611,6 +1689,9 @@ export default Page;
 | `experienceRequirements.occupational.minimumMonthsOfExperience` | The minimum number of months of experience that are required for the job posting. [Experience and Education Requirements](https://developers.google.com/search/docs/appearance/structured-data/job-posting#education-and-experience-properties-beta)    |
 | `experienceRequirements.educational.credentialCategory`         | The level of education that's required for the job posting. Use one of the following: `high school`, `associate degree`, `bachelor degree`, `professional certificate`, `postgraduate degree`                                                           |
 | `experienceRequirements.experienceInPlaceOfEducation`           | Boolean: If set to true, this property indicates whether a job posting will accept experience in place of its formal educational qualifications. If set to true, you must include both the experienceRequirements and educationRequirements properties. |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
 
 ### Local Business
 
@@ -1810,6 +1891,9 @@ Local business is supported with a sub-set of properties.
 | `action`                                            | An action performed by a direct agent and indirect participants upon a direct object.                                                                |
 | `action.target`                                     | Indicates a target EntryPoint for an Action.                                                                                                         |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 **NOTE:**
 
 Images are recommended for most of the types that you can use for `LocalBusiness`, if in doubt you should add an image. You can check your generated JSON over at Google's [Structured Data Testing Tool](https://search.google.com/structured-data/testing-tool)
@@ -1836,6 +1920,9 @@ export default Page;
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `url`    | The URL of the website associated with the logo. [Logo guidelines](https://developers.google.com/search/docs/data-types/logo#definitions) |
 | `logo`   | URL of a logo that is representative of the organization.                                                                                 |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
 
 ### Product
 
@@ -1957,6 +2044,9 @@ The property `aggregateOffer` is also available:
 | `offerCount` | The number of offers for the product.                                                                                                                           |
 | `offers`     | An offer to transfer some rights to an item or to provide a service. You can provide this as a single object, or an array of objects with the properties below. |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 More info on the product data type can be found [here](https://developers.google.com/search/docs/data-types/product).
 
 ### Social Profile
@@ -1992,6 +2082,9 @@ export default Page;
 | `name`   | The name of the person or organization                                                    |
 | `url`    | The URL for the person's or organization's official website.                              |
 | `sameAs` | An array of URLs for the person's or organization's official social media profile page(s) |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
 
 **Google Supported Social Profiles**
 
@@ -2031,6 +2124,7 @@ const Page = () => (
       publisherLogo="https://www.example.com/photos/logo.jpg"
       description="This is a mighty good description of this article."
       body="This is all text for this news article"
+      isAccessibleForFree={true}
     />
   </>
 );
@@ -2100,6 +2194,9 @@ export default Page;
 | `interactionStatistic` | The number of times the video has been watched.                                          |
 | `publication`          | If your video is happening live and you want to be eligible for the LIVE badge.          |
 | `regionsAllowed`       | The regions where the video is allowed.                                                  |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
 
 ### VideoGame
 
@@ -2188,6 +2285,9 @@ export default Page;
 | -------- | ---------------------------- |
 | `name`   | The title of the video game. |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 [More information about the schema](https://schema.org/VideoGame)
 
 ### Event
@@ -2272,6 +2372,9 @@ export default Page;
 | `startDate` | The start date time of the event in iso8601 format         |
 | `endDate`   | The end date time of the event in iso8601 format           |
 | `location`  | Location of the event, can be `Place` or `VirtualLocation` |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
 
 **`Place` type**
 Requires `address` property and `name`.
@@ -2412,6 +2515,9 @@ export default Page;
 | ------------ | ------------------------------------------------------------------------------------------------------ |
 | `mainEntity` | The Question for this page must be nested under the mainEntity property of the QAPageJsonld component. |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 **`mainEntity` Required properties**
 
 | Property                              | Info                                                                                                                          |
@@ -2497,6 +2603,9 @@ export default Page;
 | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | `hasPart.creativeWork` | The most generic kind of [creative work](https://schema.org/CreativeWork), including books, movies, photographs, software programs, etc |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 **`creativeWork` Required properties**
 
 | Property                             | Info                                                                                                                                                                                                                        |
@@ -2560,6 +2669,9 @@ export default Page;
 | -------------- | ---------------------------------------------------------------------------------------------- |
 | `lastReviewed` | Date on which the content on this web page was last reviewed for accuracy and/or completeness. |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 For reference and more info check [Profile Page DataType](https://schema.org/ProfilePage)
 
 ### Carousel
@@ -2570,6 +2682,9 @@ For reference and more info check [Profile Page DataType](https://schema.org/Pro
 | -------- | ------------------------------------------------------------------ |
 | `type`   | The type of carousel                                               |
 | `data`   | The data in the form of an array for the item list in the carousel |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
 
 #### Default (Summary List)
 
@@ -2922,6 +3037,9 @@ export default () => (
 | `aggregateRating` | The average review score of the app. (Not required if review is present.) |
 | `review`          | A single review of the app. (Not required if aggregateRating is present.) |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 **Data Recommended properties**
 
 | Property              | Info                              |
@@ -2958,12 +3076,14 @@ export default () => (
         {
           telephone: '+1-401-555-1212',
           contactType: 'customer service',
+          email: 'customerservice@email.com',
           areaServed: 'US',
           availableLanguage: ['English', 'Spanish', 'French'],
         },
         {
           telephone: '+1-877-746-0909',
           contactType: 'customer service',
+          email: 'servicecustomer@email.com',
           contactOption: 'TollFree',
           availableLanguage: 'English',
         },
@@ -3008,6 +3128,10 @@ export default () => (
 | `address.streetAddress`          | Street number, street name, and unit number.                                                               |
 | `contactPoint.areaServed`        | `String` or `Array` of geographical regions served by the business. Example `"US"` or `["US", "CA", "MX"]` |
 | `contactPoint.availableLanguage` | Details about the language spoken. Example `"English"` or `["English", "French"]`                          |
+| `contactPoint.email`             | Email asscosiated with the business`                                                                       |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
 
 For reference and more info check [Docs](https://schema.org/Organization)
 
@@ -3050,6 +3174,9 @@ export default () => (
 | `aggregateRating.reviewCount` | The count of total number of reviews.                                                    |
 | `aggregateRating.bestRating`  | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed. |
 
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 For reference and more info check [Docs](https://schema.org/Brand)
 
 ### WebPage
@@ -3089,7 +3216,10 @@ export default () => (
 | `reviewedBy.type` | People or organizations that will review the content of the web page.                                |
 | `reviewedBy.name` | Name of the entity that have reviewed the content on this web page for accuracy and/or completeness. |
 
-For reference and more info check [Docs](https://schema.org/Brand)
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
+For reference and more info check [Docs](https://schema.org/WebPage)
 
 ### Image Metadata
 
@@ -3133,6 +3263,9 @@ export default Image;
 | `copyrightNotice`    | The copyright notice for claiming the intellectual property for this photograph. This identifies the current owner of the copyright for the photograph. |
 | `license`            | A URL to a page that describes the license governing an image's use. For example, it could be the terms and conditions that you have on your website.   |
 | `acquireLicensePage` | A URL to a page where the user can find information on how to license that image.                                                                       |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
 
 For reference and more info check [Google Docs](https://developers.google.com/search/docs/appearance/structured-data/image-license-metadata)
 

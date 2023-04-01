@@ -1,9 +1,13 @@
 import { Location, Place, VirtualLocation } from 'src/types';
 import { setAddress } from './setAddress';
 
-export function setLocation(location: Location) {
+export function setLocation(location?: Location) {
   if (!location) {
     return undefined;
+  }
+
+  if (typeof location === 'string') {
+    return location;
   }
 
   if ('url' in location) {

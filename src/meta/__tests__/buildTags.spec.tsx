@@ -872,6 +872,28 @@ it('additional meta tags are set', () => {
   expect(Array.from(httpEquivTag).length).toBe(1);
 });
 
+it('uses key override to render multiple additional meta tags with the same key', () => {
+  const overrideProps: BuildTagsParams = {
+    ...SEO,
+    additionalMetaTags: [
+      { property: 'foo', content: 'Foo 1', keyOverride: 'foo1' },
+      { property: 'foo', content: 'Foo 2', keyOverride: 'foo2' },
+      { name: 'bar', content: 'Bar 1', keyOverride: 'bar1' },
+      { name: 'bar', content: 'Bar 2', keyOverride: 'bar2' },
+    ],
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+
+  const propertyTags = container.querySelectorAll('meta[property="foo"]');
+  expect(Array.from(propertyTags).length).toBe(2);
+  expect(propertyTags[0]).not.toHaveAttribute('keyoverride');
+
+  const nameTags = container.querySelectorAll('meta[name="bar"]');
+  expect(Array.from(nameTags).length).toBe(2);
+  expect(nameTags[0]).not.toHaveAttribute('keyoverride');
+});
+
 it('correctly sets noindex default', () => {
   const overrideProps: BuildTagsParams = {
     ...SEO,

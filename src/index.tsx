@@ -1,5 +1,5 @@
-export { default as DefaultSeo } from './meta/defaultSEO';
-export { default as NextSeo } from './meta/nextSEO';
+export { DefaultSeo } from './meta/defaultSEO';
+export { NextSeo } from './meta/nextSEO';
 
 export {
   default as CarouselJsonLd,

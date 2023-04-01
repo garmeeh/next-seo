@@ -49,7 +49,7 @@ const organization110 = {
         description:
           "Array of Organization's URL's, usually social urls like instagram, facebook etc.",
       },
-      contactPoints: {
+      contactPoint: {
         type: 'array',
         items: {
           ...contactPoint100.schema,
@@ -73,7 +73,7 @@ const organization110 = {
     legalName: 'Purple Fox LLC',
     name: 'Purple Fox',
     address: [address100.example],
-    contactPoints: [contactPoint100.example],
+    contactPoint: [contactPoint100.example],
     sameAs: ['https://www.orange-fox.com'],
     url: 'https://www.purpule-fox.io/',
   },

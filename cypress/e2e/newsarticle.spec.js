@@ -46,6 +46,7 @@ describe('NewsArticle JSON-LD', () => {
         },
         description: 'This is a mighty good description of this news article.',
         articleBody: 'This is article body of news article',
+        isAccessibleForFree: true,
       });
     });
   });

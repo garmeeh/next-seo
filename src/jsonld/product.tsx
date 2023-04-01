@@ -20,7 +20,7 @@ export interface ProductJsonLdProps extends JsonLdProps {
   images?: string[];
   description?: string;
   brand?: string;
-  reviews?: Review[];
+  reviews?: Review | Review[];
   aggregateRating?: AggregateRating;
   offers?: Offers | Offers[];
   aggregateOffer?: AggregateOffer;
@@ -39,6 +39,7 @@ export interface ProductJsonLdProps extends JsonLdProps {
   purchaseDate?: string;
   releaseDate?: string;
   award?: string;
+  category?: string;
 }
 
 function ProductJsonLd({

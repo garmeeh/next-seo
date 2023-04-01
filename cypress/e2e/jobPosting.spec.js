@@ -6,7 +6,9 @@ describe('Job Posting JSON-LD', () => {
     cy.visit('http://localhost:3000/jsonld/jobPosting');
     cy.get('head script[type="application/ld+json"]').then(tags => {
       const jsonLD = JSON.parse(tags[0].innerHTML);
+      const confidentialHiringJsonLD = JSON.parse(tags[2].innerHTML);
       assertSchema(schemas)('Job Posting', '1.0.0')(jsonLD);
+      assertSchema(schemas)('Job Posting', '1.1.0')(confidentialHiringJsonLD);
     });
   });
 
@@ -115,6 +117,23 @@ describe('Job Posting JSON-LD', () => {
         jobLocationType: 'TELECOMMUTE',
         validThrough: '2020-01-06',
         title: 'Job Title #2',
+      });
+    });
+  });
+
+  it('Third Job Posting (With Anonymous Organization) Matches', () => {
+    cy.visit('http://localhost:3000/jsonld/jobPosting');
+    cy.get('head script[type="application/ld+json"]').then(tags => {
+      const jsonLD = JSON.parse(tags[2].innerHTML);
+
+      expect(jsonLD).to.deep.equal({
+        '@context': 'https://schema.org',
+        '@type': 'JobPosting',
+        datePosted: '2020-01-06T03:37:40Z',
+        description: 'Company is looking for another software developer....',
+        hiringOrganization: 'confidential',
+        validThrough: '2020-01-06',
+        title: 'Job Title #3',
       });
     });
   });

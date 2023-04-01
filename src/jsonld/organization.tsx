@@ -14,7 +14,11 @@ export interface OrganizationJsonLdProps extends JsonLdProps {
   legalName?: string;
   sameAs?: string[];
   address?: Address | Address[];
+  /**
+   * @deprecated please use contactPoint instead. contactPoints will continue to work until next major release.
+   */
   contactPoints?: ContactPoint[];
+  contactPoint?: ContactPoint[];
 }
 
 function OrganizationJsonLd({
@@ -22,12 +26,13 @@ function OrganizationJsonLd({
   keyOverride,
   address,
   contactPoints,
+  contactPoint,
   ...rest
 }: OrganizationJsonLdProps) {
   const data = {
     ...rest,
     address: setAddress(address),
-    contactPoints: setContactPoints(contactPoints),
+    contactPoint: setContactPoints(contactPoint || contactPoints),
   };
   return (
     <JsonLd

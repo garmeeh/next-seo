@@ -3,6 +3,7 @@ import { setAuthor } from 'src/utils/schema/setAuthor';
 import { setPublisher } from 'src/utils/schema/setPublisher';
 
 import { JsonLd, JsonLdProps } from './jsonld';
+import { ArticleAuthor } from '../types';
 
 export interface NewsArticleJsonLdProps extends JsonLdProps {
   url: string;
@@ -13,11 +14,12 @@ export interface NewsArticleJsonLdProps extends JsonLdProps {
   dateCreated: string;
   datePublished: string;
   dateModified?: string;
-  authorName: string | string[];
+  authorName: string | string[] | ArticleAuthor | ArticleAuthor[];
   description: string;
   body: string;
   publisherName: string;
   publisherLogo: string;
+  isAccessibleForFree?: boolean;
 }
 
 function NewsArticleJsonLd({
@@ -31,9 +33,11 @@ function NewsArticleJsonLd({
   datePublished,
   dateModified,
   authorName,
+  authorType,
   publisherName,
   publisherLogo,
   body,
+  isAccessibleForFree,
   ...rest
 }: NewsArticleJsonLdProps) {
   const data = {
@@ -51,6 +55,7 @@ function NewsArticleJsonLd({
     author: setAuthor(authorName),
     publisher: setPublisher(publisherName, publisherLogo),
     articleBody: body,
+    isAccessibleForFree: isAccessibleForFree,
   };
 
   return (

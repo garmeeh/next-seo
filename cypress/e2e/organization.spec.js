@@ -30,11 +30,12 @@ describe('Organization JSON-LD', () => {
           postalCode: '95129',
           addressCountry: 'US',
         },
-        contactPoints: [
+        contactPoint: [
           {
             '@type': 'ContactPoint',
             contactType: 'customer service',
             telephone: '+1-877-746-0909',
+            email: 'customerservice@email.com',
             areaServed: 'US',
             availableLanguage: ['English', 'Spanish', 'French'],
             contactOption: 'TollFree',
@@ -75,11 +76,12 @@ describe('Organization JSON-LD', () => {
             addressCountry: 'France',
           },
         ],
-        contactPoints: [
+        contactPoint: [
           {
             '@type': 'ContactPoint',
             contactType: 'customer service',
             telephone: '+1-877-746-0909',
+            email: 'email@email.com',
             areaServed: 'US',
             availableLanguage: ['English', 'Spanish', 'French'],
             contactOption: 'TollFree',

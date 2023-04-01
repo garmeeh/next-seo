@@ -92,25 +92,26 @@ describe('Article JSON-LD', () => {
           },
         },
         description: 'This is a mighty good description of this article.',
+        isAccessibleForFree: true,
       });
     });
   });
 
-  it('matches schema when type Blog', () => {
+  it('matches schema when type BlogPosting', () => {
     cy.visit('http://localhost:3000/jsonld/blog');
     cy.get('head script[type="application/ld+json"]').then(tags => {
       const jsonLD = JSON.parse(tags[0].innerHTML);
-      assertSchema(schemas)('Blog', '1.0.0')(jsonLD);
+      assertSchema(schemas)('BlogPosting', '1.0.0')(jsonLD);
     });
   });
 
-  it('renders with all props when type Blog', () => {
+  it('renders with all props when type BlogPosting', () => {
     cy.visit('http://localhost:3000/jsonld/blog');
     cy.get('head script[type="application/ld+json"]').then(tags => {
       const jsonLD = JSON.parse(tags[0].innerHTML);
       expect(jsonLD).to.deep.equal({
         '@context': 'https://schema.org',
-        '@type': 'Blog',
+        '@type': 'BlogPosting',
         mainEntityOfPage: {
           '@type': 'WebPage',
           '@id': 'https://example.com/blog',

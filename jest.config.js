@@ -12,8 +12,8 @@ const customJestConfig = {
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   // if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
   testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js|jsx)$',
-  modulePaths: ['.'],
-  moduleDirectories: ['node_modules', '.'],
+  modulePaths: ['<rootDir>'],
+  moduleDirectories: ['node_modules', '<rootDir>'],
   moduleFileExtensions: ['ts', 'tsx', 'js'],
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',

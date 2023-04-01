@@ -6,7 +6,7 @@ function Blog() {
     <>
       <h1>Blog</h1>
       <ArticleJsonLd
-        type="Blog"
+        type="BlogPosting"
         url="https://example.com/blog"
         title="Blog headline"
         images={[
