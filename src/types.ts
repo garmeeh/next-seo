@@ -305,16 +305,21 @@ interface LanguageAlternate {
   href: string;
 }
 
-interface LinkTag {
+export interface LinkTag {
   rel: string;
   href: string;
-  sizes?: string;
+  hrefLang?: string;
   media?: string;
+  sizes?: string;
   type?: string;
-  color?: string;
-  keyOverride?: string;
   as?: string;
   crossOrigin?: string;
+  imagesrcset?: string;
+  imagesizes?: string;
+  referrerpolicy?: string;
+  integrity?: string;
+  keyOverride?: string;
+  color?: string;
 }
 
 export interface BaseMetaTag {
@@ -466,7 +471,6 @@ export interface NextSeoProps {
   additionalMetaTags?: ReadonlyArray<MetaTag>;
   additionalLinkTags?: ReadonlyArray<LinkTag>;
   children?: never;
-  useAppDir?: boolean;
 }
 
 export interface DefaultSeoProps {
