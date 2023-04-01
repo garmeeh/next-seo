@@ -119,13 +119,13 @@ const buildTags = (config: BuildTagsParams) => {
   }
 
   const noindex =
-    config.noindex != null
-      ? config.noindex
-      : config.dangerouslySetAllPagesToNoIndex || defaults.noindex;
+    config.noindex ||
+    defaults.noindex ||
+    config.dangerouslySetAllPagesToNoIndex;
   const nofollow =
-    config.nofollow != null
-      ? config.nofollow
-      : config.dangerouslySetAllPagesToNoFollow || defaults.nofollow;
+    config.nofollow ||
+    defaults.nofollow ||
+    config.dangerouslySetAllPagesToNoFollow;
 
   let robotsParams = '';
   if (config.robotsProps) {
@@ -152,6 +152,13 @@ const buildTags = (config: BuildTagsParams) => {
   }
 
   if (noindex || nofollow) {
+    if (config.dangerouslySetAllPagesToNoIndex) {
+      defaults.noindex = true;
+    }
+    if (config.dangerouslySetAllPagesToNoFollow) {
+      defaults.nofollow = true;
+    }
+
     tagsToRender.push(
       <meta
         key="robots"
