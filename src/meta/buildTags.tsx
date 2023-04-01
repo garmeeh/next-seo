@@ -650,8 +650,20 @@ const buildTags = (config: BuildTagsParams) => {
 
   if (config.additionalLinkTags?.length) {
     config.additionalLinkTags.forEach(tag => {
+      const { crossOrigin: tagCrossOrigin, ...rest } = tag;
+      const crossOrigin: 'anonymous' | 'use-credentials' | '' | undefined =
+        tagCrossOrigin === 'anonymous' ||
+        tagCrossOrigin === 'use-credentials' ||
+        tagCrossOrigin === ''
+          ? tagCrossOrigin
+          : undefined;
+
       tagsToRender.push(
-        <link key={`link${tag.keyOverride ?? tag.href}${tag.rel}`} {...tag} />,
+        <link
+          key={`link${rest.keyOverride ?? rest.href}${rest.rel}`}
+          {...rest}
+          crossOrigin={crossOrigin}
+        />,
       );
     });
   }
