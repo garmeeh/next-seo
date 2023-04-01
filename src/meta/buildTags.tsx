@@ -119,13 +119,14 @@ const buildTags = (config: BuildTagsParams) => {
   }
 
   const noindex =
-    config.noindex ||
-    defaults.noindex ||
-    config.dangerouslySetAllPagesToNoIndex;
+    config.noindex === undefined
+      ? defaults.noindex || config.dangerouslySetAllPagesToNoIndex
+      : config.noindex;
+
   const nofollow =
-    config.nofollow ||
-    defaults.nofollow ||
-    config.dangerouslySetAllPagesToNoFollow;
+    config.nofollow === undefined
+      ? defaults.nofollow || config.dangerouslySetAllPagesToNoFollow
+      : config.nofollow;
 
   let robotsParams = '';
   if (config.robotsProps) {

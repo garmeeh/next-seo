@@ -6,7 +6,7 @@ import { WithHead } from './withHead';
 export const NextSeo = ({
   title,
   themeColor,
-  noindex = false,
+  noindex,
   nofollow,
   robotsProps,
   description,
