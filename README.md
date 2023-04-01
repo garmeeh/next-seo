@@ -1658,15 +1658,15 @@ export default Page;
 
 **Required properties**
 
-| Property                    | Info                                                                                                   |
-| --------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `datePosted`                | The original date that employer posted the job in ISO 8601 format                                      |
-| `description`               | The full description of the job in HTML format                                                         |
-| `hiringOrganization`        |                                                                                                        |
-| `hiringOrganization.name`   | Name of the company offering the job position                                                          |
-| `hiringOrganization.sameAs` | URL of a reference Web page                                                                            |
-| `title`                     | The title of the job (not the title of the posting)                                                    |
-| `validThrough`              | The date when the job posting will expire in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) |
+| Property                    | Info                                                                                                                                       |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `datePosted`                | The original date that employer posted the job in ISO 8601 format                                                                          |
+| `description`               | The full description of the job in HTML format                                                                                             |
+| `hiringOrganization`        | An object containing information about the company hiring with the following fields or the string `'confidential'` when hiring anonymously |
+| `hiringOrganization.name`   | Name of the company offering the job position                                                                                              |
+| `hiringOrganization.sameAs` | URL of a reference Web page                                                                                                                |
+| `title`                     | The title of the job (not the title of the posting)                                                                                        |
+| `validThrough`              | The date when the job posting will expire in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601)                                     |
 
 **Supported properties**
 
