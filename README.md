@@ -1,3 +1,7 @@
+**Have you seen the new Next.js newsletter?**
+
+[<img alt="NextjsWeekly banner" src="./next-js-weekly.png">](https://nextjsweekly.com?utm_source=next-seo)
+
 # Next SEO
 
 ![npm](https://img.shields.io/npm/dw/next-seo?style=flat-square)
