@@ -4,6 +4,7 @@ const defaults = {
   templateTitle: '',
   noindex: false,
   nofollow: false,
+  norobots: false,
   defaultOpenGraphImageWidth: 0,
   defaultOpenGraphImageHeight: 0,
   defaultOpenGraphVideoWidth: 0,
@@ -128,7 +129,10 @@ const buildTags = (config: BuildTagsParams) => {
       ? defaults.nofollow || config.dangerouslySetAllPagesToNoFollow
       : config.nofollow;
 
+  const norobots = config.norobots || defaults.norobots;
+
   let robotsParams = '';
+
   if (config.robotsProps) {
     const {
       nosnippet,
@@ -152,6 +156,10 @@ const buildTags = (config: BuildTagsParams) => {
     }`;
   }
 
+  if (config.norobots) {
+    defaults.norobots = true;
+  }
+
   if (noindex || nofollow) {
     if (config.dangerouslySetAllPagesToNoIndex) {
       defaults.noindex = true;
@@ -169,7 +177,7 @@ const buildTags = (config: BuildTagsParams) => {
         }${robotsParams}`}
       />,
     );
-  } else {
+  } else if (!norobots || robotsParams) {
     tagsToRender.push(
       <meta
         key="robots"
