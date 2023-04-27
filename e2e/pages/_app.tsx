@@ -16,6 +16,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           router.pathname === '/dangerously/noindex' ||
           router.pathname === '/dangerously/nofollow-and-noindex'
         }
+        norobots={router.pathname.startsWith('/norobots')}
       />
       <Component {...pageProps} />
     </>
