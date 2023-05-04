@@ -8,6 +8,7 @@ export function setAggregateRating(aggregateRating?: AggregateRating) {
       reviewCount: aggregateRating.reviewCount,
       bestRating: aggregateRating.bestRating,
       ratingValue: aggregateRating.ratingValue,
+      worstRating: aggregateRating.worstRating,
     };
   }
   return undefined;

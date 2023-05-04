@@ -2255,6 +2255,7 @@ const Page = () => (
         reviewCount: '89',
         ratingCount: '684',
         bestRating: '100',
+        worstRating: '1',
       }}
       reviews={[
         {
@@ -3177,6 +3178,7 @@ export default () => (
 | `aggregateRating.ratingCount` | The count of total number of ratings.                                                    |
 | `aggregateRating.reviewCount` | The count of total number of reviews.                                                    |
 | `aggregateRating.bestRating`  | The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed. |
+| `aggregateRating.worstRating` | The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed. |
 
 **Other**
 | `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
