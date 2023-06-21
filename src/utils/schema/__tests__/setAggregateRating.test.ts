@@ -6,6 +6,7 @@ const aggregateRating: AggregateRating = {
   reviewCount: '100',
   ratingCount: '100',
   bestRating: '5',
+  worstRating: '1',
 };
 
 describe('setAggregateOffer', () => {

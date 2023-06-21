@@ -359,6 +359,7 @@ export type AggregateRating = {
   reviewCount?: string;
   ratingCount?: string;
   bestRating?: string;
+  worstRating?: string;
 };
 
 export type GamePlayMode = 'CoOp' | 'MultiPlayer' | 'SinglePlayer';
