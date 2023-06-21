@@ -9,10 +9,10 @@ export interface HiringOrganization {
 }
 
 export interface Place {
-  addressLocality: string;
-  addressRegion: string;
-  postalCode: string;
-  streetAddress: string;
+  addressLocality?: string;
+  addressRegion?: string;
+  postalCode?: string;
+  streetAddress?: string;
   addressCountry: string;
 }
 
