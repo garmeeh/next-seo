@@ -1081,7 +1081,7 @@ Next SEO now has the ability to set JSON-LD a form of structured data. Structure
 
 Google has excellent content on JSON-LD -> [HERE](https://developers.google.com/search/docs/data-types/article)
 
-**If using app directory then please ensure to add `useAppDir={false}` prop and that you are using the component in the `page.js`**
+**If using app directory then please ensure to add `useAppDir={true}` prop and that you are using the component in the `page.js`**
 
 Below you will find a very basic page implementing each of the available JSON-LD types:
 
