@@ -70,6 +70,20 @@ export interface JobPostingJsonLdProps extends JsonLdProps {
   experienceRequirements?: ExperienceRequirements;
 }
 
+function getJobLocationFromPlace(location: Place) {
+  return {
+    '@type': 'Place',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: location.addressCountry,
+      addressLocality: location.addressLocality,
+      addressRegion: location.addressRegion,
+      postalCode: location.postalCode,
+      streetAddress: location.streetAddress,
+    },
+  };
+}
+
 function JobPostingJsonLd({
   type = 'JobPosting',
   keyOverride,
@@ -110,19 +124,13 @@ function JobPostingJsonLd({
     };
   }
 
-  function setJobLocation(location?: Place) {
+  function setJobLocation(location?: Place | Place[]) {
+    if (Array.isArray(location)) {
+      return location.map((l) => getJobLocationFromPlace(l));
+    }
+
     if (location) {
-      return {
-        '@type': 'Place',
-        address: {
-          '@type': 'PostalAddress',
-          addressCountry: location.addressCountry,
-          addressLocality: location.addressLocality,
-          addressRegion: location.addressRegion,
-          postalCode: location.postalCode,
-          streetAddress: location.streetAddress,
-        },
-      };
+      return getJobLocationFromPlace(location);
     }
 
     return undefined;
@@ -195,3 +203,4 @@ function JobPostingJsonLd({
 }
 
 export default JobPostingJsonLd;
+
