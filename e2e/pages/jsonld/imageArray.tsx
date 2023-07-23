@@ -21,7 +21,7 @@ function ImageArray() {
           {
             contentUrl: 'http://www.example.com/images/image2.png',
             creator: {
-              '@type': 'Organisation',
+              '@type': 'Organization',
               name: 'John Doe',
             },
             creditText: 'John Doe',

@@ -30,7 +30,7 @@ const localBusiness140 = {
       },
       name: {
         type: 'string',
-        description: 'The name of the person or organisation.',
+        description: 'The name of the person or organization.',
       },
       description: {
         type: 'string',

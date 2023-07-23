@@ -3,7 +3,7 @@ import React from 'react';
 import { JsonLd, JsonLdProps } from './jsonld';
 
 type Creator = {
-  '@type': 'Person' | 'Organisation';
+  '@type': 'Person' | 'Organization';
   name: string;
 };
 

@@ -76,7 +76,7 @@ export const seller100 = {
     properties: {
       '@type': {
         type: 'string',
-        description: 'Organisation or Person',
+        description: 'Organization or Person',
       },
       name: {
         type: 'string',
