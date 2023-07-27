@@ -1,6 +1,6 @@
 **Have you seen the new Next.js newsletter?**
 
-[<img alt="NextjsWeekly banner" src="./next-js-weekly.png">](https://nextjsweekly.com?utm_source=next-seo)
+[<img alt="NextjsWeekly banner" src="./next-js-weekly.png">](https://dub.sh/nextjsweekly)
 
 # Next SEO
 
@@ -1081,7 +1081,7 @@ Next SEO now has the ability to set JSON-LD a form of structured data. Structure
 
 Google has excellent content on JSON-LD -> [HERE](https://developers.google.com/search/docs/data-types/article)
 
-**If using app directory then please ensure to add `useAppDir={false}` prop and that you are using the component in the `page.js`**
+**If using app directory then please ensure to add `useAppDir={true}` prop and that you are using the component in the `page.js`**
 
 Below you will find a very basic page implementing each of the available JSON-LD types:
 
@@ -3047,11 +3047,10 @@ export default () => (
 
 **Data Recommended properties**
 
-| Property              | Info                              |
-| --------------------- | --------------------------------- |
-| `operatingSystem`     | The operating System suuported    |
-|                       | By the game it self.              |
-| `applicationCategory` | Desktop Software or Video Game... |
+| Property              | Info                                                |
+| --------------------- | --------------------------------------------------- |
+| `operatingSystem`     | The operating System supported by the game it self. |
+| `applicationCategory` | Desktop Software or Video Game...                   |
 
 For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
 
