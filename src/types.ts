@@ -1,3 +1,5 @@
+import { JsonLdProps } from './jsonld/jsonld';
+
 export type OpeningHoursSpecification = {
   opens: string;
   closes: string;
@@ -454,7 +456,7 @@ export interface AdditionalRobotsProps {
   notranslate?: boolean;
 }
 
-export interface NextSeoProps {
+export interface NextSeoProps extends JsonLdProps {
   title?: string;
   titleTemplate?: string;
   defaultTitle?: string;
