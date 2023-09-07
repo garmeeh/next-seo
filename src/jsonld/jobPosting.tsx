@@ -65,12 +65,12 @@ export interface JobPostingJsonLdProps extends JsonLdProps {
   applicantLocationRequirements?: string;
   baseSalary?: MonetaryAmount;
   employmentType?: EmploymentType | EmploymentType[];
-  jobLocation?: Place;
+  jobLocation?: Place | Place[];
   jobLocationType?: string;
   experienceRequirements?: ExperienceRequirements;
 }
 
-function getJobLocationFromPlace(location: Place) {
+function getJobLocationFromOnePlace(location: Place) {
   return {
     '@type': 'Place',
     address: {
@@ -130,11 +130,11 @@ function JobPostingJsonLd({
 
   function setJobLocation(location?: Place | Place[]) {
     if (Array.isArray(location)) {
-      return location.map((l) => getJobLocationFromPlace(l));
+      return location.map((l) => getJobLocationFromOnePlace(l));
     }
 
     if (location) {
-      return getJobLocationFromPlace(location);
+      return getJobLocationFromOnePlace(location);
     }
 
     return undefined;
