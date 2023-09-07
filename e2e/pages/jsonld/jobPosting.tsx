@@ -64,6 +64,15 @@ function JobPosting() {
         applicantLocationRequirements="FR"
         keyOverride="second-job-posting-with-salary-range"
       />
+
+      <JobPostingJsonLd
+        datePosted="2020-01-06T03:37:40Z"
+        description="Company is looking for another software developer...."
+        hiringOrganization="confidential"
+        title="Job Title #3"
+        validThrough="2020-01-06"
+        keyOverride="third-job-posting-with-anonymous-hiring"
+      />
     </>
   );
 }

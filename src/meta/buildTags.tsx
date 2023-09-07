@@ -119,13 +119,14 @@ const buildTags = (config: BuildTagsParams) => {
   }
 
   const noindex =
-    config.noindex ||
-    defaults.noindex ||
-    config.dangerouslySetAllPagesToNoIndex;
+    config.noindex === undefined
+      ? defaults.noindex || config.dangerouslySetAllPagesToNoIndex
+      : config.noindex;
+
   const nofollow =
-    config.nofollow ||
-    defaults.nofollow ||
-    config.dangerouslySetAllPagesToNoFollow;
+    config.nofollow === undefined
+      ? defaults.nofollow || config.dangerouslySetAllPagesToNoFollow
+      : config.nofollow;
 
   let robotsParams = '';
   if (config.robotsProps) {
@@ -650,8 +651,20 @@ const buildTags = (config: BuildTagsParams) => {
 
   if (config.additionalLinkTags?.length) {
     config.additionalLinkTags.forEach(tag => {
+      const { crossOrigin: tagCrossOrigin, ...rest } = tag;
+      const crossOrigin: 'anonymous' | 'use-credentials' | '' | undefined =
+        tagCrossOrigin === 'anonymous' ||
+        tagCrossOrigin === 'use-credentials' ||
+        tagCrossOrigin === ''
+          ? tagCrossOrigin
+          : undefined;
+
       tagsToRender.push(
-        <link key={`link${tag.keyOverride ?? tag.href}${tag.rel}`} {...tag} />,
+        <link
+          key={`link${rest.keyOverride ?? rest.href}${rest.rel}`}
+          {...rest}
+          crossOrigin={crossOrigin}
+        />,
       );
     });
   }

@@ -9,10 +9,10 @@ export interface HiringOrganization {
 }
 
 export interface Place {
-  addressLocality: string;
-  addressRegion: string;
-  postalCode: string;
-  streetAddress: string;
+  addressLocality?: string;
+  addressRegion?: string;
+  postalCode?: string;
+  streetAddress?: string;
   addressCountry: string;
 }
 
@@ -59,7 +59,7 @@ export interface JobPostingJsonLdProps extends JsonLdProps {
   keyOverride?: string;
   datePosted: string;
   description: string;
-  hiringOrganization: HiringOrganization;
+  hiringOrganization: HiringOrganization | 'confidential';
   title: string;
   validThrough?: string;
   applicantLocationRequirements?: string;
@@ -115,7 +115,11 @@ function JobPostingJsonLd({
     return undefined;
   }
 
-  function setHiringOrganization(org: HiringOrganization) {
+  function setHiringOrganization(org: HiringOrganization | 'confidential') {
+    if (org === 'confidential') {
+      return 'confidential';
+    }
+
     return {
       '@type': 'Organization',
       name: org.name,
