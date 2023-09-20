@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["noindex", "nofollow"]
+  "cSpell.words": ["noindex", "nofollow"],
+  "typescript.preferences.importModuleSpecifier": "relative"
 }

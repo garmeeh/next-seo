@@ -9,12 +9,12 @@ import type {
   Organizer,
   EventStatus,
   EventAttendanceMode,
-} from 'src/types';
-import { setLocation } from 'src/utils/schema/setLocation';
-import { setPerformer } from 'src/utils/schema/setPerformer';
-import { setOffers } from 'src/utils/schema/setOffers';
-import { setAggregateOffer } from 'src/utils/schema/setAggregateOffer';
-import { setOrganizer } from 'src/utils/schema/setOrganizer';
+} from '../types';
+import { setLocation } from '../utils/schema/setLocation';
+import { setPerformer } from '../utils/schema/setPerformer';
+import { setOffers } from '../utils/schema/setOffers';
+import { setAggregateOffer } from '../utils/schema/setAggregateOffer';
+import { setOrganizer } from '../utils/schema/setOrganizer';
 
 export interface EventJsonLdProps extends JsonLdProps {
   name: string;

@@ -1,4 +1,4 @@
-import { Organizer } from 'src/types';
+import { Organizer } from '../../types';
 
 export function setOrganizer(organizer?: Organizer) {
   if (organizer) {

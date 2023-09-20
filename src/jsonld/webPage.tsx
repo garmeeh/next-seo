@@ -1,8 +1,8 @@
 import React from 'react';
-import type { ReviewedBy } from 'src/types';
+import type { ReviewedBy } from '../types';
 
 import { JsonLd, JsonLdProps } from './jsonld';
-import { setReviewedBy } from 'src/utils/schema/setReviewedBy';
+import { setReviewedBy } from '../utils/schema/setReviewedBy';
 
 export interface WebPageJsonLdProps extends JsonLdProps {
   keyOverride?: string;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import { NextSeoProps } from '../types';
 import { WithHead } from './withHead';
@@ -22,7 +22,7 @@ export const NextSeo = ({
   additionalLinkTags,
 }: NextSeoProps) => {
   return (
-    <>
+    <Fragment>
       <WithHead
         title={title}
         themeColor={themeColor}
@@ -41,6 +41,6 @@ export const NextSeo = ({
         languageAlternates={languageAlternates}
         additionalLinkTags={additionalLinkTags}
       />
-    </>
+    </Fragment>
   );
 };

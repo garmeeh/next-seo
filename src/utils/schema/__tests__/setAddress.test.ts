@@ -1,4 +1,4 @@
-import { Address } from 'src/types';
+import { Address } from '../../../types';
 import { setAddress } from '../setAddress';
 
 const addressOne: Address = {

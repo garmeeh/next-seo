@@ -1,4 +1,4 @@
-import type { Provider } from 'src/types';
+import type { Provider } from '../../types';
 
 export function setProvider(provider: Provider) {
   if (provider) {

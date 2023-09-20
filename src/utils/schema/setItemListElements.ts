@@ -1,4 +1,4 @@
-import { ItemListElements } from 'src/types';
+import { ItemListElements } from '../../types';
 
 export function setItemListElements(items: ItemListElements[]) {
   if (items && items.length) {

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { JsonLd, JsonLdProps } from './jsonld';
-import { setImage } from 'src/utils/schema/setImage';
-import { setCost } from 'src/utils/schema/setCost';
-import { setSupply } from 'src/utils/schema/setSupply';
-import { setTool } from 'src/utils/schema/setTool';
-import { setStep } from 'src/utils/schema/setStep';
+import { setImage } from '../utils/schema/setImage';
+import { setCost } from '../utils/schema/setCost';
+import { setSupply } from '../utils/schema/setSupply';
+import { setTool } from '../utils/schema/setTool';
+import { setStep } from '../utils/schema/setStep';
 
-import { PriceSpecification, Step } from 'src/types';
+import { PriceSpecification, Step } from '../types';
 
 export interface HowToJsonLdProps extends JsonLdProps {
   name: string;

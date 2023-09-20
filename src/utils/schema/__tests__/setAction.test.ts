@@ -1,4 +1,4 @@
-import { Action } from 'src/types';
+import { Action } from '../../../types';
 import { setAction } from '../setAction';
 
 describe('setAction', () => {

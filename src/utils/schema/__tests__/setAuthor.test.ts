@@ -1,4 +1,4 @@
-import { ArticleAuthor } from 'src/types';
+import { ArticleAuthor } from '../../../types';
 import { setAuthor } from '../setAuthor';
 
 describe('setAuthor', () => {

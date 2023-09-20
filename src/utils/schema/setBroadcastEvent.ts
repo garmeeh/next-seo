@@ -1,4 +1,4 @@
-import type { BroadcastEvent } from 'src/types';
+import type { BroadcastEvent } from '../../types';
 
 export function setBroadcastEvent(
   publication?: BroadcastEvent | BroadcastEvent[],

@@ -1,4 +1,4 @@
-import { Performer } from 'src/types';
+import { Performer } from '../../types';
 
 export function setPerformer(performer?: Performer) {
   if (performer) {

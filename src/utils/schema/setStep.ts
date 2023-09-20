@@ -1,5 +1,5 @@
-import { Step } from 'src/types';
-import { setImage } from 'src/utils/schema/setImage';
+import { Step } from '../../types';
+import { setImage } from '../../utils/schema/setImage';
 
 export function setStep(step?: Step[]) {
   if (step) {

@@ -1,4 +1,4 @@
-import { Offers } from 'src/types';
+import { Offers } from '../../../types';
 import { setOffers } from '../setOffers';
 
 const offerOne: Offers = {
