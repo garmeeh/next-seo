@@ -30,6 +30,7 @@ describe('SoftwareApp JSON-LD', () => {
           price: '1.00',
           priceCurrency: 'USD',
         },
+        keywords: 'angrybirds, arcade, slingshot',
       });
     });
   });

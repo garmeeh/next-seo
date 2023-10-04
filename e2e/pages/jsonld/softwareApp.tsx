@@ -12,6 +12,7 @@ function SoftwareApp() {
         aggregateRating={{ ratingValue: '4.6', ratingCount: '8864' }}
         operatingSystem="ANDROID"
         applicationCategory="GameApplication"
+        keywords="angrybirds, arcade, slingshot"
       />
     </>
   );

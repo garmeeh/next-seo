@@ -52,6 +52,9 @@ const softwareApp100 = {
           },
         },
       },
+      keywords: {
+        type: 'string',
+      },
     },
   },
   example: {
@@ -70,6 +73,7 @@ const softwareApp100 = {
       price: '1.00',
       priceCurrency: 'USD',
     },
+    keywords: 'angrybirds, arcade, slingshot',
   },
 };
 
