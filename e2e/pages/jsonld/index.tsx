@@ -6,6 +6,7 @@ const allJsonLDPages = [
   'blog',
   'brand',
   'breadcrumb',
+  'campground',
   'collectionPage',
   'corporateContact',
   'course',
