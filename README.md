@@ -3114,6 +3114,7 @@ export default () => (
       aggregateRating={{ ratingValue: '4.6', reviewCount: '8864' }}
       operatingSystem="ANDROID"
       applicationCategory="GameApplication"
+      keywords="angrybirds, arcade, slingshot"
     />
   </>
 );
@@ -3139,7 +3140,13 @@ export default () => (
 | `operatingSystem`     | The operating System supported by the game it self. |
 | `applicationCategory` | Desktop Software or Video Game...                   |
 
-For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
+**Data other properties**
+
+| Property   | Info                                                                                                                   |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `keywords` | Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas. |
+
+For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app) and [Schema.org docs](https://schema.org/SoftwareApplication)
 
 ### Organization
 
