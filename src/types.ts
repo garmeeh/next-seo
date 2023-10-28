@@ -400,6 +400,19 @@ export type ReviewedBy = {
   name: string;
 };
 
+export type AmenityFeature = {
+  name: string;
+  value: string | number | boolean;
+};
+
+export type LocationFeatureSpecification = 'LocationFeatureSpecification';
+
+export type DecoratedAmenityFeature = {
+  '@type': LocationFeatureSpecification;
+  name: string;
+  value: string | number | boolean;
+};
+
 export type ApplicationCategory =
   | 'Game'
   | 'SocialNetworking'

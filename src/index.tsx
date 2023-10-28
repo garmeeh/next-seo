@@ -67,6 +67,9 @@ export {
 } from './jsonld/socialProfile';
 export { default as HowToJsonLd, HowToJsonLdProps } from './jsonld/howTo';
 export { default as ImageJsonLd, ImageJsonLdProps } from './jsonld/image';
+export {
+  default as CampgroundJsonLd,
+  CampgroundJsonLdProps,
+} from './jsonld/campground';
 export { default as ParkJsonLd, ParkJsonLdProps } from './jsonld/park';
-
 export { DefaultSeoProps, NextSeoProps } from './types';
