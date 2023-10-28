@@ -2738,7 +2738,7 @@ export default () => (
 );
 ```
 
-**Data required properties**
+**Data Required Properties**
 
 | Property | Info              |
 | -------- | ----------------- |
