@@ -76,6 +76,7 @@ If you are using **`pages`** directory then `NextSeo` is **exactly what you need
   - [Article](#article-1)
   - [Breadcrumb](#breadcrumb)
   - [Blog](#blog)
+  - [Campground](#campground)
   - [Recipe](#recipe)
   - [Sitelinks Search Box](#sitelinks-search-box)
   - [Course](#course)
@@ -89,6 +90,7 @@ If you are using **`pages`** directory then `NextSeo` is **exactly what you need
   - [Product](#product)
   - [Social Profile](#social-profile)
   - [News Article](#news-article)
+  - [Park](#park)
   - [Video](#video-1)
   - [VideoGame](#videogame)
   - [Event](#event)
@@ -1088,6 +1090,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Article](#article-1)
 - [Breadcrumb](#breadcrumb)
 - [Blog](#blog)
+- [Campground](#campground)
 - [Recipe](#recipe)
 - [Sitelinks Search Box](#sitelinks-search-box)
 - [Course](#course)
@@ -1100,6 +1103,7 @@ Below you will find a very basic page implementing each of the available JSON-LD
 - [Product](#product)
 - [Social Profile](#social-profile)
 - [News Article](#news-article)
+- [Park](#park)
 
 Pull request very welcome to add any from the list [found on here](https://developers.google.com/search/docs/data-types/article)
 
@@ -1240,6 +1244,109 @@ const Page = () => (
 
 export default Page;
 ```
+
+### Campground
+
+```jsx
+import { CampgroundJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Campground JSON-LD</h1>
+    <CampgroundJsonLd
+      id="https://www.example.com/campground/rip-van-winkle-campground"
+      name="Rip Van Winkle Campgrounds"
+      url="https://www.example.com/campground"
+      telephone="+18452468114"
+      images={['https://example.com/photos/1x1/photo.jpg']}
+      address={{
+        streetAddress: '149 Blue Mountain Rd',
+        addressLocality: 'Saugerties',
+        addressRegion: 'NY',
+        postalCode: '12477',
+        addressCountry: 'US',
+      }}
+      description="Description about Rip Van Winkle Campgrounds"
+      geo={{
+        latitude: '42.092599',
+        longitude: '-74.018580',
+      }}
+      openingHours={[
+        {
+          opens: '09:00',
+          closes: '17:00',
+          dayOfWeek: [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday',
+          ],
+          validFrom: '2019-12-23',
+          validThrough: '2020-04-02',
+        },
+      ]}
+      petsAllowed
+      rating={{
+        ratingValue: '5',
+        ratingCount: '18',
+      }}
+      amenityFeature={{
+        name: 'Showers',
+        value: true,
+      }}
+      priceRange="$$"
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property                  | Info                                                                |
+| ------------------------- | ------------------------------------------------------------------- |
+| `@id`                     | Globally unique ID of the specific campground in the form of a URL. |
+| `address`                 | Address of the specific campground location                         |
+| `address.addressCountry`  | The 2-letter ISO 3166-1 alpha-2 country code                        |
+| `address.addressLocality` | City                                                                |
+| `address.addressRegion`   | State or province, if applicable.                                   |
+| `address.postalCode`      | Postal or zip code.                                                 |
+| `address.streetAddress`   | Street number, street name, and unit number.                        |
+| `name`                    | Campground name.                                                    |
+| `description`             | Campground description.                                             |
+
+**Supported properties**
+
+| Property                    | Info                                                                                                                                                 |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `geo`                       | Geographic coordinates of the campground.                                                                                                            |
+| `geo.latitude`              | The latitude of the campground location                                                                                                              |
+| `geo.longitude`             | The longitude of the campground location                                                                                                             |
+| `images`                    | An image or images of the campground. Required for valid markup depending on the type                                                                |
+| `telephone`                 | A campground phone number meant to be the primary contact method for customers.                                                                      |
+| `url`                       | The fully-qualified URL of the specific campground.                                                                                                  |
+| `openingHours`              | Opening hour specification of the campground. You can provide this as a single object, or an array of objects with the properties below.             |
+| `openingHours.opens`        | The opening hour of the place or service on the given day(s) of the week.                                                                            |
+| `openingHours.closes`       | The closing hour of the place or service on the given day(s) of the week.                                                                            |
+| `openingHours.dayOfWeek`    | The day of the week for which these opening hours are valid. Can be a string or array of strings. Refer to [DayOfWeek](https://schema.org/DayOfWeek) |
+| `openingHours.validFrom`    | The date when the item becomes valid.                                                                                                                |
+| `openingHours.validThrough` | The date after when the item is not valid.                                                                                                           |
+| `isAccessibleForFree`       | Whether or not the campground is accessible for free.                                                                                                |
+| `petsAllowed`               | Whether or not the campgroud allows pets.                                                                                                            |
+| `amenityFeature`            | An amenity feature (e.g. a characteristic or service) of the campground.                                                                             |
+| `amenityFeature.name`       | The name of the amenity.                                                                                                                             |
+| `amenityFeature.value`      | The value of the amenity.                                                                                                                            |
+| `priceRange`                | The price range of the campground, for example $$$.                                                                                                  |
+| `rating`                    | The average rating of the campground based on multiple ratings or reviews.                                                                           |
+| `rating.ratingValue`        | The rating for the content.                                                                                                                          |
+| `rating.ratingCount`        | The count of total number of ratings.                                                                                                                |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
 
 ### Recipe
 
@@ -2136,6 +2243,91 @@ const Page = () => (
 export default Page;
 ```
 
+### Park
+
+```jsx
+import { ParkJsonLd } from 'next-seo';
+
+const Page = () => (
+  <>
+    <h1>Park JSON-LD</h1>
+    <ParkJsonLd
+      id="https://www.example.com/park/minnewaska-state-park"
+      name="Minnewaska State Park"
+      url="https://www.example.com/park"
+      telephone="+18452550752"
+      images={['https://example.com/photos/1x1/photo.jpg']}
+      address={{
+        streetAddress: '5281 Route 44-55',
+        addressLocality: 'Kerhonkson',
+        addressRegion: 'NY',
+        postalCode: '12446',
+        addressCountry: 'US',
+      }}
+      description="A wonderful description about Minnewaska State Park"
+      geo={{
+        latitude: '41.735149',
+        longitude: '-74.239037',
+      }}
+      openingHours={[
+        {
+          opens: '09:00',
+          closes: '18:00',
+          dayOfWeek: [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday',
+          ],
+          validFrom: '2019-12-23',
+          validThrough: '2020-04-02',
+        },
+      ]}
+    />
+  </>
+);
+
+export default Page;
+```
+
+**Required properties**
+
+| Property                  | Info                                                          |
+| ------------------------- | ------------------------------------------------------------- |
+| `@id`                     | Globally unique ID of the specific park in the form of a URL. |
+| `address`                 | Address of the specific park location                         |
+| `address.addressCountry`  | The 2-letter ISO 3166-1 alpha-2 country code                  |
+| `address.addressLocality` | City                                                          |
+| `address.addressRegion`   | State or province, if applicable.                             |
+| `address.postalCode`      | Postal or zip code.                                           |
+| `address.streetAddress`   | Street number, street name, and unit number.                  |
+| `name`                    | Park name.                                                    |
+| `description`             | Park description.                                             |
+
+**Supported properties**
+
+| Property                    | Info                                                                                                                                                 |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `geo`                       | Geographic coordinates of the park.                                                                                                                  |
+| `geo.latitude`              | The latitude of the park location                                                                                                                    |
+| `geo.longitude`             | The longitude of the park location                                                                                                                   |
+| `images`                    | An image or images of the park. Required for valid markup depending on the type                                                                      |
+| `telephone`                 | A business phone number meant to be the primary contact method for customers.                                                                        |
+| `url`                       | The fully-qualified URL of the specific park.                                                                                                        |
+| `openingHours`              | Opening hour specification of the park. You can provide this as a single object, or an array of objects with the properties below.                   |
+| `openingHours.opens`        | The opening hour of the place or service on the given day(s) of the week.                                                                            |
+| `openingHours.closes`       | The closing hour of the place or service on the given day(s) of the week.                                                                            |
+| `openingHours.dayOfWeek`    | The day of the week for which these opening hours are valid. Can be a string or array of strings. Refer to [DayOfWeek](https://schema.org/DayOfWeek) |
+| `openingHours.validFrom`    | The date when the item becomes valid.                                                                                                                |
+| `openingHours.validThrough` | The date after when the item is not valid.                                                                                                           |
+| `isAccessibleForFree`       | Whether or not the park is accessible for free.                                                                                                      |
+
+**Other**
+| `useAppDir` | This should be set to true if using new app directory. Not required if outside of app directory. |
+
 [Google Docs for Social Profile](https://developers.google.com/search/docs/data-types/social-profile)
 
 ### Video
@@ -3027,6 +3219,7 @@ export default () => (
       aggregateRating={{ ratingValue: '4.6', reviewCount: '8864' }}
       operatingSystem="ANDROID"
       applicationCategory="GameApplication"
+      keywords="angrybirds, arcade, slingshot"
     />
   </>
 );
@@ -3052,7 +3245,13 @@ export default () => (
 | `operatingSystem`     | The operating System supported by the game it self. |
 | `applicationCategory` | Desktop Software or Video Game...                   |
 
-For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app)
+**Data other properties**
+
+| Property   | Info                                                                                                                   |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `keywords` | Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas. |
+
+For reference and more info check [Google docs for Software App](https://developers.google.com/search/docs/data-types/software-app) and [Schema.org docs](https://schema.org/SoftwareApplication)
 
 ### Organization
 

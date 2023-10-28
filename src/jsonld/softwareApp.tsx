@@ -13,6 +13,7 @@ export interface SoftwareAppJsonLdProps extends JsonLdProps {
   operatingSystem?: string;
   review?: Review;
   aggregateRating?: AggregateRating;
+  keywords?: string;
 }
 
 function SoftwareAppJsonLd({
@@ -22,6 +23,7 @@ function SoftwareAppJsonLd({
   price,
   aggregateRating,
   review,
+  keywords,
   ...rest
 }: SoftwareAppJsonLdProps) {
   const data = {
@@ -33,6 +35,7 @@ function SoftwareAppJsonLd({
     },
     aggregateRating: setAggregateRating(aggregateRating),
     review: setReviews(review),
+    keywords,
   };
   return (
     <JsonLd
