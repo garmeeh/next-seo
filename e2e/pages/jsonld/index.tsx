@@ -19,6 +19,7 @@ const allJsonLDPages = [
   'logo',
   'newsarticle',
   'organization',
+  'park',
   'product',
   'profilePage',
   'qaPage',
