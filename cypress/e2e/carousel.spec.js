@@ -331,4 +331,40 @@ describe('Carousel JSON-LD', () => {
         expect(jsonLD).to.deep.equal(expectedObject);
       });
   });
+
+  it('Carousel Custom Matches', () => {
+    cy.visit('http://localhost:3000/carousel-jsonld/custom');
+    cy.get('head script[type="application/ld+json"]')
+      .should('have.length', 1)
+      .then(tags => {
+        const jsonLD = JSON.parse(tags[0].innerHTML);
+        const expectedObject = {
+          '@context': 'https://schema.org',
+          '@type': 'ItemList',
+          url: 'http://example.com/custom-carousel.html',
+          name: 'Carousel Custom',
+          description: 'Custom Carousel Description',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              item: {
+                '@type': 'CustomList',
+                name: 'Custom 1',
+              },
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              item: {
+                '@type': 'CustomList',
+                name: 'Custom 2',
+              },
+            },
+          ],
+        };
+
+        expect(jsonLD).to.deep.equal(expectedObject);
+      });
+  });
 });

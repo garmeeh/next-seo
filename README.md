@@ -102,6 +102,7 @@ If you are using **`pages`** directory then `NextSeo` is **exactly what you need
     - [Course](#course-1)
     - [Movie](#movie)
     - [Recipe](#recipe-1)
+    - [Custom](#custom)
   - [Software App](#software-app)
   - [Organization](#organization)
   - [Brand](#brand)
@@ -3202,6 +3203,50 @@ export default () => (
 | `instructions.name` | The name of the instruction step.       |
 | `instructions.text` | The directions of the instruction step. |
 | `url`               | URL of the item's detailed page.        |
+
+#### Custom
+
+```jsx
+import React from 'react';
+import { CarouselJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Carousel Custom JSON-LD</h1>
+    <CarouselJsonLd
+      ofType="custom"
+      url="http://example.com/custom-carousel.html"
+      name="Carousel Custom"
+      description="Custom Carousel Description"
+      data={[
+        {
+          position: 1,
+          type: 'CustomList',
+          name: 'Custom 1',
+        },
+        {
+          position: 2,
+          type: 'CustomList',
+          name: 'Custom 2',
+        },
+      ]}
+    />
+  </>
+);
+```
+
+**Data Required Properties**
+
+| Property | Info              |
+| -------- | ----------------- |
+| `type`   | Type of the item. |
+| `name`   | Name of the item. |
+
+**Data Recommended properties**
+
+| Property              | Info                                                                      |
+| --------------------- | ------------------------------------------------------------------------- |
+| `position`            | Position of the item. If not pass property, it will increase regularly.   |
 
 ### Software App
 
