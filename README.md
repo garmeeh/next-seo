@@ -3244,9 +3244,9 @@ export default () => (
 
 **Data Recommended properties**
 
-| Property              | Info                                                                      |
-| --------------------- | ------------------------------------------------------------------------- |
-| `position`            | Position of the item. If not pass property, it will increase regularly.   |
+| Property   | Info                                                                    |
+| ---------- | ----------------------------------------------------------------------- |
+| `position` | Position of the item. If not pass property, it will increase regularly. |
 
 ### Software App
 
