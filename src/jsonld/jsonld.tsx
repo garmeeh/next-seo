@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head';
-
 import toJson from 'src/utils/toJson';
 
 export interface JsonLdProps {
@@ -11,15 +10,15 @@ export interface JsonLdProps {
   [key: string]: any;
 }
 
-function JsonLd({
+const JsonLd: React.FC<JsonLdProps & { scriptKey: string }> = ({
   type = 'Thing',
-  keyOverride,
-  scriptKey,
-  scriptId = undefined,
+  scriptId,
   dataArray,
   useAppDir = false,
+  scriptKey,
+  keyOverride,
   ...rest
-}: JsonLdProps & { scriptKey: string }) {
+}) => {
   const JsonLdScript = () => (
     <script
       type="application/ld+json"
@@ -33,10 +32,7 @@ function JsonLd({
     />
   );
 
-  if (useAppDir) {
-    return <JsonLdScript />;
-  }
-  return <Head>{JsonLdScript()}</Head>;
-}
+  return useAppDir ? <JsonLdScript /> : <Head>{<JsonLdScript />}</Head>;
+};
 
 export { JsonLd };
