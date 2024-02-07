@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { JsonLd, JsonLdProps } from './jsonld';
 import { setAuthor } from 'src/utils/schema/setAuthor';
 import { setPublisher } from 'src/utils/schema/setPublisher';
@@ -26,12 +25,12 @@ function ArticleJsonLd({
   title,
   images,
   datePublished,
-  dateModified,
+  dateModified = datePublished,
   authorName,
-  publisherName = undefined,
-  publisherLogo = undefined,
   description,
-  isAccessibleForFree,
+  publisherName,
+  publisherLogo,
+  isAccessibleForFree = false,
   ...rest
 }: ArticleJsonLdProps) {
   const data = {
@@ -43,12 +42,13 @@ function ArticleJsonLd({
     },
     headline: title,
     image: images,
-    dateModified: dateModified || datePublished,
+    dateModified,
     author: setAuthor(authorName),
     publisher: setPublisher(publisherName, publisherLogo),
-    isAccessibleForFree: isAccessibleForFree,
+    isAccessibleForFree,
     ...rest,
   };
+
   return (
     <JsonLd
       type={type}
