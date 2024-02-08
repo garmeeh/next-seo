@@ -24,13 +24,13 @@ describe('ProfilePage JSON-LD', () => {
             {
               '@type': 'ListItem',
               position: 1,
-              '@id': 'https://example.com/books',
+              item: 'https://example.com/books',
               name: 'Books',
             },
             {
               '@type': 'ListItem',
               position: 2,
-              '@id': 'https://example.com/books/authors',
+              item: 'https://example.com/books/authors',
               name: 'Authors',
             },
           ],

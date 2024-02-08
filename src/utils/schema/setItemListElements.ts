@@ -5,7 +5,7 @@ export function setItemListElements(items: ItemListElements[]) {
     return items.map(item => ({
       '@type': 'ListItem',
       position: item.position,
-      '@id': item.item,
+      item: item.item,
       name: item.name,
     }));
   }
