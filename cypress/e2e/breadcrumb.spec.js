@@ -21,35 +21,26 @@ describe('Breadcrumb JSON-LD', () => {
           {
             '@type': 'ListItem',
             position: 1,
-            item: {
-              '@id': 'https://example.com/books',
-              name: 'Books',
-            },
+            item: 'https://example.com/books',
+            name: 'Books',
           },
           {
             '@type': 'ListItem',
             position: 2,
-            item: {
-              '@id': 'https://example.com/books/authors',
-              name: 'Authors',
-            },
+            item: 'https://example.com/books/authors',
+            name: 'Authors',
           },
           {
             '@type': 'ListItem',
             position: 3,
-            item: {
-              '@id': 'https://example.com/books/authors/annleckie',
-              name: 'Ann Leckie',
-            },
+            item: 'https://example.com/books/authors/annleckie',
+            name: 'Ann Leckie',
           },
           {
             '@type': 'ListItem',
             position: 4,
-            item: {
-              '@id':
-                'https://example.com/books/authors/annleckie/ancillaryjustice',
-              name: 'Ancillary Justice',
-            },
+            item: 'https://example.com/books/authors/annleckie/ancillaryjustice',
+            name: 'Ancillary Justice',
           },
         ],
       });
