@@ -1,4 +1,4 @@
-import type { Question } from 'src/types';
+import type { Question } from '../../types';
 
 export function setQuestions(questions: Question[]) {
   if (questions && questions.length) {

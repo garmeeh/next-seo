@@ -1,4 +1,4 @@
-import type { ReviewRating } from 'src/types';
+import type { ReviewRating } from '../../types';
 
 export function setReviewRating(rating?: ReviewRating) {
   if (rating) {

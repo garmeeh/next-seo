@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { JsonLd, JsonLdProps } from './jsonld';
-import type { Review, AggregateRating } from 'src/types';
-import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
-import { setReviews } from 'src/utils/schema/setReviews';
+import type { Review, AggregateRating } from '../types';
+import { setAggregateRating } from '../utils/schema/setAggregateRating';
+import { setReviews } from '../utils/schema/setReviews';
 
 export interface SoftwareAppJsonLdProps extends JsonLdProps {
   name: string;

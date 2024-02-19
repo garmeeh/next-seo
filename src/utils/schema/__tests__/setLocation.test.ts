@@ -1,4 +1,4 @@
-import { Place, VirtualLocation } from 'src/types';
+import { Place, VirtualLocation } from '../../../types';
 import { setLocation } from '../setLocation';
 
 const virtualLocation: VirtualLocation = {

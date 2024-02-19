@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 
-import toJson from 'src/utils/toJson';
+import toJson from '../utils/toJson';
 
 export interface JsonLdProps {
   type?: string;
