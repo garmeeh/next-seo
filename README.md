@@ -425,7 +425,7 @@ export default Page;
 
 #### dangerouslySetAllPagesToNoRobots
 
-It has the prefix `dangerously` because it will `norobots` all pages. As this is an SEO plugin, that is kinda dangerous action. It is **not** bad to use this. Just please be sure you want to `norobots` **EVERY** page. You can still override this at a page level if you have a use case to `index` or `follow` a page. This can be done by setting `noindex: false` or `nofollow: false`.
+It has the prefix `dangerously` because it will `norobots` all pages. As this is an SEO plugin, that is kinda dangerous action. It is **not** bad to use this. Just please be sure you want to `norobots` **EVERY** page. You can still override this at a page level if you have a use case to have a robot meta tag. This can be done by setting `norobots: false` or `robotsProps: {AdditionalRobotsProps}`.
 
 The only way to unset this is by removing the prop from the `DefaultSeo` in your custom `<App>`.
 
