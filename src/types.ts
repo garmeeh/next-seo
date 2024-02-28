@@ -474,6 +474,7 @@ export interface NextSeoProps {
   themeColor?: string;
   noindex?: boolean;
   nofollow?: boolean;
+  norobots?: boolean;
   robotsProps?: AdditionalRobotsProps;
   description?: string;
   canonical?: string;
@@ -490,6 +491,7 @@ export interface NextSeoProps {
 export interface DefaultSeoProps {
   dangerouslySetAllPagesToNoIndex?: boolean;
   dangerouslySetAllPagesToNoFollow?: boolean;
+  dangerouslySetAllPagesToNoRobots?: boolean;
   defaultOpenGraphImageWidth?: number;
   defaultOpenGraphImageHeight?: number;
   defaultOpenGraphVideoWidth?: number;
@@ -498,7 +500,6 @@ export interface DefaultSeoProps {
   titleTemplate?: string;
   themeColor?: string;
   defaultTitle?: string;
-  norobots?: boolean;
   robotsProps?: AdditionalRobotsProps;
   description?: string;
   canonical?: string;

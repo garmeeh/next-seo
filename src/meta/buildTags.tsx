@@ -129,7 +129,10 @@ const buildTags = (config: BuildTagsParams) => {
       ? defaults.nofollow || config.dangerouslySetAllPagesToNoFollow
       : config.nofollow;
 
-  const norobots = config.norobots || defaults.norobots;
+  const norobots =
+    config.norobots === undefined
+      ? defaults.norobots || config.dangerouslySetAllPagesToNoRobots
+      : config.norobots;
 
   let robotsParams = '';
 
@@ -156,18 +159,17 @@ const buildTags = (config: BuildTagsParams) => {
     }`;
   }
 
-  if (config.norobots) {
+  if (noindex && config.dangerouslySetAllPagesToNoIndex) {
+    defaults.noindex = true;
+  }
+  if (nofollow && config.dangerouslySetAllPagesToNoFollow) {
+    defaults.nofollow = true;
+  }
+  if (norobots && config.dangerouslySetAllPagesToNoRobots) {
     defaults.norobots = true;
   }
 
   if (noindex || nofollow) {
-    if (config.dangerouslySetAllPagesToNoIndex) {
-      defaults.noindex = true;
-    }
-    if (config.dangerouslySetAllPagesToNoFollow) {
-      defaults.nofollow = true;
-    }
-
     tagsToRender.push(
       <meta
         key="robots"
@@ -185,6 +187,8 @@ const buildTags = (config: BuildTagsParams) => {
         content={`index,follow${robotsParams}`}
       />,
     );
+  } else if (norobots) {
+    tagsToRender.push(<meta key="robots" />);
   }
 
   if (config.description) {

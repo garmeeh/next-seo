@@ -4,7 +4,7 @@ import Links from '../../components/links';
 
 const NoRobotsNoIndex = () => (
   <>
-    <NextSeo title="NoRobots NoIndex" noindex />
+    <NextSeo title="NoRobots NoIndex" norobots noindex />
     <h1>norobots and noindex</h1>
     <Links />
   </>
