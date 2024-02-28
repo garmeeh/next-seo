@@ -51,13 +51,15 @@ If you are using **`pages`** directory then `NextSeo` is **exactly what you need
   - [NextSeo Options](#nextseo-options)
     - [Title Template](#title-template)
     - [Default Title](#default-title)
+    - [No Robots](#no-robots)
+    - [dangerouslySetAllPagesToNoRobots](#dangerouslysetallpagestonorobots)
     - [No Index](#no-index)
     - [dangerouslySetAllPagesToNoIndex](#dangerouslysetallpagestonoindex)
     - [No Follow](#no-follow)
     - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
     - [robotsProps](#robotsprops)
     - [Twitter](#twitter)
-    - [facebook](#facebook)
+    - [Facebook](#facebook)
     - [Canonical URL](#canonical-url)
     - [Alternate](#alternate)
     - [Additional Meta Tags](#additional-meta-tags)
@@ -393,6 +395,39 @@ titleTemplate = 'Next SEO | %s';
 defaultTitle = 'Next SEO';
 // outputs: Next SEO
 ```
+
+#### No Robots
+
+Setting this to `true` will completely omit the `robots` meta tag. This works on a page by page basis. This property is overriden by the `noindex`, `nofollow`, and `robotsProp` properties.
+
+**Note:** If you want to globally allow this property, see [dangerouslySetAllPagesToNoRobots](#dangerouslysetallpagestonorobots).
+
+**Example No Index on a single page:**
+
+If you have a single page that you want no indexed you can achieve this by:
+
+```jsx
+import { NextSeo } from 'next-seo';
+
+const Page = () => (
+  <>
+    <NextSeo norobots={true} />
+    <p>This page is no robot</p>
+  </>
+);
+
+export default Page;
+
+/*
+<meta >
+*/
+```
+
+#### dangerouslySetAllPagesToNoRobots
+
+It has the prefix `dangerously` because it will `norobots` all pages. As this is an SEO plugin, that is kinda dangerous action. It is **not** bad to use this. Just please be sure you want to `norobots` **EVERY** page. You can still override this at a page level if you have a use case to `index` or `follow` a page. This can be done by setting `noindex: false` or `nofollow: false`.
+
+The only way to unset this is by removing the prop from the `DefaultSeo` in your custom `<App>`.
 
 #### No Index
 
