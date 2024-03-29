@@ -2,6 +2,10 @@
 
 [<img alt="NextjsWeekly banner" src="./next-js-weekly.png">](https://dub.sh/nextjsweekly)
 
+**Useful Tools**
+
+- [dub](https://dub.co/?utm_source=next-seo&utm_medium=social&utm_campaign=next-seo) recently launched a useful Free UTM builder! You can use it [here](https://dub.sh/iKTxs7b)
+
 # Next SEO
 
 ![npm](https://img.shields.io/npm/dw/next-seo?style=flat-square)
