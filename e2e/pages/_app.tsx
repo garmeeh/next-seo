@@ -10,13 +10,18 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         {...SEO}
         dangerouslySetAllPagesToNoFollow={
           router.pathname === '/dangerously/nofollow' ||
-          router.pathname === '/dangerously/nofollow-and-noindex'
+          router.pathname === '/dangerously/nofollow-and-noindex' ||
+          router.pathname === '/dangerously/nofollow-and-noindex-and-norobots'
         }
         dangerouslySetAllPagesToNoIndex={
           router.pathname === '/dangerously/noindex' ||
-          router.pathname === '/dangerously/nofollow-and-noindex'
+          router.pathname === '/dangerously/nofollow-and-noindex' ||
+          router.pathname === '/dangerously/nofollow-and-noindex-and-norobots'
         }
-        norobots={router.pathname.startsWith('/norobots')}
+        dangerouslySetAllPagesToNoRobots={
+          router.pathname === '/dangerously/norobots' ||
+          router.pathname === '/dangerously/nofollow-and-noindex-and-norobots'
+        }
       />
       <Component {...pageProps} />
     </>

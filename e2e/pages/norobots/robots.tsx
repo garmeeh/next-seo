@@ -6,6 +6,7 @@ const Robots = () => (
   <>
     <NextSeo
       title="Robots meta title"
+      norobots
       robotsProps={{
         nosnippet: true,
         notranslate: true,

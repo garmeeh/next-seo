@@ -8,6 +8,7 @@ export const NextSeo = ({
   themeColor,
   noindex,
   nofollow,
+  norobots,
   robotsProps,
   description,
   canonical,
@@ -28,6 +29,7 @@ export const NextSeo = ({
         themeColor={themeColor}
         noindex={noindex}
         nofollow={nofollow}
+        norobots={norobots}
         robotsProps={robotsProps}
         description={description}
         canonical={canonical}

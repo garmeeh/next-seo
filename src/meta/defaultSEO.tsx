@@ -10,6 +10,7 @@ export const DefaultSeo = ({
   themeColor,
   dangerouslySetAllPagesToNoIndex = false,
   dangerouslySetAllPagesToNoFollow = false,
+  dangerouslySetAllPagesToNoRobots = false,
   description,
   canonical,
   facebook,
@@ -24,7 +25,6 @@ export const DefaultSeo = ({
   languageAlternates,
   additionalLinkTags,
   robotsProps,
-  norobots,
 }: DefaultSeoProps) => {
   return (
     <WithHead
@@ -34,6 +34,7 @@ export const DefaultSeo = ({
       themeColor={themeColor}
       dangerouslySetAllPagesToNoIndex={dangerouslySetAllPagesToNoIndex}
       dangerouslySetAllPagesToNoFollow={dangerouslySetAllPagesToNoFollow}
+      dangerouslySetAllPagesToNoRobots={dangerouslySetAllPagesToNoRobots}
       description={description}
       canonical={canonical}
       facebook={facebook}
@@ -48,7 +49,6 @@ export const DefaultSeo = ({
       languageAlternates={languageAlternates}
       additionalLinkTags={additionalLinkTags}
       robotsProps={robotsProps}
-      norobots={norobots}
     />
   );
 };

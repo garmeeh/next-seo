@@ -11,6 +11,9 @@ const Links = () => (
         <Link href="/robots">All Robots props</Link>
       </li>
       <li>
+        <Link href="/norobots">NoRobots props</Link>
+      </li>
+      <li>
         <Link href="/article">Article SEO</Link>
       </li>
       <li>
@@ -62,6 +65,15 @@ const Links = () => (
       <li>
         <Link href="/dangerously/nofollow-and-noindex">
           Dangerously AllPagesToNoFollow and AllPagesToNoIndex
+        </Link>
+      </li>
+      <li>
+        <Link href="/dangerously/norobots">Dangerously AllPagesToNoRobots</Link>
+      </li>
+      <li>
+        <Link href="/dangerously/nofollow-and-noindex-and-norobots">
+          Dangerously AllPagesToNoFollow and AllPagesToNoIndex and
+          AllPagesToNoRobots
         </Link>
       </li>
     </ul>
