@@ -1,4 +1,4 @@
-import { AggregateRating } from 'src/types';
+import { AggregateRating } from '../../../types';
 import { setAggregateRating } from '../setAggregateRating';
 
 const aggregateRating: AggregateRating = {

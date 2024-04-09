@@ -10,15 +10,15 @@ import type {
   GeoCircle,
   OpeningHoursSpecification,
   Offer,
-} from 'src/types';
-import { setAddress } from 'src/utils/schema/setAddress';
-import { setReviews } from 'src/utils/schema/setReviews';
-import { setGeo } from 'src/utils/schema/setGeo';
-import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
-import { setAction } from 'src/utils/schema/setAction';
-import { setGeoCircle } from 'src/utils/schema/setGeoCircle';
-import { setOffer } from 'src/utils/schema/setOffer';
-import { setOpeningHours } from 'src/utils/schema/setOpeningHours';
+} from '../types';
+import { setAddress } from '../utils/schema/setAddress';
+import { setReviews } from '../utils/schema/setReviews';
+import { setGeo } from '../utils/schema/setGeo';
+import { setAggregateRating } from '../utils/schema/setAggregateRating';
+import { setAction } from '../utils/schema/setAction';
+import { setGeoCircle } from '../utils/schema/setGeoCircle';
+import { setOffer } from '../utils/schema/setOffer';
+import { setOpeningHours } from '../utils/schema/setOpeningHours';
 
 export interface LocalBusinessJsonLdProps extends JsonLdProps {
   type: string;

@@ -1,19 +1,14 @@
 import React from 'react';
 
 import { JsonLd, JsonLdProps } from './jsonld';
-import type {
-  Review,
-  AggregateRating,
-  AggregateOffer,
-  Offers,
-} from 'src/types';
+import type { Review, AggregateRating, AggregateOffer, Offers } from '../types';
 
-import { setOffers } from 'src/utils/schema/setOffers';
-import { setReviews } from 'src/utils/schema/setReviews';
-import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
-import { setAggregateOffer } from 'src/utils/schema/setAggregateOffer';
-import { setManufacturer } from 'src/utils/schema/setManufacturer';
-import { setBrand } from 'src/utils/schema/setBrand';
+import { setOffers } from '../utils/schema/setOffers';
+import { setReviews } from '../utils/schema/setReviews';
+import { setAggregateRating } from '../utils/schema/setAggregateRating';
+import { setAggregateOffer } from '../utils/schema/setAggregateOffer';
+import { setManufacturer } from '../utils/schema/setManufacturer';
+import { setBrand } from '../utils/schema/setBrand';
 
 export interface ProductJsonLdProps extends JsonLdProps {
   productName: string;

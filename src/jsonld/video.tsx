@@ -1,8 +1,8 @@
 import React from 'react';
-import { Video } from 'src/types';
+import { Video } from '../types';
 
 import { JsonLd, JsonLdProps } from './jsonld';
-import { setVideo } from 'src/utils/schema/setVideo';
+import { setVideo } from '../utils/schema/setVideo';
 
 export interface VideoJsonLdProps extends JsonLdProps, Video {}
 
