@@ -3,6 +3,7 @@ import { combineSchemas } from '@cypress/schema-tools';
 import articleVersions from './article-schema';
 import breadCrumbVersions from './breadcrumb-schema';
 import blogVersions from './blog-schema';
+import liveBlogVersions from './liveblog-schema';
 import courseVersions from './course-schema';
 import localBusiness from './local-business-schema';
 import logoVersions from './logo-schema';
@@ -30,11 +31,11 @@ import imageVersions from './image-schema';
 import campgroundVersions from './campground-schema';
 import parkVersions from './park-schema';
 
-
 const schemas = combineSchemas(
   articleVersions,
   breadCrumbVersions,
   blogVersions,
+  liveBlogVersions,
   courseVersions,
   localBusiness,
   logoVersions,
