@@ -134,7 +134,6 @@ describe('Article JSON-LD', () => {
   });
 
   it('matches schema when type LiveBlogPosting', () => {
-    Cypress.log({ message: 'azerty' });
     cy.visit('http://localhost:3000/jsonld/liveBlogPosting');
     cy.get('head script[type="application/ld+json"]').then(tags => {
       const jsonLD = JSON.parse(tags[0].innerHTML);
