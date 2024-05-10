@@ -132,6 +132,5 @@ const blog100 = {
     description: 'This is a mighty good description of this blog.',
   },
 };
-
 const blogVersions = versionSchemas(blog100);
-export default blogVersions;
+export { blogVersions as default, blog100 };

@@ -45,7 +45,7 @@ Remember, every time you make a change to the library you will need to re-run `y
 
 To run Cypress:
 
-First compile all your changes to `nex-seo` made in the `src` directory:
+First compile all your changes to `next-seo` made in the `src` directory:
 
 ```
 yarn build
