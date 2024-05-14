@@ -659,7 +659,7 @@ const buildTags = (config: BuildTagsParams) => {
 
   if (config.additionalLinkTags?.length) {
     config.additionalLinkTags.forEach(tag => {
-      const { crossOrigin: tagCrossOrigin, ...rest } = tag;
+      const { crossOrigin: tagCrossOrigin, keyOverride, ...rest } = tag;
       const crossOrigin: 'anonymous' | 'use-credentials' | '' | undefined =
         tagCrossOrigin === 'anonymous' ||
         tagCrossOrigin === 'use-credentials' ||
@@ -669,7 +669,7 @@ const buildTags = (config: BuildTagsParams) => {
 
       tagsToRender.push(
         <link
-          key={`link${rest.keyOverride ?? rest.href}${rest.rel}`}
+          key={`link${keyOverride ?? rest.href}${rest.rel}`}
           {...rest}
           crossOrigin={crossOrigin}
         />,
