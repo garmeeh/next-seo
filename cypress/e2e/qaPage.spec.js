@@ -26,6 +26,7 @@ describe('QaPage JSON-LD', () => {
           author: {
             '@type': 'Person',
             name: 'New Baking User',
+            url: 'https://example.com/user1',
           },
           acceptedAnswer: {
             text: '1 pound (lb) is equal to 16 ounces (oz).',
@@ -35,6 +36,7 @@ describe('QaPage JSON-LD', () => {
             author: {
               '@type': 'Person',
               name: 'SomeUser',
+              url: 'https://example.com/SomeUser',
             },
             '@type': 'Answer',
           },
@@ -46,6 +48,7 @@ describe('QaPage JSON-LD', () => {
               author: {
                 '@type': 'Person',
                 name: 'AnotherUser',
+                url: 'https://example.com/AnotherUser',
               },
               '@type': 'Answer',
               upvoteCount: 42,
@@ -57,6 +60,7 @@ describe('QaPage JSON-LD', () => {
               author: {
                 '@type': 'Person',
                 name: 'ConfusedUser',
+                url: 'https://example.com/ConfusedUser',
               },
               '@type': 'Answer',
               upvoteCount: 0,
