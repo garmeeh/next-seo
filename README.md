@@ -111,6 +111,7 @@ If you are using **`pages`** directory then `NextSeo` is **exactly what you need
   - [Organization](#organization)
   - [Brand](#brand)
   - [WebPage](#webpage)
+  - [WebSite](#website)
   - [Image Metadata](#image-metadata)
 - [Contributors](#contributors)
 
@@ -3473,6 +3474,48 @@ export default () => (
 | `useAppDir` | This should be set to true if using the new app directory. Not required if outside of the app directory. |
 
 For reference and more info check [Docs](https://schema.org/WebPage)
+
+### WebSite
+
+```jsx
+import React from 'react';
+import { WebSiteJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>WebSite</h1>
+    <WebSiteJsonLd
+      name="Example"
+      alternateName={['Example Org', 'Example Organization']}
+      url="https://example.org"
+      publisher={{
+        id: 'https://example.org/#organization',
+      }}
+    />
+  </>
+);
+```
+
+**Data required properties**
+
+| Property | Info            |
+| -------- | --------------- |
+| `name`   | 'The site name' |
+
+**Data Recommended properties**
+
+| Property        | Info                                                     |
+| --------------- | -------------------------------------------------------- |
+| `url`           | The URL of the website                                   |
+| `alternateName` | One or multiple alternate names for the site             |
+| `publisher`     |                                                          |
+| `publisher.id`  | Id of the Person or Organization that published the site |
+
+**Other**
+| `useAppDir` | This should be set to true if using the new app directory. Not required if outside of the app
+directory. |
+
+For reference and more info check [Docs](https://schema.org/WebSite)
 
 ### Image Metadata
 
