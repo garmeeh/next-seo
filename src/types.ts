@@ -54,6 +54,7 @@ export type StepDetails = {
 export interface Person {
   name: string;
 }
+
 export interface Answer {
   text: string;
   dateCreated?: string;
@@ -79,10 +80,12 @@ export interface Instruction {
   url?: string;
   image?: string;
 }
+
 export interface Performer {
   type?: 'Person' | 'PerformingGroup';
   name: string;
 }
+
 export interface Place {
   name: string;
   address: Address;
@@ -123,6 +126,7 @@ export interface ContactPoint {
   availableLanguage?: string | string[];
   contactOption?: string | string[];
 }
+
 export interface CreativeWork {
   author: string;
   about: string;
@@ -143,16 +147,19 @@ export interface Question {
   questionName: string;
   acceptedAnswerText: string;
 }
+
 export interface Provider {
   type?: 'Organization' | 'Person';
   name: string;
   url?: string;
 }
+
 export interface ItemListElements {
   item: string;
   name: string;
   position: number;
 }
+
 export interface OpenGraphMedia {
   url: string;
   width?: number | null;
@@ -395,6 +402,10 @@ export type Publisher = {
   name: string;
 };
 
+export type WebSitePublisher = {
+  id: string;
+};
+
 export type ReviewedBy = {
   type?: string;
   name: string;
@@ -511,4 +522,5 @@ export interface DefaultSeoProps {
   additionalLinkTags?: ReadonlyArray<LinkTag>;
   children?: never;
 }
+
 export interface BuildTagsParams extends DefaultSeoProps, NextSeoProps {}

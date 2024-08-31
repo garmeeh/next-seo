@@ -61,7 +61,7 @@ If you are using **`pages`** directory then `NextSeo` is **exactly what you need
     - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
     - [robotsProps](#robotsprops)
     - [Twitter](#twitter)
-    - [facebook](#facebook)
+    - [Facebook](#facebook)
     - [Canonical URL](#canonical-url)
     - [Alternate](#alternate)
     - [Additional Meta Tags](#additional-meta-tags)
