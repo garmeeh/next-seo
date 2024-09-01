@@ -20,12 +20,12 @@ function QAPageJsonLd({
     mainEntity: {
       ...mainEntity,
       '@type': 'Question',
-      author: setAuthor(mainEntity.author?.name),
+      author: setAuthor(mainEntity.author),
       ...(mainEntity.acceptedAnswer && {
         acceptedAnswer: {
           ...mainEntity.acceptedAnswer,
           '@type': 'Answer',
-          author: setAuthor(mainEntity.acceptedAnswer?.author?.name),
+          author: setAuthor(mainEntity.acceptedAnswer?.author),
         },
       }),
       ...(mainEntity.suggestedAnswer && {
@@ -34,7 +34,7 @@ function QAPageJsonLd({
             ...rest,
             '@type': 'Answer',
             upvoteCount: upvoteCount || 0,
-            author: setAuthor(rest.author?.name),
+            author: setAuthor(rest.author),
           }),
         ),
       }),

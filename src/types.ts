@@ -53,6 +53,7 @@ export type StepDetails = {
 
 export interface Person {
   name: string;
+  url?: string;
 }
 export interface Answer {
   text: string;

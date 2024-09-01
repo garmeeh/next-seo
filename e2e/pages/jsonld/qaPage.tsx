@@ -1,4 +1,3 @@
-import React from 'react';
 import { QAPageJsonLd } from '../../..';
 
 function QaPage() {
@@ -12,7 +11,7 @@ function QaPage() {
           answerCount: 3,
           upvoteCount: 26,
           dateCreated: '2016-07-23T21:11Z',
-          author: { name: 'New Baking User' },
+          author: { name: 'New Baking User', url: 'https://example.com/user1' },
           acceptedAnswer: {
             text: '1 pound (lb) is equal to 16 ounces (oz).',
             dateCreated: '2016-11-02T21:11Z',
@@ -20,6 +19,7 @@ function QaPage() {
             url: 'https://example.com/question1#acceptedAnswer',
             author: {
               name: 'SomeUser',
+              url: 'https://example.com/SomeUser',
             },
           },
           suggestedAnswer: [
@@ -30,6 +30,7 @@ function QaPage() {
               url: 'https://example.com/question1#suggestedAnswer1',
               author: {
                 name: 'AnotherUser',
+                url: 'https://example.com/AnotherUser',
               },
             },
             {
@@ -39,6 +40,7 @@ function QaPage() {
               url: 'https://example.com/question1#suggestedAnswer2',
               author: {
                 name: 'ConfusedUser',
+                url: 'https://example.com/ConfusedUser',
               },
             },
           ],

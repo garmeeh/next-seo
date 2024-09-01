@@ -61,7 +61,7 @@ If you are using **`pages`** directory then `NextSeo` is **exactly what you need
     - [dangerouslySetAllPagesToNoFollow](#dangerouslysetallpagestonofollow)
     - [robotsProps](#robotsprops)
     - [Twitter](#twitter)
-    - [facebook](#facebook)
+    - [Facebook](#facebook)
     - [Canonical URL](#canonical-url)
     - [Alternate](#alternate)
     - [Additional Meta Tags](#additional-meta-tags)
@@ -2673,7 +2673,10 @@ const Page = () => (
         answerCount: 3,
         upvoteCount: 26,
         dateCreated: '2016-07-23T21:11Z',
-        author: { name: 'New Baking User' },
+        author: {
+          name: 'New Baking User',
+          url: 'https://example.com/bakinguser',
+        },
         acceptedAnswer: {
           text: '1 pound (lb) is equal to 16 ounces (oz).',
           dateCreated: '2016-11-02T21:11Z',
@@ -2681,6 +2684,7 @@ const Page = () => (
           url: 'https://example.com/question1#acceptedAnswer',
           author: {
             name: 'SomeUser',
+            url: 'https://example.com/someuser',
           },
         },
         suggestedAnswer: [
@@ -2691,6 +2695,7 @@ const Page = () => (
             url: 'https://example.com/question1#suggestedAnswer1',
             author: {
               name: 'AnotherUser',
+              url: 'https://example.com/anotheruser',
             },
           },
           {
@@ -2700,6 +2705,7 @@ const Page = () => (
             url: 'https://example.com/question1#suggestedAnswer2',
             author: {
               name: 'ConfusedUser',
+              url: 'https://example.com/confuseduser',
             },
           },
         ],
