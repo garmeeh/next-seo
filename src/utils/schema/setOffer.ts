@@ -1,4 +1,4 @@
-import type { Offer } from 'src/types';
+import type { Offer } from '../../types';
 
 export function setOffer(offer?: Offer) {
   function setPriceSpecification(

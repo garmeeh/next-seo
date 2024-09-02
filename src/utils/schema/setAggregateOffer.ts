@@ -1,4 +1,4 @@
-import type { AggregateOffer } from 'src/types';
+import type { AggregateOffer } from '../../types';
 import { setOffers } from './setOffers';
 
 export function setAggregateOffer(aggregateOffer?: AggregateOffer) {

@@ -1,4 +1,4 @@
-import { PriceSpecification } from 'src/types';
+import { PriceSpecification } from '../../types';
 
 export function setCost(cost?: PriceSpecification) {
   if (cost) {
