@@ -976,3 +976,37 @@ it('correctly read all robots props', () => {
   expect(Array.from(content).length).toBe(0);
   expect(Array.from(contentOverride).length).toBe(1);
 });
+
+it('additional link tags are set', () => {
+  const overrideProps: BuildTagsParams = {
+    ...SEO,
+    additionalLinkTags: [
+      {
+        rel: 'apple-touch-icon',
+        href: 'https://www.test.ie/touch-icon-ipad.jpg',
+        sizes: '76x76',
+        keyOverride: '76x76',
+      },
+      {
+        rel: 'apple-touch-icon',
+        href: 'https://www.test.ie/touch-icon-ipad.jpg',
+        sizes: '120x120',
+        keyOverride: '120x120',
+      },
+      {
+        rel: 'icon',
+        href: 'https://www.test.ie/favicon.ico',
+      },
+    ],
+  };
+  const tags = buildTags(overrideProps);
+  const { container } = render(<>{React.Children.toArray(tags)}</>);
+  const appleTouchIconTags = container.querySelectorAll(
+    'link[rel="apple-touch-icon"]',
+  );
+  expect(Array.from(appleTouchIconTags).length).toBe(2);
+  expect(appleTouchIconTags[0]).not.toHaveAttribute('keyoverride');
+
+  const iconTags = container.querySelectorAll('link[rel="icon"]');
+  expect(Array.from(iconTags).length).toBe(1);
+});
