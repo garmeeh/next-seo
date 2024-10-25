@@ -17,6 +17,7 @@ export {
   default as LocalBusinessJsonLd,
   LocalBusinessJsonLdProps,
 } from './jsonld/localBusiness';
+export { default as MovieJsonLd, MovieJsonLdProps } from './jsonld/movie';
 export { default as QAPageJsonLd, QAPageJsonLdProps } from './jsonld/qaPage';
 export {
   default as ProfilePageJsonLd,
