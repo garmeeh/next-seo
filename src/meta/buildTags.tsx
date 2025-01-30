@@ -143,6 +143,8 @@ const buildTags = (config: BuildTagsParams) => {
       noimageindex,
       notranslate,
       unavailableAfter,
+      noodp,
+      noydir,
     } = config.robotsProps;
 
     robotsParams = `${nosnippet ? ',nosnippet' : ''}${
@@ -153,7 +155,7 @@ const buildTags = (config: BuildTagsParams) => {
       noimageindex ? ',noimageindex' : ''
     }${maxVideoPreview ? `,max-video-preview:${maxVideoPreview}` : ''}${
       notranslate ? ',notranslate' : ''
-    }`;
+    }${noodp ? ',noodp' : ''}${noydir ? ',noydir' : ''}`;
   }
 
   if (config.norobots) {

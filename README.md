@@ -494,6 +494,8 @@ const Page = () => (
         maxSnippet: -1,
         maxImagePreview: 'none',
         maxVideoPreview: -1,
+        noodp: true,
+        noydir: true,
       }}
     />
     <p>Additional robots props in Next-SEO!!</p>
@@ -503,7 +505,7 @@ const Page = () => (
 export default Page;
 
 /*
-<meta name="robots" content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate">
+<meta name="robots" content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate,noodp,noydir">
 */
 ```
 
@@ -519,6 +521,8 @@ export default Page;
 | `notranslate`       | boolean                   | Do not offer translation of this page in search results.                                                                                                                                        |
 | `noimageindex`      | boolean                   | Do not index images on this page.                                                                                                                                                               |
 | `unavailable_after` | string                    | Do not show this page in search results after the specified date/time. The date/time must be specified in a widely adopted format including, but not limited to RFC 822, RFC 850, and ISO 8601. |
+| `noodp`             | boolean                   | Do not use Open Directory Project descriptions in search snippets.                                                                                                                              |
+| `noydir`            | boolean                   | Do not use Yahoo Directory descriptions in search snippets.                                                                                                                                     |
 
 For more reference about the `X-Robots-Tag` visit [Google Search Central - Control Crawling and Indexing](https://developers.google.com/search/reference/robots_meta_tag?hl=en-GB#directives)
 
