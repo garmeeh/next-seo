@@ -1,3 +1,9 @@
+**SEObot — fully autonomous «SEO Robot» with AI agents**
+
+SEObot takes 100% of SEO work out of your way so that you can focus on building your product. [Try it now](https://seobotai.com/?ref=next-seo)
+
+[![image](https://github.com/user-attachments/assets/f9411f81-a9c9-4687-9e4a-7960db4093f2)](https://seobotai.com/?ref=next-seo)
+
 **Have you seen the new Next.js newsletter?**
 
 [<img alt="NextjsWeekly banner" src="./next-js-weekly.png">](https://dub.sh/nextjsweekly)
