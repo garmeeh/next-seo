@@ -2,14 +2,14 @@ import React from 'react';
 
 import { JsonLd, JsonLdProps } from './jsonld';
 
-import type { CourseJsonLdProps, RecipeJsonLdProps } from 'src/index';
-import type { Review, AggregateRating } from 'src/types';
-import { setReviews } from 'src/utils/schema/setReviews';
-import { setAuthor } from 'src/utils/schema/setAuthor';
-import { setNutrition } from 'src/utils/schema/setNutrition';
-import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
-import { setVideo } from 'src/utils/schema/setVideo';
-import { setInstruction } from 'src/utils/schema/setInstruction';
+import type { CourseJsonLdProps, RecipeJsonLdProps } from '../index';
+import type { Review, AggregateRating } from '../types';
+import { setReviews } from '../utils/schema/setReviews';
+import { setAuthor } from '../utils/schema/setAuthor';
+import { setNutrition } from '../utils/schema/setNutrition';
+import { setAggregateRating } from '../utils/schema/setAggregateRating';
+import { setVideo } from '../utils/schema/setVideo';
+import { setInstruction } from '../utils/schema/setInstruction';
 
 type Director = {
   name: string;

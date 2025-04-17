@@ -1,4 +1,4 @@
-import { AggregateOffer, Offers } from 'src/types';
+import { AggregateOffer, Offers } from '../../../types';
 import { setAggregateOffer } from '../setAggregateOffer';
 
 const offerOne: Offers = {
