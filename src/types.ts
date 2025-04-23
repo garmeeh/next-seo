@@ -466,6 +466,8 @@ export interface AdditionalRobotsProps {
   unavailableAfter?: string;
   noimageindex?: boolean;
   notranslate?: boolean;
+  noodp?: boolean;
+  noydir?: boolean;
 }
 
 export interface NextSeoProps {
