@@ -29,7 +29,7 @@ import howToVersions from './how-to-schema';
 import imageVersions from './image-schema';
 import campgroundVersions from './campground-schema';
 import parkVersions from './park-schema';
-
+import webSiteVersions from './web-site-schema';
 
 const schemas = combineSchemas(
   articleVersions,
@@ -61,5 +61,6 @@ const schemas = combineSchemas(
   imageVersions,
   campgroundVersions,
   parkVersions,
+  webSiteVersions,
 );
 export default schemas;

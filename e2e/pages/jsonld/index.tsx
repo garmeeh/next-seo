@@ -31,6 +31,7 @@ const allJsonLDPages = [
   'videoGame',
   'webPage',
   'webPage2',
+  'webSite',
 ];
 
 const Home = () => (
