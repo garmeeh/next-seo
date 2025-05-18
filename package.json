@@ -7,6 +7,7 @@
   "unpkg": "lib/next-seo.umd.js",
   "exports": {
     ".": {
+      "types": "./lib/index.d.ts",
       "require": "./lib/next-seo.js",
       "import": "./lib/next-seo.module.js"
     },
