@@ -2,10 +2,16 @@
   "name": "next-seo",
   "version": "6.6.0",
   "description": "SEO plugin for Next.js projects",
-  "source": "src/index.tsx",
   "main": "lib/next-seo.js",
   "module": "lib/next-seo.module.js",
   "unpkg": "lib/next-seo.umd.js",
+  "exports": {
+    ".": {
+      "require": "./lib/next-seo.js",
+      "import": "./lib/next-seo.module.js"
+    },
+    "./package.json": "./package.json"
+  },
   "types": "lib/index.d.ts",
   "files": [
     "lib"
@@ -104,5 +110,6 @@
       "git add"
     ],
     "*.{ts,tsx}": []
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
