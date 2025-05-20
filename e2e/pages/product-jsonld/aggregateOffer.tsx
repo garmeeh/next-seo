@@ -24,6 +24,12 @@ const AggregateOffer = () => (
             seller: {
               name: 'Executive Objects',
             },
+            hasMerchantReturnPolicy: {
+              merchantReturnDays: 30,
+              returnPolicyCategory: 'MerchantReturnFiniteReturnWindow',
+              returnMethod: 'ReturnByMail',
+              returnFees: 'RestockingFee',
+            },
           },
           {
             price: '139.99',
@@ -34,6 +40,12 @@ const AggregateOffer = () => (
             url: 'https://www.example.ca/executive-anvil',
             seller: {
               name: 'Executive Objects',
+            },
+            hasMerchantReturnPolicy: {
+              merchantReturnDays: 30,
+              returnPolicyCategory: 'MerchantReturnFiniteReturnWindow',
+              returnMethod: 'ReturnByMail',
+              returnFees: 'RestockingFee',
             },
           },
         ],

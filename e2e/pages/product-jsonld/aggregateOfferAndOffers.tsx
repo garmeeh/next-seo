@@ -24,6 +24,12 @@ const AggregateOfferAndOffers = () => (
             seller: {
               name: 'Executive Objects',
             },
+            hasMerchantReturnPolicy: {
+              merchantReturnDays: 30,
+              returnPolicyCategory: 'MerchantReturnFiniteReturnWindow',
+              returnMethod: 'ReturnByMail',
+              returnFees: 'RestockingFee',
+            },
           },
           {
             price: '139.99',
@@ -34,6 +40,12 @@ const AggregateOfferAndOffers = () => (
             url: 'https://www.example.ca/executive-anvil',
             seller: {
               name: 'Executive Objects',
+            },
+            hasMerchantReturnPolicy: {
+              merchantReturnDays: 30,
+              returnPolicyCategory: 'MerchantReturnFiniteReturnWindow',
+              returnMethod: 'ReturnByMail',
+              returnFees: 'RestockingFee',
             },
           },
         ],
@@ -49,6 +61,12 @@ const AggregateOfferAndOffers = () => (
           seller: {
             name: 'Executive Objects',
           },
+          hasMerchantReturnPolicy: {
+            merchantReturnDays: 30,
+            returnPolicyCategory: 'MerchantReturnFiniteReturnWindow',
+            returnMethod: 'ReturnByMail',
+            returnFees: 'RestockingFee',
+          },
         },
         {
           price: '139.99',
@@ -59,6 +77,12 @@ const AggregateOfferAndOffers = () => (
           url: 'https://www.example.ca/executive-anvil',
           seller: {
             name: 'Executive Objects',
+          },
+          hasMerchantReturnPolicy: {
+            merchantReturnDays: 30,
+            returnPolicyCategory: 'MerchantReturnFiniteReturnWindow',
+            returnMethod: 'ReturnByMail',
+            returnFees: 'RestockingFee',
           },
         },
       ]}

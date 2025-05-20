@@ -30,6 +30,12 @@ const Offers = () => (
           seller: {
             name: 'Executive Objects',
           },
+          hasMerchantReturnPolicy: {
+            merchantReturnDays: 30,
+            returnPolicyCategory: 'MerchantReturnFiniteReturnWindow',
+            returnMethod: 'ReturnByMail',
+            returnFees: 'RestockingFee',
+          },
         },
       ]}
     />
