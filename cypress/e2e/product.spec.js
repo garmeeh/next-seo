@@ -119,35 +119,49 @@ describe('Product JSON-LD', () => {
         expect(jsonLD).to.deep.equal({
           '@context': 'https://schema.org',
           '@type': 'Product',
-          name: 'Executive Anvil',
           offers: [
             {
-              '@type': 'Offer',
               price: '119.99',
               priceCurrency: 'USD',
               priceValidUntil: '2020-11-05',
               itemCondition: 'https://schema.org/UsedCondition',
               availability: 'https://schema.org/InStock',
               url: 'https://www.example.com/executive-anvil',
+              '@type': 'Offer',
               seller: {
                 '@type': 'Organization',
                 name: 'Executive Objects',
               },
+              hasMerchantReturnPolicy: {
+                '@type': 'MerchantReturnPolicy',
+                merchantReturnDays: 30,
+                returnPolicyCategory: 'MerchantReturnFiniteReturnWindow',
+                returnMethod: 'ReturnByMail',
+                returnFees: 'RestockingFee',
+              },
             },
             {
-              '@type': 'Offer',
               price: '139.99',
               priceCurrency: 'CAD',
               priceValidUntil: '2020-09-05',
               itemCondition: 'https://schema.org/UsedCondition',
               availability: 'https://schema.org/InStock',
               url: 'https://www.example.ca/executive-anvil',
+              '@type': 'Offer',
               seller: {
                 '@type': 'Organization',
                 name: 'Executive Objects',
               },
+              hasMerchantReturnPolicy: {
+                '@type': 'MerchantReturnPolicy',
+                merchantReturnDays: 30,
+                returnPolicyCategory: 'MerchantReturnFiniteReturnWindow',
+                returnMethod: 'ReturnByMail',
+                returnFees: 'RestockingFee',
+              },
             },
           ],
+          name: 'Executive Anvil',
         });
       });
   });
@@ -161,42 +175,56 @@ describe('Product JSON-LD', () => {
         expect(jsonLD).to.deep.equal({
           '@context': 'https://schema.org',
           '@type': 'Product',
-          name: 'Executive Anvil',
           offers: {
             '@type': 'AggregateOffer',
             priceCurrency: 'USD',
-            lowPrice: '119.99',
             highPrice: '139.99',
+            lowPrice: '119.99',
             offerCount: '5',
             offers: [
               {
-                '@type': 'Offer',
                 price: '119.99',
                 priceCurrency: 'USD',
                 priceValidUntil: '2020-11-05',
                 itemCondition: 'https://schema.org/UsedCondition',
                 availability: 'https://schema.org/InStock',
                 url: 'https://www.example.com/executive-anvil',
+                '@type': 'Offer',
                 seller: {
                   '@type': 'Organization',
                   name: 'Executive Objects',
                 },
+                hasMerchantReturnPolicy: {
+                  '@type': 'MerchantReturnPolicy',
+                  merchantReturnDays: 30,
+                  returnPolicyCategory: 'MerchantReturnFiniteReturnWindow',
+                  returnMethod: 'ReturnByMail',
+                  returnFees: 'RestockingFee',
+                },
               },
               {
-                '@type': 'Offer',
                 price: '139.99',
                 priceCurrency: 'CAD',
                 priceValidUntil: '2020-09-05',
                 itemCondition: 'https://schema.org/UsedCondition',
                 availability: 'https://schema.org/InStock',
                 url: 'https://www.example.ca/executive-anvil',
+                '@type': 'Offer',
                 seller: {
                   '@type': 'Organization',
                   name: 'Executive Objects',
                 },
+                hasMerchantReturnPolicy: {
+                  '@type': 'MerchantReturnPolicy',
+                  merchantReturnDays: 30,
+                  returnPolicyCategory: 'MerchantReturnFiniteReturnWindow',
+                  returnMethod: 'ReturnByMail',
+                  returnFees: 'RestockingFee',
+                },
               },
             ],
           },
+          name: 'Executive Anvil',
         });
       });
   });
@@ -210,27 +238,34 @@ describe('Product JSON-LD', () => {
         expect(jsonLD).to.deep.equal({
           '@context': 'https://schema.org',
           '@type': 'Product',
-          name: 'Executive Anvil',
           offers: {
             '@type': 'AggregateOffer',
             priceCurrency: 'USD',
-            lowPrice: '119.99',
             highPrice: '139.99',
+            lowPrice: '119.99',
             offerCount: '5',
             offers: {
-              '@type': 'Offer',
               price: '119.99',
               priceCurrency: 'USD',
               priceValidUntil: '2020-11-05',
               itemCondition: 'https://schema.org/UsedCondition',
               availability: 'https://schema.org/InStock',
               url: 'https://www.example.com/executive-anvil',
+              '@type': 'Offer',
               seller: {
                 '@type': 'Organization',
                 name: 'Executive Objects',
               },
+              hasMerchantReturnPolicy: {
+                '@type': 'MerchantReturnPolicy',
+                merchantReturnDays: 30,
+                returnPolicyCategory: 'MerchantReturnFiniteReturnWindow',
+                returnMethod: 'ReturnByMail',
+                returnFees: 'RestockingFee',
+              },
             },
           },
+          name: 'Executive Anvil',
         });
       });
   });
