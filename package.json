@@ -5,14 +5,7 @@
   "main": "lib/next-seo.js",
   "module": "lib/next-seo.module.js",
   "unpkg": "lib/next-seo.umd.js",
-  "exports": {
-    ".": {
-      "types": "./lib/index.d.ts",
-      "require": "./lib/next-seo.js",
-      "import": "./lib/next-seo.module.js"
-    },
-    "./package.json": "./package.json"
-  },
+  "source": "src/index.tsx",
   "types": "lib/index.d.ts",
   "files": [
     "lib"
