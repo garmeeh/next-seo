@@ -201,6 +201,41 @@ export interface BroadcastEvent {
   endDate: string;
 }
 
+export type ReturnPolicyCategory =
+  | 'MerchantReturnFiniteReturnWindow'
+  | 'MerchantReturnUnlimitedWindow'
+  | 'MerchantReturnUnspecified'
+  | 'MerchantReturnNotPermitted';
+
+export type ReturnMethod = 'ReturnByMail' | 'ReturnInStore' | 'ReturnAtKiosk';
+
+export type ReturnFees =
+  | 'FreeReturn'
+  | 'OriginalShippingNotRefunded'
+  | 'RestockingFee'
+  | 'ReturnFeesCustomerResponsibility'
+  | 'ReturnShippingFees';
+
+export type RefundType = 'FullRefund' | 'ExchangeRefund' | 'StoreCreditRefund';
+
+export type ItemCondition =
+  | 'NewCondition'
+  | 'UsedCondition'
+  | 'DamagedCondition'
+  | 'RefurbishedCondition';
+
+export type ReturnLabelSource =
+  | 'ReturnLabelCustomerResponsibility'
+  | 'ReturnLabelDownloadAndPrint'
+  | 'ReturnLabelInBox';
+
+export interface ReturnPolicySeasonalOverrides {
+  merchantReturnDays?: number;
+  returnPolicyCategory?: ReturnPolicyCategory;
+  startDate: string;
+  endDate: string;
+}
+
 export type Offers = {
   price: string;
   priceCurrency: string;
@@ -212,6 +247,27 @@ export type Offers = {
     name: string;
   };
   validFrom?: string;
+  hasMerchantReturnPolicy?: {
+    returnPolicyCategory?: ReturnPolicyCategory;
+    returnMethod?: ReturnMethod | ReturnMethod[];
+    returnFees?: ReturnFees | ReturnFees[];
+    refundType?: RefundType | RefundType[];
+    applicableCountry?: string | string[];
+    returnPolicyCountry?: string | string[];
+    merchantReturnLink?: string;
+    itemCondition?: ItemCondition | ItemCondition[];
+    inStoreReturnsOffered?: boolean;
+    restockingFee?: number | string;
+    returnShippingFeesAmount?: {
+      value: number;
+      currency: string;
+    };
+    customerRemorseReturnFees?: ReturnFees | ReturnFees[];
+    customerRemorseReturnLabelSource?: ReturnLabelSource;
+    itemDefectReturnFees?: ReturnFees | ReturnFees[];
+    itemDefectReturnLabelSource?: ReturnLabelSource;
+    returnPolicySeasonalOverride?: ReturnPolicySeasonalOverrides[];
+  };
 };
 
 export type AggregateOffer = {
