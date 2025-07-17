@@ -1,0 +1,17 @@
+{
+  "output": {
+    "style": "xml",
+    "filePath": "repomix-output.xml"
+  },
+  "ignore": {
+    "customPatterns": [
+      "playwright-report/",
+      "node_modules/",
+      "test-results/",
+      "dist/",
+      "coverage/",
+      "pnpm-lock.yaml",
+      "examples/"
+    ]
+  }
+}

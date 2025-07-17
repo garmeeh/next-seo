@@ -1,0 +1,12 @@
+node_modules
+.next
+.swc
+coverage
+dist
+build
+package.json
+pnpm-lock.yaml
+
+# Ignore example project built files if any
+examples/app-router-showcase/.next
+examples/app-router-showcase/out 

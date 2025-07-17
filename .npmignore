@@ -1,0 +1,37 @@
+# Source code
+src/
+examples/
+
+# Config files
+.husky/
+.github/
+.vscode/
+.editorconfig
+.prettierignore
+commitlint.config.js
+eslint.config.mjs
+playwright.config.ts
+tsconfig.json
+tsup.config.ts
+vitest.config.ts
+pnpm-workspace.yaml
+repomix.config.json
+
+# Documentation
+*.md
+!README.md
+
+# Test files
+tests/
+test-results/
+coverage/
+**/*.test.*
+**/*.spec.*
+
+# Development files
+tasks/
+schemas/
+
+# Build artifacts that shouldn't be published
+*.log
+.DS_Store
