@@ -25,6 +25,24 @@ describe("RecipeJsonLd", () => {
     });
   });
 
+  it("preserves URL query parameters", () => {
+    const { container } = render(
+      <RecipeJsonLd
+        name="Chocolate Cookies"
+        image="https://example.com/cookies.jpg"
+        url="https://example.com/recipe?category=dessert&rating=5"
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.url).toBe(
+      "https://example.com/recipe?category=dessert&rating=5",
+    );
+  });
+
   it("handles string author", () => {
     const { container } = render(
       <RecipeJsonLd

@@ -26,6 +26,24 @@ describe("ArticleJsonLd", () => {
     });
   });
 
+  it("preserves URL query parameters", () => {
+    const { container } = render(
+      <ArticleJsonLd
+        headline="Test Article"
+        url="https://example.com/article?utm_source=google&page=1"
+        datePublished="2024-01-01T00:00:00.000Z"
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.url).toBe(
+      "https://example.com/article?utm_source=google&page=1",
+    );
+  });
+
   it("renders NewsArticle type when specified", () => {
     const { container } = render(
       <ArticleJsonLd

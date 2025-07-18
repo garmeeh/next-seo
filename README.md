@@ -312,3 +312,363 @@ Use these formats for time durations:
 4. **Accurate times**: Always provide prepTime and cookTime together
 5. **Ratings**: Include aggregateRating when you have user reviews
 6. **Video content**: Adding a video significantly improves search appearance
+
+### OrganizationJsonLd
+
+The `OrganizationJsonLd` component helps you add structured data about your organization to improve how it appears in search results and knowledge panels.
+
+#### Basic Usage
+
+```tsx
+import { OrganizationJsonLd } from "next-seo";
+
+export default function AboutPage() {
+  return (
+    <>
+      <OrganizationJsonLd
+        name="Example Corporation"
+        url="https://www.example.com"
+        logo="https://www.example.com/logo.png"
+        description="The example corporation is well-known for producing high-quality widgets"
+        sameAs={[
+          "https://twitter.com/example",
+          "https://facebook.com/example",
+          "https://linkedin.com/company/example",
+        ]}
+      />
+      <div>
+        <h1>About Example Corporation</h1>
+        {/* About page content */}
+      </div>
+    </>
+  );
+}
+```
+
+#### Advanced Example with Address and Contact
+
+```tsx
+<OrganizationJsonLd
+  type="Organization"
+  name="Example Corporation"
+  url="https://www.example.com"
+  logo={{
+    "@type": "ImageObject",
+    url: "https://www.example.com/logo.png",
+    width: 600,
+    height: 400,
+  }}
+  description="Leading provider of innovative widget solutions"
+  sameAs={[
+    "https://example.net/profile/example1234",
+    "https://example.org/example1234",
+  ]}
+  address={{
+    "@type": "PostalAddress",
+    streetAddress: "999 W Example St Suite 99",
+    addressLocality: "New York",
+    addressRegion: "NY",
+    postalCode: "10019",
+    addressCountry: "US",
+  }}
+  contactPoint={{
+    "@type": "ContactPoint",
+    contactType: "Customer Service",
+    telephone: "+1-999-999-9999",
+    email: "support@example.com",
+  }}
+  telephone="+1-999-999-9999"
+  email="contact@example.com"
+  foundingDate="2010-01-01"
+  vatID="FR12345678901"
+  iso6523Code="0199:724500PMK2A2M1SQQ228"
+  numberOfEmployees={{
+    "@type": "QuantitativeValue",
+    minValue: 100,
+    maxValue: 999,
+  }}
+/>
+```
+
+#### OnlineStore Example with Return Policy
+
+```tsx
+<OrganizationJsonLd
+  type="OnlineStore"
+  name="Example Online Store"
+  url="https://www.example.com"
+  logo="https://www.example.com/assets/logo.png"
+  contactPoint={{
+    "@type": "ContactPoint",
+    contactType: "Customer Service",
+    email: "support@example.com",
+    telephone: "+47-99-999-9900",
+  }}
+  vatID="FR12345678901"
+  iso6523Code="0199:724500PMK2A2M1SQQ228"
+  hasMerchantReturnPolicy={{
+    "@type": "MerchantReturnPolicy",
+    applicableCountry: ["FR", "CH"],
+    returnPolicyCountry: "FR",
+    returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+    merchantReturnDays: 60,
+    returnMethod: "https://schema.org/ReturnByMail",
+    returnFees: "https://schema.org/FreeReturn",
+    refundType: "https://schema.org/FullRefund",
+  }}
+/>
+```
+
+#### Props
+
+| Property                  | Type                                                     | Description                                             |
+| ------------------------- | -------------------------------------------------------- | ------------------------------------------------------- |
+| `type`                    | `"Organization" \| "OnlineStore"`                        | The type of organization. Defaults to "Organization"    |
+| `name`                    | `string`                                                 | The name of your organization                           |
+| `url`                     | `string`                                                 | The URL of your organization's website                  |
+| `logo`                    | `string \| ImageObject`                                  | Your organization's logo (112x112px minimum)            |
+| `description`             | `string`                                                 | A detailed description of your organization             |
+| `sameAs`                  | `string \| string[]`                                     | URLs of your organization's profiles on other sites     |
+| `address`                 | `string \| PostalAddress \| (string \| PostalAddress)[]` | Physical or mailing address(es)                         |
+| `contactPoint`            | `ContactPoint \| ContactPoint[]`                         | Contact information for your organization               |
+| `telephone`               | `string`                                                 | Primary phone number (include country code)             |
+| `email`                   | `string`                                                 | Primary email address                                   |
+| `alternateName`           | `string`                                                 | Alternative name your organization goes by              |
+| `foundingDate`            | `string`                                                 | ISO 8601 date when the organization was founded         |
+| `legalName`               | `string`                                                 | Registered legal name if different from name            |
+| `taxID`                   | `string`                                                 | Tax ID associated with your organization                |
+| `vatID`                   | `string`                                                 | VAT code (important trust signal)                       |
+| `duns`                    | `string`                                                 | Dun & Bradstreet DUNS number                            |
+| `leiCode`                 | `string`                                                 | Legal Entity Identifier (ISO 17442)                     |
+| `naics`                   | `string`                                                 | North American Industry Classification System code      |
+| `globalLocationNumber`    | `string`                                                 | GS1 Global Location Number                              |
+| `iso6523Code`             | `string`                                                 | ISO 6523 identifier (e.g., "0199:724500PMK2A2M1SQQ228") |
+| `numberOfEmployees`       | `number \| QuantitativeValue`                            | Number of employees or range                            |
+| `hasMerchantReturnPolicy` | `MerchantReturnPolicy \| MerchantReturnPolicy[]`         | Return policy details (OnlineStore only)                |
+| `hasMemberProgram`        | `MemberProgram \| MemberProgram[]`                       | Loyalty/membership program details (OnlineStore only)   |
+| `scriptId`                | `string`                                                 | Custom ID for the script tag                            |
+| `scriptKey`               | `string`                                                 | Custom key prop for React                               |
+
+#### Best Practices
+
+1. **Place on homepage or about page**: Add this markup to your homepage or a dedicated "about us" page
+2. **Use specific subtypes**: Use "OnlineStore" for e-commerce sites rather than generic "Organization"
+3. **Include identifiers**: Add VAT ID, ISO codes, and other identifiers for better trust signals
+4. **Complete address information**: Provide full address details including country code
+5. **Multiple locations**: Use array format for addresses if you have multiple locations
+6. **High-quality logo**: Use a logo that looks good on white background, minimum 112x112px
+
+### LocalBusinessJsonLd
+
+The `LocalBusinessJsonLd` component helps you add structured data for local businesses to improve their appearance in Google Search and Maps results, including knowledge panels and local business carousels.
+
+#### Basic Usage
+
+```tsx
+import { LocalBusinessJsonLd } from "next-seo";
+
+<LocalBusinessJsonLd
+  type="Restaurant"
+  name="Dave's Steak House"
+  address={{
+    "@type": "PostalAddress",
+    streetAddress: "148 W 51st St",
+    addressLocality: "New York",
+    addressRegion: "NY",
+    postalCode: "10019",
+    addressCountry: "US",
+  }}
+  telephone="+12125551234"
+  url="https://www.example.com"
+  priceRange="$$$"
+/>;
+```
+
+#### Restaurant Example with Full Details
+
+```tsx
+<LocalBusinessJsonLd
+  type="Restaurant"
+  name="Dave's Steak House"
+  address={{
+    "@type": "PostalAddress",
+    streetAddress: "148 W 51st St",
+    addressLocality: "New York",
+    addressRegion: "NY",
+    postalCode: "10019",
+    addressCountry: "US",
+  }}
+  geo={{
+    "@type": "GeoCoordinates",
+    latitude: 40.761293,
+    longitude: -73.982294,
+  }}
+  url="https://www.example.com/restaurant-locations/manhattan"
+  telephone="+12122459600"
+  image={[
+    "https://example.com/photos/1x1/photo.jpg",
+    "https://example.com/photos/4x3/photo.jpg",
+    "https://example.com/photos/16x9/photo.jpg",
+  ]}
+  servesCuisine="American"
+  priceRange="$$$"
+  openingHoursSpecification={[
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "11:30",
+      closes: "22:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "16:00",
+      closes: "23:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Sunday",
+      opens: "16:00",
+      closes: "22:00",
+    },
+  ]}
+  menu="https://www.example.com/menu"
+  aggregateRating={{
+    "@type": "AggregateRating",
+    ratingValue: 4.5,
+    ratingCount: 250,
+  }}
+/>
+```
+
+#### Store with Departments
+
+```tsx
+<LocalBusinessJsonLd
+  type="Store"
+  name="Dave's Department Store"
+  address={{
+    "@type": "PostalAddress",
+    streetAddress: "1600 Saratoga Ave",
+    addressLocality: "San Jose",
+    addressRegion: "CA",
+    postalCode: "95129",
+    addressCountry: "US",
+  }}
+  telephone="+14088717984"
+  department={[
+    {
+      type: "Pharmacy",
+      name: "Dave's Pharmacy",
+      address: "1600 Saratoga Ave, San Jose, CA 95129",
+      telephone: "+14088719385",
+      openingHoursSpecification: {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "19:00",
+      },
+    },
+  ]}
+/>
+```
+
+#### Props
+
+| Property                    | Type                                                       | Description                                                                |
+| --------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `type`                      | `string \| string[]`                                       | Business type (e.g., "Restaurant", "Store", or ["Restaurant", "BarOrPub"]) |
+| `name`                      | `string`                                                   | **Required.** The name of the business                                     |
+| `address`                   | `string \| PostalAddress \| (string \| PostalAddress)[]`   | **Required.** Physical location(s) of the business                         |
+| `url`                       | `string`                                                   | The fully-qualified URL of the business location page                      |
+| `telephone`                 | `string`                                                   | Primary contact phone number (include country code)                        |
+| `image`                     | `string \| ImageObject \| (string \| ImageObject)[]`       | Images of the business (multiple aspect ratios recommended)                |
+| `priceRange`                | `string`                                                   | Relative price range (e.g., "$", "$$", "$$$", or "$10-15")                 |
+| `geo`                       | `GeoCoordinates`                                           | Geographic coordinates (min 5 decimal places precision)                    |
+| `openingHoursSpecification` | `OpeningHoursSpecification \| OpeningHoursSpecification[]` | Business hours including special/seasonal hours                            |
+| `review`                    | `Review \| Review[]`                                       | Customer reviews (for review sites only)                                   |
+| `aggregateRating`           | `AggregateRating`                                          | Average rating based on multiple reviews                                   |
+| `department`                | `LocalBusinessBase \| LocalBusinessBase[]`                 | Departments within the business                                            |
+| `menu`                      | `string`                                                   | URL of the menu (for food establishments)                                  |
+| `servesCuisine`             | `string \| string[]`                                       | Type of cuisine served (for restaurants)                                   |
+| `sameAs`                    | `string \| string[]`                                       | URLs of business profiles on other sites                                   |
+| `branchOf`                  | `Organization`                                             | Parent organization if this is a branch                                    |
+| `currenciesAccepted`        | `string`                                                   | Currencies accepted (e.g., "USD")                                          |
+| `paymentAccepted`           | `string`                                                   | Payment methods accepted                                                   |
+| `areaServed`                | `string \| string[]`                                       | Geographic areas served                                                    |
+| `email`                     | `string`                                                   | Business email address                                                     |
+| `faxNumber`                 | `string`                                                   | Business fax number                                                        |
+| `slogan`                    | `string`                                                   | Business slogan or tagline                                                 |
+| `description`               | `string`                                                   | Detailed description of the business                                       |
+| `publicAccess`              | `boolean`                                                  | Whether the business location is accessible to the public                  |
+| `smokingAllowed`            | `boolean`                                                  | Whether smoking is allowed at the location                                 |
+| `isAccessibleForFree`       | `boolean`                                                  | Whether access is free                                                     |
+| `scriptId`                  | `string`                                                   | Custom ID for the script tag                                               |
+| `scriptKey`                 | `string`                                                   | Custom key prop for React                                                  |
+
+#### Opening Hours Examples
+
+**Standard Business Hours:**
+
+```tsx
+openingHoursSpecification={[
+  {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "09:00",
+    closes: "17:00",
+  },
+  {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Saturday", "Sunday"],
+    opens: "10:00",
+    closes: "16:00",
+  },
+]}
+```
+
+**24/7 Operation:**
+
+```tsx
+openingHoursSpecification={{
+  "@type": "OpeningHoursSpecification",
+  dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+  opens: "00:00",
+  closes: "23:59",
+}}
+```
+
+**Closed on Specific Days:**
+
+```tsx
+openingHoursSpecification={{
+  "@type": "OpeningHoursSpecification",
+  dayOfWeek: "Sunday",
+  opens: "00:00",
+  closes: "00:00",
+}}
+```
+
+**Seasonal Hours:**
+
+```tsx
+openingHoursSpecification={{
+  "@type": "OpeningHoursSpecification",
+  dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+  opens: "10:00",
+  closes: "18:00",
+  validFrom: "2024-06-01",
+  validThrough: "2024-09-30",
+}}
+```
+
+#### Best Practices
+
+1. **Use specific business types**: Use the most specific LocalBusiness subtype (e.g., "Restaurant" instead of "LocalBusiness")
+2. **Multiple types**: For businesses that fit multiple categories, use an array (e.g., `["Restaurant", "BarOrPub"]`)
+3. **Complete address**: Provide as many address fields as possible for better local SEO
+4. **High-quality images**: Include multiple images with different aspect ratios (16:9, 4:3, 1:1)
+5. **Accurate coordinates**: Use at least 5 decimal places for latitude and longitude
+6. **Opening hours**: Be precise with opening hours and include seasonal variations
+7. **Department naming**: Include the main store name with department name (e.g., "Store Name - Pharmacy")
+8. **Price range**: Keep under 100 characters; use standard symbols ($, $$, $$$) or ranges

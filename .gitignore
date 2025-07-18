@@ -57,3 +57,5 @@ repomix-output.xml
 .claude
 tasks/*
 test-results/*
+context.txt
+task.md

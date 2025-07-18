@@ -360,6 +360,8 @@ test.describe("ArticleJsonLd", () => {
 });
 ```
 
+You should also add a valid JSON test in `tests/e2e/jsonValidation.e2e.spec.ts`
+
 ## 9. Final Verification
 
 Before completing, run all quality checks:

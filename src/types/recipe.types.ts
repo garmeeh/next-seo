@@ -1,4 +1,4 @@
-import type { ImageObject, Author } from "./common.types";
+import type { ImageObject, Author, AggregateRating } from "./common.types";
 
 export interface VideoObject {
   "@type": "VideoObject";
@@ -26,15 +26,6 @@ export interface NutritionInformation {
   fiberContent?: string;
   sugarContent?: string;
   servingSize?: string;
-}
-
-export interface AggregateRating {
-  "@type": "AggregateRating";
-  ratingValue: number;
-  ratingCount?: number;
-  reviewCount?: number;
-  bestRating?: number;
-  worstRating?: number;
 }
 
 export interface HowToStep {

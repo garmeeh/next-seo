@@ -10,3 +10,11 @@ export {
   default as RecipeJsonLd,
   type RecipeJsonLdProps,
 } from "./components/RecipeJsonLd";
+export {
+  default as OrganizationJsonLd,
+  type OrganizationJsonLdProps,
+} from "./components/OrganizationJsonLd";
+export {
+  default as LocalBusinessJsonLd,
+  type LocalBusinessJsonLdProps,
+} from "./components/LocalBusinessJsonLd";
