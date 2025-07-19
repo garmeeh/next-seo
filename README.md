@@ -672,3 +672,136 @@ openingHoursSpecification={{
 6. **Opening hours**: Be precise with opening hours and include seasonal variations
 7. **Department naming**: Include the main store name with department name (e.g., "Store Name - Pharmacy")
 8. **Price range**: Keep under 100 characters; use standard symbols ($, $$, $$$) or ranges
+
+### BreadcrumbJsonLd
+
+The `BreadcrumbJsonLd` component helps you add breadcrumb structured data to indicate a page's position in the site hierarchy. This can help Google display breadcrumb trails in search results, making it easier for users to understand and navigate your site structure.
+
+#### Basic Usage
+
+```tsx
+import { BreadcrumbJsonLd } from "next-seo";
+
+export default function ProductPage() {
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          {
+            name: "Home",
+            item: "https://example.com",
+          },
+          {
+            name: "Products",
+            item: "https://example.com/products",
+          },
+          {
+            name: "Electronics",
+            item: "https://example.com/products/electronics",
+          },
+          {
+            name: "Headphones",
+            item: "https://example.com/products/electronics/headphones",
+          },
+          {
+            name: "Wireless Headphones XYZ",
+          },
+        ]}
+      />
+      <main>
+        <h1>Wireless Headphones XYZ</h1>
+        {/* Product content */}
+      </main>
+    </>
+  );
+}
+```
+
+#### Multiple Breadcrumb Trails
+
+Some pages can be reached through multiple paths. You can specify multiple breadcrumb trails:
+
+```tsx
+<BreadcrumbJsonLd
+  multipleTrails={[
+    // First trail: Category path
+    [
+      {
+        name: "Books",
+        item: "https://example.com/books",
+      },
+      {
+        name: "Science Fiction",
+        item: "https://example.com/books/sciencefiction",
+      },
+      {
+        name: "Award Winners",
+      },
+    ],
+    // Second trail: Award path
+    [
+      {
+        name: "Literature",
+        item: "https://example.com/literature",
+      },
+      {
+        name: "Award Winners",
+      },
+    ],
+  ]}
+/>
+```
+
+#### Advanced Example with Thing Objects
+
+You can use Thing objects with `@id` instead of plain URL strings:
+
+```tsx
+<BreadcrumbJsonLd
+  items={[
+    {
+      name: "Home",
+      item: "https://example.com",
+    },
+    {
+      name: "Blog",
+      item: { "@id": "https://example.com/blog" },
+    },
+    {
+      name: "Technology",
+      item: { "@id": "https://example.com/blog/technology" },
+    },
+    {
+      name: "Understanding JSON-LD",
+    },
+  ]}
+  scriptId="blog-breadcrumb"
+  scriptKey="blog-breadcrumb-key"
+/>
+```
+
+#### Props
+
+| Property         | Type                     | Description                                                      |
+| ---------------- | ------------------------ | ---------------------------------------------------------------- |
+| `items`          | `BreadcrumbListItem[]`   | Array of breadcrumb items (required if not using multipleTrails) |
+| `multipleTrails` | `BreadcrumbListItem[][]` | Array of breadcrumb trails (required if not using items)         |
+| `scriptId`       | `string`                 | Custom ID for the script tag                                     |
+| `scriptKey`      | `string`                 | Custom key prop for React                                        |
+
+**BreadcrumbListItem Type:**
+
+| Property | Type                          | Description                                            |
+| -------- | ----------------------------- | ------------------------------------------------------ |
+| `name`   | `string`                      | **Required.** The title of the breadcrumb              |
+| `item`   | `string \| { "@id": string }` | URL or Thing object (optional for the last breadcrumb) |
+
+#### Best Practices
+
+1. **Omit the last item's URL**: The last breadcrumb (current page) typically shouldn't have an `item` property
+2. **Use logical hierarchy**: Breadcrumbs should represent a typical user path, not necessarily mirror URL structure
+3. **Keep names concise**: Use clear, descriptive names that help users understand the hierarchy
+4. **Multiple trails**: Use `multipleTrails` when a page can be logically reached through different paths
+5. **Include home**: Start trails from a logical entry point (often "Home") but it's not required
+6. **Avoid duplicates**: Each trail should represent a unique path to the page
+7. **Match visual breadcrumbs**: The structured data should match the breadcrumbs shown on your page

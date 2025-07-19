@@ -18,3 +18,7 @@ export {
   default as LocalBusinessJsonLd,
   type LocalBusinessJsonLdProps,
 } from "./components/LocalBusinessJsonLd";
+export {
+  default as BreadcrumbJsonLd,
+  type BreadcrumbJsonLdProps,
+} from "./components/BreadcrumbJsonLd";

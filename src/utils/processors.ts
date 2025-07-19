@@ -10,6 +10,7 @@ import type {
   OpeningHoursSpecification,
   Review,
 } from "~/types/common.types";
+import type { BreadcrumbListItem, ListItem } from "~/types/breadcrumb.types";
 
 export function processAuthor(author: Author): Person | Organization {
   if (typeof author === "string") {
@@ -93,5 +94,17 @@ export function processReview(review: Review): Review {
         "@type": "Rating",
       },
     }),
+  };
+}
+
+export function processBreadcrumbItem(
+  item: BreadcrumbListItem,
+  position: number,
+): ListItem {
+  return {
+    "@type": "ListItem",
+    position,
+    ...(item.name && { name: item.name }),
+    ...(item.item && { item: item.item }),
   };
 }
