@@ -18,6 +18,7 @@ import type {
   Offer,
   PerformingGroup,
 } from "~/types/event.types";
+import type { NutritionInformation } from "~/types/recipe.types";
 
 export function processAuthor(author: Author): Person | Organization {
   if (typeof author === "string") {
@@ -159,5 +160,41 @@ export function processOffer(offer: Offer): Offer {
   return {
     ...offer,
     "@type": "Offer",
+  };
+}
+
+export function processPublisher(
+  publisher:
+    | string
+    | Organization
+    | Person
+    | Omit<Organization, "@type">
+    | Omit<Person, "@type">,
+): Person | Organization {
+  if (typeof publisher === "string") {
+    return {
+      "@type": "Organization",
+      name: publisher,
+    };
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in publisher) {
+    return publisher as Person | Organization;
+  }
+
+  // No @type - default to Organization but preserve all fields
+  return {
+    "@type": "Organization",
+    ...publisher,
+  } as Organization;
+}
+
+export function processNutrition(
+  nutrition: Omit<NutritionInformation, "@type">,
+): NutritionInformation {
+  return {
+    "@type": "NutritionInformation",
+    ...nutrition,
   };
 }

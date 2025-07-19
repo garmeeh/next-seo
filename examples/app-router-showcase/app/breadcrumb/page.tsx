@@ -32,11 +32,7 @@ export default function BreadcrumbPage() {
 
         <nav aria-label="Breadcrumb" className="my-4">
           <ol className="flex items-center space-x-2">
-            <li>
-              <a href="/" className="text-blue-600 hover:underline">
-                Home
-              </a>
-            </li>
+            <li>Home</li>
             <li className="text-gray-500">/</li>
             <li>
               <a href="/products" className="text-blue-600 hover:underline">

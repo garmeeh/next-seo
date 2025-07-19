@@ -58,7 +58,9 @@ export interface Recipe {
   recipeYield?: string | number;
   recipeCategory?: string;
   recipeCuisine?: string;
-  nutrition?: NutritionInformation;
+  nutrition?: Omit<NutritionInformation, "@type"> & {
+    "@type"?: "NutritionInformation";
+  };
   recipeIngredient?: string[];
   recipeInstructions?: Instruction | Instruction[];
   aggregateRating?: AggregateRating;

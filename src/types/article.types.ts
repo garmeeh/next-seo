@@ -1,4 +1,11 @@
-import type { ImageObject, Organization, Author } from "./common.types";
+import type { ImageObject, Organization, Person, Author } from "./common.types";
+
+export type Publisher =
+  | string
+  | Organization
+  | Person
+  | Omit<Organization, "@type">
+  | Omit<Person, "@type">;
 
 export interface ArticleBase {
   headline: string;
@@ -7,7 +14,7 @@ export interface ArticleBase {
   datePublished?: string;
   dateModified?: string;
   image?: string | ImageObject | (string | ImageObject)[];
-  publisher?: Organization;
+  publisher?: Publisher;
   description?: string;
   isAccessibleForFree?: boolean;
   mainEntityOfPage?:

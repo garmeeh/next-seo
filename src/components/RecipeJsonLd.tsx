@@ -5,7 +5,11 @@ import type {
   HowToStep,
   HowToSection,
 } from "~/types/recipe.types";
-import { processAuthor, processImage } from "~/utils/processors";
+import {
+  processAuthor,
+  processImage,
+  processNutrition,
+} from "~/utils/processors";
 
 function processInstruction(
   instruction: Instruction,
@@ -52,7 +56,7 @@ export default function RecipeJsonLd({
     ...(recipeYield !== undefined && { recipeYield }),
     ...(recipeCategory && { recipeCategory }),
     ...(recipeCuisine && { recipeCuisine }),
-    ...(nutrition && { nutrition }),
+    ...(nutrition && { nutrition: processNutrition(nutrition) }),
     ...(recipeIngredient && { recipeIngredient }),
     ...(recipeInstructions && {
       recipeInstructions: Array.isArray(recipeInstructions)

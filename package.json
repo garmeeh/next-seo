@@ -36,6 +36,7 @@
     "test:unit:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "test:sweep": "pnpm build && pnpm typecheck && pnpm lint && pnpm example:lint && pnpm example:typecheck && pnpm test:unit && pnpm test:e2e",
     "coverage": "vitest run --coverage",
     "// UTILITIES": "",
     "clean": "rimraf dist coverage examples/app-router-showcase/.next examples/app-router-showcase/out",
@@ -44,6 +45,8 @@
     "example:dev": "pnpm --filter ./examples/app-router-showcase dev",
     "example:build": "pnpm --filter ./examples/app-router-showcase build",
     "example:start": "pnpm --filter ./examples/app-router-showcase start",
+    "example:lint": "pnpm --filter ./examples/app-router-showcase lint",
+    "example:typecheck": "tsc --noEmit --project examples/app-router-showcase",
     "// PUBLISHING": "",
     "prepublishOnly": "pnpm build && pnpm test"
   },

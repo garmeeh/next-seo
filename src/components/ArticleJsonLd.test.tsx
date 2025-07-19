@@ -376,4 +376,70 @@ describe("ArticleJsonLd", () => {
     // The key is used internally by React for reconciliation
     expect(script).toBeTruthy();
   });
+
+  it("handles string publisher", () => {
+    const { container } = render(
+      <ArticleJsonLd
+        headline="Test Article"
+        datePublished="2024-01-01T00:00:00.000Z"
+        publisher="Example Publisher"
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.publisher).toEqual({
+      "@type": "Organization",
+      name: "Example Publisher",
+    });
+  });
+
+  it("handles publisher object without @type", () => {
+    const { container } = render(
+      <ArticleJsonLd
+        headline="Test Article"
+        datePublished="2024-01-01T00:00:00.000Z"
+        publisher={{
+          name: "Example Publisher",
+          url: "https://example.com",
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.publisher).toEqual({
+      "@type": "Organization",
+      name: "Example Publisher",
+      url: "https://example.com",
+    });
+  });
+
+  it("handles Person publisher with @type", () => {
+    const { container } = render(
+      <ArticleJsonLd
+        headline="Test Article"
+        datePublished="2024-01-01T00:00:00.000Z"
+        publisher={{
+          "@type": "Person",
+          name: "John Doe",
+          url: "https://johndoe.com",
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.publisher).toEqual({
+      "@type": "Person",
+      name: "John Doe",
+      url: "https://johndoe.com",
+    });
+  });
 });

@@ -610,4 +610,28 @@ describe("RecipeJsonLd", () => {
       },
     ]);
   });
+
+  it("handles nutrition without @type", () => {
+    const { container } = render(
+      <RecipeJsonLd
+        name="Test Recipe"
+        image="https://example.com/recipe.jpg"
+        recipeIngredient={["1 cup flour", "2 eggs"]}
+        nutrition={{
+          calories: "250 calories",
+          servingSize: "1 serving",
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.nutrition).toEqual({
+      "@type": "NutritionInformation",
+      calories: "250 calories",
+      servingSize: "1 serving",
+    });
+  });
 });

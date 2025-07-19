@@ -1,6 +1,10 @@
 import { JsonLdScript } from "~/core/JsonLdScript";
 import type { ArticleJsonLdProps } from "~/types/article.types";
-import { processAuthor, processImage } from "~/utils/processors";
+import {
+  processAuthor,
+  processImage,
+  processPublisher,
+} from "~/utils/processors";
 
 export default function ArticleJsonLd({
   type = "Article",
@@ -36,7 +40,7 @@ export default function ArticleJsonLd({
         ? image.map(processImage)
         : processImage(image),
     }),
-    ...(publisher && { publisher }),
+    ...(publisher && { publisher: processPublisher(publisher) }),
     ...(description && { description }),
     ...(isAccessibleForFree !== undefined && { isAccessibleForFree }),
     ...(mainEntityOfPage && { mainEntityOfPage }),

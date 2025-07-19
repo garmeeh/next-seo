@@ -43,11 +43,7 @@ export default function MultipleBreadcrumbsPage() {
         <h2>Path 1: By Category</h2>
         <nav aria-label="Breadcrumb by category" className="my-4">
           <ol className="flex items-center space-x-2">
-            <li>
-              <a href="/books" className="text-blue-600 hover:underline">
-                Books
-              </a>
-            </li>
+            <li>Books</li>
             <li className="text-gray-500">›</li>
             <li>
               <a
