@@ -604,5 +604,94 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(jsonData!.offers.price).toBe(0);
       expect(jsonData!.offers["@type"]).toBe("Offer");
     });
+
+    test("FAQJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/faq");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("FAQPage");
+      // Check mainEntity array is valid
+      expect(Array.isArray(jsonData!.mainEntity)).toBe(true);
+      expect(jsonData!.mainEntity.length).toBeGreaterThan(0);
+      // Check each question has valid structure
+      jsonData!.mainEntity.forEach((question: Record<string, unknown>) => {
+        expect(question["@type"]).toBe("Question");
+        expect(question.name).toBeTruthy();
+        expect(question.acceptedAnswer).toBeTruthy();
+        const answer = question.acceptedAnswer as Record<string, unknown>;
+        expect(answer["@type"]).toBe("Answer");
+        expect(answer.text).toBeTruthy();
+      });
+    });
+
+    test("Advanced FAQJsonLd with HTML produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/faq-advanced");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("FAQPage");
+      expect(Array.isArray(jsonData!.mainEntity)).toBe(true);
+
+      // Check HTML content is preserved properly
+      const firstAnswer = jsonData!.mainEntity[0].acceptedAnswer.text;
+      expect(firstAnswer).toContain("<p>");
+      expect(firstAnswer).toContain("<ul>");
+      expect(firstAnswer).toContain("<li>");
+      expect(firstAnswer).toContain("<a href=");
+    });
+
+    test("Health-focused FAQJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/faq-health");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("FAQPage");
+      expect(Array.isArray(jsonData!.mainEntity)).toBe(true);
+      expect(jsonData!.mainEntity).toHaveLength(5);
+
+      // Verify complex HTML structures are valid
+      jsonData!.mainEntity.forEach((question: Record<string, unknown>) => {
+        expect(question["@type"]).toBe("Question");
+        const answer = question.acceptedAnswer as Record<string, unknown>;
+        expect(answer["@type"]).toBe("Answer");
+        expect(typeof answer.text).toBe("string");
+      });
+    });
   });
 });

@@ -952,3 +952,152 @@ startDate: "2025-07-21T19:00:00-07:00";
 startDate: "2025-07-04";
 endDate: "2025-07-04";
 ```
+
+### FAQJsonLd
+
+The `FAQJsonLd` component helps you add structured data for frequently asked questions (FAQ) pages. This can help your FAQ content appear as rich results in Google Search, making it easier for users to find answers to common questions.
+
+> **Note**: FAQ rich results are only available for well-known, authoritative government or health websites. However, implementing proper FAQ structured data is still valuable for SEO and can help search engines better understand your content.
+
+#### Basic Usage
+
+```tsx
+import { FAQJsonLd } from "next-seo";
+
+export default function FAQPage() {
+  return (
+    <>
+      <FAQJsonLd
+        questions={[
+          {
+            question: "How to find an apprenticeship?",
+            answer:
+              "We provide an official service to search through available apprenticeships. To get started, create an account here, specify the desired region, and your preferences.",
+          },
+          {
+            question: "Whom to contact?",
+            answer:
+              "You can contact the apprenticeship office through our official phone hotline above, or with the web-form below.",
+          },
+        ]}
+      />
+      <h1>Frequently Asked Questions</h1>
+      {/* Your FAQ content */}
+    </>
+  );
+}
+```
+
+#### Advanced Example with HTML Content
+
+FAQ answers support HTML content including links, lists, and formatting:
+
+```tsx
+<FAQJsonLd
+  questions={[
+    {
+      question: "What documents are required for application?",
+      answer: `
+        <p>You'll need to provide the following documents:</p>
+        <ul>
+          <li>Valid government-issued ID</li>
+          <li>High school diploma or equivalent</li>
+          <li>Proof of residence</li>
+          <li><a href="/forms/medical">Medical clearance form</a></li>
+        </ul>
+        <p>All documents must be submitted within 30 days of application.</p>
+      `,
+    },
+    {
+      question: "How long does the application process take?",
+      answer:
+        "<p>The typical processing time is <strong>7-10 business days</strong> from the date we receive all required documents.</p>",
+    },
+  ]}
+  scriptId="faq-structured-data"
+/>
+```
+
+#### Different Input Formats
+
+The component supports multiple input formats for flexibility:
+
+```tsx
+// Simple question/answer format (recommended)
+<FAQJsonLd
+  questions={[
+    {
+      question: "What is the cost?",
+      answer: "The program is free for eligible participants.",
+    },
+  ]}
+/>
+
+// Schema.org name/acceptedAnswer format
+<FAQJsonLd
+  questions={[
+    {
+      name: "What is the cost?",
+      acceptedAnswer: "The program is free for eligible participants.",
+    },
+  ]}
+/>
+
+// With Answer object
+<FAQJsonLd
+  questions={[
+    {
+      name: "What is the cost?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The program is free for eligible participants.",
+      },
+    },
+  ]}
+/>
+```
+
+#### Props
+
+| Property    | Type              | Description                                                                             |
+| ----------- | ----------------- | --------------------------------------------------------------------------------------- |
+| `questions` | `QuestionInput[]` | **Required.** Array of questions and answers. See input formats below.                  |
+| `scriptId`  | `string`          | Optional. Sets the `id` attribute on the script tag.                                    |
+| `scriptKey` | `string`          | Optional. Sets the `data-testid` attribute on the script tag. Defaults to "faq-jsonld". |
+
+#### Question Input Formats
+
+The `questions` array accepts several formats:
+
+1. **Simple object** (recommended):
+
+   ```tsx
+   { question: "string", answer: "string" }
+   ```
+
+2. **Schema.org format**:
+
+   ```tsx
+   { name: "string", acceptedAnswer: "string" }
+   ```
+
+3. **Full Answer object**:
+   ```tsx
+   {
+     name: "string",
+     acceptedAnswer: {
+       "@type": "Answer",
+       text: "string"
+     }
+   }
+   ```
+
+#### Best Practices
+
+1. **Include complete Q&A**: Each question and answer should contain the full text that appears on your page
+2. **Use HTML wisely**: Google supports these HTML tags in answers: `<h1>` through `<h6>`, `<br>`, `<ol>`, `<ul>`, `<li>`, `<a>`, `<p>`, `<div>`, `<b>`, `<strong>`, `<i>`, and `<em>`
+3. **Match page content**: The FAQ structured data must match the visible Q&A content on your page
+4. **Avoid promotional content**: Don't use FAQPage for advertising purposes
+5. **One instance per page**: If the same FAQ appears on multiple pages, only mark it up on one page
+6. **Expandable sections**: It's fine if answers are hidden behind expandable sections, as long as users can access them
+7. **No user submissions**: FAQPage is for questions with single, authoritative answers. For user-generated Q&A, use QAPage instead

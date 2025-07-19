@@ -26,3 +26,7 @@ export {
   default as EventJsonLd,
   type EventJsonLdProps,
 } from "./components/EventJsonLd";
+export {
+  default as FAQJsonLd,
+  type FAQJsonLdProps,
+} from "./components/FAQJsonLd";
