@@ -805,3 +805,150 @@ You can use Thing objects with `@id` instead of plain URL strings:
 5. **Include home**: Start trails from a logical entry point (often "Home") but it's not required
 6. **Avoid duplicates**: Each trail should represent a unique path to the page
 7. **Match visual breadcrumbs**: The structured data should match the breadcrumbs shown on your page
+
+### EventJsonLd
+
+The `EventJsonLd` component helps you add structured data for events to improve their discoverability in Google Search results and other Google products like Google Maps. Events can appear with rich features including images, dates, locations, and ticket information.
+
+#### Basic Usage
+
+```tsx
+import { EventJsonLd } from "next-seo";
+
+<EventJsonLd
+  name="The Adventures of Kira and Morrison"
+  startDate="2025-07-21T19:00-05:00"
+  location="Snickerpark Stadium"
+/>;
+```
+
+#### Standard Event Example
+
+```tsx
+<EventJsonLd
+  name="The Adventures of Kira and Morrison"
+  startDate="2025-07-21T19:00-05:00"
+  endDate="2025-07-21T23:00-05:00"
+  location={{
+    "@type": "Place",
+    name: "Snickerpark Stadium",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "100 West Snickerpark Dr",
+      addressLocality: "Snickertown",
+      postalCode: "19019",
+      addressRegion: "PA",
+      addressCountry: "US",
+    },
+  }}
+  description="The Adventures of Kira and Morrison is coming to Snickertown in a can't miss performance."
+  image={[
+    "https://example.com/photos/1x1/photo.jpg",
+    "https://example.com/photos/4x3/photo.jpg",
+    "https://example.com/photos/16x9/photo.jpg",
+  ]}
+  offers={{
+    "@type": "Offer",
+    url: "https://www.example.com/event_offer/12345_202403180430",
+    price: 30,
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
+    validFrom: "2024-05-21T12:00",
+  }}
+  performer={{
+    "@type": "PerformingGroup",
+    name: "Kira and Morrison",
+  }}
+  organizer={{
+    "@type": "Organization",
+    name: "Kira and Morrison Music",
+    url: "https://kiraandmorrisonmusic.com",
+  }}
+/>
+```
+
+#### Event Status Examples
+
+##### Cancelled Event
+
+```tsx
+<EventJsonLd
+  name="Summer Festival 2025"
+  startDate="2025-08-15T12:00:00"
+  location="City Park"
+  eventStatus="https://schema.org/EventCancelled"
+/>
+```
+
+##### Rescheduled Event
+
+```tsx
+<EventJsonLd
+  name="Tech Conference 2025"
+  startDate="2025-09-20T09:00:00"
+  location="Convention Center"
+  eventStatus="https://schema.org/EventRescheduled"
+  previousStartDate="2025-07-15T09:00:00"
+/>
+```
+
+#### Props
+
+| Property            | Type                                                 | Description                                                                        |
+| ------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `name`              | `string`                                             | **Required.** The full title of the event                                          |
+| `startDate`         | `string`                                             | **Required.** Start date/time in ISO-8601 format                                   |
+| `location`          | `string \| Place`                                    | **Required.** Event venue (string or Place object)                                 |
+| `endDate`           | `string`                                             | End date/time in ISO-8601 format                                                   |
+| `description`       | `string`                                             | Detailed description of the event                                                  |
+| `eventStatus`       | `EventStatusType`                                    | Status: EventScheduled (default), EventCancelled, EventPostponed, EventRescheduled |
+| `image`             | `string \| ImageObject \| (string \| ImageObject)[]` | Event images (recommended: multiple aspect ratios)                                 |
+| `offers`            | `Offer \| Offer[]`                                   | Ticket/pricing information                                                         |
+| `performer`         | `string \| Person \| PerformingGroup \| array`       | Performers at the event                                                            |
+| `organizer`         | `string \| Person \| Organization`                   | Event host/organizer                                                               |
+| `previousStartDate` | `string \| string[]`                                 | Previous date(s) for rescheduled events                                            |
+| `url`               | `string`                                             | URL of the event page                                                              |
+| `scriptId`          | `string`                                             | Custom ID for the script tag                                                       |
+| `scriptKey`         | `string`                                             | Custom key prop for React                                                          |
+
+#### Offer Type
+
+| Property        | Type     | Description                                      |
+| --------------- | -------- | ------------------------------------------------ |
+| `url`           | `string` | URL to purchase tickets                          |
+| `price`         | `number` | Lowest available price (use 0 for free events)   |
+| `priceCurrency` | `string` | 3-letter ISO 4217 currency code (e.g., "USD")    |
+| `availability`  | `string` | Availability status (InStock, SoldOut, PreOrder) |
+| `validFrom`     | `string` | Date/time when tickets go on sale                |
+
+#### Best Practices
+
+1. **Date/Time Format**: Always use ISO-8601 format with timezone offset (e.g., `2025-07-21T19:00-05:00`)
+2. **Day-long Events**: For all-day events, use date only format (e.g., `2025-07-04`)
+3. **Location Details**: Provide complete address information for better discoverability
+4. **Multiple Images**: Include images in different aspect ratios (16:9, 4:3, 1:1) for various display contexts
+5. **Event Status**: Keep original dates when cancelling/postponing; only update the `eventStatus`
+6. **Free Events**: Set `price: 0` for events without charge
+7. **Multiple Performers**: Use an array when listing multiple artists or speakers
+8. **Rescheduled Events**: Always include `previousStartDate` when using `EventRescheduled` status
+
+#### Date and Time Guidelines
+
+- **Include timezone**: Specify UTC/GMT offset (e.g., `-05:00` for EST)
+- **Multi-day events**: Set both `startDate` and `endDate`
+- **Unknown end time**: Omit `endDate` rather than guessing
+- **Date-only format**: Use for all-day events (e.g., festivals)
+
+Example timezone handling:
+
+```tsx
+// New York event during standard time
+startDate: "2025-12-21T19:00:00-05:00";
+
+// California event during daylight saving time
+startDate: "2025-07-21T19:00:00-07:00";
+
+// All-day event
+startDate: "2025-07-04";
+endDate: "2025-07-04";
+```

@@ -135,20 +135,4 @@ test.describe("LocalBusinessJsonLd", () => {
       "Beverly Hills",
     ]);
   });
-
-  test("properly escapes HTML entities in content", async ({ page }) => {
-    await page.goto("/local-business");
-
-    // Add a test to ensure HTML entities are properly escaped
-    const jsonLdScript = await page
-      .locator('script[type="application/ld+json"]')
-      .textContent();
-
-    // The content should be valid JSON without any unescaped characters
-    expect(() => JSON.parse(jsonLdScript!)).not.toThrow();
-
-    // Check that the script tag contains properly escaped content
-    expect(jsonLdScript).not.toContain("</script>");
-    expect(jsonLdScript).not.toContain("<script>");
-  });
 });

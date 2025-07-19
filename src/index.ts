@@ -22,3 +22,7 @@ export {
   default as BreadcrumbJsonLd,
   type BreadcrumbJsonLdProps,
 } from "./components/BreadcrumbJsonLd";
+export {
+  default as EventJsonLd,
+  type EventJsonLdProps,
+} from "./components/EventJsonLd";

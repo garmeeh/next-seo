@@ -11,6 +11,13 @@ import type {
   Review,
 } from "~/types/common.types";
 import type { BreadcrumbListItem, ListItem } from "~/types/breadcrumb.types";
+import type {
+  Place,
+  Performer,
+  Organizer,
+  Offer,
+  PerformingGroup,
+} from "~/types/event.types";
 
 export function processAuthor(author: Author): Person | Organization {
   if (typeof author === "string") {
@@ -106,5 +113,51 @@ export function processBreadcrumbItem(
     position,
     ...(item.name && { name: item.name }),
     ...(item.item && { item: item.item }),
+  };
+}
+
+export function processPlace(location: string | Place): Place {
+  if (typeof location === "string") {
+    return {
+      "@type": "Place",
+      name: location,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: location,
+      },
+    };
+  }
+  return {
+    ...location,
+    "@type": "Place",
+  };
+}
+
+export function processPerformer(
+  performer: Performer,
+): Person | PerformingGroup {
+  if (typeof performer === "string") {
+    return {
+      "@type": "PerformingGroup",
+      name: performer,
+    };
+  }
+  return performer;
+}
+
+export function processOrganizer(organizer: Organizer): Person | Organization {
+  if (typeof organizer === "string") {
+    return {
+      "@type": "Organization",
+      name: organizer,
+    };
+  }
+  return organizer;
+}
+
+export function processOffer(offer: Offer): Offer {
+  return {
+    ...offer,
+    "@type": "Offer",
   };
 }

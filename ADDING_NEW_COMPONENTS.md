@@ -332,11 +332,42 @@ Create examples for:
 
 Create Playwright tests in `tests/e2e/[component]JsonLd.e2e.spec.ts`:
 
+### Important E2E Testing Guidelines
+
+**ALL E2E tests must use real example pages!** E2E tests should test the actual component behavior through real pages in the example app. Never mock or inject content in E2E tests.
+
+❌ **DO NOT** use `page.route()` to inject mock HTML:
+
+```typescript
+// BAD - This is not a real E2E test!
+await page.route("/test-page", async (route) => {
+  await route.fulfill({
+    body: `<html>...</html>`,
+  });
+});
+```
+
+✅ **DO** create real example pages and test them:
+
+```typescript
+// GOOD - Test real pages with actual components
+await page.goto("/article");
+```
+
+### Creating E2E Tests
+
+For every E2E test scenario, you must:
+
+1. Create a real example page in `examples/app-router-showcase/app/`
+2. Write the E2E test to navigate to that page
+3. Test the actual rendered output
+
 ```typescript
 import { test, expect } from "@playwright/test";
 
 test.describe("ArticleJsonLd", () => {
   test("renders basic Article structured data", async ({ page }) => {
+    // Navigate to the real example page
     await page.goto("/article");
 
     const jsonLdScript = await page
@@ -354,13 +385,66 @@ test.describe("ArticleJsonLd", () => {
   });
 
   test("properly escapes HTML entities in content", async ({ page }) => {
-    // Test security - ensure HTML entities are escaped
-    // ... test implementation
+    // Navigate to a real example page with special characters
+    await page.goto("/article-special-chars");
+
+    const jsonLdScript = await page
+      .locator('script[type="application/ld+json"]')
+      .textContent();
+
+    // Verify JSON is valid and content is properly escaped
+    const jsonData = JSON.parse(jsonLdScript!);
+    expect(jsonData.headline).toContain("Special & Characters");
+
+    // Check that dangerous content is escaped in the raw JSON
+    expect(jsonLdScript).toContain("\\u003C/script>");
   });
 });
 ```
 
+### When to Create Additional Example Pages
+
+Create new example pages for:
+
+- Basic usage with minimal props
+- Advanced usage with all features
+- Each schema type variation (e.g., Article, NewsArticle, BlogPosting)
+- Special characters and HTML entities
+- Edge cases with unusual data
+- Different data combinations
+
+Example structure:
+
+```
+examples/app-router-showcase/app/
+├── article/                    # Basic article example
+├── article-advanced/           # All features
+├── news-article/              # NewsArticle type
+├── blog-posting/              # BlogPosting type
+└── article-special-chars/     # Special characters test
+```
+
 You should also add a valid JSON test in `tests/e2e/jsonValidation.e2e.spec.ts`
+
+### Security and Escaping Tests
+
+**DO NOT add escape/security tests to individual component E2E tests!**
+
+Security testing for escaping dangerous sequences (like `</script>`, HTML comments, etc.) is handled centrally in `tests/e2e/security.e2e.spec.ts`. This test file comprehensively covers:
+
+- Script tag injection prevention
+- HTML comment escaping
+- Edge cases with mixed dangerous patterns
+- Safe rendering in Next.js-like environments
+
+Individual component E2E tests should focus on:
+
+- Component-specific functionality
+- Correct data structure output
+- Schema type variations
+- Required and optional properties
+
+The escaping functionality is a core library feature handled by the `stringify` utility, not something each component needs to test individually.
 
 ## 9. Final Verification
 

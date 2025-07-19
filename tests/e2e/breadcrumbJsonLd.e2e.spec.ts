@@ -94,43 +94,4 @@ test.describe("BreadcrumbJsonLd", () => {
     // Verify last item has no URL
     expect(jsonData.itemListElement[3].item).toBeUndefined();
   });
-
-  test("properly escapes HTML entities in breadcrumb names", async ({
-    page,
-  }) => {
-    // Create a test page with special characters
-    await page.goto("/");
-    await page.evaluate(() => {
-      const script = document.createElement("script");
-      script.type = "application/ld+json";
-      script.textContent = JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: 'Books & "Literature"',
-            item: "https://example.com/books",
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "<Script>Alert</Script>",
-          },
-        ],
-      });
-      document.head.appendChild(script);
-    });
-
-    const jsonLdScript = await page
-      .locator('script[type="application/ld+json"]')
-      .last()
-      .textContent();
-    const jsonData = JSON.parse(jsonLdScript!);
-
-    // Verify special characters are preserved correctly
-    expect(jsonData.itemListElement[0].name).toBe('Books & "Literature"');
-    expect(jsonData.itemListElement[1].name).toBe("<Script>Alert</Script>");
-  });
 });

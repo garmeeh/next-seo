@@ -93,3 +93,4 @@ pnpm clean        # Clean build artifacts
 3. When developing, the example app auto-starts on port 3001 for E2E tests
 4. Lint and format are automatically run on staged files via Husky
 5. The library exports both CommonJS and ESM formats with TypeScript definitions
+6. When adding a new component ALWAYS refer to the guide found in ADDING_NEW_COMPONENTS.md

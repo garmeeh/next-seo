@@ -514,5 +514,95 @@ test.describe("JSON-LD Validation Tests", () => {
         expect(dept.name).toBeTruthy();
       });
     });
+
+    test("EventJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/event");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Event");
+      // Check nested objects are valid
+      expect(jsonData!.location).toBeDefined();
+      expect(jsonData!.location["@type"]).toBe("Place");
+      expect(jsonData!.offers).toBeDefined();
+      expect(jsonData!.offers["@type"]).toBe("Offer");
+    });
+
+    test("Cancelled Event produces valid JSON", async ({ page }) => {
+      await page.goto("/event-cancelled");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Event");
+      expect(jsonData!.eventStatus).toBe("https://schema.org/EventCancelled");
+    });
+
+    test("Rescheduled Event produces valid JSON", async ({ page }) => {
+      await page.goto("/event-rescheduled");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Event");
+      expect(jsonData!.eventStatus).toBe("https://schema.org/EventRescheduled");
+      // Check arrays are valid
+      expect(Array.isArray(jsonData!.previousStartDate)).toBe(true);
+      expect(Array.isArray(jsonData!.offers)).toBe(true);
+      expect(Array.isArray(jsonData!.performer)).toBe(true);
+    });
+
+    test("Free Event produces valid JSON", async ({ page }) => {
+      await page.goto("/event-free");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Event");
+      // Check free event has price 0
+      expect(jsonData!.offers.price).toBe(0);
+      expect(jsonData!.offers["@type"]).toBe("Offer");
+    });
   });
 });

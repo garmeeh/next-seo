@@ -130,55 +130,6 @@ test.describe("ArticleJsonLd", () => {
     expect(jsonData.isAccessibleForFree).toBe(false);
   });
 
-  test("properly escapes script-breaking sequences", async ({ page }) => {
-    // Create a test page with sequences that could break script tags
-    await page.goto("/article");
-
-    // Execute JavaScript to add ArticleJsonLd with dangerous sequences
-    await page.evaluate(() => {
-      const script = document.querySelector(
-        'script[type="application/ld+json"]',
-      );
-      if (script) {
-        const data = {
-          "@context": "https://schema.org",
-          "@type": "Article",
-          headline: "Article with </script> tag and <!-- comments -->",
-          description:
-            "This tests script-safe escaping: </SCRIPT> and HTML comments",
-          url: "https://example.com/article?param1=value&param2=another",
-        };
-        // Use a custom stringify to inject the test data
-        script.textContent = JSON.stringify(data)
-          .replace(/<\/script>/gi, "\\u003C/script>") // Unicode escape for <
-          .replace(/<!--/g, "\\u003C!--") // Unicode escape for <
-          .replace(/-->/g, "--\\u003E"); // Unicode escape for >
-      }
-    });
-
-    const jsonLdScript = await page
-      .locator('script[type="application/ld+json"]')
-      .textContent();
-
-    // Verify that dangerous sequences are escaped
-    expect(jsonLdScript).toContain("\\u003C/script>");
-    expect(jsonLdScript).toContain("\\u003C!--");
-    expect(jsonLdScript).toContain("--\\u003E");
-
-    // Verify URLs with query parameters are NOT escaped
-    expect(jsonLdScript).toContain("param1=value&param2=another");
-    expect(jsonLdScript).not.toContain("&amp;");
-
-    // Verify the JSON can still be parsed
-    const jsonData = JSON.parse(jsonLdScript!);
-    expect(jsonData.headline).toBe(
-      "Article with </script> tag and <!-- comments -->",
-    );
-    expect(jsonData.url).toBe(
-      "https://example.com/article?param1=value&param2=another",
-    );
-  });
-
   test("renders multiple JSON-LD scripts on the same page", async ({
     page,
   }) => {
