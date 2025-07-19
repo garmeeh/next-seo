@@ -1101,3 +1101,139 @@ The `questions` array accepts several formats:
 5. **One instance per page**: If the same FAQ appears on multiple pages, only mark it up on one page
 6. **Expandable sections**: It's fine if answers are hidden behind expandable sections, as long as users can access them
 7. **No user submissions**: FAQPage is for questions with single, authoritative answers. For user-generated Q&A, use QAPage instead
+
+### QuizJsonLd
+
+The `QuizJsonLd` component helps you add structured data for educational quizzes and flashcards. This can help your educational content appear in Google's education Q&A carousel when users search for educational topics.
+
+#### Basic Usage
+
+```tsx
+import { QuizJsonLd } from "next-seo";
+
+export default function BiologyQuizPage() {
+  return (
+    <>
+      <QuizJsonLd
+        questions={[
+          {
+            question: "What is the powerhouse of the cell?",
+            answer: "Mitochondria",
+          },
+          {
+            question:
+              "What process do plants use to convert sunlight into energy?",
+            answer: "Photosynthesis",
+          },
+        ]}
+        about="Cell Biology"
+        educationalAlignment={[
+          {
+            type: "educationalSubject",
+            name: "Biology",
+          },
+          {
+            type: "educationalLevel",
+            name: "Grade 10",
+          },
+        ]}
+      />
+      {/* Your quiz content */}
+    </>
+  );
+}
+```
+
+#### Props
+
+| Property               | Type                                                                      | Description                                                  |
+| ---------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| `questions`            | `QuestionInput[]`                                                         | **Required.** Array of flashcard questions and answers       |
+| `about`                | `string \| Thing`                                                         | The subject or topic of the quiz                             |
+| `educationalAlignment` | `Array<{type: "educationalSubject" \| "educationalLevel", name: string}>` | Educational alignments specifying subject and/or grade level |
+| `scriptId`             | `string`                                                                  | Custom ID for the script tag                                 |
+| `scriptKey`            | `string`                                                                  | Custom key for React (defaults to "quiz-jsonld")             |
+
+#### Question Formats
+
+The `questions` array accepts several formats:
+
+1. **Simple object** (recommended):
+
+   ```tsx
+   { question: "What is 2 + 2?", answer: "4" }
+   ```
+
+2. **String format** (for fact-based flashcards):
+
+   ```tsx
+   "The Earth revolves around the Sun in 365.25 days";
+   ```
+
+3. **Text/acceptedAnswer format**:
+
+   ```tsx
+   { text: "What is DNA?", acceptedAnswer: "Deoxyribonucleic acid" }
+   ```
+
+4. **Full Answer object**:
+   ```tsx
+   {
+     text: "Explain photosynthesis",
+     acceptedAnswer: {
+       "@type": "Answer",
+       text: "The process by which plants convert light energy into chemical energy"
+     }
+   }
+   ```
+
+#### Advanced Example
+
+```tsx
+<QuizJsonLd
+  questions={[
+    // Simple flashcard fact
+    "The mitochondria is the powerhouse of the cell",
+    // Question/answer format
+    {
+      question: "What are the four bases of DNA?",
+      answer: "Adenine (A), Thymine (T), Guanine (G), and Cytosine (C)",
+    },
+    // Full format with Answer object
+    {
+      text: "Describe the water cycle",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "The continuous movement of water through evaporation, condensation, precipitation, and collection",
+      },
+    },
+  ]}
+  about={{
+    name: "Biology Fundamentals",
+    description: "Core concepts in cellular and molecular biology",
+    url: "https://example.com/biology-course",
+  }}
+  educationalAlignment={[
+    {
+      type: "educationalSubject",
+      name: "Biology",
+    },
+    {
+      type: "educationalLevel",
+      name: "High School",
+    },
+  ]}
+/>
+```
+
+#### Best Practices
+
+1. **Educational content only**: Quiz structured data is specifically for educational flashcards and Q&A
+2. **Use "Flashcard" type**: All questions automatically use `eduQuestionType: "Flashcard"` as required by Google
+3. **Clear answers**: Provide concise, factual answers appropriate for the educational level
+4. **Subject alignment**: Always specify the educational subject using `educationalAlignment`
+5. **Grade level**: Include the target grade or educational level when applicable
+6. **Match visible content**: The structured data should match the quiz content displayed on your page
+7. **Single answer format**: Each question should have one clear, authoritative answer
+
+> **Note**: The education Q&A carousel is available when searching for education-related topics in English, Portuguese, Spanish (Mexico), and Vietnamese.

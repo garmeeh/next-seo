@@ -693,5 +693,109 @@ test.describe("JSON-LD Validation Tests", () => {
         expect(typeof answer.text).toBe("string");
       });
     });
+
+    test("QuizJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/quiz");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org/");
+      expect(jsonData!["@type"]).toBe("Quiz");
+      // Check hasPart array is valid
+      expect(Array.isArray(jsonData!.hasPart)).toBe(true);
+      expect(jsonData!.hasPart.length).toBeGreaterThan(0);
+      // Check each question has valid structure
+      jsonData!.hasPart.forEach((question: Record<string, unknown>) => {
+        expect(question["@type"]).toBe("Question");
+        expect(question.eduQuestionType).toBe("Flashcard");
+        expect(question.text).toBeTruthy();
+        expect(question.acceptedAnswer).toBeTruthy();
+        const answer = question.acceptedAnswer as Record<string, unknown>;
+        expect(answer["@type"]).toBe("Answer");
+        expect(answer.text).toBeTruthy();
+      });
+    });
+
+    test("Biology QuizJsonLd with educational alignment produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/quiz-biology");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org/");
+      expect(jsonData!["@type"]).toBe("Quiz");
+      // Check about property
+      expect(jsonData!.about).toBeDefined();
+      expect(jsonData!.about["@type"]).toBe("Thing");
+      expect(jsonData!.about.name).toBe("Cell Biology");
+      // Check educational alignment
+      expect(Array.isArray(jsonData!.educationalAlignment)).toBe(true);
+      expect(jsonData!.educationalAlignment).toHaveLength(2);
+      jsonData!.educationalAlignment.forEach(
+        (alignment: Record<string, unknown>) => {
+          expect(alignment["@type"]).toBe("AlignmentObject");
+          expect(alignment.alignmentType).toBeTruthy();
+          expect(alignment.targetName).toBeTruthy();
+        },
+      );
+    });
+
+    test("Advanced QuizJsonLd with all features produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/quiz-advanced");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org/");
+      expect(jsonData!["@type"]).toBe("Quiz");
+      // Check about property with full Thing object
+      expect(jsonData!.about).toBeDefined();
+      expect(jsonData!.about["@type"]).toBe("Thing");
+      expect(jsonData!.about.name).toBeTruthy();
+      expect(jsonData!.about.description).toBeTruthy();
+      expect(jsonData!.about.url).toBeTruthy();
+      // Check mixed question formats are all valid
+      expect(Array.isArray(jsonData!.hasPart)).toBe(true);
+      expect(jsonData!.hasPart).toHaveLength(4);
+      // Verify all questions have required properties
+      jsonData!.hasPart.forEach((question: Record<string, unknown>) => {
+        expect(question["@type"]).toBe("Question");
+        expect(question.eduQuestionType).toBe("Flashcard");
+        expect(typeof question.text).toBe("string");
+        expect(question.acceptedAnswer).toBeTruthy();
+      });
+    });
   });
 });

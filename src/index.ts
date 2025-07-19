@@ -30,3 +30,7 @@ export {
   default as FAQJsonLd,
   type FAQJsonLdProps,
 } from "./components/FAQJsonLd";
+export {
+  default as QuizJsonLd,
+  type QuizJsonLdProps,
+} from "./components/QuizJsonLd";
