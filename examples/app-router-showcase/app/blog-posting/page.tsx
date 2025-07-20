@@ -9,7 +9,6 @@ export default function BlogPostingPage() {
         url="https://example.com/blog/seo-tips-web-development"
         datePublished="2024-01-10T09:00:00+00:00"
         author={{
-          "@type": "Organization",
           name: "WebDev Solutions",
           url: "https://example.com",
           logo: "https://example.com/webdev-logo.png",

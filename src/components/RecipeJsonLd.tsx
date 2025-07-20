@@ -1,24 +1,13 @@
 import { JsonLdScript } from "~/core/JsonLdScript";
-import type {
-  RecipeJsonLdProps,
-  Instruction,
-  HowToStep,
-  HowToSection,
-} from "~/types/recipe.types";
+import type { RecipeJsonLdProps } from "~/types/recipe.types";
 import {
   processAuthor,
   processImage,
   processNutrition,
+  processAggregateRating,
+  processInstruction,
+  processVideo,
 } from "~/utils/processors";
-
-function processInstruction(
-  instruction: Instruction,
-): string | HowToStep | HowToSection {
-  if (typeof instruction === "string") {
-    return instruction;
-  }
-  return instruction;
-}
 
 export default function RecipeJsonLd({
   scriptId,
@@ -63,8 +52,10 @@ export default function RecipeJsonLd({
         ? recipeInstructions.map(processInstruction)
         : processInstruction(recipeInstructions),
     }),
-    ...(aggregateRating && { aggregateRating }),
-    ...(video && { video }),
+    ...(aggregateRating && {
+      aggregateRating: processAggregateRating(aggregateRating),
+    }),
+    ...(video && { video: processVideo(video) }),
     ...(keywords && { keywords }),
     ...(url && { url }),
   };

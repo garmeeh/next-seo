@@ -25,7 +25,7 @@ export interface Person extends Thing {
 
 export interface Organization extends Thing {
   "@type": "Organization";
-  logo?: string | ImageObject;
+  logo?: string | ImageObject | Omit<ImageObject, "@type">;
 }
 
 export interface PostalAddress {
@@ -83,7 +83,12 @@ export interface MemberProgram {
   hasTiers?: MemberProgramTier[];
 }
 
-export type Author = string | Person | Organization;
+export type Author =
+  | string
+  | Person
+  | Organization
+  | Omit<Person, "@type">
+  | Omit<Organization, "@type">;
 
 export interface GeoCoordinates {
   "@type": "GeoCoordinates";
@@ -100,7 +105,7 @@ export interface Rating {
 
 export interface Review {
   "@type": "Review";
-  reviewRating?: Rating;
+  reviewRating?: Rating | Omit<Rating, "@type">;
   author?: Author;
   reviewBody?: string;
   datePublished?: string;

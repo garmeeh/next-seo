@@ -79,7 +79,6 @@ export default function OrganizationAdvancedPage() {
         globalLocationNumber="0614141000001"
         iso6523Code="0088:0614141000001"
         numberOfEmployees={{
-          "@type": "QuantitativeValue",
           minValue: 5000,
           maxValue: 10000,
         }}

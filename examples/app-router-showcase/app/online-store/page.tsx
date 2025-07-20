@@ -35,7 +35,6 @@ export default function OnlineStorePage() {
         vatID="FR12345678901"
         iso6523Code="0199:724500PMK2A2M1SQQ228"
         numberOfEmployees={{
-          "@type": "QuantitativeValue",
           minValue: 100,
           maxValue: 999,
         }}

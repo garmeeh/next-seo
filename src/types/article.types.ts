@@ -13,7 +13,11 @@ export interface ArticleBase {
   author?: Author | Author[];
   datePublished?: string;
   dateModified?: string;
-  image?: string | ImageObject | (string | ImageObject)[];
+  image?:
+    | string
+    | ImageObject
+    | Omit<ImageObject, "@type">
+    | (string | ImageObject | Omit<ImageObject, "@type">)[];
   publisher?: Publisher;
   description?: string;
   isAccessibleForFree?: boolean;
@@ -21,6 +25,9 @@ export interface ArticleBase {
     | string
     | {
         "@type": "WebPage";
+        "@id": string;
+      }
+    | {
         "@id": string;
       };
 }

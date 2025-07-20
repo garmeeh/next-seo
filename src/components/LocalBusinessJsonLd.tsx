@@ -6,6 +6,7 @@ import {
   processGeo,
   processOpeningHours,
   processReview,
+  processAggregateRating,
 } from "~/utils/processors";
 
 function processDepartment(
@@ -41,7 +42,7 @@ function processDepartment(
         : processReview(department.review),
     }),
     ...(department.aggregateRating && {
-      aggregateRating: department.aggregateRating,
+      aggregateRating: processAggregateRating(department.aggregateRating),
     }),
     ...(department.menu && { menu: department.menu }),
     ...(department.servesCuisine && {
@@ -138,7 +139,9 @@ export default function LocalBusinessJsonLd({
         ? review.map(processReview)
         : processReview(review),
     }),
-    ...(aggregateRating && { aggregateRating }),
+    ...(aggregateRating && {
+      aggregateRating: processAggregateRating(aggregateRating),
+    }),
     ...(department && {
       department: Array.isArray(department)
         ? department.map(processDepartment)

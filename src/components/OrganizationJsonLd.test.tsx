@@ -246,6 +246,30 @@ describe("OrganizationJsonLd", () => {
     expect(jsonData.numberOfEmployees).toEqual(numberOfEmployees);
   });
 
+  it("handles number of employees as range without @type", () => {
+    const numberOfEmployees = {
+      minValue: 100,
+      maxValue: 999,
+    };
+
+    const { container } = render(
+      <OrganizationJsonLd
+        name="Example Corp"
+        numberOfEmployees={numberOfEmployees}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.numberOfEmployees).toEqual({
+      "@type": "QuantitativeValue",
+      minValue: 100,
+      maxValue: 999,
+    });
+  });
+
   it("handles all optional properties", () => {
     const { container } = render(
       <OrganizationJsonLd

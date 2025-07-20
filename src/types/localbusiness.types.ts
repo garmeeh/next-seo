@@ -10,17 +10,27 @@ import type {
 
 export interface LocalBusinessBase {
   name: string;
-  address: string | PostalAddress | (string | PostalAddress)[];
+  address:
+    | string
+    | PostalAddress
+    | Omit<PostalAddress, "@type">
+    | (string | PostalAddress | Omit<PostalAddress, "@type">)[];
   url?: string;
   telephone?: string;
-  image?: string | ImageObject | (string | ImageObject)[];
+  image?:
+    | string
+    | ImageObject
+    | Omit<ImageObject, "@type">
+    | (string | ImageObject | Omit<ImageObject, "@type">)[];
   priceRange?: string;
-  geo?: GeoCoordinates;
+  geo?: GeoCoordinates | Omit<GeoCoordinates, "@type">;
   openingHoursSpecification?:
     | OpeningHoursSpecification
-    | OpeningHoursSpecification[];
-  review?: Review | Review[];
-  aggregateRating?: AggregateRating;
+    | Omit<OpeningHoursSpecification, "@type">
+    | OpeningHoursSpecification[]
+    | Omit<OpeningHoursSpecification, "@type">[];
+  review?: Review | Omit<Review, "@type"> | Review[] | Omit<Review, "@type">[];
+  aggregateRating?: AggregateRating | Omit<AggregateRating, "@type">;
   department?: LocalBusinessBase | LocalBusinessBase[];
   menu?: string;
   servesCuisine?: string | string[];

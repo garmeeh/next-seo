@@ -10,7 +10,7 @@ import type {
 export interface Place {
   "@type": "Place";
   name?: string;
-  address: PostalAddress;
+  address: PostalAddress | Omit<PostalAddress, "@type">;
 }
 
 // Offer type for ticket information
@@ -29,10 +29,20 @@ export interface PerformingGroup extends Thing {
 }
 
 // Performer can be Person or PerformingGroup
-export type Performer = string | Person | PerformingGroup;
+export type Performer =
+  | string
+  | Person
+  | PerformingGroup
+  | Omit<Person, "@type">
+  | Omit<PerformingGroup, "@type">;
 
 // Organizer can be Person or Organization
-export type Organizer = string | Person | Organization;
+export type Organizer =
+  | string
+  | Person
+  | Organization
+  | Omit<Person, "@type">
+  | Omit<Organization, "@type">;
 
 // Event status types
 export type EventStatusType =
@@ -45,12 +55,16 @@ export type EventStatusType =
 export interface EventBase {
   name: string;
   startDate: string;
-  location: string | Place;
+  location: string | Place | Omit<Place, "@type">;
   endDate?: string;
   description?: string;
   eventStatus?: EventStatusType;
-  image?: string | ImageObject | (string | ImageObject)[];
-  offers?: Offer | Offer[];
+  image?:
+    | string
+    | ImageObject
+    | Omit<ImageObject, "@type">
+    | (string | ImageObject | Omit<ImageObject, "@type">)[];
+  offers?: Offer | Omit<Offer, "@type"> | Offer[] | Omit<Offer, "@type">[];
   performer?: Performer | Performer[];
   organizer?: Organizer;
   previousStartDate?: string | string[];

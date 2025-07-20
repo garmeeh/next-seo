@@ -10,11 +10,19 @@ import type {
 export interface OrganizationBase {
   name?: string;
   url?: string;
-  logo?: string | ImageObject;
+  logo?: string | ImageObject | Omit<ImageObject, "@type">;
   description?: string;
   sameAs?: string | string[];
-  address?: string | PostalAddress | (string | PostalAddress)[];
-  contactPoint?: ContactPoint | ContactPoint[];
+  address?:
+    | string
+    | PostalAddress
+    | Omit<PostalAddress, "@type">
+    | (string | PostalAddress | Omit<PostalAddress, "@type">)[];
+  contactPoint?:
+    | ContactPoint
+    | Omit<ContactPoint, "@type">
+    | ContactPoint[]
+    | Omit<ContactPoint, "@type">[];
   telephone?: string;
   email?: string;
   alternateName?: string;
@@ -27,7 +35,10 @@ export interface OrganizationBase {
   naics?: string;
   globalLocationNumber?: string;
   iso6523Code?: string;
-  numberOfEmployees?: number | QuantitativeValue;
+  numberOfEmployees?:
+    | number
+    | QuantitativeValue
+    | Omit<QuantitativeValue, "@type">;
 }
 
 export interface Organization extends OrganizationBase {
@@ -36,7 +47,11 @@ export interface Organization extends OrganizationBase {
 
 export interface OnlineStore extends OrganizationBase {
   "@type": "OnlineStore";
-  hasMerchantReturnPolicy?: MerchantReturnPolicy | MerchantReturnPolicy[];
+  hasMerchantReturnPolicy?:
+    | MerchantReturnPolicy
+    | Omit<MerchantReturnPolicy, "@type">
+    | MerchantReturnPolicy[]
+    | Omit<MerchantReturnPolicy, "@type">[];
   hasMemberProgram?: MemberProgram | MemberProgram[];
 }
 

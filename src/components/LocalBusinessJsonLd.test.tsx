@@ -374,4 +374,75 @@ describe("LocalBusinessJsonLd", () => {
     expect(script).toBeTruthy();
     expect(script?.getAttribute("data-testid")).toBe("custom-id");
   });
+
+  it("handles ImageObject without @type", () => {
+    const { container } = render(
+      <LocalBusinessJsonLd
+        name="Business with Images"
+        address="123 Main St"
+        image={[
+          "https://example.com/photo1.jpg",
+          {
+            url: "https://example.com/photo2.jpg",
+            width: 800,
+            height: 600,
+          },
+          {
+            "@type": "ImageObject",
+            url: "https://example.com/photo3.jpg",
+            width: 1200,
+            height: 900,
+          },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.image).toHaveLength(3);
+    expect(jsonData.image[0]).toBe("https://example.com/photo1.jpg");
+    expect(jsonData.image[1]).toEqual({
+      "@type": "ImageObject",
+      url: "https://example.com/photo2.jpg",
+      width: 800,
+      height: 600,
+    });
+    expect(jsonData.image[2]).toEqual({
+      "@type": "ImageObject",
+      url: "https://example.com/photo3.jpg",
+      width: 1200,
+      height: 900,
+    });
+  });
+
+  it("handles AggregateRating without @type", () => {
+    const { container } = render(
+      <LocalBusinessJsonLd
+        name="Rated Business"
+        address="123 Main St"
+        aggregateRating={{
+          ratingValue: 4.5,
+          ratingCount: 50,
+          bestRating: 5,
+          worstRating: 1,
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.aggregateRating).toEqual({
+      "@type": "AggregateRating",
+      ratingValue: 4.5,
+      ratingCount: 50,
+      bestRating: 5,
+      worstRating: 1,
+    });
+  });
 });

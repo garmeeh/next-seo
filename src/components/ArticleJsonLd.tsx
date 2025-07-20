@@ -4,6 +4,7 @@ import {
   processAuthor,
   processImage,
   processPublisher,
+  processMainEntityOfPage,
 } from "~/utils/processors";
 
 export default function ArticleJsonLd({
@@ -43,7 +44,9 @@ export default function ArticleJsonLd({
     ...(publisher && { publisher: processPublisher(publisher) }),
     ...(description && { description }),
     ...(isAccessibleForFree !== undefined && { isAccessibleForFree }),
-    ...(mainEntityOfPage && { mainEntityOfPage }),
+    ...(mainEntityOfPage && {
+      mainEntityOfPage: processMainEntityOfPage(mainEntityOfPage),
+    }),
   };
 
   return (

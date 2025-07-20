@@ -33,17 +33,26 @@ export interface HowToStep {
   name?: string;
   text: string;
   url?: string;
-  image?: string | ImageObject;
+  image?: string | ImageObject | Omit<ImageObject, "@type">;
 }
 
 export interface HowToSection {
   "@type": "HowToSection";
   name: string;
-  itemListElement: HowToStep[];
+  itemListElement: (HowToStep | Omit<HowToStep, "@type">)[];
 }
 
-export type Instruction = string | HowToStep | HowToSection;
-export type RecipeImage = string | ImageObject | (string | ImageObject)[];
+export type Instruction =
+  | string
+  | HowToStep
+  | HowToSection
+  | Omit<HowToStep, "@type">
+  | Omit<HowToSection, "@type">;
+export type RecipeImage =
+  | string
+  | ImageObject
+  | Omit<ImageObject, "@type">
+  | (string | ImageObject | Omit<ImageObject, "@type">)[];
 
 export interface Recipe {
   "@type": "Recipe";
@@ -63,8 +72,8 @@ export interface Recipe {
   };
   recipeIngredient?: string[];
   recipeInstructions?: Instruction | Instruction[];
-  aggregateRating?: AggregateRating;
-  video?: VideoObject;
+  aggregateRating?: AggregateRating | Omit<AggregateRating, "@type">;
+  video?: VideoObject | Omit<VideoObject, "@type">;
   keywords?: string;
   url?: string;
 }

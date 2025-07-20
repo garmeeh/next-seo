@@ -5,6 +5,7 @@ import {
   processContactPoint,
   processLogo,
   processNumberOfEmployees,
+  processMerchantReturnPolicy,
 } from "~/utils/processors";
 
 export default function OrganizationJsonLd(props: OrganizationJsonLdProps) {
@@ -71,7 +72,9 @@ export default function OrganizationJsonLd(props: OrganizationJsonLdProps) {
     ...(type === "OnlineStore" &&
       "hasMerchantReturnPolicy" in props &&
       props.hasMerchantReturnPolicy && {
-        hasMerchantReturnPolicy: props.hasMerchantReturnPolicy,
+        hasMerchantReturnPolicy: Array.isArray(props.hasMerchantReturnPolicy)
+          ? props.hasMerchantReturnPolicy.map(processMerchantReturnPolicy)
+          : processMerchantReturnPolicy(props.hasMerchantReturnPolicy),
       }),
     ...(type === "OnlineStore" &&
       "hasMemberProgram" in props &&

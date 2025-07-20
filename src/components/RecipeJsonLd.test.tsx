@@ -634,4 +634,74 @@ describe("RecipeJsonLd", () => {
       servingSize: "1 serving",
     });
   });
+
+  it("handles ImageObject without @type", () => {
+    const { container } = render(
+      <RecipeJsonLd
+        name="Recipe with Images"
+        image={[
+          "https://example.com/photo1.jpg",
+          {
+            url: "https://example.com/photo2.jpg",
+            width: 800,
+            height: 600,
+          },
+          {
+            "@type": "ImageObject",
+            url: "https://example.com/photo3.jpg",
+            width: 1200,
+            height: 900,
+          },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.image).toHaveLength(3);
+    expect(jsonData.image[0]).toBe("https://example.com/photo1.jpg");
+    expect(jsonData.image[1]).toEqual({
+      "@type": "ImageObject",
+      url: "https://example.com/photo2.jpg",
+      width: 800,
+      height: 600,
+    });
+    expect(jsonData.image[2]).toEqual({
+      "@type": "ImageObject",
+      url: "https://example.com/photo3.jpg",
+      width: 1200,
+      height: 900,
+    });
+  });
+
+  it("handles AggregateRating without @type", () => {
+    const { container } = render(
+      <RecipeJsonLd
+        name="Rated Recipe"
+        image="https://example.com/recipe.jpg"
+        aggregateRating={{
+          ratingValue: 4.8,
+          ratingCount: 200,
+          bestRating: 5,
+          worstRating: 1,
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.aggregateRating).toEqual({
+      "@type": "AggregateRating",
+      ratingValue: 4.8,
+      ratingCount: 200,
+      bestRating: 5,
+      worstRating: 1,
+    });
+  });
 });
