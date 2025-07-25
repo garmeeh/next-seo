@@ -19,6 +19,10 @@ export {
   type LocalBusinessJsonLdProps,
 } from "./components/LocalBusinessJsonLd";
 export {
+  default as MovieCarouselJsonLd,
+  type MovieCarouselJsonLdProps,
+} from "./components/MovieCarouselJsonLd";
+export {
   default as BreadcrumbJsonLd,
   type BreadcrumbJsonLdProps,
 } from "./components/BreadcrumbJsonLd";

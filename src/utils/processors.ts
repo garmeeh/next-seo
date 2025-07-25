@@ -13,6 +13,7 @@ import type {
   MerchantReturnPolicy,
   Rating,
 } from "~/types/common.types";
+import type { Director } from "~/types/movie-carousel.types";
 import type { BreadcrumbListItem, ListItem } from "~/types/breadcrumb.types";
 import type {
   Place,
@@ -47,8 +48,7 @@ export function processAuthor(author: Author): Person | Organization {
     "logo" in author ||
     "address" in author ||
     "contactPoint" in author ||
-    "sameAs" in author ||
-    ("url" in author && !("familyName" in author || "givenName" in author))
+    "sameAs" in author
   ) {
     return {
       "@type": "Organization",
@@ -467,4 +467,24 @@ export function processInstruction(
     "@type": "HowToStep",
     ...instruction,
   } as HowToStep;
+}
+
+export function processDirector(director: Director): Person {
+  if (typeof director === "string") {
+    return {
+      "@type": "Person",
+      name: director,
+    };
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in director) {
+    return director as Person;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "Person",
+    ...director,
+  } as Person;
 }

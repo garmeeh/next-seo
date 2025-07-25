@@ -603,5 +603,129 @@ test.describe("JSON-LD Validation Tests", () => {
         expect(question.acceptedAnswer).toBeTruthy();
       });
     });
+
+    test("MovieCarouselJsonLd summary page produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/movie-carousel-summary");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ItemList");
+      // Check itemListElement array is valid
+      expect(Array.isArray(jsonData!.itemListElement)).toBe(true);
+      expect(jsonData!.itemListElement).toHaveLength(5);
+      // Check each list item has valid structure
+      jsonData!.itemListElement.forEach((item: Record<string, unknown>) => {
+        expect(item["@type"]).toBe("ListItem");
+        expect(item.position).toBeTruthy();
+        expect(item.url).toBeTruthy();
+        expect(typeof item.url).toBe("string");
+      });
+    });
+
+    test("MovieCarouselJsonLd all-in-one page produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/movie-carousel");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ItemList");
+      // Check itemListElement array is valid
+      expect(Array.isArray(jsonData!.itemListElement)).toBe(true);
+      expect(jsonData!.itemListElement).toHaveLength(3);
+      // Check each list item has valid movie structure
+      jsonData!.itemListElement.forEach((item: Record<string, unknown>) => {
+        expect(item["@type"]).toBe("ListItem");
+        expect(item.position).toBeTruthy();
+        expect(item.item).toBeTruthy();
+        const movie = item.item as Record<string, unknown>;
+        expect(movie["@type"]).toBe("Movie");
+        expect(movie.name).toBeTruthy();
+        expect(movie.image).toBeTruthy();
+        // Check nested objects are valid
+        if (movie.director) {
+          const director = movie.director as Record<string, unknown>;
+          expect(director["@type"]).toBe("Person");
+        }
+        if (movie.review) {
+          const review = movie.review as Record<string, unknown>;
+          expect(review["@type"]).toBe("Review");
+        }
+        if (movie.aggregateRating) {
+          const rating = movie.aggregateRating as Record<string, unknown>;
+          expect(rating["@type"]).toBe("AggregateRating");
+        }
+      });
+    });
+
+    test("MovieCarouselJsonLd with advanced features produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/movie-carousel-advanced");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ItemList");
+      expect(Array.isArray(jsonData!.itemListElement)).toBe(true);
+      expect(jsonData!.itemListElement).toHaveLength(3);
+
+      // Check complex nested structures
+      const firstMovie = jsonData!.itemListElement[0].item;
+      // Check image array with mixed types
+      expect(Array.isArray(firstMovie.image)).toBe(true);
+      expect(firstMovie.image).toHaveLength(4);
+      expect(typeof firstMovie.image[0]).toBe("string");
+      expect(firstMovie.image[1]["@type"]).toBe("ImageObject");
+      expect(firstMovie.image[1].width).toBe(1200);
+      expect(firstMovie.image[1].height).toBe(900);
+      // Check director with URL
+      expect(firstMovie.director["@type"]).toBe("Person");
+      expect(firstMovie.director.url).toBeTruthy();
+      // Check complete review structure
+      expect(firstMovie.review["@type"]).toBe("Review");
+      expect(firstMovie.review.reviewRating["@type"]).toBe("Rating");
+      expect(firstMovie.review.reviewRating.ratingValue).toBeTruthy();
+      expect(firstMovie.review.author["@type"]).toBe("Person");
+      expect(firstMovie.review.reviewBody).toBeTruthy();
+      // Check aggregate rating with all fields
+      expect(firstMovie.aggregateRating["@type"]).toBe("AggregateRating");
+      expect(firstMovie.aggregateRating.ratingValue).toBeTruthy();
+      expect(firstMovie.aggregateRating.reviewCount).toBeTruthy();
+    });
   });
 });

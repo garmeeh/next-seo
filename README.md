@@ -672,6 +672,135 @@ openingHoursSpecification={{
 7. **Department naming**: Include the main store name with department name (e.g., "Store Name - Pharmacy")
 8. **Price range**: Keep under 100 characters; use standard symbols ($, $$, $$$) or ranges
 
+### MovieCarouselJsonLd
+
+The `MovieCarouselJsonLd` component helps you add structured data for movie carousels, enabling your movie lists to appear as rich results in Google Search on mobile devices. This component supports both summary page (URLs only) and all-in-one page (full movie data) patterns.
+
+#### Basic Usage - Summary Page Pattern
+
+Use this pattern when you have separate detail pages for each movie:
+
+```tsx
+import { MovieCarouselJsonLd } from "next-seo";
+
+<MovieCarouselJsonLd
+  urls={[
+    "https://example.com/movies/a-star-is-born",
+    "https://example.com/movies/bohemian-rhapsody",
+    "https://example.com/movies/black-panther",
+  ]}
+/>;
+```
+
+#### All-in-One Page Pattern
+
+Use this pattern when all movie information is on a single page:
+
+```tsx
+<MovieCarouselJsonLd
+  movies={[
+    {
+      name: "A Star Is Born",
+      image: "https://example.com/photos/6x9/star-is-born.jpg",
+      dateCreated: "2024-10-05",
+      director: "Bradley Cooper",
+      review: {
+        reviewRating: { ratingValue: 5 },
+        author: "John D.",
+      },
+      aggregateRating: {
+        ratingValue: 90,
+        bestRating: 100,
+        ratingCount: 19141,
+      },
+    },
+    {
+      name: "Bohemian Rhapsody",
+      image: "https://example.com/photos/6x9/bohemian.jpg",
+      dateCreated: "2024-11-02",
+      director: "Bryan Singer",
+      aggregateRating: {
+        ratingValue: 61,
+        bestRating: 100,
+        ratingCount: 21985,
+      },
+    },
+  ]}
+/>
+```
+
+#### Advanced Example with All Features
+
+```tsx
+<MovieCarouselJsonLd
+  movies={[
+    {
+      name: "Black Panther",
+      url: "https://example.com/movies/black-panther",
+      image: [
+        "https://example.com/photos/1x1/black-panther.jpg",
+        "https://example.com/photos/4x3/black-panther.jpg",
+        "https://example.com/photos/16x9/black-panther.jpg",
+      ],
+      dateCreated: "2024-02-16",
+      director: {
+        name: "Ryan Coogler",
+        url: "https://example.com/directors/ryan-coogler",
+      },
+      review: {
+        reviewRating: {
+          ratingValue: 2,
+          bestRating: 5,
+        },
+        author: {
+          name: "Trevor R.",
+          url: "https://example.com/reviewers/trevor",
+        },
+        reviewBody:
+          "While visually stunning, the plot fell short of expectations.",
+        datePublished: "2024-02-20",
+      },
+      aggregateRating: {
+        ratingValue: 96,
+        bestRating: 100,
+        ratingCount: 88211,
+      },
+    },
+  ]}
+/>
+```
+
+#### Props
+
+| Property    | Type                                                | Description                                                      |
+| ----------- | --------------------------------------------------- | ---------------------------------------------------------------- |
+| `urls`      | `Array<string \| {url: string; position?: number}>` | **Required for summary pattern.** URLs to individual movie pages |
+| `movies`    | `MovieListItem[]`                                   | **Required for all-in-one pattern.** Array of movie data         |
+| `scriptId`  | `string`                                            | Custom ID for the script tag                                     |
+| `scriptKey` | `string`                                            | Custom key prop for React                                        |
+
+#### MovieListItem Properties
+
+| Property          | Type                                                 | Description                                                     |
+| ----------------- | ---------------------------------------------------- | --------------------------------------------------------------- |
+| `name`            | `string`                                             | **Required.** The name of the movie                             |
+| `image`           | `string \| ImageObject \| (string \| ImageObject)[]` | **Required.** Movie poster/image (6:9 aspect ratio recommended) |
+| `url`             | `string`                                             | URL to the movie's page                                         |
+| `dateCreated`     | `string`                                             | Release date in ISO 8601 format                                 |
+| `director`        | `string \| Person`                                   | Movie director (accepts string or Person object)                |
+| `review`          | `Review`                                             | A review of the movie                                           |
+| `aggregateRating` | `AggregateRating`                                    | Average rating based on multiple reviews                        |
+
+#### Best Practices
+
+1. **Mobile-only feature**: Movie carousels only appear on mobile devices in Google Search
+2. **Image requirements**: Use 6:9 aspect ratio images (Google's requirement for movie carousels)
+3. **High-quality images**: Images must be high resolution and properly formatted (.jpg, .png, .gif)
+4. **Multiple images**: Consider providing multiple aspect ratios for better compatibility
+5. **Complete movie data**: Include as many properties as possible for richer search results
+6. **Consistent data**: All movies in the carousel must be from the same website
+7. **URL structure**: For summary pages, ensure all URLs point to pages on the same domain
+
 ### BreadcrumbJsonLd
 
 The `BreadcrumbJsonLd` component helps you add breadcrumb structured data to indicate a page's position in the site hierarchy. This can help Google display breadcrumb trails in search results, making it easier for users to understand and navigate your site structure.
