@@ -6,6 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Next SEO is a plugin that makes managing SEO easier in Next.js projects. It's built with TypeScript and provides components for structured data (JSON-LD) and SEO management.
 
+## Critical Rules
+
+You must check these after coming up with a plan
+[ ] Your plan adheres to the guide found in @ADDING_NEW_COMPONENTS.md
+[ ] Your plan adheres to the guidelines found below
+
 ## Development Commands
 
 ### Installation
@@ -94,3 +100,47 @@ pnpm clean        # Clean build artifacts
 4. Lint and format are automatically run on staged files via Husky
 5. The library exports both CommonJS and ESM formats with TypeScript definitions
 6. When adding a new component ALWAYS refer to the guide found in ADDING_NEW_COMPONENTS.md
+
+## Key Patterns
+
+### @type Optional Pattern
+
+Next SEO provides excellent developer experience by **never requiring developers to manually specify `@type` properties**. This is achieved through intelligent type definitions and process functions.
+
+#### How It Works:
+
+1. **Type Definitions**: Component props use `Omit<Type, "@type">` to make `@type` optional
+2. **Process Functions**: Automatically add the correct `@type` based on the input
+3. **Flexible Inputs**: Accept strings, objects with/without `@type`, and arrays
+
+#### Example:
+
+```typescript
+// Developers can write this:
+<ArticleJsonLd
+  author="John Doe"  // Simple string
+  publisher={{ name: "ACME Corp", logo: "logo.jpg" }}  // No @type needed
+/>
+
+// Process functions transform it to valid Schema.org:
+{
+  author: { "@type": "Person", name: "John Doe" },
+  publisher: { "@type": "Organization", name: "ACME Corp", logo: {...} }
+}
+```
+
+#### Benefits:
+
+- **Better DX**: No need to remember Schema.org type names
+- **Less Boilerplate**: Cleaner, more readable code
+- **Type Safety**: Full TypeScript support maintained
+- **Flexibility**: Still accepts objects with `@type` if provided
+
+#### Implementation Rules:
+
+1. Always use process functions for properties accepting flexible types
+2. Never require `@type` in component props
+3. Use intelligent detection (e.g., `logo` property → Organization)
+4. Provide sensible defaults in process functions
+
+This pattern is fundamental to the library's design and must be maintained in all components.

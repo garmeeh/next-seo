@@ -99,6 +99,53 @@ export type ArticleJsonLdProps = (
 - Include component-specific props like `scriptId` and `scriptKey`
 - **Important**: Reuse types from `common.types.ts` for shared definitions like `ImageObject`, `Person`, `Organization`, and `Author`
 
+### The @type Optional Pattern
+
+A core design principle of next-seo is that developers should not need to specify `@type` properties manually. This provides better developer experience while maintaining full Schema.org compliance.
+
+#### How It Works:
+
+1. **Type Definitions**: Use `Omit<Type, "@type">` to create props that don't require `@type`:
+
+   ```typescript
+   export type ArticleJsonLdProps = (
+     | Omit<Article, "@type">
+     | Omit<NewsArticle, "@type">
+     | Omit<BlogPosting, "@type">
+   ) & {
+     type?: "Article" | "NewsArticle" | "BlogPosting";
+     // ... other props
+   };
+   ```
+
+2. **Process Functions**: Automatically add the correct `@type` based on input:
+
+   ```typescript
+   // Developers can pass a simple string
+   author="John Doe"
+
+   // Process function converts it to a proper Person object
+   processAuthor("John Doe") // → { "@type": "Person", name: "John Doe" }
+
+   // Or pass an object without @type
+   author={{ name: "John Doe", url: "https://example.com" }}
+
+   // Process function adds @type intelligently
+   processAuthor({...}) // → { "@type": "Person", name: "John Doe", url: "..." }
+   ```
+
+3. **Intelligent Type Detection**: Process functions use property analysis to determine types:
+   - Objects with `logo`, `address`, or `contactPoint` → Organization
+   - Objects with `familyName` or `givenName` → Person
+   - Default fallbacks ensure valid Schema.org output
+
+#### Benefits:
+
+- **Less Boilerplate**: Developers don't need to remember Schema.org type names
+- **Flexible Input**: Accept strings, objects with/without `@type`
+- **Type Safety**: Full TypeScript support throughout
+- **Forward Compatible**: Can still accept objects with `@type` if provided
+
 ## 3. Component Implementation
 
 Create the component in `src/components/[Component]JsonLd.tsx`:
@@ -171,6 +218,8 @@ export type { ArticleJsonLdProps };
 - Apply sensible defaults (e.g., dateModified defaults to datePublished)
 - Ensure boolean values are explicitly checked with `!== undefined`
 - Consider using the `buildJsonLdObject` helper from `~/utils/builders` for complex data construction
+- **Always use process functions** for properties that accept flexible types (strings, objects with/without `@type`)
+- **Never require developers to specify `@type`** - the component should set the main `@type` from the `type` prop, and process functions should handle nested objects
 
 ## 4. Export Configuration
 
@@ -494,7 +543,10 @@ Use the shared processing functions from `~/utils/processors`:
 import { processAuthor, processImage } from "~/utils/processors";
 
 // These functions handle string-to-object conversions automatically
+// and add the appropriate @type without developers needing to specify it
 ```
+
+**Important**: Always create or use existing process functions for properties that can accept multiple formats. This maintains the pattern of not requiring developers to specify `@type` and ensures consistent behavior across all components.
 
 ### Conditional Property Inclusion
 
