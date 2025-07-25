@@ -506,4 +506,67 @@ describe("DatasetJsonLd", () => {
     expect(script?.getAttribute("id")).toBe("custom-id");
     expect(script?.getAttribute("data-testid")).toBe("custom-id");
   });
+
+  it("handles hasPart property", () => {
+    const { container } = render(
+      <DatasetJsonLd
+        name="Parent Dataset"
+        description="A dataset with parts"
+        hasPart={[
+          {
+            "@type": "Dataset",
+            name: "Part 1",
+            description: "First part of the dataset",
+          },
+          {
+            "@type": "Dataset",
+            name: "Part 2",
+            description: "Second part of the dataset",
+          },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.hasPart).toHaveLength(2);
+    expect(jsonData.hasPart[0]).toEqual({
+      "@type": "Dataset",
+      name: "Part 1",
+      description: "First part of the dataset",
+    });
+    expect(jsonData.hasPart[1]).toEqual({
+      "@type": "Dataset",
+      name: "Part 2",
+      description: "Second part of the dataset",
+    });
+  });
+
+  it("handles isPartOf property", () => {
+    const { container } = render(
+      <DatasetJsonLd
+        name="Sub Dataset"
+        description="A dataset that is part of another"
+        isPartOf={{
+          "@type": "Dataset",
+          name: "Parent Dataset",
+          url: "https://example.com/parent-dataset",
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.isPartOf).toEqual({
+      "@type": "Dataset",
+      name: "Parent Dataset",
+      url: "https://example.com/parent-dataset",
+    });
+  });
 });

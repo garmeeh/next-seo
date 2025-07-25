@@ -437,4 +437,114 @@ describe("OrganizationJsonLd", () => {
     const script = container.querySelector('script[id="custom-id"]');
     expect(script).toBeTruthy();
   });
+
+  it("handles array of contact points", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        name="Multi-Contact Corp"
+        contactPoint={[
+          {
+            "@type": "ContactPoint",
+            telephone: "+1-800-SALES",
+            contactType: "sales",
+            areaServed: "US",
+            availableLanguage: "English",
+          },
+          {
+            telephone: "+1-800-SUPPORT",
+            contactType: "customer support",
+            areaServed: ["US", "CA"],
+            availableLanguage: ["English", "Spanish"],
+          },
+          {
+            "@type": "ContactPoint",
+            telephone: "+44-20-1234-5678",
+            contactType: "sales",
+            areaServed: "GB",
+            availableLanguage: "English",
+          },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.contactPoint).toHaveLength(3);
+    expect(jsonData.contactPoint[0]).toEqual({
+      "@type": "ContactPoint",
+      telephone: "+1-800-SALES",
+      contactType: "sales",
+      areaServed: "US",
+      availableLanguage: "English",
+    });
+    expect(jsonData.contactPoint[1]).toEqual({
+      "@type": "ContactPoint",
+      telephone: "+1-800-SUPPORT",
+      contactType: "customer support",
+      areaServed: ["US", "CA"],
+      availableLanguage: ["English", "Spanish"],
+    });
+    expect(jsonData.contactPoint[2]).toEqual({
+      "@type": "ContactPoint",
+      telephone: "+44-20-1234-5678",
+      contactType: "sales",
+      areaServed: "GB",
+      availableLanguage: "English",
+    });
+  });
+
+  it("handles OnlineStore with array of merchant return policies", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        type="OnlineStore"
+        name="Multi-Policy Store"
+        hasMerchantReturnPolicy={[
+          {
+            "@type": "MerchantReturnPolicy",
+            applicableCountry: "US",
+            returnPolicyCategory:
+              "https://schema.org/MerchantReturnFiniteReturnWindow",
+            merchantReturnDays: 30,
+            returnMethod: "https://schema.org/ReturnByMail",
+          },
+          {
+            applicableCountry: "CA",
+            returnPolicyCategory:
+              "https://schema.org/MerchantReturnFiniteReturnWindow",
+            merchantReturnDays: 60,
+            returnMethod: "https://schema.org/ReturnInStore",
+            returnFees: "https://schema.org/FreeReturn",
+          },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData["@type"]).toBe("OnlineStore");
+    expect(jsonData.hasMerchantReturnPolicy).toHaveLength(2);
+    expect(jsonData.hasMerchantReturnPolicy[0]).toEqual({
+      "@type": "MerchantReturnPolicy",
+      applicableCountry: "US",
+      returnPolicyCategory:
+        "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 30,
+      returnMethod: "https://schema.org/ReturnByMail",
+    });
+    expect(jsonData.hasMerchantReturnPolicy[1]).toEqual({
+      "@type": "MerchantReturnPolicy",
+      applicableCountry: "CA",
+      returnPolicyCategory:
+        "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 60,
+      returnMethod: "https://schema.org/ReturnInStore",
+      returnFees: "https://schema.org/FreeReturn",
+    });
+  });
 });

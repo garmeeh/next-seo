@@ -406,4 +406,49 @@ describe("EventJsonLd", () => {
     );
     expect(jsonData.offers.price).toBe(0);
   });
+
+  it("handles single image as string", () => {
+    const { container } = render(
+      <EventJsonLd
+        name="Event with Single Image"
+        startDate="2025-07-21T19:00:00"
+        location="Photo Gallery"
+        image="https://example.com/event-poster.jpg"
+      />,
+    );
+
+    const jsonData = JSON.parse(
+      container.querySelector('script[type="application/ld+json"]')!
+        .textContent!,
+    );
+    expect(jsonData.image).toBe("https://example.com/event-poster.jpg");
+  });
+
+  it("handles single image as ImageObject", () => {
+    const { container } = render(
+      <EventJsonLd
+        name="Event with Single Rich Image"
+        startDate="2025-07-21T19:00:00"
+        location="Photo Gallery"
+        image={{
+          url: "https://example.com/event-poster.jpg",
+          width: 1920,
+          height: 1080,
+          caption: "Main event poster",
+        }}
+      />,
+    );
+
+    const jsonData = JSON.parse(
+      container.querySelector('script[type="application/ld+json"]')!
+        .textContent!,
+    );
+    expect(jsonData.image).toEqual({
+      "@type": "ImageObject",
+      url: "https://example.com/event-poster.jpg",
+      width: 1920,
+      height: 1080,
+      caption: "Main event poster",
+    });
+  });
 });

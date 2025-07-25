@@ -14,6 +14,8 @@ import {
   processVideo,
   processInstruction,
   processDataCatalog,
+  processDataDownload,
+  processLicense,
 } from "./processors";
 
 describe("processImage", () => {
@@ -773,6 +775,67 @@ describe("processDataCatalog", () => {
           description: "Second dataset",
         },
       ],
+    });
+  });
+});
+
+describe("processDataDownload", () => {
+  it("should return DataDownload with @type as-is", () => {
+    const downloadWithType = {
+      "@type": "DataDownload" as const,
+      encodingFormat: "application/csv",
+      contentUrl: "https://example.com/data.csv",
+    };
+    const result = processDataDownload(downloadWithType);
+    expect(result).toBe(downloadWithType);
+  });
+
+  it("should add @type to DataDownload without it", () => {
+    const downloadWithoutType = {
+      encodingFormat: "application/json",
+      contentUrl: "https://example.com/data.json",
+      contentSize: "5MB",
+    };
+    const result = processDataDownload(downloadWithoutType);
+    expect(result).toEqual({
+      "@type": "DataDownload",
+      encodingFormat: "application/json",
+      contentUrl: "https://example.com/data.json",
+      contentSize: "5MB",
+    });
+  });
+});
+
+describe("processLicense", () => {
+  it("should return string license as-is", () => {
+    const result = processLicense(
+      "https://creativecommons.org/licenses/by/4.0/",
+    );
+    expect(result).toBe("https://creativecommons.org/licenses/by/4.0/");
+  });
+
+  it("should return CreativeWork with @type as-is", () => {
+    const licenseWithType = {
+      "@type": "CreativeWork" as const,
+      name: "Creative Commons Attribution 4.0",
+      url: "https://creativecommons.org/licenses/by/4.0/",
+    };
+    const result = processLicense(licenseWithType);
+    expect(result).toBe(licenseWithType);
+  });
+
+  it("should add @type to CreativeWork without it", () => {
+    const licenseWithoutType = {
+      name: "MIT License",
+      url: "https://opensource.org/licenses/MIT",
+      text: "Permission is hereby granted...",
+    };
+    const result = processLicense(licenseWithoutType);
+    expect(result).toEqual({
+      "@type": "CreativeWork",
+      name: "MIT License",
+      url: "https://opensource.org/licenses/MIT",
+      text: "Permission is hereby granted...",
     });
   });
 });

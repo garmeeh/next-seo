@@ -445,4 +445,217 @@ describe("LocalBusinessJsonLd", () => {
       worstRating: 1,
     });
   });
+
+  it("handles single department with all properties", () => {
+    const { container } = render(
+      <LocalBusinessJsonLd
+        type="Store"
+        name="Main Store"
+        address="123 Main St"
+        department={{
+          type: "AutoPartsStore",
+          name: "Auto Parts Department",
+          address: "123 Main St, Section A",
+          telephone: "+12125551234",
+          image: "https://example.com/auto-parts.jpg",
+          priceRange: "$$",
+          openingHoursSpecification: {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Friday"],
+            opens: "08:00",
+            closes: "18:00",
+          },
+          geo: {
+            "@type": "GeoCoordinates",
+            latitude: 40.75,
+            longitude: -73.98,
+          },
+          review: {
+            "@type": "Review",
+            author: "Jane Smith",
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: 5,
+            },
+          },
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: 4.8,
+            reviewCount: 25,
+          },
+          sameAs: ["https://facebook.com/autoparts"],
+          branchOf: {
+            "@type": "Organization",
+            name: "Auto Parts Inc",
+          },
+          currenciesAccepted: "USD",
+          paymentAccepted: "Cash, Credit Card",
+          areaServed: ["Downtown", "Midtown"],
+          email: "autoparts@example.com",
+          faxNumber: "+12125551235",
+          slogan: "Quality parts, great prices",
+          description: "Your one-stop shop for auto parts",
+          publicAccess: true,
+          smokingAllowed: false,
+          isAccessibleForFree: true,
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.department["@type"]).toBe("AutoPartsStore");
+    expect(jsonData.department.name).toBe("Auto Parts Department");
+    expect(jsonData.department.currenciesAccepted).toBe("USD");
+    expect(jsonData.department.paymentAccepted).toBe("Cash, Credit Card");
+    expect(jsonData.department.areaServed).toEqual(["Downtown", "Midtown"]);
+    expect(jsonData.department.email).toBe("autoparts@example.com");
+    expect(jsonData.department.faxNumber).toBe("+12125551235");
+    expect(jsonData.department.slogan).toBe("Quality parts, great prices");
+    expect(jsonData.department.description).toBe(
+      "Your one-stop shop for auto parts",
+    );
+    expect(jsonData.department.publicAccess).toBe(true);
+    expect(jsonData.department.smokingAllowed).toBe(false);
+    expect(jsonData.department.isAccessibleForFree).toBe(true);
+  });
+
+  it("handles array of reviews", () => {
+    const { container } = render(
+      <LocalBusinessJsonLd
+        name="Multi-Review Business"
+        address="123 Main St"
+        review={[
+          {
+            "@type": "Review",
+            author: "John Doe",
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: 5,
+            },
+            reviewBody: "Excellent service!",
+          },
+          {
+            author: {
+              "@type": "Person",
+              name: "Jane Smith",
+            },
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: 4,
+            },
+            reviewBody: "Good experience",
+          },
+          {
+            author: {
+              name: "Bob Johnson",
+              url: "https://bobsblog.com",
+            },
+            reviewRating: {
+              ratingValue: 4.5,
+            },
+            datePublished: "2024-01-01",
+          },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.review).toHaveLength(3);
+    expect(jsonData.review[0].author).toEqual({
+      "@type": "Person",
+      name: "John Doe",
+    });
+    expect(jsonData.review[1].author).toEqual({
+      "@type": "Person",
+      name: "Jane Smith",
+    });
+    expect(jsonData.review[2].author).toEqual({
+      "@type": "Person",
+      name: "Bob Johnson",
+      url: "https://bobsblog.com",
+    });
+    expect(jsonData.review[2].reviewRating).toEqual({
+      "@type": "Rating",
+      ratingValue: 4.5,
+    });
+  });
+
+  it("handles currenciesAccepted and paymentAccepted at root level", () => {
+    const { container } = render(
+      <LocalBusinessJsonLd
+        name="Payment Test Business"
+        address="123 Main St"
+        currenciesAccepted="USD, EUR, GBP"
+        paymentAccepted="Cash, Credit Card, PayPal"
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.currenciesAccepted).toBe("USD, EUR, GBP");
+    expect(jsonData.paymentAccepted).toBe("Cash, Credit Card, PayPal");
+  });
+
+  it("handles areaServed as string", () => {
+    const { container } = render(
+      <LocalBusinessJsonLd
+        name="Single Area Business"
+        address="123 Main St"
+        areaServed="Manhattan"
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.areaServed).toEqual(["Manhattan"]);
+  });
+
+  it("handles sameAs as single string", () => {
+    const { container } = render(
+      <LocalBusinessJsonLd
+        name="Social Business"
+        address="123 Main St"
+        sameAs="https://facebook.com/business"
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.sameAs).toEqual(["https://facebook.com/business"]);
+  });
+
+  it("handles servesCuisine as single string", () => {
+    const { container } = render(
+      <LocalBusinessJsonLd
+        type="Restaurant"
+        name="Italian Restaurant"
+        address="123 Main St"
+        servesCuisine="Italian"
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.servesCuisine).toEqual(["Italian"]);
+  });
 });
