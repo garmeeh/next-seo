@@ -530,7 +530,6 @@ describe("LocalBusinessJsonLd", () => {
         address="123 Main St"
         review={[
           {
-            "@type": "Review",
             author: "John Doe",
             reviewRating: {
               "@type": "Rating",

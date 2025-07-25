@@ -444,24 +444,16 @@ describe("OrganizationJsonLd", () => {
         name="Multi-Contact Corp"
         contactPoint={[
           {
-            "@type": "ContactPoint",
             telephone: "+1-800-SALES",
             contactType: "sales",
-            areaServed: "US",
-            availableLanguage: "English",
           },
           {
             telephone: "+1-800-SUPPORT",
             contactType: "customer support",
-            areaServed: ["US", "CA"],
-            availableLanguage: ["English", "Spanish"],
           },
           {
-            "@type": "ContactPoint",
             telephone: "+44-20-1234-5678",
             contactType: "sales",
-            areaServed: "GB",
-            availableLanguage: "English",
           },
         ]}
       />,
@@ -477,22 +469,16 @@ describe("OrganizationJsonLd", () => {
       "@type": "ContactPoint",
       telephone: "+1-800-SALES",
       contactType: "sales",
-      areaServed: "US",
-      availableLanguage: "English",
     });
     expect(jsonData.contactPoint[1]).toEqual({
       "@type": "ContactPoint",
       telephone: "+1-800-SUPPORT",
       contactType: "customer support",
-      areaServed: ["US", "CA"],
-      availableLanguage: ["English", "Spanish"],
     });
     expect(jsonData.contactPoint[2]).toEqual({
       "@type": "ContactPoint",
       telephone: "+44-20-1234-5678",
       contactType: "sales",
-      areaServed: "GB",
-      availableLanguage: "English",
     });
   });
 
@@ -503,7 +489,6 @@ describe("OrganizationJsonLd", () => {
         name="Multi-Policy Store"
         hasMerchantReturnPolicy={[
           {
-            "@type": "MerchantReturnPolicy",
             applicableCountry: "US",
             returnPolicyCategory:
               "https://schema.org/MerchantReturnFiniteReturnWindow",

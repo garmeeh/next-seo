@@ -553,6 +553,7 @@ describe("DatasetJsonLd", () => {
         isPartOf={{
           "@type": "Dataset",
           name: "Parent Dataset",
+          description: "The parent dataset containing multiple sub-datasets",
           url: "https://example.com/parent-dataset",
         }}
       />,
@@ -566,6 +567,7 @@ describe("DatasetJsonLd", () => {
     expect(jsonData.isPartOf).toEqual({
       "@type": "Dataset",
       name: "Parent Dataset",
+      description: "The parent dataset containing multiple sub-datasets",
       url: "https://example.com/parent-dataset",
     });
   });

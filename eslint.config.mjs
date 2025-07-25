@@ -30,6 +30,7 @@ export default defineConfig([
       "dist/",
       "commitlint.config.js",
       "playwright-report/",
+      "coverage/",
     ],
   },
 ]);
