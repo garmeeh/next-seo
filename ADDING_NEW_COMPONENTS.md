@@ -217,7 +217,6 @@ export type { ArticleJsonLdProps };
 - Handle arrays appropriately with `.map()`
 - Apply sensible defaults (e.g., dateModified defaults to datePublished)
 - Ensure boolean values are explicitly checked with `!== undefined`
-- Consider using the `buildJsonLdObject` helper from `~/utils/builders` for complex data construction
 - **Always use process functions** for properties that accept flexible types (strings, objects with/without `@type`)
 - **Never require developers to specify `@type`** - the component should set the main `@type` from the `type` prop, and process functions should handle nested objects
 
@@ -530,10 +529,6 @@ The library now provides shared utilities to avoid code duplication:
 
    - `processAuthor(author: Author): Person | Organization`
    - `processImage(image: string | ImageObject): string | ImageObject`
-
-3. **Builder Utilities** (`~/utils/builders.ts`):
-   - `buildJsonLdObject<T>(data: T, options: BuildOptions)` - For consistent object construction
-   - `addIfDefined<T>(obj: T, key: string, value: unknown)` - For conditional property addition
 
 ### Flexible Input Processing
 
