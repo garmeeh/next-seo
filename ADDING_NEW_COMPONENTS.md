@@ -611,7 +611,7 @@ Support both single items and arrays:
 - [ ] Write unit tests covering all scenarios
 - [ ] Add documentation to README.md
 - [ ] Create example pages for each variation
-- [ ] Write E2E tests
-- [ ] Run all quality checks
+- [ ] Write E2E tests (Double check guidelines!)
+- [ ] Run all quality checks (full sweep can be done via `pnpm test:sweep`)
 - [ ] Ensure backward compatibility if updating existing component
 - [ ] Check if any new processing functions should be added to shared utilities

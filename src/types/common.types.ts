@@ -26,6 +26,33 @@ export interface Person extends Thing {
 export interface Organization extends Thing {
   "@type": "Organization";
   logo?: string | ImageObject | Omit<ImageObject, "@type">;
+  sameAs?: string | string[];
+  address?:
+    | string
+    | PostalAddress
+    | Omit<PostalAddress, "@type">
+    | (string | PostalAddress | Omit<PostalAddress, "@type">)[];
+  contactPoint?:
+    | ContactPoint
+    | Omit<ContactPoint, "@type">
+    | ContactPoint[]
+    | Omit<ContactPoint, "@type">[];
+  telephone?: string;
+  email?: string;
+  alternateName?: string;
+  foundingDate?: string;
+  legalName?: string;
+  taxID?: string;
+  vatID?: string;
+  duns?: string;
+  leiCode?: string;
+  naics?: string;
+  globalLocationNumber?: string;
+  iso6523Code?: string;
+  numberOfEmployees?:
+    | number
+    | QuantitativeValue
+    | Omit<QuantitativeValue, "@type">;
 }
 
 export interface PostalAddress {

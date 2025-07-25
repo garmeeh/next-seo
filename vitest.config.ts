@@ -28,6 +28,15 @@ export default defineConfig({
       provider: "v8",
       reporter: ["text", "json", "html"],
       reportsDirectory: "./coverage/unit",
+      exclude: [
+        "node_modules",
+        "dist",
+        "examples",
+        "*.spec.ts",
+        "*.config.*",
+        "tests",
+        "src/index.ts",
+      ],
     },
   },
   resolve: {

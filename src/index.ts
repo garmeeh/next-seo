@@ -38,3 +38,7 @@ export {
   default as QuizJsonLd,
   type QuizJsonLdProps,
 } from "./components/QuizJsonLd";
+export {
+  default as DatasetJsonLd,
+  type DatasetJsonLdProps,
+} from "./components/DatasetJsonLd";

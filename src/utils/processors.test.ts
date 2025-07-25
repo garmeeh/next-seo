@@ -13,6 +13,7 @@ import {
   processMerchantReturnPolicy,
   processVideo,
   processInstruction,
+  processDataCatalog,
 } from "./processors";
 
 describe("processImage", () => {
@@ -206,6 +207,115 @@ describe("processAuthor", () => {
       name: "John Blogger",
       url: "https://johnblog.com",
       givenName: "John",
+    });
+  });
+
+  it("should process contactPoint in Organization", () => {
+    const orgWithContactPoint = {
+      name: "Tech Corp",
+      logo: "https://example.com/logo.png",
+      contactPoint: {
+        contactType: "customer service",
+        telephone: "+1-555-1234",
+        email: "support@techcorp.com",
+      },
+    };
+    const result = processAuthor(orgWithContactPoint);
+    expect(result).toEqual({
+      "@type": "Organization",
+      name: "Tech Corp",
+      logo: "https://example.com/logo.png",
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "customer service",
+        telephone: "+1-555-1234",
+        email: "support@techcorp.com",
+      },
+    });
+  });
+
+  it("should process array of contactPoints in Organization", () => {
+    const orgWithMultipleContactPoints = {
+      name: "Global Corp",
+      logo: "https://example.com/logo.png",
+      contactPoint: [
+        {
+          contactType: "customer service",
+          telephone: "+1-555-1234",
+        },
+        {
+          contactType: "technical support",
+          telephone: "+1-555-5678",
+          email: "tech@globalcorp.com",
+        },
+      ],
+    };
+    const result = processAuthor(orgWithMultipleContactPoints);
+    expect(result).toEqual({
+      "@type": "Organization",
+      name: "Global Corp",
+      logo: "https://example.com/logo.png",
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          contactType: "customer service",
+          telephone: "+1-555-1234",
+        },
+        {
+          "@type": "ContactPoint",
+          contactType: "technical support",
+          telephone: "+1-555-5678",
+          email: "tech@globalcorp.com",
+        },
+      ],
+    });
+  });
+
+  it("should process address in Organization", () => {
+    const orgWithAddress = {
+      name: "Local Business",
+      logo: "https://example.com/logo.png",
+      address: {
+        streetAddress: "123 Business Ave",
+        addressLocality: "Businesstown",
+        addressRegion: "CA",
+        postalCode: "90210",
+      },
+    };
+    const result = processAuthor(orgWithAddress);
+    expect(result).toEqual({
+      "@type": "Organization",
+      name: "Local Business",
+      logo: "https://example.com/logo.png",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "123 Business Ave",
+        addressLocality: "Businesstown",
+        addressRegion: "CA",
+        postalCode: "90210",
+      },
+    });
+  });
+
+  it("should process logo as ImageObject in Organization", () => {
+    const orgWithImageLogo = {
+      name: "Visual Corp",
+      logo: {
+        url: "https://example.com/logo.png",
+        width: 300,
+        height: 100,
+      },
+    };
+    const result = processAuthor(orgWithImageLogo);
+    expect(result).toEqual({
+      "@type": "Organization",
+      name: "Visual Corp",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://example.com/logo.png",
+        width: 300,
+        height: 100,
+      },
     });
   });
 });
@@ -577,6 +687,90 @@ describe("processInstruction", () => {
           "@type": "HowToStep",
           text: "Add ingredients",
           name: "Add",
+        },
+      ],
+    });
+  });
+});
+
+describe("processDataCatalog", () => {
+  it("should add @type to DataCatalog without it", () => {
+    const catalogWithoutType = {
+      name: "Ocean Climate Data Catalog",
+      description: "Collection of ocean climate datasets",
+      url: "https://example.com/catalog",
+    };
+    const result = processDataCatalog(catalogWithoutType);
+    expect(result).toEqual({
+      "@type": "DataCatalog",
+      name: "Ocean Climate Data Catalog",
+      description: "Collection of ocean climate datasets",
+      url: "https://example.com/catalog",
+    });
+  });
+
+  it("should preserve @type when DataCatalog already has it", () => {
+    const catalogWithType = {
+      "@type": "DataCatalog" as const,
+      name: "Climate Data Repository",
+      description: "Global climate datasets",
+      url: "https://climate.example.com",
+    };
+    const result = processDataCatalog(catalogWithType);
+    expect(result).toEqual(catalogWithType);
+  });
+
+  it("should handle DataCatalog with nested Dataset", () => {
+    const catalogWithDataset = {
+      name: "Environmental Data Catalog",
+      hasPart: {
+        "@type": "Dataset" as const,
+        name: "Air Quality Dataset",
+        description: "Air quality measurements",
+      },
+    };
+    const result = processDataCatalog(catalogWithDataset);
+    expect(result).toEqual({
+      "@type": "DataCatalog",
+      name: "Environmental Data Catalog",
+      hasPart: {
+        "@type": "Dataset",
+        name: "Air Quality Dataset",
+        description: "Air quality measurements",
+      },
+    });
+  });
+
+  it("should handle DataCatalog with array of Datasets", () => {
+    const catalogWithMultipleDatasets = {
+      name: "Multi-Dataset Catalog",
+      hasPart: [
+        {
+          "@type": "Dataset" as const,
+          name: "Dataset 1",
+          description: "First dataset",
+        },
+        {
+          "@type": "Dataset" as const,
+          name: "Dataset 2",
+          description: "Second dataset",
+        },
+      ],
+    };
+    const result = processDataCatalog(catalogWithMultipleDatasets);
+    expect(result).toEqual({
+      "@type": "DataCatalog",
+      name: "Multi-Dataset Catalog",
+      hasPart: [
+        {
+          "@type": "Dataset",
+          name: "Dataset 1",
+          description: "First dataset",
+        },
+        {
+          "@type": "Dataset",
+          name: "Dataset 2",
+          description: "Second dataset",
         },
       ],
     });

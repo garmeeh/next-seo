@@ -727,5 +727,109 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(firstMovie.aggregateRating.ratingValue).toBeTruthy();
       expect(firstMovie.aggregateRating.reviewCount).toBeTruthy();
     });
+
+    test("DatasetJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/dataset");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Dataset");
+      expect(jsonData!.name).toBeTruthy();
+      expect(jsonData!.description).toBeTruthy();
+    });
+
+    test("DatasetJsonLd with advanced features produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/dataset-advanced");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Dataset");
+
+      // Verify complex nested structures parse correctly
+      expect(Array.isArray(jsonData!.creator)).toBe(true);
+      expect(jsonData!.creator[0]["@type"]).toBe("Organization");
+      expect(jsonData!.creator[0].contactPoint["@type"]).toBe("ContactPoint");
+
+      expect(Array.isArray(jsonData!.distribution)).toBe(true);
+      expect(jsonData!.distribution[0]["@type"]).toBe("DataDownload");
+
+      expect(jsonData!.spatialCoverage["@type"]).toBe("Place");
+      expect(jsonData!.spatialCoverage.geo["@type"]).toBe("GeoShape");
+
+      expect(Array.isArray(jsonData!.variableMeasured)).toBe(true);
+      expect(jsonData!.variableMeasured[2]["@type"]).toBe("PropertyValue");
+    });
+
+    test("DatasetJsonLd with catalog produces valid JSON", async ({ page }) => {
+      await page.goto("/dataset-catalog");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Dataset");
+      expect(jsonData!.includedInDataCatalog["@type"]).toBe("DataCatalog");
+    });
+
+    test("DatasetJsonLd with nested datasets produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/dataset-nested");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Dataset");
+
+      // Verify hasPart array with nested datasets
+      expect(Array.isArray(jsonData!.hasPart)).toBe(true);
+      expect(jsonData!.hasPart).toHaveLength(3);
+      expect(jsonData!.hasPart[0]["@type"]).toBe("Dataset");
+      expect(jsonData!.hasPart[0].name).toBeTruthy();
+      expect(jsonData!.hasPart[0].distribution["@type"]).toBe("DataDownload");
+    });
   });
 });

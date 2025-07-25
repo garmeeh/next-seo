@@ -28,6 +28,14 @@ import type {
   HowToStep,
   HowToSection,
 } from "~/types/recipe.types";
+import type {
+  GeoShape,
+  PropertyValue,
+  CreativeWork,
+  DatasetPlace,
+  DataDownload,
+  DataCatalog,
+} from "~/types/dataset.types";
 
 export function processAuthor(author: Author): Person | Organization {
   if (typeof author === "string") {
@@ -50,10 +58,39 @@ export function processAuthor(author: Author): Person | Organization {
     "contactPoint" in author ||
     "sameAs" in author
   ) {
-    return {
+    const org: Organization = {
       "@type": "Organization",
       ...author,
-    } as Organization;
+    };
+
+    // Process nested contactPoint if present
+    if ("contactPoint" in author && author.contactPoint) {
+      if (Array.isArray(author.contactPoint)) {
+        org.contactPoint = author.contactPoint.map(processContactPoint);
+      } else {
+        org.contactPoint = processContactPoint(
+          author.contactPoint as ContactPoint | Omit<ContactPoint, "@type">,
+        );
+      }
+    }
+
+    // Process nested address if present
+    if ("address" in author && author.address) {
+      if (Array.isArray(author.address)) {
+        org.address = author.address.map((addr) =>
+          typeof addr === "string" ? addr : processAddress(addr),
+        );
+      } else if (typeof author.address !== "string") {
+        org.address = processAddress(author.address);
+      }
+    }
+
+    // Process logo if present and not a string
+    if ("logo" in author && author.logo && typeof author.logo !== "string") {
+      org.logo = processImage(author.logo);
+    }
+
+    return org as Organization;
   }
 
   // Default to Person for objects without clear Organization properties
@@ -487,4 +524,124 @@ export function processDirector(director: Director): Person {
     "@type": "Person",
     ...director,
   } as Person;
+}
+
+// Dataset-specific processors
+
+export function processCreator(
+  creator: Author | Author[],
+): Person | Organization | (Person | Organization)[] {
+  if (Array.isArray(creator)) {
+    return creator.map((c) => processAuthor(c));
+  }
+  return processAuthor(creator);
+}
+
+export function processIdentifier(
+  identifier: string | PropertyValue | Omit<PropertyValue, "@type">,
+): string | PropertyValue {
+  if (typeof identifier === "string") {
+    return identifier;
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in identifier) {
+    return identifier as PropertyValue;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "PropertyValue",
+    ...identifier,
+  } as PropertyValue;
+}
+
+export function processSpatialCoverage(
+  spatial: string | DatasetPlace | Omit<DatasetPlace, "@type">,
+): string | DatasetPlace {
+  if (typeof spatial === "string") {
+    return spatial;
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in spatial) {
+    return spatial as DatasetPlace;
+  }
+
+  // Process geo if present
+  const processed: DatasetPlace = {
+    "@type": "Place",
+    ...spatial,
+  };
+
+  if (
+    spatial.geo &&
+    typeof spatial.geo === "object" &&
+    !("@type" in spatial.geo)
+  ) {
+    // Determine if it's GeoCoordinates or GeoShape
+    if ("latitude" in spatial.geo && "longitude" in spatial.geo) {
+      processed.geo = {
+        "@type": "GeoCoordinates",
+        ...spatial.geo,
+      } as GeoCoordinates;
+    } else if (
+      "box" in spatial.geo ||
+      "circle" in spatial.geo ||
+      "line" in spatial.geo ||
+      "polygon" in spatial.geo
+    ) {
+      processed.geo = {
+        "@type": "GeoShape",
+        ...spatial.geo,
+      } as GeoShape;
+    }
+  }
+
+  return processed;
+}
+
+export function processDataDownload(
+  download: DataDownload | Omit<DataDownload, "@type">,
+): DataDownload {
+  if ("@type" in download) {
+    return download as DataDownload;
+  }
+
+  return {
+    "@type": "DataDownload",
+    ...download,
+  } as DataDownload;
+}
+
+export function processLicense(
+  license: string | CreativeWork | Omit<CreativeWork, "@type">,
+): string | CreativeWork {
+  if (typeof license === "string") {
+    return license;
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in license) {
+    return license as CreativeWork;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "CreativeWork",
+    ...license,
+  } as CreativeWork;
+}
+
+export function processDataCatalog(
+  catalog: DataCatalog | Omit<DataCatalog, "@type">,
+): DataCatalog {
+  if ("@type" in catalog) {
+    return catalog as DataCatalog;
+  }
+
+  return {
+    "@type": "DataCatalog",
+    ...catalog,
+  } as DataCatalog;
 }

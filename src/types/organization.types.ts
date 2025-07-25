@@ -1,49 +1,12 @@
 import type {
-  ImageObject,
-  PostalAddress,
-  ContactPoint,
-  QuantitativeValue,
+  Organization,
   MerchantReturnPolicy,
   MemberProgram,
 } from "./common.types";
 
-export interface OrganizationBase {
-  name?: string;
-  url?: string;
-  logo?: string | ImageObject | Omit<ImageObject, "@type">;
-  description?: string;
-  sameAs?: string | string[];
-  address?:
-    | string
-    | PostalAddress
-    | Omit<PostalAddress, "@type">
-    | (string | PostalAddress | Omit<PostalAddress, "@type">)[];
-  contactPoint?:
-    | ContactPoint
-    | Omit<ContactPoint, "@type">
-    | ContactPoint[]
-    | Omit<ContactPoint, "@type">[];
-  telephone?: string;
-  email?: string;
-  alternateName?: string;
-  foundingDate?: string;
-  legalName?: string;
-  taxID?: string;
-  vatID?: string;
-  duns?: string;
-  leiCode?: string;
-  naics?: string;
-  globalLocationNumber?: string;
-  iso6523Code?: string;
-  numberOfEmployees?:
-    | number
-    | QuantitativeValue
-    | Omit<QuantitativeValue, "@type">;
-}
-
-export interface Organization extends OrganizationBase {
-  "@type": "Organization";
-}
+// OrganizationBase contains all properties except @type
+// This is used by OnlineStore and other organization subtypes
+type OrganizationBase = Omit<Organization, "@type">;
 
 export interface OnlineStore extends OrganizationBase {
   "@type": "OnlineStore";

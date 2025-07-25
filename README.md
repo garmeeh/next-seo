@@ -1365,3 +1365,195 @@ The `questions` array accepts several formats:
 7. **Single answer format**: Each question should have one clear, authoritative answer
 
 > **Note**: The education Q&A carousel is available when searching for education-related topics in English, Portuguese, Spanish (Mexico), and Vietnamese.
+
+### DatasetJsonLd
+
+The `DatasetJsonLd` component helps you add structured data for datasets, making them easier to find in Google's Dataset Search. This is ideal for scientific data, government data, machine learning datasets, and any other structured data collections.
+
+#### Basic Usage
+
+```tsx
+import { DatasetJsonLd } from "next-seo";
+
+export default function DatasetPage() {
+  return (
+    <>
+      <DatasetJsonLd
+        name="NCDC Storm Events Database"
+        description="Storm Data is provided by the National Weather Service (NWS) and contain statistics on personal injuries and damage estimates."
+        url="https://example.com/dataset/storm-events"
+        creator="NOAA"
+        distribution={{
+          contentUrl: "https://www.ncdc.noaa.gov/stormevents/ftp.jsp",
+          encodingFormat: "CSV",
+        }}
+      />
+      {/* Your dataset page content */}
+    </>
+  );
+}
+```
+
+#### Advanced Example with Full Features
+
+```tsx
+<DatasetJsonLd
+  name="Global Climate Data 2020-2024"
+  description="Comprehensive climate measurements including temperature, precipitation, and atmospheric data collected from weather stations worldwide"
+  url="https://example.com/datasets/global-climate-2020-2024"
+  sameAs={[
+    "https://doi.org/10.1000/182",
+    "https://data.gov/dataset/climate-2020-2024",
+  ]}
+  identifier={[
+    "https://doi.org/10.1000/182",
+    {
+      value: "ark:/12345/fk1234",
+      propertyID: "ARK",
+    },
+  ]}
+  keywords={[
+    "climate",
+    "temperature",
+    "precipitation",
+    "weather",
+    "atmospheric data",
+  ]}
+  license="https://creativecommons.org/publicdomain/zero/1.0/"
+  isAccessibleForFree={true}
+  creator={[
+    {
+      name: "National Centers for Environmental Information",
+      url: "https://www.ncei.noaa.gov/",
+      contactPoint: {
+        contactType: "customer service",
+        telephone: "+1-828-271-4800",
+        email: "ncei.orders@noaa.gov",
+      },
+    },
+    "Dr. Jane Smith",
+  ]}
+  funder={{
+    name: "National Science Foundation",
+    sameAs: "https://ror.org/021nxhr62",
+  }}
+  includedInDataCatalog={{
+    name: "data.gov",
+    url: "https://data.gov",
+  }}
+  distribution={[
+    {
+      contentUrl: "https://example.com/data/climate-2020-2024.csv",
+      encodingFormat: "CSV",
+      contentSize: "2.5GB",
+      description: "Complete dataset in CSV format",
+    },
+    {
+      contentUrl: "https://example.com/data/climate-2020-2024.json",
+      encodingFormat: "JSON",
+      contentSize: "3.1GB",
+      description: "Complete dataset in JSON format",
+    },
+  ]}
+  temporalCoverage="2020-01-01/2024-12-31"
+  spatialCoverage={{
+    name: "Global",
+    geo: {
+      box: "-90 -180 90 180",
+    },
+  }}
+  measurementTechnique="Satellite observation and ground station measurements"
+  variableMeasured={[
+    "temperature",
+    "precipitation",
+    {
+      name: "Atmospheric Pressure",
+      value: "hectopascals",
+    },
+  ]}
+  version="2.1"
+/>
+```
+
+#### Props
+
+| Property                | Type                                                                       | Description                                                               |
+| ----------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| `name`                  | `string`                                                                   | **Required.** A descriptive name of the dataset                           |
+| `description`           | `string`                                                                   | **Required.** A short summary describing the dataset (50-5000 characters) |
+| `url`                   | `string`                                                                   | URL of the dataset landing page                                           |
+| `sameAs`                | `string \| string[]`                                                       | URLs of pages that unambiguously indicate the dataset's identity          |
+| `identifier`            | `string \| PropertyValue \| (string \| PropertyValue)[]`                   | Identifiers such as DOI or Compact Identifiers                            |
+| `keywords`              | `string \| string[]`                                                       | Keywords summarizing the dataset                                          |
+| `license`               | `string \| CreativeWork`                                                   | License under which the dataset is distributed                            |
+| `isAccessibleForFree`   | `boolean`                                                                  | Whether the dataset is accessible without payment                         |
+| `hasPart`               | `Dataset \| Dataset[]`                                                     | Smaller datasets that are part of this dataset                            |
+| `isPartOf`              | `string \| Dataset`                                                        | A larger dataset that this dataset is part of                             |
+| `creator`               | `string \| Person \| Organization \| (string \| Person \| Organization)[]` | The creator or author of the dataset                                      |
+| `funder`                | `string \| Person \| Organization \| (string \| Person \| Organization)[]` | Person or organization that provides financial support                    |
+| `includedInDataCatalog` | `DataCatalog`                                                              | The catalog to which the dataset belongs                                  |
+| `distribution`          | `DataDownload \| DataDownload[]`                                           | Download locations and formats for the dataset                            |
+| `temporalCoverage`      | `string`                                                                   | Time interval covered by the dataset (ISO 8601 format)                    |
+| `spatialCoverage`       | `string \| Place`                                                          | Spatial aspect of the dataset (location name or coordinates)              |
+| `alternateName`         | `string \| string[]`                                                       | Alternative names for the dataset                                         |
+| `citation`              | `string \| CreativeWork \| (string \| CreativeWork)[]`                     | Academic articles to cite alongside the dataset                           |
+| `measurementTechnique`  | `string \| string[]`                                                       | Technique or methodology used in the dataset                              |
+| `variableMeasured`      | `string \| PropertyValue \| (string \| PropertyValue)[]`                   | Variables that the dataset measures                                       |
+| `version`               | `string \| number`                                                         | Version number for the dataset                                            |
+| `scriptId`              | `string`                                                                   | Custom ID for the script tag                                              |
+| `scriptKey`             | `string`                                                                   | Custom key for React (defaults to "dataset-jsonld")                       |
+
+#### Spatial Coverage Examples
+
+```tsx
+// Named location
+spatialCoverage="United States"
+
+// Point coordinates
+spatialCoverage={{
+  geo: {
+    latitude: 39.3280,
+    longitude: 120.1633,
+  }
+}}
+
+// Bounding box (format: "minLat minLon maxLat maxLon")
+spatialCoverage={{
+  geo: {
+    box: "39.3280 120.1633 40.445 123.7878",
+  }
+}}
+
+// Circle (format: "latitude longitude radius")
+spatialCoverage={{
+  geo: {
+    circle: "39.3280 120.1633 100",
+  }
+}}
+```
+
+#### Temporal Coverage Examples
+
+```tsx
+// Single date
+temporalCoverage = "2024";
+
+// Date range
+temporalCoverage = "2020-01-01/2024-12-31";
+
+// Open-ended range
+temporalCoverage = "2024-01-01/..";
+```
+
+#### Best Practices
+
+1. **Comprehensive descriptions**: Provide detailed descriptions (50-5000 characters) that clearly explain what the dataset contains
+2. **Use persistent identifiers**: Include DOIs or other persistent identifiers when available
+3. **Multiple formats**: If your dataset is available in multiple formats, list all distributions
+4. **Specify license**: Always include license information to clarify usage rights
+5. **Include temporal/spatial coverage**: Help users understand the scope of your data
+6. **Use ORCID/ROR IDs**: When specifying creators or funders, use ORCID IDs for individuals and ROR IDs for organizations in the `sameAs` field
+7. **Version your datasets**: Include version numbers to help users track updates
+8. **Link to catalogs**: If your dataset is in a repository like data.gov, include the `includedInDataCatalog` property
+
+> **Note**: Dataset structured data helps your datasets appear in Google's Dataset Search, which is specifically designed for discovering research and government data.
