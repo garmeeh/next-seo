@@ -156,3 +156,21 @@ export interface OpeningHoursSpecification {
   validFrom?: string;
   validThrough?: string;
 }
+
+export interface VideoObject {
+  "@type": "VideoObject";
+  name: string;
+  description: string;
+  thumbnailUrl: string | string[];
+  contentUrl?: string;
+  embedUrl?: string;
+  uploadDate: string;
+  duration?: string;
+  expires?: string;
+}
+
+export interface InteractionCounter {
+  "@type": "InteractionCounter";
+  interactionType: string;
+  userInteractionCount: number;
+}

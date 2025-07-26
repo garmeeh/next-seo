@@ -1771,3 +1771,131 @@ baseSalary={{
 8. **Remove expired jobs**: Update or remove the structured data when jobs are filled
 
 > **Note**: Job postings must comply with Google's content policies. Jobs must be actual openings (not recruiting firms collecting resumes), include application instructions, and be removed when filled.
+
+### DiscussionForumPostingJsonLd
+
+The `DiscussionForumPostingJsonLd` component helps you add structured data for forum posts and discussions to improve their appearance in Google's Discussions and Forums search feature.
+
+#### Basic Usage
+
+```tsx
+import { DiscussionForumPostingJsonLd } from "next-seo";
+
+<DiscussionForumPostingJsonLd
+  headline="I went to the concert!"
+  text="Look at how cool this concert was!"
+  author="Katie Pope"
+  datePublished="2024-01-01T08:00:00+00:00"
+  url="https://example.com/forum/very-popular-thread"
+  comment={[
+    {
+      text: "Who's the person you're with?",
+      author: "Saul Douglas",
+      datePublished: "2024-01-01T09:46:02+00:00",
+    },
+    {
+      text: "That's my mom, isn't she cool?",
+      author: "Katie Pope",
+      datePublished: "2024-01-01T09:50:25+00:00",
+    },
+  ]}
+/>;
+```
+
+#### Props
+
+| Property               | Type                                                 | Description                                               |
+| ---------------------- | ---------------------------------------------------- | --------------------------------------------------------- |
+| `type`                 | `"DiscussionForumPosting" \| "SocialMediaPosting"`   | The type of posting. Defaults to "DiscussionForumPosting" |
+| `author`               | `string \| Person \| Organization \| Author[]`       | **Required.** The author(s) of the post                   |
+| `datePublished`        | `string`                                             | **Required.** Publication date in ISO 8601 format         |
+| `text`                 | `string`                                             | The text content of the post                              |
+| `image`                | `string \| ImageObject \| (string \| ImageObject)[]` | Images in the post                                        |
+| `video`                | `VideoObject`                                        | Video content in the post                                 |
+| `headline`             | `string`                                             | The title of the post                                     |
+| `url`                  | `string`                                             | The canonical URL of the discussion                       |
+| `dateModified`         | `string`                                             | Last modification date in ISO 8601 format                 |
+| `comment`              | `Comment[]`                                          | Comments/replies to the post                              |
+| `creativeWorkStatus`   | `string`                                             | Status of the post (e.g., "Deleted")                      |
+| `interactionStatistic` | `InteractionCounter \| InteractionCounter[]`         | User interaction statistics                               |
+| `isPartOf`             | `string \| CreativeWork`                             | The forum/subforum this post belongs to                   |
+| `sharedContent`        | `string \| WebPage \| ImageObject \| VideoObject`    | Content shared in the post                                |
+| `scriptId`             | `string`                                             | Custom ID for the script tag                              |
+| `scriptKey`            | `string`                                             | React key for the script tag                              |
+
+#### Nested Comments Example
+
+```tsx
+<DiscussionForumPostingJsonLd
+  headline="Very Popular Thread"
+  author={{
+    name: "Katie Pope",
+    url: "https://example.com/user/katie-pope",
+  }}
+  datePublished="2024-01-01T08:00:00+00:00"
+  text="Look at how cool this concert was!"
+  comment={[
+    {
+      text: "This should not be this popular",
+      author: "Commenter One",
+      datePublished: "2024-01-01T09:00:00+00:00",
+      comment: [
+        {
+          text: "Yes it should",
+          author: "Commenter Two",
+          datePublished: "2024-01-01T09:30:00+00:00",
+        },
+      ],
+    },
+  ]}
+/>
+```
+
+#### Social Media Posting Example
+
+```tsx
+<DiscussionForumPostingJsonLd
+  type="SocialMediaPosting"
+  author="SocialUser"
+  datePublished="2024-01-01T12:00:00+00:00"
+  text="Just shared an amazing article!"
+  sharedContent={{
+    url: "https://example.com/amazing-article",
+    name: "Amazing Article Title",
+    description: "A brief description of the article",
+  }}
+  interactionStatistic={[
+    {
+      interactionType: "https://schema.org/LikeAction",
+      userInteractionCount: 150,
+    },
+    {
+      interactionType: "https://schema.org/ShareAction",
+      userInteractionCount: 25,
+    },
+  ]}
+/>
+```
+
+#### Interaction Types
+
+The following interaction types are supported for `interactionStatistic`:
+
+- `https://schema.org/LikeAction` - Likes or upvotes
+- `https://schema.org/DislikeAction` - Dislikes or downvotes
+- `https://schema.org/ViewAction` - View count
+- `https://schema.org/CommentAction` or `https://schema.org/ReplyAction` - Comment count
+- `https://schema.org/ShareAction` - Share count
+
+#### Best Practices
+
+1. **Include all visible content**: Add all text, images, and videos that appear in the post
+2. **Nested comments**: Use the nested structure to represent threaded discussions accurately
+3. **Author information**: Include author URLs linking to profile pages when available
+4. **Interaction statistics**: Add engagement metrics to help Google understand post popularity
+5. **Deleted content**: Use `creativeWorkStatus: "Deleted"` for removed posts that remain for context
+6. **Forum hierarchy**: Use `isPartOf` to indicate which subforum or category the post belongs to
+7. **ISO 8601 dates**: Always use proper date formatting with timezone information
+8. **Multi-page threads**: For paginated discussions, set the `url` to the first page
+
+> **Note**: DiscussionForumPosting is designed for forum-style sites where people share first-hand perspectives. For Q&A formats, use Q&A structured data instead.

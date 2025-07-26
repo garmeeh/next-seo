@@ -12,6 +12,8 @@ import type {
   AggregateRating,
   MerchantReturnPolicy,
   Rating,
+  VideoObject,
+  InteractionCounter,
 } from "~/types/common.types";
 import type { Director } from "~/types/movie-carousel.types";
 import type { BreadcrumbListItem, ListItem } from "~/types/breadcrumb.types";
@@ -24,7 +26,6 @@ import type {
 } from "~/types/event.types";
 import type {
   NutritionInformation,
-  VideoObject,
   HowToStep,
   HowToSection,
 } from "~/types/recipe.types";
@@ -46,6 +47,12 @@ import type {
   EducationalOccupationalCredential,
   OccupationalExperienceRequirements,
 } from "~/types/jobposting.types";
+import type {
+  Comment,
+  SharedContent,
+  WebPage as ForumWebPage,
+  CreativeWork as ForumCreativeWork,
+} from "~/types/discussionforum.types";
 
 export function processAuthor(author: Author): Person | Organization {
   if (typeof author === "string") {
@@ -848,4 +855,129 @@ export function processExperienceRequirements(
     "@type": "OccupationalExperienceRequirements",
     ...experience,
   } as OccupationalExperienceRequirements;
+}
+
+// DiscussionForumPosting-specific processors
+
+export function processInteractionStatistic(
+  statistic: InteractionCounter | Omit<InteractionCounter, "@type">,
+): InteractionCounter {
+  // If it already has @type, return as-is
+  if ("@type" in statistic) {
+    return statistic as InteractionCounter;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "InteractionCounter",
+    ...statistic,
+  } as InteractionCounter;
+}
+
+export function processSharedContent(
+  content: SharedContent,
+): ForumWebPage | ImageObject | VideoObject {
+  if (typeof content === "string") {
+    // If it's just a string URL, treat it as a WebPage
+    return {
+      "@type": "WebPage",
+      url: content,
+    };
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in content) {
+    return content as ForumWebPage | ImageObject | VideoObject;
+  }
+
+  // No @type - need to determine what type it is
+  // Check for VideoObject properties
+  if ("uploadDate" in content && "thumbnailUrl" in content) {
+    return {
+      "@type": "VideoObject",
+      ...content,
+    } as VideoObject;
+  }
+
+  // Check for ImageObject properties
+  if ("url" in content && ("width" in content || "height" in content)) {
+    return {
+      "@type": "ImageObject",
+      ...content,
+    } as ImageObject;
+  }
+
+  // Default to WebPage
+  return {
+    "@type": "WebPage",
+    ...content,
+  } as ForumWebPage;
+}
+
+export function processComment(
+  comment: Comment | Omit<Comment, "@type">,
+): Comment {
+  const processed: Comment = {
+    "@type": "Comment",
+    ...comment,
+  } as Comment;
+
+  // Process author
+  if (comment.author) {
+    processed.author = processAuthor(comment.author);
+  }
+
+  // Process image if present
+  if (comment.image && typeof comment.image !== "string") {
+    processed.image = processImage(comment.image);
+  }
+
+  // Process video if present
+  if (comment.video) {
+    processed.video = processVideo(comment.video);
+  }
+
+  // Process interaction statistics if present
+  if (comment.interactionStatistic) {
+    if (Array.isArray(comment.interactionStatistic)) {
+      processed.interactionStatistic = comment.interactionStatistic.map(
+        processInteractionStatistic,
+      );
+    } else {
+      processed.interactionStatistic = processInteractionStatistic(
+        comment.interactionStatistic,
+      );
+    }
+  }
+
+  // Process shared content if present
+  if (comment.sharedContent) {
+    processed.sharedContent = processSharedContent(comment.sharedContent);
+  }
+
+  // Process nested comments recursively
+  if (comment.comment) {
+    processed.comment = comment.comment.map(processComment);
+  }
+
+  return processed as Comment;
+}
+
+export function processIsPartOf(
+  isPartOf: string | ForumCreativeWork | Omit<ForumCreativeWork, "@type">,
+): string | ForumCreativeWork {
+  if (typeof isPartOf === "string") {
+    return isPartOf;
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in isPartOf) {
+    return isPartOf as ForumCreativeWork;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "CreativeWork",
+    ...isPartOf,
+  } as ForumCreativeWork;
 }

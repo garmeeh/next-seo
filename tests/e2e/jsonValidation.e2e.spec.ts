@@ -935,5 +935,50 @@ test.describe("JSON-LD Validation Tests", () => {
       // Verify organization with logo
       expect(jsonData!.hiringOrganization.logo["@type"]).toBe("ImageObject");
     });
+
+    test("DiscussionForumPostingJsonLd produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/discussion-forum-advanced");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("DiscussionForumPosting");
+
+      // Verify nested comment structure
+      expect(Array.isArray(jsonData!.comment)).toBe(true);
+      expect(jsonData!.comment[0]["@type"]).toBe("Comment");
+      expect(jsonData!.comment[0].author["@type"]).toBe("Person");
+
+      // Verify nested comments within comments
+      expect(Array.isArray(jsonData!.comment[0].comment)).toBe(true);
+      expect(jsonData!.comment[0].comment[0]["@type"]).toBe("Comment");
+
+      // Verify interaction statistics
+      expect(Array.isArray(jsonData!.interactionStatistic)).toBe(true);
+      expect(jsonData!.interactionStatistic[0]["@type"]).toBe(
+        "InteractionCounter",
+      );
+
+      // Verify video object
+      expect(jsonData!.video["@type"]).toBe("VideoObject");
+
+      // Verify isPartOf
+      expect(jsonData!.isPartOf["@type"]).toBe("CreativeWork");
+
+      // Verify sharedContent
+      expect(jsonData!.sharedContent["@type"]).toBe("WebPage");
+    });
   });
 });

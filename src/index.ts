@@ -46,3 +46,7 @@ export {
   default as JobPostingJsonLd,
   type JobPostingJsonLdProps,
 } from "./components/JobPostingJsonLd";
+export {
+  default as DiscussionForumPostingJsonLd,
+  type DiscussionForumPostingJsonLdProps,
+} from "./components/DiscussionForumPostingJsonLd";

@@ -1,16 +1,9 @@
-import type { ImageObject, Author, AggregateRating } from "./common.types";
-
-export interface VideoObject {
-  "@type": "VideoObject";
-  name: string;
-  description: string;
-  thumbnailUrl: string | string[];
-  contentUrl?: string;
-  embedUrl?: string;
-  uploadDate: string;
-  duration?: string;
-  expires?: string;
-}
+import type {
+  ImageObject,
+  Author,
+  AggregateRating,
+  VideoObject,
+} from "./common.types";
 
 export interface NutritionInformation {
   "@type": "NutritionInformation";
