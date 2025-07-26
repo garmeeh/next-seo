@@ -42,3 +42,7 @@ export {
   default as DatasetJsonLd,
   type DatasetJsonLdProps,
 } from "./components/DatasetJsonLd";
+export {
+  default as JobPostingJsonLd,
+  type JobPostingJsonLdProps,
+} from "./components/JobPostingJsonLd";

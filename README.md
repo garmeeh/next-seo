@@ -1557,3 +1557,217 @@ temporalCoverage = "2024-01-01/..";
 8. **Link to catalogs**: If your dataset is in a repository like data.gov, include the `includedInDataCatalog` property
 
 > **Note**: Dataset structured data helps your datasets appear in Google's Dataset Search, which is specifically designed for discovering research and government data.
+
+### JobPostingJsonLd
+
+The `JobPostingJsonLd` component helps you add structured data for job postings to improve their appearance in Google's job search results and the Google Jobs experience.
+
+#### Basic Usage
+
+```tsx
+import { JobPostingJsonLd } from "next-seo";
+
+export default function JobPage() {
+  return (
+    <>
+      <JobPostingJsonLd
+        title="Software Engineer"
+        description="<p>We are looking for a passionate Software Engineer to design, develop and install software solutions.</p>"
+        datePosted="2024-01-18"
+        hiringOrganization="Google"
+        jobLocation="Mountain View, CA"
+        baseSalary={{
+          currency: "USD",
+          value: {
+            value: 40.0,
+            unitText: "HOUR",
+          },
+        }}
+      />
+      <article>
+        <h1>Software Engineer</h1>
+        {/* Job posting content */}
+      </article>
+    </>
+  );
+}
+```
+
+#### Advanced Example with Full Details
+
+```tsx
+<JobPostingJsonLd
+  title="Senior Software Engineer"
+  description="<p>Google is looking for a Senior Software Engineer to join our Cloud team. You will be responsible for designing and developing large-scale distributed systems.</p><p>Requirements:</p><ul><li>5+ years of experience</li><li>Strong knowledge of distributed systems</li><li>Experience with cloud technologies</li></ul>"
+  datePosted="2024-01-18"
+  validThrough="2024-03-18T00:00"
+  hiringOrganization={{
+    name: "Google",
+    sameAs: "https://www.google.com",
+    logo: "https://www.google.com/images/logo.png",
+  }}
+  jobLocation={{
+    address: {
+      streetAddress: "1600 Amphitheatre Pkwy",
+      addressLocality: "Mountain View",
+      addressRegion: "CA",
+      postalCode: "94043",
+      addressCountry: "US",
+    },
+  }}
+  url="https://careers.google.com/jobs/123456"
+  employmentType="FULL_TIME"
+  identifier={{
+    name: "Google",
+    value: "1234567",
+  }}
+  baseSalary={{
+    currency: "USD",
+    value: {
+      minValue: 120000,
+      maxValue: 180000,
+      unitText: "YEAR",
+    },
+  }}
+  directApply={true}
+  educationRequirements={{
+    credentialCategory: "bachelor degree",
+  }}
+  experienceRequirements={{
+    monthsOfExperience: 60,
+  }}
+  experienceInPlaceOfEducation={true}
+/>
+```
+
+#### Remote Job Example
+
+```tsx
+<JobPostingJsonLd
+  title="Remote Frontend Developer"
+  description="<p>Join our distributed team as a Frontend Developer. Work from anywhere in the US!</p>"
+  datePosted="2024-01-18"
+  validThrough="2024-02-28T00:00"
+  hiringOrganization="TechStartup Inc."
+  jobLocationType="TELECOMMUTE"
+  applicantLocationRequirements={{
+    name: "USA",
+  }}
+  employmentType="FULL_TIME"
+  baseSalary={{
+    currency: "USD",
+    value: {
+      value: 100000,
+      unitText: "YEAR",
+    },
+  }}
+/>
+```
+
+#### Hybrid Job Example (Remote + Office)
+
+```tsx
+<JobPostingJsonLd
+  title="Product Manager"
+  description="<p>Hybrid position: work from our NYC office or remotely from NY/NJ/CT.</p>"
+  datePosted="2024-01-18"
+  hiringOrganization="Example Corp"
+  jobLocation={{
+    address: {
+      streetAddress: "123 Main St",
+      addressLocality: "New York",
+      addressRegion: "NY",
+      postalCode: "10001",
+      addressCountry: "US",
+    },
+  }}
+  jobLocationType="TELECOMMUTE"
+  applicantLocationRequirements={[
+    { name: "New York, USA" },
+    { name: "New Jersey, USA" },
+    { name: "Connecticut, USA" },
+  ]}
+  employmentType={["FULL_TIME", "CONTRACTOR"]}
+/>
+```
+
+#### Props
+
+| Property                        | Type                                                                                             | Description                                                                     |
+| ------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
+| `title`                         | `string`                                                                                         | **Required.** The title of the job (not the posting). E.g., "Software Engineer" |
+| `description`                   | `string`                                                                                         | **Required.** The full job description in HTML format                           |
+| `datePosted`                    | `string`                                                                                         | **Required.** ISO 8601 date when the job was posted                             |
+| `hiringOrganization`            | `string \| Organization`                                                                         | **Required.** The organization offering the job                                 |
+| `jobLocation`                   | `string \| Place \| (string \| Place)[]`                                                         | Physical location(s) where employee reports to work                             |
+| `url`                           | `string`                                                                                         | The canonical URL for the job posting                                           |
+| `validThrough`                  | `string`                                                                                         | ISO 8601 date when the job posting expires                                      |
+| `employmentType`                | `EmploymentType \| EmploymentType[]`                                                             | Type of employment (FULL_TIME, PART_TIME, CONTRACTOR, etc.)                     |
+| `identifier`                    | `string \| PropertyValue`                                                                        | The hiring organization's unique identifier for the job                         |
+| `baseSalary`                    | `MonetaryAmount`                                                                                 | The base salary of the job (as provided by employer)                            |
+| `applicantLocationRequirements` | `Country \| State \| (Country \| State)[]`                                                       | Geographic locations where employees may be located for remote jobs             |
+| `jobLocationType`               | `"TELECOMMUTE"`                                                                                  | Set to "TELECOMMUTE" for 100% remote jobs                                       |
+| `directApply`                   | `boolean`                                                                                        | Whether the URL enables direct application                                      |
+| `educationRequirements`         | `string \| EducationalOccupationalCredential \| (string \| EducationalOccupationalCredential)[]` | Education requirements for the position                                         |
+| `experienceRequirements`        | `string \| OccupationalExperienceRequirements`                                                   | Experience requirements for the position                                        |
+| `experienceInPlaceOfEducation`  | `boolean`                                                                                        | Whether experience can substitute for education requirements                    |
+| `scriptId`                      | `string`                                                                                         | Custom ID for the script tag                                                    |
+| `scriptKey`                     | `string`                                                                                         | Custom key for React (defaults to "jobposting-jsonld")                          |
+
+#### Employment Type Values
+
+Use these values for the `employmentType` property:
+
+- `FULL_TIME` - Full-time employment
+- `PART_TIME` - Part-time employment
+- `CONTRACTOR` - Contractor position
+- `TEMPORARY` - Temporary employment
+- `INTERN` - Internship position
+- `VOLUNTEER` - Volunteer position
+- `PER_DIEM` - Paid by the day
+- `OTHER` - Other employment type
+
+#### Salary Examples
+
+```tsx
+// Hourly wage
+baseSalary={{
+  currency: "USD",
+  value: {
+    value: 25.00,
+    unitText: "HOUR",
+  },
+}}
+
+// Annual salary range
+baseSalary={{
+  currency: "USD",
+  value: {
+    minValue: 80000,
+    maxValue: 120000,
+    unitText: "YEAR",
+  },
+}}
+
+// Monthly salary
+baseSalary={{
+  currency: "EUR",
+  value: {
+    value: 5000,
+    unitText: "MONTH",
+  },
+}}
+```
+
+#### Best Practices
+
+1. **Complete job descriptions**: Use HTML formatting with `<p>`, `<ul>`, and `<li>` tags for better structure
+2. **Include salary information**: Jobs with salary info get more visibility and engagement
+3. **Set expiration dates**: Always include `validThrough` to automatically expire old postings
+4. **Use employment type**: Specify whether the job is full-time, part-time, contract, etc.
+5. **Remote job requirements**: For remote jobs, always specify `applicantLocationRequirements`
+6. **Direct apply**: Set `directApply: true` if users can apply directly on your site
+7. **Multiple locations**: List all office locations if the job can be performed at multiple sites
+8. **Remove expired jobs**: Update or remove the structured data when jobs are filled
+
+> **Note**: Job postings must comply with Google's content policies. Jobs must be actual openings (not recruiting firms collecting resumes), include application instructions, and be removed when filled.

@@ -36,6 +36,16 @@ import type {
   DataDownload,
   DataCatalog,
 } from "~/types/dataset.types";
+import type {
+  Place as JobPlace,
+  PropertyValue as JobPropertyValue,
+  MonetaryAmount,
+  Country,
+  State,
+  AdministrativeArea,
+  EducationalOccupationalCredential,
+  OccupationalExperienceRequirements,
+} from "~/types/jobposting.types";
 
 export function processAuthor(author: Author): Person | Organization {
   if (typeof author === "string") {
@@ -644,4 +654,198 @@ export function processDataCatalog(
     "@type": "DataCatalog",
     ...catalog,
   } as DataCatalog;
+}
+
+// JobPosting-specific processors
+
+export function processHiringOrganization(
+  org: string | Organization | Omit<Organization, "@type">,
+): Organization {
+  if (typeof org === "string") {
+    return {
+      "@type": "Organization",
+      name: org,
+    };
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in org) {
+    return org as Organization;
+  }
+
+  // No @type - add it
+  const processed: Organization = {
+    "@type": "Organization",
+    ...org,
+  };
+
+  // Process nested logo if present and not a string
+  if ("logo" in org && org.logo && typeof org.logo !== "string") {
+    processed.logo = processImage(org.logo);
+  }
+
+  return processed;
+}
+
+export function processJobLocation(
+  location: string | JobPlace | Omit<JobPlace, "@type">,
+): JobPlace {
+  if (typeof location === "string") {
+    return {
+      "@type": "Place",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: location,
+      },
+    };
+  }
+
+  // If it already has @type, process address if needed
+  if ("@type" in location) {
+    const place = location as JobPlace;
+    if (place.address && typeof place.address !== "string") {
+      return {
+        ...place,
+        address: processAddress(place.address),
+      };
+    }
+    return place;
+  }
+
+  // No @type - add it and process address
+  const processed: JobPlace = {
+    "@type": "Place",
+    ...location,
+  };
+
+  if (location.address && typeof location.address !== "string") {
+    processed.address = processAddress(location.address);
+  }
+
+  return processed;
+}
+
+export function processMonetaryAmount(
+  amount: MonetaryAmount | Omit<MonetaryAmount, "@type">,
+): MonetaryAmount {
+  // Process the value as QuantitativeValue
+  let processedValue: QuantitativeValue;
+  if ("@type" in amount.value) {
+    processedValue = amount.value as QuantitativeValue;
+  } else {
+    processedValue = {
+      "@type": "QuantitativeValue",
+      ...amount.value,
+    };
+  }
+
+  // If it already has @type, return with processed value
+  if ("@type" in amount) {
+    return {
+      ...amount,
+      value: processedValue,
+    } as MonetaryAmount;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "MonetaryAmount",
+    ...amount,
+    value: processedValue,
+  } as MonetaryAmount;
+}
+
+export function processJobPropertyValue(
+  identifier: string | JobPropertyValue | Omit<JobPropertyValue, "@type">,
+): JobPropertyValue {
+  if (typeof identifier === "string") {
+    return {
+      "@type": "PropertyValue",
+      value: identifier,
+    };
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in identifier) {
+    return identifier as JobPropertyValue;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "PropertyValue",
+    ...identifier,
+  } as JobPropertyValue;
+}
+
+export function processApplicantLocationRequirements(
+  location: Omit<Country, "@type"> | Omit<State, "@type"> | Country | State,
+): AdministrativeArea {
+  // If it already has @type, return as-is
+  if ("@type" in location) {
+    return location as AdministrativeArea;
+  }
+
+  // Determine type based on content or default to Country
+  // In practice, the developer should provide enough context
+  // For now, we'll check if the name contains state-like patterns
+  const name = location.name;
+  const isState =
+    name.includes(",") || name.includes("State") || name.match(/\b[A-Z]{2}\b/);
+
+  if (isState) {
+    return {
+      "@type": "State",
+      ...location,
+    } as State;
+  }
+
+  // Default to Country
+  return {
+    "@type": "Country",
+    ...location,
+  } as Country;
+}
+
+export function processEducationRequirements(
+  education:
+    | string
+    | EducationalOccupationalCredential
+    | Omit<EducationalOccupationalCredential, "@type">,
+): string | EducationalOccupationalCredential {
+  if (typeof education === "string") {
+    return education;
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in education) {
+    return education as EducationalOccupationalCredential;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "EducationalOccupationalCredential",
+    ...education,
+  } as EducationalOccupationalCredential;
+}
+
+export function processExperienceRequirements(
+  experience:
+    | string
+    | OccupationalExperienceRequirements
+    | Omit<OccupationalExperienceRequirements, "@type">,
+): string | OccupationalExperienceRequirements {
+  if (typeof experience === "string") {
+    return experience;
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in experience) {
+    return experience as OccupationalExperienceRequirements;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "OccupationalExperienceRequirements",
+    ...experience,
+  } as OccupationalExperienceRequirements;
 }

@@ -831,5 +831,109 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(jsonData!.hasPart[0].name).toBeTruthy();
       expect(jsonData!.hasPart[0].distribution["@type"]).toBe("DataDownload");
     });
+
+    test("JobPostingJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/job-posting");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("JobPosting");
+      expect(jsonData!.title).toBeTruthy();
+      expect(jsonData!.description).toBeTruthy();
+      expect(jsonData!.datePosted).toBeTruthy();
+      expect(jsonData!.hiringOrganization).toBeDefined();
+      expect(jsonData!.hiringOrganization["@type"]).toBe("Organization");
+    });
+
+    test("Remote JobPostingJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/job-posting-remote");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("JobPosting");
+      expect(jsonData!.jobLocationType).toBe("TELECOMMUTE");
+      expect(jsonData!.applicantLocationRequirements).toBeDefined();
+      expect(jsonData!.baseSalary).toBeDefined();
+      expect(jsonData!.baseSalary["@type"]).toBe("MonetaryAmount");
+      expect(jsonData!.baseSalary.value["@type"]).toBe("QuantitativeValue");
+    });
+
+    test("Advanced JobPostingJsonLd with all features produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/job-posting-advanced");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("JobPosting");
+
+      // Verify multiple job locations
+      expect(Array.isArray(jsonData!.jobLocation)).toBe(true);
+      expect(jsonData!.jobLocation).toHaveLength(2);
+      expect(jsonData!.jobLocation[0]["@type"]).toBe("Place");
+      expect(jsonData!.jobLocation[0].address["@type"]).toBe("PostalAddress");
+
+      // Verify multiple applicant location requirements
+      expect(Array.isArray(jsonData!.applicantLocationRequirements)).toBe(true);
+      expect(
+        jsonData!.applicantLocationRequirements.every(
+          (loc: Record<string, unknown>) =>
+            loc["@type"] === "State" || loc["@type"] === "Country",
+        ),
+      ).toBe(true);
+
+      // Verify multiple employment types
+      expect(Array.isArray(jsonData!.employmentType)).toBe(true);
+
+      // Verify education requirements array
+      expect(Array.isArray(jsonData!.educationRequirements)).toBe(true);
+      expect(jsonData!.educationRequirements[0]["@type"]).toBe(
+        "EducationalOccupationalCredential",
+      );
+
+      // Verify experience requirements
+      expect(jsonData!.experienceRequirements["@type"]).toBe(
+        "OccupationalExperienceRequirements",
+      );
+
+      // Verify identifier
+      expect(jsonData!.identifier["@type"]).toBe("PropertyValue");
+
+      // Verify organization with logo
+      expect(jsonData!.hiringOrganization.logo["@type"]).toBe("ImageObject");
+    });
   });
 });

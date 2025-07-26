@@ -76,6 +76,7 @@ export interface QuantitativeValue {
   value?: number;
   minValue?: number;
   maxValue?: number;
+  unitText?: string;
 }
 
 export interface MerchantReturnPolicy {
