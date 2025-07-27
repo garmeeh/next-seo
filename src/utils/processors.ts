@@ -20,6 +20,7 @@ import type {
   Accommodation,
 } from "~/types/common.types";
 import type { Director } from "~/types/movie-carousel.types";
+import type { Provider } from "~/types/course.types";
 import type { BreadcrumbListItem, ListItem } from "~/types/breadcrumb.types";
 import type {
   Place,
@@ -1079,4 +1080,26 @@ export function processAccommodation(
   }
 
   return processed;
+}
+
+// Course-specific processors
+
+export function processProvider(provider: Provider): Organization {
+  if (typeof provider === "string") {
+    return {
+      "@type": "Organization",
+      name: provider,
+    };
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in provider) {
+    return provider as Organization;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "Organization",
+    ...provider,
+  } as Organization;
 }

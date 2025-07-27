@@ -934,6 +934,146 @@ You can use Thing objects with `@id` instead of plain URL strings:
 6. **Avoid duplicates**: Each trail should represent a unique path to the page
 7. **Match visual breadcrumbs**: The structured data should match the breadcrumbs shown on your page
 
+### CourseJsonLd
+
+The `CourseJsonLd` component helps you add structured data for courses to enable course list rich results in Google Search. This can help prospective students discover your courses more easily.
+
+#### Basic Usage
+
+**Single Course:**
+
+```tsx
+import { CourseJsonLd } from "next-seo";
+
+<CourseJsonLd
+  name="Introduction to Computer Science"
+  description="An introductory CS course laying out the basics."
+  provider="University of Technology"
+/>;
+```
+
+**Course List:**
+
+```tsx
+import { CourseJsonLd } from "next-seo";
+
+// Summary page pattern - just URLs
+<CourseJsonLd
+  type="list"
+  urls={[
+    "https://example.com/courses/intro-cs",
+    "https://example.com/courses/intermediate-cs",
+    "https://example.com/courses/advanced-cs"
+  ]}
+/>
+
+// All-in-one page pattern - full course data
+<CourseJsonLd
+  type="list"
+  courses={[
+    {
+      name: "Introduction to Programming",
+      description: "Learn the basics of programming.",
+      url: "https://example.com/courses/intro-programming",
+      provider: "Tech Institute"
+    },
+    {
+      name: "Advanced Algorithms",
+      description: "Study complex algorithmic solutions.",
+      provider: {
+        name: "University Online",
+        sameAs: "https://university.edu"
+      }
+    }
+  ]}
+/>
+```
+
+#### Props
+
+**Single Course Props:**
+
+| Property      | Type                                                    | Description                                                           |
+| ------------- | ------------------------------------------------------- | --------------------------------------------------------------------- |
+| `type`        | `"single"`                                              | Optional. Explicitly sets single course pattern                       |
+| `name`        | `string`                                                | **Required.** The title of the course                                 |
+| `description` | `string`                                                | **Required.** A description of the course (60 char limit for display) |
+| `url`         | `string`                                                | The URL of the course page                                            |
+| `provider`    | `string \| Organization \| Omit<Organization, "@type">` | The organization offering the course                                  |
+| `scriptId`    | `string`                                                | Custom ID for the script tag                                          |
+| `scriptKey`   | `string`                                                | Custom key for React reconciliation                                   |
+
+**Course List Props:**
+
+| Property    | Type                                               | Description                                |
+| ----------- | -------------------------------------------------- | ------------------------------------------ |
+| `type`      | `"list"`                                           | **Required.** Sets the course list pattern |
+| `urls`      | `(string \| { url: string; position?: number })[]` | URLs for summary page pattern              |
+| `courses`   | `CourseListItem[]`                                 | Full course data for all-in-one pattern    |
+| `scriptId`  | `string`                                           | Custom ID for the script tag               |
+| `scriptKey` | `string`                                           | Custom key for React reconciliation        |
+
+#### Advanced Example
+
+```tsx
+import { CourseJsonLd } from "next-seo";
+
+export default function CourseCatalogPage() {
+  return (
+    <>
+      <CourseJsonLd
+        type="list"
+        courses={[
+          {
+            name: "Full-Stack Web Development",
+            description: "Master modern web development from front to back.",
+            url: "https://example.com/courses/fullstack",
+            provider: {
+              name: "Code Academy",
+              url: "https://codeacademy.com",
+              sameAs: [
+                "https://twitter.com/codeacademy",
+                "https://linkedin.com/company/codeacademy",
+              ],
+            },
+          },
+          {
+            name: "Data Science with Python",
+            description:
+              "Learn data analysis and machine learning with Python.",
+            url: "https://example.com/courses/data-science",
+            provider: "Tech University",
+          },
+          {
+            name: "Mobile App Development",
+            description: "Build iOS and Android apps with React Native.",
+            url: "https://example.com/courses/mobile-dev",
+            provider: {
+              name: "Mobile Dev Institute",
+              logo: "https://example.com/logo.png",
+            },
+          },
+        ]}
+      />
+
+      <h1>Our Course Catalog</h1>
+      {/* Your course list UI */}
+    </>
+  );
+}
+```
+
+#### Best Practices
+
+1. **Minimum of 3 courses**: Google requires at least 3 courses for course list rich results
+2. **Consistent provider**: Use the same format for provider across all courses
+3. **Description length**: Keep descriptions under 60 characters for optimal display
+4. **Valid URLs**: Ensure all course URLs are accessible and on the same domain
+5. **Choose the right pattern**:
+   - Use **summary page** pattern when courses have their own detail pages
+   - Use **all-in-one** pattern when all course information is on a single page
+6. **Avoid promotional content**: Don't include prices, discounts, or marketing language in course names
+
 ### EventJsonLd
 
 The `EventJsonLd` component helps you add structured data for events to improve their discoverability in Google Search results and other Google products like Google Maps. Events can appear with rich features including images, dates, locations, and ticket information.

@@ -27,6 +27,10 @@ export {
   type BreadcrumbJsonLdProps,
 } from "./components/BreadcrumbJsonLd";
 export {
+  default as CourseJsonLd,
+  type CourseJsonLdProps,
+} from "./components/CourseJsonLd";
+export {
   default as EventJsonLd,
   type EventJsonLdProps,
 } from "./components/EventJsonLd";

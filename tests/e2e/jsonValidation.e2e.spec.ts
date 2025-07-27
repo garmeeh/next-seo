@@ -1032,5 +1032,109 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(jsonData!.review[0]["@type"]).toBe("Review");
       expect(jsonData!.review[0].author["@type"]).toBe("Person");
     });
+
+    test("CourseJsonLd single course produces valid JSON", async ({ page }) => {
+      await page.goto("/course");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Course");
+
+      // Verify required properties
+      expect(jsonData!.name).toBeTruthy();
+      expect(jsonData!.description).toBeTruthy();
+
+      // Verify provider is Organization
+      expect(jsonData!.provider).toBeDefined();
+      expect(jsonData!.provider["@type"]).toBe("Organization");
+    });
+
+    test("CourseJsonLd list produces valid JSON", async ({ page }) => {
+      await page.goto("/course-list");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ItemList");
+
+      // Verify ItemList structure
+      expect(Array.isArray(jsonData!.itemListElement)).toBe(true);
+      expect(jsonData!.itemListElement.length).toBeGreaterThanOrEqual(3);
+
+      // Verify each item
+      jsonData!.itemListElement.forEach(
+        (item: {
+          "@type": string;
+          position: number;
+          item: { "@type": string; name: string; description: string };
+        }) => {
+          expect(item["@type"]).toBe("ListItem");
+          expect(item.position).toBeGreaterThan(0);
+          expect(item.item).toBeDefined();
+          expect(item.item["@type"]).toBe("Course");
+          expect(item.item.name).toBeTruthy();
+          expect(item.item.description).toBeTruthy();
+        },
+      );
+    });
+
+    test("CourseJsonLd summary list produces valid JSON", async ({ page }) => {
+      await page.goto("/course-list-summary");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ItemList");
+
+      // Verify ItemList structure for summary page
+      expect(Array.isArray(jsonData!.itemListElement)).toBe(true);
+      expect(jsonData!.itemListElement.length).toBeGreaterThanOrEqual(3);
+
+      // Verify each item has only URL, not full course data
+      jsonData!.itemListElement.forEach(
+        (item: {
+          "@type": string;
+          position: number;
+          url: string;
+          item?: unknown;
+        }) => {
+          expect(item["@type"]).toBe("ListItem");
+          expect(item.position).toBeGreaterThan(0);
+          expect(item.url).toBeTruthy();
+          expect(item.item).toBeUndefined(); // Should not have item for summary
+        },
+      );
+    });
   });
 });
