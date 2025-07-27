@@ -485,7 +485,7 @@ describe("DatasetJsonLd", () => {
     });
 
     expect(jsonData.funder).toEqual({
-      "@type": "Person",
+      "@type": "Organization",
       name: "National Science Foundation",
     });
   });

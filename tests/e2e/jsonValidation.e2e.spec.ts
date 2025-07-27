@@ -1136,5 +1136,80 @@ test.describe("JSON-LD Validation Tests", () => {
         },
       );
     });
+
+    test("ProfilePageJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/profile");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ProfilePage");
+
+      // Verify required mainEntity property
+      expect(jsonData!.mainEntity).toBeDefined();
+      expect(jsonData!.mainEntity["@type"]).toBeDefined();
+    });
+
+    test("ProfilePageJsonLd with Person produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/profile-advanced");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ProfilePage");
+      expect(jsonData!.mainEntity["@type"]).toBe("Person");
+
+      // Verify interaction statistics have proper @type
+      expect(jsonData!.mainEntity.interactionStatistic).toBeDefined();
+      jsonData!.mainEntity.interactionStatistic.forEach(
+        (stat: { "@type": string }) => {
+          expect(stat["@type"]).toBe("InteractionCounter");
+        },
+      );
+    });
+
+    test("ProfilePageJsonLd with Organization produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/profile-organization");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ProfilePage");
+      expect(jsonData!.mainEntity["@type"]).toBe("Organization");
+    });
   });
 });

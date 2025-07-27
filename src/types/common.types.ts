@@ -21,6 +21,17 @@ export interface Person extends Thing {
   familyName?: string;
   givenName?: string;
   additionalName?: string;
+  alternateName?: string;
+  identifier?: string;
+  interactionStatistic?:
+    | InteractionCounter
+    | InteractionCounter[]
+    | Omit<InteractionCounter, "@type">
+    | Omit<InteractionCounter, "@type">[];
+  agentInteractionStatistic?:
+    | InteractionCounter
+    | Omit<InteractionCounter, "@type">;
+  sameAs?: string | string[];
 }
 
 export interface Organization extends Thing {
@@ -53,6 +64,15 @@ export interface Organization extends Thing {
     | number
     | QuantitativeValue
     | Omit<QuantitativeValue, "@type">;
+  identifier?: string;
+  interactionStatistic?:
+    | InteractionCounter
+    | InteractionCounter[]
+    | Omit<InteractionCounter, "@type">
+    | Omit<InteractionCounter, "@type">[];
+  agentInteractionStatistic?:
+    | InteractionCounter
+    | Omit<InteractionCounter, "@type">;
 }
 
 export interface PostalAddress {

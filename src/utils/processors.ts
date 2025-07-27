@@ -74,12 +74,7 @@ export function processAuthor(author: Author): Person | Organization {
 
   // No @type - need to determine if it's Person or Organization
   // Check for Organization-specific properties
-  if (
-    "logo" in author ||
-    "address" in author ||
-    "contactPoint" in author ||
-    "sameAs" in author
-  ) {
+  if ("logo" in author || "address" in author || "contactPoint" in author) {
     const org: Organization = {
       "@type": "Organization",
       ...author,
@@ -1101,5 +1096,35 @@ export function processProvider(provider: Provider): Organization {
   return {
     "@type": "Organization",
     ...provider,
+  } as Organization;
+}
+
+export function processFunder(
+  funder: Author | Author[],
+): Person | Organization | (Person | Organization)[] {
+  if (Array.isArray(funder)) {
+    return funder.map((f) => processFunderSingle(f));
+  }
+  return processFunderSingle(funder);
+}
+
+function processFunderSingle(funder: Author): Person | Organization {
+  if (typeof funder === "string") {
+    return {
+      "@type": "Organization",
+      name: funder,
+    };
+  }
+
+  // If it already has @type, return as-is
+  if ("@type" in funder) {
+    return funder as Person | Organization;
+  }
+
+  // For funders without @type, default to Organization
+  // (funding bodies are typically organizations)
+  return {
+    "@type": "Organization",
+    ...funder,
   } as Organization;
 }

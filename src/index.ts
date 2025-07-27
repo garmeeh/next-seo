@@ -58,3 +58,7 @@ export {
   default as VacationRentalJsonLd,
   type VacationRentalJsonLdProps,
 } from "./components/VacationRentalJsonLd";
+export {
+  default as ProfilePageJsonLd,
+  type ProfilePageJsonLdProps,
+} from "./components/ProfilePageJsonLd";

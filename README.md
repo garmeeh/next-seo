@@ -2218,3 +2218,127 @@ import { VacationRentalJsonLd } from "next-seo";
 7. **Unique identifier**: Use a stable ID that won't change with content updates
 
 > **Note**: This feature requires integration with Google's Hotel Center and is limited to sites that meet eligibility criteria. Visit the [vacation rental interest form](https://support.google.com/hotelprices/contact/vacation_rentals_interest) to get started.
+
+### ProfilePageJsonLd
+
+The `ProfilePageJsonLd` component helps you add structured data for profile pages where creators (either people or organizations) share first-hand perspectives. This helps Google Search understand the creators in an online community and show better content from that community in search results, including the Discussions and Forums feature.
+
+#### Basic Usage
+
+```tsx
+import { ProfilePageJsonLd } from "next-seo";
+
+<ProfilePageJsonLd
+  mainEntity="Angelo Huff"
+  dateCreated="2024-12-23T12:34:00-05:00"
+  dateModified="2024-12-26T14:53:00-05:00"
+/>;
+```
+
+#### Advanced Usage
+
+```tsx
+<ProfilePageJsonLd
+  mainEntity={{
+    name: "Angelo Huff",
+    alternateName: "ahuff23",
+    identifier: "123475623",
+    description: "Defender of Truth",
+    image: "https://example.com/avatars/ahuff23.jpg",
+    sameAs: [
+      "https://www.example.com/real-angelo",
+      "https://example.com/profile/therealangelohuff",
+    ],
+    interactionStatistic: [
+      {
+        interactionType: "https://schema.org/FollowAction",
+        userInteractionCount: 1,
+      },
+      {
+        interactionType: "https://schema.org/LikeAction",
+        userInteractionCount: 5,
+      },
+    ],
+    agentInteractionStatistic: {
+      interactionType: "https://schema.org/WriteAction",
+      userInteractionCount: 2346,
+    },
+  }}
+  dateCreated="2024-12-23T12:34:00-05:00"
+  dateModified="2024-12-26T14:53:00-05:00"
+/>
+```
+
+#### Organization Profile Example
+
+```tsx
+<ProfilePageJsonLd
+  mainEntity={{
+    "@type": "Organization",
+    name: "ACME Corporation",
+    url: "https://acme.com",
+    logo: "https://acme.com/logo.png",
+    sameAs: ["https://twitter.com/acme", "https://linkedin.com/company/acme"],
+    interactionStatistic: {
+      interactionType: "https://schema.org/FollowAction",
+      userInteractionCount: 15000,
+    },
+  }}
+/>
+```
+
+#### Props
+
+| Property       | Type                                                                                       | Description                                                         |
+| -------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------- |
+| `mainEntity`   | `string \| Person \| Organization \| Omit<Person, "@type"> \| Omit<Organization, "@type">` | **Required.** The person or organization this profile page is about |
+| `dateCreated`  | `string`                                                                                   | Date and time the profile was created (ISO 8601 format)             |
+| `dateModified` | `string`                                                                                   | Date and time the profile was last modified (ISO 8601 format)       |
+| `scriptId`     | `string`                                                                                   | Custom ID for the script tag                                        |
+| `scriptKey`    | `string`                                                                                   | Custom key for React reconciliation                                 |
+
+#### Person/Organization Properties
+
+When providing an object for `mainEntity`, you can include these properties:
+
+**Common Properties:**
+
+- `name`: The primary name (real name preferred)
+- `alternateName`: Alternate identifier (e.g., username)
+- `identifier`: Unique ID within your site
+- `description`: User's byline or credential
+- `image`: Profile image URL
+- `sameAs`: Array of external profile URLs
+- `interactionStatistic`: User statistics (followers, likes, etc.)
+- `agentInteractionStatistic`: User's own activity statistics
+
+**Interaction Types:**
+
+- `https://schema.org/FollowAction`: Number of followers/following
+- `https://schema.org/LikeAction`: Number of likes
+- `https://schema.org/WriteAction`: Number of posts
+- `https://schema.org/ShareAction`: Number of reshares
+- `https://schema.org/BefriendAction`: Bi-directional relationships
+
+#### Best Practices
+
+1. **Profile focus**: The page must primarily focus on a single person or organization
+2. **Real names**: Use `name` for real names and `alternateName` for usernames
+3. **Stable identifiers**: Use IDs that won't change even if usernames change
+4. **Multiple images**: Include profile images in multiple aspect ratios (16x9, 4x3, 1x1)
+5. **ISO 8601 dates**: Always include timezone information in dates
+6. **Platform statistics**: Only include stats from the current platform
+
+#### Valid Use Cases
+
+✅ User profile pages on forums or social media sites
+✅ Author pages on news sites
+✅ "About Me" pages on blog sites
+✅ Employee pages on company websites
+
+#### Invalid Use Cases
+
+❌ Main home page of a store
+❌ Organization review sites (where the org isn't affiliated with the site)
+
+> **Note**: ProfilePage markup is designed for sites where creators share first-hand perspectives. It can be linked from Article and Recipe structured data authors, and is often used in discussion forum and Q&A page structured data.

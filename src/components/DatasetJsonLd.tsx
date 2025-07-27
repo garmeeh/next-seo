@@ -2,6 +2,7 @@ import { JsonLdScript } from "~/core/JsonLdScript";
 import type { DatasetJsonLdProps } from "~/types/dataset.types";
 import {
   processCreator,
+  processFunder,
   processIdentifier,
   processSpatialCoverage,
   processDataDownload,
@@ -52,7 +53,7 @@ export default function DatasetJsonLd({
     ...(hasPart && { hasPart }),
     ...(isPartOf && { isPartOf }),
     ...(creator && { creator: processCreator(creator) }),
-    ...(funder && { funder: processCreator(funder) }),
+    ...(funder && { funder: processFunder(funder) }),
     ...(includedInDataCatalog && {
       includedInDataCatalog: processDataCatalog(includedInDataCatalog),
     }),

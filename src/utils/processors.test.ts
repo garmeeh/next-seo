@@ -173,16 +173,16 @@ describe("processAuthor", () => {
     });
   });
 
-  it("should add @type Organization to object with sameAs", () => {
-    const orgWithoutType = {
-      name: "Social Media Co",
-      sameAs: ["https://twitter.com/company", "https://facebook.com/company"],
+  it("should add @type Person to object with sameAs (since both Person and Organization can have sameAs)", () => {
+    const personWithoutType = {
+      name: "Social Media User",
+      sameAs: ["https://twitter.com/user", "https://facebook.com/user"],
     };
-    const result = processAuthor(orgWithoutType);
+    const result = processAuthor(personWithoutType);
     expect(result).toEqual({
-      "@type": "Organization",
-      name: "Social Media Co",
-      sameAs: ["https://twitter.com/company", "https://facebook.com/company"],
+      "@type": "Person",
+      name: "Social Media User",
+      sameAs: ["https://twitter.com/user", "https://facebook.com/user"],
     });
   });
 
