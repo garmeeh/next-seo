@@ -2342,3 +2342,211 @@ When providing an object for `mainEntity`, you can include these properties:
 ❌ Organization review sites (where the org isn't affiliated with the site)
 
 > **Note**: ProfilePage markup is designed for sites where creators share first-hand perspectives. It can be linked from Article and Recipe structured data authors, and is often used in discussion forum and Q&A page structured data.
+
+### SoftwareApplicationJsonLd
+
+The `SoftwareApplicationJsonLd` component helps you add structured data for software applications, including mobile apps, web apps, desktop software, and games. This can help your app appear in rich results and improve its visibility in app-related searches.
+
+#### Basic Usage (Free App)
+
+```tsx
+import { SoftwareApplicationJsonLd } from "next-seo";
+
+<SoftwareApplicationJsonLd
+  name="My Awesome App"
+  offers={{
+    price: 0,
+    priceCurrency: "USD",
+  }}
+  aggregateRating={{
+    ratingValue: 4.5,
+    ratingCount: 100,
+  }}
+/>;
+```
+
+#### Paid App Example
+
+```tsx
+<SoftwareApplicationJsonLd
+  name="Premium Photo Editor"
+  applicationCategory="DesignApplication"
+  operatingSystem="iOS 14.0+"
+  offers={{
+    price: 9.99,
+    priceCurrency: "USD",
+  }}
+  aggregateRating={{
+    ratingValue: 4.8,
+    reviewCount: 2500,
+  }}
+  description="Professional photo editing on the go"
+  screenshot={[
+    "https://example.com/screenshot1.jpg",
+    "https://example.com/screenshot2.jpg",
+  ]}
+/>
+```
+
+#### Mobile Application
+
+```tsx
+<SoftwareApplicationJsonLd
+  type="MobileApplication"
+  name="Fitness Tracker Pro"
+  applicationCategory="HealthApplication"
+  operatingSystem="Android 8.0+, iOS 12.0+"
+  offers={{
+    price: 0,
+    priceCurrency: "USD",
+  }}
+  review={[
+    {
+      author: "Jane Smith",
+      reviewRating: { ratingValue: 5 },
+      reviewBody: "Best fitness app I've ever used!",
+    },
+  ]}
+  permissions={["location", "camera", "storage"]}
+  featureList={[
+    "GPS tracking",
+    "Heart rate monitoring",
+    "Social challenges",
+    "Meal planning",
+  ]}
+/>
+```
+
+#### Web Application
+
+```tsx
+<SoftwareApplicationJsonLd
+  type="WebApplication"
+  name="Project Management Suite"
+  url="https://app.example.com"
+  applicationCategory="BusinessApplication"
+  applicationSubCategory="ProjectManagement"
+  offers={[
+    {
+      price: 0,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+    },
+    {
+      price: 29.99,
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+    },
+  ]}
+  aggregateRating={{
+    ratingValue: 4.7,
+    ratingCount: 5000,
+  }}
+  screenshot={{
+    url: "https://example.com/app-dashboard.jpg",
+    caption: "Main dashboard view",
+  }}
+/>
+```
+
+#### Video Game (Co-typed)
+
+For video games, Google requires co-typing with another application type:
+
+```tsx
+<SoftwareApplicationJsonLd
+  type={["VideoGame", "MobileApplication"]}
+  name="Epic Adventure Quest"
+  applicationCategory="GameApplication"
+  operatingSystem="iOS 13.0+, Android 9.0+"
+  offers={{
+    price: 4.99,
+    priceCurrency: "USD",
+  }}
+  aggregateRating={{
+    ratingValue: 4.6,
+    ratingCount: 10000,
+  }}
+  contentRating="Everyone 10+"
+  screenshot={[
+    "https://example.com/gameplay1.jpg",
+    "https://example.com/gameplay2.jpg",
+  ]}
+  featureList={[
+    "Multiplayer battles",
+    "50+ hours of gameplay",
+    "Cloud save support",
+  ]}
+/>
+```
+
+#### Props
+
+| Property                | Type                                                 | Description                                                     |
+| ----------------------- | ---------------------------------------------------- | --------------------------------------------------------------- |
+| `name`                  | `string`                                             | **Required**. The name of the software application              |
+| `type`                  | `ApplicationType \| VideoGameCoTyped`                | Type of application. Defaults to "SoftwareApplication"          |
+| `offers`                | `Offer \| Offer[]`                                   | **Required**. Pricing information. Set price to 0 for free apps |
+| `aggregateRating`       | `AggregateRating`                                    | **Required** (or use `review`). Average rating information      |
+| `review`                | `Review \| Review[]`                                 | **Required** (or use `aggregateRating`). Individual reviews     |
+| `applicationCategory`   | `string`                                             | **Recommended**. Category of the app (e.g., "GameApplication")  |
+| `operatingSystem`       | `string`                                             | **Recommended**. Required OS (e.g., "Windows 10, macOS 10.15+") |
+| `description`           | `string`                                             | Description of the application                                  |
+| `url`                   | `string`                                             | URL of the app's webpage                                        |
+| `image`                 | `string \| ImageObject \| (string \| ImageObject)[]` | App icon or logo                                                |
+| `screenshot`            | `string \| ImageObject \| (string \| ImageObject)[]` | Screenshots of the app                                          |
+| `featureList`           | `string \| string[]`                                 | Key features of the app                                         |
+| `permissions`           | `string \| string[]`                                 | Required permissions                                            |
+| `softwareVersion`       | `string`                                             | Current version number                                          |
+| `datePublished`         | `string`                                             | Initial release date                                            |
+| `dateModified`          | `string`                                             | Last update date                                                |
+| `author`                | `string \| Person \| Organization`                   | Developer or development team                                   |
+| `publisher`             | `Organization`                                       | Publishing organization                                         |
+| `downloadUrl`           | `string`                                             | Direct download link                                            |
+| `installUrl`            | `string`                                             | Installation link                                               |
+| `memoryRequirements`    | `string`                                             | RAM requirements                                                |
+| `storageRequirements`   | `string`                                             | Storage space needed                                            |
+| `processorRequirements` | `string`                                             | CPU requirements                                                |
+| `countriesSupported`    | `string \| string[]`                                 | Supported countries                                             |
+| `applicationSuite`      | `string`                                             | Suite the app belongs to                                        |
+
+#### Application Types
+
+The component supports all Google-recognized application types:
+
+- `SoftwareApplication` (default)
+- `MobileApplication`
+- `WebApplication`
+- `GameApplication`
+- `SocialNetworkingApplication`
+- `TravelApplication`
+- `ShoppingApplication`
+- `SportsApplication`
+- `LifestyleApplication`
+- `BusinessApplication`
+- `DesignApplication`
+- `DeveloperApplication`
+- `DriverApplication`
+- `EducationalApplication`
+- `HealthApplication`
+- `FinanceApplication`
+- `SecurityApplication`
+- `BrowserApplication`
+- `CommunicationApplication`
+- `DesktopEnhancementApplication`
+- `EntertainmentApplication`
+- `MultimediaApplication`
+- `HomeApplication`
+- `UtilitiesApplication`
+- `ReferenceApplication`
+
+#### Best Practices
+
+1. **Always include pricing**: Use `offers` with `price: 0` for free apps
+2. **Provide ratings or reviews**: Include either `aggregateRating` or `review` (required by Google)
+3. **Specify OS requirements**: Use `operatingSystem` for better user experience
+4. **Multiple screenshots**: Include various screenshots showing key features
+5. **Video games**: Always co-type with another application type (e.g., `["VideoGame", "MobileApplication"]`)
+6. **Feature lists**: Highlight key features that differentiate your app
+7. **Version information**: Keep `softwareVersion` and `dateModified` current
+8. **Permissions transparency**: List all required permissions for mobile apps

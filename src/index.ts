@@ -62,3 +62,7 @@ export {
   default as ProfilePageJsonLd,
   type ProfilePageJsonLdProps,
 } from "./components/ProfilePageJsonLd";
+export {
+  default as SoftwareApplicationJsonLd,
+  type SoftwareApplicationJsonLdProps,
+} from "./components/SoftwareApplicationJsonLd";

@@ -1211,5 +1211,66 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(jsonData!["@type"]).toBe("ProfilePage");
       expect(jsonData!.mainEntity["@type"]).toBe("Organization");
     });
+
+    test("SoftwareApplicationJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/software-app");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("SoftwareApplication");
+      // Verify required properties
+      expect(jsonData!.name).toBeDefined();
+      expect(jsonData!.offers).toBeDefined();
+      expect(jsonData!.aggregateRating).toBeDefined();
+    });
+
+    test("MobileApplication variant produces valid JSON", async ({ page }) => {
+      await page.goto("/mobile-app");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("MobileApplication");
+    });
+
+    test("VideoGame co-typed produces valid JSON", async ({ page }) => {
+      await page.goto("/video-game");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toEqual(["VideoGame", "MobileApplication"]);
+    });
   });
 });

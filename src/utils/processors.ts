@@ -384,16 +384,64 @@ export function processPublisher(
     };
   }
 
-  // If it already has @type, return as-is
+  // If it already has @type, return as-is but still process nested fields
   if ("@type" in publisher) {
+    const pub = publisher as Organization;
+    if (pub["@type"] === "Organization") {
+      const result = { ...pub };
+
+      // Process logo if present and not a string
+      if (pub.logo && typeof pub.logo !== "string") {
+        result.logo = processImage(pub.logo);
+      }
+
+      // Process address if present and not a string
+      if (pub.address && typeof pub.address !== "string") {
+        if (Array.isArray(pub.address)) {
+          result.address = pub.address.map((addr) =>
+            typeof addr === "string" ? addr : processAddress(addr),
+          );
+        } else {
+          result.address = processAddress(pub.address);
+        }
+      }
+
+      return result as Organization;
+    }
     return publisher as Person | Organization;
   }
 
-  // No @type - default to Organization but preserve all fields
-  return {
+  // No @type - default to Organization and process nested fields
+  const result: Organization = {
     "@type": "Organization",
     ...publisher,
-  } as Organization;
+  };
+
+  // Process nested logo if present and not a string
+  if (
+    "logo" in publisher &&
+    publisher.logo &&
+    typeof publisher.logo !== "string"
+  ) {
+    result.logo = processImage(publisher.logo);
+  }
+
+  // Process nested address if present and not a string
+  if (
+    "address" in publisher &&
+    publisher.address &&
+    typeof publisher.address !== "string"
+  ) {
+    if (Array.isArray(publisher.address)) {
+      result.address = publisher.address.map((addr) =>
+        typeof addr === "string" ? addr : processAddress(addr),
+      );
+    } else {
+      result.address = processAddress(publisher.address);
+    }
+  }
+
+  return result as Organization;
 }
 
 export function processNutrition(
@@ -1127,4 +1175,21 @@ function processFunderSingle(funder: Author): Person | Organization {
     "@type": "Organization",
     ...funder,
   } as Organization;
+}
+
+// SoftwareApplication-specific processors
+
+export function processScreenshot(
+  screenshot: string | ImageObject | Omit<ImageObject, "@type">,
+): string | ImageObject {
+  // Screenshot processing is same as image processing
+  return processImage(screenshot);
+}
+
+export function processFeatureList(
+  features: string | string[],
+): string | string[] {
+  // Feature list can be a string or array of strings
+  // No transformation needed, just return as-is
+  return features;
 }
