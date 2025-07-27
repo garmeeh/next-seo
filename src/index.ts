@@ -55,6 +55,10 @@ export {
   type DiscussionForumPostingJsonLdProps,
 } from "./components/DiscussionForumPostingJsonLd";
 export {
+  default as EmployerAggregateRatingJsonLd,
+  type EmployerAggregateRatingJsonLdProps,
+} from "./components/EmployerAggregateRatingJsonLd";
+export {
   default as VacationRentalJsonLd,
   type VacationRentalJsonLdProps,
 } from "./components/VacationRentalJsonLd";

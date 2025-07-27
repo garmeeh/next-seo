@@ -2040,6 +2040,81 @@ The following interaction types are supported for `interactionStatistic`:
 
 > **Note**: DiscussionForumPosting is designed for forum-style sites where people share first-hand perspectives. For Q&A formats, use Q&A structured data instead.
 
+### EmployerAggregateRatingJsonLd
+
+The `EmployerAggregateRatingJsonLd` component helps you add structured data for user-generated ratings about hiring organizations. This enables job seekers to see ratings in the enriched job search experience on Google.
+
+#### Basic Usage
+
+```tsx
+import { EmployerAggregateRatingJsonLd } from "next-seo";
+
+<EmployerAggregateRatingJsonLd
+  itemReviewed="World's Best Coffee Shop"
+  ratingValue={91}
+  ratingCount={10561}
+/>;
+```
+
+#### Props
+
+| Property       | Type                     | Description                                                                       |
+| -------------- | ------------------------ | --------------------------------------------------------------------------------- |
+| `itemReviewed` | `string \| Organization` | **Required.** The organization being rated                                        |
+| `ratingValue`  | `number \| string`       | **Required.** The rating value (number, fraction, or percentage)                  |
+| `ratingCount`  | `number`                 | The total number of ratings (at least one of ratingCount or reviewCount required) |
+| `reviewCount`  | `number`                 | The number of reviews (at least one of ratingCount or reviewCount required)       |
+| `bestRating`   | `number`                 | The highest value allowed in this rating system (default: 5)                      |
+| `worstRating`  | `number`                 | The lowest value allowed in this rating system (default: 1)                       |
+| `scriptId`     | `string`                 | Custom ID for the script tag                                                      |
+| `scriptKey`    | `string`                 | React key for the script tag                                                      |
+
+#### Advanced Example
+
+```tsx
+<EmployerAggregateRatingJsonLd
+  itemReviewed={{
+    name: "World's Best Coffee Shop",
+    sameAs: "https://www.worlds-best-coffee-shop.example.com",
+    url: "https://www.worlds-best-coffee-shop.example.com",
+    logo: "https://example.com/logo.png",
+    address: {
+      streetAddress: "123 Main St",
+      addressLocality: "Seattle",
+      addressRegion: "WA",
+      postalCode: "98101",
+      addressCountry: "US",
+    },
+  }}
+  ratingValue={91}
+  ratingCount={10561}
+  bestRating={100}
+  worstRating={1}
+/>
+```
+
+#### Custom Rating Scale Example
+
+```tsx
+<EmployerAggregateRatingJsonLd
+  itemReviewed="Percentage-Based Company"
+  ratingValue="85%"
+  reviewCount={250}
+  bestRating={100}
+  worstRating={0}
+/>
+```
+
+#### Best Practices
+
+1. **Always include organization details**: Provide as much information about the organization as possible
+2. **Use sameAs property**: Link to the organization's official website or social media profiles
+3. **Rating scales**: If not using a 5-point scale, always specify bestRating and worstRating
+4. **Count accuracy**: Ensure ratingCount and reviewCount reflect actual user ratings on your site
+5. **Rating derivation**: The ratingValue must be accurately calculated from user ratings
+
+> **Note**: At least one of `ratingCount` or `reviewCount` must be provided. The component will throw an error if neither is present.
+
 ### VacationRentalJsonLd
 
 The `VacationRentalJsonLd` component helps you add structured data for vacation rental listings to improve their appearance in Google Search results. Users can see listing information such as name, description, images, location, rating, and reviews directly in search results.

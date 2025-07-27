@@ -1272,5 +1272,31 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(jsonData!["@context"]).toBe("https://schema.org");
       expect(jsonData!["@type"]).toEqual(["VideoGame", "MobileApplication"]);
     });
+
+    test("EmployerAggregateRatingJsonLd produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/employer-aggregate-rating");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("EmployerAggregateRating");
+      // Verify required properties
+      expect(jsonData!.itemReviewed).toBeDefined();
+      expect(jsonData!.itemReviewed["@type"]).toBe("Organization");
+      expect(jsonData!.ratingValue).toBeDefined();
+      expect(jsonData!.ratingCount || jsonData!.reviewCount).toBeTruthy();
+    });
   });
 });
