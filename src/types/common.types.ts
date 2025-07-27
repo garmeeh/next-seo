@@ -77,6 +77,7 @@ export interface QuantitativeValue {
   minValue?: number;
   maxValue?: number;
   unitText?: string;
+  unitCode?: string;
 }
 
 export interface MerchantReturnPolicy {
@@ -173,4 +174,44 @@ export interface InteractionCounter {
   "@type": "InteractionCounter";
   interactionType: string;
   userInteractionCount: number;
+}
+
+export interface Brand {
+  "@type": "Brand";
+  name?: string;
+}
+
+export interface BedDetails {
+  "@type": "BedDetails";
+  numberOfBeds?: number;
+  typeOfBed?: string;
+}
+
+export interface LocationFeatureSpecification {
+  "@type": "LocationFeatureSpecification";
+  name: string;
+  value: boolean | string;
+}
+
+export interface Accommodation {
+  "@type": "Accommodation";
+  additionalType?: string;
+  bed?:
+    | BedDetails
+    | Omit<BedDetails, "@type">
+    | (BedDetails | Omit<BedDetails, "@type">)[];
+  occupancy?: QuantitativeValue | Omit<QuantitativeValue, "@type">;
+  amenityFeature?:
+    | LocationFeatureSpecification
+    | Omit<LocationFeatureSpecification, "@type">
+    | (
+        | LocationFeatureSpecification
+        | Omit<LocationFeatureSpecification, "@type">
+      )[];
+  floorSize?: QuantitativeValue | Omit<QuantitativeValue, "@type">;
+  numberOfBathroomsTotal?: number;
+  numberOfBedrooms?: number;
+  numberOfRooms?: number;
+  petsAllowed?: boolean;
+  smokingAllowed?: boolean;
 }

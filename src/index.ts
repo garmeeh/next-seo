@@ -50,3 +50,7 @@ export {
   default as DiscussionForumPostingJsonLd,
   type DiscussionForumPostingJsonLdProps,
 } from "./components/DiscussionForumPostingJsonLd";
+export {
+  default as VacationRentalJsonLd,
+  type VacationRentalJsonLdProps,
+} from "./components/VacationRentalJsonLd";

@@ -980,5 +980,57 @@ test.describe("JSON-LD Validation Tests", () => {
       // Verify sharedContent
       expect(jsonData!.sharedContent["@type"]).toBe("WebPage");
     });
+
+    test("VacationRentalJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/vacation-rental-advanced");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("VacationRental");
+
+      // Verify required properties
+      expect(jsonData!.containsPlace).toBeDefined();
+      expect(jsonData!.containsPlace["@type"]).toBe("Accommodation");
+      expect(jsonData!.containsPlace.occupancy["@type"]).toBe(
+        "QuantitativeValue",
+      );
+      expect(jsonData!.identifier).toBeTruthy();
+      expect(Array.isArray(jsonData!.image)).toBe(true);
+      expect(jsonData!.image.length).toBeGreaterThanOrEqual(8);
+      expect(jsonData!.latitude).toBeDefined();
+      expect(jsonData!.longitude).toBeDefined();
+      expect(jsonData!.name).toBeTruthy();
+
+      // Verify nested structures
+      expect(jsonData!.address["@type"]).toBe("PostalAddress");
+      expect(jsonData!.aggregateRating["@type"]).toBe("AggregateRating");
+      expect(jsonData!.brand["@type"]).toBe("Brand");
+
+      // Verify bed details
+      expect(Array.isArray(jsonData!.containsPlace.bed)).toBe(true);
+      expect(jsonData!.containsPlace.bed[0]["@type"]).toBe("BedDetails");
+
+      // Verify amenity features
+      expect(Array.isArray(jsonData!.containsPlace.amenityFeature)).toBe(true);
+      expect(jsonData!.containsPlace.amenityFeature[0]["@type"]).toBe(
+        "LocationFeatureSpecification",
+      );
+
+      // Verify reviews
+      expect(Array.isArray(jsonData!.review)).toBe(true);
+      expect(jsonData!.review[0]["@type"]).toBe("Review");
+      expect(jsonData!.review[0].author["@type"]).toBe("Person");
+    });
   });
 });

@@ -1899,3 +1899,182 @@ The following interaction types are supported for `interactionStatistic`:
 8. **Multi-page threads**: For paginated discussions, set the `url` to the first page
 
 > **Note**: DiscussionForumPosting is designed for forum-style sites where people share first-hand perspectives. For Q&A formats, use Q&A structured data instead.
+
+### VacationRentalJsonLd
+
+The `VacationRentalJsonLd` component helps you add structured data for vacation rental listings to improve their appearance in Google Search results. Users can see listing information such as name, description, images, location, rating, and reviews directly in search results.
+
+#### Basic Usage
+
+```tsx
+import { VacationRentalJsonLd } from "next-seo";
+
+<VacationRentalJsonLd
+  containsPlace={{
+    occupancy: {
+      value: 5,
+    },
+  }}
+  identifier="abc123"
+  image="https://example.com/vacation-rental-main.jpg"
+  latitude={42.12345}
+  longitude={101.12345}
+  name="Beautiful Beach House"
+/>;
+```
+
+#### Advanced Usage
+
+```tsx
+<VacationRentalJsonLd
+  containsPlace={{
+    additionalType: "EntirePlace",
+    bed: [
+      {
+        numberOfBeds: 1,
+        typeOfBed: "Queen",
+      },
+      {
+        numberOfBeds: 2,
+        typeOfBed: "Single",
+      },
+    ],
+    occupancy: {
+      value: 5,
+    },
+    amenityFeature: [
+      {
+        name: "ac",
+        value: true,
+      },
+      {
+        name: "wifi",
+        value: true,
+      },
+      {
+        name: "poolType",
+        value: "Outdoor",
+      },
+    ],
+    floorSize: {
+      value: 75,
+      unitCode: "MTK",
+    },
+    numberOfBathroomsTotal: 2.5,
+    numberOfBedrooms: 3,
+    numberOfRooms: 5,
+    petsAllowed: true,
+    smokingAllowed: false,
+  }}
+  identifier="lux-villa-123"
+  image={[
+    "https://example.com/image1.jpg",
+    "https://example.com/image2.jpg",
+    "https://example.com/image3.jpg",
+    "https://example.com/image4.jpg",
+    "https://example.com/image5.jpg",
+    "https://example.com/image6.jpg",
+    "https://example.com/image7.jpg",
+    "https://example.com/image8.jpg",
+  ]}
+  latitude={42.12345}
+  longitude={101.12345}
+  name="Luxury Ocean View Villa"
+  additionalType="Villa"
+  address={{
+    addressCountry: "US",
+    addressLocality: "Malibu",
+    addressRegion: "California",
+    postalCode: "90265",
+    streetAddress: "123 Ocean Drive",
+  }}
+  aggregateRating={{
+    ratingValue: 4.8,
+    ratingCount: 120,
+    reviewCount: 95,
+    bestRating: 5,
+  }}
+  brand={{
+    name: "Luxury Vacation Rentals Inc",
+  }}
+  checkinTime="15:00:00-08:00"
+  checkoutTime="11:00:00-08:00"
+  description="Stunning beachfront villa with panoramic ocean views"
+  knowsLanguage={["en-US", "es-ES", "fr-FR"]}
+  review={[
+    {
+      reviewRating: {
+        ratingValue: 5,
+        bestRating: 5,
+      },
+      author: "Jane Smith",
+      datePublished: "2024-01-15",
+      contentReferenceTime: "2024-01-10",
+    },
+  ]}
+/>
+```
+
+#### Props
+
+| Property                          | Type                             | Description                                                       |
+| --------------------------------- | -------------------------------- | ----------------------------------------------------------------- |
+| **containsPlace**                 | `Accommodation`                  | **Required.** Details about the accommodation including occupancy |
+| **containsPlace.occupancy**       | `QuantitativeValue`              | **Required.** Maximum number of guests                            |
+| **containsPlace.occupancy.value** | `number`                         | **Required.** The numerical value of guests                       |
+| **identifier**                    | `string`                         | **Required.** A unique identifier for the property                |
+| **image**                         | `string \| ImageObject \| array` | **Required.** Minimum 8 photos (bedroom, bathroom, common area)   |
+| **latitude**                      | `number \| string`               | **Required.** Latitude with 5 decimal precision                   |
+| **longitude**                     | `number \| string`               | **Required.** Longitude with 5 decimal precision                  |
+| **name**                          | `string`                         | **Required.** The name of the vacation rental                     |
+| `additionalType`                  | `string`                         | Type of rental (e.g., House, Villa, Apartment, Cottage)           |
+| `address`                         | `PostalAddress`                  | Full physical address of the rental                               |
+| `aggregateRating`                 | `AggregateRating`                | Average rating based on multiple reviews                          |
+| `brand`                           | `Brand`                          | The brand associated with the property                            |
+| `checkinTime`                     | `string`                         | Earliest check-in time in ISO 8601 format                         |
+| `checkoutTime`                    | `string`                         | Latest check-out time in ISO 8601 format                          |
+| `description`                     | `string`                         | A description of the property                                     |
+| `knowsLanguage`                   | `string \| string[]`             | Languages the host speaks (IETF BCP 47)                           |
+| `review`                          | `Review \| Review[]`             | User reviews of the listing                                       |
+| `geo`                             | `object`                         | Alternative way to specify coordinates                            |
+| `scriptId`                        | `string`                         | Custom ID for the script tag                                      |
+| `scriptKey`                       | `string`                         | Custom data-seo attribute value                                   |
+
+#### Accommodation Properties
+
+| Property                 | Type                                    | Description                                               |
+| ------------------------ | --------------------------------------- | --------------------------------------------------------- |
+| `additionalType`         | `string`                                | Type of room (EntirePlace, PrivateRoom, SharedRoom)       |
+| `bed`                    | `BedDetails \| BedDetails[]`            | Information about beds                                    |
+| `amenityFeature`         | `LocationFeatureSpecification \| array` | Property amenities                                        |
+| `floorSize`              | `QuantitativeValue`                     | Size with unitCode (FTK/SQFT for sq ft, MTK/SQM for sq m) |
+| `numberOfBathroomsTotal` | `number`                                | Total bathrooms (can be decimal, e.g., 2.5)               |
+| `numberOfBedrooms`       | `number`                                | Total number of bedrooms                                  |
+| `numberOfRooms`          | `number`                                | Total number of rooms                                     |
+| `petsAllowed`            | `boolean`                               | Whether pets are allowed                                  |
+| `smokingAllowed`         | `boolean`                               | Whether smoking is allowed                                |
+
+#### Amenity Feature Values
+
+**Boolean amenities** (use `value: true/false`):
+
+- `ac`, `airportShuttle`, `balcony`, `beachAccess`, `childFriendly`, `crib`, `elevator`, `fireplace`, `freeBreakfast`, `gymFitnessEquipment`, `heating`, `hotTub`, `instantBookable`, `ironingBoard`, `kitchen`, `microwave`, `outdoorGrill`, `ovenStove`, `patio`, `petsAllowed`, `pool`, `privateBeachAccess`, `selfCheckinCheckout`, `smokingAllowed`, `tv`, `washerDryer`, `wheelchairAccessible`, `wifi`
+
+**Non-boolean amenities** (use `value: "string"`):
+
+- `internetType`: "Free", "Paid", "None"
+- `parkingType`: "Free", "Paid", "None"
+- `poolType`: "Indoor", "Outdoor", "None"
+- `licenseNum`: License number with authority context
+
+#### Best Practices
+
+1. **Minimum 8 images**: Include at least one photo of bedroom, bathroom, and common areas
+2. **Precise coordinates**: Use at least 5 decimal places for latitude/longitude
+3. **Complete address**: Provide full physical address including unit numbers
+4. **Accurate occupancy**: Specify the maximum number of guests allowed
+5. **Languages**: List all languages the host can communicate in
+6. **Reviews**: Include the `contentReferenceTime` for French listings
+7. **Unique identifier**: Use a stable ID that won't change with content updates
+
+> **Note**: This feature requires integration with Google's Hotel Center and is limited to sites that meet eligibility criteria. Visit the [vacation rental interest form](https://support.google.com/hotelprices/contact/vacation_rentals_interest) to get started.

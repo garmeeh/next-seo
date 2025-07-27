@@ -14,6 +14,10 @@ import type {
   Rating,
   VideoObject,
   InteractionCounter,
+  Brand,
+  BedDetails,
+  LocationFeatureSpecification,
+  Accommodation,
 } from "~/types/common.types";
 import type { Director } from "~/types/movie-carousel.types";
 import type { BreadcrumbListItem, ListItem } from "~/types/breadcrumb.types";
@@ -980,4 +984,99 @@ export function processIsPartOf(
     "@type": "CreativeWork",
     ...isPartOf,
   } as ForumCreativeWork;
+}
+
+// VacationRental-specific processors
+
+export function processBrand(brand: Brand | Omit<Brand, "@type">): Brand {
+  // If it already has @type, return as-is
+  if ("@type" in brand) {
+    return brand as Brand;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "Brand",
+    ...brand,
+  } as Brand;
+}
+
+export function processBedDetails(
+  bed: BedDetails | Omit<BedDetails, "@type">,
+): BedDetails {
+  // If it already has @type, return as-is
+  if ("@type" in bed) {
+    return bed as BedDetails;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "BedDetails",
+    ...bed,
+  } as BedDetails;
+}
+
+export function processLocationFeatureSpecification(
+  feature:
+    | LocationFeatureSpecification
+    | Omit<LocationFeatureSpecification, "@type">,
+): LocationFeatureSpecification {
+  // If it already has @type, return as-is
+  if ("@type" in feature) {
+    return feature as LocationFeatureSpecification;
+  }
+
+  // No @type - add it
+  return {
+    "@type": "LocationFeatureSpecification",
+    ...feature,
+  } as LocationFeatureSpecification;
+}
+
+export function processAccommodation(
+  accommodation: Accommodation | Omit<Accommodation, "@type">,
+): Accommodation {
+  // Start with basic properties
+  const processed: Accommodation = {
+    "@type": "Accommodation",
+    ...accommodation,
+  } as Accommodation;
+
+  // Process nested bed details if present
+  if (accommodation.bed) {
+    if (Array.isArray(accommodation.bed)) {
+      processed.bed = accommodation.bed.map(processBedDetails);
+    } else {
+      processed.bed = processBedDetails(accommodation.bed);
+    }
+  }
+
+  // Process occupancy if present
+  if (accommodation.occupancy) {
+    processed.occupancy = processNumberOfEmployees(
+      accommodation.occupancy,
+    ) as QuantitativeValue;
+  }
+
+  // Process amenityFeature if present
+  if (accommodation.amenityFeature) {
+    if (Array.isArray(accommodation.amenityFeature)) {
+      processed.amenityFeature = accommodation.amenityFeature.map(
+        processLocationFeatureSpecification,
+      );
+    } else {
+      processed.amenityFeature = processLocationFeatureSpecification(
+        accommodation.amenityFeature,
+      );
+    }
+  }
+
+  // Process floorSize if present
+  if (accommodation.floorSize) {
+    processed.floorSize = processNumberOfEmployees(
+      accommodation.floorSize,
+    ) as QuantitativeValue;
+  }
+
+  return processed;
 }
