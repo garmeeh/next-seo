@@ -2115,6 +2115,8 @@ import { EmployerAggregateRatingJsonLd } from "next-seo";
 
 > **Note**: At least one of `ratingCount` or `reviewCount` must be provided. The component will throw an error if neither is present.
 
+> **Looking for job posting structured data?** Check out [JobPostingJsonLd](#jobpostingjsonld) to add complete job listing structured data alongside employer ratings.
+
 ### VacationRentalJsonLd
 
 The `VacationRentalJsonLd` component helps you add structured data for vacation rental listings to improve their appearance in Google Search results. Users can see listing information such as name, description, images, location, rating, and reviews directly in search results.

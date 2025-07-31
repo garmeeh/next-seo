@@ -126,6 +126,7 @@ describe("EmployerAggregateRatingJsonLd", () => {
       url: "https://example.com",
       logo: "https://example.com/logo.png",
       address: {
+        "@type": "PostalAddress",
         streetAddress: "123 Main St",
         addressLocality: "Seattle",
         addressRegion: "WA",
@@ -311,5 +312,48 @@ describe("EmployerAggregateRatingJsonLd", () => {
       "https://facebook.com/company",
       "https://twitter.com/company",
     ]);
+    // Verify nested properties are processed correctly
+    expect(jsonData.itemReviewed.logo).toEqual({
+      "@type": "ImageObject",
+      url: "https://company.com/logo.png",
+      width: 600,
+      height: 300,
+    });
+    expect(jsonData.itemReviewed.address[0]["@type"]).toBe("PostalAddress");
+    expect(jsonData.itemReviewed.address[1]["@type"]).toBe("PostalAddress");
+  });
+
+  it("properly processes nested Organization properties", () => {
+    const { container } = render(
+      <EmployerAggregateRatingJsonLd
+        itemReviewed={{
+          name: "Complex Corp",
+          numberOfEmployees: 1000,
+          contactPoint: {
+            contactType: "HR Department",
+            telephone: "+1-555-HR-DEPT",
+            email: "hr@complex-corp.com",
+          },
+        }}
+        ratingValue={4.5}
+        ratingCount={750}
+      />,
+    );
+
+    const jsonData = JSON.parse(
+      container.querySelector('script[type="application/ld+json"]')!
+        .textContent!,
+    );
+
+    expect(jsonData.itemReviewed.numberOfEmployees).toEqual({
+      "@type": "QuantitativeValue",
+      value: 1000,
+    });
+    expect(jsonData.itemReviewed.contactPoint).toEqual({
+      "@type": "ContactPoint",
+      contactType: "HR Department",
+      telephone: "+1-555-HR-DEPT",
+      email: "hr@complex-corp.com",
+    });
   });
 });

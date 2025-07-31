@@ -59,316 +59,395 @@ import type {
   CreativeWork as ForumCreativeWork,
 } from "~/types/discussionforum.types";
 
+// Schema.org type constants
+const SCHEMA_TYPES = {
+  PERSON: "Person",
+  ORGANIZATION: "Organization",
+  IMAGE_OBJECT: "ImageObject",
+  POSTAL_ADDRESS: "PostalAddress",
+  CONTACT_POINT: "ContactPoint",
+  QUANTITATIVE_VALUE: "QuantitativeValue",
+  GEO_COORDINATES: "GeoCoordinates",
+  GEO_SHAPE: "GeoShape",
+  OPENING_HOURS: "OpeningHoursSpecification",
+  REVIEW: "Review",
+  RATING: "Rating",
+  AGGREGATE_RATING: "AggregateRating",
+  MERCHANT_RETURN_POLICY: "MerchantReturnPolicy",
+  VIDEO_OBJECT: "VideoObject",
+  INTERACTION_COUNTER: "InteractionCounter",
+  BRAND: "Brand",
+  BED_DETAILS: "BedDetails",
+  LOCATION_FEATURE: "LocationFeatureSpecification",
+  ACCOMMODATION: "Accommodation",
+  PLACE: "Place",
+  PERFORMING_GROUP: "PerformingGroup",
+  OFFER: "Offer",
+  LIST_ITEM: "ListItem",
+  NUTRITION_INFORMATION: "NutritionInformation",
+  HOW_TO_STEP: "HowToStep",
+  HOW_TO_SECTION: "HowToSection",
+  PROPERTY_VALUE: "PropertyValue",
+  CREATIVE_WORK: "CreativeWork",
+  DATA_DOWNLOAD: "DataDownload",
+  DATA_CATALOG: "DataCatalog",
+  COUNTRY: "Country",
+  STATE: "State",
+  EDUCATIONAL_CREDENTIAL: "EducationalOccupationalCredential",
+  OCCUPATIONAL_EXPERIENCE: "OccupationalExperienceRequirements",
+  COMMENT: "Comment",
+  WEB_PAGE: "WebPage",
+} as const;
+
+// Type guard utilities
+function hasType<T extends { "@type": string }>(obj: unknown): obj is T {
+  return obj !== null && typeof obj === "object" && "@type" in obj;
+}
+
+function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+
+// Generic processor for simple schema types
+function processSchemaType<T extends { "@type": string }>(
+  value: unknown,
+  schemaType: string,
+  stringHandler?: (str: string) => Omit<T, "@type">,
+  numberHandler?: (num: number) => Omit<T, "@type">,
+): T {
+  if (isString(value) && stringHandler) {
+    return { "@type": schemaType, ...stringHandler(value) } as T;
+  }
+
+  if (typeof value === "number" && numberHandler) {
+    return { "@type": schemaType, ...numberHandler(value) } as T;
+  }
+
+  if (hasType<T>(value)) {
+    return value;
+  }
+
+  // Ensure value is an object before spreading
+  if (typeof value === "object" && value !== null) {
+    return { "@type": schemaType, ...value } as T;
+  }
+
+  // Fallback for non-object values
+  return { "@type": schemaType } as T;
+}
+
+// Helper to process nested organization fields
+function processOrganizationFields(org: Organization): void {
+  if (org.logo && !isString(org.logo)) {
+    org.logo = processImage(org.logo);
+  }
+
+  if (org.address && !isString(org.address)) {
+    if (Array.isArray(org.address)) {
+      org.address = org.address.map((addr) =>
+        isString(addr) ? addr : processAddress(addr),
+      );
+    } else {
+      org.address = processAddress(org.address);
+    }
+  }
+
+  if (org.contactPoint) {
+    if (Array.isArray(org.contactPoint)) {
+      org.contactPoint = org.contactPoint.map(processContactPoint);
+    } else {
+      org.contactPoint = processContactPoint(org.contactPoint);
+    }
+  }
+}
+
+/**
+ * Processes author input into a Person or Organization schema type
+ * @param author - String name, Person object, or Organization object
+ * @returns Processed Person or Organization with @type
+ * @example
+ * processAuthor("John Doe") // { "@type": "Person", name: "John Doe" }
+ * processAuthor({ name: "ACME Corp", logo: "logo.jpg" }) // { "@type": "Organization", ... }
+ */
 export function processAuthor(author: Author): Person | Organization {
-  if (typeof author === "string") {
+  if (isString(author)) {
     return {
-      "@type": "Person",
+      "@type": SCHEMA_TYPES.PERSON,
       name: author,
     };
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in author) {
-    return author as Person | Organization;
+  if (hasType<Person | Organization>(author)) {
+    return author;
   }
 
-  // No @type - need to determine if it's Person or Organization
-  // Check for Organization-specific properties
-  if ("logo" in author || "address" in author || "contactPoint" in author) {
+  // Determine if it's Person or Organization based on properties
+  const hasOrgProperties =
+    "logo" in author || "address" in author || "contactPoint" in author;
+
+  if (hasOrgProperties) {
     const org: Organization = {
-      "@type": "Organization",
+      "@type": SCHEMA_TYPES.ORGANIZATION,
       ...author,
     };
-
-    // Process nested contactPoint if present
-    if ("contactPoint" in author && author.contactPoint) {
-      if (Array.isArray(author.contactPoint)) {
-        org.contactPoint = author.contactPoint.map(processContactPoint);
-      } else {
-        org.contactPoint = processContactPoint(
-          author.contactPoint as ContactPoint | Omit<ContactPoint, "@type">,
-        );
-      }
-    }
-
-    // Process nested address if present
-    if ("address" in author && author.address) {
-      if (Array.isArray(author.address)) {
-        org.address = author.address.map((addr) =>
-          typeof addr === "string" ? addr : processAddress(addr),
-        );
-      } else if (typeof author.address !== "string") {
-        org.address = processAddress(author.address);
-      }
-    }
-
-    // Process logo if present and not a string
-    if ("logo" in author && author.logo && typeof author.logo !== "string") {
-      org.logo = processImage(author.logo);
-    }
-
-    return org as Organization;
+    processOrganizationFields(org);
+    return org;
   }
 
-  // Default to Person for objects without clear Organization properties
+  // Default to Person
   return {
-    "@type": "Person",
+    "@type": SCHEMA_TYPES.PERSON,
     ...author,
   } as Person;
 }
 
+/**
+ * Processes image input into ImageObject schema type
+ * @param image - URL string or ImageObject
+ * @returns URL string or ImageObject with @type
+ * @example
+ * processImage("https://example.com/image.jpg") // "https://example.com/image.jpg"
+ * processImage({ url: "image.jpg", width: 800 }) // { "@type": "ImageObject", ... }
+ */
 export function processImage(
   image: string | ImageObject | Omit<ImageObject, "@type">,
 ): string | ImageObject {
-  if (typeof image === "string") {
+  if (isString(image)) {
     return image;
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in image) {
-    return image as ImageObject;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "ImageObject",
-    ...image,
-  } as ImageObject;
+  return processSchemaType<ImageObject>(image, SCHEMA_TYPES.IMAGE_OBJECT);
 }
 
+/**
+ * Processes address input into PostalAddress schema type
+ * @param address - String address or PostalAddress object
+ * @returns PostalAddress with @type
+ * @example
+ * processAddress("123 Main St") // { "@type": "PostalAddress", streetAddress: "123 Main St" }
+ */
 export function processAddress(
   address: string | PostalAddress | Omit<PostalAddress, "@type">,
 ): PostalAddress {
-  if (typeof address === "string") {
-    return {
-      "@type": "PostalAddress",
-      streetAddress: address,
-    };
-  }
-
-  // If it already has @type, return as-is
-  if ("@type" in address) {
-    return address as PostalAddress;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "PostalAddress",
-    ...address,
-  } as PostalAddress;
+  return processSchemaType<PostalAddress>(
+    address,
+    SCHEMA_TYPES.POSTAL_ADDRESS,
+    (str) => ({ streetAddress: str }),
+    undefined,
+  );
 }
 
+/**
+ * Processes contact point into ContactPoint schema type
+ * @param contactPoint - ContactPoint object with or without @type
+ * @returns ContactPoint with @type
+ */
 export function processContactPoint(
   contactPoint: ContactPoint | Omit<ContactPoint, "@type">,
 ): ContactPoint {
-  // If it already has @type, return as-is
-  if ("@type" in contactPoint) {
-    return contactPoint as ContactPoint;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "ContactPoint",
-    ...contactPoint,
-  } as ContactPoint;
+  return processSchemaType<ContactPoint>(
+    contactPoint,
+    SCHEMA_TYPES.CONTACT_POINT,
+  );
 }
 
+/**
+ * Processes logo the same way as images
+ * @param logo - URL string or ImageObject
+ * @returns URL string or ImageObject with @type
+ */
 export function processLogo(
   logo: string | ImageObject | Omit<ImageObject, "@type">,
 ): string | ImageObject {
-  // Logo processing is same as image processing
   return processImage(logo);
 }
 
+/**
+ * Processes number of employees into QuantitativeValue schema type
+ * @param numberOfEmployees - Number or QuantitativeValue object
+ * @returns QuantitativeValue with @type
+ */
 export function processNumberOfEmployees(
   numberOfEmployees:
     | number
     | QuantitativeValue
     | Omit<QuantitativeValue, "@type">,
 ): QuantitativeValue {
-  if (typeof numberOfEmployees === "number") {
-    return {
-      "@type": "QuantitativeValue",
-      value: numberOfEmployees,
-    };
-  }
-
-  // If it already has @type, return as-is
-  if ("@type" in numberOfEmployees) {
-    return numberOfEmployees as QuantitativeValue;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "QuantitativeValue",
-    ...numberOfEmployees,
-  } as QuantitativeValue;
+  return processSchemaType<QuantitativeValue>(
+    numberOfEmployees,
+    SCHEMA_TYPES.QUANTITATIVE_VALUE,
+    undefined,
+    (num) => ({ value: num }),
+  );
 }
 
+/**
+ * Processes geographic coordinates into GeoCoordinates schema type
+ * @param geo - GeoCoordinates object with or without @type
+ * @returns GeoCoordinates with @type
+ */
 export function processGeo(
   geo: GeoCoordinates | Omit<GeoCoordinates, "@type">,
 ): GeoCoordinates {
-  return {
-    ...geo,
-    "@type": "GeoCoordinates",
-  };
+  return processSchemaType<GeoCoordinates>(geo, SCHEMA_TYPES.GEO_COORDINATES);
 }
 
+/**
+ * Processes opening hours into OpeningHoursSpecification schema type
+ * @param hours - OpeningHoursSpecification object with or without @type
+ * @returns OpeningHoursSpecification with @type
+ */
 export function processOpeningHours(
   hours: OpeningHoursSpecification | Omit<OpeningHoursSpecification, "@type">,
 ): OpeningHoursSpecification {
-  return {
-    ...hours,
-    "@type": "OpeningHoursSpecification",
-  };
+  return processSchemaType<OpeningHoursSpecification>(
+    hours,
+    SCHEMA_TYPES.OPENING_HOURS,
+  );
 }
 
+/**
+ * Processes review into Review schema type with nested rating processing
+ * @param review - Review object with or without @type
+ * @returns Review with @type and processed nested fields
+ */
 export function processReview(review: Review | Omit<Review, "@type">): Review {
-  // Process the review rating if it exists
-  let processedRating: Rating | undefined;
+  const processed: Review = processSchemaType<Review>(
+    review,
+    SCHEMA_TYPES.REVIEW,
+  );
+
+  // Process nested rating
   if (review.reviewRating) {
-    if ("@type" in review.reviewRating) {
-      processedRating = review.reviewRating as Rating;
-    } else {
-      processedRating = {
-        "@type": "Rating",
-        ...review.reviewRating,
-      } as Rating;
-    }
+    processed.reviewRating = processSchemaType<Rating>(
+      review.reviewRating,
+      SCHEMA_TYPES.RATING,
+    );
   }
 
-  // If review already has @type, preserve it but still process nested fields
-  if ("@type" in review) {
-    return {
-      ...review,
-      ...(review.author && {
-        author: processAuthor(review.author),
-      }),
-      ...(processedRating && {
-        reviewRating: processedRating,
-      }),
-    } as Review;
+  // Process nested author
+  if (review.author) {
+    processed.author = processAuthor(review.author);
   }
 
-  // No @type - add it
-  return {
-    "@type": "Review",
-    ...review,
-    ...(review.author && {
-      author: processAuthor(review.author),
-    }),
-    ...(processedRating && {
-      reviewRating: processedRating,
-    }),
-  } as Review;
+  return processed;
 }
 
+/**
+ * Processes breadcrumb item into ListItem schema type
+ * @param item - BreadcrumbListItem object
+ * @param position - Position in the breadcrumb trail
+ * @returns ListItem with @type and position
+ */
 export function processBreadcrumbItem(
   item: BreadcrumbListItem,
   position: number,
 ): ListItem {
   return {
-    "@type": "ListItem",
+    "@type": SCHEMA_TYPES.LIST_ITEM,
     position,
     ...(item.name && { name: item.name }),
     ...(item.item && { item: item.item }),
   };
 }
 
+/**
+ * Processes location/place into Place schema type
+ * @param location - String location or Place object
+ * @returns Place with @type
+ */
 export function processPlace(
   location: string | Place | Omit<Place, "@type">,
 ): Place {
-  if (typeof location === "string") {
-    return {
-      "@type": "Place",
-      name: location,
+  return processSchemaType<Place>(
+    location,
+    SCHEMA_TYPES.PLACE,
+    (str) => ({
+      name: str,
       address: {
-        "@type": "PostalAddress",
-        streetAddress: location,
+        "@type": SCHEMA_TYPES.POSTAL_ADDRESS,
+        streetAddress: str,
       },
-    };
-  }
-  return {
-    ...location,
-    "@type": "Place",
-  };
+    }),
+    undefined,
+  );
 }
 
+/**
+ * Processes performer into Person or PerformingGroup schema type
+ * @param performer - String name or Performer object
+ * @returns Person or PerformingGroup with @type
+ */
 export function processPerformer(
   performer: Performer,
 ): Person | PerformingGroup {
-  if (typeof performer === "string") {
+  if (isString(performer)) {
     return {
-      "@type": "PerformingGroup",
+      "@type": SCHEMA_TYPES.PERFORMING_GROUP,
       name: performer,
     };
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in performer) {
-    return performer as Person | PerformingGroup;
+  if (hasType<Person | PerformingGroup>(performer)) {
+    return performer;
   }
 
-  // No @type - need to determine if it's Person or PerformingGroup
   // Check for Person-specific properties
-  if (
+  const hasPersonProperties =
     "familyName" in performer ||
     "givenName" in performer ||
-    "additionalName" in performer
-  ) {
-    return {
-      "@type": "Person",
-      ...performer,
-    } as Person;
-  }
+    "additionalName" in performer;
 
-  // Default to PerformingGroup
-  return {
-    "@type": "PerformingGroup",
-    ...performer,
-  } as PerformingGroup;
+  return hasPersonProperties
+    ? ({ "@type": SCHEMA_TYPES.PERSON, ...performer } as Person)
+    : ({
+        "@type": SCHEMA_TYPES.PERFORMING_GROUP,
+        ...performer,
+      } as PerformingGroup);
 }
 
+/**
+ * Processes organizer into Person or Organization schema type
+ * @param organizer - String name or Organizer object
+ * @returns Person or Organization with @type
+ */
 export function processOrganizer(organizer: Organizer): Person | Organization {
-  if (typeof organizer === "string") {
+  if (isString(organizer)) {
     return {
-      "@type": "Organization",
+      "@type": SCHEMA_TYPES.ORGANIZATION,
       name: organizer,
     };
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in organizer) {
-    return organizer as Person | Organization;
+  if (hasType<Person | Organization>(organizer)) {
+    return organizer;
   }
 
-  // No @type - need to determine if it's Person or Organization
-  // Similar logic to processAuthor
-  if (
+  // Check for Person-specific properties
+  const hasPersonProperties =
     "familyName" in organizer ||
     "givenName" in organizer ||
-    "additionalName" in organizer
-  ) {
-    return {
-      "@type": "Person",
-      ...organizer,
-    } as Person;
-  }
+    "additionalName" in organizer;
 
-  // Default to Organization
-  return {
-    "@type": "Organization",
-    ...organizer,
-  } as Organization;
+  return hasPersonProperties
+    ? ({ "@type": SCHEMA_TYPES.PERSON, ...organizer } as Person)
+    : ({ "@type": SCHEMA_TYPES.ORGANIZATION, ...organizer } as Organization);
 }
 
+/**
+ * Processes offer into Offer schema type
+ * @param offer - Offer object with or without @type
+ * @returns Offer with @type
+ */
 export function processOffer(offer: Offer | Omit<Offer, "@type">): Offer {
-  return {
-    ...offer,
-    "@type": "Offer",
-  };
+  return processSchemaType<Offer>(offer, SCHEMA_TYPES.OFFER);
 }
 
+/**
+ * Processes publisher into Person or Organization schema type
+ * @param publisher - String name, Person, or Organization object
+ * @returns Person or Organization with @type and processed nested fields
+ */
 export function processPublisher(
   publisher:
     | string
@@ -377,95 +456,61 @@ export function processPublisher(
     | Omit<Organization, "@type">
     | Omit<Person, "@type">,
 ): Person | Organization {
-  if (typeof publisher === "string") {
+  if (isString(publisher)) {
     return {
-      "@type": "Organization",
+      "@type": SCHEMA_TYPES.ORGANIZATION,
       name: publisher,
     };
   }
 
-  // If it already has @type, return as-is but still process nested fields
-  if ("@type" in publisher) {
-    const pub = publisher as Organization;
-    if (pub["@type"] === "Organization") {
-      const result = { ...pub };
-
-      // Process logo if present and not a string
-      if (pub.logo && typeof pub.logo !== "string") {
-        result.logo = processImage(pub.logo);
-      }
-
-      // Process address if present and not a string
-      if (pub.address && typeof pub.address !== "string") {
-        if (Array.isArray(pub.address)) {
-          result.address = pub.address.map((addr) =>
-            typeof addr === "string" ? addr : processAddress(addr),
-          );
-        } else {
-          result.address = processAddress(pub.address);
-        }
-      }
-
-      return result as Organization;
-    }
-    return publisher as Person | Organization;
+  if (
+    hasType<Organization>(publisher) &&
+    publisher["@type"] === SCHEMA_TYPES.ORGANIZATION
+  ) {
+    const org = { ...publisher };
+    processOrganizationFields(org);
+    return org;
   }
 
-  // No @type - default to Organization and process nested fields
-  const result: Organization = {
-    "@type": "Organization",
+  if (hasType<Person | Organization>(publisher)) {
+    return publisher;
+  }
+
+  // Default to Organization for publishers
+  const org: Organization = {
+    "@type": SCHEMA_TYPES.ORGANIZATION,
     ...publisher,
   };
-
-  // Process nested logo if present and not a string
-  if (
-    "logo" in publisher &&
-    publisher.logo &&
-    typeof publisher.logo !== "string"
-  ) {
-    result.logo = processImage(publisher.logo);
-  }
-
-  // Process nested address if present and not a string
-  if (
-    "address" in publisher &&
-    publisher.address &&
-    typeof publisher.address !== "string"
-  ) {
-    if (Array.isArray(publisher.address)) {
-      result.address = publisher.address.map((addr) =>
-        typeof addr === "string" ? addr : processAddress(addr),
-      );
-    } else {
-      result.address = processAddress(publisher.address);
-    }
-  }
-
-  return result as Organization;
+  processOrganizationFields(org);
+  return org;
 }
 
+/**
+ * Processes nutrition information into NutritionInformation schema type
+ * @param nutrition - NutritionInformation object without @type
+ * @returns NutritionInformation with @type
+ */
 export function processNutrition(
   nutrition: Omit<NutritionInformation, "@type">,
 ): NutritionInformation {
   return {
-    "@type": "NutritionInformation",
+    "@type": SCHEMA_TYPES.NUTRITION_INFORMATION,
     ...nutrition,
   };
 }
 
+/**
+ * Processes aggregate rating into AggregateRating schema type
+ * @param rating - AggregateRating object with or without @type
+ * @returns AggregateRating with @type
+ */
 export function processAggregateRating(
   rating: AggregateRating | Omit<AggregateRating, "@type">,
 ): AggregateRating {
-  // If it already has @type, return as-is
-  if ("@type" in rating) {
-    return rating as AggregateRating;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "AggregateRating",
-    ...rating,
-  } as AggregateRating;
+  return processSchemaType<AggregateRating>(
+    rating,
+    SCHEMA_TYPES.AGGREGATE_RATING,
+  );
 }
 
 type WebPage = {
@@ -473,55 +518,51 @@ type WebPage = {
   "@id": string;
 };
 
+/**
+ * Processes main entity of page into string URL or WebPage schema type
+ * @param mainEntityOfPage - String URL or WebPage object
+ * @returns String URL or WebPage with @type
+ */
 export function processMainEntityOfPage(
   mainEntityOfPage: string | WebPage | Omit<WebPage, "@type">,
 ): string | WebPage {
-  if (typeof mainEntityOfPage === "string") {
+  if (isString(mainEntityOfPage)) {
     return mainEntityOfPage;
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in mainEntityOfPage) {
-    return mainEntityOfPage as WebPage;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "WebPage",
-    ...mainEntityOfPage,
-  } as WebPage;
+  return processSchemaType<WebPage>(mainEntityOfPage, SCHEMA_TYPES.WEB_PAGE);
 }
 
+/**
+ * Processes merchant return policy into MerchantReturnPolicy schema type
+ * @param policy - MerchantReturnPolicy object with or without @type
+ * @returns MerchantReturnPolicy with @type
+ */
 export function processMerchantReturnPolicy(
   policy: MerchantReturnPolicy | Omit<MerchantReturnPolicy, "@type">,
 ): MerchantReturnPolicy {
-  // If it already has @type, return as-is
-  if ("@type" in policy) {
-    return policy as MerchantReturnPolicy;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "MerchantReturnPolicy",
-    ...policy,
-  } as MerchantReturnPolicy;
+  return processSchemaType<MerchantReturnPolicy>(
+    policy,
+    SCHEMA_TYPES.MERCHANT_RETURN_POLICY,
+  );
 }
 
+/**
+ * Processes video into VideoObject schema type
+ * @param video - VideoObject with or without @type
+ * @returns VideoObject with @type
+ */
 export function processVideo(
   video: VideoObject | Omit<VideoObject, "@type">,
 ): VideoObject {
-  // If it already has @type, return as-is
-  if ("@type" in video) {
-    return video as VideoObject;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "VideoObject",
-    ...video,
-  } as VideoObject;
+  return processSchemaType<VideoObject>(video, SCHEMA_TYPES.VIDEO_OBJECT);
 }
 
+/**
+ * Processes instruction into string, HowToStep, or HowToSection schema type
+ * @param instruction - String instruction or HowTo object
+ * @returns String, HowToStep, or HowToSection with @type
+ */
 export function processInstruction(
   instruction:
     | string
@@ -530,475 +571,416 @@ export function processInstruction(
     | Omit<HowToStep, "@type">
     | Omit<HowToSection, "@type">,
 ): string | HowToStep | HowToSection {
-  if (typeof instruction === "string") {
+  if (isString(instruction)) {
     return instruction;
   }
 
-  // If it already has @type, return as-is but process nested items if it's a section
-  if ("@type" in instruction) {
+  if (hasType<HowToStep | HowToSection>(instruction)) {
+    // Process nested items if it's a section
     if (
-      instruction["@type"] === "HowToSection" &&
+      instruction["@type"] === SCHEMA_TYPES.HOW_TO_SECTION &&
       "itemListElement" in instruction
     ) {
       return {
         ...instruction,
-        itemListElement: instruction.itemListElement.map(
-          (item: HowToStep | Omit<HowToStep, "@type">) =>
-            processInstruction(item),
+        itemListElement: instruction.itemListElement.map((item) =>
+          processInstruction(item),
         ),
       } as HowToSection;
     }
-    return instruction as HowToStep | HowToSection;
+    return instruction;
   }
 
-  // No @type - need to determine if it's HowToStep or HowToSection
+  // Determine type based on properties
   if ("itemListElement" in instruction) {
-    // It's a HowToSection
     return {
-      "@type": "HowToSection",
+      "@type": SCHEMA_TYPES.HOW_TO_SECTION,
       ...instruction,
-      itemListElement: instruction.itemListElement.map(
-        (item: HowToStep | Omit<HowToStep, "@type">) =>
-          processInstruction(item),
+      itemListElement: instruction.itemListElement.map((item) =>
+        processInstruction(item),
       ),
     } as HowToSection;
   }
 
-  // Default to HowToStep
   return {
-    "@type": "HowToStep",
+    "@type": SCHEMA_TYPES.HOW_TO_STEP,
     ...instruction,
   } as HowToStep;
 }
 
+/**
+ * Processes director into Person schema type
+ * @param director - String name or Director object
+ * @returns Person with @type
+ */
 export function processDirector(director: Director): Person {
-  if (typeof director === "string") {
-    return {
-      "@type": "Person",
-      name: director,
-    };
-  }
-
-  // If it already has @type, return as-is
-  if ("@type" in director) {
-    return director as Person;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "Person",
-    ...director,
-  } as Person;
+  return processSchemaType<Person>(
+    director,
+    SCHEMA_TYPES.PERSON,
+    (str) => ({ name: str }),
+    undefined,
+  );
 }
 
 // Dataset-specific processors
 
+/**
+ * Processes creator(s) into Person or Organization schema type(s)
+ * @param creator - Author or array of Authors
+ * @returns Person/Organization or array of them with @type
+ */
 export function processCreator(
   creator: Author | Author[],
 ): Person | Organization | (Person | Organization)[] {
-  if (Array.isArray(creator)) {
-    return creator.map((c) => processAuthor(c));
-  }
-  return processAuthor(creator);
+  return Array.isArray(creator)
+    ? creator.map(processAuthor)
+    : processAuthor(creator);
 }
 
+/**
+ * Processes identifier into string or PropertyValue schema type
+ * @param identifier - String identifier or PropertyValue object
+ * @returns String or PropertyValue with @type
+ */
 export function processIdentifier(
   identifier: string | PropertyValue | Omit<PropertyValue, "@type">,
 ): string | PropertyValue {
-  if (typeof identifier === "string") {
+  if (isString(identifier)) {
     return identifier;
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in identifier) {
-    return identifier as PropertyValue;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "PropertyValue",
-    ...identifier,
-  } as PropertyValue;
+  return processSchemaType<PropertyValue>(
+    identifier,
+    SCHEMA_TYPES.PROPERTY_VALUE,
+  );
 }
 
+/**
+ * Processes spatial coverage into string or Place schema type
+ * @param spatial - String location or DatasetPlace object
+ * @returns String or DatasetPlace with @type and processed geo
+ */
 export function processSpatialCoverage(
   spatial: string | DatasetPlace | Omit<DatasetPlace, "@type">,
 ): string | DatasetPlace {
-  if (typeof spatial === "string") {
+  if (isString(spatial)) {
     return spatial;
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in spatial) {
-    return spatial as DatasetPlace;
-  }
+  const processed: DatasetPlace = processSchemaType<DatasetPlace>(
+    spatial,
+    SCHEMA_TYPES.PLACE,
+  );
 
-  // Process geo if present
-  const processed: DatasetPlace = {
-    "@type": "Place",
-    ...spatial,
-  };
-
-  if (
-    spatial.geo &&
-    typeof spatial.geo === "object" &&
-    !("@type" in spatial.geo)
-  ) {
-    // Determine if it's GeoCoordinates or GeoShape
+  // Process nested geo if present
+  if (spatial.geo && typeof spatial.geo === "object" && !hasType(spatial.geo)) {
     if ("latitude" in spatial.geo && "longitude" in spatial.geo) {
-      processed.geo = {
-        "@type": "GeoCoordinates",
-        ...spatial.geo,
-      } as GeoCoordinates;
+      processed.geo = processSchemaType<GeoCoordinates>(
+        spatial.geo,
+        SCHEMA_TYPES.GEO_COORDINATES,
+      );
     } else if (
       "box" in spatial.geo ||
       "circle" in spatial.geo ||
       "line" in spatial.geo ||
       "polygon" in spatial.geo
     ) {
-      processed.geo = {
-        "@type": "GeoShape",
-        ...spatial.geo,
-      } as GeoShape;
+      processed.geo = processSchemaType<GeoShape>(
+        spatial.geo,
+        SCHEMA_TYPES.GEO_SHAPE,
+      );
     }
   }
 
   return processed;
 }
 
+/**
+ * Processes data download into DataDownload schema type
+ * @param download - DataDownload object with or without @type
+ * @returns DataDownload with @type
+ */
 export function processDataDownload(
   download: DataDownload | Omit<DataDownload, "@type">,
 ): DataDownload {
-  if ("@type" in download) {
-    return download as DataDownload;
-  }
-
-  return {
-    "@type": "DataDownload",
-    ...download,
-  } as DataDownload;
+  return processSchemaType<DataDownload>(download, SCHEMA_TYPES.DATA_DOWNLOAD);
 }
 
+/**
+ * Processes license into string URL or CreativeWork schema type
+ * @param license - String URL or CreativeWork object
+ * @returns String URL or CreativeWork with @type
+ */
 export function processLicense(
   license: string | CreativeWork | Omit<CreativeWork, "@type">,
 ): string | CreativeWork {
-  if (typeof license === "string") {
+  if (isString(license)) {
     return license;
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in license) {
-    return license as CreativeWork;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "CreativeWork",
-    ...license,
-  } as CreativeWork;
+  return processSchemaType<CreativeWork>(license, SCHEMA_TYPES.CREATIVE_WORK);
 }
 
+/**
+ * Processes data catalog into DataCatalog schema type
+ * @param catalog - DataCatalog object with or without @type
+ * @returns DataCatalog with @type
+ */
 export function processDataCatalog(
   catalog: DataCatalog | Omit<DataCatalog, "@type">,
 ): DataCatalog {
-  if ("@type" in catalog) {
-    return catalog as DataCatalog;
-  }
-
-  return {
-    "@type": "DataCatalog",
-    ...catalog,
-  } as DataCatalog;
+  return processSchemaType<DataCatalog>(catalog, SCHEMA_TYPES.DATA_CATALOG);
 }
 
 // JobPosting-specific processors
 
+/**
+ * Processes hiring organization into Organization schema type
+ * @param org - String name or Organization object
+ * @returns Organization with @type and processed logo
+ */
 export function processHiringOrganization(
   org: string | Organization | Omit<Organization, "@type">,
 ): Organization {
-  if (typeof org === "string") {
+  if (isString(org)) {
     return {
-      "@type": "Organization",
+      "@type": SCHEMA_TYPES.ORGANIZATION,
       name: org,
     };
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in org) {
-    return org as Organization;
-  }
+  const processed = processSchemaType<Organization>(
+    org,
+    SCHEMA_TYPES.ORGANIZATION,
+  );
 
-  // No @type - add it
-  const processed: Organization = {
-    "@type": "Organization",
-    ...org,
-  };
-
-  // Process nested logo if present and not a string
-  if ("logo" in org && org.logo && typeof org.logo !== "string") {
-    processed.logo = processImage(org.logo);
+  // Process nested logo if present
+  if (processed.logo && !isString(processed.logo)) {
+    processed.logo = processImage(processed.logo);
   }
 
   return processed;
 }
 
+/**
+ * Processes job location into Place schema type
+ * @param location - String location or JobPlace object
+ * @returns JobPlace with @type and processed address
+ */
 export function processJobLocation(
   location: string | JobPlace | Omit<JobPlace, "@type">,
 ): JobPlace {
-  if (typeof location === "string") {
+  if (isString(location)) {
     return {
-      "@type": "Place",
+      "@type": SCHEMA_TYPES.PLACE,
       address: {
-        "@type": "PostalAddress",
+        "@type": SCHEMA_TYPES.POSTAL_ADDRESS,
         streetAddress: location,
       },
     };
   }
 
-  // If it already has @type, process address if needed
-  if ("@type" in location) {
-    const place = location as JobPlace;
-    if (place.address && typeof place.address !== "string") {
-      return {
-        ...place,
-        address: processAddress(place.address),
-      };
-    }
-    return place;
-  }
+  const processed = processSchemaType<JobPlace>(location, SCHEMA_TYPES.PLACE);
 
-  // No @type - add it and process address
-  const processed: JobPlace = {
-    "@type": "Place",
-    ...location,
-  };
-
-  if (location.address && typeof location.address !== "string") {
-    processed.address = processAddress(location.address);
+  // Process nested address
+  if (processed.address && !isString(processed.address)) {
+    processed.address = processAddress(processed.address);
   }
 
   return processed;
 }
 
+/**
+ * Processes monetary amount into MonetaryAmount schema type
+ * @param amount - MonetaryAmount object with or without @type
+ * @returns MonetaryAmount with @type and processed value
+ */
 export function processMonetaryAmount(
   amount: MonetaryAmount | Omit<MonetaryAmount, "@type">,
 ): MonetaryAmount {
-  // Process the value as QuantitativeValue
-  let processedValue: QuantitativeValue;
-  if ("@type" in amount.value) {
-    processedValue = amount.value as QuantitativeValue;
-  } else {
-    processedValue = {
-      "@type": "QuantitativeValue",
-      ...amount.value,
-    };
-  }
+  const processed = processSchemaType<MonetaryAmount>(amount, "MonetaryAmount");
 
-  // If it already has @type, return with processed value
-  if ("@type" in amount) {
-    return {
-      ...amount,
-      value: processedValue,
-    } as MonetaryAmount;
-  }
+  // Process nested value as QuantitativeValue
+  processed.value = processSchemaType<QuantitativeValue>(
+    amount.value,
+    SCHEMA_TYPES.QUANTITATIVE_VALUE,
+  );
 
-  // No @type - add it
-  return {
-    "@type": "MonetaryAmount",
-    ...amount,
-    value: processedValue,
-  } as MonetaryAmount;
+  return processed;
 }
 
+/**
+ * Processes job property value into PropertyValue schema type
+ * @param identifier - String identifier or JobPropertyValue object
+ * @returns JobPropertyValue with @type
+ */
 export function processJobPropertyValue(
   identifier: string | JobPropertyValue | Omit<JobPropertyValue, "@type">,
 ): JobPropertyValue {
-  if (typeof identifier === "string") {
-    return {
-      "@type": "PropertyValue",
-      value: identifier,
-    };
-  }
-
-  // If it already has @type, return as-is
-  if ("@type" in identifier) {
-    return identifier as JobPropertyValue;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "PropertyValue",
-    ...identifier,
-  } as JobPropertyValue;
+  return processSchemaType<JobPropertyValue>(
+    identifier,
+    SCHEMA_TYPES.PROPERTY_VALUE,
+    (str) => ({ value: str }),
+    undefined,
+  );
 }
 
+/**
+ * Processes applicant location requirements into Country or State schema type
+ * @param location - Location requirement object
+ * @returns AdministrativeArea (Country or State) with @type
+ */
 export function processApplicantLocationRequirements(
   location: Omit<Country, "@type"> | Omit<State, "@type"> | Country | State,
 ): AdministrativeArea {
-  // If it already has @type, return as-is
-  if ("@type" in location) {
-    return location as AdministrativeArea;
+  if (hasType<Country | State>(location)) {
+    return location;
   }
 
-  // Determine type based on content or default to Country
-  // In practice, the developer should provide enough context
-  // For now, we'll check if the name contains state-like patterns
+  // Improved detection logic
   const name = location.name;
-  const isState =
-    name.includes(",") || name.includes("State") || name.match(/\b[A-Z]{2}\b/);
+  const statePatterns = [
+    /\b[A-Z]{2}\b/, // Two-letter state codes
+    /\bstate\b/i, // Contains "state"
+    /,/, // Contains comma (often "City, State")
+    /\b(AL|AK|AZ|AR|CA|CO|CT|DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY)\b/, // US state codes
+  ];
 
-  if (isState) {
-    return {
-      "@type": "State",
-      ...location,
-    } as State;
-  }
+  const isState = statePatterns.some((pattern) => pattern.test(name));
 
-  // Default to Country
   return {
-    "@type": "Country",
+    "@type": isState ? SCHEMA_TYPES.STATE : SCHEMA_TYPES.COUNTRY,
     ...location,
-  } as Country;
+  } as AdministrativeArea;
 }
 
+/**
+ * Processes education requirements into string or EducationalOccupationalCredential
+ * @param education - String description or credential object
+ * @returns String or EducationalOccupationalCredential with @type
+ */
 export function processEducationRequirements(
   education:
     | string
     | EducationalOccupationalCredential
     | Omit<EducationalOccupationalCredential, "@type">,
 ): string | EducationalOccupationalCredential {
-  if (typeof education === "string") {
+  if (isString(education)) {
     return education;
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in education) {
-    return education as EducationalOccupationalCredential;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "EducationalOccupationalCredential",
-    ...education,
-  } as EducationalOccupationalCredential;
+  return processSchemaType<EducationalOccupationalCredential>(
+    education,
+    SCHEMA_TYPES.EDUCATIONAL_CREDENTIAL,
+  );
 }
 
+/**
+ * Processes experience requirements into string or OccupationalExperienceRequirements
+ * @param experience - String description or experience object
+ * @returns String or OccupationalExperienceRequirements with @type
+ */
 export function processExperienceRequirements(
   experience:
     | string
     | OccupationalExperienceRequirements
     | Omit<OccupationalExperienceRequirements, "@type">,
 ): string | OccupationalExperienceRequirements {
-  if (typeof experience === "string") {
+  if (isString(experience)) {
     return experience;
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in experience) {
-    return experience as OccupationalExperienceRequirements;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "OccupationalExperienceRequirements",
-    ...experience,
-  } as OccupationalExperienceRequirements;
+  return processSchemaType<OccupationalExperienceRequirements>(
+    experience,
+    SCHEMA_TYPES.OCCUPATIONAL_EXPERIENCE,
+  );
 }
 
 // DiscussionForumPosting-specific processors
 
+/**
+ * Processes interaction statistic into InteractionCounter schema type
+ * @param statistic - InteractionCounter object with or without @type
+ * @returns InteractionCounter with @type
+ */
 export function processInteractionStatistic(
   statistic: InteractionCounter | Omit<InteractionCounter, "@type">,
 ): InteractionCounter {
-  // If it already has @type, return as-is
-  if ("@type" in statistic) {
-    return statistic as InteractionCounter;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "InteractionCounter",
-    ...statistic,
-  } as InteractionCounter;
+  return processSchemaType<InteractionCounter>(
+    statistic,
+    SCHEMA_TYPES.INTERACTION_COUNTER,
+  );
 }
 
+/**
+ * Processes shared content into WebPage, ImageObject, or VideoObject schema type
+ * @param content - SharedContent (string URL or object)
+ * @returns ForumWebPage, ImageObject, or VideoObject with @type
+ */
 export function processSharedContent(
   content: SharedContent,
 ): ForumWebPage | ImageObject | VideoObject {
-  if (typeof content === "string") {
-    // If it's just a string URL, treat it as a WebPage
+  if (isString(content)) {
     return {
-      "@type": "WebPage",
+      "@type": SCHEMA_TYPES.WEB_PAGE,
       url: content,
     };
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in content) {
-    return content as ForumWebPage | ImageObject | VideoObject;
+  if (hasType<ForumWebPage | ImageObject | VideoObject>(content)) {
+    return content;
   }
 
-  // No @type - need to determine what type it is
-  // Check for VideoObject properties
-  if ("uploadDate" in content && "thumbnailUrl" in content) {
-    return {
-      "@type": "VideoObject",
-      ...content,
-    } as VideoObject;
+  // Improved type detection
+  const hasVideoProperties =
+    "uploadDate" in content && "thumbnailUrl" in content;
+  const hasImageProperties =
+    "url" in content && ("width" in content || "height" in content);
+
+  if (hasVideoProperties) {
+    return processSchemaType<VideoObject>(content, SCHEMA_TYPES.VIDEO_OBJECT);
   }
 
-  // Check for ImageObject properties
-  if ("url" in content && ("width" in content || "height" in content)) {
-    return {
-      "@type": "ImageObject",
-      ...content,
-    } as ImageObject;
+  if (hasImageProperties) {
+    return processSchemaType<ImageObject>(content, SCHEMA_TYPES.IMAGE_OBJECT);
   }
 
   // Default to WebPage
-  return {
-    "@type": "WebPage",
-    ...content,
-  } as ForumWebPage;
+  return processSchemaType<ForumWebPage>(content, SCHEMA_TYPES.WEB_PAGE);
 }
 
+/**
+ * Processes comment into Comment schema type with nested fields
+ * @param comment - Comment object with or without @type
+ * @returns Comment with @type and processed nested fields
+ */
 export function processComment(
   comment: Comment | Omit<Comment, "@type">,
 ): Comment {
-  const processed: Comment = {
-    "@type": "Comment",
-    ...comment,
-  } as Comment;
+  const processed: Comment = processSchemaType<Comment>(
+    comment,
+    SCHEMA_TYPES.COMMENT,
+  );
 
-  // Process author
+  // Process nested fields
   if (comment.author) {
     processed.author = processAuthor(comment.author);
   }
 
-  // Process image if present
-  if (comment.image && typeof comment.image !== "string") {
+  if (comment.image && !isString(comment.image)) {
     processed.image = processImage(comment.image);
   }
 
-  // Process video if present
   if (comment.video) {
     processed.video = processVideo(comment.video);
   }
 
-  // Process interaction statistics if present
   if (comment.interactionStatistic) {
-    if (Array.isArray(comment.interactionStatistic)) {
-      processed.interactionStatistic = comment.interactionStatistic.map(
-        processInteractionStatistic,
-      );
-    } else {
-      processed.interactionStatistic = processInteractionStatistic(
-        comment.interactionStatistic,
-      );
-    }
+    processed.interactionStatistic = Array.isArray(comment.interactionStatistic)
+      ? comment.interactionStatistic.map(processInteractionStatistic)
+      : processInteractionStatistic(comment.interactionStatistic);
   }
 
-  // Process shared content if present
   if (comment.sharedContent) {
     processed.sharedContent = processSharedContent(comment.sharedContent);
   }
@@ -1008,114 +990,100 @@ export function processComment(
     processed.comment = comment.comment.map(processComment);
   }
 
-  return processed as Comment;
+  return processed;
 }
 
+/**
+ * Processes isPartOf into string URL or CreativeWork schema type
+ * @param isPartOf - String URL or ForumCreativeWork object
+ * @returns String URL or ForumCreativeWork with @type
+ */
 export function processIsPartOf(
   isPartOf: string | ForumCreativeWork | Omit<ForumCreativeWork, "@type">,
 ): string | ForumCreativeWork {
-  if (typeof isPartOf === "string") {
+  if (isString(isPartOf)) {
     return isPartOf;
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in isPartOf) {
-    return isPartOf as ForumCreativeWork;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "CreativeWork",
-    ...isPartOf,
-  } as ForumCreativeWork;
+  return processSchemaType<ForumCreativeWork>(
+    isPartOf,
+    SCHEMA_TYPES.CREATIVE_WORK,
+  );
 }
 
 // VacationRental-specific processors
 
+/**
+ * Processes brand into Brand schema type
+ * @param brand - Brand object with or without @type
+ * @returns Brand with @type
+ */
 export function processBrand(brand: Brand | Omit<Brand, "@type">): Brand {
-  // If it already has @type, return as-is
-  if ("@type" in brand) {
-    return brand as Brand;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "Brand",
-    ...brand,
-  } as Brand;
+  return processSchemaType<Brand>(brand, SCHEMA_TYPES.BRAND);
 }
 
+/**
+ * Processes bed details into BedDetails schema type
+ * @param bed - BedDetails object with or without @type
+ * @returns BedDetails with @type
+ */
 export function processBedDetails(
   bed: BedDetails | Omit<BedDetails, "@type">,
 ): BedDetails {
-  // If it already has @type, return as-is
-  if ("@type" in bed) {
-    return bed as BedDetails;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "BedDetails",
-    ...bed,
-  } as BedDetails;
+  return processSchemaType<BedDetails>(bed, SCHEMA_TYPES.BED_DETAILS);
 }
 
+/**
+ * Processes location feature into LocationFeatureSpecification schema type
+ * @param feature - LocationFeatureSpecification object with or without @type
+ * @returns LocationFeatureSpecification with @type
+ */
 export function processLocationFeatureSpecification(
   feature:
     | LocationFeatureSpecification
     | Omit<LocationFeatureSpecification, "@type">,
 ): LocationFeatureSpecification {
-  // If it already has @type, return as-is
-  if ("@type" in feature) {
-    return feature as LocationFeatureSpecification;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "LocationFeatureSpecification",
-    ...feature,
-  } as LocationFeatureSpecification;
+  return processSchemaType<LocationFeatureSpecification>(
+    feature,
+    SCHEMA_TYPES.LOCATION_FEATURE,
+  );
 }
 
+/**
+ * Processes accommodation into Accommodation schema type with nested fields
+ * @param accommodation - Accommodation object with or without @type
+ * @returns Accommodation with @type and processed nested fields
+ */
 export function processAccommodation(
   accommodation: Accommodation | Omit<Accommodation, "@type">,
 ): Accommodation {
-  // Start with basic properties
-  const processed: Accommodation = {
-    "@type": "Accommodation",
-    ...accommodation,
-  } as Accommodation;
+  const processed: Accommodation = processSchemaType<Accommodation>(
+    accommodation,
+    SCHEMA_TYPES.ACCOMMODATION,
+  );
 
-  // Process nested bed details if present
+  // Process nested bed details
   if (accommodation.bed) {
-    if (Array.isArray(accommodation.bed)) {
-      processed.bed = accommodation.bed.map(processBedDetails);
-    } else {
-      processed.bed = processBedDetails(accommodation.bed);
-    }
+    processed.bed = Array.isArray(accommodation.bed)
+      ? accommodation.bed.map(processBedDetails)
+      : processBedDetails(accommodation.bed);
   }
 
-  // Process occupancy if present
+  // Process occupancy
   if (accommodation.occupancy) {
     processed.occupancy = processNumberOfEmployees(
       accommodation.occupancy,
     ) as QuantitativeValue;
   }
 
-  // Process amenityFeature if present
+  // Process amenity features
   if (accommodation.amenityFeature) {
-    if (Array.isArray(accommodation.amenityFeature)) {
-      processed.amenityFeature = accommodation.amenityFeature.map(
-        processLocationFeatureSpecification,
-      );
-    } else {
-      processed.amenityFeature = processLocationFeatureSpecification(
-        accommodation.amenityFeature,
-      );
-    }
+    processed.amenityFeature = Array.isArray(accommodation.amenityFeature)
+      ? accommodation.amenityFeature.map(processLocationFeatureSpecification)
+      : processLocationFeatureSpecification(accommodation.amenityFeature);
   }
 
-  // Process floorSize if present
+  // Process floor size
   if (accommodation.floorSize) {
     processed.floorSize = processNumberOfEmployees(
       accommodation.floorSize,
@@ -1127,69 +1095,79 @@ export function processAccommodation(
 
 // Course-specific processors
 
+/**
+ * Processes provider into Organization schema type
+ * @param provider - String name or Provider object
+ * @returns Organization with @type
+ */
 export function processProvider(provider: Provider): Organization {
-  if (typeof provider === "string") {
-    return {
-      "@type": "Organization",
-      name: provider,
-    };
-  }
-
-  // If it already has @type, return as-is
-  if ("@type" in provider) {
-    return provider as Organization;
-  }
-
-  // No @type - add it
-  return {
-    "@type": "Organization",
-    ...provider,
-  } as Organization;
+  return processSchemaType<Organization>(
+    provider,
+    SCHEMA_TYPES.ORGANIZATION,
+    (str) => ({ name: str }),
+    undefined,
+  );
 }
 
+/**
+ * Processes funder(s) into Person or Organization schema type(s)
+ * @param funder - Author or array of Authors representing funders
+ * @returns Person/Organization or array of them with @type
+ */
 export function processFunder(
   funder: Author | Author[],
 ): Person | Organization | (Person | Organization)[] {
   if (Array.isArray(funder)) {
-    return funder.map((f) => processFunderSingle(f));
+    return funder.map(processFunderSingle);
   }
   return processFunderSingle(funder);
 }
 
+/**
+ * Helper to process a single funder
+ * @param funder - Author representing a funder
+ * @returns Person or Organization with @type (defaults to Organization)
+ */
 function processFunderSingle(funder: Author): Person | Organization {
-  if (typeof funder === "string") {
+  if (isString(funder)) {
     return {
-      "@type": "Organization",
+      "@type": SCHEMA_TYPES.ORGANIZATION,
       name: funder,
     };
   }
 
-  // If it already has @type, return as-is
-  if ("@type" in funder) {
-    return funder as Person | Organization;
+  if (hasType<Person | Organization>(funder)) {
+    return funder;
   }
 
   // For funders without @type, default to Organization
   // (funding bodies are typically organizations)
   return {
-    "@type": "Organization",
+    "@type": SCHEMA_TYPES.ORGANIZATION,
     ...funder,
   } as Organization;
 }
 
 // SoftwareApplication-specific processors
 
+/**
+ * Processes screenshot the same way as images
+ * @param screenshot - URL string or ImageObject
+ * @returns URL string or ImageObject with @type
+ */
 export function processScreenshot(
   screenshot: string | ImageObject | Omit<ImageObject, "@type">,
 ): string | ImageObject {
-  // Screenshot processing is same as image processing
   return processImage(screenshot);
 }
 
+/**
+ * Processes feature list - no transformation needed
+ * @param features - String or array of strings
+ * @returns String or array of strings as-is
+ */
 export function processFeatureList(
   features: string | string[],
 ): string | string[] {
-  // Feature list can be a string or array of strings
-  // No transformation needed, just return as-is
   return features;
 }

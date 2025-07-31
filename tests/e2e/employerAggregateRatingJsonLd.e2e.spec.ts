@@ -53,6 +53,7 @@ test.describe("EmployerAggregateRatingJsonLd", () => {
       "https://www.techcorp-international.example.com",
     );
     expect(jsonData.itemReviewed.logo).toEqual({
+      "@type": "ImageObject",
       url: "https://example.com/techcorp-logo.png",
       width: 600,
       height: 300,
@@ -66,6 +67,7 @@ test.describe("EmployerAggregateRatingJsonLd", () => {
     // Verify addresses
     expect(jsonData.itemReviewed.address).toHaveLength(2);
     expect(jsonData.itemReviewed.address[0]).toEqual({
+      "@type": "PostalAddress",
       streetAddress: "123 Innovation Way",
       addressLocality: "San Francisco",
       addressRegion: "CA",
@@ -73,6 +75,7 @@ test.describe("EmployerAggregateRatingJsonLd", () => {
       addressCountry: "US",
     });
     expect(jsonData.itemReviewed.address[1]).toEqual({
+      "@type": "PostalAddress",
       streetAddress: "456 Tech Park",
       addressLocality: "New York",
       addressRegion: "NY",
@@ -82,6 +85,7 @@ test.describe("EmployerAggregateRatingJsonLd", () => {
 
     // Verify numberOfEmployees
     expect(jsonData.itemReviewed.numberOfEmployees).toEqual({
+      "@type": "QuantitativeValue",
       value: 5000,
     });
 
