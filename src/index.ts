@@ -7,6 +7,10 @@ export {
   type ArticleJsonLdProps,
 } from "./components/ArticleJsonLd";
 export {
+  default as ClaimReviewJsonLd,
+  type ClaimReviewJsonLdProps,
+} from "./components/ClaimReviewJsonLd";
+export {
   default as RecipeJsonLd,
   type RecipeJsonLdProps,
 } from "./components/RecipeJsonLd";

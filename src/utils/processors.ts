@@ -58,6 +58,11 @@ import type {
   WebPage as ForumWebPage,
   CreativeWork as ForumCreativeWork,
 } from "~/types/discussionforum.types";
+import type {
+  Claim,
+  ClaimReviewRating,
+  ClaimCreativeWork,
+} from "~/types/claimreview.types";
 
 // Schema.org type constants
 const SCHEMA_TYPES = {
@@ -97,6 +102,7 @@ const SCHEMA_TYPES = {
   OCCUPATIONAL_EXPERIENCE: "OccupationalExperienceRequirements",
   COMMENT: "Comment",
   WEB_PAGE: "WebPage",
+  CLAIM: "Claim",
 } as const;
 
 // Type guard utilities
@@ -1170,4 +1176,76 @@ export function processFeatureList(
   features: string | string[],
 ): string | string[] {
   return features;
+}
+
+// ClaimReview-specific processors
+
+/**
+ * Processes claim review rating into ClaimReviewRating schema type
+ * @param rating - Rating object with or without @type
+ * @returns ClaimReviewRating with @type
+ */
+export function processClaimReviewRating(
+  rating: ClaimReviewRating | Omit<ClaimReviewRating, "@type">,
+): ClaimReviewRating {
+  return processSchemaType<ClaimReviewRating>(rating, SCHEMA_TYPES.RATING);
+}
+
+/**
+ * Processes claim into Claim schema type with nested fields
+ * @param claim - Claim object with or without @type
+ * @returns Claim with @type and processed nested fields
+ */
+export function processClaim(claim: Claim | Omit<Claim, "@type">): Claim {
+  const processed: Claim = processSchemaType<Claim>(claim, SCHEMA_TYPES.CLAIM);
+
+  // Process nested author
+  if (claim.author) {
+    processed.author = processAuthor(claim.author);
+  }
+
+  // Process appearance(s)
+  if (claim.appearance) {
+    if (Array.isArray(claim.appearance)) {
+      processed.appearance = claim.appearance.map(processAppearance);
+    } else {
+      processed.appearance = processAppearance(claim.appearance);
+    }
+  }
+
+  // Process firstAppearance
+  if (claim.firstAppearance) {
+    processed.firstAppearance = processAppearance(claim.firstAppearance);
+  }
+
+  return processed;
+}
+
+/**
+ * Processes appearance into string URL or ClaimCreativeWork schema type
+ * @param appearance - String URL or CreativeWork object
+ * @returns String URL or ClaimCreativeWork with @type
+ */
+export function processAppearance(
+  appearance: string | ClaimCreativeWork | Omit<ClaimCreativeWork, "@type">,
+): string | ClaimCreativeWork {
+  if (isString(appearance)) {
+    return appearance;
+  }
+
+  const processed = processSchemaType<ClaimCreativeWork>(
+    appearance,
+    SCHEMA_TYPES.CREATIVE_WORK,
+  );
+
+  // Process nested fields
+  if (appearance.author) {
+    processed.author = processAuthor(appearance.author);
+  }
+
+  if (appearance.publisher && !isString(appearance.publisher)) {
+    processed.publisher = processPublisher(appearance.publisher);
+  }
+
+  return processed;
 }

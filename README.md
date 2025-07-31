@@ -127,6 +127,105 @@ export default function ArticlePage() {
 4. **Publisher logo**: Include a logo for NewsArticle type
 5. **Update dateModified**: Keep this current when updating content
 
+### ClaimReviewJsonLd
+
+The `ClaimReviewJsonLd` component helps you add structured data for fact-checking articles that review claims made by others. This enables a summarized version of your fact check to display in Google Search results.
+
+#### Basic Usage
+
+```tsx
+import { ClaimReviewJsonLd } from "next-seo";
+
+export default function FactCheckPage() {
+  return (
+    <>
+      <ClaimReviewJsonLd
+        claimReviewed="The world is flat"
+        reviewRating={{
+          ratingValue: 1,
+          bestRating: 5,
+          worstRating: 1,
+          alternateName: "False",
+        }}
+        url="https://example.com/fact-check/flat-earth"
+        author="Fact Check Team"
+      />
+      <article>
+        <h1>Fact Check: The World is Flat</h1>
+        {/* Your fact check content */}
+      </article>
+    </>
+  );
+}
+```
+
+#### Props
+
+| Property        | Type                               | Description                                                                           |
+| --------------- | ---------------------------------- | ------------------------------------------------------------------------------------- |
+| `claimReviewed` | `string`                           | **Required.** A short summary of the claim being evaluated (keep under 75 characters) |
+| `reviewRating`  | `object`                           | **Required.** The assessment of the claim with rating value and textual rating        |
+| `url`           | `string`                           | **Required.** Link to the page hosting the full fact check article                    |
+| `author`        | `string \| Organization \| Person` | The publisher of the fact check article                                               |
+| `itemReviewed`  | `Claim`                            | Detailed information about the claim being reviewed                                   |
+| `scriptId`      | `string`                           | Custom ID for the script tag                                                          |
+| `scriptKey`     | `string`                           | Custom key for script identification                                                  |
+
+#### Review Rating Properties
+
+| Property        | Type     | Description                                                                                 |
+| --------------- | -------- | ------------------------------------------------------------------------------------------- |
+| `alternateName` | `string` | **Required.** The truthfulness rating as human-readable text (e.g., "False", "Mostly true") |
+| `ratingValue`   | `number` | **Required.** Numeric rating (closer to bestRating = more true)                             |
+| `bestRating`    | `number` | Best value in the rating scale (must be greater than worstRating)                           |
+| `worstRating`   | `number` | Worst value in the rating scale (minimum value of 1)                                        |
+| `name`          | `string` | Alternative to alternateName (use alternateName instead)                                    |
+
+#### Advanced Example with Claim Details
+
+```tsx
+<ClaimReviewJsonLd
+  claimReviewed="Climate change is not real"
+  reviewRating={{
+    ratingValue: 1,
+    bestRating: 5,
+    worstRating: 1,
+    alternateName: "Pants on Fire",
+  }}
+  url="https://example.com/fact-check/climate-denial"
+  author={{
+    name: "Climate Facts Organization",
+    url: "https://example.com",
+    logo: "https://example.com/logo.jpg",
+  }}
+  itemReviewed={{
+    author: {
+      name: "Climate Denial Institute",
+      sameAs: "https://climatedenial.example.com",
+    },
+    datePublished: "2024-06-20",
+    appearance: {
+      url: "https://example.com/original-claim",
+      headline: "The Great Climate Hoax",
+      datePublished: "2024-06-22",
+      author: "John Doe",
+      publisher: {
+        name: "Denial News",
+        logo: "https://example.com/denial-logo.jpg",
+      },
+    },
+  }}
+/>
+```
+
+#### Best Practices
+
+1. **Clear ratings**: Use descriptive alternateName values that clearly indicate the verdict
+2. **Claim summary**: Keep claimReviewed concise (under 75 characters) to prevent wrapping
+3. **Full context**: Include itemReviewed when possible to provide claim origin details
+4. **Consistent scale**: Use a consistent rating scale across all your fact checks
+5. **Author credibility**: Clearly identify your fact-checking organization
+
 ### RecipeJsonLd
 
 The `RecipeJsonLd` component helps you add structured data for recipes to improve their appearance in search results with rich snippets that can include ratings, cooking times, and images.

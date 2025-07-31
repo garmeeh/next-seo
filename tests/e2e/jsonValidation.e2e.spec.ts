@@ -1298,5 +1298,30 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(jsonData!.ratingValue).toBeDefined();
       expect(jsonData!.ratingCount || jsonData!.reviewCount).toBeTruthy();
     });
+
+    test("ClaimReviewJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/claim-review");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ClaimReview");
+      // Verify required properties
+      expect(jsonData!.claimReviewed).toBeTruthy();
+      expect(jsonData!.reviewRating).toBeDefined();
+      expect(jsonData!.reviewRating["@type"]).toBe("Rating");
+      expect(jsonData!.reviewRating.alternateName).toBeTruthy();
+      expect(jsonData!.url).toBeTruthy();
+    });
   });
 });
