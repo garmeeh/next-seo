@@ -2395,6 +2395,160 @@ import { VacationRentalJsonLd } from "next-seo";
 
 > **Note**: This feature requires integration with Google's Hotel Center and is limited to sites that meet eligibility criteria. Visit the [vacation rental interest form](https://support.google.com/hotelprices/contact/vacation_rentals_interest) to get started.
 
+### VideoJsonLd
+
+The `VideoJsonLd` component helps you add structured data for videos to improve their appearance in Google Search results. This includes standard video results, video carousels, and rich video previews. You can also mark live videos with a LIVE badge, add key moments for video navigation, and specify viewing restrictions.
+
+#### Basic Usage
+
+```tsx
+import { VideoJsonLd } from "next-seo";
+
+<VideoJsonLd
+  name="How to Make a Perfect Cake"
+  description="Learn how to make the perfect chocolate cake with this easy recipe"
+  thumbnailUrl="https://example.com/cake-video-thumbnail.jpg"
+  uploadDate="2024-01-15T08:00:00+00:00"
+  contentUrl="https://example.com/videos/cake-recipe.mp4"
+  embedUrl="https://example.com/embed/cake-recipe"
+  duration="PT10M30S"
+/>;
+```
+
+#### Advanced Usage with All Features
+
+```tsx
+<VideoJsonLd
+  name="How to Make a Perfect Cake"
+  description="Learn how to make the perfect chocolate cake with this easy recipe"
+  thumbnailUrl={[
+    "https://example.com/thumbnails/1x1/cake.jpg",
+    "https://example.com/thumbnails/4x3/cake.jpg",
+    "https://example.com/thumbnails/16x9/cake.jpg",
+  ]}
+  uploadDate="2024-01-15T08:00:00+00:00"
+  contentUrl="https://example.com/videos/cake-recipe.mp4"
+  embedUrl="https://example.com/embed/cake-recipe"
+  duration="PT10M30S"
+  expires="2025-01-15T00:00:00+00:00"
+  interactionStatistic={{
+    interactionType: "WatchAction",
+    userInteractionCount: 150000,
+  }}
+  regionsAllowed={["US", "CA", "GB"]}
+  author="Chef Julia"
+  publisher={{
+    name: "Cooking Channel",
+    logo: "https://example.com/cooking-channel-logo.png",
+  }}
+/>
+```
+
+#### Live Video with LIVE Badge
+
+```tsx
+<VideoJsonLd
+  name="Live Cooking Show: Holiday Special"
+  description="Join us for a live cooking demonstration of holiday favorites"
+  thumbnailUrl="https://example.com/live-show-thumbnail.jpg"
+  uploadDate="2024-12-20T10:00:00+00:00"
+  embedUrl="https://example.com/live/holiday-special"
+  publication={{
+    isLiveBroadcast: true,
+    startDate: "2024-12-25T18:00:00+00:00",
+    endDate: "2024-12-25T20:00:00+00:00",
+  }}
+/>
+```
+
+#### Video with Key Moments (Clips)
+
+```tsx
+<VideoJsonLd
+  name="Complete Cake Baking Tutorial"
+  description="A comprehensive guide to baking cakes from scratch"
+  thumbnailUrl="https://example.com/tutorial-thumbnail.jpg"
+  uploadDate="2024-01-15T08:00:00+00:00"
+  contentUrl="https://example.com/videos/complete-tutorial.mp4"
+  duration="PT30M"
+  hasPart={[
+    {
+      name: "Gathering Ingredients",
+      startOffset: 0,
+      endOffset: 120,
+      url: "https://example.com/videos/complete-tutorial?t=0",
+    },
+    {
+      name: "Mixing the Batter",
+      startOffset: 120,
+      endOffset: 480,
+      url: "https://example.com/videos/complete-tutorial?t=120",
+    },
+    {
+      name: "Baking and Decorating",
+      startOffset: 480,
+      endOffset: 1800,
+      url: "https://example.com/videos/complete-tutorial?t=480",
+    },
+  ]}
+/>
+```
+
+#### Video with Automatic Key Moments (SeekToAction)
+
+```tsx
+<VideoJsonLd
+  name="Recipe Collection Video"
+  description="Multiple recipes in one convenient video"
+  thumbnailUrl="https://example.com/collection-thumbnail.jpg"
+  uploadDate="2024-01-15T08:00:00+00:00"
+  embedUrl="https://example.com/embed/recipe-collection"
+  potentialAction={{
+    target: "https://example.com/videos/collection?t={seek_to_second_number}",
+    "startOffset-input": "required name=seek_to_second_number",
+  }}
+/>
+```
+
+#### Props
+
+| Property               | Type                                        | Description                                                                                       |
+| ---------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `name`                 | `string`                                    | **Required.** The title of the video                                                              |
+| `description`          | `string`                                    | **Required.** A description of the video                                                          |
+| `thumbnailUrl`         | `string \| ImageObject \| array`            | **Required.** URLs or ImageObjects for video thumbnails. Google recommends multiple aspect ratios |
+| `uploadDate`           | `string`                                    | **Required.** The date and time the video was published in ISO 8601 format                        |
+| `contentUrl`           | `string`                                    | Direct URL to the video file. Recommended if available                                            |
+| `embedUrl`             | `string`                                    | URL to the embedded video player. Use if contentUrl isn't available                               |
+| `duration`             | `string`                                    | Video duration in ISO 8601 format (e.g., "PT30M" for 30 minutes)                                  |
+| `expires`              | `string`                                    | Date after which the video is no longer available                                                 |
+| `interactionStatistic` | `InteractionCounter \| array`               | View counts, likes, or other interaction metrics                                                  |
+| `regionsAllowed`       | `string \| string[]`                        | Countries where the video is viewable (ISO 3166 format)                                           |
+| `ineligibleRegion`     | `string \| string[]`                        | Countries where the video is blocked                                                              |
+| `publication`          | `BroadcastEvent \| array`                   | For live videos - includes broadcast times and live status                                        |
+| `hasPart`              | `Clip \| Clip[]`                            | Video segments/chapters with timestamps and labels                                                |
+| `potentialAction`      | `SeekToAction`                              | URL pattern for automatic key moments                                                             |
+| `author`               | `string \| Person \| Organization \| array` | Video creator(s)                                                                                  |
+| `publisher`            | `Organization`                              | Organization that published the video                                                             |
+| `type`                 | `"VideoObject"`                             | Schema type. Defaults to "VideoObject"                                                            |
+| `scriptId`             | `string`                                    | Custom ID for the script tag                                                                      |
+| `scriptKey`            | `string`                                    | Custom key for React                                                                              |
+
+#### Best Practices
+
+1. **Thumbnail Images**: Provide multiple thumbnail URLs in different aspect ratios (16:9, 4:3, 1:1) for optimal display
+2. **Duration Format**: Use ISO 8601 duration format: PT[hours]H[minutes]M[seconds]S
+3. **Content vs Embed URL**:
+   - Use `contentUrl` for direct video files (mp4, webm, etc.)
+   - Use `embedUrl` for video player pages
+   - Provide both when possible
+4. **Live Videos**: For live streams, always include `publication` with `isLiveBroadcast: true`
+5. **Key Moments**:
+   - Use `hasPart` with `Clip` objects when you want to specify exact timestamps
+   - Use `potentialAction` with `SeekToAction` to let Google automatically detect key moments
+6. **Timestamps**: Always use ISO 8601 format with timezone information
+7. **Region Restrictions**: Use two-letter ISO 3166-1 country codes
+
 ### ProfilePageJsonLd
 
 The `ProfilePageJsonLd` component helps you add structured data for profile pages where creators (either people or organizations) share first-hand perspectives. This helps Google Search understand the creators in an online community and show better content from that community in search results, including the Discussions and Forums feature.

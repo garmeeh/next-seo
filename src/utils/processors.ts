@@ -63,6 +63,11 @@ import type {
   ClaimReviewRating,
   ClaimCreativeWork,
 } from "~/types/claimreview.types";
+import type {
+  BroadcastEvent,
+  Clip,
+  PotentialAction,
+} from "~/types/video.types";
 
 // Schema.org type constants
 const SCHEMA_TYPES = {
@@ -562,6 +567,64 @@ export function processVideo(
   video: VideoObject | Omit<VideoObject, "@type">,
 ): VideoObject {
   return processSchemaType<VideoObject>(video, SCHEMA_TYPES.VIDEO_OBJECT);
+}
+
+/**
+ * Processes broadcast event into BroadcastEvent schema type
+ * @param broadcast - BroadcastEvent with or without @type
+ * @returns BroadcastEvent with @type
+ */
+export function processBroadcastEvent(
+  broadcast: BroadcastEvent | Omit<BroadcastEvent, "@type">,
+): BroadcastEvent {
+  if (!broadcast) return broadcast as BroadcastEvent;
+
+  if (typeof broadcast === "object" && !("@type" in broadcast)) {
+    return {
+      "@type": "BroadcastEvent",
+      ...broadcast,
+    };
+  }
+
+  return broadcast as BroadcastEvent;
+}
+
+/**
+ * Processes clip into Clip schema type
+ * @param clip - Clip with or without @type
+ * @returns Clip with @type
+ */
+export function processClip(clip: Clip | Omit<Clip, "@type">): Clip {
+  if (!clip) return clip as Clip;
+
+  if (typeof clip === "object" && !("@type" in clip)) {
+    return {
+      "@type": "Clip",
+      ...clip,
+    };
+  }
+
+  return clip as Clip;
+}
+
+/**
+ * Processes seek action into SeekToAction schema type
+ * @param action - SeekToAction with or without @type
+ * @returns SeekToAction with @type
+ */
+export function processSeekToAction(
+  action: PotentialAction | Omit<PotentialAction, "@type">,
+): PotentialAction {
+  if (!action) return action as PotentialAction;
+
+  if (typeof action === "object" && !("@type" in action)) {
+    return {
+      "@type": "SeekToAction",
+      ...action,
+    };
+  }
+
+  return action as PotentialAction;
 }
 
 /**

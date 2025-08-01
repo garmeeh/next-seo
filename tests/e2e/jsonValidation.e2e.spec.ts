@@ -1323,5 +1323,75 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(jsonData!.reviewRating.alternateName).toBeTruthy();
       expect(jsonData!.url).toBeTruthy();
     });
+
+    test("VideoJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/video");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("VideoObject");
+      // Verify required properties
+      expect(jsonData!.name).toBeTruthy();
+      expect(jsonData!.description).toBeTruthy();
+      expect(jsonData!.thumbnailUrl).toBeTruthy();
+      expect(jsonData!.uploadDate).toBeTruthy();
+    });
+
+    test("VideoJsonLd with BroadcastEvent produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/video-live");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("VideoObject");
+      expect(jsonData!.publication).toBeDefined();
+      expect(Array.isArray(jsonData!.publication)).toBe(true);
+      expect(jsonData!.publication[0]["@type"]).toBe("BroadcastEvent");
+    });
+
+    test("VideoJsonLd with Clips produces valid JSON", async ({ page }) => {
+      await page.goto("/video-clips");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("VideoObject");
+      expect(jsonData!.hasPart).toBeDefined();
+      expect(Array.isArray(jsonData!.hasPart)).toBe(true);
+      expect(jsonData!.hasPart[0]["@type"]).toBe("Clip");
+    });
   });
 });

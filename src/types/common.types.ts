@@ -84,6 +84,12 @@ export interface PostalAddress {
   addressCountry?: string;
 }
 
+export interface Place {
+  "@type": "Place";
+  name?: string;
+  address?: PostalAddress | Omit<PostalAddress, "@type">;
+}
+
 export interface ContactPoint {
   "@type": "ContactPoint";
   contactType?: string;

@@ -67,6 +67,10 @@ export {
   type VacationRentalJsonLdProps,
 } from "./components/VacationRentalJsonLd";
 export {
+  default as VideoJsonLd,
+  type VideoJsonLdProps,
+} from "./components/VideoJsonLd";
+export {
   default as ProfilePageJsonLd,
   type ProfilePageJsonLdProps,
 } from "./components/ProfilePageJsonLd";
