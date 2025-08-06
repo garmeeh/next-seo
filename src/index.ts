@@ -43,6 +43,10 @@ export {
   type FAQJsonLdProps,
 } from "./components/FAQJsonLd";
 export {
+  default as ImageJsonLd,
+  type ImageJsonLdProps,
+} from "./components/ImageJsonLd";
+export {
   default as QuizJsonLd,
   type QuizJsonLdProps,
 } from "./components/QuizJsonLd";

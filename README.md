@@ -1469,6 +1469,94 @@ The `questions` array accepts several formats:
 6. **Expandable sections**: It's fine if answers are hidden behind expandable sections, as long as users can access them
 7. **No user submissions**: FAQPage is for questions with single, authoritative answers. For user-generated Q&A, use QAPage instead
 
+### ImageJsonLd
+
+The `ImageJsonLd` component helps you add structured data for images to improve their appearance in Google Images. This enables features like the Licensable badge and displays metadata such as creator, credit, copyright, and licensing information.
+
+#### Basic Usage
+
+```tsx
+import { ImageJsonLd } from "next-seo";
+
+<ImageJsonLd
+  contentUrl="https://example.com/photos/black-labrador-puppy.jpg"
+  creator="Brixton Brownstone"
+  license="https://example.com/license"
+  acquireLicensePage="https://example.com/how-to-use-my-images"
+  creditText="Labrador PhotoLab"
+  copyrightNotice="Clara Kent"
+/>;
+```
+
+#### Advanced Usage - Organization Creator
+
+```tsx
+<ImageJsonLd
+  contentUrl="https://example.com/photos/product-photo.jpg"
+  creator={{
+    name: "PhotoLab Studios",
+    logo: "https://example.com/photolab-logo.jpg",
+    sameAs: ["https://twitter.com/photolab", "https://instagram.com/photolab"],
+  }}
+  license="https://creativecommons.org/licenses/by-nc/4.0/"
+  acquireLicensePage="https://example.com/licensing"
+  creditText="PhotoLab Studios"
+  copyrightNotice="© 2024 PhotoLab Studios"
+/>
+```
+
+#### Multiple Images
+
+```tsx
+<ImageJsonLd
+  images={[
+    {
+      contentUrl: "https://example.com/photos/black-labrador-puppy.jpg",
+      creator: "Brixton Brownstone",
+      license: "https://example.com/license",
+      creditText: "Labrador PhotoLab",
+    },
+    {
+      contentUrl: "https://example.com/photos/adult-black-labrador.jpg",
+      creator: [
+        "Brixton Brownstone",
+        {
+          name: "Clara Kent",
+          url: "https://clarakent.com",
+        },
+      ],
+      copyrightNotice: "© 2024 Clara Kent",
+      license: "https://example.com/license",
+    },
+  ]}
+/>
+```
+
+#### Props
+
+| Property             | Type                 | Description                                                                                                          |
+| -------------------- | -------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `contentUrl`         | `string`             | **Required.** The URL of the actual image content                                                                    |
+| `creator`            | `Author \| Author[]` | The creator(s) of the image (photographer, designer, etc.). Can be string name(s), Person, or Organization object(s) |
+| `creditText`         | `string`             | The name of the person/organization credited when the image is published                                             |
+| `copyrightNotice`    | `string`             | The copyright notice for claiming intellectual property                                                              |
+| `license`            | `string`             | URL to a page describing the license governing the image's use                                                       |
+| `acquireLicensePage` | `string`             | URL to a page where users can find information on how to license the image                                           |
+| `images`             | `Array<ImageObject>` | Array of image objects with the above properties (for multiple images)                                               |
+| `scriptId`           | `string`             | Custom ID for the script tag                                                                                         |
+| `scriptKey`          | `string`             | Custom key for script deduplication                                                                                  |
+
+> **Note**: You must include `contentUrl` and at least one of: `creator`, `creditText`, `copyrightNotice`, or `license` for the image to be eligible for enhancements like the Licensable badge.
+
+#### Best Practices
+
+1. **Always provide licensing information**: Include the `license` property to make your images eligible for the Licensable badge
+2. **Credit creators properly**: Use structured creator information to ensure proper attribution
+3. **Include acquire license page**: Help users understand how they can legally use your images
+4. **Use consistent copyright notices**: Maintain clear copyright information across your images
+5. **Multiple creators**: When multiple people contributed to an image, list all creators
+6. **Organization vs Person**: Use Organization type for companies/studios, Person type for individuals
+
 ### QuizJsonLd
 
 The `QuizJsonLd` component helps you add structured data for educational quizzes and flashcards. This can help your educational content appear in Google's education Q&A carousel when users search for educational topics.

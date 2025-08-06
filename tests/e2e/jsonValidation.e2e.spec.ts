@@ -1324,6 +1324,57 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(jsonData!.url).toBeTruthy();
     });
 
+    test("ImageJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/image");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ImageObject");
+      // Verify required properties
+      expect(jsonData!.contentUrl).toBeTruthy();
+      expect(jsonData!.creator).toBeDefined();
+      expect(jsonData!.creator["@type"]).toBe("Person");
+    });
+
+    test("ImageJsonLd with multiple images produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/image-multiple");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@graph"]).toBeDefined();
+      expect(Array.isArray(jsonData!["@graph"])).toBe(true);
+      expect(jsonData!["@graph"]).toHaveLength(3);
+      // Verify each image has required properties
+      jsonData!["@graph"].forEach((image: Record<string, unknown>) => {
+        expect(image["@type"]).toBe("ImageObject");
+        expect(image.contentUrl).toBeTruthy();
+      });
+    });
+
     test("VideoJsonLd produces valid JSON", async ({ page }) => {
       await page.goto("/video");
 
