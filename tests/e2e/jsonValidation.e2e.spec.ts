@@ -1628,5 +1628,71 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(jsonData!.isAccessibleForFree).toBe(false);
       expect(jsonData!.hasPart["@type"]).toBe("WebPageElement");
     });
+
+    test("ProductJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/product");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Product");
+    });
+
+    test("ProductJsonLd with review and pros/cons produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/product-review");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Product");
+      expect(jsonData!.review).toBeDefined();
+      expect(jsonData!.review.positiveNotes).toBeDefined();
+      expect(jsonData!.review.negativeNotes).toBeDefined();
+    });
+
+    test("ProductJsonLd with AggregateOffer produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/product-aggregate");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Product");
+      expect(jsonData!.offers).toBeDefined();
+      expect(jsonData!.offers["@type"]).toBe("AggregateOffer");
+    });
   });
 });

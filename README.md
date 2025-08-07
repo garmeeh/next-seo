@@ -3409,3 +3409,252 @@ The component supports all Google-recognized application types:
 6. **Feature lists**: Highlight key features that differentiate your app
 7. **Version information**: Keep `softwareVersion` and `dateModified` current
 8. **Permissions transparency**: List all required permissions for mobile apps
+
+### ProductJsonLd
+
+The `ProductJsonLd` component helps you add structured data for products to improve their appearance in search results. Products can appear as rich snippets with ratings, prices, and availability information.
+
+#### Basic Usage
+
+```tsx
+import { ProductJsonLd } from "next-seo";
+
+<ProductJsonLd
+  name="Executive Anvil"
+  description="Sleeker than ACME's Classic Anvil, perfect for the business traveler"
+  image="https://example.com/products/anvil.jpg"
+  offers={{
+    price: 119.99,
+    priceCurrency: "USD",
+    availability: "InStock",
+  }}
+/>;
+```
+
+#### Product with Reviews
+
+```tsx
+<ProductJsonLd
+  name="Executive Anvil"
+  sku="0446310786"
+  mpn="925872"
+  brand="ACME"
+  review={{
+    reviewRating: {
+      ratingValue: 4.5,
+      bestRating: 5,
+    },
+    author: "Fred Benson",
+    reviewBody:
+      "This anvil has held up well after many uses. Highly recommended!",
+  }}
+  aggregateRating={{
+    ratingValue: 4.4,
+    reviewCount: 89,
+  }}
+  offers={{
+    price: 119.99,
+    priceCurrency: "USD",
+    availability: "InStock",
+    priceValidUntil: "2024-12-31",
+  }}
+/>
+```
+
+#### Product with Pros and Cons
+
+```tsx
+<ProductJsonLd
+  name="Cheese Grater Pro"
+  review={{
+    name: "Cheese Grater Pro Review",
+    author: "Pascal Van Cleeff",
+    reviewRating: {
+      ratingValue: 4,
+      bestRating: 5,
+    },
+    positiveNotes: {
+      itemListElement: [
+        { name: "Consistent results" },
+        { name: "Still sharp after many uses" },
+        { name: "Easy to clean" },
+      ],
+    },
+    negativeNotes: {
+      itemListElement: [
+        { name: "No child protection" },
+        { name: "Lacking advanced features" },
+      ],
+    },
+  }}
+  offers={{
+    price: 29.99,
+    priceCurrency: "USD",
+  }}
+/>
+```
+
+#### Shopping Aggregator (Multiple Sellers)
+
+```tsx
+<ProductJsonLd
+  name="Executive Anvil"
+  image={[
+    "https://example.com/photos/1x1/photo.jpg",
+    "https://example.com/photos/4x3/photo.jpg",
+    "https://example.com/photos/16x9/photo.jpg",
+  ]}
+  description="Sleeker than ACME's Classic Anvil"
+  sku="0446310786"
+  mpn="925872"
+  brand="ACME"
+  offers={{
+    lowPrice: 119.99,
+    highPrice: 199.99,
+    priceCurrency: "USD",
+    offerCount: 5,
+  }}
+  aggregateRating={{
+    ratingValue: 4.4,
+    reviewCount: 89,
+  }}
+/>
+```
+
+#### Complete Example with All Features
+
+```tsx
+<ProductJsonLd
+  name="Executive Anvil"
+  description="Sleeker than ACME's Classic Anvil"
+  url="https://example.com/products/anvil"
+  sku="0446310786"
+  mpn="925872"
+  gtin13="0614141999996"
+  brand="ACME"
+  category="Hardware"
+  color="Silver"
+  material="Steel"
+  model="EA-2024"
+  productID="anvil-001"
+  weight={{
+    value: 10,
+    unitCode: "KGM",
+  }}
+  width="30cm"
+  height="20cm"
+  depth="15cm"
+  manufacturer="ACME Manufacturing"
+  releaseDate="2024-01-01"
+  award="Best Anvil 2024"
+  image={[
+    "https://example.com/photos/1x1/photo.jpg",
+    "https://example.com/photos/4x3/photo.jpg",
+    "https://example.com/photos/16x9/photo.jpg",
+  ]}
+  review={[
+    {
+      reviewRating: { ratingValue: 5, bestRating: 5 },
+      author: "Alice Johnson",
+      reviewBody: "Excellent quality!",
+    },
+    {
+      reviewRating: { ratingValue: 4, bestRating: 5 },
+      author: "Bob Smith",
+      reviewBody: "Good product, fast shipping.",
+    },
+  ]}
+  aggregateRating={{
+    ratingValue: 4.4,
+    reviewCount: 89,
+  }}
+  offers={{
+    price: 119.99,
+    priceCurrency: "USD",
+    availability: "InStock",
+    priceValidUntil: "2024-12-31",
+    url: "https://example.com/buy/anvil",
+    seller: {
+      name: "ACME Store",
+      url: "https://example.com",
+    },
+  }}
+/>
+```
+
+#### Props
+
+| Property             | Type                                               | Description                              |
+| -------------------- | -------------------------------------------------- | ---------------------------------------- |
+| `name`               | `string`                                           | **Required.** Product name               |
+| `description`        | `string`                                           | Product description                      |
+| `image`              | `string \| ImageObject \| Array`                   | Product images                           |
+| `sku`                | `string`                                           | Stock Keeping Unit                       |
+| `mpn`                | `string`                                           | Manufacturer Part Number                 |
+| `gtin`               | `string`                                           | Global Trade Item Number                 |
+| `gtin8`              | `string`                                           | 8-digit GTIN                             |
+| `gtin12`             | `string`                                           | 12-digit GTIN (UPC)                      |
+| `gtin13`             | `string`                                           | 13-digit GTIN (EAN)                      |
+| `gtin14`             | `string`                                           | 14-digit GTIN                            |
+| `brand`              | `string \| Brand`                                  | Product brand                            |
+| `review`             | `ProductReview \| ProductReview[]`                 | Product reviews                          |
+| `aggregateRating`    | `AggregateRating`                                  | Aggregate rating from all reviews        |
+| `offers`             | `ProductOffer \| AggregateOffer \| ProductOffer[]` | Price and availability (**recommended**) |
+| `category`           | `string`                                           | Product category                         |
+| `color`              | `string`                                           | Product color                            |
+| `material`           | `string`                                           | Product material                         |
+| `model`              | `string`                                           | Product model                            |
+| `productID`          | `string`                                           | Product identifier                       |
+| `url`                | `string`                                           | Product page URL                         |
+| `weight`             | `string \| QuantitativeValue`                      | Product weight                           |
+| `width`              | `string \| QuantitativeValue`                      | Product width                            |
+| `height`             | `string \| QuantitativeValue`                      | Product height                           |
+| `depth`              | `string \| QuantitativeValue`                      | Product depth                            |
+| `additionalProperty` | `PropertyValue[]`                                  | Additional product properties            |
+| `manufacturer`       | `string \| Organization \| Person`                 | Product manufacturer                     |
+| `releaseDate`        | `string`                                           | Product release date                     |
+| `productionDate`     | `string`                                           | Production date                          |
+| `purchaseDate`       | `string`                                           | Purchase date                            |
+| `expirationDate`     | `string`                                           | Expiration date                          |
+| `award`              | `string \| string[]`                               | Awards received                          |
+| `isCar`              | `boolean`                                          | Set to true for car products             |
+
+#### Important Requirements
+
+Google requires at least one of the following properties for product snippets:
+
+- `review` - A nested review of the product
+- `aggregateRating` - The overall rating based on multiple reviews
+- `offers` - Price and availability information
+
+#### Offer Properties
+
+| Property          | Type                     | Description                              |
+| ----------------- | ------------------------ | ---------------------------------------- |
+| `price`           | `number \| string`       | Product price                            |
+| `priceCurrency`   | `string`                 | Currency code (e.g., "USD")              |
+| `availability`    | `ItemAvailability`       | Availability status                      |
+| `priceValidUntil` | `string`                 | Date until price is valid                |
+| `url`             | `string`                 | URL to purchase product                  |
+| `seller`          | `Organization \| Person` | Seller information                       |
+| `itemCondition`   | `string`                 | Condition (New, Used, Refurbished, etc.) |
+
+#### AggregateOffer Properties (Multiple Sellers)
+
+| Property        | Type               | Description                 |
+| --------------- | ------------------ | --------------------------- |
+| `lowPrice`      | `number \| string` | **Required.** Lowest price  |
+| `priceCurrency` | `string`           | **Required.** Currency code |
+| `highPrice`     | `number \| string` | Highest price               |
+| `offerCount`    | `number`           | Number of offers            |
+
+#### Best Practices
+
+1. **Always include one of**: review, aggregateRating, or offers (Google requirement)
+2. **Multiple images**: Provide images in different aspect ratios (1x1, 4x3, 16x9)
+3. **Use specific identifiers**: Include SKU, MPN, or GTIN when available
+4. **Pros and cons**: Use positiveNotes and negativeNotes for editorial reviews
+5. **Price information**: Always include priceCurrency with price
+6. **Availability**: Use schema.org values (InStock, OutOfStock, PreOrder, etc.)
+7. **Multiple sellers**: Use AggregateOffer for shopping comparison sites
+8. **Car products**: Set `isCar={true}` for automotive products to add Car type

@@ -90,3 +90,7 @@ export {
   default as SoftwareApplicationJsonLd,
   type SoftwareApplicationJsonLdProps,
 } from "./components/SoftwareApplicationJsonLd";
+export {
+  default as ProductJsonLd,
+  type ProductJsonLdProps,
+} from "./components/ProductJsonLd";

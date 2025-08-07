@@ -69,6 +69,14 @@ import type {
   PotentialAction,
 } from "~/types/video.types";
 import type { WebPageElement } from "~/types/creativework.types";
+import type {
+  ProductOffer,
+  AggregateOffer,
+  PriceSpecification,
+  ProductItemList,
+  ProductListItem,
+  ProductReview,
+} from "~/types/product.types";
 
 // Schema.org type constants
 const SCHEMA_TYPES = {
@@ -94,6 +102,9 @@ const SCHEMA_TYPES = {
   PLACE: "Place",
   PERFORMING_GROUP: "PerformingGroup",
   OFFER: "Offer",
+  AGGREGATE_OFFER: "AggregateOffer",
+  PRICE_SPECIFICATION: "PriceSpecification",
+  ITEM_LIST: "ItemList",
   LIST_ITEM: "ListItem",
   NUTRITION_INFORMATION: "NutritionInformation",
   HOW_TO_STEP: "HowToStep",
@@ -1330,4 +1341,139 @@ export function processWebPageElement(
     element,
     SCHEMA_TYPES.WEB_PAGE_ELEMENT,
   );
+}
+
+// Product-specific processors
+
+/**
+ * Processes product offer into ProductOffer schema type
+ * @param offer - ProductOffer object with or without @type
+ * @returns ProductOffer with @type and processed nested fields
+ */
+export function processProductOffer(
+  offer: ProductOffer | Omit<ProductOffer, "@type">,
+): ProductOffer {
+  const processed: ProductOffer = processSchemaType<ProductOffer>(
+    offer,
+    SCHEMA_TYPES.OFFER,
+  );
+
+  // Process nested seller if present
+  if (offer.seller) {
+    processed.seller = processAuthor(offer.seller);
+  }
+
+  // Process nested priceSpecification if present
+  if (offer.priceSpecification) {
+    processed.priceSpecification = processPriceSpecification(
+      offer.priceSpecification,
+    );
+  }
+
+  return processed;
+}
+
+/**
+ * Processes aggregate offer into AggregateOffer schema type
+ * @param offer - AggregateOffer object with or without @type
+ * @returns AggregateOffer with @type and processed nested offers
+ */
+export function processAggregateOffer(
+  offer: AggregateOffer | Omit<AggregateOffer, "@type">,
+): AggregateOffer {
+  const processed: AggregateOffer = processSchemaType<AggregateOffer>(
+    offer,
+    SCHEMA_TYPES.AGGREGATE_OFFER,
+  );
+
+  // Process nested offers if present
+  if (offer.offers) {
+    processed.offers = offer.offers.map(processProductOffer);
+  }
+
+  return processed;
+}
+
+/**
+ * Processes price specification into PriceSpecification schema type
+ * @param spec - PriceSpecification object with or without @type
+ * @returns PriceSpecification with @type
+ */
+export function processPriceSpecification(
+  spec: PriceSpecification | Omit<PriceSpecification, "@type">,
+): PriceSpecification {
+  return processSchemaType<PriceSpecification>(
+    spec,
+    SCHEMA_TYPES.PRICE_SPECIFICATION,
+  );
+}
+
+/**
+ * Processes product item list into ProductItemList schema type
+ * @param list - ProductItemList object with or without @type
+ * @returns ProductItemList with @type and processed items
+ */
+export function processProductItemList(
+  list: ProductItemList | Omit<ProductItemList, "@type">,
+): ProductItemList {
+  const processed: ProductItemList = processSchemaType<ProductItemList>(
+    list,
+    SCHEMA_TYPES.ITEM_LIST,
+  );
+
+  // Process nested list items
+  if (list.itemListElement) {
+    processed.itemListElement = list.itemListElement.map((item, index) => {
+      const processedItem = processSchemaType<ProductListItem>(
+        item,
+        SCHEMA_TYPES.LIST_ITEM,
+      );
+      // Ensure position is set if not provided
+      if (!processedItem.position) {
+        processedItem.position = index + 1;
+      }
+      return processedItem;
+    });
+  }
+
+  return processed;
+}
+
+/**
+ * Processes product review into ProductReview schema type with pros/cons
+ * @param review - ProductReview object with or without @type
+ * @returns ProductReview with @type and processed nested fields
+ */
+export function processProductReview(
+  review: ProductReview | Omit<ProductReview, "@type">,
+): ProductReview {
+  const processed: ProductReview = processSchemaType<ProductReview>(
+    review,
+    SCHEMA_TYPES.REVIEW,
+  );
+
+  // Process nested rating
+  if (review.reviewRating) {
+    processed.reviewRating = processSchemaType<Rating>(
+      review.reviewRating,
+      SCHEMA_TYPES.RATING,
+    );
+  }
+
+  // Process nested author
+  if (review.author) {
+    processed.author = processAuthor(review.author);
+  }
+
+  // Process positive notes (pros)
+  if (review.positiveNotes) {
+    processed.positiveNotes = processProductItemList(review.positiveNotes);
+  }
+
+  // Process negative notes (cons)
+  if (review.negativeNotes) {
+    processed.negativeNotes = processProductItemList(review.negativeNotes);
+  }
+
+  return processed;
 }
