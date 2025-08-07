@@ -31,6 +31,10 @@ export {
   type BreadcrumbJsonLdProps,
 } from "./components/BreadcrumbJsonLd";
 export {
+  default as CarouselJsonLd,
+  type CarouselJsonLdProps,
+} from "./components/CarouselJsonLd";
+export {
   default as CourseJsonLd,
   type CourseJsonLdProps,
 } from "./components/CourseJsonLd";

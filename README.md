@@ -1033,6 +1033,299 @@ You can use Thing objects with `@id` instead of plain URL strings:
 6. **Avoid duplicates**: Each trail should represent a unique path to the page
 7. **Match visual breadcrumbs**: The structured data should match the breadcrumbs shown on your page
 
+### CarouselJsonLd
+
+The `CarouselJsonLd` component helps you add structured data for carousels (ItemList) to enable rich results that display multiple cards from your site in a carousel format. This component supports Course, Movie, Recipe, and Restaurant content types.
+
+#### Basic Usage
+
+**Summary Page Pattern (URLs only):**
+
+```tsx
+import { CarouselJsonLd } from "next-seo";
+
+// Simple array of URLs
+<CarouselJsonLd
+  urls={[
+    "https://example.com/recipe/cookies",
+    "https://example.com/recipe/cake",
+    "https://example.com/recipe/pie"
+  ]}
+/>
+
+// With custom positions
+<CarouselJsonLd
+  urls={[
+    { url: "https://example.com/movie/matrix", position: 1 },
+    "https://example.com/movie/inception", // position will be 2
+    { url: "https://example.com/movie/interstellar", position: 3 }
+  ]}
+/>
+```
+
+**All-in-One Page Pattern (Full Data):**
+
+```tsx
+import { CarouselJsonLd } from "next-seo";
+
+// Course Carousel
+<CarouselJsonLd
+  contentType="Course"
+  items={[
+    {
+      name: "Introduction to React",
+      description: "Learn the fundamentals of React",
+      url: "https://example.com/courses/react",
+      provider: "Tech Academy"
+    },
+    {
+      name: "Advanced TypeScript",
+      description: "Master TypeScript features",
+      provider: {
+        name: "Code School",
+        url: "https://example.com/school"
+      }
+    }
+  ]}
+/>
+
+// Movie Carousel
+<CarouselJsonLd
+  contentType="Movie"
+  items={[
+    {
+      name: "The Matrix",
+      image: "https://example.com/matrix.jpg",
+      director: "The Wachowskis",
+      dateCreated: "1999-03-31",
+      aggregateRating: {
+        ratingValue: 8.7,
+        ratingCount: 1000
+      }
+    },
+    {
+      name: "Inception",
+      image: [
+        "https://example.com/inception1.jpg",
+        "https://example.com/inception2.jpg"
+      ],
+      director: { name: "Christopher Nolan" }
+    }
+  ]}
+/>
+
+// Recipe Carousel
+<CarouselJsonLd
+  contentType="Recipe"
+  items={[
+    {
+      name: "Chocolate Chip Cookies",
+      image: "https://example.com/cookies.jpg",
+      description: "Classic chocolate chip cookies",
+      author: "Chef John",
+      prepTime: "PT20M",
+      cookTime: "PT12M",
+      recipeYield: 24,
+      recipeIngredient: [
+        "2 cups flour",
+        "1 cup butter",
+        "1 cup chocolate chips"
+      ],
+      aggregateRating: {
+        ratingValue: 4.8,
+        ratingCount: 250
+      }
+    }
+  ]}
+/>
+
+// Restaurant Carousel
+<CarouselJsonLd
+  contentType="Restaurant"
+  items={[
+    {
+      name: "Joe's Pizza",
+      address: "123 Main St, New York, NY 10001",
+      telephone: "+1-212-555-0100",
+      servesCuisine: ["Italian", "Pizza"],
+      priceRange: "$$",
+      aggregateRating: {
+        ratingValue: 4.5,
+        ratingCount: 500
+      },
+      geo: {
+        latitude: 40.7128,
+        longitude: -74.0060
+      }
+    }
+  ]}
+/>
+```
+
+#### Advanced Examples
+
+**Recipe Carousel with Full Details:**
+
+```tsx
+<CarouselJsonLd
+  contentType="Recipe"
+  items={[
+    {
+      name: "Perfect Pancakes",
+      image: [
+        "https://example.com/pancakes1.jpg",
+        "https://example.com/pancakes2.jpg",
+      ],
+      description: "Fluffy and delicious pancakes",
+      author: [
+        "Chef Alice",
+        { name: "Chef Bob", url: "https://example.com/chefs/bob" },
+      ],
+      datePublished: "2024-01-01",
+      prepTime: "PT10M",
+      cookTime: "PT15M",
+      totalTime: "PT25M",
+      recipeYield: "4 servings",
+      recipeCategory: "Breakfast",
+      recipeCuisine: "American",
+      recipeIngredient: [
+        "2 cups all-purpose flour",
+        "2 tablespoons sugar",
+        "2 eggs",
+        "1 1/2 cups milk",
+      ],
+      recipeInstructions: [
+        "Mix dry ingredients in a bowl",
+        { text: "Whisk wet ingredients separately" },
+        {
+          name: "Cooking",
+          itemListElement: [
+            { text: "Heat griddle to 375°F" },
+            { text: "Pour batter and cook until bubbles form" },
+            { text: "Flip and cook until golden" },
+          ],
+        },
+      ],
+      nutrition: {
+        calories: "250 calories",
+        proteinContent: "8g",
+        carbohydrateContent: "35g",
+        fatContent: "9g",
+      },
+      aggregateRating: {
+        ratingValue: 4.9,
+        ratingCount: 1200,
+      },
+      video: {
+        name: "How to Make Perfect Pancakes",
+        description: "Step-by-step video guide",
+        thumbnailUrl: "https://example.com/pancakes-thumb.jpg",
+        contentUrl: "https://example.com/pancakes-video.mp4",
+        uploadDate: "2024-01-01",
+        duration: "PT5M30S",
+      },
+      keywords: "pancakes, breakfast, easy recipe",
+    },
+  ]}
+/>
+```
+
+**Restaurant Carousel with Opening Hours:**
+
+```tsx
+<CarouselJsonLd
+  contentType="Restaurant"
+  items={[
+    {
+      name: "Fine Dining Restaurant",
+      address: {
+        streetAddress: "456 Oak Avenue",
+        addressLocality: "San Francisco",
+        addressRegion: "CA",
+        postalCode: "94102",
+        addressCountry: "US",
+      },
+      image: [
+        "https://example.com/restaurant1.jpg",
+        "https://example.com/restaurant2.jpg",
+      ],
+      telephone: "+1-415-555-0200",
+      url: "https://example.com/restaurant",
+      menu: "https://example.com/restaurant/menu",
+      servesCuisine: ["French", "Mediterranean"],
+      priceRange: "$$$",
+      openingHoursSpecification: [
+        {
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+          opens: "17:00",
+          closes: "22:00",
+        },
+        {
+          dayOfWeek: ["Friday", "Saturday"],
+          opens: "17:00",
+          closes: "23:00",
+        },
+      ],
+      review: [
+        {
+          reviewRating: { ratingValue: 5 },
+          author: "Food Critic",
+          reviewBody: "Exceptional dining experience",
+        },
+      ],
+      aggregateRating: {
+        ratingValue: 4.7,
+        bestRating: 5,
+        ratingCount: 850,
+      },
+    },
+  ]}
+/>
+```
+
+#### Props
+
+| Property      | Type                                                              | Description                                      |
+| ------------- | ----------------------------------------------------------------- | ------------------------------------------------ |
+| `urls`        | `SummaryPageItem[]`                                               | Array of URLs for summary page pattern           |
+| `contentType` | `"Course" \| "Movie" \| "Recipe" \| "Restaurant"`                 | Type of content in the carousel (for all-in-one) |
+| `items`       | `CourseItem[] \| MovieItem[] \| RecipeItem[] \| RestaurantItem[]` | Array of items matching the content type         |
+| `scriptId`    | `string`                                                          | Custom ID for the script tag                     |
+| `scriptKey`   | `string`                                                          | Custom key prop for React                        |
+
+**SummaryPageItem Type:**
+
+| Type                                 | Description                       |
+| ------------------------------------ | --------------------------------- |
+| `string`                             | Simple URL string                 |
+| `{ url: string; position?: number }` | URL with optional custom position |
+
+#### Best Practices
+
+1. **Choose the right pattern**:
+
+   - Use **summary page pattern** when you have separate detail pages for each item
+   - Use **all-in-one pattern** when all content is on a single page
+
+2. **Consistent content types**: All items in a carousel must be of the same type (e.g., all recipes or all movies)
+
+3. **Required images**:
+
+   - Movies require at least one image
+   - Recipes should include images for better visibility
+   - Use multiple aspect ratios when possible
+
+4. **Position numbering**:
+
+   - Positions start at 1, not 0
+   - If not specified, positions are auto-assigned sequentially
+
+5. **URL structure**: For summary pages, ensure all URLs point to pages on the same domain
+
+6. **Rich content**: Include as much relevant information as possible for better search results
+
+7. **Validation**: Test your structured data with Google's Rich Results Test
+
 ### CourseJsonLd
 
 The `CourseJsonLd` component helps you add structured data for courses to enable course list rich results in Google Search. This can help prospective students discover your courses more easily.

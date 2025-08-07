@@ -1444,5 +1444,92 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(Array.isArray(jsonData!.hasPart)).toBe(true);
       expect(jsonData!.hasPart[0]["@type"]).toBe("Clip");
     });
+
+    test("CarouselJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/carousel-summary");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ItemList");
+      expect(jsonData!.itemListElement).toBeDefined();
+      expect(Array.isArray(jsonData!.itemListElement)).toBe(true);
+    });
+
+    test("CarouselJsonLd with Courses produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/carousel-course");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ItemList");
+      expect(jsonData!.itemListElement[0].item["@type"]).toBe("Course");
+    });
+
+    test("CarouselJsonLd with Recipes produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/carousel-recipe");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ItemList");
+      expect(jsonData!.itemListElement[0].item["@type"]).toBe("Recipe");
+    });
+
+    test("CarouselJsonLd with Restaurants produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/carousel-restaurant");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("ItemList");
+      expect(jsonData!.itemListElement[0].item["@type"]).toBe("Restaurant");
+    });
   });
 });
