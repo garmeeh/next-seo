@@ -27,6 +27,10 @@ export {
   type LocalBusinessJsonLdProps,
 } from "./components/LocalBusinessJsonLd";
 export {
+  default as MerchantReturnPolicyJsonLd,
+  type MerchantReturnPolicyJsonLdProps,
+} from "./components/MerchantReturnPolicyJsonLd";
+export {
   default as MovieCarouselJsonLd,
   type MovieCarouselJsonLdProps,
 } from "./components/MovieCarouselJsonLd";

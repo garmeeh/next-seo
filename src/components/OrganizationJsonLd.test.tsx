@@ -516,20 +516,90 @@ describe("OrganizationJsonLd", () => {
     expect(jsonData.hasMerchantReturnPolicy).toHaveLength(2);
     expect(jsonData.hasMerchantReturnPolicy[0]).toEqual({
       "@type": "MerchantReturnPolicy",
-      applicableCountry: "US",
+      applicableCountry: ["US"],
       returnPolicyCategory:
         "https://schema.org/MerchantReturnFiniteReturnWindow",
       merchantReturnDays: 30,
-      returnMethod: "https://schema.org/ReturnByMail",
+      returnMethod: ["https://schema.org/ReturnByMail"],
     });
     expect(jsonData.hasMerchantReturnPolicy[1]).toEqual({
       "@type": "MerchantReturnPolicy",
-      applicableCountry: "CA",
+      applicableCountry: ["CA"],
       returnPolicyCategory:
         "https://schema.org/MerchantReturnFiniteReturnWindow",
       merchantReturnDays: 60,
-      returnMethod: "https://schema.org/ReturnInStore",
+      returnMethod: ["https://schema.org/ReturnInStore"],
       returnFees: "https://schema.org/FreeReturn",
+    });
+  });
+
+  it("handles OnlineStore with enhanced merchant return policy features", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        type="OnlineStore"
+        name="Advanced Online Store"
+        hasMerchantReturnPolicy={{
+          applicableCountry: ["DE", "AT", "CH"],
+          returnPolicyCountry: "IE",
+          returnPolicyCategory:
+            "https://schema.org/MerchantReturnFiniteReturnWindow",
+          merchantReturnDays: 60,
+          returnFees: "https://schema.org/ReturnShippingFees",
+          returnShippingFeesAmount: {
+            value: 2.99,
+            currency: "EUR",
+          },
+          customerRemorseReturnFees: "https://schema.org/ReturnShippingFees",
+          customerRemorseReturnShippingFeesAmount: {
+            value: 5.99,
+            currency: "EUR",
+          },
+          itemDefectReturnFees: "https://schema.org/FreeReturn",
+          restockingFee: {
+            value: 10,
+            currency: "EUR",
+          },
+          returnPolicySeasonalOverride: {
+            startDate: "2025-12-01",
+            endDate: "2025-01-05",
+            returnPolicyCategory:
+              "https://schema.org/MerchantReturnFiniteReturnWindow",
+            merchantReturnDays: 30,
+          },
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData["@type"]).toBe("OnlineStore");
+    const policy = jsonData.hasMerchantReturnPolicy;
+    expect(policy["@type"]).toBe("MerchantReturnPolicy");
+    expect(policy.returnShippingFeesAmount).toEqual({
+      "@type": "MonetaryAmount",
+      value: 2.99,
+      currency: "EUR",
+    });
+    expect(policy.customerRemorseReturnShippingFeesAmount).toEqual({
+      "@type": "MonetaryAmount",
+      value: 5.99,
+      currency: "EUR",
+    });
+    expect(policy.restockingFee).toEqual({
+      "@type": "MonetaryAmount",
+      value: 10,
+      currency: "EUR",
+    });
+    expect(policy.returnPolicySeasonalOverride).toEqual({
+      "@type": "MerchantReturnPolicySeasonalOverride",
+      startDate: "2025-12-01",
+      endDate: "2025-01-05",
+      returnPolicyCategory:
+        "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 30,
     });
   });
 });

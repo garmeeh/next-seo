@@ -45,9 +45,25 @@ export default function OnlineStorePage() {
           returnPolicyCategory:
             "https://schema.org/MerchantReturnFiniteReturnWindow",
           merchantReturnDays: 60,
-          returnMethod: "https://schema.org/ReturnByMail",
+          itemCondition: ["https://schema.org/NewCondition"],
+          returnMethod: [
+            "https://schema.org/ReturnByMail",
+            "https://schema.org/ReturnInStore",
+          ],
           returnFees: "https://schema.org/FreeReturn",
           refundType: "https://schema.org/FullRefund",
+          returnLabelSource: "https://schema.org/ReturnLabelDownloadAndPrint",
+          customerRemorseReturnFees: "https://schema.org/FreeReturn",
+          itemDefectReturnFees: "https://schema.org/FreeReturn",
+          returnPolicySeasonalOverride: [
+            {
+              startDate: "2025-11-29",
+              endDate: "2025-12-31",
+              returnPolicyCategory:
+                "https://schema.org/MerchantReturnFiniteReturnWindow",
+              merchantReturnDays: 90,
+            },
+          ],
         }}
       />
 
@@ -66,11 +82,18 @@ export default function OnlineStorePage() {
         <section className="mb-8 bg-gray-50 p-6 rounded-lg">
           <h2 className="text-2xl font-semibold mb-4">Return Policy</h2>
           <ul className="space-y-2 text-gray-700">
-            <li>✓ 60-day return window</li>
-            <li>✓ Free returns by mail</li>
+            <li>✓ 60-day return window (90 days during holidays!)</li>
+            <li>✓ Free returns by mail or in-store</li>
             <li>✓ Full refund guaranteed</li>
             <li>✓ Applicable in US and Canada</li>
+            <li>✓ Download and print return label</li>
+            <li>✓ Free returns for all reasons</li>
           </ul>
+          <div className="mt-4 p-3 bg-green-100 rounded">
+            <p className="text-sm font-medium text-green-800">
+              🎄 Holiday Special: Extended 90-day returns from Nov 29 - Dec 31
+            </p>
+          </div>
         </section>
 
         <section className="mb-8">

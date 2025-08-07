@@ -919,6 +919,202 @@ openingHoursSpecification={{
 7. **Department naming**: Include the main store name with department name (e.g., "Store Name - Pharmacy")
 8. **Price range**: Keep under 100 characters; use standard symbols ($, $$, $$$) or ranges
 
+### MerchantReturnPolicyJsonLd
+
+The `MerchantReturnPolicyJsonLd` component helps you add structured data for merchant return policies, enabling Google Search to display return policy information alongside your products and in knowledge panels. This component supports both detailed policy specifications and simple links to policy pages.
+
+#### Basic Usage - Option A (Detailed Properties)
+
+Use this pattern when you want to provide detailed return policy information:
+
+```tsx
+import { MerchantReturnPolicyJsonLd } from "next-seo";
+
+<MerchantReturnPolicyJsonLd
+  applicableCountry={["US", "CA"]}
+  returnPolicyCountry="US"
+  returnPolicyCategory="https://schema.org/MerchantReturnFiniteReturnWindow"
+  merchantReturnDays={30}
+  returnMethod="https://schema.org/ReturnByMail"
+  returnFees="https://schema.org/FreeReturn"
+  refundType="https://schema.org/FullRefund"
+  returnLabelSource="https://schema.org/ReturnLabelDownloadAndPrint"
+/>;
+```
+
+#### Basic Usage - Option B (Link Only)
+
+Use this pattern when you prefer to link to your return policy page:
+
+```tsx
+import { MerchantReturnPolicyJsonLd } from "next-seo";
+
+<MerchantReturnPolicyJsonLd merchantReturnLink="https://www.example.com/returns" />;
+```
+
+#### Advanced Usage with All Features
+
+```tsx
+import { MerchantReturnPolicyJsonLd } from "next-seo";
+
+<MerchantReturnPolicyJsonLd
+  applicableCountry={["DE", "AT", "CH"]}
+  returnPolicyCountry="IE"
+  returnPolicyCategory="https://schema.org/MerchantReturnFiniteReturnWindow"
+  merchantReturnDays={60}
+  itemCondition={[
+    "https://schema.org/NewCondition",
+    "https://schema.org/DamagedCondition",
+  ]}
+  returnMethod={[
+    "https://schema.org/ReturnByMail",
+    "https://schema.org/ReturnInStore",
+  ]}
+  returnFees="https://schema.org/ReturnShippingFees"
+  returnShippingFeesAmount={{
+    value: 2.99,
+    currency: "EUR",
+  }}
+  refundType={[
+    "https://schema.org/FullRefund",
+    "https://schema.org/ExchangeRefund",
+  ]}
+  restockingFee={{
+    value: 10,
+    currency: "EUR",
+  }}
+  returnLabelSource="https://schema.org/ReturnLabelInBox"
+  // Customer remorse specific
+  customerRemorseReturnFees="https://schema.org/ReturnShippingFees"
+  customerRemorseReturnShippingFeesAmount={{
+    value: 5.99,
+    currency: "EUR",
+  }}
+  customerRemorseReturnLabelSource="https://schema.org/ReturnLabelDownloadAndPrint"
+  // Item defect specific
+  itemDefectReturnFees="https://schema.org/FreeReturn"
+  itemDefectReturnLabelSource="https://schema.org/ReturnLabelInBox"
+  // Seasonal override
+  returnPolicySeasonalOverride={{
+    startDate: "2025-12-01",
+    endDate: "2025-01-05",
+    returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+    merchantReturnDays: 30,
+  }}
+/>;
+```
+
+#### Product-Level Return Policy
+
+You can also specify return policies for individual products:
+
+```tsx
+import { ProductJsonLd } from "next-seo";
+
+<ProductJsonLd
+  name="Premium Wireless Headphones"
+  offers={{
+    price: 349.99,
+    priceCurrency: "USD",
+    hasMerchantReturnPolicy: {
+      applicableCountry: "US",
+      returnPolicyCategory:
+        "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 45,
+      returnFees: "https://schema.org/FreeReturn",
+      refundType: "https://schema.org/FullRefund",
+    },
+  }}
+/>;
+```
+
+#### Organization-Level Return Policy
+
+For online stores, specify a standard return policy at the organization level:
+
+```tsx
+import { OrganizationJsonLd } from "next-seo";
+
+<OrganizationJsonLd
+  type="OnlineStore"
+  name="Example Store"
+  hasMerchantReturnPolicy={{
+    applicableCountry: ["US", "CA"],
+    returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+    merchantReturnDays: 60,
+    returnFees: "https://schema.org/FreeReturn",
+    refundType: "https://schema.org/FullRefund",
+  }}
+/>;
+```
+
+#### Props
+
+| Property                                  | Type                                     | Description                                                |
+| ----------------------------------------- | ---------------------------------------- | ---------------------------------------------------------- |
+| **Option A Properties**                   |
+| `applicableCountry`                       | `string \| string[]`                     | **Required** (Option A). Countries where products are sold |
+| `returnPolicyCategory`                    | `string`                                 | **Required** (Option A). Type of return policy             |
+| `merchantReturnDays`                      | `number`                                 | Days for returns (required if finite window)               |
+| `returnPolicyCountry`                     | `string \| string[]`                     | Countries where returns are processed                      |
+| `returnMethod`                            | `string \| string[]`                     | How items can be returned                                  |
+| `returnFees`                              | `string`                                 | Type of return fees                                        |
+| `returnShippingFeesAmount`                | `MonetaryAmount`                         | Shipping fee for returns                                   |
+| `refundType`                              | `string \| string[]`                     | Types of refunds available                                 |
+| `restockingFee`                           | `number \| MonetaryAmount`               | Restocking fee (percentage or fixed)                       |
+| `returnLabelSource`                       | `string`                                 | How customers get return labels                            |
+| `itemCondition`                           | `string \| string[]`                     | Acceptable return conditions                               |
+| **Customer Remorse Properties**           |
+| `customerRemorseReturnFees`               | `string`                                 | Fees for change-of-mind returns                            |
+| `customerRemorseReturnShippingFeesAmount` | `MonetaryAmount`                         | Shipping fee for remorse returns                           |
+| `customerRemorseReturnLabelSource`        | `string`                                 | Label source for remorse returns                           |
+| **Item Defect Properties**                |
+| `itemDefectReturnFees`                    | `string`                                 | Fees for defective item returns                            |
+| `itemDefectReturnShippingFeesAmount`      | `MonetaryAmount`                         | Shipping fee for defect returns                            |
+| `itemDefectReturnLabelSource`             | `string`                                 | Label source for defect returns                            |
+| **Seasonal Override**                     |
+| `returnPolicySeasonalOverride`            | `SeasonalOverride \| SeasonalOverride[]` | Temporary policy changes                                   |
+| **Option B Property**                     |
+| `merchantReturnLink`                      | `string`                                 | URL to return policy page                                  |
+| **Component Properties**                  |
+| `scriptId`                                | `string`                                 | Custom ID for the script tag                               |
+| `scriptKey`                               | `string`                                 | Custom key for React rendering                             |
+
+#### Return Policy Categories
+
+- `https://schema.org/MerchantReturnFiniteReturnWindow` - Limited return period
+- `https://schema.org/MerchantReturnNotPermitted` - No returns allowed
+- `https://schema.org/MerchantReturnUnlimitedWindow` - Unlimited return period
+
+#### Return Methods
+
+- `https://schema.org/ReturnByMail` - Return by mail
+- `https://schema.org/ReturnInStore` - Return in store
+- `https://schema.org/ReturnAtKiosk` - Return at kiosk
+
+#### Return Fees
+
+- `https://schema.org/FreeReturn` - No charge for returns
+- `https://schema.org/ReturnFeesCustomerResponsibility` - Customer pays for return
+- `https://schema.org/ReturnShippingFees` - Specific shipping fee charged
+
+#### Refund Types
+
+- `https://schema.org/FullRefund` - Full monetary refund
+- `https://schema.org/ExchangeRefund` - Exchange for same product
+- `https://schema.org/StoreCreditRefund` - Store credit issued
+
+#### Best Practices
+
+1. **Choose the right option**: Use Option A for detailed policies, Option B for complex or frequently changing policies
+2. **Specify all countries**: List all countries where your policy applies
+3. **Different return scenarios**: Use customer remorse and item defect properties for different conditions
+4. **Seasonal variations**: Use seasonal overrides for holiday return windows
+5. **Product overrides**: Override organization-level policies for specific products when needed
+6. **Clear fee structure**: Be transparent about any fees customers will incur
+7. **Multiple return methods**: Offer multiple return options for customer convenience
+8. **Accurate time windows**: Ensure merchantReturnDays matches your actual policy
+
 ### MovieCarouselJsonLd
 
 The `MovieCarouselJsonLd` component helps you add structured data for movie carousels, enabling your movie lists to appear as rich results in Google Search on mobile devices. This component supports both summary page (URLs only) and all-in-one page (full movie data) patterns.

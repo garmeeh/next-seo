@@ -505,4 +505,136 @@ describe("ProductJsonLd", () => {
     expect(jsonData.additionalProperty[0].name).toBe("Warranty");
     expect(jsonData.additionalProperty[1].value).toBe("No");
   });
+
+  it("handles offer with merchant return policy", () => {
+    const { container } = render(
+      <ProductJsonLd
+        name="Product with Return Policy"
+        offers={{
+          price: 99.99,
+          priceCurrency: "USD",
+          hasMerchantReturnPolicy: {
+            applicableCountry: "US",
+            returnPolicyCategory:
+              "https://schema.org/MerchantReturnFiniteReturnWindow",
+            merchantReturnDays: 30,
+            returnFees: "https://schema.org/FreeReturn",
+            refundType: "https://schema.org/FullRefund",
+          },
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.offers.hasMerchantReturnPolicy).toEqual({
+      "@type": "MerchantReturnPolicy",
+      applicableCountry: ["US"],
+      returnPolicyCategory:
+        "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 30,
+      returnFees: "https://schema.org/FreeReturn",
+      refundType: ["https://schema.org/FullRefund"],
+    });
+  });
+
+  it("handles offer with enhanced merchant return policy", () => {
+    const { container } = render(
+      <ProductJsonLd
+        name="Product with Enhanced Return Policy"
+        offers={{
+          price: 199.99,
+          priceCurrency: "EUR",
+          hasMerchantReturnPolicy: {
+            applicableCountry: ["DE", "AT"],
+            returnPolicyCountry: "DE",
+            returnPolicyCategory:
+              "https://schema.org/MerchantReturnFiniteReturnWindow",
+            merchantReturnDays: 60,
+            returnShippingFeesAmount: {
+              value: 4.99,
+              currency: "EUR",
+            },
+            restockingFee: 15,
+            returnPolicySeasonalOverride: {
+              startDate: "2025-12-01",
+              endDate: "2025-01-05",
+              returnPolicyCategory:
+                "https://schema.org/MerchantReturnFiniteReturnWindow",
+              merchantReturnDays: 30,
+            },
+          },
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    const policy = jsonData.offers.hasMerchantReturnPolicy;
+    expect(policy["@type"]).toBe("MerchantReturnPolicy");
+    expect(policy.returnShippingFeesAmount).toEqual({
+      "@type": "MonetaryAmount",
+      value: 4.99,
+      currency: "EUR",
+    });
+    expect(policy.restockingFee).toBe(15);
+    expect(policy.returnPolicySeasonalOverride).toEqual({
+      "@type": "MerchantReturnPolicySeasonalOverride",
+      startDate: "2025-12-01",
+      endDate: "2025-01-05",
+      returnPolicyCategory:
+        "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 30,
+    });
+  });
+
+  it("handles multiple offers with different return policies", () => {
+    const { container } = render(
+      <ProductJsonLd
+        name="Multi-seller Product"
+        offers={[
+          {
+            price: 89.99,
+            priceCurrency: "USD",
+            seller: "Store A",
+            hasMerchantReturnPolicy: {
+              applicableCountry: "US",
+              returnPolicyCategory:
+                "https://schema.org/MerchantReturnFiniteReturnWindow",
+              merchantReturnDays: 30,
+            },
+          },
+          {
+            price: 94.99,
+            priceCurrency: "USD",
+            seller: "Store B",
+            hasMerchantReturnPolicy: {
+              applicableCountry: "US",
+              returnPolicyCategory:
+                "https://schema.org/MerchantReturnNotPermitted",
+            },
+          },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.offers).toHaveLength(2);
+    expect(jsonData.offers[0].hasMerchantReturnPolicy.merchantReturnDays).toBe(
+      30,
+    );
+    expect(
+      jsonData.offers[1].hasMerchantReturnPolicy.returnPolicyCategory,
+    ).toBe("https://schema.org/MerchantReturnNotPermitted");
+  });
 });

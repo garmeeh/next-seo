@@ -11,6 +11,8 @@ import type {
   Review,
   AggregateRating,
   MerchantReturnPolicy,
+  MerchantReturnPolicySeasonalOverride,
+  SimpleMonetaryAmount,
   Rating,
   VideoObject,
   InteractionCounter,
@@ -93,6 +95,9 @@ const SCHEMA_TYPES = {
   RATING: "Rating",
   AGGREGATE_RATING: "AggregateRating",
   MERCHANT_RETURN_POLICY: "MerchantReturnPolicy",
+  MERCHANT_RETURN_POLICY_SEASONAL_OVERRIDE:
+    "MerchantReturnPolicySeasonalOverride",
+  MONETARY_AMOUNT: "MonetaryAmount",
   VIDEO_OBJECT: "VideoObject",
   INTERACTION_COUNTER: "InteractionCounter",
   BRAND: "Brand",
@@ -558,17 +563,136 @@ export function processMainEntityOfPage(
 }
 
 /**
+ * Processes simple monetary amount into MonetaryAmount schema type for return policies
+ * @param amount - SimpleMonetaryAmount object with or without @type, or a number
+ * @returns SimpleMonetaryAmount with @type or undefined
+ */
+export function processSimpleMonetaryAmount(
+  amount:
+    | number
+    | SimpleMonetaryAmount
+    | Omit<SimpleMonetaryAmount, "@type">
+    | undefined,
+): SimpleMonetaryAmount | undefined {
+  if (!amount) return undefined;
+
+  // Handle number input
+  if (typeof amount === "number") {
+    return {
+      "@type": SCHEMA_TYPES.MONETARY_AMOUNT,
+      value: amount,
+      currency: "USD", // Default currency, should be overridden in component
+    };
+  }
+
+  return processSchemaType<SimpleMonetaryAmount>(
+    amount,
+    SCHEMA_TYPES.MONETARY_AMOUNT,
+  );
+}
+
+/**
+ * Processes seasonal override into MerchantReturnPolicySeasonalOverride schema type
+ * @param override - MerchantReturnPolicySeasonalOverride object with or without @type
+ * @returns MerchantReturnPolicySeasonalOverride with @type
+ */
+export function processReturnPolicySeasonalOverride(
+  override:
+    | MerchantReturnPolicySeasonalOverride
+    | Omit<MerchantReturnPolicySeasonalOverride, "@type">,
+): MerchantReturnPolicySeasonalOverride {
+  return processSchemaType<MerchantReturnPolicySeasonalOverride>(
+    override,
+    SCHEMA_TYPES.MERCHANT_RETURN_POLICY_SEASONAL_OVERRIDE,
+  );
+}
+
+/**
  * Processes merchant return policy into MerchantReturnPolicy schema type
+ * Enhanced to handle nested properties like MonetaryAmount and seasonal overrides
  * @param policy - MerchantReturnPolicy object with or without @type
- * @returns MerchantReturnPolicy with @type
+ * @returns MerchantReturnPolicy with @type and processed nested properties
  */
 export function processMerchantReturnPolicy(
   policy: MerchantReturnPolicy | Omit<MerchantReturnPolicy, "@type">,
 ): MerchantReturnPolicy {
-  return processSchemaType<MerchantReturnPolicy>(
+  if (!policy) return policy as MerchantReturnPolicy;
+
+  const processed = processSchemaType<MerchantReturnPolicy>(
     policy,
     SCHEMA_TYPES.MERCHANT_RETURN_POLICY,
   );
+
+  // Normalize string values to arrays for consistency
+  if (
+    processed.applicableCountry &&
+    !Array.isArray(processed.applicableCountry)
+  ) {
+    processed.applicableCountry = [processed.applicableCountry];
+  }
+
+  if (
+    processed.returnPolicyCountry &&
+    !Array.isArray(processed.returnPolicyCountry)
+  ) {
+    processed.returnPolicyCountry = [processed.returnPolicyCountry];
+  }
+
+  if (processed.returnMethod && !Array.isArray(processed.returnMethod)) {
+    processed.returnMethod = [processed.returnMethod];
+  }
+
+  if (processed.refundType && !Array.isArray(processed.refundType)) {
+    processed.refundType = [processed.refundType];
+  }
+
+  if (processed.itemCondition && !Array.isArray(processed.itemCondition)) {
+    processed.itemCondition = [processed.itemCondition];
+  }
+
+  // Process nested MonetaryAmount fields
+  if (processed.returnShippingFeesAmount) {
+    processed.returnShippingFeesAmount = processSimpleMonetaryAmount(
+      processed.returnShippingFeesAmount,
+    );
+  }
+
+  if (processed.customerRemorseReturnShippingFeesAmount) {
+    processed.customerRemorseReturnShippingFeesAmount =
+      processSimpleMonetaryAmount(
+        processed.customerRemorseReturnShippingFeesAmount,
+      );
+  }
+
+  if (processed.itemDefectReturnShippingFeesAmount) {
+    processed.itemDefectReturnShippingFeesAmount = processSimpleMonetaryAmount(
+      processed.itemDefectReturnShippingFeesAmount,
+    );
+  }
+
+  // Process restocking fee (can be number or SimpleMonetaryAmount)
+  if (processed.restockingFee && typeof processed.restockingFee === "object") {
+    processed.restockingFee = processSimpleMonetaryAmount(
+      processed.restockingFee,
+    );
+  }
+
+  // Process seasonal overrides
+  if (processed.returnPolicySeasonalOverride) {
+    if (Array.isArray(processed.returnPolicySeasonalOverride)) {
+      processed.returnPolicySeasonalOverride =
+        processed.returnPolicySeasonalOverride.map(
+          processReturnPolicySeasonalOverride,
+        );
+    } else {
+      processed.returnPolicySeasonalOverride =
+        processReturnPolicySeasonalOverride(
+          processed.returnPolicySeasonalOverride,
+        );
+    }
+  }
+
+  return processed;
 }
 
 /**
@@ -1368,6 +1492,19 @@ export function processProductOffer(
     processed.priceSpecification = processPriceSpecification(
       offer.priceSpecification,
     );
+  }
+
+  // Process nested hasMerchantReturnPolicy if present
+  if (offer.hasMerchantReturnPolicy) {
+    if (Array.isArray(offer.hasMerchantReturnPolicy)) {
+      processed.hasMerchantReturnPolicy = offer.hasMerchantReturnPolicy.map(
+        processMerchantReturnPolicy,
+      );
+    } else {
+      processed.hasMerchantReturnPolicy = processMerchantReturnPolicy(
+        offer.hasMerchantReturnPolicy,
+      );
+    }
   }
 
   return processed;

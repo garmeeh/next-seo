@@ -5,6 +5,7 @@ import type {
   Brand,
   Organization,
   Person,
+  MerchantReturnPolicy,
 } from "./common.types";
 
 // ItemAvailability enum
@@ -105,6 +106,11 @@ export interface ProductOffer {
       };
     };
   };
+  hasMerchantReturnPolicy?:
+    | MerchantReturnPolicy
+    | Omit<MerchantReturnPolicy, "@type">
+    | MerchantReturnPolicy[]
+    | Omit<MerchantReturnPolicy, "@type">[];
 }
 
 // AggregateOffer for multiple sellers

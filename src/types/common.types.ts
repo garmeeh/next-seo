@@ -106,15 +106,59 @@ export interface QuantitativeValue {
   unitCode?: string;
 }
 
+export interface SimpleMonetaryAmount {
+  "@type": "MonetaryAmount";
+  value: number | string;
+  currency: string;
+}
+
+export interface MerchantReturnPolicySeasonalOverride {
+  "@type": "MerchantReturnPolicySeasonalOverride";
+  startDate?: string;
+  endDate?: string;
+  returnPolicyCategory?: string;
+  merchantReturnDays?: number | string;
+}
+
 export interface MerchantReturnPolicy {
   "@type": "MerchantReturnPolicy";
+  // Option A: Detailed properties
   applicableCountry?: string | string[];
-  returnPolicyCountry?: string;
+  returnPolicyCountry?: string | string[];
   returnPolicyCategory?: string;
   merchantReturnDays?: number;
-  returnMethod?: string;
+  returnMethod?: string | string[];
   returnFees?: string;
-  refundType?: string;
+  returnShippingFeesAmount?:
+    | SimpleMonetaryAmount
+    | Omit<SimpleMonetaryAmount, "@type">;
+  refundType?: string | string[];
+  restockingFee?:
+    | number
+    | SimpleMonetaryAmount
+    | Omit<SimpleMonetaryAmount, "@type">;
+  returnLabelSource?: string;
+  itemCondition?: string | string[];
+  // Customer remorse specific properties
+  customerRemorseReturnFees?: string;
+  customerRemorseReturnShippingFeesAmount?:
+    | SimpleMonetaryAmount
+    | Omit<SimpleMonetaryAmount, "@type">;
+  customerRemorseReturnLabelSource?: string;
+  // Item defect specific properties
+  itemDefectReturnFees?: string;
+  itemDefectReturnShippingFeesAmount?:
+    | SimpleMonetaryAmount
+    | Omit<SimpleMonetaryAmount, "@type">;
+  itemDefectReturnLabelSource?: string;
+  // Seasonal override
+  returnPolicySeasonalOverride?:
+    | MerchantReturnPolicySeasonalOverride
+    | Omit<MerchantReturnPolicySeasonalOverride, "@type">
+    | MerchantReturnPolicySeasonalOverride[]
+    | Omit<MerchantReturnPolicySeasonalOverride, "@type">[];
+  // Option B: Link to policy
+  merchantReturnLink?: string;
 }
 
 export interface MemberProgramTier {
