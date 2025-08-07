@@ -15,7 +15,11 @@ export interface OnlineStore extends OrganizationBase {
     | Omit<MerchantReturnPolicy, "@type">
     | MerchantReturnPolicy[]
     | Omit<MerchantReturnPolicy, "@type">[];
-  hasMemberProgram?: MemberProgram | MemberProgram[];
+  hasMemberProgram?:
+    | MemberProgram
+    | Omit<MemberProgram, "@type">
+    | MemberProgram[]
+    | Omit<MemberProgram, "@type">[];
 }
 
 export type OrganizationJsonLdProps = (

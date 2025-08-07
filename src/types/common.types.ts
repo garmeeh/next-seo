@@ -161,25 +161,57 @@ export interface MerchantReturnPolicy {
   merchantReturnLink?: string;
 }
 
+export interface CreditCard {
+  "@type": "CreditCard";
+  name: string;
+}
+
+export interface UnitPriceSpecification {
+  "@type": "UnitPriceSpecification";
+  price: number | string;
+  priceCurrency: string;
+  billingDuration?: number;
+  billingIncrement?: number;
+  unitCode?: string;
+}
+
+export type TierRequirement =
+  | CreditCard
+  | SimpleMonetaryAmount
+  | UnitPriceSpecification
+  | string
+  | Omit<CreditCard, "@type">
+  | Omit<SimpleMonetaryAmount, "@type">
+  | Omit<UnitPriceSpecification, "@type">;
+
+export type TierBenefit =
+  | "TierBenefitLoyaltyPoints"
+  | "TierBenefitLoyaltyPrice"
+  | "https://schema.org/TierBenefitLoyaltyPoints"
+  | "https://schema.org/TierBenefitLoyaltyPrice";
+
 export interface MemberProgramTier {
   "@type": "MemberProgramTier";
   "@id"?: string;
-  name?: string;
+  name: string;
   url?: string;
-  hasTierBenefit?: string[];
-  hasTierRequirement?: {
-    "@type": string;
-    name: string;
-  };
-  membershipPointsEarned?: number;
+  hasTierBenefit: TierBenefit | TierBenefit[];
+  hasTierRequirement?: TierRequirement;
+  membershipPointsEarned?:
+    | number
+    | QuantitativeValue
+    | Omit<QuantitativeValue, "@type">;
 }
 
 export interface MemberProgram {
   "@type": "MemberProgram";
-  name?: string;
-  description?: string;
+  name: string;
+  description: string;
   url?: string;
-  hasTiers?: MemberProgramTier[];
+  hasTiers:
+    | MemberProgramTier
+    | Omit<MemberProgramTier, "@type">
+    | (MemberProgramTier | Omit<MemberProgramTier, "@type">)[];
 }
 
 export type Author =

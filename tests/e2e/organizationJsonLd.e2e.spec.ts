@@ -77,6 +77,128 @@ test.describe("OrganizationJsonLd", () => {
     expect(jsonData.hasMerchantReturnPolicy.returnFees).toBe(
       "https://schema.org/FreeReturn",
     );
+
+    // Verify member program
+    expect(jsonData.hasMemberProgram).toBeDefined();
+    expect(jsonData.hasMemberProgram["@type"]).toBe("MemberProgram");
+    expect(jsonData.hasMemberProgram.name).toBe("Rewards Plus");
+    expect(jsonData.hasMemberProgram.description).toContain("loyalty program");
+
+    // Verify tiers
+    expect(Array.isArray(jsonData.hasMemberProgram.hasTiers)).toBe(true);
+    expect(jsonData.hasMemberProgram.hasTiers).toHaveLength(3);
+
+    // Bronze tier
+    expect(jsonData.hasMemberProgram.hasTiers[0]["@type"]).toBe(
+      "MemberProgramTier",
+    );
+    expect(jsonData.hasMemberProgram.hasTiers[0].name).toBe("Bronze");
+    expect(jsonData.hasMemberProgram.hasTiers[0].hasTierBenefit).toBe(
+      "https://schema.org/TierBenefitLoyaltyPoints",
+    );
+    expect(
+      jsonData.hasMemberProgram.hasTiers[0].membershipPointsEarned,
+    ).toEqual({
+      "@type": "QuantitativeValue",
+      value: 1,
+    });
+
+    // Silver tier with MonetaryAmount requirement
+    expect(jsonData.hasMemberProgram.hasTiers[1].name).toBe("Silver");
+    expect(jsonData.hasMemberProgram.hasTiers[1].hasTierRequirement).toEqual({
+      "@type": "MonetaryAmount",
+      value: 500,
+      currency: "USD",
+    });
+
+    // Gold tier with CreditCard requirement
+    expect(jsonData.hasMemberProgram.hasTiers[2].name).toBe("Gold");
+    expect(jsonData.hasMemberProgram.hasTiers[2].hasTierRequirement).toEqual({
+      "@type": "CreditCard",
+      name: "Example Gold Credit Card",
+    });
+    expect(
+      jsonData.hasMemberProgram.hasTiers[2].membershipPointsEarned,
+    ).toEqual({
+      "@type": "QuantitativeValue",
+      value: 5,
+    });
+  });
+
+  test("renders OnlineStore with comprehensive loyalty programs", async ({
+    page,
+  }) => {
+    await page.goto("/online-store-loyalty");
+
+    const jsonLdScript = await page
+      .locator('script[type="application/ld+json"]')
+      .textContent();
+    expect(jsonLdScript).toBeTruthy();
+
+    const jsonData = JSON.parse(jsonLdScript!);
+
+    // Verify OnlineStore type
+    expect(jsonData["@type"]).toBe("OnlineStore");
+    expect(jsonData.name).toBe("Premium Store");
+
+    // Verify multiple member programs
+    expect(Array.isArray(jsonData.hasMemberProgram)).toBe(true);
+    expect(jsonData.hasMemberProgram).toHaveLength(2);
+
+    // Basic Rewards program
+    const basicProgram = jsonData.hasMemberProgram[0];
+    expect(basicProgram["@type"]).toBe("MemberProgram");
+    expect(basicProgram.name).toBe("Basic Rewards");
+    expect(basicProgram.hasTiers).toHaveLength(2);
+
+    // Plus Member tier with UnitPriceSpecification requirement
+    const plusTier = basicProgram.hasTiers[1];
+    expect(plusTier.name).toBe("Plus Member");
+    expect(plusTier.hasTierRequirement).toEqual({
+      "@type": "UnitPriceSpecification",
+      price: 4.99,
+      priceCurrency: "USD",
+      billingDuration: 12,
+      billingIncrement: 1,
+      unitCode: "MON",
+    });
+
+    // VIP Elite program
+    const vipProgram = jsonData.hasMemberProgram[1];
+    expect(vipProgram["@type"]).toBe("MemberProgram");
+    expect(vipProgram.name).toBe("VIP Elite Program");
+    expect(vipProgram.hasTiers).toHaveLength(3);
+
+    // Silver VIP tier with @id
+    const silverTier = vipProgram.hasTiers[0];
+    expect(silverTier["@id"]).toBe("#vip-silver");
+    expect(silverTier.membershipPointsEarned).toEqual({
+      "@type": "QuantitativeValue",
+      value: 10,
+      unitText: "points per dollar",
+    });
+
+    // Gold VIP tier with complex QuantitativeValue
+    const goldTier = vipProgram.hasTiers[1];
+    expect(goldTier["@id"]).toBe("#vip-gold");
+    expect(goldTier.membershipPointsEarned).toEqual({
+      "@type": "QuantitativeValue",
+      value: 20,
+      minValue: 20,
+      maxValue: 40,
+      unitText: "points per dollar (double on special events)",
+    });
+
+    // Diamond VIP tier with text requirement
+    const diamondTier = vipProgram.hasTiers[2];
+    expect(diamondTier.name).toBe("Diamond VIP");
+    expect(diamondTier.hasTierRequirement).toBe(
+      "By invitation only - must maintain $10,000+ annual spending and participate in community events",
+    );
+    expect(diamondTier.membershipPointsEarned).toEqual({
+      "@type": "QuantitativeValue",
+      value: 50,
+    });
   });
 
   test("renders Organization with multiple addresses and contact points", async ({

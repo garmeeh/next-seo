@@ -695,6 +695,190 @@ export default function AboutPage() {
 | `scriptId`                | `string`                                                 | Custom ID for the script tag                            |
 | `scriptKey`               | `string`                                                 | Custom key prop for React                               |
 
+#### OnlineStore with Loyalty Program Example
+
+```tsx
+<OrganizationJsonLd
+  type="OnlineStore"
+  name="Example Store"
+  url="https://www.example.com"
+  hasMemberProgram={{
+    name: "Rewards Plus",
+    description:
+      "Earn points and unlock exclusive benefits with our loyalty program",
+    url: "https://www.example.com/rewards",
+    hasTiers: [
+      {
+        name: "Bronze",
+        hasTierBenefit: "TierBenefitLoyaltyPoints",
+        membershipPointsEarned: 1,
+      },
+      {
+        name: "Silver",
+        hasTierBenefit: ["TierBenefitLoyaltyPoints"],
+        hasTierRequirement: {
+          value: 500,
+          currency: "USD",
+        },
+        membershipPointsEarned: 2,
+      },
+      {
+        name: "Gold",
+        hasTierBenefit: ["TierBenefitLoyaltyPoints", "TierBenefitLoyaltyPrice"],
+        hasTierRequirement: {
+          name: "Example Gold Credit Card",
+        },
+        membershipPointsEarned: 5,
+        url: "https://www.example.com/rewards/gold",
+      },
+    ],
+  }}
+/>
+```
+
+#### Multiple Loyalty Programs Example
+
+```tsx
+<OrganizationJsonLd
+  type="OnlineStore"
+  name="Premium Store"
+  hasMemberProgram={[
+    {
+      name: "Basic Rewards",
+      description: "Standard loyalty program for all customers",
+      hasTiers: {
+        name: "Member",
+        hasTierBenefit: "TierBenefitLoyaltyPoints",
+        membershipPointsEarned: 1,
+      },
+    },
+    {
+      name: "VIP Elite",
+      description: "Exclusive program for premium members",
+      hasTiers: [
+        {
+          name: "Silver VIP",
+          hasTierBenefit: [
+            "TierBenefitLoyaltyPoints",
+            "TierBenefitLoyaltyPrice",
+          ],
+          hasTierRequirement: {
+            value: 2500,
+            currency: "USD",
+          },
+          membershipPointsEarned: {
+            value: 10,
+            unitText: "points per dollar",
+          },
+        },
+        {
+          name: "Gold VIP",
+          hasTierBenefit: [
+            "TierBenefitLoyaltyPoints",
+            "TierBenefitLoyaltyPrice",
+          ],
+          hasTierRequirement: {
+            price: 9.99,
+            priceCurrency: "USD",
+            billingDuration: 12,
+            billingIncrement: 1,
+            unitCode: "MON",
+          },
+          membershipPointsEarned: 20,
+        },
+      ],
+    },
+  ]}
+/>
+```
+
+#### MemberProgram Properties
+
+| Property      | Type                                       | Description                                   |
+| ------------- | ------------------------------------------ | --------------------------------------------- |
+| `name`        | `string`                                   | **Required**. Name of the loyalty program     |
+| `description` | `string`                                   | **Required**. Description of program benefits |
+| `url`         | `string`                                   | URL where customers can sign up               |
+| `hasTiers`    | `MemberProgramTier \| MemberProgramTier[]` | **Required**. Tier(s) of the loyalty program  |
+
+#### MemberProgramTier Properties
+
+| Property                 | Type                          | Description                          |
+| ------------------------ | ----------------------------- | ------------------------------------ |
+| `name`                   | `string`                      | **Required**. Name of the tier       |
+| `hasTierBenefit`         | `string \| string[]`          | **Required**. Benefits for this tier |
+| `hasTierRequirement`     | `various` (see below)         | Requirements to join this tier       |
+| `membershipPointsEarned` | `number \| QuantitativeValue` | Points earned per unit spent         |
+| `url`                    | `string`                      | URL for tier-specific signup         |
+| `@id`                    | `string`                      | Unique identifier for the tier       |
+
+#### Tier Benefits
+
+Benefits can be specified using short names or full URLs:
+
+- `"TierBenefitLoyaltyPoints"` or `"https://schema.org/TierBenefitLoyaltyPoints"` - Earn loyalty points
+- `"TierBenefitLoyaltyPrice"` or `"https://schema.org/TierBenefitLoyaltyPrice"` - Special member pricing
+
+#### Tier Requirements
+
+The `hasTierRequirement` property accepts different types based on the requirement:
+
+**Credit Card Requirement:**
+
+```tsx
+hasTierRequirement: {
+  name: "Store Premium Credit Card";
+}
+```
+
+**Minimum Spending Requirement (MonetaryAmount):**
+
+```tsx
+hasTierRequirement: {
+  value: 1000,
+  currency: "USD"
+}
+```
+
+**Subscription Fee (UnitPriceSpecification):**
+
+```tsx
+hasTierRequirement: {
+  price: 9.99,
+  priceCurrency: "EUR",
+  billingDuration: 12,      // Total duration
+  billingIncrement: 1,      // Billing frequency
+  unitCode: "MON"          // Unit (MON = monthly)
+}
+```
+
+**Text Description:**
+
+```tsx
+hasTierRequirement: "By invitation only - must maintain $10,000+ annual spending";
+```
+
+#### Membership Points Earned
+
+Points can be specified as a simple number or as a detailed QuantitativeValue:
+
+**Simple:**
+
+```tsx
+membershipPointsEarned: 5;
+```
+
+**Detailed:**
+
+```tsx
+membershipPointsEarned: {
+  value: 10,
+  minValue: 10,
+  maxValue: 20,
+  unitText: "points per dollar (double on special events)"
+}
+```
+
 #### Best Practices
 
 1. **Place on homepage or about page**: Add this markup to your homepage or a dedicated "about us" page

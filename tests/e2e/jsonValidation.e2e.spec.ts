@@ -147,6 +147,46 @@ test.describe("JSON-LD Validation Tests", () => {
           "MerchantReturnPolicy",
         );
       }
+      // Check nested member program is valid
+      if (jsonData!.hasMemberProgram) {
+        expect(jsonData!.hasMemberProgram["@type"]).toBe("MemberProgram");
+        expect(Array.isArray(jsonData!.hasMemberProgram.hasTiers)).toBe(true);
+        jsonData!.hasMemberProgram.hasTiers.forEach((tier: unknown) => {
+          expect((tier as { "@type": string })["@type"]).toBe(
+            "MemberProgramTier",
+          );
+        });
+      }
+    });
+
+    test("OnlineStore with loyalty programs produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/online-store-loyalty");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("OnlineStore");
+      // Check multiple member programs are valid
+      if (jsonData!.hasMemberProgram) {
+        expect(Array.isArray(jsonData!.hasMemberProgram)).toBe(true);
+        jsonData!.hasMemberProgram.forEach((program: unknown) => {
+          const prog = program as { "@type": string; hasTiers: unknown };
+          expect(prog["@type"]).toBe("MemberProgram");
+          expect(prog.hasTiers).toBeDefined();
+        });
+      }
     });
 
     test("Organization with complex nested data produces valid JSON", async ({

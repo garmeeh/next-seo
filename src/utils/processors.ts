@@ -20,6 +20,12 @@ import type {
   BedDetails,
   LocationFeatureSpecification,
   Accommodation,
+  MemberProgram,
+  MemberProgramTier,
+  CreditCard,
+  UnitPriceSpecification,
+  TierRequirement,
+  TierBenefit,
 } from "~/types/common.types";
 import type { Director } from "~/types/movie-carousel.types";
 import type { Provider } from "~/types/course.types";
@@ -101,6 +107,10 @@ const SCHEMA_TYPES = {
   VIDEO_OBJECT: "VideoObject",
   INTERACTION_COUNTER: "InteractionCounter",
   BRAND: "Brand",
+  CREDIT_CARD: "CreditCard",
+  UNIT_PRICE_SPECIFICATION: "UnitPriceSpecification",
+  MEMBER_PROGRAM: "MemberProgram",
+  MEMBER_PROGRAM_TIER: "MemberProgramTier",
   BED_DETAILS: "BedDetails",
   LOCATION_FEATURE: "LocationFeatureSpecification",
   ACCOMMODATION: "Accommodation",
@@ -689,6 +699,171 @@ export function processMerchantReturnPolicy(
         processReturnPolicySeasonalOverride(
           processed.returnPolicySeasonalOverride,
         );
+    }
+  }
+
+  return processed;
+}
+
+/**
+ * Processes tier requirement into appropriate schema type
+ * @param requirement - Tier requirement that can be CreditCard, MonetaryAmount, UnitPriceSpecification, or string
+ * @returns Processed tier requirement with @type
+ */
+export function processTierRequirement(
+  requirement: TierRequirement,
+): TierRequirement {
+  if (!requirement) return requirement;
+
+  // If it's a string, return as-is (text description)
+  if (isString(requirement)) {
+    return requirement;
+  }
+
+  // If it already has @type, return as-is
+  if (hasType(requirement)) {
+    return requirement;
+  }
+
+  // Determine type based on properties
+  if ("priceCurrency" in requirement && "price" in requirement) {
+    // UnitPriceSpecification has both price and priceCurrency
+    if (
+      "billingDuration" in requirement ||
+      "billingIncrement" in requirement ||
+      "unitCode" in requirement
+    ) {
+      return {
+        "@type": SCHEMA_TYPES.UNIT_PRICE_SPECIFICATION,
+        ...requirement,
+      } as UnitPriceSpecification;
+    }
+  }
+
+  if ("value" in requirement && "currency" in requirement) {
+    // MonetaryAmount
+    return {
+      "@type": SCHEMA_TYPES.MONETARY_AMOUNT,
+      ...requirement,
+    } as SimpleMonetaryAmount;
+  }
+
+  if ("name" in requirement) {
+    // CreditCard
+    return {
+      "@type": SCHEMA_TYPES.CREDIT_CARD,
+      ...requirement,
+    } as CreditCard;
+  }
+
+  // Default to returning as-is if we can't determine the type
+  return requirement;
+}
+
+/**
+ * Processes tier benefit, normalizing short names to full URLs
+ * @param benefit - Tier benefit string or array
+ * @returns Normalized tier benefit
+ */
+export function processTierBenefit(
+  benefit: TierBenefit | TierBenefit[],
+): TierBenefit | TierBenefit[] {
+  const normalizeBenefit = (b: TierBenefit): TierBenefit => {
+    // If it's already a full URL, return as-is
+    if (b.startsWith("https://schema.org/")) {
+      return b;
+    }
+    // Convert short name to full URL
+    if (b === "TierBenefitLoyaltyPoints") {
+      return "https://schema.org/TierBenefitLoyaltyPoints";
+    }
+    if (b === "TierBenefitLoyaltyPrice") {
+      return "https://schema.org/TierBenefitLoyaltyPrice";
+    }
+    // Return as-is if unrecognized
+    return b;
+  };
+
+  if (Array.isArray(benefit)) {
+    return benefit.map(normalizeBenefit);
+  }
+  return normalizeBenefit(benefit);
+}
+
+/**
+ * Processes membership points earned into QuantitativeValue
+ * @param points - Number or QuantitativeValue
+ * @returns QuantitativeValue with @type
+ */
+export function processMembershipPointsEarned(
+  points: number | QuantitativeValue | Omit<QuantitativeValue, "@type">,
+): QuantitativeValue {
+  if (typeof points === "number") {
+    return {
+      "@type": SCHEMA_TYPES.QUANTITATIVE_VALUE,
+      value: points,
+    };
+  }
+  return processSchemaType<QuantitativeValue>(
+    points,
+    SCHEMA_TYPES.QUANTITATIVE_VALUE,
+  );
+}
+
+/**
+ * Processes member program tier into MemberProgramTier schema type
+ * @param tier - MemberProgramTier with or without @type
+ * @returns MemberProgramTier with @type
+ */
+export function processMemberProgramTier(
+  tier: MemberProgramTier | Omit<MemberProgramTier, "@type">,
+): MemberProgramTier {
+  const processed = processSchemaType<MemberProgramTier>(
+    tier,
+    SCHEMA_TYPES.MEMBER_PROGRAM_TIER,
+  );
+
+  // Process hasTierBenefit
+  if (processed.hasTierBenefit) {
+    processed.hasTierBenefit = processTierBenefit(processed.hasTierBenefit);
+  }
+
+  // Process hasTierRequirement
+  if (processed.hasTierRequirement) {
+    processed.hasTierRequirement = processTierRequirement(
+      processed.hasTierRequirement,
+    );
+  }
+
+  // Process membershipPointsEarned
+  if (processed.membershipPointsEarned !== undefined) {
+    processed.membershipPointsEarned = processMembershipPointsEarned(
+      processed.membershipPointsEarned,
+    );
+  }
+
+  return processed;
+}
+
+/**
+ * Processes member program into MemberProgram schema type
+ * @param program - MemberProgram with or without @type
+ * @returns MemberProgram with @type
+ */
+export function processMemberProgram(
+  program: MemberProgram | Omit<MemberProgram, "@type">,
+): MemberProgram {
+  const processed = processSchemaType<MemberProgram>(
+    program,
+    SCHEMA_TYPES.MEMBER_PROGRAM,
+  );
+
+  // Process hasTiers
+  if (processed.hasTiers) {
+    if (Array.isArray(processed.hasTiers)) {
+      processed.hasTiers = processed.hasTiers.map(processMemberProgramTier);
+    } else {
+      processed.hasTiers = processMemberProgramTier(processed.hasTiers);
     }
   }
 

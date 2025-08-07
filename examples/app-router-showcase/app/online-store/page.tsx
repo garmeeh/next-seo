@@ -65,6 +65,40 @@ export default function OnlineStorePage() {
             },
           ],
         }}
+        hasMemberProgram={{
+          name: "Rewards Plus",
+          description:
+            "Earn points and unlock exclusive benefits with our loyalty program",
+          url: "https://www.example.com/rewards",
+          hasTiers: [
+            {
+              name: "Bronze",
+              hasTierBenefit: "TierBenefitLoyaltyPoints",
+              membershipPointsEarned: 1,
+            },
+            {
+              name: "Silver",
+              hasTierBenefit: ["TierBenefitLoyaltyPoints"],
+              hasTierRequirement: {
+                value: 500,
+                currency: "USD",
+              },
+              membershipPointsEarned: 2,
+            },
+            {
+              name: "Gold",
+              hasTierBenefit: [
+                "TierBenefitLoyaltyPoints",
+                "TierBenefitLoyaltyPrice",
+              ],
+              hasTierRequirement: {
+                name: "Example Gold Credit Card",
+              },
+              membershipPointsEarned: 5,
+              url: "https://www.example.com/rewards/gold",
+            },
+          ],
+        }}
       />
 
       <div className="max-w-4xl mx-auto">
@@ -93,6 +127,36 @@ export default function OnlineStorePage() {
             <p className="text-sm font-medium text-green-800">
               🎄 Holiday Special: Extended 90-day returns from Nov 29 - Dec 31
             </p>
+          </div>
+        </section>
+
+        <section className="mb-8 bg-blue-50 p-6 rounded-lg">
+          <h2 className="text-2xl font-semibold mb-4">
+            Rewards Plus Loyalty Program
+          </h2>
+          <p className="text-gray-700 mb-4">
+            Earn points and unlock exclusive benefits with our loyalty program!
+          </p>
+          <div className="space-y-4">
+            <div className="border-l-4 border-orange-400 pl-4">
+              <h3 className="font-semibold text-orange-800">🥉 Bronze Tier</h3>
+              <p className="text-sm text-gray-600">
+                Join free and earn 1 point per dollar spent
+              </p>
+            </div>
+            <div className="border-l-4 border-gray-400 pl-4">
+              <h3 className="font-semibold text-gray-700">🥈 Silver Tier</h3>
+              <p className="text-sm text-gray-600">
+                Spend $500+ to earn 2 points per dollar
+              </p>
+            </div>
+            <div className="border-l-4 border-yellow-400 pl-4">
+              <h3 className="font-semibold text-yellow-700">🥇 Gold Tier</h3>
+              <p className="text-sm text-gray-600">
+                Sign up for our Gold Credit Card to earn 5 points per dollar +
+                member pricing
+              </p>
+            </div>
           </div>
         </section>
 

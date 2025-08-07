@@ -1,6 +1,7 @@
 import { render } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import OrganizationJsonLd from "./OrganizationJsonLd";
+import type { TierBenefit } from "~/types/common.types";
 
 describe("OrganizationJsonLd", () => {
   it("renders basic Organization with minimal props", () => {
@@ -384,7 +385,9 @@ describe("OrganizationJsonLd", () => {
           "@id": "#plus-tier-silver",
           name: "silver",
           url: "https://www.example.com/membership-plus-silver",
-          hasTierBenefit: ["https://schema.org/TierBenefitLoyaltyPoints"],
+          hasTierBenefit: [
+            "https://schema.org/TierBenefitLoyaltyPoints" as TierBenefit,
+          ],
           membershipPointsEarned: 5,
         },
       ],
@@ -404,6 +407,234 @@ describe("OrganizationJsonLd", () => {
     const jsonData = JSON.parse(script!.textContent!);
     expect(jsonData["@type"]).toBe("OnlineStore");
     expect(jsonData.hasMemberProgram).toEqual(memberProgram);
+  });
+
+  it("handles MemberProgram without @type", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        type="OnlineStore"
+        name="Example Online Store"
+        hasMemberProgram={{
+          name: "Rewards Club",
+          description: "Earn points on every purchase",
+          hasTiers: {
+            name: "bronze",
+            hasTierBenefit: "TierBenefitLoyaltyPoints",
+            membershipPointsEarned: 2,
+          },
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.hasMemberProgram["@type"]).toBe("MemberProgram");
+    expect(jsonData.hasMemberProgram.name).toBe("Rewards Club");
+    expect(jsonData.hasMemberProgram.hasTiers["@type"]).toBe(
+      "MemberProgramTier",
+    );
+    expect(jsonData.hasMemberProgram.hasTiers.hasTierBenefit).toBe(
+      "https://schema.org/TierBenefitLoyaltyPoints",
+    );
+    expect(jsonData.hasMemberProgram.hasTiers.membershipPointsEarned).toEqual({
+      "@type": "QuantitativeValue",
+      value: 2,
+    });
+  });
+
+  it("handles MemberProgram with multiple tiers and requirements", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        type="OnlineStore"
+        name="Example Online Store"
+        hasMemberProgram={{
+          name: "Premium Rewards",
+          description: "Multi-tier loyalty program",
+          url: "https://example.com/rewards",
+          hasTiers: [
+            {
+              name: "silver",
+              hasTierBenefit: ["TierBenefitLoyaltyPoints"],
+              membershipPointsEarned: 5,
+            },
+            {
+              name: "gold",
+              hasTierBenefit: [
+                "TierBenefitLoyaltyPoints",
+                "TierBenefitLoyaltyPrice",
+              ],
+              hasTierRequirement: {
+                name: "Example Gold Card",
+              },
+              membershipPointsEarned: 10,
+            },
+            {
+              name: "platinum",
+              hasTierBenefit: [
+                "TierBenefitLoyaltyPoints",
+                "TierBenefitLoyaltyPrice",
+              ],
+              hasTierRequirement: {
+                value: 1000,
+                currency: "USD",
+              },
+              membershipPointsEarned: {
+                value: 15,
+                unitText: "points per dollar",
+              },
+            },
+          ],
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    const program = jsonData.hasMemberProgram;
+    expect(program["@type"]).toBe("MemberProgram");
+    expect(program.hasTiers).toHaveLength(3);
+
+    // Check silver tier (no requirement)
+    expect(program.hasTiers[0]["@type"]).toBe("MemberProgramTier");
+    expect(program.hasTiers[0].name).toBe("silver");
+    expect(program.hasTiers[0].hasTierRequirement).toBeUndefined();
+
+    // Check gold tier (CreditCard requirement)
+    expect(program.hasTiers[1].hasTierRequirement).toEqual({
+      "@type": "CreditCard",
+      name: "Example Gold Card",
+    });
+
+    // Check platinum tier (MonetaryAmount requirement)
+    expect(program.hasTiers[2].hasTierRequirement).toEqual({
+      "@type": "MonetaryAmount",
+      value: 1000,
+      currency: "USD",
+    });
+    expect(program.hasTiers[2].membershipPointsEarned).toEqual({
+      "@type": "QuantitativeValue",
+      value: 15,
+      unitText: "points per dollar",
+    });
+  });
+
+  it("handles tier requirement as UnitPriceSpecification", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        type="OnlineStore"
+        name="Example Online Store"
+        hasMemberProgram={{
+          name: "Subscription Rewards",
+          description: "Rewards for subscribers",
+          hasTiers: {
+            name: "premium",
+            hasTierBenefit: "TierBenefitLoyaltyPrice",
+            hasTierRequirement: {
+              price: 9.99,
+              priceCurrency: "EUR",
+              billingDuration: 12,
+              billingIncrement: 1,
+              unitCode: "MON",
+            },
+            membershipPointsEarned: 100,
+          },
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    const tier = jsonData.hasMemberProgram.hasTiers;
+    expect(tier.hasTierRequirement).toEqual({
+      "@type": "UnitPriceSpecification",
+      price: 9.99,
+      priceCurrency: "EUR",
+      billingDuration: 12,
+      billingIncrement: 1,
+      unitCode: "MON",
+    });
+  });
+
+  it("handles tier requirement as text description", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        type="OnlineStore"
+        name="Example Online Store"
+        hasMemberProgram={{
+          name: "Community Program",
+          description: "Community-based rewards",
+          hasTiers: {
+            name: "volunteer",
+            hasTierBenefit: "TierBenefitLoyaltyPrice",
+            hasTierRequirement:
+              "Purchase a share in our coop and volunteer a minimum of 1 day a month",
+            membershipPointsEarned: 50,
+          },
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    const tier = jsonData.hasMemberProgram.hasTiers;
+    expect(tier.hasTierRequirement).toBe(
+      "Purchase a share in our coop and volunteer a minimum of 1 day a month",
+    );
+  });
+
+  it("handles array of member programs", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        type="OnlineStore"
+        name="Example Online Store"
+        hasMemberProgram={[
+          {
+            name: "Basic Rewards",
+            description: "Simple points program",
+            hasTiers: {
+              name: "member",
+              hasTierBenefit: "TierBenefitLoyaltyPoints",
+              membershipPointsEarned: 1,
+            },
+          },
+          {
+            name: "Premium Club",
+            description: "Exclusive benefits",
+            hasTiers: {
+              name: "vip",
+              hasTierBenefit: [
+                "TierBenefitLoyaltyPoints",
+                "TierBenefitLoyaltyPrice",
+              ],
+              membershipPointsEarned: 5,
+            },
+          },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.hasMemberProgram).toHaveLength(2);
+    expect(jsonData.hasMemberProgram[0]["@type"]).toBe("MemberProgram");
+    expect(jsonData.hasMemberProgram[0].name).toBe("Basic Rewards");
+    expect(jsonData.hasMemberProgram[1]["@type"]).toBe("MemberProgram");
+    expect(jsonData.hasMemberProgram[1].name).toBe("Premium Club");
   });
 
   it("does not include merchant properties for Organization type", () => {
