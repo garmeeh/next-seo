@@ -1531,5 +1531,102 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(jsonData!["@type"]).toBe("ItemList");
       expect(jsonData!.itemListElement[0].item["@type"]).toBe("Restaurant");
     });
+
+    test("CreativeWorkJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/creative-work");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Article");
+      // Verify hasPart for paywalled content
+      expect(jsonData!.hasPart).toBeDefined();
+      expect(jsonData!.hasPart["@type"]).toBe("WebPageElement");
+    });
+
+    test("CreativeWorkJsonLd with multiple paywalled sections produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/creative-work-multiple");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Article");
+      // Verify multiple hasPart sections
+      expect(Array.isArray(jsonData!.hasPart)).toBe(true);
+      expect(jsonData!.hasPart).toHaveLength(2);
+      jsonData!.hasPart.forEach((part: Record<string, unknown>) => {
+        expect(part["@type"]).toBe("WebPageElement");
+        expect(part.isAccessibleForFree).toBe(false);
+        expect(part.cssSelector).toBeTruthy();
+      });
+    });
+
+    test("CreativeWorkJsonLd NewsArticle variant produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/creative-work-news");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("NewsArticle");
+      expect(jsonData!.isAccessibleForFree).toBe(false);
+      expect(jsonData!.hasPart["@type"]).toBe("WebPageElement");
+    });
+
+    test("CreativeWorkJsonLd Blog variant produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/creative-work-blog");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Blog");
+      expect(jsonData!.isAccessibleForFree).toBe(false);
+      expect(jsonData!.hasPart["@type"]).toBe("WebPageElement");
+    });
   });
 });

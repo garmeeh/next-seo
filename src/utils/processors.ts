@@ -68,6 +68,7 @@ import type {
   Clip,
   PotentialAction,
 } from "~/types/video.types";
+import type { WebPageElement } from "~/types/creativework.types";
 
 // Schema.org type constants
 const SCHEMA_TYPES = {
@@ -107,6 +108,7 @@ const SCHEMA_TYPES = {
   OCCUPATIONAL_EXPERIENCE: "OccupationalExperienceRequirements",
   COMMENT: "Comment",
   WEB_PAGE: "WebPage",
+  WEB_PAGE_ELEMENT: "WebPageElement",
   CLAIM: "Claim",
 } as const;
 
@@ -1311,4 +1313,21 @@ export function processAppearance(
   }
 
   return processed;
+}
+
+/**
+ * Processes WebPageElement for marking paywalled sections
+ * @param element - WebPageElement object with or without @type
+ * @returns WebPageElement with @type
+ * @example
+ * processWebPageElement({ isAccessibleForFree: false, cssSelector: ".paywall" })
+ * // { "@type": "WebPageElement", isAccessibleForFree: false, cssSelector: ".paywall" }
+ */
+export function processWebPageElement(
+  element: WebPageElement | Omit<WebPageElement, "@type">,
+): WebPageElement {
+  return processSchemaType<WebPageElement>(
+    element,
+    SCHEMA_TYPES.WEB_PAGE_ELEMENT,
+  );
 }

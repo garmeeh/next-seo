@@ -11,6 +11,10 @@ export {
   type ClaimReviewJsonLdProps,
 } from "./components/ClaimReviewJsonLd";
 export {
+  default as CreativeWorkJsonLd,
+  type CreativeWorkJsonLdProps,
+} from "./components/CreativeWorkJsonLd";
+export {
   default as RecipeJsonLd,
   type RecipeJsonLdProps,
 } from "./components/RecipeJsonLd";

@@ -226,6 +226,154 @@ export default function FactCheckPage() {
 4. **Consistent scale**: Use a consistent rating scale across all your fact checks
 5. **Author credibility**: Clearly identify your fact-checking organization
 
+### CreativeWorkJsonLd
+
+The `CreativeWorkJsonLd` component helps you add structured data for various types of creative content, with special support for marking paywalled or subscription-based content. This enables Google to differentiate paywalled content from cloaking practices.
+
+#### Basic Usage
+
+```tsx
+import { CreativeWorkJsonLd } from "next-seo";
+
+export default function ArticlePage() {
+  return (
+    <>
+      <CreativeWorkJsonLd
+        type="Article"
+        headline="Premium Article"
+        datePublished="2024-01-01T08:00:00+08:00"
+        author="John Doe"
+        description="This premium article requires a subscription"
+        isAccessibleForFree={false}
+        hasPart={{
+          isAccessibleForFree: false,
+          cssSelector: ".paywall",
+        }}
+      />
+      <article>
+        <h1>Premium Article</h1>
+        <div className="non-paywall">Free preview content here...</div>
+        <div className="paywall">
+          Premium content that requires subscription...
+        </div>
+      </article>
+    </>
+  );
+}
+```
+
+#### Props
+
+| Property              | Type                                                                                          | Description                                                  |
+| --------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| `type`                | `"CreativeWork" \| "Article" \| "NewsArticle" \| "Blog" \| "BlogPosting" \| "Comment" \| ...` | The type of creative work. Defaults to "CreativeWork"        |
+| `headline`            | `string`                                                                                      | The headline of the content (used for Article types)         |
+| `name`                | `string`                                                                                      | The name of the content (alternative to headline)            |
+| `url`                 | `string`                                                                                      | URL of the content                                           |
+| `author`              | `string \| Person \| Organization \| Array`                                                   | Author(s) of the content                                     |
+| `datePublished`       | `string`                                                                                      | ISO 8601 publication date                                    |
+| `dateModified`        | `string`                                                                                      | ISO 8601 modification date                                   |
+| `image`               | `string \| ImageObject \| Array`                                                              | Image(s) associated with the content                         |
+| `publisher`           | `string \| Organization \| Person`                                                            | Publisher of the content                                     |
+| `description`         | `string`                                                                                      | Description of the content                                   |
+| `isAccessibleForFree` | `boolean`                                                                                     | Whether the content is free or requires payment/subscription |
+| `hasPart`             | `WebPageElement \| WebPageElement[]`                                                          | Marks specific sections as paywalled                         |
+| `mainEntityOfPage`    | `string \| WebPage`                                                                           | The main page for this content                               |
+| `scriptId`            | `string`                                                                                      | Custom ID for the script tag                                 |
+| `scriptKey`           | `string`                                                                                      | Custom key for script identification                         |
+
+#### WebPageElement Properties (for hasPart)
+
+| Property              | Type      | Description                                         |
+| --------------------- | --------- | --------------------------------------------------- |
+| `isAccessibleForFree` | `boolean` | **Required.** Whether this section is free (false)  |
+| `cssSelector`         | `string`  | **Required.** CSS class selector (e.g., ".paywall") |
+
+#### Marking Paywalled Content
+
+```tsx
+<CreativeWorkJsonLd
+  type="NewsArticle"
+  headline="Breaking News: Premium Coverage"
+  datePublished="2024-01-01T08:00:00+00:00"
+  isAccessibleForFree={false}
+  hasPart={{
+    isAccessibleForFree: false,
+    cssSelector: ".premium-content",
+  }}
+/>
+```
+
+#### Multiple Paywalled Sections
+
+```tsx
+<CreativeWorkJsonLd
+  type="Article"
+  headline="In-Depth Analysis"
+  datePublished="2024-01-01T08:00:00+00:00"
+  isAccessibleForFree={false}
+  hasPart={[
+    {
+      isAccessibleForFree: false,
+      cssSelector: ".section1",
+    },
+    {
+      isAccessibleForFree: false,
+      cssSelector: ".section2",
+    },
+  ]}
+/>
+```
+
+#### Different CreativeWork Types
+
+```tsx
+// Blog with subscription content
+<CreativeWorkJsonLd
+  type="Blog"
+  name="Premium Tech Blog"
+  description="Technology insights for subscribers"
+  isAccessibleForFree={false}
+/>
+
+// Comment
+<CreativeWorkJsonLd
+  type="Comment"
+  text="Great article!"
+  author="Jane Smith"
+  datePublished="2024-01-01T10:00:00+00:00"
+/>
+
+// Course with provider
+<CreativeWorkJsonLd
+  type="Course"
+  name="Advanced Programming"
+  provider="Tech University"
+  description="Learn advanced programming concepts"
+  isAccessibleForFree={false}
+/>
+
+// Review with rating
+<CreativeWorkJsonLd
+  type="Review"
+  name="Product Review"
+  itemReviewed="Amazing Gadget"
+  reviewRating={{
+    ratingValue: 4.5,
+    bestRating: 5,
+  }}
+  author="Tech Reviewer"
+/>
+```
+
+#### Best Practices
+
+1. **Use specific types**: Choose the most specific CreativeWork type (Article, NewsArticle, etc.) when applicable
+2. **Mark paywalled sections**: Use `hasPart` with `cssSelector` to identify paywalled content sections
+3. **Class selectors only**: Only use class selectors (e.g., ".paywall") for `cssSelector`, not IDs or other selectors
+4. **Consistent selectors**: Ensure your HTML classes match the `cssSelector` values exactly
+5. **Complete metadata**: Include as much metadata as possible (author, dates, images) for better search results
+
 ### RecipeJsonLd
 
 The `RecipeJsonLd` component helps you add structured data for recipes to improve their appearance in search results with rich snippets that can include ratings, cooking times, and images.
