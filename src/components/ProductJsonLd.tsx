@@ -10,6 +10,10 @@ import {
   processAuthor,
   processVariesBy,
   processProductVariant,
+  processCertification,
+  processPeopleAudience,
+  processSizeSpecification,
+  processThreeDModel,
 } from "~/utils/processors";
 
 export default function ProductJsonLd(props: ProductJsonLdProps) {
@@ -221,8 +225,22 @@ export default function ProductJsonLd(props: ProductJsonLdProps) {
         expirationDate: productProps.expirationDate,
       }),
       ...(productProps.award && { award: productProps.award }),
-      ...(productProps.size && { size: productProps.size }),
+      ...(productProps.size && {
+        size: processSizeSpecification(productProps.size),
+      }),
       ...(productProps.pattern && { pattern: productProps.pattern }),
+      ...(productProps.isbn && { isbn: productProps.isbn }),
+      ...(productProps.hasCertification && {
+        hasCertification: Array.isArray(productProps.hasCertification)
+          ? productProps.hasCertification.map(processCertification)
+          : processCertification(productProps.hasCertification),
+      }),
+      ...(productProps.audience && {
+        audience: processPeopleAudience(productProps.audience),
+      }),
+      ...(productProps.subjectOf && {
+        subjectOf: processThreeDModel(productProps.subjectOf),
+      }),
       ...(productProps.isVariantOf && {
         isVariantOf: productProps.isVariantOf,
       }),

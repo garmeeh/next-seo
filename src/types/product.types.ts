@@ -6,6 +6,12 @@ import type {
   Organization,
   Person,
   MerchantReturnPolicy,
+  UnitPriceSpecification,
+  OfferShippingDetails,
+  Certification,
+  PeopleAudience,
+  SizeSpecification,
+  ThreeDModel,
 } from "./common.types";
 
 // ItemAvailability enum
@@ -40,28 +46,23 @@ export interface PriceSpecification {
   maxPrice?: number;
 }
 
-// UnitPriceSpecification for unit-based pricing
-export interface UnitPriceSpecification {
-  "@type": "UnitPriceSpecification";
-  price: number | string;
-  priceCurrency?: string;
-  minPrice?: number;
-  maxPrice?: number;
-  referenceQuantity?: {
-    "@type": "QuantitativeValue";
-    value?: number;
-    unitCode?: string;
-    unitText?: string;
-  };
-}
-
 // Product Offer type - extends the basic event Offer
 export interface ProductOffer {
   "@type": "Offer";
   url?: string;
   price?: number | string;
   priceCurrency?: string;
-  priceSpecification?: PriceSpecification | Omit<PriceSpecification, "@type">;
+  priceSpecification?:
+    | PriceSpecification
+    | UnitPriceSpecification
+    | Omit<PriceSpecification, "@type">
+    | Omit<UnitPriceSpecification, "@type">
+    | (
+        | PriceSpecification
+        | UnitPriceSpecification
+        | Omit<PriceSpecification, "@type">
+        | Omit<UnitPriceSpecification, "@type">
+      )[];
   availability?: ItemAvailability;
   availabilityStarts?: string;
   availabilityEnds?: string;
@@ -81,33 +82,10 @@ export interface ProductOffer {
     | Person
     | Omit<Organization, "@type">
     | Omit<Person, "@type">;
-  shippingDetails?: {
-    "@type": "OfferShippingDetails";
-    shippingRate?: {
-      "@type": "MonetaryAmount";
-      value?: number | string;
-      currency?: string;
-    };
-    shippingDestination?: {
-      "@type": "DefinedRegion";
-      addressCountry?: string;
-    };
-    deliveryTime?: {
-      "@type": "ShippingDeliveryTime";
-      handlingTime?: {
-        "@type": "QuantitativeValue";
-        minValue?: number;
-        maxValue?: number;
-        unitCode?: string;
-      };
-      transitTime?: {
-        "@type": "QuantitativeValue";
-        minValue?: number;
-        maxValue?: number;
-        unitCode?: string;
-      };
-    };
-  };
+  shippingDetails?:
+    | OfferShippingDetails
+    | Omit<OfferShippingDetails, "@type">
+    | (OfferShippingDetails | Omit<OfferShippingDetails, "@type">)[];
   hasMerchantReturnPolicy?:
     | MerchantReturnPolicy
     | Omit<MerchantReturnPolicy, "@type">
@@ -228,9 +206,16 @@ export interface ProductBase {
   purchaseDate?: string;
   expirationDate?: string;
   award?: string | string[];
-  // Additional variant properties
-  size?: string;
+  // Additional properties for products
+  hasCertification?:
+    | Certification
+    | Omit<Certification, "@type">
+    | (Certification | Omit<Certification, "@type">)[];
+  audience?: PeopleAudience | Omit<PeopleAudience, "@type">;
+  size?: string | SizeSpecification | Omit<SizeSpecification, "@type">;
   pattern?: string;
+  isbn?: string;
+  subjectOf?: ThreeDModel | Omit<ThreeDModel, "@type">;
   // Properties for variant relationships
   isVariantOf?: { "@id": string } | ProductGroup | Omit<ProductGroup, "@type">;
   inProductGroupWithID?: string;

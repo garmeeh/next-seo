@@ -99,11 +99,12 @@ export interface ContactPoint {
 
 export interface QuantitativeValue {
   "@type": "QuantitativeValue";
-  value?: number;
+  value?: number | string;
   minValue?: number;
   maxValue?: number;
   unitText?: string;
   unitCode?: string;
+  valueReference?: QuantitativeValue | Omit<QuantitativeValue, "@type">;
 }
 
 export interface SimpleMonetaryAmount {
@@ -161,6 +162,12 @@ export interface MerchantReturnPolicy {
   merchantReturnLink?: string;
 }
 
+export type PriceTypeEnumeration =
+  | "https://schema.org/StrikethroughPrice"
+  | "https://schema.org/ListPrice"
+  | "StrikethroughPrice"
+  | "ListPrice";
+
 export interface CreditCard {
   "@type": "CreditCard";
   name: string;
@@ -168,11 +175,18 @@ export interface CreditCard {
 
 export interface UnitPriceSpecification {
   "@type": "UnitPriceSpecification";
-  price: number | string;
-  priceCurrency: string;
+  price?: number | string;
+  priceCurrency?: string;
   billingDuration?: number;
   billingIncrement?: number;
   unitCode?: string;
+  priceType?: PriceTypeEnumeration;
+  validForMemberTier?:
+    | MemberProgramTier
+    | Omit<MemberProgramTier, "@type">
+    | (MemberProgramTier | Omit<MemberProgramTier, "@type">)[];
+  membershipPointsEarned?: number;
+  referenceQuantity?: QuantitativeValue | Omit<QuantitativeValue, "@type">;
 }
 
 export type TierRequirement =
@@ -229,9 +243,9 @@ export interface GeoCoordinates {
 
 export interface Rating {
   "@type": "Rating";
-  ratingValue: number;
-  bestRating?: number;
-  worstRating?: number;
+  ratingValue: number | string;
+  bestRating?: number | string;
+  worstRating?: number | string;
 }
 
 export interface Review {
@@ -316,4 +330,119 @@ export interface Accommodation {
   numberOfRooms?: number;
   petsAllowed?: boolean;
   smokingAllowed?: boolean;
+}
+
+export interface Certification {
+  "@type": "Certification";
+  issuedBy:
+    | Organization
+    | Omit<Organization, "@type">
+    | { "@type"?: "Organization"; name: string };
+  name: string;
+  url?: string;
+  certificationIdentification?: string;
+  certificationRating?: Rating | Omit<Rating, "@type">;
+}
+
+export interface PeopleAudience {
+  "@type": "PeopleAudience";
+  suggestedGender?:
+    | "male"
+    | "female"
+    | "unisex"
+    | "https://schema.org/Male"
+    | "https://schema.org/Female";
+  suggestedMinAge?: number;
+  suggestedMaxAge?: number;
+  suggestedAge?: QuantitativeValue | Omit<QuantitativeValue, "@type">;
+}
+
+export interface SizeSpecification {
+  "@type": "SizeSpecification";
+  name?: string;
+  sizeGroup?:
+    | "WearableSizeGroupRegular"
+    | "WearableSizeGroupPetite"
+    | "WearableSizeGroupPlus"
+    | "WearableSizeGroupTall"
+    | "WearableSizeGroupBig"
+    | "WearableSizeGroupMaternity"
+    | "https://schema.org/WearableSizeGroupRegular"
+    | "https://schema.org/WearableSizeGroupPetite"
+    | "https://schema.org/WearableSizeGroupPlus"
+    | "https://schema.org/WearableSizeGroupTall"
+    | "https://schema.org/WearableSizeGroupBig"
+    | "https://schema.org/WearableSizeGroupMaternity"
+    | "regular"
+    | "petite"
+    | "plus"
+    | "tall"
+    | "big"
+    | "maternity";
+  sizeSystem?:
+    | "WearableSizeSystemAU"
+    | "WearableSizeSystemBR"
+    | "WearableSizeSystemCN"
+    | "WearableSizeSystemDE"
+    | "WearableSizeSystemEurope"
+    | "WearableSizeSystemFR"
+    | "WearableSizeSystemIT"
+    | "WearableSizeSystemJP"
+    | "WearableSizeSystemMX"
+    | "WearableSizeSystemUK"
+    | "WearableSizeSystemUS"
+    | "https://schema.org/WearableSizeSystemAU"
+    | "https://schema.org/WearableSizeSystemBR"
+    | "https://schema.org/WearableSizeSystemCN"
+    | "https://schema.org/WearableSizeSystemDE"
+    | "https://schema.org/WearableSizeSystemEurope"
+    | "https://schema.org/WearableSizeSystemFR"
+    | "https://schema.org/WearableSizeSystemIT"
+    | "https://schema.org/WearableSizeSystemJP"
+    | "https://schema.org/WearableSizeSystemMX"
+    | "https://schema.org/WearableSizeSystemUK"
+    | "https://schema.org/WearableSizeSystemUS"
+    | "AU"
+    | "BR"
+    | "CN"
+    | "DE"
+    | "EU"
+    | "FR"
+    | "IT"
+    | "JP"
+    | "MX"
+    | "UK"
+    | "US";
+}
+
+export interface ThreeDModel {
+  "@type": "3DModel";
+  encoding?: {
+    "@type"?: "MediaObject";
+    contentUrl: string;
+  };
+}
+
+export interface DefinedRegion {
+  "@type": "DefinedRegion";
+  addressCountry: string;
+  addressRegion?: string | string[];
+  postalCode?: string | string[];
+}
+
+export interface ShippingDeliveryTime {
+  "@type": "ShippingDeliveryTime";
+  handlingTime?: QuantitativeValue | Omit<QuantitativeValue, "@type">;
+  transitTime?: QuantitativeValue | Omit<QuantitativeValue, "@type">;
+}
+
+export interface OfferShippingDetails {
+  "@type": "OfferShippingDetails";
+  shippingRate?: SimpleMonetaryAmount | Omit<SimpleMonetaryAmount, "@type">;
+  shippingDestination?:
+    | DefinedRegion
+    | Omit<DefinedRegion, "@type">
+    | (DefinedRegion | Omit<DefinedRegion, "@type">)[];
+  deliveryTime?: ShippingDeliveryTime | Omit<ShippingDeliveryTime, "@type">;
+  doesNotShip?: boolean;
 }

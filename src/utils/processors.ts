@@ -26,6 +26,13 @@ import type {
   UnitPriceSpecification,
   TierRequirement,
   TierBenefit,
+  Certification,
+  PeopleAudience,
+  SizeSpecification,
+  ThreeDModel,
+  DefinedRegion,
+  ShippingDeliveryTime,
+  OfferShippingDetails,
 } from "~/types/common.types";
 import type { Director } from "~/types/movie-carousel.types";
 import type { Provider } from "~/types/course.types";
@@ -140,6 +147,13 @@ const SCHEMA_TYPES = {
   WEB_PAGE: "WebPage",
   WEB_PAGE_ELEMENT: "WebPageElement",
   CLAIM: "Claim",
+  CERTIFICATION: "Certification",
+  PEOPLE_AUDIENCE: "PeopleAudience",
+  SIZE_SPECIFICATION: "SizeSpecification",
+  THREE_D_MODEL: "3DModel",
+  DEFINED_REGION: "DefinedRegion",
+  SHIPPING_DELIVERY_TIME: "ShippingDeliveryTime",
+  OFFER_SHIPPING_DETAILS: "OfferShippingDetails",
 } as const;
 
 // Type guard utilities
@@ -1195,6 +1209,15 @@ export function processMonetaryAmount(
 }
 
 /**
+ * Processes rating into Rating schema type
+ * @param rating - Rating object with or without @type
+ * @returns Rating with @type
+ */
+export function processRating(rating: Rating | Omit<Rating, "@type">): Rating {
+  return processSchemaType<Rating>(rating, SCHEMA_TYPES.RATING);
+}
+
+/**
  * Processes job property value into PropertyValue schema type
  * @param identifier - String identifier or JobPropertyValue object
  * @returns JobPropertyValue with @type
@@ -1690,9 +1713,15 @@ export function processProductOffer(
 
   // Process nested priceSpecification if present
   if (offer.priceSpecification) {
-    processed.priceSpecification = processPriceSpecification(
-      offer.priceSpecification,
-    );
+    if (Array.isArray(offer.priceSpecification)) {
+      processed.priceSpecification = offer.priceSpecification.map(
+        processPriceSpecification,
+      );
+    } else {
+      processed.priceSpecification = processPriceSpecification(
+        offer.priceSpecification,
+      );
+    }
   }
 
   // Process nested hasMerchantReturnPolicy if present
@@ -1704,6 +1733,19 @@ export function processProductOffer(
     } else {
       processed.hasMerchantReturnPolicy = processMerchantReturnPolicy(
         offer.hasMerchantReturnPolicy,
+      );
+    }
+  }
+
+  // Process nested shippingDetails if present
+  if (offer.shippingDetails) {
+    if (Array.isArray(offer.shippingDetails)) {
+      processed.shippingDetails = offer.shippingDetails.map(
+        processOfferShippingDetails,
+      );
+    } else {
+      processed.shippingDetails = processOfferShippingDetails(
+        offer.shippingDetails,
       );
     }
   }
@@ -1733,17 +1775,89 @@ export function processAggregateOffer(
 }
 
 /**
- * Processes price specification into PriceSpecification schema type
- * @param spec - PriceSpecification object with or without @type
- * @returns PriceSpecification with @type
+ * Processes price specification into PriceSpecification or UnitPriceSpecification schema type
+ * @param spec - PriceSpecification or UnitPriceSpecification object with or without @type
+ * @returns PriceSpecification or UnitPriceSpecification with @type
  */
 export function processPriceSpecification(
-  spec: PriceSpecification | Omit<PriceSpecification, "@type">,
-): PriceSpecification {
+  spec:
+    | PriceSpecification
+    | UnitPriceSpecification
+    | Omit<PriceSpecification, "@type">
+    | Omit<UnitPriceSpecification, "@type">,
+): PriceSpecification | UnitPriceSpecification {
+  // Check if it's a UnitPriceSpecification
+  if (
+    "priceType" in spec ||
+    "validForMemberTier" in spec ||
+    "membershipPointsEarned" in spec ||
+    "referenceQuantity" in spec
+  ) {
+    return processUnitPriceSpecification(
+      spec as UnitPriceSpecification | Omit<UnitPriceSpecification, "@type">,
+    );
+  }
   return processSchemaType<PriceSpecification>(
-    spec,
+    spec as PriceSpecification | Omit<PriceSpecification, "@type">,
     SCHEMA_TYPES.PRICE_SPECIFICATION,
   );
+}
+
+/**
+ * Processes unit price specification into UnitPriceSpecification schema type
+ * @param spec - UnitPriceSpecification object with or without @type
+ * @returns UnitPriceSpecification with @type
+ */
+export function processUnitPriceSpecification(
+  spec: UnitPriceSpecification | Omit<UnitPriceSpecification, "@type">,
+): UnitPriceSpecification {
+  const processed = processSchemaType<UnitPriceSpecification>(
+    spec,
+    SCHEMA_TYPES.UNIT_PRICE_SPECIFICATION,
+  );
+
+  // Process nested validForMemberTier if present
+  if (spec.validForMemberTier) {
+    if (Array.isArray(spec.validForMemberTier)) {
+      processed.validForMemberTier = spec.validForMemberTier.map(
+        processMemberProgramTier,
+      );
+    } else {
+      processed.validForMemberTier = processMemberProgramTier(
+        spec.validForMemberTier,
+      );
+    }
+  }
+
+  // Process nested referenceQuantity if present
+  if (spec.referenceQuantity) {
+    processed.referenceQuantity = processQuantitativeValue(
+      spec.referenceQuantity,
+    );
+  }
+
+  return processed;
+}
+
+/**
+ * Processes QuantitativeValue into schema type
+ * @param value - QuantitativeValue object with or without @type
+ * @returns QuantitativeValue with @type
+ */
+export function processQuantitativeValue(
+  value: QuantitativeValue | Omit<QuantitativeValue, "@type">,
+): QuantitativeValue {
+  const processed = processSchemaType<QuantitativeValue>(
+    value,
+    SCHEMA_TYPES.QUANTITATIVE_VALUE,
+  );
+
+  // Process nested valueReference if present
+  if (value.valueReference) {
+    processed.valueReference = processQuantitativeValue(value.valueReference);
+  }
+
+  return processed;
 }
 
 /**
@@ -1958,6 +2072,176 @@ export function processProductVariant(
     !("@type" in product.depth)
   ) {
     processed.depth = { "@type": "QuantitativeValue", ...product.depth };
+  }
+
+  return processed;
+}
+
+/**
+ * Processes certification into Certification schema type
+ * @param cert - Certification object with or without @type
+ * @returns Certification with @type
+ */
+export function processCertification(
+  cert: Certification | Omit<Certification, "@type">,
+): Certification {
+  const processed = processSchemaType<Certification>(
+    cert,
+    SCHEMA_TYPES.CERTIFICATION,
+  );
+
+  // Process nested issuedBy as Organization
+  if (cert.issuedBy) {
+    if (typeof cert.issuedBy === "object" && !("@type" in cert.issuedBy)) {
+      processed.issuedBy = {
+        "@type": SCHEMA_TYPES.ORGANIZATION,
+        ...cert.issuedBy,
+      };
+    } else {
+      processed.issuedBy = cert.issuedBy;
+    }
+  }
+
+  // Process nested certificationRating if present
+  if (cert.certificationRating) {
+    processed.certificationRating = processRating(cert.certificationRating);
+  }
+
+  return processed;
+}
+
+/**
+ * Processes people audience into PeopleAudience schema type
+ * @param audience - PeopleAudience object with or without @type
+ * @returns PeopleAudience with @type
+ */
+export function processPeopleAudience(
+  audience: PeopleAudience | Omit<PeopleAudience, "@type">,
+): PeopleAudience {
+  const processed = processSchemaType<PeopleAudience>(
+    audience,
+    SCHEMA_TYPES.PEOPLE_AUDIENCE,
+  );
+
+  // Process nested suggestedAge if present
+  if (audience.suggestedAge) {
+    processed.suggestedAge = processQuantitativeValue(audience.suggestedAge);
+  }
+
+  return processed;
+}
+
+/**
+ * Processes size specification into SizeSpecification schema type
+ * @param size - String or SizeSpecification object with or without @type
+ * @returns SizeSpecification with @type or string
+ */
+export function processSizeSpecification(
+  size: string | SizeSpecification | Omit<SizeSpecification, "@type">,
+): string | SizeSpecification {
+  if (typeof size === "string") {
+    return size;
+  }
+  return processSchemaType<SizeSpecification>(
+    size,
+    SCHEMA_TYPES.SIZE_SPECIFICATION,
+  );
+}
+
+/**
+ * Processes 3D model into ThreeDModel schema type
+ * @param model - ThreeDModel object with or without @type
+ * @returns ThreeDModel with @type
+ */
+export function processThreeDModel(
+  model: ThreeDModel | Omit<ThreeDModel, "@type">,
+): ThreeDModel {
+  const processed = processSchemaType<ThreeDModel>(
+    model,
+    SCHEMA_TYPES.THREE_D_MODEL,
+  );
+
+  // Process nested encoding if present
+  if (model.encoding && !("@type" in model.encoding)) {
+    processed.encoding = {
+      "@type": "MediaObject",
+      ...model.encoding,
+    };
+  }
+
+  return processed;
+}
+
+/**
+ * Processes defined region into DefinedRegion schema type
+ * @param region - DefinedRegion object with or without @type
+ * @returns DefinedRegion with @type
+ */
+export function processDefinedRegion(
+  region: DefinedRegion | Omit<DefinedRegion, "@type">,
+): DefinedRegion {
+  return processSchemaType<DefinedRegion>(region, SCHEMA_TYPES.DEFINED_REGION);
+}
+
+/**
+ * Processes shipping delivery time into ShippingDeliveryTime schema type
+ * @param time - ShippingDeliveryTime object with or without @type
+ * @returns ShippingDeliveryTime with @type
+ */
+export function processShippingDeliveryTime(
+  time: ShippingDeliveryTime | Omit<ShippingDeliveryTime, "@type">,
+): ShippingDeliveryTime {
+  const processed = processSchemaType<ShippingDeliveryTime>(
+    time,
+    SCHEMA_TYPES.SHIPPING_DELIVERY_TIME,
+  );
+
+  // Process nested handlingTime if present
+  if (time.handlingTime) {
+    processed.handlingTime = processQuantitativeValue(time.handlingTime);
+  }
+
+  // Process nested transitTime if present
+  if (time.transitTime) {
+    processed.transitTime = processQuantitativeValue(time.transitTime);
+  }
+
+  return processed;
+}
+
+/**
+ * Processes offer shipping details into OfferShippingDetails schema type
+ * @param details - OfferShippingDetails object with or without @type
+ * @returns OfferShippingDetails with @type
+ */
+export function processOfferShippingDetails(
+  details: OfferShippingDetails | Omit<OfferShippingDetails, "@type">,
+): OfferShippingDetails {
+  const processed = processSchemaType<OfferShippingDetails>(
+    details,
+    SCHEMA_TYPES.OFFER_SHIPPING_DETAILS,
+  );
+
+  // Process nested shippingRate if present
+  if (details.shippingRate) {
+    processed.shippingRate = processSimpleMonetaryAmount(details.shippingRate);
+  }
+
+  // Process nested shippingDestination if present
+  if (details.shippingDestination) {
+    if (Array.isArray(details.shippingDestination)) {
+      processed.shippingDestination =
+        details.shippingDestination.map(processDefinedRegion);
+    } else {
+      processed.shippingDestination = processDefinedRegion(
+        details.shippingDestination,
+      );
+    }
+  }
+
+  // Process nested deliveryTime if present
+  if (details.deliveryTime) {
+    processed.deliveryTime = processShippingDeliveryTime(details.deliveryTime);
   }
 
   return processed;
