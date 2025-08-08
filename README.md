@@ -4171,4 +4171,170 @@ Supported values for the `variesBy` property:
 8. **Common properties**: Place shared properties (brand, material) at ProductGroup level
 9. **Unique identifiers**: Each variant should have unique SKU/GTIN
 10. **Consistent naming**: Use clear naming patterns for variants (e.g., "Product - Size Color")
-    EOF < /dev/null
+
+### ReviewJsonLd
+
+The `ReviewJsonLd` component helps you add structured data for reviews to improve their appearance in search results. Reviews can appear as rich snippets with star ratings and review excerpts.
+
+#### Basic Usage
+
+```tsx
+import { ReviewJsonLd } from "next-seo";
+
+<ReviewJsonLd
+  author="Bob Smith"
+  reviewRating={{ ratingValue: 4 }}
+  itemReviewed="Legal Seafood"
+/>;
+```
+
+#### Full Review Example
+
+```tsx
+<ReviewJsonLd
+  author={{ name: "Sarah Johnson", url: "https://example.com/sarah" }}
+  reviewRating={{
+    ratingValue: 5,
+    bestRating: 5,
+    worstRating: 1,
+  }}
+  itemReviewed={{
+    "@type": "Restaurant",
+    name: "Legal Seafood",
+    image: "https://example.com/seafood.jpg",
+    servesCuisine: "Seafood",
+    priceRange: "$$$",
+    telephone: "1234567",
+    address: {
+      streetAddress: "123 William St",
+      addressLocality: "New York",
+      addressRegion: "NY",
+      postalCode: "10038",
+      addressCountry: "US",
+    },
+  }}
+  reviewBody="Excellent seafood restaurant with fresh catches daily. The lobster was perfectly cooked and the service was outstanding."
+  datePublished="2024-01-15"
+  publisher="FoodCritic Magazine"
+  url="https://example.com/reviews/legal-seafood"
+/>
+```
+
+#### Props
+
+| Property           | Type                               | Description                                  |
+| ------------------ | ---------------------------------- | -------------------------------------------- |
+| `author`           | `string \| Person \| Organization` | **Required.** The author of the review       |
+| `reviewRating`     | `Rating`                           | **Required.** The rating given in the review |
+| `itemReviewed`     | `string \| ItemReviewed`           | **Required.** The item being reviewed        |
+| `datePublished`    | `string`                           | The date the review was published (ISO 8601) |
+| `reviewBody`       | `string`                           | The text of the review                       |
+| `publisher`        | `string \| Person \| Organization` | The publisher of the review                  |
+| `url`              | `string`                           | URL of the review                            |
+| `mainEntityOfPage` | `string \| WebPage`                | Main entity of the page                      |
+
+#### Supported Item Types
+
+Reviews can be written about various types of items:
+
+- `Book`
+- `Course`
+- `CreativeWorkSeason`
+- `CreativeWorkSeries`
+- `Episode`
+- `Event`
+- `Game`
+- `HowTo`
+- `LocalBusiness` (including restaurants)
+- `MediaObject`
+- `Movie`
+- `MusicPlaylist`
+- `MusicRecording`
+- `Organization`
+- `Product`
+- `Recipe`
+- `SoftwareApplication`
+
+#### Best Practices
+
+1. **Always include reviewBody**: Provides context for the rating
+2. **Use specific item types**: Specify `@type` for `itemReviewed` when possible
+3. **Include datePublished**: Helps establish review freshness
+4. **Author information**: Provide as much author detail as possible
+5. **Avoid self-serving reviews**: Don't mark up reviews on your own site about your organization
+
+### AggregateRatingJsonLd
+
+The `AggregateRatingJsonLd` component helps you add structured data for aggregate ratings, showing the average rating from multiple reviews.
+
+#### Basic Usage
+
+```tsx
+import { AggregateRatingJsonLd } from "next-seo";
+
+<AggregateRatingJsonLd
+  itemReviewed="Executive Anvil"
+  ratingValue={4.4}
+  ratingCount={89}
+/>;
+```
+
+#### Full Example
+
+```tsx
+<AggregateRatingJsonLd
+  itemReviewed={{
+    "@type": "Product",
+    name: "Executive Anvil",
+    image: [
+      "https://example.com/photos/1x1/photo.jpg",
+      "https://example.com/photos/4x3/photo.jpg",
+      "https://example.com/photos/16x9/photo.jpg",
+    ],
+    brand: "ACME",
+  }}
+  ratingValue={88}
+  bestRating={100}
+  worstRating={0}
+  ratingCount={20}
+/>
+```
+
+#### With Review Count
+
+```tsx
+<AggregateRatingJsonLd
+  itemReviewed="Premium Coffee Maker"
+  ratingValue={4.5}
+  reviewCount={127} // Use reviewCount instead of ratingCount
+  bestRating={5}
+/>
+```
+
+#### Props
+
+| Property       | Type                     | Description                                                                    |
+| -------------- | ------------------------ | ------------------------------------------------------------------------------ |
+| `itemReviewed` | `string \| ItemReviewed` | **Required.** The item being rated                                             |
+| `ratingValue`  | `number \| string`       | **Required.** The average rating value                                         |
+| `ratingCount`  | `number`                 | The total number of ratings                                                    |
+| `reviewCount`  | `number`                 | The number of reviews (at least one of ratingCount or reviewCount is required) |
+| `bestRating`   | `number`                 | The highest value in the rating system (default: 5)                            |
+| `worstRating`  | `number`                 | The lowest value in the rating system (default: 1)                             |
+
+#### Rating Scale
+
+- **Default scale**: 1 to 5 stars
+- **Custom scale**: Use `bestRating` and `worstRating` to define custom scales
+- **Percentages**: Use values like 88 with `bestRating: 100` for percentage-based ratings
+- **Fractions**: Supports decimal values like 4.4
+
+#### Best Practices
+
+1. **Choose the right count**: Use `ratingCount` for star ratings, `reviewCount` for written reviews
+2. **Specify scale for non-standard ratings**: Always include `bestRating` and `worstRating` for non-5-star scales
+3. **Combine with Product/Organization data**: Nest within or alongside main entity structured data
+4. **Minimum threshold**: Only use when you have multiple genuine ratings
+5. **Keep it updated**: Regularly update aggregate ratings as new reviews come in
+
+   EOF < /dev/null

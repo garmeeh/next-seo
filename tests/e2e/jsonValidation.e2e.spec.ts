@@ -211,6 +211,71 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(Array.isArray(jsonData!.address)).toBe(true);
       expect(Array.isArray(jsonData!.contactPoint)).toBe(true);
     });
+
+    test("ReviewJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/review");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Review");
+      expect(jsonData!.author).toBeDefined();
+      expect(jsonData!.reviewRating).toBeDefined();
+      expect(jsonData!.itemReviewed).toBeDefined();
+    });
+
+    test("AggregateRatingJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/aggregate-rating");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("AggregateRating");
+      expect(jsonData!.itemReviewed).toBeDefined();
+      expect(jsonData!.ratingValue).toBeDefined();
+      expect(jsonData!.ratingCount).toBeDefined();
+    });
+
+    test("Review nested in Product produces valid JSON", async ({ page }) => {
+      await page.goto("/review-advanced");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Product");
+      expect(Array.isArray(jsonData!.review)).toBe(true);
+      expect(jsonData!.aggregateRating).toBeDefined();
+    });
   });
 
   test.describe("Edge Cases and Special Characters", () => {

@@ -269,7 +269,7 @@ describe("SoftwareApplicationJsonLd", () => {
         reviewCount: 450,
       },
       author: {
-        "@type": "Person",
+        "@type": "Organization",
         name: "TechCorp Inc.",
       },
       publisher: {

@@ -196,7 +196,7 @@ function processSchemaType<T extends { "@type": string }>(
 // Helper to process nested organization fields
 function processOrganizationFields(org: Organization): void {
   if (org.logo && !isString(org.logo)) {
-    org.logo = processImage(org.logo);
+    org.logo = processLogo(org.logo);
   }
 
   if (org.address && !isString(org.address)) {
@@ -228,6 +228,44 @@ function processOrganizationFields(org: Organization): void {
  */
 export function processAuthor(author: Author): Person | Organization {
   if (isString(author)) {
+    // Check if the string appears to be an organization name
+    const orgIndicators = [
+      "magazine",
+      "publication",
+      "company",
+      "corporation",
+      "corp",
+      "inc",
+      "llc",
+      "ltd",
+      "limited",
+      "group",
+      "foundation",
+      "institute",
+      "association",
+      "society",
+      "union",
+      "times",
+      "news",
+      "press",
+      "media",
+      "network",
+      "agency",
+      "studio",
+    ];
+
+    const lowerName = author.toLowerCase();
+    const isLikelyOrg = orgIndicators.some((indicator) =>
+      lowerName.includes(indicator),
+    );
+
+    if (isLikelyOrg) {
+      return {
+        "@type": SCHEMA_TYPES.ORGANIZATION,
+        name: author,
+      };
+    }
+
     return {
       "@type": SCHEMA_TYPES.PERSON,
       name: author,
@@ -2245,4 +2283,71 @@ export function processOfferShippingDetails(
   }
 
   return processed;
+}
+
+// Review/AggregateRating-specific processors
+
+export type ItemReviewedType =
+  | "Book"
+  | "Course"
+  | "CreativeWorkSeason"
+  | "CreativeWorkSeries"
+  | "Episode"
+  | "Event"
+  | "Game"
+  | "HowTo"
+  | "LocalBusiness"
+  | "MediaObject"
+  | "Movie"
+  | "MusicPlaylist"
+  | "MusicRecording"
+  | "Organization"
+  | "Product"
+  | "Recipe"
+  | "SoftwareApplication";
+
+type ItemReviewedInput =
+  | string
+  | ({ name: string; "@type"?: ItemReviewedType } & Record<string, unknown>);
+
+/**
+ * Processes itemReviewed into a specific schema type if possible, otherwise Thing
+ * @param itemReviewed - String name or object with optional @type
+ * @param defaultType - Optional default @type to apply when missing
+ */
+export function processItemReviewed(
+  itemReviewed: ItemReviewedInput,
+  defaultType?: ItemReviewedType | "Thing",
+): Record<string, unknown> {
+  if (isString(itemReviewed)) {
+    return { "@type": defaultType || "Thing", name: itemReviewed };
+  }
+
+  if (
+    typeof itemReviewed === "object" &&
+    itemReviewed !== null &&
+    "@type" in itemReviewed
+  ) {
+    return itemReviewed as Record<string, unknown>;
+  }
+
+  // Try light heuristics if no @type present
+  const candidate: Record<string, unknown> = {
+    ...(itemReviewed as Record<string, unknown>),
+  };
+  const inferType = (): ItemReviewedType | "Thing" => {
+    if (defaultType) return defaultType;
+    if ("brand" in candidate || "sku" in candidate) return "Product";
+    if ("recipeIngredient" in candidate || "recipeInstructions" in candidate)
+      return "Recipe";
+    if ("servesCuisine" in candidate || "address" in candidate)
+      return "LocalBusiness";
+    if ("applicationCategory" in candidate || "operatingSystem" in candidate)
+      return "SoftwareApplication";
+    if ("director" in candidate || "actor" in candidate) return "Movie";
+    if ("provider" in candidate) return "Course";
+    return "Thing";
+  };
+
+  return { "@type": inferType(), ...candidate };
 }

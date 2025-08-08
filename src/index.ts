@@ -98,3 +98,11 @@ export {
   default as ProductJsonLd,
   type ProductJsonLdProps,
 } from "./components/ProductJsonLd";
+export {
+  default as ReviewJsonLd,
+  type ReviewJsonLdProps,
+} from "./components/ReviewJsonLd";
+export {
+  default as AggregateRatingJsonLd,
+  type AggregateRatingJsonLdProps,
+} from "./components/AggregateRatingJsonLd";
