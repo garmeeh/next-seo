@@ -638,3 +638,298 @@ describe("ProductJsonLd", () => {
     ).toBe("https://schema.org/MerchantReturnNotPermitted");
   });
 });
+
+describe("ProductJsonLd with ProductGroup", () => {
+  it("renders basic ProductGroup with variants", () => {
+    const { container } = render(
+      <ProductJsonLd
+        type="ProductGroup"
+        name="Wool winter coat"
+        description="Wool coat, new for the coming winter season"
+        productGroupID="44E01"
+        variesBy={["size", "color"]}
+        hasVariant={[
+          {
+            name: "Small green coat",
+            sku: "44E01-M11000",
+            color: "Green",
+            size: "small",
+            offers: {
+              price: 39.99,
+              priceCurrency: "USD",
+              availability: "InStock",
+            },
+          },
+          {
+            name: "Small light blue coat",
+            sku: "44E01-K11000",
+            color: "light blue",
+            size: "small",
+            offers: {
+              price: 39.99,
+              priceCurrency: "USD",
+              availability: "InStock",
+            },
+          },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    expect(script).toBeTruthy();
+
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData).toEqual({
+      "@context": "https://schema.org",
+      "@type": "ProductGroup",
+      name: "Wool winter coat",
+      description: "Wool coat, new for the coming winter season",
+      productGroupID: "44E01",
+      variesBy: ["https://schema.org/size", "https://schema.org/color"],
+      hasVariant: [
+        {
+          "@type": "Product",
+          name: "Small green coat",
+          sku: "44E01-M11000",
+          color: "Green",
+          size: "small",
+          offers: {
+            "@type": "Offer",
+            price: 39.99,
+            priceCurrency: "USD",
+            availability: "InStock",
+          },
+        },
+        {
+          "@type": "Product",
+          name: "Small light blue coat",
+          sku: "44E01-K11000",
+          color: "light blue",
+          size: "small",
+          offers: {
+            "@type": "Offer",
+            price: 39.99,
+            priceCurrency: "USD",
+            availability: "InStock",
+          },
+        },
+      ],
+    });
+  });
+
+  it("renders ProductGroup with URL-only variants", () => {
+    const { container } = render(
+      <ProductJsonLd
+        type="ProductGroup"
+        name="Wool winter coat"
+        productGroupID="44E01"
+        variesBy="color"
+        hasVariant={[
+          {
+            name: "Small green coat",
+            sku: "44E01-M11000",
+            color: "Green",
+            offers: {
+              price: 39.99,
+              priceCurrency: "USD",
+            },
+          },
+          { url: "https://example.com/coat/blue" },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.hasVariant).toHaveLength(2);
+    expect(jsonData.hasVariant[0]["@type"]).toBe("Product");
+    expect(jsonData.hasVariant[0].name).toBe("Small green coat");
+    expect(jsonData.hasVariant[1]).toEqual({
+      url: "https://example.com/coat/blue",
+    });
+  });
+
+  it("handles variesBy with full schema.org URLs", () => {
+    const { container } = render(
+      <ProductJsonLd
+        type="ProductGroup"
+        name="Test Product Group"
+        productGroupID="TEST01"
+        variesBy={["https://schema.org/size", "https://schema.org/color"]}
+        hasVariant={[]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.variesBy).toEqual([
+      "https://schema.org/size",
+      "https://schema.org/color",
+    ]);
+  });
+
+  it("renders ProductGroup with audience information", () => {
+    const { container } = render(
+      <ProductJsonLd
+        type="ProductGroup"
+        name="Kids coat"
+        productGroupID="KIDS01"
+        audience={{
+          "@type": "PeopleAudience",
+          suggestedGender: "unisex",
+          suggestedAge: {
+            "@type": "QuantitativeValue",
+            minValue: 5,
+            maxValue: 12,
+            unitCode: "ANN",
+          },
+        }}
+        hasVariant={[]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.audience).toEqual({
+      "@type": "PeopleAudience",
+      suggestedGender: "unisex",
+      suggestedAge: {
+        "@type": "QuantitativeValue",
+        minValue: 5,
+        maxValue: 12,
+        unitCode: "ANN",
+      },
+    });
+  });
+
+  it("renders Product with isVariantOf reference", () => {
+    const { container } = render(
+      <ProductJsonLd
+        name="Small green coat"
+        sku="44E01-M11000"
+        color="Green"
+        size="small"
+        isVariantOf={{ "@id": "#coat_parent" }}
+        offers={{
+          price: 39.99,
+          priceCurrency: "USD",
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData["@type"]).toBe("Product");
+    expect(jsonData.name).toBe("Small green coat");
+    expect(jsonData.size).toBe("small");
+    expect(jsonData.color).toBe("Green");
+    expect(jsonData.isVariantOf).toEqual({ "@id": "#coat_parent" });
+  });
+
+  it("renders Product with inProductGroupWithID", () => {
+    const { container } = render(
+      <ProductJsonLd
+        name="Large blue coat"
+        sku="44E01-X11000"
+        size="large"
+        color="blue"
+        inProductGroupWithID="44E01"
+        offers={{
+          price: 49.99,
+          priceCurrency: "USD",
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.inProductGroupWithID).toBe("44E01");
+    expect(jsonData.size).toBe("large");
+    expect(jsonData.color).toBe("blue");
+  });
+
+  it("auto-detects ProductGroup from hasVariant property", () => {
+    const { container } = render(
+      <ProductJsonLd
+        name="Auto-detected ProductGroup"
+        productGroupID="AUTO01"
+        hasVariant={[
+          {
+            name: "Variant 1",
+            sku: "V1",
+            offers: { price: 10, priceCurrency: "USD" },
+          },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData["@type"]).toBe("ProductGroup");
+    expect(jsonData.productGroupID).toBe("AUTO01");
+  });
+
+  it("renders ProductGroup with common properties", () => {
+    const { container } = render(
+      <ProductJsonLd
+        type="ProductGroup"
+        name="Wool winter coat"
+        productGroupID="44E01"
+        brand="Good Brand"
+        material="wool"
+        pattern="striped"
+        category="Apparel"
+        aggregateRating={{
+          ratingValue: 4.5,
+          reviewCount: 100,
+        }}
+        hasVariant={[
+          {
+            name: "Small coat",
+            sku: "SMALL",
+            size: "small",
+            offers: { price: 39.99, priceCurrency: "USD" },
+          },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.brand).toEqual({
+      "@type": "Brand",
+      name: "Good Brand",
+    });
+    expect(jsonData.material).toBe("wool");
+    expect(jsonData.pattern).toBe("striped");
+    expect(jsonData.category).toBe("Apparel");
+    expect(jsonData.aggregateRating).toEqual({
+      "@type": "AggregateRating",
+      ratingValue: 4.5,
+      reviewCount: 100,
+    });
+  });
+});

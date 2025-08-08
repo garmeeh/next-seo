@@ -4038,3 +4038,137 @@ Google requires at least one of the following properties for product snippets:
 6. **Availability**: Use schema.org values (InStock, OutOfStock, PreOrder, etc.)
 7. **Multiple sellers**: Use AggregateOffer for shopping comparison sites
 8. **Car products**: Set `isCar={true}` for automotive products to add Car type
+
+### ProductGroup (Product Variants)
+
+The `ProductJsonLd` component now supports ProductGroup for representing product variants (different sizes, colors, materials, etc.) of the same product. This helps Google understand product variations and can enable variant displays in search results.
+
+#### Single-Page Variant Example
+
+Use this approach when all variants are selectable on a single product page:
+
+```tsx
+import { ProductJsonLd } from "next-seo";
+
+<ProductJsonLd
+  type="ProductGroup"
+  name="Wool Winter Coat"
+  description="Premium wool coat available in multiple colors and sizes"
+  productGroupID="WC2024"
+  brand="Nordic Style"
+  variesBy={["size", "color"]}
+  aggregateRating={{
+    ratingValue: 4.6,
+    reviewCount: 127,
+  }}
+  hasVariant={[
+    {
+      name: "Wool Winter Coat - Small Green",
+      sku: "WC2024-S-GRN",
+      size: "small",
+      color: "Green",
+      offers: {
+        price: 119.99,
+        priceCurrency: "USD",
+        availability: "InStock",
+        url: "https://example.com/coat?size=small&color=green",
+      },
+    },
+    {
+      name: "Wool Winter Coat - Large Blue",
+      sku: "WC2024-L-BLU",
+      size: "large",
+      color: "Blue",
+      offers: {
+        price: 139.99,
+        priceCurrency: "USD",
+        availability: "BackOrder",
+        url: "https://example.com/coat?size=large&color=blue",
+      },
+    },
+    // Reference to variants on other pages
+    { url: "https://example.com/coat/medium-red" },
+  ]}
+/>;
+```
+
+#### Multi-Page Variant Example
+
+Use this approach when each variant has its own page:
+
+```tsx
+// On a specific variant page
+<ProductJsonLd
+  name="Premium Leather Wallet - Brown Classic"
+  sku="LW2024-BRN-CLS"
+  color="Brown"
+  pattern="Classic"
+  material="Genuine Leather"
+  isVariantOf={{ "@id": "#wallet_group" }}
+  inProductGroupWithID="LW2024"
+  offers={{
+    price: 79.99,
+    priceCurrency: "USD",
+    availability: "InStock",
+  }}
+/>
+```
+
+#### ProductGroup Properties
+
+| Property         | Type                              | Description                                        |
+| ---------------- | --------------------------------- | -------------------------------------------------- |
+| `type`           | `"ProductGroup"`                  | Specifies ProductGroup type                        |
+| `productGroupID` | `string`                          | **Required.** Parent SKU or group identifier       |
+| `variesBy`       | `string \| string[]`              | Properties that vary (size, color, material, etc.) |
+| `hasVariant`     | `Array<Product \| {url: string}>` | Array of product variants                          |
+| `audience`       | `PeopleAudience`                  | Target audience (age, gender)                      |
+
+#### Variant Properties
+
+When defining variants in `hasVariant`, you can include:
+
+| Property   | Type           | Description                             |
+| ---------- | -------------- | --------------------------------------- |
+| `name`     | `string`       | Variant-specific name                   |
+| `sku`      | `string`       | Variant SKU                             |
+| `size`     | `string`       | Size value                              |
+| `color`    | `string`       | Color value                             |
+| `pattern`  | `string`       | Pattern type                            |
+| `material` | `string`       | Material composition                    |
+| `offers`   | `ProductOffer` | Variant-specific pricing                |
+| `url`      | `string`       | For referencing variants on other pages |
+
+#### Variant Reference Properties
+
+For multi-page implementations, use these on individual product pages:
+
+| Property               | Type                            | Description                      |
+| ---------------------- | ------------------------------- | -------------------------------- |
+| `isVariantOf`          | `{@id: string} \| ProductGroup` | Reference to parent ProductGroup |
+| `inProductGroupWithID` | `string`                        | Parent product group ID          |
+
+#### VariesBy Values
+
+Supported values for the `variesBy` property:
+
+- `"size"` or `"https://schema.org/size"`
+- `"color"` or `"https://schema.org/color"`
+- `"material"` or `"https://schema.org/material"`
+- `"pattern"` or `"https://schema.org/pattern"`
+- `"suggestedAge"` or `"https://schema.org/suggestedAge"`
+- `"suggestedGender"` or `"https://schema.org/suggestedGender"`
+
+#### Best Practices for Product Variants
+
+1. **Use ProductGroup** when you have multiple variants of the same product
+2. **Single-page approach**: Best when variants are selectable via dropdowns/buttons on one page
+3. **Multi-page approach**: Best when each variant needs its own SEO-optimized page
+4. **Always include productGroupID**: This links all variants together
+5. **Specify variesBy**: Clearly indicate which properties differentiate variants
+6. **Complete variant data**: Include as much variant-specific data as possible
+7. **URL references**: Use `{ url: "..." }` for variants on separate pages
+8. **Common properties**: Place shared properties (brand, material) at ProductGroup level
+9. **Unique identifiers**: Each variant should have unique SKU/GTIN
+10. **Consistent naming**: Use clear naming patterns for variants (e.g., "Product - Size Color")
+    EOF < /dev/null

@@ -63,6 +63,8 @@ export interface ProductOffer {
   priceCurrency?: string;
   priceSpecification?: PriceSpecification | Omit<PriceSpecification, "@type">;
   availability?: ItemAvailability;
+  availabilityStarts?: string;
+  availabilityEnds?: string;
   priceValidUntil?: string;
   itemCondition?:
     | "https://schema.org/NewCondition"
@@ -226,6 +228,12 @@ export interface ProductBase {
   purchaseDate?: string;
   expirationDate?: string;
   award?: string | string[];
+  // Additional variant properties
+  size?: string;
+  pattern?: string;
+  // Properties for variant relationships
+  isVariantOf?: { "@id": string } | ProductGroup | Omit<ProductGroup, "@type">;
+  inProductGroupWithID?: string;
 }
 
 // Product type
@@ -233,9 +241,77 @@ export interface Product extends ProductBase {
   "@type": "Product" | ["Product", "Car"];
 }
 
+// VariesBy type for specifying variant properties
+export type VariesBy =
+  | "https://schema.org/color"
+  | "https://schema.org/size"
+  | "https://schema.org/material"
+  | "https://schema.org/pattern"
+  | "https://schema.org/suggestedAge"
+  | "https://schema.org/suggestedGender"
+  | "color"
+  | "size"
+  | "material"
+  | "pattern"
+  | "suggestedAge"
+  | "suggestedGender";
+
+// ProductGroup interface for grouping product variants
+export interface ProductGroup {
+  "@type": "ProductGroup";
+  "@id"?: string;
+  name: string;
+  description?: string;
+  url?: string;
+  image?:
+    | string
+    | ImageObject
+    | Omit<ImageObject, "@type">
+    | (string | ImageObject | Omit<ImageObject, "@type">)[];
+  brand?:
+    | string
+    | Brand
+    | Organization
+    | Omit<Brand, "@type">
+    | Omit<Organization, "@type">;
+  review?:
+    | ProductReview
+    | Omit<ProductReview, "@type">
+    | (ProductReview | Omit<ProductReview, "@type">)[];
+  aggregateRating?: AggregateRating | Omit<AggregateRating, "@type">;
+  audience?: {
+    "@type"?: "PeopleAudience";
+    suggestedGender?: "male" | "female" | "unisex";
+    suggestedAge?: {
+      "@type"?: "QuantitativeValue";
+      minValue?: number;
+      maxValue?: number;
+      unitCode?: string;
+    };
+  };
+  productGroupID: string;
+  variesBy?: VariesBy | VariesBy[];
+  hasVariant?: (
+    | Product
+    | Omit<Product, "@type">
+    | { url: string }
+    | { "@type": "Product"; url: string }
+  )[];
+  pattern?: string;
+  material?: string;
+  category?: string;
+}
+
 // Component props
-export type ProductJsonLdProps = Omit<Product, "@type"> & {
+export type ProductJsonLdProps = (
+  | (Omit<Product, "@type"> & {
+      type?: "Product";
+      isCar?: boolean; // Helper prop to add Car type alongside Product
+    })
+  | (Omit<ProductGroup, "@type"> & {
+      type?: "ProductGroup";
+    })
+) & {
   scriptId?: string;
   scriptKey?: string;
-  isCar?: boolean; // Helper prop to add Car type alongside Product
 };

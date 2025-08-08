@@ -84,6 +84,8 @@ import type {
   ProductItemList,
   ProductListItem,
   ProductReview,
+  Product,
+  VariesBy,
 } from "~/types/product.types";
 
 // Schema.org type constants
@@ -121,6 +123,8 @@ const SCHEMA_TYPES = {
   PRICE_SPECIFICATION: "PriceSpecification",
   ITEM_LIST: "ItemList",
   LIST_ITEM: "ListItem",
+  PRODUCT: "Product",
+  PRODUCT_GROUP: "ProductGroup",
   NUTRITION_INFORMATION: "NutritionInformation",
   HOW_TO_STEP: "HowToStep",
   HOW_TO_SECTION: "HowToSection",
@@ -1395,11 +1399,33 @@ export function processIsPartOf(
 // VacationRental-specific processors
 
 /**
- * Processes brand into Brand schema type
- * @param brand - Brand object with or without @type
- * @returns Brand with @type
+ * Processes brand into Brand or Organization schema type
+ * @param brand - Brand or Organization object with or without @type
+ * @returns Brand or Organization with @type
  */
-export function processBrand(brand: Brand | Omit<Brand, "@type">): Brand {
+export function processBrand(
+  brand:
+    | Brand
+    | Organization
+    | Omit<Brand, "@type">
+    | Omit<Organization, "@type">,
+): Brand | Organization {
+  // If it already has a type, return as-is
+  if ("@type" in brand) {
+    return brand as Brand | Organization;
+  }
+
+  // Check if it has Organization-specific properties
+  if ("logo" in brand || "address" in brand || "contactPoint" in brand) {
+    const org: Organization = {
+      "@type": SCHEMA_TYPES.ORGANIZATION,
+      ...brand,
+    };
+    processOrganizationFields(org);
+    return org;
+  }
+
+  // Default to Brand
   return processSchemaType<Brand>(brand, SCHEMA_TYPES.BRAND);
 }
 
@@ -1785,6 +1811,153 @@ export function processProductReview(
   // Process negative notes (cons)
   if (review.negativeNotes) {
     processed.negativeNotes = processProductItemList(review.negativeNotes);
+  }
+
+  return processed;
+}
+
+/**
+ * Processes variesBy property to ensure full schema.org URLs
+ * @param variesBy - Simple string or full URL, single or array
+ * @returns Processed variesBy with full schema.org URLs
+ */
+export function processVariesBy(
+  variesBy: VariesBy | VariesBy[],
+): string | string[] {
+  const processOne = (value: VariesBy): string => {
+    // If it's already a full URL, return as-is
+    if (value.startsWith("https://schema.org/")) {
+      return value;
+    }
+    // Otherwise, prepend the schema.org URL
+    return `https://schema.org/${value}`;
+  };
+
+  if (Array.isArray(variesBy)) {
+    return variesBy.map(processOne);
+  }
+  return processOne(variesBy);
+}
+
+/**
+ * Processes a product variant for use in ProductGroup
+ * @param variant - Product object, simplified variant with just URL, or processed Product
+ * @returns Product with @type or simplified variant object
+ */
+export function processProductVariant(
+  variant:
+    | Product
+    | Omit<Product, "@type">
+    | { url: string }
+    | { "@type": "Product"; url: string },
+): Product | { "@type": "Product"; url: string } | { url: string } {
+  // If it's just a URL reference, return as-is
+  if ("url" in variant && Object.keys(variant).length <= 2) {
+    // It's a simple URL reference (with or without @type)
+    return variant as { url: string } | { "@type": "Product"; url: string };
+  }
+
+  // It's a full Product variant
+  const product = variant as Product | Omit<Product, "@type">;
+
+  if ("@type" in product) {
+    return product as Product;
+  }
+
+  const processed: Product = {
+    "@type": SCHEMA_TYPES.PRODUCT,
+    ...product,
+  };
+
+  // Process nested fields
+  if (product.image) {
+    processed.image = Array.isArray(product.image)
+      ? product.image.map(processImage)
+      : processImage(product.image);
+  }
+
+  if (product.brand) {
+    if (typeof product.brand === "string") {
+      processed.brand = {
+        "@type": SCHEMA_TYPES.BRAND,
+        name: product.brand,
+      };
+    } else {
+      processed.brand = processBrand(product.brand);
+    }
+  }
+
+  if (product.offers) {
+    if (Array.isArray(product.offers)) {
+      processed.offers = product.offers.map((offer) => {
+        if ("lowPrice" in offer && "priceCurrency" in offer) {
+          return processAggregateOffer(
+            offer as Parameters<typeof processAggregateOffer>[0],
+          );
+        }
+        return processProductOffer(
+          offer as Parameters<typeof processProductOffer>[0],
+        );
+      });
+    } else if (
+      "lowPrice" in product.offers &&
+      "priceCurrency" in product.offers
+    ) {
+      processed.offers = processAggregateOffer(
+        product.offers as Parameters<typeof processAggregateOffer>[0],
+      );
+    } else {
+      processed.offers = processProductOffer(
+        product.offers as Parameters<typeof processProductOffer>[0],
+      );
+    }
+  }
+
+  if (product.review) {
+    processed.review = Array.isArray(product.review)
+      ? product.review.map(processProductReview)
+      : processProductReview(product.review);
+  }
+
+  if (product.aggregateRating) {
+    processed.aggregateRating = processAggregateRating(product.aggregateRating);
+  }
+
+  if (product.manufacturer) {
+    processed.manufacturer = processAuthor(product.manufacturer);
+  }
+
+  // Process weight/dimensions - add @type if missing
+  if (
+    product.weight &&
+    typeof product.weight === "object" &&
+    !("@type" in product.weight)
+  ) {
+    processed.weight = { "@type": "QuantitativeValue", ...product.weight };
+  }
+
+  if (
+    product.width &&
+    typeof product.width === "object" &&
+    !("@type" in product.width)
+  ) {
+    processed.width = { "@type": "QuantitativeValue", ...product.width };
+  }
+
+  if (
+    product.height &&
+    typeof product.height === "object" &&
+    !("@type" in product.height)
+  ) {
+    processed.height = { "@type": "QuantitativeValue", ...product.height };
+  }
+
+  if (
+    product.depth &&
+    typeof product.depth === "object" &&
+    !("@type" in product.depth)
+  ) {
+    processed.depth = { "@type": "QuantitativeValue", ...product.depth };
   }
 
   return processed;

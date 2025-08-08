@@ -270,3 +270,161 @@ test.describe("ProductJsonLd", () => {
     expect(jsonData.mpn).toBe("925872");
   });
 });
+
+test.describe("ProductJsonLd with ProductGroup", () => {
+  test("renders ProductGroup with variants", async ({ page }) => {
+    await page.goto("/product-variants");
+
+    const jsonLdScript = await page
+      .locator('script[type="application/ld+json"]')
+      .textContent();
+    expect(jsonLdScript).toBeTruthy();
+
+    const jsonData = JSON.parse(jsonLdScript!);
+
+    // Verify ProductGroup properties
+    expect(jsonData["@context"]).toBe("https://schema.org");
+    expect(jsonData["@type"]).toBe("ProductGroup");
+    expect(jsonData.name).toBe("Wool Winter Coat");
+    expect(jsonData.productGroupID).toBe("WC2024");
+    expect(jsonData.brand).toEqual({
+      "@type": "Brand",
+      name: "Nordic Style",
+    });
+    expect(jsonData.material).toBe("wool");
+    expect(jsonData.pattern).toBe("striped");
+
+    // Verify variesBy
+    expect(jsonData.variesBy).toEqual([
+      "https://schema.org/size",
+      "https://schema.org/color",
+    ]);
+
+    // Verify hasVariant
+    expect(jsonData.hasVariant).toHaveLength(4);
+    expect(jsonData.hasVariant[0]).toMatchObject({
+      "@type": "Product",
+      name: "Wool Winter Coat - Small Green",
+      sku: "WC2024-S-GRN",
+      size: "small",
+      color: "Green",
+    });
+
+    // Check first variant offers
+    expect(jsonData.hasVariant[0].offers).toMatchObject({
+      "@type": "Offer",
+      price: 119.99,
+      priceCurrency: "USD",
+      availability: "InStock",
+    });
+
+    // Verify aggregateRating
+    expect(jsonData.aggregateRating).toEqual({
+      "@type": "AggregateRating",
+      ratingValue: 4.6,
+      reviewCount: 127,
+    });
+  });
+
+  test("renders ProductGroup with advanced features", async ({ page }) => {
+    await page.goto("/product-variants-advanced");
+
+    const jsonLdScript = await page
+      .locator('script[type="application/ld+json"]')
+      .textContent();
+    expect(jsonLdScript).toBeTruthy();
+
+    const jsonData = JSON.parse(jsonLdScript!);
+
+    expect(jsonData["@type"]).toBe("ProductGroup");
+    expect(jsonData.name).toBe("Athletic Performance Shoes");
+
+    // Check brand object
+    expect(jsonData.brand).toEqual({
+      "@type": "Organization",
+      name: "SpeedRunner Pro",
+      logo: "https://example.com/logos/speedrunner.png",
+    });
+
+    // Check audience
+    expect(jsonData.audience).toEqual({
+      "@type": "PeopleAudience",
+      suggestedGender: "unisex",
+      suggestedAge: {
+        "@type": "QuantitativeValue",
+        minValue: 13,
+        unitCode: "ANN",
+      },
+    });
+
+    // Check reviews
+    expect(jsonData.review).toHaveLength(2);
+    expect(jsonData.review[0].name).toBe("Best Running Shoes Ever!");
+    expect(jsonData.review[0].reviewRating).toEqual({
+      "@type": "Rating",
+      ratingValue: 5,
+      bestRating: 5,
+    });
+
+    // Check variants with mixed types
+    expect(jsonData.hasVariant).toBeDefined();
+    const fullVariant = jsonData.hasVariant[0];
+    expect(fullVariant.weight).toEqual({
+      "@type": "QuantitativeValue",
+      value: 310,
+      unitCode: "GRM",
+    });
+
+    // Check shipping details
+    expect(fullVariant.offers.shippingDetails).toBeDefined();
+    expect(fullVariant.offers.shippingDetails["@type"]).toBe(
+      "OfferShippingDetails",
+    );
+
+    // Check URL-only variants
+    const urlVariant = jsonData.hasVariant.find(
+      (v: unknown) =>
+        (v as { url?: string }).url ===
+        "https://example.com/products/athletic-performance-shoes/mens-9-gray",
+    );
+    expect(urlVariant).toEqual({
+      url: "https://example.com/products/athletic-performance-shoes/mens-9-gray",
+    });
+  });
+
+  test("renders Product with isVariantOf reference", async ({ page }) => {
+    await page.goto("/product-variants-multipage");
+
+    // Get the ProductJsonLd script (first one)
+    const scripts = await page
+      .locator('script[type="application/ld+json"]')
+      .all();
+    expect(scripts.length).toBeGreaterThanOrEqual(1);
+
+    const productScript = await scripts[0].textContent();
+    const productData = JSON.parse(productScript!);
+
+    // Verify Product with isVariantOf
+    expect(productData["@type"]).toBe("Product");
+    expect(productData.name).toBe("Premium Leather Wallet - Brown Classic");
+    expect(productData.sku).toBe("LW2024-BRN-CLS");
+    expect(productData.color).toBe("Brown");
+    expect(productData.pattern).toBe("Classic");
+    expect(productData.size).toBe("Standard");
+
+    // Check variant reference
+    expect(productData.isVariantOf).toEqual({ "@id": "#wallet_group" });
+    expect(productData.inProductGroupWithID).toBe("LW2024");
+
+    // If there's a second script (the manually added ProductGroup), check it too
+    if (scripts.length > 1) {
+      const groupScript = await scripts[1].textContent();
+      const groupData = JSON.parse(groupScript!);
+
+      expect(groupData["@type"]).toBe("ProductGroup");
+      expect(groupData["@id"]).toBe("#wallet_group");
+      expect(groupData.productGroupID).toBe("LW2024");
+      expect(groupData.variesBy).toContain("https://schema.org/color");
+    }
+  });
+});
