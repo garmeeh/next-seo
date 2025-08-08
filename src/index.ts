@@ -1,6 +1,12 @@
 // Core utilities
 export { JsonLdScript } from "./core/JsonLdScript";
 
+// Processors for custom component creation
+export * as processors from "./utils/processors.export";
+
+// Common types for custom component creation
+export * from "./types/common.types";
+
 // JSON-LD Components
 export {
   default as ArticleJsonLd,

@@ -4337,4 +4337,57 @@ import { AggregateRatingJsonLd } from "next-seo";
 4. **Minimum threshold**: Only use when you have multiple genuine ratings
 5. **Keep it updated**: Regularly update aggregate ratings as new reviews come in
 
-   EOF < /dev/null
+## Creating Custom Components
+
+Next SEO now supports creating your own custom JSON-LD components using the same utilities and patterns as the built-in components. This allows you to implement any Schema.org type while maintaining the excellent developer experience of next-seo.
+
+### Quick Example
+
+```tsx
+import { JsonLdScript, processors } from "next-seo";
+
+export function PodcastEpisodeJsonLd({ name, author, duration, url }) {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "PodcastEpisode",
+    name,
+    ...(url && { url }),
+    ...(duration && { duration }),
+    ...(author && { author: processors.processAuthor(author) }),
+  };
+
+  return <JsonLdScript data={data} scriptKey="podcast-episode" />;
+}
+
+// Usage - no @type needed for author!
+<PodcastEpisodeJsonLd
+  name="Episode 1: Getting Started"
+  author="Jane Doe" // Simple string works!
+  duration="PT30M"
+  url="https://example.com/episode-1"
+/>;
+```
+
+### Key Features
+
+- **JsonLdScript Component**: Core component for rendering structured data
+- **60+ Processors**: Transform flexible inputs into Schema.org compliant objects
+- **@type Optional Pattern**: Users never need to specify `@type` manually
+- **TypeScript Support**: Full type safety with exported types
+
+### Available Utilities
+
+See the [processors export file](./src/utils/processors.export.ts) for the complete list of available processors organized by category (People & Organizations, Media & Content, Locations & Places, Commerce & Offers, etc.).
+
+### Learn More
+
+For comprehensive documentation on creating custom components, including:
+
+- Using built-in processors
+- Creating custom processors
+- Advanced patterns and best practices
+- Real-world examples
+
+See the **[Custom Components Guide](./CUSTOM_COMPONENTS.md)**
+
+EOF < /dev/null

@@ -1799,5 +1799,51 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(jsonData!.offers).toBeDefined();
       expect(jsonData!.offers["@type"]).toBe("AggregateOffer");
     });
+
+    test("Custom PodcastSeriesJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/custom-podcast");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("PodcastSeries");
+      expect(jsonData!.name).toBeTruthy();
+      expect(jsonData!.host).toBeDefined();
+      expect(jsonData!.host["@type"]).toBe("Person");
+      expect(Array.isArray(jsonData!.episode)).toBe(true);
+    });
+
+    test("Custom ServiceJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/custom-service");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Service");
+      expect(jsonData!.name).toBeTruthy();
+      expect(jsonData!.provider).toBeDefined();
+      expect(jsonData!.provider["@type"]).toBe("Organization");
+      expect(Array.isArray(jsonData!.areaServed)).toBe(true);
+    });
   });
 });

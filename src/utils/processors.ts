@@ -166,7 +166,7 @@ function isString(value: unknown): value is string {
 }
 
 // Generic processor for simple schema types
-function processSchemaType<T extends { "@type": string }>(
+export function processSchemaType<T extends { "@type": string }>(
   value: unknown,
   schemaType: string,
   stringHandler?: (str: string) => Omit<T, "@type">,
@@ -527,6 +527,32 @@ export function processOrganizer(organizer: Organizer): Person | Organization {
   return hasPersonProperties
     ? ({ "@type": SCHEMA_TYPES.PERSON, ...organizer } as Person)
     : ({ "@type": SCHEMA_TYPES.ORGANIZATION, ...organizer } as Organization);
+}
+
+/**
+ * Processes generic organization input into Organization schema type
+ * @param org - String name or Organization object
+ * @returns Organization with @type and processed nested fields
+ */
+export function processOrganization(
+  org: string | Organization | Omit<Organization, "@type">,
+): Organization {
+  if (isString(org)) {
+    return {
+      "@type": SCHEMA_TYPES.ORGANIZATION,
+      name: org,
+    };
+  }
+
+  const processed = processSchemaType<Organization>(
+    org,
+    SCHEMA_TYPES.ORGANIZATION,
+  );
+
+  // Process nested fields if present
+  processOrganizationFields(processed);
+
+  return processed;
 }
 
 /**

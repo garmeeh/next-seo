@@ -81,9 +81,9 @@ describe("ReviewJsonLd", () => {
 
   it("throws when missing required fields", () => {
     // Missing author (compile-time invalid). Intentional for runtime test.
-    // @ts-expect-error testing runtime validation for missing author
     expect(() =>
       render(
+        // @ts-expect-error - intentionally testing runtime validation for missing author
         <ReviewJsonLd reviewRating={{ ratingValue: 4 }} itemReviewed="Item" />,
       ),
     ).toThrow("Review requires an author");
