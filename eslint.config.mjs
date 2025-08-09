@@ -25,12 +25,6 @@ export default defineConfig([
     },
   },
   {
-    ignores: [
-      "examples/",
-      "dist/",
-      "commitlint.config.js",
-      "playwright-report/",
-      "coverage/",
-    ],
+    ignores: ["examples/", "dist/", "playwright-report/", "coverage/"],
   },
 ]);

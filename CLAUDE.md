@@ -24,7 +24,7 @@ pnpm install
 
 ```bash
 pnpm dev          # Watch mode with tsup
-pnpm build        # Build for production
+pnpm build        # Build library code
 ```
 
 ### Code Quality
@@ -42,9 +42,10 @@ pnpm typecheck    # Type checking with TypeScript
 pnpm test         # Run typecheck + lint only
 pnpm test:unit    # Run unit tests with Vitest
 pnpm test:unit:watch  # Watch mode for unit tests
+pnpm coverage     # Generate coverage report
+# Requires pnpm build to run first
 pnpm test:e2e     # Run E2E tests with Playwright
 pnpm test:e2e:ui  # Run E2E tests with UI
-pnpm coverage     # Generate coverage report
 ```
 
 ### Example App
@@ -85,12 +86,6 @@ pnpm clean        # Clean build artifacts
 - **Vitest** - Unit testing with React Testing Library
 - **Playwright** - E2E testing running against example app on port 3001
 - Tests use `~` alias for imports
-
-### Key Dependencies
-
-- Requires Next.js >=13.4.0 and React >=18.2.0 as peer dependencies
-- Uses Husky for git hooks with lint-staged
-- Commitlint for conventional commits
 
 ## Development Notes
 

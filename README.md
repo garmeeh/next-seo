@@ -1,10 +1,51 @@
+**Outrank**
+
+Get traffic and outrank competitors with Backlinks & SEO-optimized content while you sleep! I've been keeping a close eye on this new tool and it seems to be gaining a lot of traction and delivering great results. [Try it now!](https://outrank.so/?via=next-seo)
+
+[![image](https://github.com/user-attachments/assets/14c0f4c0-aad0-4d2d-8a14-6edad232a4dc)](https://outrank.so/?via=next-seo)
+
+**Have you seen the new Next.js newsletter?**
+
+[<img alt="NextjsWeekly banner" src="./next-js-weekly.png">](https://dub.sh/nextjsweekly)
+
 # Next SEO
 
-Next SEO is a plugin that makes managing your SEO easier in Next.js projects.
+![npm](https://img.shields.io/npm/dw/next-seo?style=flat-square)
+![npm version](https://img.shields.io/npm/v/next-seo?style=flat-square)
+![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?style=flat-square)
+![License](https://img.shields.io/npm/l/next-seo?style=flat-square)
 
-> **Pages Router Support**: If you're using Next.js Pages Router, import components from `next-seo/pages`. See the [Pages Router documentation](./src/pages/README.md) for details.
+Next SEO is a plugin that makes managing your SEO easier in Next.js projects. It provides components for structured data (JSON-LD) that helps search engines understand your content better.
 
-## Installation
+## 📋 Table of Contents
+
+<details>
+<summary><strong>Click to expand</strong></summary>
+
+- [Quick Start](#-quick-start)
+  - [Installation](#installation)
+  - [Basic Usage](#basic-usage)
+- [Components by Category](#-components-by-category)
+  - [Articles & Content](#articles--content)
+  - [Commerce & Products](#commerce--products)
+  - [Local Business](#local-business)
+  - [Media & Entertainment](#media--entertainment)
+  - [Education & FAQ](#education--faq)
+  - [Reviews & Ratings](#reviews--ratings)
+  - [Navigation & Structure](#navigation--structure)
+  - [Events & Activities](#events--activities)
+  - [Employment](#employment)
+  - [Real Estate](#real-estate)
+  - [Software & Apps](#software--apps)
+- [Creating Custom Components](#creating-custom-components)
+- [Pages Router Support](#pages-router-support)
+- [Contributing](#contributors)
+
+</details>
+
+## 🚀 Quick Start
+
+### Installation
 
 ```bash
 npm install next-seo
@@ -12,7 +53,114 @@ npm install next-seo
 yarn add next-seo
 # or
 pnpm add next-seo
+# or
+bun add next-seo
 ```
+
+### Basic Usage
+
+```tsx
+import { ArticleJsonLd } from "next-seo";
+
+export default function BlogPost() {
+  return (
+    <>
+      <ArticleJsonLd
+        headline="Getting Started with Next SEO"
+        datePublished="2024-01-01T08:00:00+00:00"
+        author="John Doe"
+        image="https://example.com/article-image.jpg"
+        description="Learn how to improve your Next.js SEO"
+      />
+      <article>
+        <h1>Getting Started with Next SEO</h1>
+        {/* Your content */}
+      </article>
+    </>
+  );
+}
+```
+
+> **Note**: For standard meta tags (`<meta>`, `<title>`), use Next.js's built-in [`generateMetadata`](https://nextjs.org/docs/app/api-reference/functions/generate-metadata) function.
+
+> **Pages Router Support**: If you're using Next.js Pages Router, import components from `next-seo/pages`. See the [Pages Router documentation](./src/pages/README.md) for details.
+
+## Support This Project
+
+**Feel like supporting this free plugin?**
+
+It takes a lot of time to maintain an open source project so any small contribution is greatly appreciated.
+
+Coffee fuels coding ☕️
+
+<a href="https://www.buymeacoffee.com/garmeeh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
+## 📦 Components by Category
+
+### Articles & Content
+
+- [ArticleJsonLd](#articlejsonld) - Articles, blog posts, news articles
+- [CreativeWorkJsonLd](#creativeworkjsonld) - Creative content with paywall support
+- [ClaimReviewJsonLd](#claimreviewjsonld) - Fact-checking articles
+
+### Commerce & Products
+
+- [ProductJsonLd](#productjsonld) - Product listings with offers and reviews
+- [ProductGroup](#productgroup-product-variants) - Product variants (sizes, colors)
+- [MerchantReturnPolicyJsonLd](#merchantreturnpolicyjsonld) - Return policies
+- [OrganizationJsonLd](#organizationjsonld) - Organization/company information
+
+### Local Business
+
+- [LocalBusinessJsonLd](#localbusinessjsonld) - Local business information
+- [RecipeJsonLd](#recipejsonld) - Recipe structured data
+
+### Media & Entertainment
+
+- [MovieCarouselJsonLd](#moviecarouseljsonld) - Movie carousels
+- [VideoJsonLd](#videojsonld) - Video content with key moments
+- [ImageJsonLd](#imagejsonld) - Image metadata
+
+### Education & FAQ
+
+- [CourseJsonLd](#coursejsonld) - Course listings
+- [FAQJsonLd](#faqjsonld) - Frequently asked questions
+- [QuizJsonLd](#quizjsonld) - Quiz and practice problems
+
+### Reviews & Ratings
+
+- [ReviewJsonLd](#reviewjsonld) - Individual reviews
+- [AggregateRatingJsonLd](#aggregateratingjsonld) - Aggregate ratings
+
+### Navigation & Structure
+
+- [BreadcrumbJsonLd](#breadcrumbjsonld) - Site navigation breadcrumbs
+- [CarouselJsonLd](#carouseljsonld) - Content carousels
+
+### Events & Activities
+
+- [EventJsonLd](#eventjsonld) - Events with location and ticket info
+
+### Employment
+
+- [JobPostingJsonLd](#jobpostingjsonld) - Job listings
+- [EmployerAggregateRatingJsonLd](#employeraggregateratingjsonld) - Employer ratings
+
+### Real Estate
+
+- [VacationRentalJsonLd](#vacationrentaljsonld) - Vacation rental properties
+
+### Software & Apps
+
+- [SoftwareApplicationJsonLd](#softwareapplicationjsonld) - Software and mobile apps
+
+### Other
+
+- [DatasetJsonLd](#datasetjsonld) - Research datasets
+- [DiscussionForumPostingJsonLd](#discussionforumpostingjsonld) - Forum posts
+- [ProfilePageJsonLd](#profilepagejsonld) - Profile pages
+
+---
 
 ## Components
 
@@ -129,6 +277,8 @@ export default function ArticlePage() {
 4. **Publisher logo**: Include a logo for NewsArticle type
 5. **Update dateModified**: Keep this current when updating content
 
+[↑ Back to Components](#-components-by-category)
+
 ### ClaimReviewJsonLd
 
 The `ClaimReviewJsonLd` component helps you add structured data for fact-checking articles that review claims made by others. This enables a summarized version of your fact check to display in Google Search results.
@@ -227,6 +377,8 @@ export default function FactCheckPage() {
 3. **Full context**: Include itemReviewed when possible to provide claim origin details
 4. **Consistent scale**: Use a consistent rating scale across all your fact checks
 5. **Author credibility**: Clearly identify your fact-checking organization
+
+[↑ Back to Components](#-components-by-category)
 
 ### CreativeWorkJsonLd
 
@@ -375,6 +527,8 @@ export default function ArticlePage() {
 3. **Class selectors only**: Only use class selectors (e.g., ".paywall") for `cssSelector`, not IDs or other selectors
 4. **Consistent selectors**: Ensure your HTML classes match the `cssSelector` values exactly
 5. **Complete metadata**: Include as much metadata as possible (author, dates, images) for better search results
+
+[↑ Back to Components](#-components-by-category)
 
 ### RecipeJsonLd
 
@@ -561,6 +715,8 @@ Use these formats for time durations:
 4. **Accurate times**: Always provide prepTime and cookTime together
 5. **Ratings**: Include aggregateRating when you have user reviews
 6. **Video content**: Adding a video significantly improves search appearance
+
+[↑ Back to Components](#-components-by-category)
 
 ### OrganizationJsonLd
 
@@ -890,6 +1046,8 @@ membershipPointsEarned: {
 5. **Multiple locations**: Use array format for addresses if you have multiple locations
 6. **High-quality logo**: Use a logo that looks good on white background, minimum 112x112px
 
+[↑ Back to Components](#-components-by-category)
+
 ### LocalBusinessJsonLd
 
 The `LocalBusinessJsonLd` component helps you add structured data for local businesses to improve their appearance in Google Search and Maps results, including knowledge panels and local business carousels.
@@ -1105,6 +1263,8 @@ openingHoursSpecification={{
 7. **Department naming**: Include the main store name with department name (e.g., "Store Name - Pharmacy")
 8. **Price range**: Keep under 100 characters; use standard symbols ($, $$, $$$) or ranges
 
+[↑ Back to Components](#-components-by-category)
+
 ### MerchantReturnPolicyJsonLd
 
 The `MerchantReturnPolicyJsonLd` component helps you add structured data for merchant return policies, enabling Google Search to display return policy information alongside your products and in knowledge panels. This component supports both detailed policy specifications and simple links to policy pages.
@@ -1301,6 +1461,8 @@ import { OrganizationJsonLd } from "next-seo";
 7. **Multiple return methods**: Offer multiple return options for customer convenience
 8. **Accurate time windows**: Ensure merchantReturnDays matches your actual policy
 
+[↑ Back to Components](#-components-by-category)
+
 ### MovieCarouselJsonLd
 
 The `MovieCarouselJsonLd` component helps you add structured data for movie carousels, enabling your movie lists to appear as rich results in Google Search on mobile devices. This component supports both summary page (URLs only) and all-in-one page (full movie data) patterns.
@@ -1429,6 +1591,8 @@ Use this pattern when all movie information is on a single page:
 5. **Complete movie data**: Include as many properties as possible for richer search results
 6. **Consistent data**: All movies in the carousel must be from the same website
 7. **URL structure**: For summary pages, ensure all URLs point to pages on the same domain
+
+[↑ Back to Components](#-components-by-category)
 
 ### BreadcrumbJsonLd
 
@@ -1562,6 +1726,8 @@ You can use Thing objects with `@id` instead of plain URL strings:
 5. **Include home**: Start trails from a logical entry point (often "Home") but it's not required
 6. **Avoid duplicates**: Each trail should represent a unique path to the page
 7. **Match visual breadcrumbs**: The structured data should match the breadcrumbs shown on your page
+
+[↑ Back to Components](#-components-by-category)
 
 ### CarouselJsonLd
 
@@ -1855,6 +2021,8 @@ import { CarouselJsonLd } from "next-seo";
 6. **Rich content**: Include as much relevant information as possible for better search results
 
 7. **Validation**: Test your structured data with Google's Rich Results Test
+
+[↑ Back to Components](#-components-by-category)
 
 ### CourseJsonLd
 
@@ -4339,6 +4507,8 @@ import { AggregateRatingJsonLd } from "next-seo";
 4. **Minimum threshold**: Only use when you have multiple genuine ratings
 5. **Keep it updated**: Regularly update aggregate ratings as new reviews come in
 
+[↑ Back to Components](#-components-by-category)
+
 ## Creating Custom Components
 
 Next SEO now supports creating your own custom JSON-LD components using the same utilities and patterns as the built-in components. This allows you to implement any Schema.org type while maintaining the excellent developer experience of next-seo.
@@ -4392,4 +4562,8 @@ For comprehensive documentation on creating custom components, including:
 
 See the **[Custom Components Guide](./CUSTOM_COMPONENTS.md)**
 
-EOF < /dev/null
+## Contributors
+
+[Contributing Guide](./CONTRIBUTING.md)
+
+A massive thank you to [everyone who contributes](https://github.com/garmeeh/next-seo/graphs/contributors) to this project 👏
