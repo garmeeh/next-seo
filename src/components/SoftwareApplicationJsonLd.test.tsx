@@ -545,4 +545,60 @@ describe("SoftwareApplicationJsonLd", () => {
       },
     });
   });
+
+  it("handles contentRating for VideoGame co-typed with MobileApplication", () => {
+    const { container } = render(
+      <SoftwareApplicationJsonLd
+        type={["VideoGame", "MobileApplication"]}
+        name="Mobile Adventure Game"
+        applicationCategory="GameApplication"
+        operatingSystem="iOS 13.0+, Android 9.0+"
+        contentRating="Everyone 10+"
+        offers={{
+          price: 4.99,
+          priceCurrency: "USD",
+        }}
+        aggregateRating={{
+          ratingValue: 4.6,
+          ratingCount: 10000,
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData["@type"]).toEqual(["VideoGame", "MobileApplication"]);
+    expect(jsonData.contentRating).toBe("Everyone 10+");
+    expect(jsonData.operatingSystem).toBe("iOS 13.0+, Android 9.0+");
+  });
+
+  it("handles contentRating for MobileApplication", () => {
+    const { container } = render(
+      <SoftwareApplicationJsonLd
+        type="MobileApplication"
+        name="Educational Mobile App"
+        applicationCategory="EducationalApplication"
+        contentRating="Teen"
+        offers={{
+          price: 0,
+          priceCurrency: "USD",
+        }}
+        aggregateRating={{
+          ratingValue: 4.7,
+          ratingCount: 5000,
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData["@type"]).toBe("MobileApplication");
+    expect(jsonData.contentRating).toBe("Teen");
+  });
 });

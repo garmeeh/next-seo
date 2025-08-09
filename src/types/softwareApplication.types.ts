@@ -45,6 +45,7 @@ export interface SoftwareApplicationBase {
   publisher?: Organization | Omit<Organization, "@type">;
   datePublished?: string;
   dateModified?: string;
+  contentRating?: string;
 }
 
 // Specific schema type interfaces

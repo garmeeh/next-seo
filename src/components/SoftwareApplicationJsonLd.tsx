@@ -47,6 +47,7 @@ export default function SoftwareApplicationJsonLd({
   publisher,
   datePublished,
   dateModified,
+  contentRating,
 }: SoftwareApplicationJsonLdProps) {
   // Determine the actual @type to use
   let schemaType: ApplicationType | VideoGameCoTyped;
@@ -126,6 +127,7 @@ export default function SoftwareApplicationJsonLd({
     ...(dateModified && { dateModified }),
     // Apply defaults where appropriate
     ...(!dateModified && datePublished && { dateModified: datePublished }),
+    ...(contentRating && { contentRating }),
   };
 
   // Generate a unique key based on the type
