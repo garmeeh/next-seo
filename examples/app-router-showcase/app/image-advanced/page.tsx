@@ -32,22 +32,16 @@ export default function ImageAdvancedPage() {
           Sunset Landscape - Premium Photography
         </h1>
 
-        <div className="mb-8">
-          <img
-            src="https://example.com/photos/sunset-landscape.jpg"
-            alt="Beautiful sunset landscape"
-            className="w-full rounded-lg shadow-lg"
-          />
+        <div className="mb-8 bg-gray-200 rounded-lg p-16 text-center">
+          <p className="text-gray-600">Image placeholder: Sunset Landscape</p>
         </div>
 
         <div className="bg-gray-100 p-6 rounded-lg mb-6">
           <h2 className="text-xl font-semibold mb-4">Studio Information</h2>
           <div className="flex items-start space-x-4 mb-4">
-            <img
-              src="https://example.com/photolab-logo.jpg"
-              alt="PhotoLab Studios"
-              className="w-16 h-16 rounded"
-            />
+            <div className="w-16 h-16 rounded bg-gray-300 flex items-center justify-center">
+              <span className="text-gray-600 text-xs">Logo</span>
+            </div>
             <div>
               <h3 className="font-semibold">PhotoLab Studios</h3>
               <p className="text-gray-600">

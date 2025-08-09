@@ -97,14 +97,6 @@ export default function VacationRentalApartmentPage() {
         Cozy Manhattan Studio Apartment
       </h1>
 
-      <div className="mb-8">
-        <img
-          src="https://example.com/apt/bedroom.jpg"
-          alt="Studio apartment bedroom"
-          className="w-full h-96 object-cover rounded-lg"
-        />
-      </div>
-
       <div className="prose lg:prose-xl">
         <h2>About this apartment</h2>
         <p>

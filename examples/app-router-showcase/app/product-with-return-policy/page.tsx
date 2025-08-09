@@ -56,13 +56,6 @@ export default function ProductWithReturnPolicyPage() {
       <div className="max-w-4xl mx-auto">
         <div className="grid md:grid-cols-2 gap-8 mb-8">
           <div>
-            <img
-              src="https://via.placeholder.com/400x400"
-              alt="Premium Wireless Headphones"
-              className="w-full rounded-lg"
-            />
-          </div>
-          <div>
             <h1 className="text-3xl font-bold mb-2">
               Premium Wireless Headphones
             </h1>

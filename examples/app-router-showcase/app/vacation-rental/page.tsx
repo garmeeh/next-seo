@@ -18,14 +18,6 @@ export default function VacationRentalPage() {
 
       <h1 className="text-4xl font-bold mb-4">Beautiful Beach House</h1>
 
-      <div className="mb-8">
-        <img
-          src="https://example.com/vacation-rental-main.jpg"
-          alt="Beautiful Beach House"
-          className="w-full h-96 object-cover rounded-lg"
-        />
-      </div>
-
       <div className="prose lg:prose-xl">
         <h2>About this rental</h2>
         <p>

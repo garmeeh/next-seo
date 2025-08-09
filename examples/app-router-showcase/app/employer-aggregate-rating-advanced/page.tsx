@@ -47,11 +47,6 @@ export default function EmployerAggregateRatingAdvancedPage() {
       <div className="max-w-4xl mx-auto">
         <header className="mb-8">
           <div className="flex items-center gap-6 mb-6">
-            <img
-              src="https://example.com/techcorp-logo.png"
-              alt="TechCorp International"
-              className="w-24 h-24 object-contain"
-            />
             <div>
               <h1 className="text-4xl font-bold">TechCorp International</h1>
               <p className="text-xl text-gray-600">

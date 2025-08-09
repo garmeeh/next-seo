@@ -43,15 +43,6 @@ export default function VideoSeekToPage() {
           </p>
         </div>
 
-        <div className="aspect-w-16 aspect-h-9 mb-8">
-          <iframe
-            src="https://example.com/embed/kitchen-tips"
-            title="50 Quick Kitchen Tips & Tricks"
-            className="w-full rounded-lg shadow-lg"
-            allowFullScreen
-          />
-        </div>
-
         <section>
           <h2>About This Video</h2>
           <p>

@@ -16,13 +16,8 @@ export default function VideoPage() {
       <main className="prose lg:prose-xl mx-auto">
         <h1>How to Make a Perfect Chocolate Cake</h1>
 
-        <div className="aspect-w-16 aspect-h-9 mb-8">
-          <iframe
-            src="https://example.com/embed/chocolate-cake-recipe"
-            title="How to Make a Perfect Chocolate Cake"
-            className="w-full rounded-lg shadow-lg"
-            allowFullScreen
-          />
+        <div className="aspect-w-16 aspect-h-9 mb-8 bg-gray-200 rounded-lg p-8 text-center">
+          <p className="text-gray-600">Video player placeholder</p>
         </div>
 
         <p className="lead">

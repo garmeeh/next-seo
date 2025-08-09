@@ -36,11 +36,6 @@ export default function AdvancedProfilePage() {
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="flex items-center mb-6">
-            <img
-              src="https://example.com/avatars/ahuff23.jpg"
-              alt="Angelo Huff"
-              className="w-24 h-24 rounded-full mr-6"
-            />
             <div>
               <h1 className="text-3xl font-bold">Angelo Huff</h1>
               <p className="text-xl text-gray-600">@ahuff23</p>

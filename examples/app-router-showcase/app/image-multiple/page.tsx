@@ -51,11 +51,9 @@ export default function ImageMultiplePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Mountain Sunrise */}
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img
-              src="https://example.com/photos/mountain-sunrise.jpg"
-              alt="Mountain sunrise"
-              className="w-full h-48 object-cover"
-            />
+            <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+              <p className="text-gray-600">Mountain Sunrise</p>
+            </div>
             <div className="p-4">
               <h3 className="font-semibold mb-2">Mountain Sunrise</h3>
               <dl className="text-sm space-y-1">
@@ -83,11 +81,9 @@ export default function ImageMultiplePage() {
 
           {/* Ocean Waves */}
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img
-              src="https://example.com/photos/ocean-waves.jpg"
-              alt="Ocean waves"
-              className="w-full h-48 object-cover"
-            />
+            <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+              <p className="text-gray-600">Ocean Waves</p>
+            </div>
             <div className="p-4">
               <h3 className="font-semibold mb-2">Ocean Waves</h3>
               <dl className="text-sm space-y-1">
@@ -123,19 +119,15 @@ export default function ImageMultiplePage() {
 
           {/* City Lights */}
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <img
-              src="https://example.com/photos/city-lights.jpg"
-              alt="City lights"
-              className="w-full h-48 object-cover"
-            />
+            <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
+              <p className="text-gray-600">City Lights</p>
+            </div>
             <div className="p-4">
               <h3 className="font-semibold mb-2">City Lights</h3>
               <div className="flex items-center space-x-2 mb-2">
-                <img
-                  src="https://example.com/urban-photo-logo.jpg"
-                  alt="Urban Photography Inc."
-                  className="w-8 h-8 rounded"
-                />
+                <div className="w-8 h-8 rounded bg-gray-300 flex items-center justify-center">
+                  <span className="text-gray-600 text-xs">U</span>
+                </div>
                 <span className="font-medium text-sm">
                   Urban Photography Inc.
                 </span>

@@ -148,19 +148,6 @@ export default function VacationRentalAdvancedPage() {
 
       <h1 className="text-4xl font-bold mb-4">Luxury Ocean View Villa</h1>
 
-      <div className="mb-8 grid grid-cols-2 gap-4">
-        <img
-          src="https://example.com/images/villa-exterior.jpg"
-          alt="Villa exterior"
-          className="w-full h-64 object-cover rounded-lg"
-        />
-        <img
-          src="https://example.com/images/villa-ocean-view.jpg"
-          alt="Ocean view"
-          className="w-full h-64 object-cover rounded-lg"
-        />
-      </div>
-
       <div className="prose lg:prose-xl max-w-none">
         <h2>About this luxury villa</h2>
         <p>

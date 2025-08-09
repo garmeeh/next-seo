@@ -87,11 +87,6 @@ export default function ProductReviewPage() {
 
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-4">
-              <img
-                src="https://ui-avatars.com/api/?name=Pascal+Van+Cleeff&size=48"
-                alt="Pascal Van Cleeff"
-                className="rounded-full w-12 h-12"
-              />
               <div>
                 <p className="font-semibold">Pascal Van Cleeff</p>
                 <p className="text-sm text-gray-600">

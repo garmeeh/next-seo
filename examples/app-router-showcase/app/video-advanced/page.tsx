@@ -45,15 +45,6 @@ export default function VideoAdvancedPage() {
       <main className="prose lg:prose-xl mx-auto">
         <h1>Complete Baking Masterclass: From Basics to Advanced</h1>
 
-        <div className="aspect-w-16 aspect-h-9 mb-8">
-          <iframe
-            src="https://example.com/embed/baking-masterclass"
-            title="Complete Baking Masterclass"
-            className="w-full rounded-lg shadow-lg"
-            allowFullScreen
-          />
-        </div>
-
         <div className="bg-blue-50 p-6 rounded-lg mb-8">
           <h3 className="text-lg font-semibold mb-2">Video Statistics</h3>
           <div className="grid grid-cols-2 gap-4">

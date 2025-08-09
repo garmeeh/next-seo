@@ -39,11 +39,6 @@ export default function OrganizationProfilePage() {
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="flex items-center mb-6">
-            <img
-              src="https://techforum.example.com/logo.png"
-              alt="TechForum Community"
-              className="w-24 h-24 rounded-lg mr-6"
-            />
             <div>
               <h1 className="text-3xl font-bold">TechForum Community</h1>
               <p className="text-xl text-gray-600">@TechForum</p>

@@ -108,18 +108,6 @@ export default function DiscussionForumAdvancedPage() {
           and the band played all their hits.
         </p>
 
-        <div className="my-4">
-          <img
-            src="https://example.com/concert-photo1.jpg"
-            alt="Concert photo 1"
-            className="mb-2"
-          />
-          <img
-            src="https://example.com/concert-photo2.jpg"
-            alt="The main stage"
-          />
-        </div>
-
         <div className="my-4 bg-gray-100 p-4 rounded">
           <h3>Shared Link:</h3>
           <a href="https://example.com/concert-tickets">

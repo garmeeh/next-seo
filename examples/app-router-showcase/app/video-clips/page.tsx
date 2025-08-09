@@ -57,13 +57,8 @@ export default function VideoClipsPage() {
       <main className="prose lg:prose-xl mx-auto">
         <h1>Complete Guide to French Pastries</h1>
 
-        <div className="aspect-w-16 aspect-h-9 mb-8">
-          <iframe
-            src="https://example.com/embed/french-pastries-guide"
-            title="Complete Guide to French Pastries"
-            className="w-full rounded-lg shadow-lg"
-            allowFullScreen
-          />
+        <div className="aspect-w-16 aspect-h-9 mb-8 bg-gray-200 rounded-lg p-8 text-center">
+          <p className="text-gray-600">Video player placeholder</p>
         </div>
 
         <section className="bg-gray-50 p-6 rounded-lg mb-8">
