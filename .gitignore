@@ -37,8 +37,7 @@ yarn-error.log*
 # Husky
 .husky/_/
 
-# PNPM
-pnpm-lock.yaml
+
 
 # SWC
 .swc/
