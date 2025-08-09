@@ -2,6 +2,8 @@
 
 Next SEO is a plugin that makes managing your SEO easier in Next.js projects.
 
+> **Pages Router Support**: If you're using Next.js Pages Router, import components from `next-seo/pages`. See the [Pages Router documentation](./src/pages/README.md) for details.
+
 ## Installation
 
 ```bash

@@ -16,6 +16,11 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
+    "./pages": {
+      "types": "./dist/pages.d.ts",
+      "import": "./dist/pages.mjs",
+      "require": "./dist/pages.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
