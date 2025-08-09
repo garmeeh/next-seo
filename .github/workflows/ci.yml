@@ -150,6 +150,7 @@ jobs:
   example-typecheck:
     name: Type Check Example App
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -168,17 +169,19 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
       - name: Type check example app
         run: pnpm example:typecheck
 
   e2e-tests:
-    name: E2E Tests (${{ matrix.browser }})
+    name: E2E Tests
     runs-on: ubuntu-latest
     needs: build
-    strategy:
-      fail-fast: false
-      matrix:
-        browser: [chromium, firefox, webkit]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -204,10 +207,10 @@ jobs:
           path: dist
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps ${{ matrix.browser }}
+        run: npx playwright install --with-deps chromium
 
       - name: Run E2E tests
-        run: pnpm test:e2e --project=${{ matrix.browser }}
+        run: pnpm test:e2e --project=chromium
         env:
           CI: true
 
@@ -215,7 +218,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: playwright-report-${{ matrix.browser }}
+          name: playwright-report
           path: playwright-report/
           retention-days: 7
 

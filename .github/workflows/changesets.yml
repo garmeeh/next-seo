@@ -38,8 +38,28 @@ jobs:
       - name: Build package
         run: pnpm build
 
-      - name: Run full test suite
-        run: pnpm test:sweep
+      - name: Run TypeScript type checking
+        run: pnpm typecheck
+
+      - name: Run linting
+        run: pnpm lint
+
+      - name: Run unit tests
+        run: pnpm test:unit
+
+      - name: Lint example app
+        run: pnpm example:lint
+
+      - name: Type check example app
+        run: pnpm example:typecheck
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: pnpm test:e2e --project=chromium
+        env:
+          CI: true
 
       - name: Create Release Pull Request or Publish
         id: changesets
