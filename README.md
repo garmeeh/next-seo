@@ -95,73 +95,6 @@ Coffee fuels coding ☕️
 
 <a href="https://www.buymeacoffee.com/garmeeh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-## 📦 Components by Category
-
-### Articles & Content
-
-- [ArticleJsonLd](#articlejsonld) - Articles, blog posts, news articles
-- [CreativeWorkJsonLd](#creativeworkjsonld) - Creative content with paywall support
-- [ClaimReviewJsonLd](#claimreviewjsonld) - Fact-checking articles
-
-### Commerce & Products
-
-- [ProductJsonLd](#productjsonld) - Product listings with offers and reviews
-- [ProductGroup](#productgroup-product-variants) - Product variants (sizes, colors)
-- [MerchantReturnPolicyJsonLd](#merchantreturnpolicyjsonld) - Return policies
-- [OrganizationJsonLd](#organizationjsonld) - Organization/company information
-
-### Local Business
-
-- [LocalBusinessJsonLd](#localbusinessjsonld) - Local business information
-- [RecipeJsonLd](#recipejsonld) - Recipe structured data
-
-### Media & Entertainment
-
-- [MovieCarouselJsonLd](#moviecarouseljsonld) - Movie carousels
-- [VideoJsonLd](#videojsonld) - Video content with key moments
-- [ImageJsonLd](#imagejsonld) - Image metadata
-
-### Education & FAQ
-
-- [CourseJsonLd](#coursejsonld) - Course listings
-- [FAQJsonLd](#faqjsonld) - Frequently asked questions
-- [QuizJsonLd](#quizjsonld) - Quiz and practice problems
-
-### Reviews & Ratings
-
-- [ReviewJsonLd](#reviewjsonld) - Individual reviews
-- [AggregateRatingJsonLd](#aggregateratingjsonld) - Aggregate ratings
-
-### Navigation & Structure
-
-- [BreadcrumbJsonLd](#breadcrumbjsonld) - Site navigation breadcrumbs
-- [CarouselJsonLd](#carouseljsonld) - Content carousels
-
-### Events & Activities
-
-- [EventJsonLd](#eventjsonld) - Events with location and ticket info
-
-### Employment
-
-- [JobPostingJsonLd](#jobpostingjsonld) - Job listings
-- [EmployerAggregateRatingJsonLd](#employeraggregateratingjsonld) - Employer ratings
-
-### Real Estate
-
-- [VacationRentalJsonLd](#vacationrentaljsonld) - Vacation rental properties
-
-### Software & Apps
-
-- [SoftwareApplicationJsonLd](#softwareapplicationjsonld) - Software and mobile apps
-
-### Other
-
-- [DatasetJsonLd](#datasetjsonld) - Research datasets
-- [DiscussionForumPostingJsonLd](#discussionforumpostingjsonld) - Forum posts
-- [ProfilePageJsonLd](#profilepagejsonld) - Profile pages
-
----
-
 ## Components
 
 ### ArticleJsonLd
@@ -1999,20 +1932,17 @@ import { CarouselJsonLd } from "next-seo";
 #### Best Practices
 
 1. **Choose the right pattern**:
-
    - Use **summary page pattern** when you have separate detail pages for each item
    - Use **all-in-one pattern** when all content is on a single page
 
 2. **Consistent content types**: All items in a carousel must be of the same type (e.g., all recipes or all movies)
 
 3. **Required images**:
-
    - Movies require at least one image
    - Recipes should include images for better visibility
    - Use multiple aspect ratios when possible
 
 4. **Position numbering**:
-
    - Positions start at 1, not 0
    - If not specified, positions are auto-assigned sequentially
 
