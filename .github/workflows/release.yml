@@ -1,0 +1,91 @@
+name: Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release (e.g., 7.1.0)"
+        required: true
+        type: string
+      tag:
+        description: "NPM tag (latest, next, alpha, beta)"
+        required: true
+        type: choice
+        default: "latest"
+        options:
+          - latest
+          - next
+          - alpha
+          - beta
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  manual-release:
+    name: Manual Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Update package version
+        run: |
+          npm version ${{ github.event.inputs.version }} --no-git-tag-version
+          echo "Updated package.json to version ${{ github.event.inputs.version }}"
+
+      - name: Run full test sweep
+        run: pnpm test:sweep
+
+      - name: Publish to npm
+        run: |
+          echo "Publishing version ${{ github.event.inputs.version }} with tag '${{ github.event.inputs.tag }}'"
+          pnpm publish --tag ${{ github.event.inputs.tag }} --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Create Git tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "v${{ github.event.inputs.version }}" -m "Release v${{ github.event.inputs.version }}"
+          git push origin "v${{ github.event.inputs.version }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v${{ github.event.inputs.version }}"
+          name: "v${{ github.event.inputs.version }}"
+          body: |
+            ## Manual Release v${{ github.event.inputs.version }}
+
+            Published to npm with tag: `${{ github.event.inputs.tag }}`
+
+            Install with:
+            ```bash
+            npm install next-seo@${{ github.event.inputs.tag }}
+            # or
+            pnpm add next-seo@${{ github.event.inputs.tag }}
+            ```
+          prerelease: ${{ github.event.inputs.tag != 'latest' }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

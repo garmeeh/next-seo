@@ -53,13 +53,17 @@
     "example:lint": "pnpm --filter ./examples/app-router-showcase lint",
     "example:typecheck": "tsc --noEmit --project examples/app-router-showcase",
     "// PUBLISHING": "",
-    "prepublishOnly": "pnpm build && pnpm test"
+    "prepublishOnly": "pnpm build && pnpm test",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "pnpm build && changeset publish"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix",
     "*.{ts,tsx,js,jsx,json,md}": "prettier --write"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.29.5",
     "@eslint/js": "^9.27.0",
     "@playwright/test": "^1.52.0",
     "@testing-library/jest-dom": "^6.6.3",
