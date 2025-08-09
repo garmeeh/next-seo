@@ -14,7 +14,9 @@ export default defineConfig({
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
     // Command to start your example app
-    command: "pnpm --filter ./examples/app-router-showcase dev --port 3001", // << ADJUST PORT IF NEEDED
+    command: process.env.CI
+      ? "pnpm --filter ./examples/app-router-showcase start --port 3001" // Production build in CI
+      : "pnpm --filter ./examples/app-router-showcase dev --port 3001", // Dev server locally
     url: "http://localhost:3001", // << MAKE SURE THIS MATCHES
     reuseExistingServer: !process.env.CI,
     stdout: "pipe",

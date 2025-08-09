@@ -50,8 +50,34 @@ jobs:
           npm version ${{ github.event.inputs.version }} --no-git-tag-version
           echo "Updated package.json to version ${{ github.event.inputs.version }}"
 
-      - name: Run full test sweep
-        run: pnpm test:sweep
+      - name: Build package
+        run: pnpm build
+
+      - name: Run TypeScript type checking
+        run: pnpm typecheck
+
+      - name: Run linting
+        run: pnpm lint
+
+      - name: Run unit tests
+        run: pnpm test:unit
+
+      - name: Lint example app
+        run: pnpm example:lint
+
+      - name: Type check example app
+        run: pnpm example:typecheck
+
+      - name: Build example app
+        run: pnpm example:build
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: pnpm test:e2e --project=chromium
+        env:
+          CI: true
 
       - name: Publish to npm
         run: |

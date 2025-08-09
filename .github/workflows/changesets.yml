@@ -53,6 +53,9 @@ jobs:
       - name: Type check example app
         run: pnpm example:typecheck
 
+      - name: Build example app
+        run: pnpm example:build
+
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
