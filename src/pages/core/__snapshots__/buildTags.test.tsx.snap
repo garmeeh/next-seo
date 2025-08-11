@@ -1,9 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`buildTags backwards compatibility > Article SEO renders correctly 1`] = `
+exports[`buildTags > Article SEO renders correctly 1`] = `
 [
   <title>
-    Article Page Title
+    Next SEO | Article Page Title
   </title>,
   <meta
     content="index,follow"
@@ -112,10 +112,10 @@ exports[`buildTags backwards compatibility > Article SEO renders correctly 1`] =
 ]
 `;
 
-exports[`buildTags backwards compatibility > Book SEO renders correctly 1`] = `
+exports[`buildTags > Book SEO renders correctly 1`] = `
 [
   <title>
-    Book Page Title
+    Next SEO | Book Page Title
   </title>,
   <meta
     content="index,follow"
@@ -216,10 +216,10 @@ exports[`buildTags backwards compatibility > Book SEO renders correctly 1`] = `
 ]
 `;
 
-exports[`buildTags backwards compatibility > Profile SEO renders correctly 1`] = `
+exports[`buildTags > Profile SEO renders correctly 1`] = `
 [
   <title>
-    Profile Page Title
+    Next SEO | Profile Page Title
   </title>,
   <meta
     content="index,follow"
@@ -312,10 +312,10 @@ exports[`buildTags backwards compatibility > Profile SEO renders correctly 1`] =
 ]
 `;
 
-exports[`buildTags backwards compatibility > Video SEO renders correctly 1`] = `
+exports[`buildTags > Video SEO renders correctly 1`] = `
 [
   <title>
-    Video Page Title
+    Next SEO | Video Page Title
   </title>,
   <meta
     content="index,follow"
@@ -440,7 +440,7 @@ exports[`buildTags backwards compatibility > Video SEO renders correctly 1`] = `
 ]
 `;
 
-exports[`buildTags backwards compatibility > renders correctly 1`] = `
+exports[`buildTags > renders correctly 1`] = `
 [
   <title>
     This is a test title.

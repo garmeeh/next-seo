@@ -1,12 +1,5 @@
 import { ReactNode } from "react";
-import type { BuildTagsParams } from "../types";
-import {
-  processOpenGraphMedia,
-  buildRobotsContent,
-  processTitle,
-} from "../utils/processors";
-
-// Store defaults for the session
+import { BuildTagsParams, OpenGraphMedia } from "../types";
 const defaults = {
   templateTitle: "",
   noindex: false,
@@ -18,78 +11,184 @@ const defaults = {
   defaultOpenGraphVideoHeight: 0,
 };
 
-// Test-only function to reset defaults between tests
-export function __resetDefaults() {
-  Object.assign(defaults, {
-    templateTitle: "",
-    noindex: false,
-    nofollow: false,
-    norobots: false,
-    defaultOpenGraphImageWidth: 0,
-    defaultOpenGraphImageHeight: 0,
-    defaultOpenGraphVideoWidth: 0,
-    defaultOpenGraphVideoHeight: 0,
-  });
-}
+const buildOpenGraphMediaTags = (
+  mediaType: "image" | "video" | "audio",
+  media: ReadonlyArray<OpenGraphMedia> = [],
+  {
+    defaultWidth,
+    defaultHeight,
+  }: { defaultWidth?: number; defaultHeight?: number } = {},
+) => {
+  return media.reduce((tags, medium, index) => {
+    tags.push(
+      <meta
+        key={`og:${mediaType}:0${index}`}
+        property={`og:${mediaType}`}
+        content={medium.url}
+      />,
+    );
 
-/**
- * Build title tag
- */
-function buildTitleTag(config: BuildTagsParams): ReactNode | null {
-  // Handle title template defaults
+    if (medium.alt) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:alt0${index}`}
+          property={`og:${mediaType}:alt`}
+          content={medium.alt}
+        />,
+      );
+    }
+
+    if (medium.secureUrl) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:secure_url0${index}`}
+          property={`og:${mediaType}:secure_url`}
+          content={medium.secureUrl.toString()}
+        />,
+      );
+    }
+
+    if (medium.type) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:type0${index}`}
+          property={`og:${mediaType}:type`}
+          content={medium.type.toString()}
+        />,
+      );
+    }
+
+    if (medium.width) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:width0${index}`}
+          property={`og:${mediaType}:width`}
+          content={medium.width.toString()}
+        />,
+      );
+    } else if (defaultWidth) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:width0${index}`}
+          property={`og:${mediaType}:width`}
+          content={defaultWidth.toString()}
+        />,
+      );
+    }
+
+    if (medium.height) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:height${index}`}
+          property={`og:${mediaType}:height`}
+          content={medium.height.toString()}
+        />,
+      );
+    } else if (defaultHeight) {
+      tags.push(
+        <meta
+          key={`og:${mediaType}:height${index}`}
+          property={`og:${mediaType}:height`}
+          content={defaultHeight.toString()}
+        />,
+      );
+    }
+
+    return tags;
+  }, [] as ReactNode[]);
+};
+
+const buildTags = (config: BuildTagsParams) => {
+  const tagsToRender: ReactNode[] = [];
+
   if (config.titleTemplate) {
     defaults.templateTitle = config.titleTemplate;
   }
 
-  const title = processTitle(
-    config.title,
-    config.defaultTitle,
-    defaults.templateTitle,
-  );
-
-  if (!title) return null;
-
-  return <title key="title">{title}</title>;
-}
-
-/**
- * Build robots meta tag
- */
-function buildRobotsTag(config: BuildTagsParams): ReactNode | null {
-  // Handle dangerous defaults
-  if (config.dangerouslySetAllPagesToNoIndex) {
-    defaults.noindex = true;
+  let updatedTitle = "";
+  if (config.title) {
+    updatedTitle = config.title;
+    if (defaults.templateTitle) {
+      updatedTitle = defaults.templateTitle.replace(/%s/g, () => updatedTitle);
+    }
+  } else if (config.defaultTitle) {
+    updatedTitle = config.defaultTitle;
   }
-  if (config.dangerouslySetAllPagesToNoFollow) {
-    defaults.nofollow = true;
+
+  if (updatedTitle) {
+    tagsToRender.push(<title key="title">{updatedTitle}</title>);
   }
+
+  const noindex =
+    config.noindex === undefined
+      ? defaults.noindex || config.dangerouslySetAllPagesToNoIndex
+      : config.noindex;
+
+  const nofollow =
+    config.nofollow === undefined
+      ? defaults.nofollow || config.dangerouslySetAllPagesToNoFollow
+      : config.nofollow;
+
+  const norobots = config.norobots || defaults.norobots;
+
+  let robotsParams = "";
+
+  if (config.robotsProps) {
+    const {
+      nosnippet,
+      maxSnippet,
+      maxImagePreview,
+      maxVideoPreview,
+      noarchive,
+      noimageindex,
+      notranslate,
+      unavailableAfter,
+    } = config.robotsProps;
+
+    robotsParams = `${nosnippet ? ",nosnippet" : ""}${
+      maxSnippet ? `,max-snippet:${maxSnippet}` : ""
+    }${maxImagePreview ? `,max-image-preview:${maxImagePreview}` : ""}${
+      noarchive ? ",noarchive" : ""
+    }${unavailableAfter ? `,unavailable_after:${unavailableAfter}` : ""}${
+      noimageindex ? ",noimageindex" : ""
+    }${maxVideoPreview ? `,max-video-preview:${maxVideoPreview}` : ""}${
+      notranslate ? ",notranslate" : ""
+    }`;
+  }
+
   if (config.norobots) {
     defaults.norobots = true;
   }
 
-  const noindex =
-    config.noindex !== undefined ? config.noindex : defaults.noindex;
-  const nofollow =
-    config.nofollow !== undefined ? config.nofollow : defaults.nofollow;
+  if (noindex || nofollow) {
+    if (config.dangerouslySetAllPagesToNoIndex) {
+      defaults.noindex = true;
+    }
+    if (config.dangerouslySetAllPagesToNoFollow) {
+      defaults.nofollow = true;
+    }
 
-  // Skip robots tag if norobots is set and no additional props
-  if (defaults.norobots && !config.robotsProps && !noindex && !nofollow) {
-    return null;
+    tagsToRender.push(
+      <meta
+        key="robots"
+        name="robots"
+        content={`${noindex ? "noindex" : "index"},${
+          nofollow ? "nofollow" : "follow"
+        }${robotsParams}`}
+      />,
+    );
+  } else if (!norobots || robotsParams) {
+    tagsToRender.push(
+      <meta
+        key="robots"
+        name="robots"
+        content={`index,follow${robotsParams}`}
+      />,
+    );
   }
 
-  const content = buildRobotsContent(noindex, nofollow, config.robotsProps);
-
-  return <meta key="robots" name="robots" content={content} />;
-}
-
-/**
- * Build basic meta tags (description, theme-color)
- */
-function buildBasicMetaTags(config: BuildTagsParams): ReactNode[] {
-  const tags: ReactNode[] = [];
-
   if (config.description) {
-    tags.push(
+    tagsToRender.push(
       <meta
         key="description"
         name="description"
@@ -99,419 +198,300 @@ function buildBasicMetaTags(config: BuildTagsParams): ReactNode[] {
   }
 
   if (config.themeColor) {
-    tags.push(
+    tagsToRender.push(
       <meta key="theme-color" name="theme-color" content={config.themeColor} />,
     );
   }
 
-  return tags;
-}
-
-/**
- * Build alternate link tags (mobile, language)
- */
-function buildAlternateTags(config: BuildTagsParams): ReactNode[] {
-  const tags: ReactNode[] = [];
-
   if (config.mobileAlternate) {
-    tags.push(
+    tagsToRender.push(
       <link
-        key="mobileAlternate"
         rel="alternate"
+        key="mobileAlternate"
         media={config.mobileAlternate.media}
         href={config.mobileAlternate.href}
       />,
     );
   }
 
-  if (config.languageAlternates?.length) {
-    config.languageAlternates.forEach((alt) => {
-      tags.push(
+  if (config.languageAlternates && config.languageAlternates.length > 0) {
+    config.languageAlternates.forEach((languageAlternate) => {
+      tagsToRender.push(
         <link
-          key={`languageAlternate-${alt.hrefLang}`}
           rel="alternate"
-          hrefLang={alt.hrefLang}
-          href={alt.href}
+          key={`languageAlternate-${languageAlternate.hrefLang}`}
+          hrefLang={languageAlternate.hrefLang}
+          href={languageAlternate.href}
         />,
       );
     });
   }
 
-  return tags;
-}
+  if (config.twitter) {
+    if (config.twitter.cardType) {
+      tagsToRender.push(
+        <meta
+          key="twitter:card"
+          name="twitter:card"
+          content={config.twitter.cardType}
+        />,
+      );
+    }
 
-/**
- * Build Twitter card tags
- */
-function buildTwitterTags(config: BuildTagsParams): ReactNode[] {
-  const tags: ReactNode[] = [];
+    if (config.twitter.site) {
+      tagsToRender.push(
+        <meta
+          key="twitter:site"
+          name="twitter:site"
+          content={config.twitter.site}
+        />,
+      );
+    }
 
-  if (!config.twitter) return tags;
+    if (config.twitter.handle) {
+      tagsToRender.push(
+        <meta
+          key="twitter:creator"
+          name="twitter:creator"
+          content={config.twitter.handle}
+        />,
+      );
+    }
+  }
 
-  if (config.twitter.cardType) {
-    tags.push(
+  if (config.facebook) {
+    if (config.facebook.appId) {
+      tagsToRender.push(
+        <meta
+          key="fb:app_id"
+          property="fb:app_id"
+          content={config.facebook.appId}
+        />,
+      );
+    }
+  }
+
+  if (config.openGraph?.title || updatedTitle) {
+    tagsToRender.push(
       <meta
-        key="twitter:card"
-        name="twitter:card"
-        content={config.twitter.cardType}
+        key="og:title"
+        property="og:title"
+        content={config.openGraph?.title || updatedTitle}
       />,
     );
   }
 
-  if (config.twitter.site) {
-    tags.push(
-      <meta
-        key="twitter:site"
-        name="twitter:site"
-        content={config.twitter.site}
-      />,
-    );
-  }
-
-  if (config.twitter.handle) {
-    tags.push(
-      <meta
-        key="twitter:creator"
-        name="twitter:creator"
-        content={config.twitter.handle}
-      />,
-    );
-  }
-
-  return tags;
-}
-
-/**
- * Build Facebook app ID tag
- */
-function buildFacebookTag(config: BuildTagsParams): ReactNode | null {
-  if (!config.facebook?.appId) return null;
-
-  return (
-    <meta
-      key="fb:app_id"
-      property="fb:app_id"
-      content={config.facebook.appId}
-    />
-  );
-}
-
-/**
- * Build OpenGraph tags
- */
-function buildOpenGraphTags(config: BuildTagsParams): ReactNode[] {
-  const tags: ReactNode[] = [];
-  const og = config.openGraph;
-
-  // Generate basic og tags if we have title or description, even without explicit openGraph config
-  const hasBasicContent =
-    config.title || config.defaultTitle || config.description;
-
-  if (!og && !hasBasicContent) return tags;
-
-  // Title (use og title or fall back to page title/defaultTitle)
-  const ogTitle =
-    og?.title ||
-    processTitle(config.title, config.defaultTitle, defaults.templateTitle);
-  if (ogTitle) {
-    tags.push(<meta key="og:title" property="og:title" content={ogTitle} />);
-  }
-
-  // Description (use og description or fall back to page description)
-  const ogDescription = og?.description || config.description;
-  if (ogDescription) {
-    tags.push(
+  if (config.openGraph?.description || config.description) {
+    tagsToRender.push(
       <meta
         key="og:description"
         property="og:description"
-        content={ogDescription}
+        content={config.openGraph?.description || config.description}
       />,
     );
   }
 
-  if (!og) return tags;
-
-  // URL
-  if (og.url || config.canonical) {
-    tags.push(
-      <meta
-        key="og:url"
-        property="og:url"
-        content={og.url || config.canonical || ""}
-      />,
-    );
-  }
-
-  // Type and type-specific properties
-  if (og.type) {
-    const type = og.type.toLowerCase();
-    tags.push(<meta key="og:type" property="og:type" content={type} />);
-
-    // Type-specific properties
-    tags.push(...buildOpenGraphTypeSpecificTags(type, og));
-  }
-
-  // Images
-  if (og.images?.length) {
-    // Handle default dimensions
-    if (config.defaultOpenGraphImageWidth) {
-      defaults.defaultOpenGraphImageWidth = config.defaultOpenGraphImageWidth;
-    }
-    if (config.defaultOpenGraphImageHeight) {
-      defaults.defaultOpenGraphImageHeight = config.defaultOpenGraphImageHeight;
-    }
-
-    const imageTags = processOpenGraphMedia("image", og.images, {
-      width: defaults.defaultOpenGraphImageWidth,
-      height: defaults.defaultOpenGraphImageHeight,
-    });
-
-    imageTags.forEach((tag, i) => {
-      tags.push(
+  if (config.openGraph) {
+    if (config.openGraph.url || config.canonical) {
+      tagsToRender.push(
         <meta
-          key={`og:image:${i}`}
-          property={tag.property}
-          content={tag.content}
+          key="og:url"
+          property="og:url"
+          content={config.openGraph.url || config.canonical}
         />,
       );
-    });
-  }
-
-  // Videos
-  if (og.videos?.length) {
-    // Handle default dimensions
-    if (config.defaultOpenGraphVideoWidth) {
-      defaults.defaultOpenGraphVideoWidth = config.defaultOpenGraphVideoWidth;
-    }
-    if (config.defaultOpenGraphVideoHeight) {
-      defaults.defaultOpenGraphVideoHeight = config.defaultOpenGraphVideoHeight;
     }
 
-    const videoTags = processOpenGraphMedia("video", og.videos, {
-      width: defaults.defaultOpenGraphVideoWidth,
-      height: defaults.defaultOpenGraphVideoHeight,
-    });
+    if (config.openGraph.type) {
+      const type = config.openGraph.type.toLowerCase();
 
-    videoTags.forEach((tag, i) => {
-      tags.push(
-        <meta
-          key={`og:video:${i}`}
-          property={tag.property}
-          content={tag.content}
-        />,
+      tagsToRender.push(
+        <meta key="og:type" property="og:type" content={type} />,
       );
-    });
-  }
 
-  // Audio
-  if (og.audio?.length) {
-    const audioTags = processOpenGraphMedia("audio", og.audio);
-    audioTags.forEach((tag, i) => {
-      tags.push(
-        <meta
-          key={`og:audio:${i}`}
-          property={tag.property}
-          content={tag.content}
-        />,
-      );
-    });
-  }
-
-  // Locale
-  if (og.locale) {
-    tags.push(
-      <meta key="og:locale" property="og:locale" content={og.locale} />,
-    );
-  }
-
-  // Site name (handle deprecated site_name)
-  const siteName = og.siteName || og.site_name;
-  if (siteName) {
-    tags.push(
-      <meta key="og:site_name" property="og:site_name" content={siteName} />,
-    );
-  }
-
-  return tags;
-}
-
-/**
- * Build OpenGraph type-specific tags
- */
-function buildOpenGraphTypeSpecificTags(
-  type: string,
-  og: BuildTagsParams["openGraph"],
-): ReactNode[] {
-  const tags: ReactNode[] = [];
-
-  if (!og) return tags;
-
-  switch (type) {
-    case "profile":
-      if (og.profile) {
-        if (og.profile.firstName) {
-          tags.push(
+      if (type === "profile" && config.openGraph.profile) {
+        if (config.openGraph.profile.firstName) {
+          tagsToRender.push(
             <meta
               key="profile:first_name"
               property="profile:first_name"
-              content={og.profile.firstName}
+              content={config.openGraph.profile.firstName}
             />,
           );
         }
-        if (og.profile.lastName) {
-          tags.push(
+
+        if (config.openGraph.profile.lastName) {
+          tagsToRender.push(
             <meta
               key="profile:last_name"
               property="profile:last_name"
-              content={og.profile.lastName}
+              content={config.openGraph.profile.lastName}
             />,
           );
         }
-        if (og.profile.username) {
-          tags.push(
+
+        if (config.openGraph.profile.username) {
+          tagsToRender.push(
             <meta
               key="profile:username"
               property="profile:username"
-              content={og.profile.username}
+              content={config.openGraph.profile.username}
             />,
           );
         }
-        if (og.profile.gender) {
-          tags.push(
+
+        if (config.openGraph.profile.gender) {
+          tagsToRender.push(
             <meta
               key="profile:gender"
               property="profile:gender"
-              content={og.profile.gender}
+              content={config.openGraph.profile.gender}
             />,
           );
         }
-      }
-      break;
-
-    case "book":
-      if (og.book) {
-        if (og.book.authors?.length) {
-          og.book.authors.forEach((author, i) => {
-            tags.push(
+      } else if (type === "book" && config.openGraph.book) {
+        if (
+          config.openGraph.book.authors &&
+          config.openGraph.book.authors.length
+        ) {
+          config.openGraph.book.authors.forEach((author, index) => {
+            tagsToRender.push(
               <meta
-                key={`book:author:${i}`}
+                key={`book:author:0${index}`}
                 property="book:author"
                 content={author}
               />,
             );
           });
         }
-        if (og.book.isbn) {
-          tags.push(
+
+        if (config.openGraph.book.isbn) {
+          tagsToRender.push(
             <meta
               key="book:isbn"
               property="book:isbn"
-              content={og.book.isbn}
+              content={config.openGraph.book.isbn}
             />,
           );
         }
-        if (og.book.releaseDate) {
-          tags.push(
+
+        if (config.openGraph.book.releaseDate) {
+          tagsToRender.push(
             <meta
               key="book:release_date"
               property="book:release_date"
-              content={og.book.releaseDate}
+              content={config.openGraph.book.releaseDate}
             />,
           );
         }
-        if (og.book.tags?.length) {
-          og.book.tags.forEach((tag, i) => {
-            tags.push(
-              <meta key={`book:tag:${i}`} property="book:tag" content={tag} />,
+
+        if (config.openGraph.book.tags && config.openGraph.book.tags.length) {
+          config.openGraph.book.tags.forEach((tag, index) => {
+            tagsToRender.push(
+              <meta
+                key={`book:tag:0${index}`}
+                property="book:tag"
+                content={tag}
+              />,
             );
           });
         }
-      }
-      break;
-
-    case "article":
-      if (og.article) {
-        if (og.article.publishedTime) {
-          tags.push(
+      } else if (type === "article" && config.openGraph.article) {
+        if (config.openGraph.article.publishedTime) {
+          tagsToRender.push(
             <meta
               key="article:published_time"
               property="article:published_time"
-              content={og.article.publishedTime}
+              content={config.openGraph.article.publishedTime}
             />,
           );
         }
-        if (og.article.modifiedTime) {
-          tags.push(
+
+        if (config.openGraph.article.modifiedTime) {
+          tagsToRender.push(
             <meta
               key="article:modified_time"
               property="article:modified_time"
-              content={og.article.modifiedTime}
+              content={config.openGraph.article.modifiedTime}
             />,
           );
         }
-        if (og.article.expirationTime) {
-          tags.push(
+
+        if (config.openGraph.article.expirationTime) {
+          tagsToRender.push(
             <meta
               key="article:expiration_time"
               property="article:expiration_time"
-              content={og.article.expirationTime}
+              content={config.openGraph.article.expirationTime}
             />,
           );
         }
-        if (og.article.authors?.length) {
-          og.article.authors.forEach((author, i) => {
-            tags.push(
+
+        if (
+          config.openGraph.article.authors &&
+          config.openGraph.article.authors.length
+        ) {
+          config.openGraph.article.authors.forEach((author, index) => {
+            tagsToRender.push(
               <meta
-                key={`article:author:${i}`}
+                key={`article:author:0${index}`}
                 property="article:author"
                 content={author}
               />,
             );
           });
         }
-        if (og.article.section) {
-          tags.push(
+
+        if (config.openGraph.article.section) {
+          tagsToRender.push(
             <meta
               key="article:section"
               property="article:section"
-              content={og.article.section}
+              content={config.openGraph.article.section}
             />,
           );
         }
-        if (og.article.tags?.length) {
-          og.article.tags.forEach((tag, i) => {
-            tags.push(
+
+        if (
+          config.openGraph.article.tags &&
+          config.openGraph.article.tags.length
+        ) {
+          config.openGraph.article.tags.forEach((tag, index) => {
+            tagsToRender.push(
               <meta
-                key={`article:tag:${i}`}
+                key={`article:tag:0${index}`}
                 property="article:tag"
                 content={tag}
               />,
             );
           });
         }
-      }
-      break;
-
-    case "video.movie":
-    case "video.episode":
-    case "video.tv_show":
-    case "video.other":
-      if (og.video) {
-        if (og.video.actors?.length) {
-          og.video.actors.forEach((actor, i) => {
+      } else if (
+        (type === "video.movie" ||
+          type === "video.episode" ||
+          type === "video.tv_show" ||
+          type === "video.other") &&
+        config.openGraph.video
+      ) {
+        if (
+          config.openGraph.video.actors &&
+          config.openGraph.video.actors.length
+        ) {
+          config.openGraph.video.actors.forEach((actor, index) => {
             if (actor.profile) {
-              tags.push(
+              tagsToRender.push(
                 <meta
-                  key={`video:actor:${i}`}
+                  key={`video:actor:0${index}`}
                   property="video:actor"
                   content={actor.profile}
                 />,
               );
             }
+
             if (actor.role) {
-              tags.push(
+              tagsToRender.push(
                 <meta
-                  key={`video:actor:role:${i}`}
+                  key={`video:actor:role:0${index}`}
                   property="video:actor:role"
                   content={actor.role}
                 />,
@@ -519,156 +499,185 @@ function buildOpenGraphTypeSpecificTags(
             }
           });
         }
-        if (og.video.directors?.length) {
-          og.video.directors.forEach((director, i) => {
-            tags.push(
+
+        if (
+          config.openGraph.video.directors &&
+          config.openGraph.video.directors.length
+        ) {
+          config.openGraph.video.directors.forEach((director, index) => {
+            tagsToRender.push(
               <meta
-                key={`video:director:${i}`}
+                key={`video:director:0${index}`}
                 property="video:director"
                 content={director}
               />,
             );
           });
         }
-        if (og.video.writers?.length) {
-          og.video.writers.forEach((writer, i) => {
-            tags.push(
+
+        if (
+          config.openGraph.video.writers &&
+          config.openGraph.video.writers.length
+        ) {
+          config.openGraph.video.writers.forEach((writer, index) => {
+            tagsToRender.push(
               <meta
-                key={`video:writer:${i}`}
+                key={`video:writer:0${index}`}
                 property="video:writer"
                 content={writer}
               />,
             );
           });
         }
-        if (og.video.duration) {
-          tags.push(
+
+        if (config.openGraph.video.duration) {
+          tagsToRender.push(
             <meta
               key="video:duration"
               property="video:duration"
-              content={og.video.duration.toString()}
+              content={config.openGraph.video.duration.toString()}
             />,
           );
         }
-        if (og.video.releaseDate) {
-          tags.push(
+
+        if (config.openGraph.video.releaseDate) {
+          tagsToRender.push(
             <meta
               key="video:release_date"
               property="video:release_date"
-              content={og.video.releaseDate}
+              content={config.openGraph.video.releaseDate}
             />,
           );
         }
-        if (og.video.tags?.length) {
-          og.video.tags.forEach((tag, i) => {
-            tags.push(
+
+        if (config.openGraph.video.tags && config.openGraph.video.tags.length) {
+          config.openGraph.video.tags.forEach((tag, index) => {
+            tagsToRender.push(
               <meta
-                key={`video:tag:${i}`}
+                key={`video:tag:0${index}`}
                 property="video:tag"
                 content={tag}
               />,
             );
           });
         }
-        if (og.video.series) {
-          tags.push(
+
+        if (config.openGraph.video.series) {
+          tagsToRender.push(
             <meta
               key="video:series"
               property="video:series"
-              content={og.video.series}
+              content={config.openGraph.video.series}
             />,
           );
         }
       }
-      break;
+    }
+
+    // images
+    if (config.defaultOpenGraphImageWidth) {
+      defaults.defaultOpenGraphImageWidth = config.defaultOpenGraphImageWidth;
+    }
+
+    if (config.defaultOpenGraphImageHeight) {
+      defaults.defaultOpenGraphImageHeight = config.defaultOpenGraphImageHeight;
+    }
+
+    if (config.openGraph.images && config.openGraph.images.length) {
+      tagsToRender.push(
+        ...buildOpenGraphMediaTags("image", config.openGraph.images, {
+          defaultWidth: defaults.defaultOpenGraphImageWidth,
+          defaultHeight: defaults.defaultOpenGraphImageHeight,
+        }),
+      );
+    }
+
+    // videos
+    if (config.defaultOpenGraphVideoWidth) {
+      defaults.defaultOpenGraphVideoWidth = config.defaultOpenGraphVideoWidth;
+    }
+
+    if (config.defaultOpenGraphVideoHeight) {
+      defaults.defaultOpenGraphVideoHeight = config.defaultOpenGraphVideoHeight;
+    }
+
+    if (config.openGraph.videos && config.openGraph.videos.length) {
+      tagsToRender.push(
+        ...buildOpenGraphMediaTags("video", config.openGraph.videos, {
+          defaultWidth: defaults.defaultOpenGraphVideoWidth,
+          defaultHeight: defaults.defaultOpenGraphVideoHeight,
+        }),
+      );
+    }
+
+    // audio
+    if (config.openGraph.audio) {
+      tagsToRender.push(
+        ...buildOpenGraphMediaTags("audio", config.openGraph.audio),
+      );
+    }
+
+    if (config.openGraph.locale) {
+      tagsToRender.push(
+        <meta
+          key="og:locale"
+          property="og:locale"
+          content={config.openGraph.locale}
+        />,
+      );
+    }
+
+    if (config.openGraph.siteName || config.openGraph.site_name) {
+      tagsToRender.push(
+        <meta
+          key="og:site_name"
+          property="og:site_name"
+          content={config.openGraph.siteName || config.openGraph.site_name}
+        />,
+      );
+    }
   }
 
-  return tags;
-}
+  if (config.canonical) {
+    tagsToRender.push(
+      <link rel="canonical" href={config.canonical} key="canonical" />,
+    );
+  }
 
-/**
- * Build canonical link tag
- */
-function buildCanonicalTag(config: BuildTagsParams): ReactNode | null {
-  if (!config.canonical) return null;
+  if (config.additionalMetaTags && config.additionalMetaTags.length > 0) {
+    config.additionalMetaTags.forEach(({ keyOverride, ...tag }) => {
+      tagsToRender.push(
+        <meta
+          key={`meta:${
+            keyOverride ?? tag.name ?? tag.property ?? tag.httpEquiv
+          }`}
+          {...tag}
+        />,
+      );
+    });
+  }
 
-  return <link key="canonical" rel="canonical" href={config.canonical} />;
-}
+  if (config.additionalLinkTags?.length) {
+    config.additionalLinkTags.forEach((tag) => {
+      const { crossOrigin: tagCrossOrigin, ...rest } = tag;
+      const crossOrigin: "anonymous" | "use-credentials" | "" | undefined =
+        tagCrossOrigin === "anonymous" ||
+        tagCrossOrigin === "use-credentials" ||
+        tagCrossOrigin === ""
+          ? tagCrossOrigin
+          : undefined;
 
-/**
- * Build additional meta tags
- */
-function buildAdditionalMetaTags(config: BuildTagsParams): ReactNode[] {
-  if (!config.additionalMetaTags?.length) return [];
+      tagsToRender.push(
+        <link
+          key={`link${rest.keyOverride ?? rest.href}${rest.rel}`}
+          {...rest}
+          crossOrigin={crossOrigin}
+        />,
+      );
+    });
+  }
 
-  return config.additionalMetaTags.map(({ keyOverride, ...tag }) => {
-    const key = keyOverride || tag.name || tag.property || tag.httpEquiv || "";
-    return <meta key={`meta:${key}`} {...tag} />;
-  });
-}
+  return tagsToRender;
+};
 
-/**
- * Build additional link tags
- */
-function buildAdditionalLinkTags(config: BuildTagsParams): ReactNode[] {
-  if (!config.additionalLinkTags?.length) return [];
-
-  return config.additionalLinkTags.map((tag) => {
-    const { crossOrigin: tagCrossOrigin, keyOverride, ...rest } = tag;
-
-    // Validate crossOrigin value
-    const crossOrigin: "anonymous" | "use-credentials" | "" | undefined =
-      tagCrossOrigin === "anonymous" ||
-      tagCrossOrigin === "use-credentials" ||
-      tagCrossOrigin === ""
-        ? tagCrossOrigin
-        : undefined;
-
-    const key = keyOverride || `${rest.href}${rest.rel}`;
-
-    return <link key={`link:${key}`} {...rest} crossOrigin={crossOrigin} />;
-  });
-}
-
-/**
- * Main function to build all SEO tags
- */
-export default function buildTags(config: BuildTagsParams): ReactNode[] {
-  const tags: ReactNode[] = [];
-
-  // Title
-  const titleTag = buildTitleTag(config);
-  if (titleTag) tags.push(titleTag);
-
-  // Robots
-  const robotsTag = buildRobotsTag(config);
-  if (robotsTag) tags.push(robotsTag);
-
-  // Basic meta tags
-  tags.push(...buildBasicMetaTags(config));
-
-  // Alternate links
-  tags.push(...buildAlternateTags(config));
-
-  // Twitter
-  tags.push(...buildTwitterTags(config));
-
-  // Facebook
-  const fbTag = buildFacebookTag(config);
-  if (fbTag) tags.push(fbTag);
-
-  // OpenGraph
-  tags.push(...buildOpenGraphTags(config));
-
-  // Canonical
-  const canonicalTag = buildCanonicalTag(config);
-  if (canonicalTag) tags.push(canonicalTag);
-
-  // Additional meta tags
-  tags.push(...buildAdditionalMetaTags(config));
-
-  // Additional link tags
-  tags.push(...buildAdditionalLinkTags(config));
-
-  return tags;
-}
+export default buildTags;

@@ -1,378 +1,1002 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { describe, it, expect, beforeEach } from "vitest";
-import { ReactElement } from "react";
-import buildTags, { __resetDefaults } from "./buildTags";
-import type { BuildTagsParams } from "../types";
+import { cleanup, render } from "@testing-library/react";
+import { describe, it, expect, afterEach } from "vitest";
+import { BuildTagsParams, ImagePrevSize } from "../types";
+
+import buildTags from "./buildTags";
 
 describe("buildTags", () => {
-  beforeEach(() => {
-    __resetDefaults();
+  afterEach(cleanup);
+
+  const SEO: BuildTagsParams = {
+    title: "This is a test title.",
+    themeColor: "#73fa97",
+    description: "This is a test description.",
+    canonical: "https://www.canonical.ie",
+    defaultOpenGraphImageHeight: 1200,
+    defaultOpenGraphImageWidth: 1200,
+    mobileAlternate: {
+      media: "only screen and (max-width: 640px)",
+      href: "https://m.canonical.ie",
+    },
+    languageAlternates: [
+      {
+        hrefLang: "de-AT",
+        href: "https://www.canonical.ie/de",
+      },
+      {
+        hrefLang: "sk-SK",
+        href: "https://www.canonical.ie/sk",
+      },
+    ],
+    additionalLinkTags: [
+      {
+        rel: "icon",
+        href: "https://www.test.ie/favicon.ico",
+      },
+      {
+        rel: "apple-touch-icon",
+        href: "https://www.test.ie/touch-icon-ipad.jpg",
+        sizes: "76x76",
+      },
+      {
+        rel: "apple-touch-icon",
+        href: "https://www.test.ie/touch-icon-iphone-retina.jpg",
+        sizes: "120x120",
+      },
+      {
+        rel: "mask-icon",
+        href: "https://www.test.ie/safari-pinned-tab.svg",
+        color: "#193860",
+      },
+      {
+        rel: "manifest",
+        href: "/manifest.json",
+      },
+      {
+        rel: "preload",
+        href: "https://www.test.ie/font/sample-font.woof2",
+        as: "font",
+        type: "font/woff2",
+        crossOrigin: "anonymous",
+      },
+    ],
+    openGraph: {
+      type: "website",
+      locale: "en_IE",
+      url: "https://www.url.ie",
+      title: "Open graph title",
+      description: "This is testing og:description.",
+      images: [
+        {
+          url: "https://www.test.ie/image-01.jpg",
+          width: 800,
+          height: 600,
+          alt: "Alt text right here",
+          type: "image/jpeg",
+          secureUrl: "https://www.test.ie/secure-image-01.jpg",
+        },
+        { url: "https://www.test.ie/image-02.jpg" },
+        { url: "https://www.test.ie/image-03.jpg" },
+        { url: "https://www.test.ie/image-04.jpg" },
+      ],
+      audio: [
+        {
+          url: "http://examples.opengraphprotocol.us/media/audio/1khz.mp3",
+          secureUrl:
+            "https://d72cgtgi6hvvl.cloudfront.net/media/audio/1khz.mp3",
+          type: "audio/mpeg",
+        },
+        {
+          url: "http://examples.opengraphprotocol.us/media/audio/250hz.mp3",
+          secureUrl:
+            "https://d72cgtgi6hvvl.cloudfront.net/media/audio/250hz.mp3",
+          type: "audio/mpeg",
+        },
+      ],
+      site_name: "SiteName",
+      siteName: "SiteName",
+    },
+    twitter: {
+      handle: "@handle",
+      site: "@site",
+      cardType: "summary_large_image",
+    },
+    facebook: {
+      appId: "1234567890",
+    },
+  };
+
+  it("renders correctly", () => {
+    const tags = buildTags(SEO);
+    expect(tags).toMatchSnapshot();
   });
-  it("builds title tag", () => {
-    const config: BuildTagsParams = {
-      title: "Test Title",
-    };
 
-    const tags = buildTags(config);
-    const titleTag = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.type === "title";
-    }) as ReactElement<any> | undefined;
+  it("returns full array for default seo object", () => {
+    const tags = buildTags(SEO);
+    render(<>{tags}</>);
 
-    expect(titleTag).toBeDefined();
-    expect(titleTag?.props.children).toBe("Test Title");
+    const title = Array.from(document.querySelectorAll("title")).find(
+      (element) => element.textContent?.startsWith(`${SEO.title}`),
+    );
+    const index = document.querySelectorAll('meta[content="index,follow"]');
+    const description = document.querySelectorAll(
+      `meta[content="${SEO.description}"]`,
+    );
+    const descriptionTag = document.querySelectorAll(
+      'meta[name="description"]',
+    );
+    const twitterCard = document.querySelectorAll(
+      'meta[content="summary_large_image"]',
+    );
+    const facebookAppId = document.querySelectorAll(
+      'meta[property="fb:app_id"]',
+    );
+    const twitterCardTag = document.querySelectorAll(
+      'meta[name="twitter:card"]',
+    );
+    const twitterHandle = document.querySelectorAll(
+      `meta[content="${SEO.twitter?.handle}"]`,
+    );
+    const twitterHandleTag = document.querySelectorAll(
+      'meta[name="twitter:creator"]',
+    );
+    const twitterSite = document.querySelectorAll(
+      `meta[content="${SEO.twitter?.site}"]`,
+    );
+    const twitterSiteTag = document.querySelectorAll(
+      'meta[name="twitter:site"]',
+    );
+    const ogUrl = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.url}"]`,
+    );
+    const ogUrlTag = document.querySelectorAll('meta[property="og:url"]');
+    const ogType = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.type}"]`,
+    );
+    const ogTypeTag = document.querySelectorAll('meta[property="og:type"]');
+    const ogTitle = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.title}"]`,
+    );
+    const ogTitleTag = document.querySelectorAll('meta[property="og:title"]');
+    const ogDescription = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.description}"]`,
+    );
+    const ogDescriptionTag = document.querySelectorAll(
+      'meta[property="og:description"]',
+    );
+    const ogImage00 = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.images?.[0].url}"]`,
+    );
+    const ogImageTag00 = tags.filter(
+      (item: any) => item?.key === "og:image:01",
+    );
+    const ogImage01 = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.images?.[1].url}"]`,
+    );
+    const ogImageTag01 = tags.filter(
+      (item: any) => item?.key === "og:image:01",
+    );
+    const ogImage02 = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.images?.[2].url}"]`,
+    );
+    const ogImageTag02 = tags.filter(
+      (item: any) => item?.key === "og:image:02",
+    );
+    const ogImage03 = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.images?.[3].url}"]`,
+    );
+    const ogImageTag03 = tags.filter(
+      (item: any) => item?.key === "og:image:03",
+    );
+    const ogAudio00 = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.audio?.[0].url}"]`,
+    );
+    const ogAudioTag00 = tags.filter(
+      (item: any) => item?.key === "og:audio:01",
+    );
+    const ogDefaultImageWidthHeight = document.querySelectorAll(
+      `meta[content="${SEO.defaultOpenGraphImageHeight}"]`,
+    );
+    const ogSetImageHeight = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.images?.[0].height}"]`,
+    );
+    const ogSetImageWidth = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.images?.[0].width}"]`,
+    );
+    const ogSetImageAlt = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.images?.[0].alt}"]`,
+    );
+    const ogSetImageType = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.images?.[0].type}"]`,
+    );
+    const ogSetImageSecureUrl = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.images?.[0].secureUrl}"]`,
+    );
+    const ogLocale = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.locale}"]`,
+    );
+    const ogLocaleTag = tags.filter((item: any) => item?.key === "og:locale");
+    const ogSiteName = document.querySelectorAll(
+      `meta[content="${SEO.openGraph?.siteName || SEO.openGraph?.site_name}"]`,
+    );
+    const ogSiteNameTag = tags.filter(
+      (item: any) => item?.key === "og:site_name",
+    );
+    const canonicalTag = tags.filter((item: any) => item?.key === "canonical");
+
+    const mobileAlternateTag = document.querySelectorAll(
+      'link[rel="alternate"][media]',
+    );
+    const mobileAlternateHref = document.querySelectorAll(
+      `link[href="${SEO.mobileAlternate?.href}"]`,
+    );
+    const mobileAlternateMedia = document.querySelectorAll(
+      `link[media="${SEO.mobileAlternate?.media}"]`,
+    );
+
+    expect(Array.from(mobileAlternateTag).length).toBe(1);
+    expect(Array.from(mobileAlternateHref).length).toBe(1);
+    expect(Array.from(mobileAlternateMedia).length).toBe(1);
+
+    const languageAlternatesTags = document.querySelectorAll(
+      'link[rel="alternate"][hrefLang]',
+    );
+    expect(Array.from(languageAlternatesTags).length).toBe(
+      SEO.languageAlternates?.length || 0,
+    );
+
+    SEO.languageAlternates?.forEach((_languageAlternate, idx) => {
+      const languageAlternateHref = document.querySelectorAll(
+        `link[href="${SEO.languageAlternates?.[idx].href}"]`,
+      );
+      const languageAlternateHrefLang = document.querySelectorAll(
+        `link[hrefLang="${SEO.languageAlternates?.[idx].hrefLang}"]`,
+      );
+
+      expect(Array.from(languageAlternateHref).length).toBe(1);
+      expect(Array.from(languageAlternateHrefLang).length).toBe(1);
+    });
+
+    expect(title).toBeDefined();
+    expect(Array.from(index).length).toBe(1);
+    expect(Array.from(description).length).toBe(1);
+    expect(Array.from(descriptionTag).length).toBe(1);
+    expect(Array.from(facebookAppId).length).toBe(1);
+    expect(Array.from(twitterCard).length).toBe(1);
+    expect(Array.from(twitterCardTag).length).toBe(1);
+    expect(Array.from(twitterHandle).length).toBe(1);
+    expect(Array.from(twitterHandleTag).length).toBe(1);
+    expect(Array.from(twitterSite).length).toBe(1);
+    expect(Array.from(twitterSiteTag).length).toBe(1);
+    expect(Array.from(ogUrl).length).toBe(1);
+    expect(Array.from(ogUrlTag).length).toBe(1);
+    expect(Array.from(ogType).length).toBe(1);
+    expect(Array.from(ogTypeTag).length).toBe(1);
+    expect(Array.from(ogTitle).length).toBe(1);
+    expect(Array.from(ogTitleTag).length).toBe(1);
+    expect(Array.from(ogDescription).length).toBe(1);
+    expect(Array.from(ogDescriptionTag).length).toBe(1);
+    expect(Array.from(ogImage00).length).toBe(1);
+    expect(Array.from(ogImageTag00).length).toBe(1);
+    expect(Array.from(ogImage01).length).toBe(1);
+    expect(Array.from(ogImageTag01).length).toBe(1);
+    expect(Array.from(ogImage02).length).toBe(1);
+    expect(Array.from(ogImageTag02).length).toBe(1);
+    expect(Array.from(ogImage03).length).toBe(1);
+    expect(Array.from(ogImageTag03).length).toBe(1);
+    expect(Array.from(ogAudio00).length).toBe(1);
+    expect(Array.from(ogAudioTag00).length).toBe(1);
+    expect(Array.from(ogDefaultImageWidthHeight).length).toBe(6);
+    expect(Array.from(ogSetImageHeight).length).toBe(1);
+    expect(Array.from(ogSetImageWidth).length).toBe(1);
+    expect(Array.from(ogSetImageAlt).length).toBe(1);
+    expect(Array.from(ogSetImageType).length).toBe(1);
+    expect(Array.from(ogSetImageSecureUrl).length).toBe(1);
+    expect(Array.from(ogLocale).length).toBe(1);
+    expect(Array.from(ogLocaleTag).length).toBe(1);
+    expect(Array.from(ogSiteName).length).toBe(1);
+    expect(Array.from(ogSiteNameTag).length).toBe(1);
+    expect((canonicalTag[0] as any)?.props?.href).toBe(`${SEO.canonical}`);
+    expect(Array.from(canonicalTag).length).toBe(1);
   });
 
-  it("builds description meta tag", () => {
-    const config: BuildTagsParams = {
-      description: "Test description",
-    };
-
-    const tags = buildTags(config);
-    const descTag = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.name === "description";
-    }) as ReactElement<any> | undefined;
-
-    expect(descTag).toBeDefined();
-    expect(descTag?.props.content).toBe("Test description");
-  });
-
-  it("builds robots meta tag with noindex", () => {
-    const config: BuildTagsParams = {
+  it("correctly sets noindex", () => {
+    const overrideProps: BuildTagsParams = {
+      ...SEO,
       noindex: true,
     };
+    const tags = buildTags(overrideProps);
+    render(<>{tags}</>);
+    const index = document.querySelectorAll('meta[content="index,follow"]');
+    const noindex = document.querySelectorAll('meta[content="noindex,follow"]');
 
-    const tags = buildTags(config);
-    const robotsTag = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.name === "robots";
-    }) as ReactElement<any> | undefined;
-
-    expect(robotsTag).toBeDefined();
-    expect(robotsTag?.props.content).toBe("noindex,follow");
+    expect(Array.from(index).length).toBe(0);
+    expect(Array.from(noindex).length).toBe(1);
   });
 
-  it("builds robots meta tag with nofollow", () => {
-    const config: BuildTagsParams = {
+  it("correctly sets nofollow", () => {
+    const overrideProps: BuildTagsParams = {
+      ...SEO,
       nofollow: true,
     };
-
-    const tags = buildTags(config);
-    const robotsTag = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.name === "robots";
-    }) as ReactElement<any> | undefined;
-
-    expect(robotsTag).toBeDefined();
-    expect(robotsTag?.props.content).toBe("index,nofollow");
+    const tags = buildTags(overrideProps);
+    render(<>{tags}</>);
+    const indexfollow = document.querySelectorAll(
+      'meta[content="index,follow"]',
+    );
+    const indexnofollow = document.querySelectorAll(
+      'meta[content="index,nofollow"]',
+    );
+    expect(Array.from(indexfollow).length).toBe(0);
+    expect(Array.from(indexnofollow).length).toBe(1);
   });
 
-  it("builds canonical link tag", () => {
-    const config: BuildTagsParams = {
-      canonical: "https://example.com/page",
+  it("correctly sets noindex, nofollow", () => {
+    const overrideProps: BuildTagsParams = {
+      ...SEO,
+      noindex: true,
+      nofollow: true,
     };
+    const tags = buildTags(overrideProps);
+    render(<>{tags}</>);
+    const indexfollow = document.querySelectorAll(
+      'meta[content="index,follow"]',
+    );
+    const noindexnofollow = document.querySelectorAll(
+      'meta[content="noindex,nofollow"]',
+    );
 
-    const tags = buildTags(config);
-    const canonicalTag = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.rel === "canonical";
-    }) as ReactElement<any> | undefined;
-
-    expect(canonicalTag).toBeDefined();
-    expect(canonicalTag?.props.href).toBe("https://example.com/page");
+    expect(Array.from(indexfollow).length).toBe(0);
+    expect(Array.from(noindexnofollow).length).toBe(1);
   });
 
-  it("builds OpenGraph tags", () => {
-    const config: BuildTagsParams = {
-      openGraph: {
-        type: "website",
-        title: "OG Title",
-        description: "OG Description",
-        url: "https://example.com",
-        siteName: "Test Site",
+  it("displays title with titleTemplate integrated", () => {
+    const template = "Next SEO";
+    const overrideProps: BuildTagsParams = {
+      ...SEO,
+      titleTemplate: `${template} | %s`,
+    };
+    const tags = buildTags(overrideProps);
+    render(<>{tags}</>);
+    const title = Array.from(document.querySelectorAll("title")).find(
+      (element) => element.textContent?.startsWith(template),
+    );
+    expect(title?.innerHTML).toMatch(`${template} | ${SEO.title}`);
+  });
+
+  it("displays defaultTitle when no title is provided", () => {
+    const defaultTitle = "Next SEO";
+    const props = {
+      titleTemplate: `${defaultTitle} | %s`,
+      defaultTitle,
+    };
+    const tags = buildTags(props);
+    render(<>{tags}</>);
+    const title = Array.from(document.querySelectorAll("title")).find(
+      (element) => element.textContent?.startsWith(defaultTitle),
+    );
+    const ogTitle = document.querySelectorAll(
+      `meta[content="${defaultTitle}"]`,
+    );
+    const ogTitleTag = document.querySelectorAll('meta[property="og:title"]');
+    expect(title?.innerHTML).toMatch(defaultTitle);
+    expect(Array.from(ogTitle).length).toBe(1);
+    expect(Array.from(ogTitleTag).length).toBe(1);
+  });
+
+  const ArticleSEO = {
+    title: "Article Page Title",
+    description: "Description of article page",
+    openGraph: {
+      title: "Open Graph Article Title",
+      description: "Description of open graph article",
+      url: "https://www.example.com/articles/article-title",
+      type: "article",
+      article: {
+        publishedTime: "2017-06-21T23:04:13Z",
+        modifiedTime: "2018-01-21T18:04:43Z",
+        expirationTime: "2022-12-21T22:04:11Z",
+        authors: [
+          "https://www.example.com/authors/@firstnameA-lastnameA",
+          "https://www.example.com/authors/@firstnameB-lastnameB",
+        ],
+        section: "Section II",
+        tags: ["Tag A", "Tag B"],
       },
-    };
+      images: [
+        {
+          url: "https://www.test.ie/og-image-article-title-01.jpg",
+          width: 850,
+          height: 650,
+          alt: "Og Image Alt Article Title A",
+        },
+        {
+          url: "https://www.test.ie/og-image-article-title-02.jpg",
+          width: 950,
+          height: 850,
+          alt: "Og Image Alt Article Title B",
+        },
+      ],
+      siteName: "SiteName",
+      site_name: "SiteName",
+    },
+    twitter: {
+      handle: "@handle",
+      site: "@site",
+      cardType: "summary_large_image",
+    },
+  };
 
-    const tags = buildTags(config);
-
-    const ogTitle = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "og:title";
-    }) as ReactElement<any> | undefined;
-    expect(ogTitle?.props.content).toBe("OG Title");
-
-    const ogDesc = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "og:description";
-    }) as ReactElement<any> | undefined;
-    expect(ogDesc?.props.content).toBe("OG Description");
-
-    const ogType = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "og:type";
-    }) as ReactElement<any> | undefined;
-    expect(ogType?.props.content).toBe("website");
-
-    const ogUrl = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "og:url";
-    }) as ReactElement<any> | undefined;
-    expect(ogUrl?.props.content).toBe("https://example.com");
-
-    const ogSiteName = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "og:site_name";
-    }) as ReactElement<any> | undefined;
-    expect(ogSiteName?.props.content).toBe("Test Site");
+  it("Article SEO renders correctly", () => {
+    const tags = buildTags(ArticleSEO);
+    expect(tags).toMatchSnapshot();
   });
 
-  it("builds OpenGraph image tags", () => {
-    const config: BuildTagsParams = {
-      openGraph: {
-        images: [
+  it("Check article og type meta", () => {
+    const tags = buildTags(ArticleSEO);
+    render(<>{tags}</>);
+
+    const ogType = document.querySelectorAll(
+      `meta[content="${ArticleSEO.openGraph.type}"]`,
+    );
+    const ogTypeTag = document.querySelectorAll('meta[property="og:type"]');
+    const ogArticlePublishedTime = document.querySelectorAll(
+      `meta[content="${ArticleSEO.openGraph.article.publishedTime}"]`,
+    );
+    const ogArticlePublishedTimeTag = document.querySelectorAll(
+      'meta[property="article:published_time"]',
+    );
+    const ogArticleModifiedTime = document.querySelectorAll(
+      `meta[content="${ArticleSEO.openGraph.article.modifiedTime}"]`,
+    );
+    const ogArticleModifiedTimeTag = document.querySelectorAll(
+      'meta[property="article:modified_time"]',
+    );
+    const ogArticleExpirationTime = document.querySelectorAll(
+      `meta[content="${ArticleSEO.openGraph.article.expirationTime}"]`,
+    );
+    const ogArticleExpirationTimeTag = document.querySelectorAll(
+      'meta[property="article:expiration_time"]',
+    );
+    const ogArticleAuthor00 = document.querySelectorAll(
+      `meta[content="${ArticleSEO.openGraph.article.authors[0]}"]`,
+    );
+    const ogArticleAuthorTag00 = tags.filter(
+      (item: any) => item?.key === "article:author:00",
+    );
+    const ogArticleAuthor01 = document.querySelectorAll(
+      `meta[content="${ArticleSEO.openGraph.article.authors[1]}"]`,
+    );
+    const ogArticleAuthorTag01 = tags.filter(
+      (item: any) => item?.key === "article:author:01",
+    );
+    const ogArticleSection = document.querySelectorAll(
+      `meta[content="${ArticleSEO.openGraph.article.section}"]`,
+    );
+    const ogArticleSectionTag = document.querySelectorAll(
+      'meta[property="article:section"]',
+    );
+    const ogArticleTags00 = document.querySelectorAll(
+      `meta[content="${ArticleSEO.openGraph.article.tags[0]}"]`,
+    );
+    const ogArticleTagsTag00 = tags.filter(
+      (item: any) => item?.key === "article:tag:00",
+    );
+    const ogArticleTags01 = document.querySelectorAll(
+      `meta[content="${ArticleSEO.openGraph.article.tags[1]}"]`,
+    );
+    const ogArticleTagsTag01 = tags.filter(
+      (item: any) => item?.key === "article:tag:01",
+    );
+
+    expect(Array.from(ogType).length).toBe(1);
+    expect(Array.from(ogTypeTag).length).toBe(1);
+    expect(Array.from(ogArticlePublishedTime).length).toBe(1);
+    expect(Array.from(ogArticlePublishedTimeTag).length).toBe(1);
+    expect(Array.from(ogArticleModifiedTime).length).toBe(1);
+    expect(Array.from(ogArticleModifiedTimeTag).length).toBe(1);
+    expect(Array.from(ogArticleExpirationTime).length).toBe(1);
+    expect(Array.from(ogArticleExpirationTimeTag).length).toBe(1);
+    expect(Array.from(ogArticleAuthor00).length).toBe(1);
+    expect(Array.from(ogArticleAuthorTag00).length).toBe(1);
+    expect(Array.from(ogArticleAuthor01).length).toBe(1);
+    expect(Array.from(ogArticleAuthorTag01).length).toBe(1);
+    expect(Array.from(ogArticleSection).length).toBe(1);
+    expect(Array.from(ogArticleSectionTag).length).toBe(1);
+    expect(Array.from(ogArticleTags00).length).toBe(1);
+    expect(Array.from(ogArticleTagsTag00).length).toBe(1);
+    expect(Array.from(ogArticleTags01).length).toBe(1);
+    expect(Array.from(ogArticleTagsTag01).length).toBe(1);
+  });
+
+  const BookSEO = {
+    title: "Book Page Title",
+    description: "Description of book page",
+    openGraph: {
+      title: "Open Graph Book Title",
+      description: "Description of open graph book",
+      url: "https://www.example.com/books/book-title",
+      type: "book",
+      book: {
+        releaseDate: "2018-09-17T11:08:13Z",
+        isbn: "978-3-16-148410-0",
+        authors: [
+          "https://www.example.com/authors/@firstnameA-lastnameA",
+          "https://www.example.com/authors/@firstnameB-lastnameB",
+        ],
+        tags: ["Tag A", "Tag B"],
+      },
+      images: [
+        {
+          url: "https://www.test.ie/og-image-book-title-01.jpg",
+          width: 850,
+          height: 650,
+          alt: "Og Image Alt Book Title A",
+        },
+        {
+          url: "https://www.test.ie/og-image-book-title-02.jpg",
+          width: 950,
+          height: 850,
+          alt: "Og Image Alt Book Title B",
+        },
+      ],
+      siteName: "SiteName",
+      site_name: "SiteName",
+    },
+    twitter: {
+      handle: "@handle",
+      site: "@site",
+      cardType: "summary_large_image",
+    },
+  };
+
+  it("Book SEO renders correctly", () => {
+    const tags = buildTags(BookSEO);
+    expect(tags).toMatchSnapshot();
+  });
+
+  it("Check book og type meta", () => {
+    const tags = buildTags(BookSEO);
+    render(<>{tags}</>);
+
+    const ogType = document.querySelectorAll(
+      `meta[content="${BookSEO.openGraph.type}"]`,
+    );
+    const ogTypeTag = document.querySelectorAll('meta[property="og:type"]');
+    const ogBookReleaseDate = document.querySelectorAll(
+      `meta[content="${BookSEO.openGraph.book.releaseDate}"]`,
+    );
+    const ogBookReleaseDateTag = document.querySelectorAll(
+      'meta[property="book:release_date"]',
+    );
+    const ogBookAuthor00 = document.querySelectorAll(
+      `meta[content="${BookSEO.openGraph.book.authors[0]}"]`,
+    );
+    const ogBookAuthorTag00 = tags.filter(
+      (item: any) => item?.key === "book:author:00",
+    );
+    const ogBookAuthor01 = document.querySelectorAll(
+      `meta[content="${BookSEO.openGraph.book.authors[1]}"]`,
+    );
+    const ogBookAuthorTag01 = tags.filter(
+      (item: any) => item?.key === "book:author:01",
+    );
+    const ogBookIsbn = document.querySelectorAll(
+      `meta[content="${BookSEO.openGraph.book.isbn}"]`,
+    );
+    const ogBookIsbnTag = document.querySelectorAll(
+      'meta[property="book:isbn"]',
+    );
+    const ogBookTags00 = document.querySelectorAll(
+      `meta[content="${BookSEO.openGraph.book.tags[0]}"]`,
+    );
+    const ogBookTagsTag00 = tags.filter(
+      (item: any) => item?.key === "book:tag:00",
+    );
+    const ogBookTags01 = document.querySelectorAll(
+      `meta[content="${BookSEO.openGraph.book.tags[1]}"]`,
+    );
+    const ogBookTagsTag01 = tags.filter(
+      (item: any) => item?.key === "book:tag:01",
+    );
+
+    expect(Array.from(ogType).length).toBe(1);
+    expect(Array.from(ogTypeTag).length).toBe(1);
+    expect(Array.from(ogBookReleaseDate).length).toBe(1);
+    expect(Array.from(ogBookReleaseDateTag).length).toBe(1);
+    expect(Array.from(ogBookAuthor00).length).toBe(1);
+    expect(Array.from(ogBookAuthorTag00).length).toBe(1);
+    expect(Array.from(ogBookAuthor01).length).toBe(1);
+    expect(Array.from(ogBookAuthorTag01).length).toBe(1);
+    expect(Array.from(ogBookIsbn).length).toBe(1);
+    expect(Array.from(ogBookIsbnTag).length).toBe(1);
+    expect(Array.from(ogBookTags00).length).toBe(1);
+    expect(Array.from(ogBookTagsTag00).length).toBe(1);
+    expect(Array.from(ogBookTags01).length).toBe(1);
+    expect(Array.from(ogBookTagsTag01).length).toBe(1);
+  });
+
+  const ProfileSEO = {
+    title: "Profile Page Title",
+    description: "Description of profile page",
+    openGraph: {
+      title: "Open Graph Profile Title",
+      description: "Description of open graph profile",
+      url: "https://www.example.com/@firstlast123",
+      type: "profile",
+      profile: {
+        firstName: "First",
+        lastName: "Last",
+        username: "firstlast123",
+        gender: "male",
+      },
+      images: [
+        {
+          url: "https://www.test.ie/og-image-firstlast123-01.jpg",
+          width: 850,
+          height: 650,
+          alt: "Og Image Alt firstlast123 A",
+        },
+        {
+          url: "https://www.test.ie/og-image-firstlast123-02.jpg",
+          width: 950,
+          height: 850,
+          alt: "Og Image Alt firstlast123 B",
+        },
+      ],
+      siteName: "SiteName",
+      site_name: "SiteName",
+    },
+    twitter: {
+      handle: "@handle",
+      site: "@site",
+      cardType: "summary_large_image",
+    },
+  };
+
+  it("Profile SEO renders correctly", () => {
+    const tags = buildTags(ProfileSEO);
+    expect(tags).toMatchSnapshot();
+  });
+
+  it("Check profile og type meta", () => {
+    const tags = buildTags(ProfileSEO);
+    render(<>{tags}</>);
+
+    const ogType = document.querySelectorAll(
+      `meta[content="${ProfileSEO.openGraph.type}"]`,
+    );
+    const ogTypeTag = document.querySelectorAll('meta[property="og:type"]');
+    const ogProfileFirstName = document.querySelectorAll(
+      `meta[content="${ProfileSEO.openGraph.profile.firstName}"]`,
+    );
+    const ogProfileFirstNameTag = document.querySelectorAll(
+      'meta[property="profile:first_name"]',
+    );
+    const ogProfileLastName = document.querySelectorAll(
+      `meta[content="${ProfileSEO.openGraph.profile.lastName}"]`,
+    );
+    const ogProfileLastNameTag = document.querySelectorAll(
+      'meta[property="profile:last_name"]',
+    );
+    const ogProfileUsername = document.querySelectorAll(
+      `meta[content="${ProfileSEO.openGraph.profile.username}"]`,
+    );
+    const ogProfileUsernameTag = document.querySelectorAll(
+      'meta[property="profile:username"]',
+    );
+    const ogProfileGender = document.querySelectorAll(
+      `meta[content="${ProfileSEO.openGraph.profile.gender}"]`,
+    );
+    const ogProfileGenderTag = document.querySelectorAll(
+      'meta[property="profile:gender"]',
+    );
+
+    expect(Array.from(ogType).length).toBe(1);
+    expect(Array.from(ogTypeTag).length).toBe(1);
+    expect(Array.from(ogProfileFirstName).length).toBe(1);
+    expect(Array.from(ogProfileFirstNameTag).length).toBe(1);
+    expect(Array.from(ogProfileLastName).length).toBe(1);
+    expect(Array.from(ogProfileLastNameTag).length).toBe(1);
+    expect(Array.from(ogProfileUsername).length).toBe(1);
+    expect(Array.from(ogProfileUsernameTag).length).toBe(1);
+    expect(Array.from(ogProfileGender).length).toBe(1);
+    expect(Array.from(ogProfileGenderTag).length).toBe(1);
+  });
+
+  const VideoSEO = {
+    title: "Video Page Title",
+    description: "Description of video page",
+    openGraph: {
+      title: "Open Graph Video Title",
+      description: "Description of open graph video",
+      url: "https://www.example.com/videos/video-title",
+      type: "video.movie",
+      video: {
+        actors: [
           {
-            url: "https://example.com/image.jpg",
-            width: 800,
-            height: 600,
-            alt: "Test Image",
+            profile: "https://www.example.com/actors/@firstnameA-lastnameA",
+            role: "Protagonist",
+          },
+          {
+            profile: "https://www.example.com/actors/@firstnameB-lastnameB",
+            role: "Antagonist",
           },
         ],
+        directors: [
+          "https://www.example.com/directors/@firstnameA-lastnameA",
+          "https://www.example.com/directors/@firstnameB-lastnameB",
+        ],
+        writers: [
+          "https://www.example.com/writers/@firstnameA-lastnameA",
+          "https://www.example.com/writers/@firstnameB-lastnameB",
+        ],
+        duration: 680000,
+        releaseDate: "2022-12-21T22:04:11Z",
+        tags: ["Tag A", "Tag B"],
       },
-    };
-
-    const tags = buildTags(config);
-
-    const ogImage = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "og:image";
-    }) as ReactElement<any> | undefined;
-    expect(ogImage?.props.content).toBe("https://example.com/image.jpg");
-
-    const ogImageWidth = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "og:image:width";
-    }) as ReactElement<any> | undefined;
-    expect(ogImageWidth?.props.content).toBe("800");
-
-    const ogImageHeight = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "og:image:height";
-    }) as ReactElement<any> | undefined;
-    expect(ogImageHeight?.props.content).toBe("600");
-
-    const ogImageAlt = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "og:image:alt";
-    }) as ReactElement<any> | undefined;
-    expect(ogImageAlt?.props.content).toBe("Test Image");
-  });
-
-  it("builds Twitter tags", () => {
-    const config: BuildTagsParams = {
-      twitter: {
-        cardType: "summary_large_image",
-        site: "@site",
-        handle: "@handle",
-      },
-    };
-
-    const tags = buildTags(config);
-
-    const twitterCard = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.name === "twitter:card";
-    }) as ReactElement<any> | undefined;
-    expect(twitterCard?.props.content).toBe("summary_large_image");
-
-    const twitterSite = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.name === "twitter:site";
-    }) as ReactElement<any> | undefined;
-    expect(twitterSite?.props.content).toBe("@site");
-
-    const twitterCreator = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.name === "twitter:creator";
-    }) as ReactElement<any> | undefined;
-    expect(twitterCreator?.props.content).toBe("@handle");
-  });
-
-  it("applies title template", () => {
-    const config: BuildTagsParams = {
-      title: "Page Title",
-      titleTemplate: "MySite | %s",
-    };
-
-    const tags = buildTags(config);
-    const titleTag = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.type === "title";
-    }) as ReactElement<any> | undefined;
-
-    expect(titleTag?.props.children).toBe("MySite | Page Title");
-  });
-
-  it("uses defaultTitle when title is not provided", () => {
-    const config: BuildTagsParams = {
-      defaultTitle: "Default Title",
-    };
-
-    const tags = buildTags(config);
-    const titleTag = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.type === "title";
-    }) as ReactElement<any> | undefined;
-
-    expect(titleTag?.props.children).toBe("Default Title");
-  });
-
-  it("builds additional meta tags", () => {
-    const config: BuildTagsParams = {
-      additionalMetaTags: [
+      images: [
         {
-          property: "dc:creator",
-          content: "Jane Doe",
+          url: "https://www.test.ie/og-image-video-title-01.jpg",
+          width: 850,
+          height: 650,
+          alt: "Og Image Alt Video Title A",
         },
         {
-          name: "application-name",
-          content: "NextSeo",
+          url: "https://www.test.ie/og-image-video-title-02.jpg",
+          width: 950,
+          height: 850,
+          alt: "Og Image Alt Video Title B",
         },
       ],
-    };
+      siteName: "SiteName",
+      site_name: "SiteName",
+    },
+    twitter: {
+      handle: "@handle",
+      site: "@site",
+      cardType: "summary_large_image",
+    },
+  };
 
-    const tags = buildTags(config);
-
-    const dcCreator = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "dc:creator";
-    }) as ReactElement<any> | undefined;
-    expect(dcCreator?.props.content).toBe("Jane Doe");
-
-    const appName = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.name === "application-name";
-    }) as ReactElement<any> | undefined;
-    expect(appName?.props.content).toBe("NextSeo");
+  it("Video SEO renders correctly", () => {
+    const tags = buildTags(VideoSEO);
+    expect(tags).toMatchSnapshot();
   });
 
-  it("builds additional link tags", () => {
-    const config: BuildTagsParams = {
-      additionalLinkTags: [
-        {
-          rel: "icon",
-          href: "https://example.com/favicon.ico",
-        },
-        {
-          rel: "apple-touch-icon",
-          href: "https://example.com/apple-touch-icon.png",
-          sizes: "76x76",
-        },
-      ],
-    };
+  it("Check video og type meta", () => {
+    const tags = buildTags(VideoSEO);
+    render(<>{tags}</>);
 
-    const tags = buildTags(config);
-
-    const icon = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.rel === "icon";
-    }) as ReactElement<any> | undefined;
-    expect(icon?.props.href).toBe("https://example.com/favicon.ico");
-
-    const appleTouchIcon = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.rel === "apple-touch-icon";
-    }) as ReactElement<any> | undefined;
-    expect(appleTouchIcon?.props.href).toBe(
-      "https://example.com/apple-touch-icon.png",
+    const ogType = document.querySelectorAll(
+      `meta[content="${VideoSEO.openGraph.type}"]`,
     );
-    expect(appleTouchIcon?.props.sizes).toBe("76x76");
+    const ogTypeTag = document.querySelectorAll('meta[property="og:type"]');
+    const ogVideoReleaseDate = document.querySelectorAll(
+      `meta[content="${VideoSEO.openGraph.video.releaseDate}"]`,
+    );
+    const ogVideoReleaseDateTag = document.querySelectorAll(
+      'meta[property="video:release_date"]',
+    );
+    const ogVideoDuration = document.querySelectorAll(
+      `meta[content="${VideoSEO.openGraph.video.duration}"]`,
+    );
+    const ogVideoDurationTag = document.querySelectorAll(
+      'meta[property="video:duration"]',
+    );
+    const ogVideoActors00 = document.querySelectorAll(
+      `meta[content="${VideoSEO.openGraph.video.actors[0].profile}"]`,
+    );
+    const ogVideoActorsTag00 = tags.filter(
+      (item: any) => item?.key === "video:actor:00",
+    );
+    const ogVideoActors01 = document.querySelectorAll(
+      `meta[content="${VideoSEO.openGraph.video.actors[1].profile}"]`,
+    );
+    const ogVideoActorsTag01 = tags.filter(
+      (item: any) => item?.key === "video:actor:01",
+    );
+    const ogVideoActorsRoles00 = document.querySelectorAll(
+      `meta[content="${VideoSEO.openGraph.video.actors[0].role}"]`,
+    );
+    const ogVideoActorsRolesTag00 = tags.filter(
+      (item: any) => item?.key === "video:actor:role:00",
+    );
+    const ogVideoActorsRoles01 = document.querySelectorAll(
+      `meta[content="${VideoSEO.openGraph.video.actors[1].role}"]`,
+    );
+    const ogVideoActorsRolesTag01 = tags.filter(
+      (item: any) => item?.key === "video:actor:role:01",
+    );
+    const ogVideoDirectors00 = document.querySelectorAll(
+      `meta[content="${VideoSEO.openGraph.video.directors[0]}"]`,
+    );
+    const ogVideoDirectorsTag00 = tags.filter(
+      (item: any) => item?.key === "video:director:00",
+    );
+    const ogVideoDirectors01 = document.querySelectorAll(
+      `meta[content="${VideoSEO.openGraph.video.directors[1]}"]`,
+    );
+    const ogVideoDirectorsTag01 = tags.filter(
+      (item: any) => item?.key === "video:director:01",
+    );
+    const ogVideoWriters00 = document.querySelectorAll(
+      `meta[content="${VideoSEO.openGraph.video.writers[0]}"]`,
+    );
+    const ogVideoWritersTag00 = tags.filter(
+      (item: any) => item?.key === "video:writer:00",
+    );
+    const ogVideoWriters01 = document.querySelectorAll(
+      `meta[content="${VideoSEO.openGraph.video.writers[1]}"]`,
+    );
+    const ogVideoWritersTag01 = tags.filter(
+      (item: any) => item?.key === "video:writer:01",
+    );
+    const ogVideoTags00 = document.querySelectorAll(
+      `meta[content="${ArticleSEO.openGraph.article.tags[0]}"]`,
+    );
+    const ogVideoTagsTag00 = tags.filter(
+      (item: any) => item?.key === "video:tag:00",
+    );
+    const ogVideoTags01 = document.querySelectorAll(
+      `meta[content="${VideoSEO.openGraph.video.tags[1]}"]`,
+    );
+    const ogVideoTagsTag01 = tags.filter(
+      (item: any) => item?.key === "video:tag:01",
+    );
+
+    expect(Array.from(ogType).length).toBe(1);
+    expect(Array.from(ogTypeTag).length).toBe(1);
+    expect(Array.from(ogVideoReleaseDate).length).toBe(1);
+    expect(Array.from(ogVideoReleaseDateTag).length).toBe(1);
+    expect(Array.from(ogVideoDuration).length).toBe(1);
+    expect(Array.from(ogVideoDurationTag).length).toBe(1);
+    expect(Array.from(ogVideoActors00).length).toBe(1);
+    expect(Array.from(ogVideoActorsTag00).length).toBe(1);
+    expect(Array.from(ogVideoActors01).length).toBe(1);
+    expect(Array.from(ogVideoActorsTag01).length).toBe(1);
+    expect(Array.from(ogVideoActorsRoles00).length).toBe(1);
+    expect(Array.from(ogVideoActorsRolesTag00).length).toBe(1);
+    expect(Array.from(ogVideoActorsRoles01).length).toBe(1);
+    expect(Array.from(ogVideoActorsRolesTag01).length).toBe(1);
+    expect(Array.from(ogVideoDirectors00).length).toBe(1);
+    expect(Array.from(ogVideoDirectorsTag00).length).toBe(1);
+    expect(Array.from(ogVideoDirectors01).length).toBe(1);
+    expect(Array.from(ogVideoDirectorsTag01).length).toBe(1);
+    expect(Array.from(ogVideoWriters00).length).toBe(1);
+    expect(Array.from(ogVideoWritersTag00).length).toBe(1);
+    expect(Array.from(ogVideoWriters01).length).toBe(1);
+    expect(Array.from(ogVideoWritersTag01).length).toBe(1);
+    expect(Array.from(ogVideoTags00).length).toBe(1);
+    expect(Array.from(ogVideoTagsTag00).length).toBe(1);
+    expect(Array.from(ogVideoTags01).length).toBe(1);
+    expect(Array.from(ogVideoTagsTag01).length).toBe(1);
   });
 
-  it("builds robots props correctly", () => {
-    const config: BuildTagsParams = {
+  it("additional meta tags are set", () => {
+    const overrideProps: BuildTagsParams = {
+      ...SEO,
+      additionalMetaTags: [
+        { property: "random", content: "something" },
+        { name: "foo", content: "bar" },
+        { httpEquiv: "x-ua-compatible", content: "IE=edge; chrome=1" },
+      ],
+    };
+    const tags = buildTags(overrideProps);
+    render(<>{tags}</>);
+    const propertyTag = document.querySelectorAll('meta[content="something"]');
+    const nameTag = document.querySelectorAll('meta[content="bar"]');
+    const httpEquivTag = document.querySelectorAll(
+      'meta[content="IE=edge; chrome=1"]',
+    );
+    expect(Array.from(propertyTag).length).toBe(1);
+    expect(Array.from(nameTag).length).toBe(1);
+    expect(Array.from(httpEquivTag).length).toBe(1);
+  });
+
+  it("uses key override to render multiple additional meta tags with the same key", () => {
+    const overrideProps: BuildTagsParams = {
+      ...SEO,
+      additionalMetaTags: [
+        { property: "foo", content: "Foo 1", keyOverride: "foo1" },
+        { property: "foo", content: "Foo 2", keyOverride: "foo2" },
+        { name: "bar", content: "Bar 1", keyOverride: "bar1" },
+        { name: "bar", content: "Bar 2", keyOverride: "bar2" },
+      ],
+    };
+    const tags = buildTags(overrideProps);
+    render(<>{tags}</>);
+
+    const propertyTags = document.querySelectorAll('meta[property="foo"]');
+    expect(Array.from(propertyTags).length).toBe(2);
+    expect(propertyTags[0]).not.toHaveAttribute("keyoverride");
+
+    const nameTags = document.querySelectorAll('meta[name="bar"]');
+    expect(Array.from(nameTags).length).toBe(2);
+    expect(nameTags[0]).not.toHaveAttribute("keyoverride");
+  });
+
+  it("correctly sets noindex default", () => {
+    const overrideProps: BuildTagsParams = {
+      ...SEO,
+      dangerouslySetAllPagesToNoIndex: true,
+    };
+    const tags = buildTags(overrideProps);
+    render(<>{tags}</>);
+    const indexfollow = document.querySelectorAll(
+      'meta[content="index,follow"]',
+    );
+    const noindexfollow = document.querySelectorAll(
+      'meta[content="noindex,follow"]',
+    );
+
+    expect(Array.from(indexfollow).length).toBe(0);
+    expect(Array.from(noindexfollow).length).toBe(1);
+  });
+
+  it("correctly sets nofollow default", () => {
+    const overrideProps: BuildTagsParams = {
+      ...SEO,
+      dangerouslySetAllPagesToNoFollow: true,
+    };
+    const tags = buildTags(overrideProps);
+    render(<>{tags}</>);
+    const indexfollow = document.querySelectorAll(
+      'meta[content="index,follow"]',
+    );
+    const noindexnofollow = document.querySelectorAll(
+      'meta[content="noindex,nofollow"]',
+    );
+
+    expect(Array.from(indexfollow).length).toBe(0);
+    expect(Array.from(noindexnofollow).length).toBe(1);
+  });
+
+  it("correctly read noindex & nofollow false", () => {
+    const overrideProps: BuildTagsParams = {
+      ...SEO,
+      noindex: false,
+      nofollow: false,
+    };
+    const tags = buildTags(overrideProps);
+    render(<>{tags}</>);
+    const indexfollow = document.querySelectorAll(
+      'meta[content="index,follow"]',
+    );
+    const noindexnofollow = document.querySelectorAll(
+      'meta[content="noindex,nofollow"]',
+    );
+
+    expect(Array.from(indexfollow).length).toBe(1);
+    expect(Array.from(noindexnofollow).length).toBe(0);
+  });
+
+  it("correctly read all robots props", () => {
+    const overrideProps = {
+      ...SEO,
+      noindex: true,
+      nofollow: true,
       robotsProps: {
         nosnippet: true,
-        maxSnippet: 150,
-        maxImagePreview: "large",
+        notranslate: true,
+        noimageindex: true,
         noarchive: true,
+        maxSnippet: -1,
+        maxImagePreview: "none" as ImagePrevSize,
+        maxVideoPreview: -1,
       },
     };
+    const tags = buildTags(overrideProps);
+    render(<>{tags}</>);
+    const content = document.querySelectorAll(
+      'meta[content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate"]',
+    );
 
-    const tags = buildTags(config);
-    const robotsTag = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.name === "robots";
-    }) as ReactElement<any> | undefined;
-
-    expect(robotsTag?.props.content).toContain("nosnippet");
-    expect(robotsTag?.props.content).toContain("max-snippet:150");
-    expect(robotsTag?.props.content).toContain("max-image-preview:large");
-    expect(robotsTag?.props.content).toContain("noarchive");
-  });
-
-  it("handles OpenGraph article type", () => {
-    const config: BuildTagsParams = {
-      openGraph: {
-        type: "article",
-        article: {
-          publishedTime: "2024-01-01T00:00:00Z",
-          modifiedTime: "2024-01-02T00:00:00Z",
-          authors: ["Author 1", "Author 2"],
-          section: "Technology",
-          tags: ["tag1", "tag2"],
-        },
-      },
-    };
-
-    const tags = buildTags(config);
-
-    const publishedTime = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "article:published_time";
-    }) as ReactElement<any> | undefined;
-    expect(publishedTime?.props.content).toBe("2024-01-01T00:00:00Z");
-
-    const section = tags.find((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "article:section";
-    }) as ReactElement<any> | undefined;
-    expect(section?.props.content).toBe("Technology");
-
-    const authors = tags.filter((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.property === "article:author";
-    }) as ReactElement<any>[];
-    expect(authors).toHaveLength(2);
-    expect(authors[0]?.props.content).toBe("Author 1");
-    expect(authors[1]?.props.content).toBe("Author 2");
-  });
-
-  it("handles language alternates", () => {
-    const config: BuildTagsParams = {
-      languageAlternates: [
-        {
-          hrefLang: "de",
-          href: "https://example.com/de",
-        },
-        {
-          hrefLang: "fr",
-          href: "https://example.com/fr",
-        },
-      ],
-    };
-
-    const tags = buildTags(config);
-
-    const alternates = tags.filter((tag) => {
-      const elem = tag as ReactElement<any>;
-      return elem?.props?.rel === "alternate" && elem?.props?.hrefLang;
-    }) as ReactElement<any>[];
-
-    expect(alternates).toHaveLength(2);
-    expect(alternates[0]?.props.hrefLang).toBe("de");
-    expect(alternates[0]?.props.href).toBe("https://example.com/de");
-    expect(alternates[1]?.props.hrefLang).toBe("fr");
-    expect(alternates[1]?.props.href).toBe("https://example.com/fr");
+    const contentOverride = document.querySelectorAll(
+      'meta[content="noindex,nofollow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate"]',
+    );
+    expect(Array.from(content).length).toBe(0);
+    expect(Array.from(contentOverride).length).toBe(1);
   });
 });
