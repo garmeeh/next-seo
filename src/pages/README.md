@@ -22,35 +22,40 @@ Import from `next-seo/pages` instead of `next-seo`:
 import { NextSeo, DefaultSeo } from "next-seo/pages";
 ```
 
+> **Important:** In Pages Router, you need to wrap the SEO components with Next.js's `<Head>` component to ensure the meta tags are properly rendered in the document head.
+
 ### NextSeo Component
 
 Add SEO meta tags to individual pages:
 
 ```tsx
 // pages/about.tsx
+import Head from "next/head";
 import { NextSeo } from "next-seo/pages";
 
 export default function AboutPage() {
   return (
     <>
-      <NextSeo
-        title="About Us"
-        description="Learn more about our company"
-        canonical="https://example.com/about"
-        openGraph={{
-          url: "https://example.com/about",
-          title: "About Us",
-          description: "Learn more about our company",
-          images: [
-            {
-              url: "https://example.com/og-image.jpg",
-              width: 800,
-              height: 600,
-              alt: "About Us",
-            },
-          ],
-        }}
-      />
+      <Head>
+        <NextSeo
+          title="About Us"
+          description="Learn more about our company"
+          canonical="https://example.com/about"
+          openGraph={{
+            url: "https://example.com/about",
+            title: "About Us",
+            description: "Learn more about our company",
+            images: [
+              {
+                url: "https://example.com/og-image.jpg",
+                width: 800,
+                height: 600,
+                alt: "About Us",
+              },
+            ],
+          }}
+        />
+      </Head>
       <h1>About Us</h1>
       {/* Page content */}
     </>
@@ -65,6 +70,7 @@ Set global SEO defaults in your `_app.tsx`:
 ```tsx
 // pages/_app.tsx
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import { DefaultSeo } from "next-seo/pages";
 
 const DEFAULT_SEO = {
@@ -87,7 +93,9 @@ const DEFAULT_SEO = {
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <DefaultSeo {...DEFAULT_SEO} />
+      <Head>
+        <DefaultSeo {...DEFAULT_SEO} />
+      </Head>
       <Component {...pageProps} />
     </>
   );

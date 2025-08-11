@@ -11,7 +11,7 @@ export default defineConfig({
   sourcemap: true,
   clean: true,
   dts: true,
-  external: ["react", "next"],
+  external: ["react"],
   esbuildOptions(options) {
     options.alias = {
       "~": path.resolve(__dirname, "./src"),

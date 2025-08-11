@@ -5,7 +5,7 @@
   "sideEffects": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/garmeeh/next-seo"
+    "url": "git+https://github.com/garmeeh/next-seo.git"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
