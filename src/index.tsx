@@ -72,4 +72,5 @@ export {
   CampgroundJsonLdProps,
 } from './jsonld/campground';
 export { default as ParkJsonLd, ParkJsonLdProps } from './jsonld/park';
+export { JsonLd, JsonLdProps } from './jsonld/jsonld';
 export { DefaultSeoProps, NextSeoProps } from './types';
