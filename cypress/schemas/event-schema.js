@@ -1,7 +1,7 @@
 import { versionSchemas } from '@cypress/schema-tools';
 
 import address100 from './address';
-import { offers101 } from "./common"
+import { offers101 } from './common';
 
 const location100 = {
   version: {
@@ -142,7 +142,7 @@ const event100 = {
     performer: {
       '@type': 'PerformingGroup',
       name: 'Kira and Morrison',
-    }
+    },
   },
 };
 

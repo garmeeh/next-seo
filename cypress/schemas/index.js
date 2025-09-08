@@ -30,7 +30,6 @@ import imageVersions from './image-schema';
 import campgroundVersions from './campground-schema';
 import parkVersions from './park-schema';
 
-
 const schemas = combineSchemas(
   articleVersions,
   breadCrumbVersions,

@@ -109,6 +109,10 @@ If you are using **`pages`** directory then `NextSeo` is **exactly what you need
   - [Collection Page](#collection-page)
   - [Profile page](#profile-page)
   - [Carousel](#carousel)
+    - [Google Carousels (Beta)](#google-carousels-beta)
+      - [LocalBusiness Example](#localbusiness-example)
+      - [Product Example](#product-example)
+      - [Event Example](#event-example)
     - [Default (Summary List)](#default-summary-list)
     - [Course](#course-1)
     - [Movie](#movie)
@@ -2890,6 +2894,129 @@ export default Page;
 For reference and more info check [Profile Page DataType](https://schema.org/ProfilePage)
 
 ### Carousel
+
+#### Google Carousels (Beta)
+
+**[BETA]** Google Search now supports carousels for LocalBusiness (and subtypes), Product, and Event. See [official docs](https://developers.google.com/search/docs/appearance/structured-data/carousels-beta).
+
+##### LocalBusiness Example
+
+```jsx
+import React from 'react';
+import { CarouselJsonLd } from 'next-seo';
+
+export default () => (
+  <>
+    <h1>Carousel LocalBusiness JSON-LD</h1>
+    <CarouselJsonLd
+      ofType="localBusiness"
+      data={[
+        {
+          name: 'Test Hotel',
+          url: 'http://example.com/hotel-1.html',
+          image: [
+            'https://example.com/photos/1x1/photo.jpg',
+            'https://example.com/photos/4x3/photo.jpg',
+            'https://example.com/photos/16x9/photo.jpg',
+          ],
+          priceRange: '$$$',
+          amenityFeature: {
+            '@type': 'LocationFeatureSpecification',
+            name: 'freeWifi',
+            value: true,
+          },
+          aggregateRating: { ratingValue: 4.8, reviewCount: 100 },
+        },
+        // ...more items
+      ]}
+    />
+  </>
+);
+```
+
+**Required properties:**
+
+| Property | Info                   |
+| -------- | ---------------------- |
+| `name`   | Name of the business   |
+| `url`    | URL of the detail page |
+| `image`  | Array of image URLs    |
+
+**Recommended:** `priceRange`, `servesCuisine`, `amenityFeature`, `aggregateRating`
+
+##### Product Example
+
+```jsx
+<CarouselJsonLd
+  ofType="product"
+  data={[
+    {
+      name: 'Test Product',
+      url: 'http://example.com/product-1.html',
+      image: [
+        'https://example.com/photos/1x1/photo.jpg',
+        'https://example.com/photos/4x3/photo.jpg',
+        'https://example.com/photos/16x9/photo.jpg',
+      ],
+      offers: {
+        '@type': 'Offer',
+        price: 99.99,
+        priceCurrency: 'USD',
+      },
+      aggregateRating: { ratingValue: 4.5, reviewCount: 50 },
+    },
+    // ...more items
+  ]}
+/>
+```
+
+**Required properties:**
+
+| Property | Info                           |
+| -------- | ------------------------------ |
+| `name`   | Name of the product            |
+| `url`    | URL of the detail page         |
+| `image`  | Array of image URLs            |
+| `offers` | Offer or AggregateOffer object |
+
+**Recommended:** `aggregateRating`
+
+##### Event Example
+
+```jsx
+<CarouselJsonLd
+  ofType="event"
+  data={[
+    {
+      name: 'Test Event',
+      url: 'http://example.com/event-1.html',
+      image: [
+        'https://example.com/photos/1x1/photo.jpg',
+        'https://example.com/photos/4x3/photo.jpg',
+        'https://example.com/photos/16x9/photo.jpg',
+      ],
+      offers: {
+        '@type': 'Offer',
+        price: 10,
+        priceCurrency: 'EUR',
+      },
+      aggregateRating: { ratingValue: 4.2, reviewCount: 20 },
+    },
+    // ...more items
+  ]}
+/>
+```
+
+**Required properties:**
+
+| Property | Info                           |
+| -------- | ------------------------------ |
+| `name`   | Name of the event              |
+| `url`    | URL of the detail page         |
+| `image`  | Array of image URLs            |
+| `offers` | Offer or AggregateOffer object |
+
+**Recommended:** `aggregateRating`
 
 **Required properties of Carousel Component**
 

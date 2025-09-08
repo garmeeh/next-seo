@@ -129,8 +129,7 @@ const qaPage100 = {
     mainEntity: {
       '@type': 'Question',
       name: 'How many ounces are there in a pound?',
-      text:
-        'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
+      text: 'I have taken up a new interest in baking and keep running across directions in ounces and pounds. I have to translate between them and was wondering how many ounces are in a pound?',
       answerCount: 3,
       upvoteCount: 26,
       dateCreated: '2016-07-23T21:11Z',
@@ -152,8 +151,7 @@ const qaPage100 = {
       suggestedAnswer: [
         {
           '@type': 'Answer',
-          text:
-            'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
+          text: 'Are you looking for ounces or fluid ounces? If you are looking for fluid ounces there are 15.34 fluid ounces in a pound of water.',
           dateCreated: '2016-11-02T21:11Z',
           upvoteCount: 42,
           url: 'https://example.com/question1#suggestedAnswer1',
@@ -164,8 +162,7 @@ const qaPage100 = {
         },
         {
           '@type': 'Answer',
-          text:
-            " I can't remember exactly, but I think 18 ounces in a lb. You might want to double check that.",
+          text: " I can't remember exactly, but I think 18 ounces in a lb. You might want to double check that.",
           dateCreated: '2016-11-06T21:11Z',
           upvoteCount: 0,
           url: 'https://example.com/question1#suggestedAnswer2',
