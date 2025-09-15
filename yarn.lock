@@ -1791,10 +1791,12 @@
   dependencies:
     "@types/unist" "*"
 
-"@types/node@*", "@types/node@^20.3.2":
-  version "20.3.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.3.2.tgz#fa6a90f2600e052a03c18b8cb3fd83dd4e599898"
-  integrity sha512-vOBLVQeCQfIcF/2Y7eKFTqrMnizK5lRNQ7ykML/5RuwVXVWxYkgwS7xbt4B6fKCUPgbSL5FSsjHQpaGQP/dQmw==
+"@types/node@*", "@types/node@^24.4.0":
+  version "24.4.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-24.4.0.tgz#4ca9168c016a55ab15b7765ad1674ab807489600"
+  integrity sha512-gUuVEAK4/u6F9wRLznPUU4WGUacSEBDPoC2TrBkw3GAnOLHBL45QdfHOXp1kJ4ypBGLxTOB+t7NJLpKoC3gznQ==
+  dependencies:
+    undici-types "~7.11.0"
 
 "@types/node@^14.14.31":
   version "14.18.42"
@@ -7029,6 +7031,11 @@ underscore@^1.13.2:
   version "1.13.6"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.6.tgz#04786a1f589dc6c09f761fc5f45b89e935136441"
   integrity sha512-+A5Sja4HP1M08MaXya7p5LvjuM7K6q/2EaC0+iovj/wOcMsTzMvDFbasi/oSapiwOlt252IqsKqPjCl7huKS0A==
+
+undici-types@~7.11.0:
+  version "7.11.0"
+  resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-7.11.0.tgz#075798115d0bbc4e4fc7c173f38727ca66bfb592"
+  integrity sha512-kt1ZriHTi7MU+Z/r9DOdAI3ONdaR3M3csEaRc6ewa4f4dTvX4cQCbJ4NkEn0ohE4hHtq85+PhPSTY+pO/1PwgA==
 
 unicode-canonical-property-names-ecmascript@^2.0.0:
   version "2.0.0"
