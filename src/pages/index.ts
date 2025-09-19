@@ -5,9 +5,8 @@
  * Import from 'next-seo/pages'
  */
 
-// Export components
-export { NextSeo } from "./components/NextSeo";
-export { DefaultSeo } from "./components/DefaultSeo";
+// Export tag generation functions for direct use in Next.js <Head>
+export { generateNextSeo, generateDefaultSeo } from "./core/buildTags";
 
 // Export all types for TypeScript users
 export type {

@@ -1,5 +1,10 @@
 import { ReactNode } from "react";
-import { BuildTagsParams, OpenGraphMedia } from "../types";
+import {
+  BuildTagsParams,
+  OpenGraphMedia,
+  NextSeoProps,
+  DefaultSeoProps,
+} from "../types";
 const defaults = {
   templateTitle: "",
   noindex: false,
@@ -98,7 +103,7 @@ const buildOpenGraphMediaTags = (
   }, [] as ReactNode[]);
 };
 
-const buildTags = (config: BuildTagsParams) => {
+const generateSeoTags = (config: BuildTagsParams) => {
   const tagsToRender: ReactNode[] = [];
 
   if (config.titleTemplate) {
@@ -680,4 +685,114 @@ const buildTags = (config: BuildTagsParams) => {
   return tagsToRender;
 };
 
-export default buildTags;
+/**
+ * Generate SEO meta tags for Next.js
+ * This is the core function that creates all SEO-related tags
+ * @internal
+ */
+export { generateSeoTags };
+
+/**
+ * Generate SEO meta tags for NextSeo component
+ * Use this when you want to add SEO tags directly in Next.js <Head>
+ * without using the NextSeo component wrapper
+ *
+ * @example
+ * ```tsx
+ * import Head from 'next/head';
+ * import { generateNextSeo } from 'next-seo/pages';
+ *
+ * export default function Page() {
+ *   return (
+ *     <>
+ *       <Head>
+ *         {generateNextSeo({
+ *           title: "My Page Title",
+ *           description: "My page description"
+ *         })}
+ *       </Head>
+ *       <h1>Page Content</h1>
+ *     </>
+ *   );
+ * }
+ * ```
+ */
+export function generateNextSeo(props: NextSeoProps): ReactNode[] {
+  return generateSeoTags(props);
+}
+
+/**
+ * Generate default SEO meta tags for DefaultSeo component
+ * Use this when you want to set global SEO defaults directly in Next.js <Head>
+ * without using the DefaultSeo component wrapper
+ *
+ * @example
+ * ```tsx
+ * // pages/_app.tsx
+ * import Head from 'next/head';
+ * import { generateDefaultSeo } from 'next-seo/pages';
+ *
+ * export default function MyApp({ Component, pageProps }) {
+ *   return (
+ *     <>
+ *       <Head>
+ *         {generateDefaultSeo({
+ *           titleTemplate: "MySite | %s",
+ *           defaultTitle: "MySite",
+ *           description: "Default site description"
+ *         })}
+ *       </Head>
+ *       <Component {...pageProps} />
+ *     </>
+ *   );
+ * }
+ * ```
+ */
+export function generateDefaultSeo(props: DefaultSeoProps): ReactNode[] {
+  const {
+    title,
+    titleTemplate,
+    defaultTitle,
+    themeColor,
+    dangerouslySetAllPagesToNoIndex = false,
+    dangerouslySetAllPagesToNoFollow = false,
+    description,
+    canonical,
+    facebook,
+    openGraph,
+    additionalMetaTags,
+    twitter,
+    defaultOpenGraphImageWidth,
+    defaultOpenGraphImageHeight,
+    defaultOpenGraphVideoWidth,
+    defaultOpenGraphVideoHeight,
+    mobileAlternate,
+    languageAlternates,
+    additionalLinkTags,
+    robotsProps,
+    norobots,
+  } = props;
+  return generateSeoTags({
+    title,
+    titleTemplate,
+    defaultTitle,
+    themeColor,
+    dangerouslySetAllPagesToNoIndex,
+    dangerouslySetAllPagesToNoFollow,
+    description,
+    canonical,
+    facebook,
+    openGraph,
+    additionalMetaTags,
+    twitter,
+    defaultOpenGraphImageWidth,
+    defaultOpenGraphImageHeight,
+    defaultOpenGraphVideoWidth,
+    defaultOpenGraphVideoHeight,
+    mobileAlternate,
+    languageAlternates,
+    additionalLinkTags,
+    robotsProps,
+    norobots,
+  });
+}

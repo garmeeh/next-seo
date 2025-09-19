@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`buildTags > Article SEO renders correctly 1`] = `
+exports[`buildTags and generateSeoTags > Article SEO renders correctly 1`] = `
 [
   <title>
     Next SEO | Article Page Title
@@ -112,7 +112,7 @@ exports[`buildTags > Article SEO renders correctly 1`] = `
 ]
 `;
 
-exports[`buildTags > Book SEO renders correctly 1`] = `
+exports[`buildTags and generateSeoTags > Book SEO renders correctly 1`] = `
 [
   <title>
     Next SEO | Book Page Title
@@ -216,7 +216,7 @@ exports[`buildTags > Book SEO renders correctly 1`] = `
 ]
 `;
 
-exports[`buildTags > Profile SEO renders correctly 1`] = `
+exports[`buildTags and generateSeoTags > Profile SEO renders correctly 1`] = `
 [
   <title>
     Next SEO | Profile Page Title
@@ -312,7 +312,7 @@ exports[`buildTags > Profile SEO renders correctly 1`] = `
 ]
 `;
 
-exports[`buildTags > Video SEO renders correctly 1`] = `
+exports[`buildTags and generateSeoTags > Video SEO renders correctly 1`] = `
 [
   <title>
     Next SEO | Video Page Title
@@ -440,7 +440,7 @@ exports[`buildTags > Video SEO renders correctly 1`] = `
 ]
 `;
 
-exports[`buildTags > renders correctly 1`] = `
+exports[`buildTags and generateSeoTags > renders correctly 1`] = `
 [
   <title>
     This is a test title.

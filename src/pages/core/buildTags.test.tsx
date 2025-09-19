@@ -3,9 +3,13 @@ import { cleanup, render } from "@testing-library/react";
 import { describe, it, expect, afterEach } from "vitest";
 import { BuildTagsParams, ImagePrevSize } from "../types";
 
-import buildTags from "./buildTags";
+import {
+  generateSeoTags,
+  generateNextSeo,
+  generateDefaultSeo,
+} from "./buildTags";
 
-describe("buildTags", () => {
+describe("buildTags and generateSeoTags", () => {
   afterEach(cleanup);
 
   const SEO: BuildTagsParams = {
@@ -108,12 +112,12 @@ describe("buildTags", () => {
   };
 
   it("renders correctly", () => {
-    const tags = buildTags(SEO);
+    const tags = generateSeoTags(SEO);
     expect(tags).toMatchSnapshot();
   });
 
   it("returns full array for default seo object", () => {
-    const tags = buildTags(SEO);
+    const tags = generateSeoTags(SEO);
     render(<>{tags}</>);
 
     const title = Array.from(document.querySelectorAll("title")).find(
@@ -306,7 +310,7 @@ describe("buildTags", () => {
       ...SEO,
       noindex: true,
     };
-    const tags = buildTags(overrideProps);
+    const tags = generateSeoTags(overrideProps);
     render(<>{tags}</>);
     const index = document.querySelectorAll('meta[content="index,follow"]');
     const noindex = document.querySelectorAll('meta[content="noindex,follow"]');
@@ -320,7 +324,7 @@ describe("buildTags", () => {
       ...SEO,
       nofollow: true,
     };
-    const tags = buildTags(overrideProps);
+    const tags = generateSeoTags(overrideProps);
     render(<>{tags}</>);
     const indexfollow = document.querySelectorAll(
       'meta[content="index,follow"]',
@@ -338,7 +342,7 @@ describe("buildTags", () => {
       noindex: true,
       nofollow: true,
     };
-    const tags = buildTags(overrideProps);
+    const tags = generateSeoTags(overrideProps);
     render(<>{tags}</>);
     const indexfollow = document.querySelectorAll(
       'meta[content="index,follow"]',
@@ -357,7 +361,7 @@ describe("buildTags", () => {
       ...SEO,
       titleTemplate: `${template} | %s`,
     };
-    const tags = buildTags(overrideProps);
+    const tags = generateSeoTags(overrideProps);
     render(<>{tags}</>);
     const title = Array.from(document.querySelectorAll("title")).find(
       (element) => element.textContent?.startsWith(template),
@@ -371,7 +375,7 @@ describe("buildTags", () => {
       titleTemplate: `${defaultTitle} | %s`,
       defaultTitle,
     };
-    const tags = buildTags(props);
+    const tags = generateSeoTags(props);
     render(<>{tags}</>);
     const title = Array.from(document.querySelectorAll("title")).find(
       (element) => element.textContent?.startsWith(defaultTitle),
@@ -429,12 +433,12 @@ describe("buildTags", () => {
   };
 
   it("Article SEO renders correctly", () => {
-    const tags = buildTags(ArticleSEO);
+    const tags = generateSeoTags(ArticleSEO);
     expect(tags).toMatchSnapshot();
   });
 
   it("Check article og type meta", () => {
-    const tags = buildTags(ArticleSEO);
+    const tags = generateSeoTags(ArticleSEO);
     render(<>{tags}</>);
 
     const ogType = document.querySelectorAll(
@@ -552,12 +556,12 @@ describe("buildTags", () => {
   };
 
   it("Book SEO renders correctly", () => {
-    const tags = buildTags(BookSEO);
+    const tags = generateSeoTags(BookSEO);
     expect(tags).toMatchSnapshot();
   });
 
   it("Check book og type meta", () => {
-    const tags = buildTags(BookSEO);
+    const tags = generateSeoTags(BookSEO);
     render(<>{tags}</>);
 
     const ogType = document.querySelectorAll(
@@ -656,12 +660,12 @@ describe("buildTags", () => {
   };
 
   it("Profile SEO renders correctly", () => {
-    const tags = buildTags(ProfileSEO);
+    const tags = generateSeoTags(ProfileSEO);
     expect(tags).toMatchSnapshot();
   });
 
   it("Check profile og type meta", () => {
-    const tags = buildTags(ProfileSEO);
+    const tags = generateSeoTags(ProfileSEO);
     render(<>{tags}</>);
 
     const ogType = document.querySelectorAll(
@@ -761,12 +765,12 @@ describe("buildTags", () => {
   };
 
   it("Video SEO renders correctly", () => {
-    const tags = buildTags(VideoSEO);
+    const tags = generateSeoTags(VideoSEO);
     expect(tags).toMatchSnapshot();
   });
 
   it("Check video og type meta", () => {
-    const tags = buildTags(VideoSEO);
+    const tags = generateSeoTags(VideoSEO);
     render(<>{tags}</>);
 
     const ogType = document.querySelectorAll(
@@ -883,7 +887,7 @@ describe("buildTags", () => {
         { httpEquiv: "x-ua-compatible", content: "IE=edge; chrome=1" },
       ],
     };
-    const tags = buildTags(overrideProps);
+    const tags = generateSeoTags(overrideProps);
     render(<>{tags}</>);
     const propertyTag = document.querySelectorAll('meta[content="something"]');
     const nameTag = document.querySelectorAll('meta[content="bar"]');
@@ -905,7 +909,7 @@ describe("buildTags", () => {
         { name: "bar", content: "Bar 2", keyOverride: "bar2" },
       ],
     };
-    const tags = buildTags(overrideProps);
+    const tags = generateSeoTags(overrideProps);
     render(<>{tags}</>);
 
     const propertyTags = document.querySelectorAll('meta[property="foo"]');
@@ -922,7 +926,7 @@ describe("buildTags", () => {
       ...SEO,
       dangerouslySetAllPagesToNoIndex: true,
     };
-    const tags = buildTags(overrideProps);
+    const tags = generateSeoTags(overrideProps);
     render(<>{tags}</>);
     const indexfollow = document.querySelectorAll(
       'meta[content="index,follow"]',
@@ -940,7 +944,7 @@ describe("buildTags", () => {
       ...SEO,
       dangerouslySetAllPagesToNoFollow: true,
     };
-    const tags = buildTags(overrideProps);
+    const tags = generateSeoTags(overrideProps);
     render(<>{tags}</>);
     const indexfollow = document.querySelectorAll(
       'meta[content="index,follow"]',
@@ -959,7 +963,7 @@ describe("buildTags", () => {
       noindex: false,
       nofollow: false,
     };
-    const tags = buildTags(overrideProps);
+    const tags = generateSeoTags(overrideProps);
     render(<>{tags}</>);
     const indexfollow = document.querySelectorAll(
       'meta[content="index,follow"]',
@@ -987,7 +991,7 @@ describe("buildTags", () => {
         maxVideoPreview: -1,
       },
     };
-    const tags = buildTags(overrideProps);
+    const tags = generateSeoTags(overrideProps);
     render(<>{tags}</>);
     const content = document.querySelectorAll(
       'meta[content="index,follow,nosnippet,max-snippet:-1,max-image-preview:none,noarchive,noimageindex,max-video-preview:-1,notranslate"]',
@@ -998,5 +1002,50 @@ describe("buildTags", () => {
     );
     expect(Array.from(content).length).toBe(0);
     expect(Array.from(contentOverride).length).toBe(1);
+  });
+
+  describe("new generate functions", () => {
+    afterEach(cleanup); // Clean up after each test
+
+    it("generateNextSeo works correctly with titleTemplate override", () => {
+      // Override any existing titleTemplate by explicitly setting it
+      render(
+        <>
+          {generateNextSeo({
+            title: "Test NextSeo Title",
+            description: "Test NextSeo Description",
+            titleTemplate: "%s", // Use %s to just show the title without template
+          })}
+        </>,
+      );
+
+      const title = document.querySelector("title");
+      const description = document.querySelector('meta[name="description"]');
+
+      expect(title?.textContent).toBe("Test NextSeo Title");
+      expect(description?.getAttribute("content")).toBe(
+        "Test NextSeo Description",
+      );
+    });
+
+    it("generateDefaultSeo works correctly", () => {
+      render(
+        <>
+          {generateDefaultSeo({
+            defaultTitle: "Default Site Title",
+            description: "Default Site Description",
+            titleTemplate: "MySite | %s",
+          })}
+        </>,
+      );
+
+      const title = document.querySelector("title");
+      const description = document.querySelector('meta[name="description"]');
+
+      expect(title?.textContent).toBe("Default Site Title");
+      expect(description?.getAttribute("content")).toBe(
+        "Default Site Description",
+      );
+    });
   });
 });

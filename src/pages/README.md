@@ -1,8 +1,8 @@
 # Next SEO - Pages Router Support
 
-This directory contains SEO components for Next.js Pages Router applications.
+This directory contains SEO generation functions for Next.js Pages Router applications.
 
-> **Note:** These components are specifically for Pages Router. For App Router applications, use the main next-seo package exports instead.
+> **Note:** These functions are specifically for Pages Router. For App Router applications, use the main next-seo package exports instead.
 
 ## Installation
 
@@ -19,29 +19,29 @@ pnpm add next-seo
 Import from `next-seo/pages` instead of `next-seo`:
 
 ```tsx
-import { NextSeo, DefaultSeo } from "next-seo/pages";
+import { generateNextSeo, generateDefaultSeo } from "next-seo/pages";
 ```
 
-> **Important:** In Pages Router, you need to wrap the SEO components with Next.js's `<Head>` component to ensure the meta tags are properly rendered in the document head.
+> **Important:** In Pages Router, you need to wrap the generated SEO tags with Next.js's `<Head>` component to ensure the meta tags are properly rendered in the document head.
 
-### NextSeo Component
+### generateNextSeo Function
 
 Add SEO meta tags to individual pages:
 
 ```tsx
 // pages/about.tsx
 import Head from "next/head";
-import { NextSeo } from "next-seo/pages";
+import { generateNextSeo } from "next-seo/pages";
 
 export default function AboutPage() {
   return (
     <>
       <Head>
-        <NextSeo
-          title="About Us"
-          description="Learn more about our company"
-          canonical="https://example.com/about"
-          openGraph={{
+        {generateNextSeo({
+          title: "About Us",
+          description: "Learn more about our company",
+          canonical: "https://example.com/about",
+          openGraph: {
             url: "https://example.com/about",
             title: "About Us",
             description: "Learn more about our company",
@@ -53,8 +53,8 @@ export default function AboutPage() {
                 alt: "About Us",
               },
             ],
-          }}
-        />
+          },
+        })}
       </Head>
       <h1>About Us</h1>
       {/* Page content */}
@@ -63,7 +63,7 @@ export default function AboutPage() {
 }
 ```
 
-### DefaultSeo Component
+### generateDefaultSeo Function
 
 Set global SEO defaults in your `_app.tsx`:
 
@@ -71,7 +71,7 @@ Set global SEO defaults in your `_app.tsx`:
 // pages/_app.tsx
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { DefaultSeo } from "next-seo/pages";
+import { generateDefaultSeo } from "next-seo/pages";
 
 const DEFAULT_SEO = {
   titleTemplate: "MySite | %s",
@@ -93,9 +93,7 @@ const DEFAULT_SEO = {
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Head>
-        <DefaultSeo {...DEFAULT_SEO} />
-      </Head>
+      <Head>{generateDefaultSeo(DEFAULT_SEO)}</Head>
       <Component {...pageProps} />
     </>
   );
@@ -178,14 +176,16 @@ additionalLinkTags={[
 
 ## Migration from Legacy Import
 
-If you're using the old import path, update your imports:
+If you're using the old import path or component-based approach, update your code:
 
 ```tsx
-// Old (deprecated)
+// Old (deprecated components)
 import { NextSeo, DefaultSeo } from "next-seo";
+// Usage: <NextSeo title="..." />
 
-// New (Pages Router)
-import { NextSeo, DefaultSeo } from "next-seo/pages";
+// New (Pages Router functions)
+import { generateNextSeo, generateDefaultSeo } from "next-seo/pages";
+// Usage: {generateNextSeo({ title: "..." })}
 ```
 
 ## TypeScript Support
