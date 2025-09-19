@@ -3,13 +3,21 @@ import React from 'react';
 import { JsonLd, JsonLdProps } from './jsonld';
 
 import type { CourseJsonLdProps, RecipeJsonLdProps } from 'src/index';
-import type { Review, AggregateRating } from 'src/types';
+import type {
+  Review,
+  AggregateRating,
+  LocalBusinessJsonLdProps,
+  ProductJsonLdProps,
+  EventJsonLdProps,
+} from 'src/types';
 import { setReviews } from 'src/utils/schema/setReviews';
 import { setAuthor } from 'src/utils/schema/setAuthor';
 import { setNutrition } from 'src/utils/schema/setNutrition';
 import { setAggregateRating } from 'src/utils/schema/setAggregateRating';
 import { setVideo } from 'src/utils/schema/setVideo';
 import { setInstruction } from 'src/utils/schema/setInstruction';
+import { setOffers } from 'src/utils/schema/setOffers';
+import { setAggregateOffer } from 'src/utils/schema/setAggregateOffer';
 
 type Director = {
   name: string;
@@ -44,13 +52,24 @@ export interface CustomJsonLdProps {
 }
 
 export interface CarouselJsonLdProps extends JsonLdProps {
-  ofType: 'default' | 'movie' | 'recipe' | 'course' | 'custom';
+  ofType:
+    | 'default'
+    | 'movie'
+    | 'recipe'
+    | 'course'
+    | 'localBusiness'
+    | 'product'
+    | 'event'
+    | 'custom';
   data:
     | any
     | DefaultDataProps[]
     | MovieJsonLdProps[]
     | ExtendedCourseJsonLdProps[]
     | ExtendedRecipeJsonLdProps[]
+    | LocalBusinessJsonLdProps[]
+    | ProductJsonLdProps[]
+    | EventJsonLdProps[]
     | CustomJsonLdProps[];
 }
 
@@ -155,15 +174,94 @@ function CarouselJsonLd({
           }),
         );
 
+      case 'localBusiness':
+        return (data as LocalBusinessJsonLdProps[]).map((item, index) => {
+          const {
+            name,
+            url,
+            image,
+            priceRange,
+            servesCuisine,
+            amenityFeature,
+            aggregateRating,
+            ...rest
+          } = item;
+          return {
+            '@type': 'ListItem',
+            position: index + 1,
+            item: {
+              '@type': 'LocalBusiness',
+              ...rest,
+              name,
+              url,
+              image,
+              priceRange,
+              servesCuisine,
+              amenityFeature,
+              aggregateRating: setAggregateRating(aggregateRating),
+            },
+          };
+        });
+
+      case 'product':
+        return (data as ProductJsonLdProps[]).map((item, index) => {
+          const {
+            name,
+            url,
+            image,
+            offers,
+            aggregateOffer,
+            aggregateRating,
+            ...rest
+          } = item;
+          return {
+            '@type': 'ListItem',
+            position: index + 1,
+            item: {
+              '@type': 'Product',
+              ...rest,
+              name,
+              url,
+              image,
+              offers: offers
+                ? setOffers(offers)
+                : setAggregateOffer(aggregateOffer),
+              aggregateRating: setAggregateRating(aggregateRating),
+            },
+          };
+        });
+
+      case 'event':
+        return (data as EventJsonLdProps[]).map((item, index) => {
+          const { name, url, image, offers, aggregateRating, ...rest } = item;
+          return {
+            '@type': 'ListItem',
+            position: index + 1,
+            item: {
+              '@type': 'Event',
+              ...rest,
+              name,
+              url,
+              image,
+              offers,
+              aggregateRating: setAggregateRating(aggregateRating),
+            },
+          };
+        });
+
       case 'custom':
-        return (data as CustomJsonLdProps[]).map((item, index) => ({
-          '@type': 'ListItem',
-          position: item.position ?? index + 1,
-          item: {
-            '@type': item.type,
-            name: item.name,
-          },
-        }));
+        return (data as CustomJsonLdProps[]).map((item, index) => {
+          const { name, position, type, ...rest } = item;
+          return {
+            '@type': 'ListItem',
+            position: position ?? index + 1,
+            item: {
+              '@type': type,
+              ...rest,
+              name,
+            },
+          };
+        });
     }
   }
 
@@ -171,7 +269,6 @@ function CarouselJsonLd({
     '@type': 'ItemList',
     ...rest,
     itemListElement: generateList(data, ofType),
-    ...rest,
   };
 
   return (

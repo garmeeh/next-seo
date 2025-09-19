@@ -1,3 +1,40 @@
+export interface LocalBusinessJsonLdProps {
+  name: string;
+  url: string;
+  image: string[];
+  priceRange?: string;
+  servesCuisine?: string;
+  amenityFeature?: {
+    '@type': 'LocationFeatureSpecification';
+    name: string;
+    value: string | boolean;
+  };
+  aggregateRating?: AggregateRating;
+}
+
+export interface ProductJsonLdProps {
+  name: string;
+  url: string;
+  image: string[];
+  offers?: Offers | Offers[];
+  aggregateOffer?: AggregateOffer;
+  aggregateRating?: AggregateRating;
+}
+
+export interface EventJsonLdProps {
+  name: string;
+  url: string;
+  image: string[];
+  offers?: {
+    '@type': 'Offer' | 'AggregateOffer';
+    price?: number;
+    priceCurrency?: string;
+    lowPrice?: number;
+    highPrice?: number;
+  };
+  aggregateRating?: AggregateRating;
+}
+
 export type OpeningHoursSpecification = {
   opens: string;
   closes: string;
