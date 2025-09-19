@@ -1,17 +1,14 @@
+# ❗Version 7 of next-seo incoming! [Docs](https://github.com/garmeeh/next-seo/tree/main) -> `npm install next-seo@alpha`
+
 **Outrank**
 
 Get traffic and outrank competitors with Backlinks & SEO-optimized content while you sleep! I've been keeping a close eye on this new tool and it seems to be gaining a lot of traction and delivering great results. [Try it now!](https://outrank.so/?via=next-seo)
 
-[![image](https://github.com/user-attachments/assets/14c0f4c0-aad0-4d2d-8a14-6edad232a4dc)](https://outrank.so/?via=next-seo)
+[![image](https://github.com/user-attachments/assets/14c0f4c0-aad0-4d2d-8a14-6edad232a4dc)](https://outrank.so/?via=next-seo-lib)
 
 **Have you seen the new Next.js newsletter?**
 
 [<img alt="NextjsWeekly banner" src="./next-js-weekly.png">](https://dub.sh/nextjsweekly)
-
-**Other Useful Tools**
-
-- [SEObot - fully autonomous «SEO Robot» with AI agents](https://seobotai.com/?ref=next-seo)
-- [dub](https://dub.co/?utm_source=next-seo&utm_medium=social&utm_campaign=next-seo) recently launched a useful Free UTM builder! You can use it [here](https://dub.sh/iKTxs7b)
 
 # Next SEO
 
