@@ -441,6 +441,11 @@ export type Author = {
   name: string;
 };
 
+export type Actor = {
+  actor: string;
+  characterName?: string;
+};
+
 export type ArticleAuthor = {
   name: string;
   url?: string;
