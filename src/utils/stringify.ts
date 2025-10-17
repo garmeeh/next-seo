@@ -38,7 +38,10 @@ const safeJsonLdReplacer: JsonReplacer = (() => {
   };
 })();
 
-// Utility: Assert never
+/**
+ * Type guard to ensure exhaustive type checking.
+ * @internal
+ */
 function isNever(_: never): void {}
 
 /**
