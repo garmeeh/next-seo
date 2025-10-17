@@ -58,3 +58,4 @@ tasks/*
 test-results/*
 
 task.md
+local_docs/*
