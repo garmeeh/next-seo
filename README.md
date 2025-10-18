@@ -19,6 +19,8 @@ Next SEO is a plugin that makes managing your SEO easier in Next.js projects. It
 
 ## 📋 Table of Contents
 
+_Looking for v6 documentation? [View Here](https://github.com/garmeeh/next-seo/tree/master)_
+
 <details>
 <summary><strong>Click to expand</strong></summary>
 
