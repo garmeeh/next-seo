@@ -21,29 +21,7 @@ Next SEO is a plugin that makes managing your SEO easier in Next.js projects. It
 
 _Looking for v6 documentation? [View Here](https://github.com/garmeeh/next-seo/tree/master)_
 
-<details>
-<summary><strong>Click to expand</strong></summary>
-
-- [Quick Start](#-quick-start)
-  - [Installation](#installation)
-  - [Basic Usage](#basic-usage)
-- [Components by Category](#-components-by-category)
-  - [Articles & Content](#articles--content)
-  - [Commerce & Products](#commerce--products)
-  - [Local Business](#local-business)
-  - [Media & Entertainment](#media--entertainment)
-  - [Education & FAQ](#education--faq)
-  - [Reviews & Ratings](#reviews--ratings)
-  - [Navigation & Structure](#navigation--structure)
-  - [Events & Activities](#events--activities)
-  - [Employment](#employment)
-  - [Real Estate](#real-estate)
-  - [Software & Apps](#software--apps)
-- [Creating Custom Components](#creating-custom-components)
-- [Pages Router Support](#pages-router-support)
-- [Contributing](#contributors)
-
-</details>
+_Still using <NextSeo /> component in Pages? View docs here [/src/pages/README.md]_
 
 ## 🚀 Quick Start
 

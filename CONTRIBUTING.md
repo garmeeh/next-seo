@@ -2,6 +2,8 @@
 
 Thank you for your interest in contributing to Next SEO! We are open to all and any contributions. This guide will help you get started.
 
+It is critical that you look over the guidance for new components [here](ADDING_NEW_COMPONENTS.md)
+
 ## 🚀 Quick Start
 
 1. Fork the repository
@@ -63,8 +65,8 @@ A changeset is a piece of information about changes made in a branch or commit. 
 1. After making your changes, run: `pnpm changeset`
 2. Select the packages affected (usually just `next-seo`)
 3. Choose the type of change:
-   - **patch**: Bug fixes, documentation, internal changes (0.0.X)
-   - **minor**: New features, non-breaking enhancements (0.X.0)
+   - **patch**: Bug fixes, documentation, internal changes (0.0.X) **Rarely use this, generally only for security, since this is an SEO package I don't want patches to slip through for people without validating**
+   - **minor**: New features, non-breaking enhancements (0.X.0) **Most common**
    - **major**: Breaking changes (X.0.0)
 4. Write a brief description of your changes
 5. Commit the generated changeset file
