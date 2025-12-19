@@ -25,6 +25,10 @@ export {
   type RecipeJsonLdProps,
 } from "./components/RecipeJsonLd";
 export {
+  default as HowToJsonLd,
+  type HowToJsonLdProps,
+} from "./components/HowToJsonLd";
+export {
   default as OrganizationJsonLd,
   type OrganizationJsonLdProps,
 } from "./components/OrganizationJsonLd";

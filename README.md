@@ -631,6 +631,268 @@ Use these formats for time durations:
 
 [↑ Back to Components](#-components-by-category)
 
+### HowToJsonLd
+
+The `HowToJsonLd` component helps you add structured data for how-to guides and tutorials. This can help your content appear as rich results with step-by-step instructions in search results.
+
+#### Basic Usage
+
+```tsx
+import { HowToJsonLd } from "next-seo";
+
+export default function HowToPage() {
+  return (
+    <>
+      <HowToJsonLd
+        name="How to Change a Flat Tire"
+        description="Step-by-step instructions for safely changing a flat tire"
+        image="https://example.com/tire-change.jpg"
+        totalTime="PT30M"
+        estimatedCost="$20"
+        supply={["Spare tire", "Wheel wedges"]}
+        tool={["Lug wrench", "Jack"]}
+        step={[
+          "Turn on hazard lights and apply wheel wedges",
+          "Remove the hubcap and loosen lug nuts",
+          "Position jack and raise the vehicle",
+          "Remove flat tire and mount spare",
+          "Lower vehicle and tighten lug nuts",
+        ]}
+      />
+      <article>
+        <h1>How to Change a Flat Tire</h1>
+        {/* Guide content */}
+      </article>
+    </>
+  );
+}
+```
+
+#### Advanced Example with Sections and Detailed Steps
+
+```tsx
+<HowToJsonLd
+  name="How to Change a Flat Tire"
+  description="Complete guide to safely changing a flat tire on the roadside"
+  image={{
+    url: "https://example.com/tire-change-guide.jpg",
+    width: 1200,
+    height: 800,
+  }}
+  estimatedCost={{
+    currency: "USD",
+    value: 20,
+  }}
+  prepTime="PT5M"
+  performTime="PT25M"
+  totalTime="PT30M"
+  yield="1 changed tire"
+  tool={[
+    {
+      name: "Spare tire",
+    },
+    {
+      name: "Lug wrench",
+      image: "https://example.com/lug-wrench.jpg",
+    },
+    {
+      name: "Jack",
+    },
+    {
+      name: "Wheel wedges",
+      image: "https://example.com/wheel-wedges.jpg",
+    },
+  ]}
+  supply={[
+    {
+      name: "Flares",
+      image: "https://example.com/flares.jpg",
+    },
+  ]}
+  step={[
+    {
+      "@type": "HowToSection",
+      name: "Preparation",
+      position: 1,
+      itemListElement: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          itemListElement: [
+            {
+              "@type": "HowToDirection",
+              position: 1,
+              text: "Turn on your hazard lights and set the flares.",
+            },
+            {
+              "@type": "HowToTip",
+              position: 2,
+              text: "You're going to need space and want to be visible.",
+            },
+          ],
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          itemListElement: [
+            {
+              "@type": "HowToDirection",
+              position: 1,
+              text: "Position wheel wedges in front of front tires if rear tire is flat, or behind rear tires if front tire is flat.",
+            },
+            {
+              "@type": "HowToTip",
+              position: 2,
+              text: "You don't want the car to move while you're working on it.",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      "@type": "HowToSection",
+      name: "Raise the Car",
+      position: 2,
+      itemListElement: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          text: "Position the jack underneath the car, next to the flat tire.",
+          image: "https://example.com/position-jack.jpg",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          text: "Raise the jack until the flat tire is just barely off of the ground.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          text: "Remove the hubcap and loosen the lug nuts.",
+        },
+      ],
+    },
+    {
+      "@type": "HowToSection",
+      name: "Finishing Up",
+      position: 3,
+      itemListElement: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          text: "Lower the jack and tighten the lug nuts with the wrench.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          text: "Replace the hubcap.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          text: "Put the equipment and the flat tire away.",
+        },
+      ],
+    },
+  ]}
+  video={{
+    name: "How to Change a Tire Video Tutorial",
+    description: "Watch our mechanic demonstrate the proper technique",
+    thumbnailUrl: "https://example.com/video-thumb.jpg",
+    contentUrl: "https://example.com/tire-change-video.mp4",
+    uploadDate: "2024-01-15T08:00:00+00:00",
+    duration: "PT8M",
+  }}
+/>
+```
+
+#### Props
+
+| Property        | Type                                                 | Description                                                               |
+| --------------- | ---------------------------------------------------- | ------------------------------------------------------------------------- |
+| `name`          | `string`                                             | **Required.** The title of the how-to guide                               |
+| `description`   | `string`                                             | A brief description of the guide                                          |
+| `image`         | `string \| ImageObject`                              | An image of the completed task or project                                 |
+| `estimatedCost` | `string \| MonetaryAmount`                           | The estimated cost of supplies (e.g., "$20" or MonetaryAmount object)     |
+| `prepTime`      | `string`                                             | ISO 8601 duration for preparation time                                    |
+| `performTime`   | `string`                                             | ISO 8601 duration for the time to perform the instructions                |
+| `totalTime`     | `string`                                             | ISO 8601 duration for total time (prep + perform)                         |
+| `yield`         | `string \| QuantitativeValue`                        | The result of performing the instructions (e.g., "1 birdhouse")           |
+| `supply`        | `string \| HowToSupply \| (string \| HowToSupply)[]` | Supplies consumed when performing the task                                |
+| `tool`          | `string \| HowToTool \| (string \| HowToTool)[]`     | Tools used but not consumed                                               |
+| `step`          | `string \| HowToStep \| HowToSection \| (Step)[]`    | The steps to complete the task. Can be simple strings, steps, or sections |
+| `video`         | `VideoObject`                                        | A video showing how to complete the task                                  |
+| `scriptId`      | `string`                                             | Custom ID for the script tag                                              |
+| `scriptKey`     | `string`                                             | Custom key prop for React                                                 |
+
+#### Step Types
+
+**HowToStep** - A single step in the guide:
+
+```tsx
+{
+  "@type": "HowToStep",
+  name: "Step Name",           // Optional step title
+  text: "Step instructions",   // The instruction text
+  url: "https://...",         // Optional URL for more details
+  image: "https://...",       // Optional step image
+}
+```
+
+**HowToSection** - A group of related steps:
+
+```tsx
+{
+  "@type": "HowToSection",
+  name: "Section Name",
+  position: 1,
+  itemListElement: [
+    { "@type": "HowToStep", text: "First step" },
+    { "@type": "HowToStep", text: "Second step" },
+  ]
+}
+```
+
+**HowToDirection** and **HowToTip** - For detailed step content:
+
+```tsx
+{
+  "@type": "HowToStep",
+  itemListElement: [
+    {
+      "@type": "HowToDirection",
+      text: "Do this specific action",
+      beforeMedia: "https://example.com/before.jpg",
+      afterMedia: "https://example.com/after.jpg",
+    },
+    {
+      "@type": "HowToTip",
+      text: "Here's a helpful tip",
+    }
+  ]
+}
+```
+
+#### Duration Format (ISO 8601)
+
+Use these formats for time durations:
+
+- `PT15M` - 15 minutes
+- `PT1H` - 1 hour
+- `PT1H30M` - 1 hour 30 minutes
+- `PT2H15M` - 2 hours 15 minutes
+
+#### Best Practices
+
+1. **Clear steps**: Write concise, actionable step instructions
+2. **Include images**: Add images for complex steps to improve clarity
+3. **Separate sections**: Use HowToSection to group related steps logically
+4. **Accurate timing**: Provide realistic time estimates for each phase
+5. **List all materials**: Include all supplies and tools needed upfront
+6. **Add video**: Video content significantly improves search appearance
+
+[↑ Back to Components](#-components-by-category)
+
 ### OrganizationJsonLd
 
 The `OrganizationJsonLd` component helps you add structured data about your organization to improve how it appears in search results and knowledge panels.

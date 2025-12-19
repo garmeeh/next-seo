@@ -94,6 +94,19 @@ import type {
   Product,
   VariesBy,
 } from "~/types/product.types";
+import type {
+  HowToSupply,
+  HowToTool,
+  HowToDirection,
+  HowToTip,
+  HowToStep as HowToStepType,
+  HowToSection as HowToSectionType,
+  Step,
+  Supply,
+  Tool,
+  EstimatedCost,
+  HowToYield,
+} from "~/types/howto.types";
 
 // Schema.org type constants
 const SCHEMA_TYPES = {
@@ -135,6 +148,10 @@ const SCHEMA_TYPES = {
   NUTRITION_INFORMATION: "NutritionInformation",
   HOW_TO_STEP: "HowToStep",
   HOW_TO_SECTION: "HowToSection",
+  HOW_TO_SUPPLY: "HowToSupply",
+  HOW_TO_TOOL: "HowToTool",
+  HOW_TO_DIRECTION: "HowToDirection",
+  HOW_TO_TIP: "HowToTip",
   PROPERTY_VALUE: "PropertyValue",
   CREATIVE_WORK: "CreativeWork",
   DATA_DOWNLOAD: "DataDownload",
@@ -2376,4 +2393,265 @@ export function processItemReviewed(
   };
 
   return { "@type": inferType(), ...candidate };
+}
+
+// HowTo-specific processors
+
+/**
+ * Processes HowTo direction into HowToDirection schema type
+ * @param direction - HowToDirection object with or without @type
+ * @returns HowToDirection with @type
+ */
+export function processHowToDirection(
+  direction: HowToDirection | Omit<HowToDirection, "@type">,
+): HowToDirection {
+  const processed = processSchemaType<HowToDirection>(
+    direction,
+    SCHEMA_TYPES.HOW_TO_DIRECTION,
+  );
+
+  // Process nested media if present
+  if (direction.beforeMedia && !isString(direction.beforeMedia)) {
+    processed.beforeMedia = processImage(direction.beforeMedia);
+  }
+  if (direction.afterMedia && !isString(direction.afterMedia)) {
+    processed.afterMedia = processImage(direction.afterMedia);
+  }
+  if (direction.duringMedia && !isString(direction.duringMedia)) {
+    processed.duringMedia = processImage(direction.duringMedia);
+  }
+
+  return processed;
+}
+
+/**
+ * Processes HowTo tip into HowToTip schema type
+ * @param tip - HowToTip object with or without @type
+ * @returns HowToTip with @type
+ */
+export function processHowToTip(
+  tip: HowToTip | Omit<HowToTip, "@type">,
+): HowToTip {
+  return processSchemaType<HowToTip>(tip, SCHEMA_TYPES.HOW_TO_TIP);
+}
+
+/**
+ * Processes HowTo step item (direction or tip) into appropriate schema type
+ * @param item - HowToDirection or HowToTip with or without @type
+ * @returns Processed item with @type
+ */
+function processHowToStepItem(
+  item:
+    | HowToDirection
+    | HowToTip
+    | Omit<HowToDirection, "@type">
+    | Omit<HowToTip, "@type">,
+): HowToDirection | HowToTip {
+  if (hasType<HowToDirection | HowToTip>(item)) {
+    if (item["@type"] === SCHEMA_TYPES.HOW_TO_DIRECTION) {
+      return processHowToDirection(item as HowToDirection);
+    }
+    return processHowToTip(item as HowToTip);
+  }
+
+  // Infer type based on properties - tips typically only have text
+  // Directions may have beforeMedia, afterMedia, duringMedia
+  if ("beforeMedia" in item || "afterMedia" in item || "duringMedia" in item) {
+    return processHowToDirection(item as Omit<HowToDirection, "@type">);
+  }
+
+  // Default to direction for items with just text (more common)
+  return processHowToDirection(item as Omit<HowToDirection, "@type">);
+}
+
+/**
+ * Processes HowTo step into HowToStep schema type
+ * @param step - String, HowToStep object with or without @type
+ * @returns HowToStep with @type
+ */
+export function processHowToStep(
+  step: string | HowToStepType | Omit<HowToStepType, "@type">,
+): string | HowToStepType {
+  if (isString(step)) {
+    return step;
+  }
+
+  const processed = processSchemaType<HowToStepType>(
+    step,
+    SCHEMA_TYPES.HOW_TO_STEP,
+  );
+
+  // Process nested image if present
+  if (step.image && !isString(step.image)) {
+    processed.image = processImage(step.image);
+  }
+
+  // Process nested itemListElement (directions/tips) if present
+  if (step.itemListElement) {
+    processed.itemListElement = step.itemListElement.map(processHowToStepItem);
+  }
+
+  return processed;
+}
+
+/**
+ * Processes HowTo section into HowToSection schema type
+ * @param section - HowToSection object with or without @type
+ * @returns HowToSection with @type
+ */
+export function processHowToSection(
+  section: HowToSectionType | Omit<HowToSectionType, "@type">,
+): HowToSectionType {
+  const processed = processSchemaType<HowToSectionType>(
+    section,
+    SCHEMA_TYPES.HOW_TO_SECTION,
+  );
+
+  // Process nested steps
+  if (section.itemListElement) {
+    processed.itemListElement = section.itemListElement.map((item) => {
+      const result = processHowToStep(item);
+      return typeof result === "string"
+        ? ({ "@type": "HowToStep", text: result } as HowToStepType)
+        : result;
+    });
+  }
+
+  return processed;
+}
+
+/**
+ * Processes HowTo step (can be string, HowToStep, or HowToSection)
+ * @param step - String, HowToStep, or HowToSection with or without @type
+ * @returns Processed step with @type
+ */
+export function processStep(
+  step: Step,
+): string | HowToStepType | HowToSectionType {
+  if (isString(step)) {
+    return step;
+  }
+
+  if (hasType<HowToStepType | HowToSectionType>(step)) {
+    if (step["@type"] === SCHEMA_TYPES.HOW_TO_SECTION) {
+      return processHowToSection(step as HowToSectionType);
+    }
+    const result = processHowToStep(step as HowToStepType);
+    return typeof result === "string"
+      ? ({ "@type": "HowToStep", text: result } as HowToStepType)
+      : result;
+  }
+
+  // Infer type based on properties
+  if ("itemListElement" in step && "name" in step) {
+    // Sections have itemListElement and a name
+    return processHowToSection(step as Omit<HowToSectionType, "@type">);
+  }
+
+  // Default to step
+  const result = processHowToStep(step as Omit<HowToStepType, "@type">);
+  return typeof result === "string"
+    ? ({ "@type": "HowToStep", text: result } as HowToStepType)
+    : result;
+}
+
+/**
+ * Processes HowTo supply into HowToSupply schema type
+ * @param supply - String or HowToSupply object with or without @type
+ * @returns HowToSupply with @type
+ */
+export function processHowToSupply(supply: Supply): HowToSupply {
+  if (isString(supply)) {
+    return {
+      "@type": SCHEMA_TYPES.HOW_TO_SUPPLY,
+      name: supply,
+    };
+  }
+
+  const processed = processSchemaType<HowToSupply>(
+    supply,
+    SCHEMA_TYPES.HOW_TO_SUPPLY,
+  );
+
+  // Process nested image if present
+  if (supply.image && !isString(supply.image)) {
+    processed.image = processImage(supply.image);
+  }
+
+  // Process nested estimatedCost if present
+  if (supply.estimatedCost && !isString(supply.estimatedCost)) {
+    processed.estimatedCost = processSimpleMonetaryAmount(supply.estimatedCost);
+  }
+
+  // Process nested requiredQuantity if present
+  if (supply.requiredQuantity && typeof supply.requiredQuantity === "object") {
+    processed.requiredQuantity = processQuantitativeValue(
+      supply.requiredQuantity,
+    );
+  }
+
+  return processed;
+}
+
+/**
+ * Processes HowTo tool into HowToTool schema type
+ * @param tool - String or HowToTool object with or without @type
+ * @returns HowToTool with @type
+ */
+export function processHowToTool(tool: Tool): HowToTool {
+  if (isString(tool)) {
+    return {
+      "@type": SCHEMA_TYPES.HOW_TO_TOOL,
+      name: tool,
+    };
+  }
+
+  const processed = processSchemaType<HowToTool>(
+    tool,
+    SCHEMA_TYPES.HOW_TO_TOOL,
+  );
+
+  // Process nested image if present
+  if (tool.image && !isString(tool.image)) {
+    processed.image = processImage(tool.image);
+  }
+
+  // Process nested requiredQuantity if present
+  if (tool.requiredQuantity && typeof tool.requiredQuantity === "object") {
+    processed.requiredQuantity = processQuantitativeValue(
+      tool.requiredQuantity,
+    );
+  }
+
+  return processed;
+}
+
+/**
+ * Processes estimated cost into MonetaryAmount schema type
+ * @param cost - String or MonetaryAmount object with or without @type
+ * @returns String or MonetaryAmount with @type
+ */
+export function processEstimatedCost(
+  cost: EstimatedCost,
+): string | SimpleMonetaryAmount {
+  if (isString(cost)) {
+    return cost;
+  }
+
+  return processSimpleMonetaryAmount(cost) as SimpleMonetaryAmount;
+}
+
+/**
+ * Processes HowTo yield into string or QuantitativeValue schema type
+ * @param yieldValue - String or QuantitativeValue object with or without @type
+ * @returns String or QuantitativeValue with @type
+ */
+export function processHowToYield(
+  yieldValue: HowToYield,
+): string | QuantitativeValue {
+  if (isString(yieldValue)) {
+    return yieldValue;
+  }
+
+  return processQuantitativeValue(yieldValue);
 }
