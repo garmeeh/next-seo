@@ -79,6 +79,19 @@ export {
   processCertification,
 } from "./processors";
 
+// HowTo Content
+export {
+  processStep,
+  processHowToStep,
+  processHowToSection,
+  processHowToSupply,
+  processHowToTool,
+  processHowToDirection,
+  processHowToTip,
+  processEstimatedCost,
+  processHowToYield,
+} from "./processors";
+
 // Membership & Loyalty
 export {
   processMemberProgram,

@@ -105,6 +105,51 @@ test.describe("JSON-LD Validation Tests", () => {
       expect(jsonData!.video).toBeDefined();
     });
 
+    test("HowToJsonLd produces valid JSON", async ({ page }) => {
+      await page.goto("/howto");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("HowTo");
+    });
+
+    test("HowToJsonLd with advanced features produces valid JSON", async ({
+      page,
+    }) => {
+      await page.goto("/howto-advanced");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("HowTo");
+      // Check nested objects are valid
+      expect(jsonData!.step).toBeDefined();
+      expect(jsonData!.tool).toBeDefined();
+      expect(jsonData!.supply).toBeDefined();
+      expect(jsonData!.video).toBeDefined();
+    });
+
     test("OrganizationJsonLd produces valid JSON", async ({ page }) => {
       await page.goto("/organization");
 
