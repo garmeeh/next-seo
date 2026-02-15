@@ -201,6 +201,48 @@ test.describe("OrganizationJsonLd", () => {
     });
   });
 
+  test("renders Organization with review and aggregateRating", async ({
+    page,
+  }) => {
+    await page.goto("/organization-reviews");
+
+    const jsonLdScript = await page
+      .locator('script[type="application/ld+json"]')
+      .textContent();
+    expect(jsonLdScript).toBeTruthy();
+
+    const jsonData = JSON.parse(jsonLdScript!);
+
+    // Verify basic info
+    expect(jsonData["@context"]).toBe("https://schema.org");
+    expect(jsonData["@type"]).toBe("Organization");
+    expect(jsonData.name).toBe("Acme Software Inc.");
+    expect(jsonData.url).toBe("https://www.acmesoftware.com");
+
+    // Verify reviews
+    expect(Array.isArray(jsonData.review)).toBe(true);
+    expect(jsonData.review).toHaveLength(2);
+    expect(jsonData.review[0]["@type"]).toBe("Review");
+    expect(jsonData.review[0].author["@type"]).toBe("Person");
+    expect(jsonData.review[0].author.name).toBe("Sarah Johnson");
+    expect(jsonData.review[0].reviewRating["@type"]).toBe("Rating");
+    expect(jsonData.review[0].reviewRating.ratingValue).toBe(5);
+    expect(jsonData.review[0].datePublished).toBe("2025-06-15");
+
+    expect(jsonData.review[1]["@type"]).toBe("Review");
+    expect(jsonData.review[1].author["@type"]).toBe("Person");
+    expect(jsonData.review[1].author.name).toBe("Michael Chen");
+    expect(jsonData.review[1].reviewRating.ratingValue).toBe(4);
+
+    // Verify aggregateRating
+    expect(jsonData.aggregateRating["@type"]).toBe("AggregateRating");
+    expect(jsonData.aggregateRating.ratingValue).toBe(4.6);
+    expect(jsonData.aggregateRating.ratingCount).toBe(312);
+    expect(jsonData.aggregateRating.reviewCount).toBe(245);
+    expect(jsonData.aggregateRating.bestRating).toBe(5);
+    expect(jsonData.aggregateRating.worstRating).toBe(1);
+  });
+
   test("renders Organization with multiple addresses and contact points", async ({
     page,
   }) => {

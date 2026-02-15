@@ -5,6 +5,8 @@ import {
   processContactPoint,
   processLogo,
   processNumberOfEmployees,
+  processReview,
+  processAggregateRating,
   processMerchantReturnPolicy,
   processMemberProgram,
 } from "~/utils/processors";
@@ -34,6 +36,8 @@ export default function OrganizationJsonLd(props: OrganizationJsonLdProps) {
     globalLocationNumber,
     iso6523Code,
     numberOfEmployees,
+    review,
+    aggregateRating,
   } = props;
   const data = {
     "@context": "https://schema.org",
@@ -69,6 +73,14 @@ export default function OrganizationJsonLd(props: OrganizationJsonLdProps) {
     ...(iso6523Code && { iso6523Code }),
     ...(numberOfEmployees && {
       numberOfEmployees: processNumberOfEmployees(numberOfEmployees),
+    }),
+    ...(review && {
+      review: Array.isArray(review)
+        ? review.map(processReview)
+        : processReview(review),
+    }),
+    ...(aggregateRating && {
+      aggregateRating: processAggregateRating(aggregateRating),
     }),
     ...(type === "OnlineStore" &&
       "hasMerchantReturnPolicy" in props &&
