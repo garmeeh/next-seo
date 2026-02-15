@@ -234,6 +234,33 @@ test.describe("JSON-LD Validation Tests", () => {
       }
     });
 
+    test("Organization with reviews produces valid JSON", async ({ page }) => {
+      await page.goto("/organization-reviews");
+
+      const jsonLdScript = await page
+        .locator('script[type="application/ld+json"]')
+        .textContent();
+
+      expect(jsonLdScript).toBeTruthy();
+
+      let jsonData;
+      expect(() => {
+        jsonData = JSON.parse(jsonLdScript!);
+      }).not.toThrow();
+
+      expect(jsonData).toBeDefined();
+      expect(jsonData!["@context"]).toBe("https://schema.org");
+      expect(jsonData!["@type"]).toBe("Organization");
+      // Check review array is valid
+      expect(Array.isArray(jsonData!.review)).toBe(true);
+      jsonData!.review.forEach((review: Record<string, unknown>) => {
+        expect(review["@type"]).toBe("Review");
+      });
+      // Check aggregateRating is valid
+      expect(jsonData!.aggregateRating["@type"]).toBe("AggregateRating");
+      expect(jsonData!.aggregateRating.ratingValue).toBeDefined();
+    });
+
     test("Organization with complex nested data produces valid JSON", async ({
       page,
     }) => {

@@ -637,6 +637,191 @@ describe("OrganizationJsonLd", () => {
     expect(jsonData.hasMemberProgram[1].name).toBe("Premium Club");
   });
 
+  it("handles single review with string author", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        name="Example Corp"
+        review={{
+          author: "Jane Doe",
+          reviewBody: "Excellent company to work with!",
+          reviewRating: {
+            ratingValue: 5,
+            bestRating: 5,
+          },
+          datePublished: "2025-01-15",
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.review).toEqual({
+      "@type": "Review",
+      author: { "@type": "Person", name: "Jane Doe" },
+      reviewBody: "Excellent company to work with!",
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: 5,
+        bestRating: 5,
+      },
+      datePublished: "2025-01-15",
+    });
+  });
+
+  it("handles multiple reviews", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        name="Example Corp"
+        review={[
+          {
+            author: "Jane Doe",
+            reviewBody: "Excellent company!",
+            reviewRating: {
+              ratingValue: 5,
+            },
+          },
+          {
+            author: "John Smith",
+            reviewBody: "Great service.",
+            reviewRating: {
+              ratingValue: 4,
+            },
+          },
+        ]}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.review).toHaveLength(2);
+    expect(jsonData.review[0]["@type"]).toBe("Review");
+    expect(jsonData.review[0].author).toEqual({
+      "@type": "Person",
+      name: "Jane Doe",
+    });
+    expect(jsonData.review[1]["@type"]).toBe("Review");
+    expect(jsonData.review[1].author).toEqual({
+      "@type": "Person",
+      name: "John Smith",
+    });
+  });
+
+  it("handles review with @type already provided", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        name="Example Corp"
+        review={{
+          "@type": "Review" as const,
+          author: "Jane Doe",
+          reviewBody: "Great organization!",
+          reviewRating: {
+            "@type": "Rating" as const,
+            ratingValue: 4,
+          },
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.review["@type"]).toBe("Review");
+    expect(jsonData.review.reviewRating["@type"]).toBe("Rating");
+  });
+
+  it("handles aggregateRating without @type", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        name="Example Corp"
+        aggregateRating={{
+          ratingValue: 4.5,
+          ratingCount: 120,
+          reviewCount: 89,
+          bestRating: 5,
+          worstRating: 1,
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.aggregateRating).toEqual({
+      "@type": "AggregateRating",
+      ratingValue: 4.5,
+      ratingCount: 120,
+      reviewCount: 89,
+      bestRating: 5,
+      worstRating: 1,
+    });
+  });
+
+  it("handles aggregateRating with @type", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        name="Example Corp"
+        aggregateRating={{
+          "@type": "AggregateRating" as const,
+          ratingValue: 4.2,
+          ratingCount: 50,
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.aggregateRating).toEqual({
+      "@type": "AggregateRating",
+      ratingValue: 4.2,
+      ratingCount: 50,
+    });
+  });
+
+  it("handles both review and aggregateRating together", () => {
+    const { container } = render(
+      <OrganizationJsonLd
+        name="Example Corp"
+        url="https://www.example.com"
+        review={{
+          author: "Jane Doe",
+          reviewBody: "Outstanding organization!",
+          reviewRating: {
+            ratingValue: 5,
+          },
+        }}
+        aggregateRating={{
+          ratingValue: 4.7,
+          ratingCount: 200,
+          reviewCount: 150,
+        }}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+    expect(jsonData.review["@type"]).toBe("Review");
+    expect(jsonData.review.author).toEqual({
+      "@type": "Person",
+      name: "Jane Doe",
+    });
+    expect(jsonData.aggregateRating).toEqual({
+      "@type": "AggregateRating",
+      ratingValue: 4.7,
+      ratingCount: 200,
+      reviewCount: 150,
+    });
+  });
+
   it("does not include merchant properties for Organization type", () => {
     const { container } = render(
       <OrganizationJsonLd

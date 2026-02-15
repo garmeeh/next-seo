@@ -64,6 +64,8 @@ export interface Organization extends Thing {
     | number
     | QuantitativeValue
     | Omit<QuantitativeValue, "@type">;
+  review?: Review | Omit<Review, "@type"> | Review[] | Omit<Review, "@type">[];
+  aggregateRating?: AggregateRating | Omit<AggregateRating, "@type">;
   identifier?: string;
   interactionStatistic?:
     | InteractionCounter

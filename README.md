@@ -1023,10 +1023,49 @@ export default function AboutPage() {
 | `globalLocationNumber`    | `string`                                                 | GS1 Global Location Number                              |
 | `iso6523Code`             | `string`                                                 | ISO 6523 identifier (e.g., "0199:724500PMK2A2M1SQQ228") |
 | `numberOfEmployees`       | `number \| QuantitativeValue`                            | Number of employees or range                            |
+| `review`                  | `Review \| Review[]`                                     | A review or array of reviews of the organization        |
+| `aggregateRating`         | `AggregateRating`                                        | The overall rating based on a collection of reviews     |
 | `hasMerchantReturnPolicy` | `MerchantReturnPolicy \| MerchantReturnPolicy[]`         | Return policy details (OnlineStore only)                |
 | `hasMemberProgram`        | `MemberProgram \| MemberProgram[]`                       | Loyalty/membership program details (OnlineStore only)   |
 | `scriptId`                | `string`                                                 | Custom ID for the script tag                            |
 | `scriptKey`               | `string`                                                 | Custom key prop for React                               |
+
+#### Organization with Reviews and Ratings
+
+```tsx
+<OrganizationJsonLd
+  name="Acme Software Inc."
+  url="https://www.acmesoftware.com"
+  logo="https://www.acmesoftware.com/logo.png"
+  review={[
+    {
+      author: "Sarah Johnson",
+      reviewBody: "Excellent company to work with!",
+      reviewRating: {
+        ratingValue: 5,
+        bestRating: 5,
+      },
+      datePublished: "2025-06-15",
+    },
+    {
+      author: "Michael Chen",
+      reviewBody: "Great software solutions with excellent customer service.",
+      reviewRating: {
+        ratingValue: 4,
+        bestRating: 5,
+      },
+      datePublished: "2025-08-22",
+    },
+  ]}
+  aggregateRating={{
+    ratingValue: 4.6,
+    ratingCount: 312,
+    reviewCount: 245,
+    bestRating: 5,
+    worstRating: 1,
+  }}
+/>
+```
 
 #### OnlineStore with Loyalty Program Example
 
