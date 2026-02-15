@@ -1,5 +1,11 @@
 # next-seo
 
+## 7.2.0
+
+### Minor Changes
+
+- 28c684e: Add `review` and `aggregateRating` props to OrganizationJsonLd component, matching the existing support in LocalBusinessJsonLd. Both are direct Schema.org Organization properties processed using shared utilities.
+
 ## 7.1.0
 
 ### Minor Changes
