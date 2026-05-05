@@ -17,7 +17,7 @@ import {
 } from "~/utils/processors";
 
 export default function ProductJsonLd(props: ProductJsonLdProps) {
-  const { scriptId, scriptKey, ...rest } = props;
+  const { scriptId, scriptKey, nonce, ...rest } = props;
 
   // Determine if this is a ProductGroup or Product
   const isProductGroup =
@@ -257,6 +257,7 @@ export default function ProductJsonLd(props: ProductJsonLdProps) {
       scriptKey={
         scriptKey || (isProductGroup ? "productgroup-jsonld" : "product-jsonld")
       }
+      nonce={nonce}
     />
   );
 }

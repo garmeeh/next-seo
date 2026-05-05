@@ -10,6 +10,7 @@ import {
 export default function ReviewJsonLd({
   scriptId,
   scriptKey,
+  nonce,
   author,
   reviewRating,
   itemReviewed,
@@ -56,6 +57,7 @@ export default function ReviewJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "review-jsonld"}
+      nonce={nonce}
     />
   );
 }

@@ -56,4 +56,5 @@ export interface QuizJsonLdProps {
   }>;
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 }

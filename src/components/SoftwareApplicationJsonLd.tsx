@@ -19,6 +19,7 @@ export default function SoftwareApplicationJsonLd({
   type = "SoftwareApplication",
   scriptId,
   scriptKey,
+  nonce,
   name,
   description,
   url,
@@ -140,6 +141,7 @@ export default function SoftwareApplicationJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || `software-application-jsonld-${typeKey}`}
+      nonce={nonce}
     />
   );
 }

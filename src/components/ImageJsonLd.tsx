@@ -5,6 +5,7 @@ import { processAuthor } from "~/utils/processors";
 export default function ImageJsonLd({
   scriptId,
   scriptKey,
+  nonce,
   ...props
 }: ImageJsonLdProps) {
   // Helper function to process a single image
@@ -55,6 +56,7 @@ export default function ImageJsonLd({
       }}
       id={scriptId}
       scriptKey={scriptKey || "image-jsonld"}
+      nonce={nonce}
     />
   );
 }

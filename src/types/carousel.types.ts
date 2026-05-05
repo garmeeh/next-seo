@@ -91,6 +91,7 @@ export type RestaurantItem = Omit<
 interface CarouselJsonLdBaseProps {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 }
 
 // Summary page pattern props

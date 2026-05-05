@@ -90,4 +90,5 @@ export type DiscussionForumPostingJsonLdProps = (
   type?: "DiscussionForumPosting" | "SocialMediaPosting";
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

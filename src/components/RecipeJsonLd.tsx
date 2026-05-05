@@ -12,6 +12,7 @@ import {
 export default function RecipeJsonLd({
   scriptId,
   scriptKey,
+  nonce,
   name,
   image,
   description,
@@ -65,6 +66,7 @@ export default function RecipeJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "recipe-jsonld"}
+      nonce={nonce}
     />
   );
 }

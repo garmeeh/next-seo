@@ -48,4 +48,5 @@ export interface ClaimReview {
 export type ClaimReviewJsonLdProps = Omit<ClaimReview, "@type"> & {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

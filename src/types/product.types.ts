@@ -299,4 +299,5 @@ export type ProductJsonLdProps = (
 ) & {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

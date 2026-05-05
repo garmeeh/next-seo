@@ -162,4 +162,5 @@ export type CreativeWorkJsonLdProps = {
     | "WebPage";
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

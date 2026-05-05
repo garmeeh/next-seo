@@ -29,4 +29,5 @@ export type OrganizationJsonLdProps = (
   type?: "Organization" | "OnlineStore";
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

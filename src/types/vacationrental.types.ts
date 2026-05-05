@@ -46,4 +46,5 @@ export interface VacationRental extends VacationRentalBase {
 export type VacationRentalJsonLdProps = Omit<VacationRentalBase, "@type"> & {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

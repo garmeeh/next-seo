@@ -22,4 +22,5 @@ export type ProfilePageJsonLdProps = {
   dateModified?: string;
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

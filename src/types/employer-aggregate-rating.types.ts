@@ -19,4 +19,5 @@ export type EmployerAggregateRatingJsonLdProps = Omit<
   itemReviewed: string | Organization | Omit<Organization, "@type">;
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

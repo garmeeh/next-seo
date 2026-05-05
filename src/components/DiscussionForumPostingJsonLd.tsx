@@ -14,6 +14,7 @@ export default function DiscussionForumPostingJsonLd({
   type = "DiscussionForumPosting",
   scriptId,
   scriptKey,
+  nonce,
   headline,
   text,
   image,
@@ -65,6 +66,7 @@ export default function DiscussionForumPostingJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || `${type.toLowerCase()}-jsonld`}
+      nonce={nonce}
     />
   );
 }
