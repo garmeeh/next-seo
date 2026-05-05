@@ -74,4 +74,5 @@ export interface Recipe {
 export type RecipeJsonLdProps = Omit<Recipe, "@type"> & {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

@@ -191,7 +191,7 @@ function processRestaurantItem(
 }
 
 export default function CarouselJsonLd(props: CarouselJsonLdProps) {
-  const { scriptId, scriptKey } = props;
+  const { scriptId, scriptKey, nonce } = props;
 
   let itemListElement: CarouselListItem[];
 
@@ -239,6 +239,7 @@ export default function CarouselJsonLd(props: CarouselJsonLdProps) {
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "carousel-jsonld"}
+      nonce={nonce}
     />
   );
 }

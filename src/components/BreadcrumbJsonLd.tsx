@@ -3,7 +3,7 @@ import type { BreadcrumbJsonLdProps } from "~/types/breadcrumb.types";
 import { processBreadcrumbItem } from "~/utils/processors";
 
 export default function BreadcrumbJsonLd(props: BreadcrumbJsonLdProps) {
-  const { scriptId, scriptKey } = props;
+  const { scriptId, scriptKey, nonce } = props;
 
   // Handle single trail vs multiple trails
   const hasMultipleTrails = "multipleTrails" in props;
@@ -23,6 +23,7 @@ export default function BreadcrumbJsonLd(props: BreadcrumbJsonLdProps) {
         data={data}
         id={scriptId}
         scriptKey={scriptKey || "breadcrumb-jsonld-multiple"}
+        nonce={nonce}
       />
     );
   } else {
@@ -40,6 +41,7 @@ export default function BreadcrumbJsonLd(props: BreadcrumbJsonLdProps) {
         data={data}
         id={scriptId}
         scriptKey={scriptKey || "breadcrumb-jsonld"}
+        nonce={nonce}
       />
     );
   }

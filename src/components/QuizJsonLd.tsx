@@ -98,6 +98,7 @@ export default function QuizJsonLd({
   educationalAlignment,
   scriptId,
   scriptKey,
+  nonce,
 }: QuizJsonLdProps) {
   const data = {
     "@context": "https://schema.org/",
@@ -118,6 +119,7 @@ export default function QuizJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "quiz-jsonld"}
+      nonce={nonce}
     />
   );
 }

@@ -4,12 +4,14 @@ interface JsonLdScriptProps<T = Record<string, unknown>> {
   data: T;
   id?: string;
   scriptKey: string; // For React key
+  nonce?: string;
 }
 
 export function JsonLdScript<T = Record<string, unknown>>({
   data,
   id,
   scriptKey,
+  nonce,
 }: JsonLdScriptProps<T>): React.JSX.Element | null {
   if (data === null || data === undefined) {
     // Explicitly check for null/undefined
@@ -25,6 +27,7 @@ export function JsonLdScript<T = Record<string, unknown>>({
       data-testid={id}
       dangerouslySetInnerHTML={{ __html: jsonString }}
       key={scriptKey}
+      nonce={nonce}
     />
   );
 }

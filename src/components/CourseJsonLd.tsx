@@ -46,7 +46,7 @@ function processCourseItem(
 }
 
 export default function CourseJsonLd(props: CourseJsonLdProps) {
-  const { scriptId, scriptKey } = props;
+  const { scriptId, scriptKey, nonce } = props;
 
   // Single course pattern
   if (!("type" in props) || props.type === "single") {
@@ -64,6 +64,7 @@ export default function CourseJsonLd(props: CourseJsonLdProps) {
         data={data}
         id={scriptId}
         scriptKey={scriptKey || "course-jsonld"}
+        nonce={nonce}
       />
     );
   }
@@ -97,6 +98,7 @@ export default function CourseJsonLd(props: CourseJsonLdProps) {
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "course-list-jsonld"}
+      nonce={nonce}
     />
   );
 }

@@ -64,6 +64,7 @@ export default function FAQJsonLd({
   questions,
   scriptId,
   scriptKey,
+  nonce,
 }: FAQJsonLdProps) {
   const data = {
     "@context": "https://schema.org",
@@ -76,6 +77,7 @@ export default function FAQJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "faq-jsonld"}
+      nonce={nonce}
     />
   );
 }

@@ -154,4 +154,5 @@ export interface HowTo {
 export type HowToJsonLdProps = Omit<HowTo, "@type"> & {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

@@ -94,6 +94,7 @@ export type LocalBusinessJsonLdProps = Omit<LocalBusinessBase, "department"> & {
   type?: string | string[];
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
   department?:
     | (Omit<LocalBusinessBase, "department"> & { type?: string | string[] })
     | (Omit<LocalBusinessBase, "department"> & { type?: string | string[] })[];

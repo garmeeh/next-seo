@@ -11,6 +11,7 @@ export default function ArticleJsonLd({
   type = "Article",
   scriptId,
   scriptKey,
+  nonce,
   headline,
   url,
   author,
@@ -54,6 +55,7 @@ export default function ArticleJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || `article-jsonld-${type}`}
+      nonce={nonce}
     />
   );
 }

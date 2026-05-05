@@ -9,6 +9,7 @@ import {
 export default function ClaimReviewJsonLd({
   scriptId,
   scriptKey,
+  nonce,
   claimReviewed,
   reviewRating,
   url,
@@ -30,6 +31,7 @@ export default function ClaimReviewJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "claimreview-jsonld"}
+      nonce={nonce}
     />
   );
 }

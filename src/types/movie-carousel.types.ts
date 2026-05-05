@@ -51,6 +51,7 @@ export type SummaryPageItem = string | { url: string; position?: number };
 export type MovieCarouselJsonLdProps = {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 } & (
   | {
       // Summary page pattern - just URLs

@@ -11,6 +11,7 @@ import {
 export default function EventJsonLd({
   scriptId,
   scriptKey,
+  nonce,
   name,
   startDate,
   location,
@@ -60,6 +61,7 @@ export default function EventJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "event-jsonld"}
+      nonce={nonce}
     />
   );
 }
