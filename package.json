@@ -89,5 +89,10 @@
   "peerDependencies": {
     "next": ">=13.4.0",
     "react": ">=18.2.0"
-  }
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/garmeeh/next-seo/issues"
+  },
+  "homepage": "https://github.com/garmeeh/next-seo#readme"
 }
