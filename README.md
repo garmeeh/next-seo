@@ -4,9 +4,11 @@ Get traffic and outrank competitors with Backlinks & SEO-optimized content while
 
 [![image](https://github.com/user-attachments/assets/14c0f4c0-aad0-4d2d-8a14-6edad232a4dc)](https://outrank.so/?via=next-seo)
 
-**Have you seen the new Next.js newsletter?**
+**The only SEO skill your agent needs**
 
-[<img alt="NextjsWeekly banner" src="./next-js-weekly.png">](https://dub.sh/nextjsweekly)
+[<img alt="SEO Skill banner" src="./seo-skill.png">](https://dub.sh/xTIubnj)
+
+Want Next.js news in your inbox each week? [Subscribe to Next.js Weekly →](https://dub.sh/nextjsweekly)
 
 # Next SEO
 
