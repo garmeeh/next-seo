@@ -1,6 +1,6 @@
 {
   "name": "next-seo",
-  "version": "7.2.0",
+  "version": "7.3.0",
   "description": "SEO plugin for Next.js projects",
   "license": "MIT",
   "sideEffects": false,
@@ -91,7 +91,6 @@
     "next": ">=13.4.0",
     "react": ">=18.2.0"
   },
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/garmeeh/next-seo/issues"
   },
