@@ -13,6 +13,7 @@ import {
 export default function HowToJsonLd({
   scriptId,
   scriptKey,
+  nonce,
   name,
   description,
   image,
@@ -64,6 +65,7 @@ export default function HowToJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "howto-jsonld"}
+      nonce={nonce}
     />
   );
 }

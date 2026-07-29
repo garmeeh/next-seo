@@ -112,4 +112,5 @@ export interface JobPosting extends JobPostingBase {
 export type JobPostingJsonLdProps = Omit<JobPostingBase, "@type"> & {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

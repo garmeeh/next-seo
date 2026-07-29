@@ -63,6 +63,7 @@ function processEmployerItemReviewed(
 export default function EmployerAggregateRatingJsonLd({
   scriptId,
   scriptKey,
+  nonce,
   itemReviewed,
   ratingValue,
   ratingCount,
@@ -93,6 +94,7 @@ export default function EmployerAggregateRatingJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "employer-aggregate-rating-jsonld"}
+      nonce={nonce}
     />
   );
 }

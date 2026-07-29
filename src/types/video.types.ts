@@ -82,4 +82,5 @@ export type VideoJsonLdProps = Omit<VideoObject, "@type"> & {
   type?: "VideoObject";
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

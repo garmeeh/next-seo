@@ -13,6 +13,7 @@ import {
 export default function JobPostingJsonLd({
   scriptId,
   scriptKey,
+  nonce,
   title,
   description,
   datePosted,
@@ -86,6 +87,7 @@ export default function JobPostingJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "jobposting-jsonld"}
+      nonce={nonce}
     />
   );
 }

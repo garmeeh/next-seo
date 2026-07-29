@@ -16,6 +16,7 @@ export default function OrganizationJsonLd(props: OrganizationJsonLdProps) {
     type = "Organization",
     scriptId,
     scriptKey,
+    nonce,
     name,
     url,
     logo,
@@ -103,6 +104,7 @@ export default function OrganizationJsonLd(props: OrganizationJsonLdProps) {
       data={data}
       id={scriptId}
       scriptKey={scriptKey || `organization-jsonld-${type}`}
+      nonce={nonce}
     />
   );
 }

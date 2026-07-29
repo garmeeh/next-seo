@@ -19,6 +19,7 @@ export interface ImageMetadata extends ImageBase {
 export type ImageJsonLdProps = {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 } & (
   | Omit<ImageMetadata, "@type">
   | {

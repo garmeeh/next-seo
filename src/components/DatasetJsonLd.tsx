@@ -13,6 +13,7 @@ import {
 export default function DatasetJsonLd({
   scriptId,
   scriptKey,
+  nonce,
   name,
   description,
   url,
@@ -86,6 +87,7 @@ export default function DatasetJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "dataset-jsonld"}
+      nonce={nonce}
     />
   );
 }

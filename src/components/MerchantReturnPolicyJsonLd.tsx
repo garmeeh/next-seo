@@ -9,6 +9,7 @@ import {
 export default function MerchantReturnPolicyJsonLd({
   scriptId,
   scriptKey,
+  nonce,
   applicableCountry,
   returnPolicyCountry,
   returnPolicyCategory,
@@ -110,6 +111,7 @@ export default function MerchantReturnPolicyJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "merchant-return-policy-jsonld"}
+      nonce={nonce}
     />
   );
 }

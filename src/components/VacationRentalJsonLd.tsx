@@ -12,6 +12,7 @@ import {
 export default function VacationRentalJsonLd({
   scriptId,
   scriptKey,
+  nonce,
   containsPlace,
   identifier,
   image,
@@ -73,6 +74,7 @@ export default function VacationRentalJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "vacationrental-jsonld"}
+      nonce={nonce}
     />
   );
 }

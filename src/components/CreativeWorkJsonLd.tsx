@@ -12,6 +12,7 @@ export default function CreativeWorkJsonLd({
   type = "CreativeWork",
   scriptId,
   scriptKey,
+  nonce,
   headline,
   name,
   url,
@@ -79,6 +80,7 @@ export default function CreativeWorkJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || `creativework-jsonld-${type.toLowerCase()}`}
+      nonce={nonce}
     />
   );
 }

@@ -14,6 +14,7 @@ export default function VideoJsonLd({
   type = "VideoObject",
   scriptId,
   scriptKey,
+  nonce,
   name,
   description,
   thumbnailUrl,
@@ -85,6 +86,7 @@ export default function VideoJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || `video-jsonld-${type}`}
+      nonce={nonce}
     />
   );
 }

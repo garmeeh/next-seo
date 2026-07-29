@@ -27,6 +27,7 @@ export interface ReviewJsonLdProps {
   // JSON-LD plumbing
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 
   // Required per Google Review
   author: Author;
@@ -56,6 +57,7 @@ export interface ReviewJsonLdProps {
 export interface AggregateRatingJsonLdProps {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 
   itemReviewed: ItemReviewedInput;
   ratingValue: number | string;

@@ -87,6 +87,7 @@ export default function LocalBusinessJsonLd({
   type = "LocalBusiness",
   scriptId,
   scriptKey,
+  nonce,
   name,
   address,
   url,
@@ -179,6 +180,7 @@ export default function LocalBusinessJsonLd({
         scriptKey ||
         `localbusiness-jsonld-${Array.isArray(type) ? type.join("-") : type}`
       }
+      nonce={nonce}
     />
   );
 }

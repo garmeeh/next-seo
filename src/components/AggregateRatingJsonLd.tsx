@@ -5,6 +5,7 @@ import { processItemReviewed } from "~/utils/processors";
 export default function AggregateRatingJsonLd({
   scriptId,
   scriptKey,
+  nonce,
   itemReviewed,
   ratingValue,
   ratingCount,
@@ -39,6 +40,7 @@ export default function AggregateRatingJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "aggregaterating-jsonld"}
+      nonce={nonce}
     />
   );
 }

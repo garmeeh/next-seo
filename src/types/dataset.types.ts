@@ -99,4 +99,5 @@ export interface Dataset {
 export type DatasetJsonLdProps = Omit<Dataset, "@type"> & {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

@@ -80,4 +80,5 @@ export interface Event extends EventBase {
 export type EventJsonLdProps = Omit<Event, "@type"> & {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

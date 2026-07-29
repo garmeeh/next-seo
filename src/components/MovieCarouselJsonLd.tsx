@@ -58,7 +58,7 @@ function processMovieItem(
 }
 
 export default function MovieCarouselJsonLd(props: MovieCarouselJsonLdProps) {
-  const { scriptId, scriptKey } = props;
+  const { scriptId, scriptKey, nonce } = props;
 
   // Determine if this is summary page or all-in-one page pattern
   const isSummaryPage = "urls" in props;
@@ -88,6 +88,7 @@ export default function MovieCarouselJsonLd(props: MovieCarouselJsonLdProps) {
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "movie-carousel-jsonld"}
+      nonce={nonce}
     />
   );
 }

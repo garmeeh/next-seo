@@ -8,6 +8,7 @@ export default function ProfilePageJsonLd({
   dateModified,
   scriptId,
   scriptKey,
+  nonce,
 }: ProfilePageJsonLdProps) {
   // Process mainEntity - it can be a string, Person, Organization, or objects without @type
   const processedMainEntity = processAuthor(mainEntity);
@@ -46,6 +47,7 @@ export default function ProfilePageJsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || "profile-page-jsonld"}
+      nonce={nonce}
     />
   );
 }

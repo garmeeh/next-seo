@@ -7,4 +7,5 @@ export type MerchantReturnPolicyJsonLdProps = Omit<
 > & {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

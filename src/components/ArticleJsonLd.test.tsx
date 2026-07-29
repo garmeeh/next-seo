@@ -419,6 +419,37 @@ describe("ArticleJsonLd", () => {
     });
   });
 
+  it("renders nonce attribute on script element when provided", () => {
+    const { container } = render(
+      <ArticleJsonLd
+        headline="Test Article"
+        datePublished="2024-01-01T00:00:00.000Z"
+        nonce="abc123"
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    expect(script).toBeTruthy();
+    expect(script!.getAttribute("nonce")).toBe("abc123");
+  });
+
+  it("does not render nonce attribute when not provided", () => {
+    const { container } = render(
+      <ArticleJsonLd
+        headline="Test Article"
+        datePublished="2024-01-01T00:00:00.000Z"
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    expect(script).toBeTruthy();
+    expect(script!.getAttribute("nonce")).toBeNull();
+  });
+
   it("handles Person publisher with @type", () => {
     const { container } = render(
       <ArticleJsonLd

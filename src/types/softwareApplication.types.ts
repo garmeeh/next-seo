@@ -219,4 +219,5 @@ export type SoftwareApplicationJsonLdProps = (
   type?: ApplicationType | VideoGameCoTyped;
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

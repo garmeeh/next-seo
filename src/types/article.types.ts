@@ -57,4 +57,5 @@ export type ArticleJsonLdProps = (
   type?: "Article" | "NewsArticle" | "BlogPosting" | "Blog";
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 };

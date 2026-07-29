@@ -38,4 +38,5 @@ export interface FAQJsonLdProps {
   questions: QuestionInput[];
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 }

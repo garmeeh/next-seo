@@ -39,6 +39,7 @@ export type SummaryPageItem = string | { url: string; position?: number };
 interface CourseJsonLdBaseProps {
   scriptId?: string;
   scriptKey?: string;
+  nonce?: string;
 }
 
 // Single course props

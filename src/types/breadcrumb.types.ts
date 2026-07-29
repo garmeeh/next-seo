@@ -27,9 +27,11 @@ export type BreadcrumbJsonLdProps =
       items: BreadcrumbListItem[];
       scriptId?: string;
       scriptKey?: string;
+      nonce?: string;
     }
   | {
       multipleTrails: BreadcrumbListItem[][];
       scriptId?: string;
       scriptKey?: string;
+      nonce?: string;
     };
