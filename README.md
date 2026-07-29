@@ -4,7 +4,7 @@ Get traffic and outrank competitors with Backlinks & SEO-optimized content while
 
 [![image](https://github.com/user-attachments/assets/14c0f4c0-aad0-4d2d-8a14-6edad232a4dc)](https://outrank.so/?via=next-seo)
 
-**The only SEO skill your agent needs**
+**The only SEO skill your agent needs.** [Install it now](https://dub.sh/xTIubnj)
 
 [<img alt="SEO Skill banner" src="./seo-skill.png">](https://dub.sh/xTIubnj)
 
