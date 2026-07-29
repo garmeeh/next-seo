@@ -49,6 +49,40 @@ describe("JsonLdScript", () => {
     expect(container.firstChild).toBeInTheDocument();
   });
 
+  it("should render the nonce attribute when a nonce is provided", () => {
+    render(
+      <JsonLdScript
+        data={testData}
+        scriptKey={scriptKey}
+        id={scriptId}
+        nonce="abc123"
+      />,
+    );
+    const scriptElement = screen.getByTestId(scriptId);
+    expect(scriptElement).toHaveAttribute("nonce", "abc123");
+  });
+
+  it("should not render a nonce attribute when no nonce is provided", () => {
+    render(
+      <JsonLdScript data={testData} scriptKey={scriptKey} id={scriptId} />,
+    );
+    const scriptElement = screen.getByTestId(scriptId);
+    expect(scriptElement).not.toHaveAttribute("nonce");
+  });
+
+  it("should keep the nonce out of the serialized JSON-LD content", () => {
+    render(
+      <JsonLdScript
+        data={testData}
+        scriptKey={scriptKey}
+        id={scriptId}
+        nonce="abc123"
+      />,
+    );
+    const scriptElement = screen.getByTestId(scriptId);
+    expect(scriptElement.innerHTML).toBe(JSON.stringify(testData));
+  });
+
   it("should return null if no data is provided", () => {
     const { container } = render(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

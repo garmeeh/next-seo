@@ -42,6 +42,7 @@ export default function [Component]JsonLd({
   type = "[DefaultType]",
   scriptId,
   scriptKey,
+  nonce,
   // ... props
 }: [Component]JsonLdProps) {
   const data = {
@@ -64,6 +65,7 @@ export default function [Component]JsonLd({
       data={data}
       id={scriptId}
       scriptKey={scriptKey || `[component]-jsonld-${type}`}
+      nonce={nonce}
     />
   );
 }
@@ -122,7 +124,7 @@ describe("[Component]JsonLd", () => {
 - ✅ All optional properties
 - ✅ Default value application
 - ✅ Boolean value handling (false values)
-- ✅ Custom scriptId and scriptKey
+- ✅ Custom scriptId, scriptKey and nonce
 
 ## Commands
 
