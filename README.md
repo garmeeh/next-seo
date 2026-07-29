@@ -65,6 +65,34 @@ export default function BlogPost() {
 
 > **Pages Router Support**: If you're using Next.js Pages Router, import components from `next-seo/pages`. See the [Pages Router documentation](./src/pages/README.md) for details.
 
+### Content Security Policy (CSP)
+
+Every JSON-LD component renders an inline `<script type="application/ld+json">` tag. If your site sends a strict CSP header such as `script-src 'nonce-{RANDOM}'`, that inline script is blocked unless it carries a matching nonce.
+
+All JSON-LD components accept an optional `nonce` prop, which is rendered as the `nonce` attribute on the script tag:
+
+```tsx
+import { headers } from "next/headers";
+import { ArticleJsonLd } from "next-seo";
+
+export default async function BlogPost() {
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
+  return (
+    <ArticleJsonLd
+      headline="Getting Started with Next SEO"
+      datePublished="2024-01-01T08:00:00+00:00"
+      author="John Doe"
+      nonce={nonce}
+    />
+  );
+}
+```
+
+The nonce value must be generated per request and match the one in your CSP header. See the [Next.js CSP guide](https://nextjs.org/docs/app/guides/content-security-policy) for how to generate one in middleware and expose it to your pages.
+
+> **Note**: Omit the `nonce` prop entirely if you are not using a nonce-based CSP — no attribute is rendered when it is not provided.
+
 ## Support This Project
 
 **Feel like supporting this free plugin?**
@@ -181,6 +209,7 @@ export default function ArticlePage() {
 | `mainEntityOfPage`    | `string \| WebPage`                                     | Indicates the article is the primary content of the page |
 | `scriptId`            | `string`                                                | Custom ID for the script tag                             |
 | `scriptKey`           | `string`                                                | Custom key prop for React                                |
+| `nonce`               | `string`                                                | CSP nonce for the script tag                             |
 
 #### Best Practices
 
@@ -235,6 +264,7 @@ export default function FactCheckPage() {
 | `itemReviewed`  | `Claim`                            | Detailed information about the claim being reviewed                                   |
 | `scriptId`      | `string`                           | Custom ID for the script tag                                                          |
 | `scriptKey`     | `string`                           | Custom key for script identification                                                  |
+| `nonce`         | `string`                           | CSP nonce for the script tag                                                          |
 
 #### Review Rating Properties
 
@@ -348,6 +378,7 @@ export default function ArticlePage() {
 | `mainEntityOfPage`    | `string \| WebPage`                                                                           | The main page for this content                               |
 | `scriptId`            | `string`                                                                                      | Custom ID for the script tag                                 |
 | `scriptKey`           | `string`                                                                                      | Custom key for script identification                         |
+| `nonce`               | `string`                                                                                      | CSP nonce for the script tag                                 |
 
 #### WebPageElement Properties (for hasPart)
 
@@ -610,6 +641,7 @@ export default function RecipePage() {
 | `keywords`           | `string`                                                                         | Keywords about the recipe, separated by commas                                                |
 | `scriptId`           | `string`                                                                         | Custom ID for the script tag                                                                  |
 | `scriptKey`          | `string`                                                                         | Custom key prop for React                                                                     |
+| `nonce`              | `string`                                                                         | CSP nonce for the script tag                                                                  |
 
 #### Duration Format (ISO 8601)
 
@@ -824,6 +856,7 @@ export default function HowToPage() {
 | `video`         | `VideoObject`                                        | A video showing how to complete the task                                  |
 | `scriptId`      | `string`                                             | Custom ID for the script tag                                              |
 | `scriptKey`     | `string`                                             | Custom key prop for React                                                 |
+| `nonce`         | `string`                                             | CSP nonce for the script tag                                              |
 
 #### Step Types
 
@@ -1029,6 +1062,7 @@ export default function AboutPage() {
 | `hasMemberProgram`        | `MemberProgram \| MemberProgram[]`                       | Loyalty/membership program details (OnlineStore only)   |
 | `scriptId`                | `string`                                                 | Custom ID for the script tag                            |
 | `scriptKey`               | `string`                                                 | Custom key prop for React                               |
+| `nonce`                   | `string`                                                 | CSP nonce for the script tag                            |
 
 #### Organization with Reviews and Ratings
 
@@ -1409,6 +1443,7 @@ import { LocalBusinessJsonLd } from "next-seo";
 | `isAccessibleForFree`       | `boolean`                                                  | Whether access is free                                                     |
 | `scriptId`                  | `string`                                                   | Custom ID for the script tag                                               |
 | `scriptKey`                 | `string`                                                   | Custom key prop for React                                                  |
+| `nonce`                     | `string`                                                   | CSP nonce for the script tag                                               |
 
 #### Opening Hours Examples
 
@@ -1639,6 +1674,7 @@ import { OrganizationJsonLd } from "next-seo";
 | **Component Properties**                  |
 | `scriptId`                                | `string`                                 | Custom ID for the script tag                               |
 | `scriptKey`                               | `string`                                 | Custom key for React rendering                             |
+| `nonce`                                   | `string`                                 | CSP nonce for the script tag                               |
 
 #### Return Policy Categories
 
@@ -1783,6 +1819,7 @@ Use this pattern when all movie information is on a single page:
 | `movies`    | `MovieListItem[]`                                   | **Required for all-in-one pattern.** Array of movie data         |
 | `scriptId`  | `string`                                            | Custom ID for the script tag                                     |
 | `scriptKey` | `string`                                            | Custom key prop for React                                        |
+| `nonce`     | `string`                                            | CSP nonce for the script tag                                     |
 
 #### MovieListItem Properties
 
@@ -1923,6 +1960,7 @@ You can use Thing objects with `@id` instead of plain URL strings:
 | `multipleTrails` | `BreadcrumbListItem[][]` | Array of breadcrumb trails (required if not using items)         |
 | `scriptId`       | `string`                 | Custom ID for the script tag                                     |
 | `scriptKey`      | `string`                 | Custom key prop for React                                        |
+| `nonce`          | `string`                 | CSP nonce for the script tag                                     |
 
 **BreadcrumbListItem Type:**
 
@@ -2202,6 +2240,7 @@ import { CarouselJsonLd } from "next-seo";
 | `items`       | `CourseItem[] \| MovieItem[] \| RecipeItem[] \| RestaurantItem[]` | Array of items matching the content type         |
 | `scriptId`    | `string`                                                          | Custom ID for the script tag                     |
 | `scriptKey`   | `string`                                                          | Custom key prop for React                        |
+| `nonce`       | `string`                                                          | CSP nonce for the script tag                     |
 
 **SummaryPageItem Type:**
 
@@ -2303,6 +2342,7 @@ import { CourseJsonLd } from "next-seo";
 | `provider`    | `string \| Organization \| Omit<Organization, "@type">` | The organization offering the course                                  |
 | `scriptId`    | `string`                                                | Custom ID for the script tag                                          |
 | `scriptKey`   | `string`                                                | Custom key for React reconciliation                                   |
+| `nonce`       | `string`                                                | CSP nonce for the script tag                                          |
 
 **Course List Props:**
 
@@ -2313,6 +2353,7 @@ import { CourseJsonLd } from "next-seo";
 | `courses`   | `CourseListItem[]`                                 | Full course data for all-in-one pattern    |
 | `scriptId`  | `string`                                           | Custom ID for the script tag               |
 | `scriptKey` | `string`                                           | Custom key for React reconciliation        |
+| `nonce`     | `string`                                           | CSP nonce for the script tag               |
 
 #### Advanced Example
 
@@ -2479,6 +2520,7 @@ import { EventJsonLd } from "next-seo";
 | `url`               | `string`                                             | URL of the event page                                                              |
 | `scriptId`          | `string`                                             | Custom ID for the script tag                                                       |
 | `scriptKey`         | `string`                                             | Custom key prop for React                                                          |
+| `nonce`             | `string`                                             | CSP nonce for the script tag                                                       |
 
 #### Offer Type
 
@@ -2633,6 +2675,7 @@ The component supports multiple input formats for flexibility:
 | `questions` | `QuestionInput[]` | **Required.** Array of questions and answers. See input formats below.                  |
 | `scriptId`  | `string`          | Optional. Sets the `id` attribute on the script tag.                                    |
 | `scriptKey` | `string`          | Optional. Sets the `data-testid` attribute on the script tag. Defaults to "faq-jsonld". |
+| `nonce`     | `string`          | CSP nonce for the script tag                                                            |
 
 #### Question Input Formats
 
@@ -2747,6 +2790,7 @@ import { ImageJsonLd } from "next-seo";
 | `images`             | `Array<ImageObject>` | Array of image objects with the above properties (for multiple images)                                               |
 | `scriptId`           | `string`             | Custom ID for the script tag                                                                                         |
 | `scriptKey`          | `string`             | Custom key for script deduplication                                                                                  |
+| `nonce`              | `string`             | CSP nonce for the script tag                                                                                         |
 
 > **Note**: You must include `contentUrl` and at least one of: `creator`, `creditText`, `copyrightNotice`, or `license` for the image to be eligible for enhancements like the Licensable badge.
 
@@ -2810,6 +2854,7 @@ export default function BiologyQuizPage() {
 | `educationalAlignment` | `Array<{type: "educationalSubject" \| "educationalLevel", name: string}>` | Educational alignments specifying subject and/or grade level |
 | `scriptId`             | `string`                                                                  | Custom ID for the script tag                                 |
 | `scriptKey`            | `string`                                                                  | Custom key for React (defaults to "quiz-jsonld")             |
+| `nonce`                | `string`                                                                  | CSP nonce for the script tag                                 |
 
 #### Question Formats
 
@@ -3031,6 +3076,7 @@ export default function DatasetPage() {
 | `version`               | `string \| number`                                                         | Version number for the dataset                                            |
 | `scriptId`              | `string`                                                                   | Custom ID for the script tag                                              |
 | `scriptKey`             | `string`                                                                   | Custom key for React (defaults to "dataset-jsonld")                       |
+| `nonce`                 | `string`                                                                   | CSP nonce for the script tag                                              |
 
 #### Spatial Coverage Examples
 
@@ -3242,6 +3288,7 @@ export default function JobPage() {
 | `experienceInPlaceOfEducation`  | `boolean`                                                                                        | Whether experience can substitute for education requirements                    |
 | `scriptId`                      | `string`                                                                                         | Custom ID for the script tag                                                    |
 | `scriptKey`                     | `string`                                                                                         | Custom key for React (defaults to "jobposting-jsonld")                          |
+| `nonce`                         | `string`                                                                                         | CSP nonce for the script tag                                                    |
 
 #### Employment Type Values
 
@@ -3351,6 +3398,7 @@ import { DiscussionForumPostingJsonLd } from "next-seo";
 | `sharedContent`        | `string \| WebPage \| ImageObject \| VideoObject`    | Content shared in the post                                |
 | `scriptId`             | `string`                                             | Custom ID for the script tag                              |
 | `scriptKey`            | `string`                                             | React key for the script tag                              |
+| `nonce`                | `string`                                             | CSP nonce for the script tag                              |
 
 #### Nested Comments Example
 
@@ -3457,6 +3505,7 @@ import { EmployerAggregateRatingJsonLd } from "next-seo";
 | `worstRating`  | `number`                 | The lowest value allowed in this rating system (default: 1)                       |
 | `scriptId`     | `string`                 | Custom ID for the script tag                                                      |
 | `scriptKey`    | `string`                 | React key for the script tag                                                      |
+| `nonce`        | `string`                 | CSP nonce for the script tag                                                      |
 
 #### Advanced Example
 
@@ -3645,6 +3694,7 @@ import { VacationRentalJsonLd } from "next-seo";
 | `geo`                             | `object`                         | Alternative way to specify coordinates                            |
 | `scriptId`                        | `string`                         | Custom ID for the script tag                                      |
 | `scriptKey`                       | `string`                         | Custom data-seo attribute value                                   |
+| `nonce`                           | `string`                         | CSP nonce for the script tag                                      |
 
 #### Accommodation Properties
 
@@ -3823,6 +3873,7 @@ import { VideoJsonLd } from "next-seo";
 | `type`                 | `"VideoObject"`                             | Schema type. Defaults to "VideoObject"                                                            |
 | `scriptId`             | `string`                                    | Custom ID for the script tag                                                                      |
 | `scriptKey`            | `string`                                    | Custom key for React                                                                              |
+| `nonce`                | `string`                                    | CSP nonce for the script tag                                                                      |
 
 #### Best Practices
 
@@ -3916,6 +3967,7 @@ import { ProfilePageJsonLd } from "next-seo";
 | `dateModified` | `string`                                                                                   | Date and time the profile was last modified (ISO 8601 format)       |
 | `scriptId`     | `string`                                                                                   | Custom ID for the script tag                                        |
 | `scriptKey`    | `string`                                                                                   | Custom key for React reconciliation                                 |
+| `nonce`        | `string`                                                                                   | CSP nonce for the script tag                                        |
 
 #### Person/Organization Properties
 
@@ -4129,6 +4181,9 @@ For video games, Google requires co-typing with another application type:
 | `processorRequirements` | `string`                                             | CPU requirements                                                |
 | `countriesSupported`    | `string \| string[]`                                 | Supported countries                                             |
 | `applicationSuite`      | `string`                                             | Suite the app belongs to                                        |
+| `scriptId`              | `string`                                             | Custom ID for the script tag                                    |
+| `scriptKey`             | `string`                                             | Custom key prop for React                                       |
+| `nonce`                 | `string`                                             | CSP nonce for the script tag                                    |
 
 #### Application Types
 
@@ -4379,6 +4434,9 @@ import { ProductJsonLd } from "next-seo";
 | `expirationDate`     | `string`                                           | Expiration date                          |
 | `award`              | `string \| string[]`                               | Awards received                          |
 | `isCar`              | `boolean`                                          | Set to true for car products             |
+| `scriptId`           | `string`                                           | Custom ID for the script tag             |
+| `scriptKey`          | `string`                                           | Custom key prop for React                |
+| `nonce`              | `string`                                           | CSP nonce for the script tag             |
 
 #### Important Requirements
 
@@ -4613,6 +4671,9 @@ import { ReviewJsonLd } from "next-seo";
 | `publisher`        | `string \| Person \| Organization` | The publisher of the review                  |
 | `url`              | `string`                           | URL of the review                            |
 | `mainEntityOfPage` | `string \| WebPage`                | Main entity of the page                      |
+| `scriptId`         | `string`                           | Custom ID for the script tag                 |
+| `scriptKey`        | `string`                           | Custom key prop for React                    |
+| `nonce`            | `string`                           | CSP nonce for the script tag                 |
 
 #### Supported Item Types
 
@@ -4702,6 +4763,9 @@ import { AggregateRatingJsonLd } from "next-seo";
 | `reviewCount`  | `number`                 | The number of reviews (at least one of ratingCount or reviewCount is required) |
 | `bestRating`   | `number`                 | The highest value in the rating system (default: 5)                            |
 | `worstRating`  | `number`                 | The lowest value in the rating system (default: 1)                             |
+| `scriptId`     | `string`                 | Custom ID for the script tag                                                   |
+| `scriptKey`    | `string`                 | Custom key prop for React                                                      |
+| `nonce`        | `string`                 | CSP nonce for the script tag                                                   |
 
 #### Rating Scale
 
