@@ -47,30 +47,35 @@ function isNever(_: never): void {}
 /**
  * Stringify data for safe embedding in HTML script elements.
  *
- * Per W3C specifications and security best practices, we need to escape sequences
- * that could break out of the script tag:
- * - </script> sequences (case-insensitive)
- * - <!-- and --> sequences (HTML comments)
+ * Every `<` is escaped to its Unicode form, which is the approach Next.js
+ * documents for JSON-LD. `&`, `>`, `"` and `'` are left alone -- they cannot
+ * terminate a script element, and escaping them as HTML entities would corrupt
+ * the payload.
  *
- * We do NOT escape standard HTML entities like &, <, >, ", ' as they are valid
- * within script tag content and escaping them breaks URLs with query parameters.
+ * Escaping `<` wholesale, rather than matching the specific dangerous sequences,
+ * matters for two reasons:
  *
- * The escaping is done on the final JSON string to ensure the JSON remains valid
- * and parseable while being safe for HTML embedding.
+ * 1. **It preserves the payload exactly.** Matching `</script>` case-insensitively
+ *    and substituting a lowercase literal rewrote the author's own text: a
+ *    description containing `</SCRIPT>` parsed back as `</script>`. Escaping only
+ *    the `<` leaves every following character untouched, so any casing round-trips.
+ * 2. **It removes the need to enumerate.** `</script>` and `<!--` are both reachable
+ *    only through a `<`; escaping that one character closes the whole class rather
+ *    than the two members of it we thought to list.
+ *
+ * The output remains valid JSON: `\u003C` is a standard string escape, so a URL
+ * carrying `<` in a query parameter parses back byte-identical.
+ *
+ * `-->` carries no `<` and is escaped separately. It is inert on its own once
+ * `<!--` can no longer appear, and is kept as defence in depth.
  *
  * References:
+ * - https://nextjs.org/docs/app/guides/json-ld
  * - https://www.w3.org/TR/json-ld11/#restrictions-for-contents-of-json-ld-script-elements
  * - https://github.com/w3c/json-ld-syntax/issues/100
  */
 export const stringify = (data: unknown) => {
   const jsonString = JSON.stringify(data, safeJsonLdReplacer);
 
-  // Post-process the JSON string to escape dangerous sequences
-  // This ensures the JSON remains valid while being safe for script tags
-  // Use Unicode escape sequences to break up dangerous patterns
-  // This prevents the HTML parser from recognizing them while keeping valid JSON
-  return jsonString
-    .replace(/<\/script>/gi, "\\u003C/script>") // Unicode escape for <
-    .replace(/<!--/g, "\\u003C!--") // Unicode escape for <
-    .replace(/-->/g, "--\\u003E"); // Unicode escape for >
+  return jsonString.replace(/</g, "\\u003C").replace(/-->/g, "--\\u003E");
 };
