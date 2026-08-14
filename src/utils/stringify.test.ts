@@ -46,6 +46,16 @@ describe("stringify", () => {
       expect(parsed.image).toBe(data.image);
     });
 
+    // `<` is a JSON string escape, not an HTML entity, so a `<` inside a query
+    // parameter is restored exactly by JSON.parse. Escaping it does not break URLs.
+    it("round-trips a URL whose query parameter contains a <", () => {
+      const data = {
+        url: "https://example.com/search?q=a<b&sort=desc",
+      };
+
+      expect(JSON.parse(stringify(data)).url).toBe(data.url);
+    });
+
     it("preserves complex URLs with multiple parameters", () => {
       const data = {
         video: {
@@ -84,17 +94,28 @@ describe("stringify", () => {
       expect(parsed.description).toBe("This contains a </script> tag");
     });
 
-    it("escapes </SCRIPT> tags case-insensitively", () => {
+    it("escapes </SCRIPT> tags whatever their casing", () => {
       const data = {
         description: "This contains a </SCRIPT> tag in uppercase",
       };
 
       const result = stringify(data);
 
-      // Case-insensitive regex converts all to lowercase
-      expect(result).toContain("\\u003C/script>");
+      expect(result).toContain("\\u003C/SCRIPT>");
       expect(result).not.toContain("</SCRIPT>");
       expect(result).not.toContain("</script>");
+    });
+
+    // Escaping only the `<` leaves the rest of the author's text alone. Matching
+    // `</script>` case-insensitively and substituting a lowercase literal used to
+    // rewrite this value to `</script>`, silently changing content the caller
+    // never asked to change.
+    it("round-trips a </SCRIPT> tag without altering its casing", () => {
+      const data = {
+        description: "This contains a </SCRIPT> tag in uppercase",
+      };
+
+      expect(JSON.parse(stringify(data)).description).toBe(data.description);
     });
 
     it("escapes HTML comments", () => {
@@ -150,7 +171,7 @@ describe("stringify", () => {
   });
 
   describe("general behavior", () => {
-    it("preserves special characters that are not dangerous", () => {
+    it("escapes every < while leaving other characters alone", () => {
       const data = {
         title: "Article with <em>emphasis</em> & \"quotes\" and 'apostrophes'",
         price: "$99.99 < $100",
@@ -159,9 +180,14 @@ describe("stringify", () => {
       const result = stringify(data);
       const parsed = JSON.parse(result);
 
-      // These characters should NOT be escaped
-      expect(result).toContain("<em>");
-      expect(result).toContain("</em>");
+      // Every `<` goes, including the ones in markup that is harmless on its own —
+      // that is what makes the rule total rather than a list of known-bad sequences.
+      expect(result).not.toContain("<");
+      expect(result).toContain("\\u003Cem>");
+      expect(result).toContain("\\u003C/em>");
+
+      // Characters that cannot terminate a script element are untouched. Escaping
+      // them as HTML entities would corrupt the payload.
       expect(result).toContain(" & ");
       expect(result).not.toContain("&amp;");
       expect(result).not.toContain("&lt;");
@@ -169,6 +195,7 @@ describe("stringify", () => {
       expect(result).not.toContain("&quot;");
       expect(result).not.toContain("&apos;");
 
+      // The escape is a JSON string escape, so the values survive the round trip.
       expect(parsed.title).toBe(data.title);
       expect(parsed.price).toBe(data.price);
     });
