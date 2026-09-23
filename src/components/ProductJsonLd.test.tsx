@@ -776,23 +776,58 @@ describe("ProductJsonLd with ProductGroup", () => {
     ]);
   });
 
-  it("renders ProductGroup with audience information", () => {
+  it.each([
+    { audienceType: false, ageType: false },
+    { audienceType: true, ageType: false },
+    { audienceType: false, ageType: true },
+    { audienceType: true, ageType: true },
+  ])(
+    "renders ProductGroup audience with explicit types: $audienceType / $ageType",
+    ({ audienceType, ageType }) => {
+      const { container } = render(
+        <ProductJsonLd
+          type="ProductGroup"
+          name="Kids coat"
+          productGroupID="KIDS01"
+          audience={Object.freeze({
+            ...(audienceType && { "@type": "PeopleAudience" as const }),
+            suggestedGender: "unisex",
+            suggestedAge: Object.freeze({
+              ...(ageType && { "@type": "QuantitativeValue" as const }),
+              minValue: 0,
+              maxValue: 12,
+              unitCode: "ANN",
+            }),
+          })}
+          hasVariant={[]}
+        />,
+      );
+
+      const script = container.querySelector(
+        'script[type="application/ld+json"]',
+      );
+      const jsonData = JSON.parse(script!.textContent!);
+
+      expect(jsonData.audience).toEqual({
+        "@type": "PeopleAudience",
+        suggestedGender: "unisex",
+        suggestedAge: {
+          "@type": "QuantitativeValue",
+          minValue: 0,
+          maxValue: 12,
+          unitCode: "ANN",
+        },
+      });
+    },
+  );
+
+  it("adds the audience type when ProductGroup has no suggestedAge", () => {
     const { container } = render(
       <ProductJsonLd
         type="ProductGroup"
-        name="Kids coat"
-        productGroupID="KIDS01"
-        audience={{
-          "@type": "PeopleAudience",
-          suggestedGender: "unisex",
-          suggestedAge: {
-            "@type": "QuantitativeValue",
-            minValue: 5,
-            maxValue: 12,
-            unitCode: "ANN",
-          },
-        }}
-        hasVariant={[]}
+        name="Winter coat"
+        productGroupID="COAT01"
+        audience={{ suggestedGender: "unisex" }}
       />,
     );
 
@@ -804,12 +839,39 @@ describe("ProductJsonLd with ProductGroup", () => {
     expect(jsonData.audience).toEqual({
       "@type": "PeopleAudience",
       suggestedGender: "unisex",
-      suggestedAge: {
-        "@type": "QuantitativeValue",
-        minValue: 5,
+    });
+  });
+
+  it("preserves frozen nested age references in ProductGroup audience", () => {
+    const suggestedAge = Object.freeze({
+      "@type": "QuantitativeValue" as const,
+      minValue: 0,
+      valueReference: Object.freeze({
+        "@type": "QuantitativeValue" as const,
         maxValue: 12,
-        unitCode: "ANN",
-      },
+        valueReference: Object.freeze({
+          "@type": "QuantitativeValue" as const,
+          unitCode: "ANN",
+        }),
+      }),
+    });
+    const { container } = render(
+      <ProductJsonLd
+        type="ProductGroup"
+        name="Kids coat"
+        productGroupID="KIDS01"
+        audience={Object.freeze({ suggestedAge })}
+      />,
+    );
+
+    const script = container.querySelector(
+      'script[type="application/ld+json"]',
+    );
+    const jsonData = JSON.parse(script!.textContent!);
+
+    expect(jsonData.audience).toEqual({
+      "@type": "PeopleAudience",
+      suggestedAge,
     });
   });
 
