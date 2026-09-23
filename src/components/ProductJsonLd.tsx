@@ -60,7 +60,9 @@ export default function ProductJsonLd(props: ProductJsonLdProps) {
       ...(groupProps.aggregateRating && {
         aggregateRating: processAggregateRating(groupProps.aggregateRating),
       }),
-      ...(groupProps.audience && { audience: groupProps.audience }),
+      ...(groupProps.audience && {
+        audience: processPeopleAudience({ ...groupProps.audience }),
+      }),
       productGroupID: groupProps.productGroupID,
       ...(groupProps.variesBy && {
         variesBy: processVariesBy(groupProps.variesBy),

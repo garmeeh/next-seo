@@ -1935,7 +1935,10 @@ export function processQuantitativeValue(
 
   // Process nested valueReference if present
   if (value.valueReference) {
-    processed.valueReference = processQuantitativeValue(value.valueReference);
+    return {
+      ...processed,
+      valueReference: processQuantitativeValue(value.valueReference),
+    };
   }
 
   return processed;
